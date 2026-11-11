@@ -212,12 +212,7 @@ function dataSympla(texto: string) {
   return Number.isNaN(data.getTime()) ? null : data.toISOString();
 }
 
-async function fonteSympla(): Promise<Evento[]> {
-  const token = env('SYMPLA_TOKEN');
-  if (!token) {
-    estado.sympla = { ligado: false, motivo: 'faltando SYMPLA_TOKEN' };
-    return [];
-  }
+async function contaSympla(token: string, chave: string): Promise<Evento[]> {
   try {
     const brutos: EventoSympla[] = [];
     let cursor: string | undefined;
@@ -257,7 +252,7 @@ async function fonteSympla(): Promise<Evento[]> {
         }),
       )
     ).filter((e): e is Evento => e !== null);
-    estado.sympla = {
+    estado[chave] = {
       ligado: true,
       recebidos: brutos.length,
       exibidos: eventos.length,
@@ -278,9 +273,18 @@ async function fonteSympla(): Promise<Evento[]> {
     return eventos;
   } catch (erro) {
     // O site continua sendo gerado mesmo se o Sympla estiver fora do ar.
-    estado.sympla = { ligado: true, erro: erro instanceof Error ? erro.message : 'erro desconhecido' };
+    estado[chave] = { ligado: true, erro: erro instanceof Error ? erro.message : 'erro desconhecido' };
     return [];
   }
+}
+
+// Cada conta do Sympla tem a sua chave e só enxerga os eventos que ela mesma criou.
+// Por isso o site aceita mais de uma: SYMPLA_TOKEN, SYMPLA_TOKEN_2 e SYMPLA_TOKEN_3.
+async function fonteSympla(): Promise<Evento[]> {
+  const contas = [['SYMPLA_TOKEN', 'sympla'], ['SYMPLA_TOKEN_2', 'sympla2'], ['SYMPLA_TOKEN_3', 'sympla3']] as const;
+  if (!env('SYMPLA_TOKEN')) estado.sympla = { ligado: false, motivo: 'faltando SYMPLA_TOKEN' };
+  const listas = await Promise.all(contas.map(([variavel, chave]) => { const token = env(variavel); return token ? contaSympla(token, chave) : Promise.resolve([]); }));
+  return listas.flat();
 }
 
 // ---------- Histórico do Sympla ----------
