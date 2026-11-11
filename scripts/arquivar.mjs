@@ -30,13 +30,16 @@ for (const e of pendentes) {
       if (resposta.status === 404 || resposta.status === 410) throw Object.assign(new Error('capa removida'), { definitivo: true });
       if (!resposta.ok) throw new Error(`resposta ${resposta.status}`);
       const imagem = Buffer.from(await resposta.arrayBuffer());
+      // A plataforma respondeu, mas o que veio não é uma imagem que dê para ler (acontece
+      // com a capa padrão de eventos antigos): o evento entra sem capa.
+      try { await sharp(imagem).metadata(); } catch { throw Object.assign(new Error('capa ilegível'), { definitivo: true }); }
       await sharp(imagem).resize({ width: 800, withoutEnlargement: true }).jpeg({ quality: 80 }).toFile(`${PASTA}/${e.id}.jpg`);
       await sharp(imagem).resize({ width: 240 }).jpeg({ quality: 72 }).toFile(`${PASTA}/${e.id}-p.jpg`);
       registro.capa = `/arquivo/${e.id}.jpg`;
       registro.capaPequena = `/arquivo/${e.id}-p.jpg`;
     } catch (erro) {
       if (erro.definitivo) {
-        console.log(`Capa removida na plataforma, entra sem capa: ${e.nome}`);
+        console.log(`Sem capa aproveitável (${erro.message}), entra sem capa: ${e.nome}`);
         arquivo.push(registro);
         guardados.add(e.id);
         novos++;
