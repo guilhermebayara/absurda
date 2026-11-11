@@ -1,11 +1,15 @@
 ---
-// Abertura da Home: o logo com ecos em fatias acima e abaixo.
+// Abertura da Home: o logo com ecos em fatias.
+// Em telas largas usa o logo em uma linha, com ecos acima e abaixo.
+// No celular usa o logo em sílabas, bem maior, com os ecos só para baixo.
 // As fatias abrem ao carregar e fecham conforme a pessoa rola a página.
-// As cores das fatias saem do tema do momento.
+// O logo da frente é sempre o mais forte; os ecos repetem a cor, cada vez mais fraca.
 import Completo from './marca/Completo.astro';
+import Silabas from './marca/Silabas.astro';
+
 // Cada fatia: deslocamento vertical, trecho do logo que aparece e escala.
-// As mais distantes são mais finas, menores e mais claras, o que dá a profundidade.
-const fatias = [
+// As mais distantes são mais finas e menores, o que dá a profundidade.
+const largo = [
   { y: -35, corte: '0 0 74% 0', escala: 0.93, nivel: 1 },
   { y: -61, corte: '0 0 84% 0', escala: 0.85, nivel: 2 },
   { y: -82, corte: '0 0 91% 0', escala: 0.77, nivel: 3 },
@@ -13,58 +17,84 @@ const fatias = [
   { y: 61, corte: '84% 0 0 0', escala: 0.85, nivel: 2 },
   { y: 82, corte: '91% 0 0 0', escala: 0.77, nivel: 3 },
 ];
+const alto = [
+  { y: 13.5, corte: '86% 0 0 0', escala: 0.93, nivel: 1 },
+  { y: 24, corte: '92% 0 0 0', escala: 0.85, nivel: 2 },
+  { y: 32.5, corte: '96% 0 0 0', escala: 0.77, nivel: 3 },
+];
 ---
-<div class="eco" data-eco>
-  {fatias.map((f) => (
-    <div class={`eco-fatia eco-n${f.nivel}`} aria-hidden="true">
+<h1 class="so-leitor">@bsurda</h1>
+
+<div class="eco eco-largo" data-eco aria-hidden="true">
+  {largo.map((f) => (
+    <div class={`eco-fatia eco-n${f.nivel}`}>
       <div class="eco-corte" style={`--y:${f.y}%;--corte:inset(${f.corte});--escala:${f.escala}`}><Completo /></div>
     </div>
   ))}
-  <h1 class="eco-marca"><Completo titulo="@bsurda" /></h1>
+  <div class="eco-marca"><Completo /></div>
+</div>
+
+<div class="eco eco-alto" data-eco aria-hidden="true">
+  {alto.map((f) => (
+    <div class={`eco-fatia eco-n${f.nivel}`}>
+      <div class="eco-corte" style={`--y:${f.y}%;--corte:inset(${f.corte});--escala:${f.escala}`}><Silabas /></div>
+    </div>
+  ))}
+  <div class="eco-marca"><Silabas /></div>
 </div>
 
 <script>
-  const eco = document.querySelector<HTMLElement>('[data-eco]');
-  if (eco) {
-    const calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll<HTMLElement>('[data-eco]').forEach((eco) => {
     if (calmo) {
       eco.style.setProperty('--abre', '1');
-    } else {
-      // Abre uma vez ao carregar.
-      requestAnimationFrame(() => eco.classList.add('eco-pronto'));
-      // Depois acompanha a rolagem: fecha enquanto o logo sai da tela.
-      let solto = false;
-      setTimeout(() => { solto = true; atualizar(); }, 1300);
-      const atualizar = () => {
-        if (!solto) return;
-        const r = eco.getBoundingClientRect();
-        const avanco = Math.min(1, Math.max(0, -r.top / (r.height * 0.9) + 0.12));
-        eco.classList.add('eco-rolando');
-        eco.style.setProperty('--abre', String(1 - avanco));
-      };
-      window.addEventListener('scroll', atualizar, { passive: true });
+      return;
     }
-  }
+    // Abre uma vez ao carregar.
+    requestAnimationFrame(() => eco.classList.add('eco-pronto'));
+    // Depois acompanha a rolagem: fecha enquanto o logo sai da tela.
+    let solto = false;
+    const atualizar = () => {
+      if (!solto || eco.offsetParent === null) return;
+      const r = eco.getBoundingClientRect();
+      const avanco = Math.min(1, Math.max(0, -r.top / (r.height * 0.9) + 0.12));
+      eco.classList.add('eco-rolando');
+      eco.style.setProperty('--abre', String(1 - avanco));
+    };
+    setTimeout(() => { solto = true; atualizar(); }, 1500);
+    window.addEventListener('scroll', atualizar, { passive: true });
+  });
 </script>
 
 <style>
   @property --abre { syntax: '<number>'; inherits: true; initial-value: 0; }
-  .eco { position: relative; --abre: 0; padding: 13.5% 0; transition: --abre 0.95s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.35s; }
+  .eco { position: relative; --abre: 0; transition: --abre 0.95s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.35s; }
   .eco.eco-pronto { --abre: 1; }
   .eco.eco-rolando { transition: none; }
-  .eco-marca { margin: 0; position: relative; }
   .eco :global(svg) { width: 100%; height: auto; }
-  .eco-fatia { position: absolute; inset: 0; padding: 13.5% 0; pointer-events: none; }
+  .eco-marca { position: relative; transform-origin: 50% 50%; }
+  .eco-fatia { position: absolute; inset: 0; pointer-events: none; }
   .eco-corte { clip-path: var(--corte); transform: translateY(calc(var(--y) * var(--abre))) scale(calc(1 - (1 - var(--escala)) * var(--abre))); opacity: var(--abre); }
-  /* O logo da frente é sempre o mais forte. Os ecos repetem a mesma cor,
-     cada vez mais fraca, até quase sumir no fundo. */
+
+  /* Logo em uma linha: ecos acima e abaixo */
+  .eco-largo, .eco-largo .eco-fatia { padding: 13.5% 0; }
+  /* Logo em sílabas (celular): ecos só para baixo */
+  .eco-alto { display: none; width: min(72%, 21rem); margin: 0 auto; padding: 4% 0 43%; }
+  .eco-alto .eco-fatia { padding: 4% 0 43%; }
+  .eco-alto .eco-corte { transform-origin: 50% 100%; }
+  @media (max-width: 700px) {
+    .eco-largo { display: none; }
+    .eco-alto { display: block; }
+  }
+
   .eco-n1 { color: color-mix(in oklab, var(--texto) 58%, var(--fundo)); }
   .eco-n2 { color: color-mix(in oklab, var(--texto) 34%, var(--fundo)); }
   .eco-n3 { color: color-mix(in oklab, var(--texto) 17%, var(--fundo)); }
 
   /* Entrada: o logo cresce do centro enquanto os ecos se abrem. */
-  .eco-marca { transform-origin: 50% 50%; }
   :global(.js) .eco-marca { animation: logo-entra 1s cubic-bezier(0.62, 0.05, 0.01, 0.99) both; }
   @keyframes logo-entra { from { transform: scale(0.55); opacity: 0; } 40% { opacity: 1; } }
   @media (prefers-reduced-motion: reduce) { :global(.js) .eco-marca { animation: none; } }
+
+  .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 </style>

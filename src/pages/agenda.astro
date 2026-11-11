@@ -55,7 +55,7 @@ for (const e of passados) {
 </Base>
 
 <style>
-  .passados .grade { grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
+  @media (min-width: 561px) { .passados .grade { grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); } }
   .passados > * + * { margin-top: clamp(1.25rem, 3vw, 2rem); }
   .ano { margin-top: clamp(3rem, 7vw, 5rem); display: grid; grid-template-columns: minmax(4rem, 8rem) 1fr; gap: 1.5rem; border-top: 1px solid var(--linha); padding-top: 1.5rem; }
   @media (max-width: 640px) { .ano { grid-template-columns: 1fr; } }

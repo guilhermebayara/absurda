@@ -56,13 +56,36 @@ const caminho = Astro.url.pathname;
         <span class="tm-eco tm-eco2" aria-hidden="true"><Arroba /></span>
         <Arroba />
       </a>
-      <nav aria-label="Principal">
+      <button class="menu-abre" type="button" aria-haspopup="dialog" aria-controls="menu-celular">
+        Menu<span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
+      <nav class="topo-nav" aria-label="Principal">
         {NAV.map((item) => (
           <a href={item.href} aria-current={caminho.startsWith(item.href) ? 'page' : undefined}>{item.rotulo}</a>
         ))}
         <a href={SITE.fotos} target="_blank" rel="noopener">Fotos</a>
       </nav>
     </header>
+
+    <!-- Menu do celular: abre em tela cheia -->
+    <dialog class="menu" id="menu-celular" aria-label="Menu">
+      <div class="menu-topo">
+        <a class="topo-marca" href="/" aria-label="@bsurda, página inicial"><Arroba /></a>
+        <button class="menu-fecha" type="button">Fechar<span aria-hidden="true"></span><span aria-hidden="true"></span></button>
+      </div>
+      <nav aria-label="Principal">
+        <ul>
+          {NAV.map((item, i) => (
+            <li style={`--i:${i}`}><a href={item.href} aria-current={caminho.startsWith(item.href) ? 'page' : undefined}>{item.rotulo}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <ul class="menu-fora">
+        <li><a href={SITE.ingressos} target="_blank" rel="noopener">Ingressos</a></li>
+        <li><a href={SITE.fotos} target="_blank" rel="noopener">Fotos</a></li>
+        <li><a href={SITE.redes.instagram} target="_blank" rel="noopener">Instagram</a></li>
+      </ul>
+    </dialog>
 
     <main id="conteudo">
       <slot />
@@ -123,6 +146,12 @@ const caminho = Astro.url.pathname;
         trechos.forEach((trecho) => observador.observe(trecho));
       }
 
+      // Menu do celular.
+      const menu = document.querySelector<HTMLDialogElement>('#menu-celular');
+      document.querySelector('.menu-abre')?.addEventListener('click', () => menu?.showModal());
+      document.querySelector('.menu-fecha')?.addEventListener('click', () => menu?.close());
+      menu?.addEventListener('click', (e) => { if (e.target === menu) menu.close(); });
+
       // Animações de entrada: marca o elemento quando ele entra na tela, uma vez só.
       const animados = document.querySelectorAll<HTMLElement>('[data-anima]');
       if (animados.length > 0) {
@@ -159,8 +188,8 @@ const caminho = Astro.url.pathname;
   @media (prefers-reduced-motion: reduce) { :root { transition: none; } }
 
   *, *::before, *::after { box-sizing: border-box; }
-  html { background: var(--fundo); color: var(--texto); }
-  body { margin: 0; font: 400 1.0625rem/1.5 var(--fonte); -webkit-font-smoothing: antialiased; }
+  html { overflow-x: clip; background: var(--fundo); color: var(--texto); }
+  body { overflow-x: clip; margin: 0; font: 400 1.0625rem/1.5 var(--fonte); -webkit-font-smoothing: antialiased; }
   img, svg { display: block; max-width: 100%; }
   a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.06em; }
   :focus-visible { outline: 3px solid var(--destaque); outline-offset: 3px; }
@@ -183,34 +212,28 @@ const caminho = Astro.url.pathname;
      e é ignorado por leitores de tela. As medidas são em "em", presas à borda do
      título, para funcionar em títulos de várias linhas.
      Cada página usa uma direção: para baixo, para cima, para a direita ou para a esquerda. */
-  .ecoa { position: relative; width: fit-content; max-width: 100%; --de-x: 0em; --de-y: -0.4em; }
-  .ecoa::before, .ecoa::after { content: attr(data-eco) / ''; position: absolute; left: 0; top: 0; width: 100%; pointer-events: none; }
+  .ecoa { position: relative; isolation: isolate; width: fit-content; max-width: 100%; --eco-x: 0em; --de-y: -0.4em; }
+  /* z-index negativo: as fatias ficam sempre atrás do título */
+  .ecoa::before, .ecoa::after { content: attr(data-eco) / ''; position: absolute; z-index: -1; left: 0; top: 0; width: 100%; pointer-events: none; }
   .ecoa::before { color: color-mix(in oklab, currentColor 55%, var(--fundo)); }
   .ecoa::after { color: color-mix(in oklab, currentColor 28%, var(--fundo)); }
 
   /* para baixo (padrão): o título desce e os ecos continuam a queda */
   .ecoa { margin-bottom: 0.5em; }
   .ecoa::before, .ecoa::after { transform-origin: 50% 100%; }
-  .ecoa::before { clip-path: inset(calc(100% - 0.27em) 0 0 0); transform: translateY(0.25em) scale(0.95); }
-  .ecoa::after { clip-path: inset(calc(100% - 0.14em) 0 0 0); transform: translateY(0.41em) scale(0.89); }
+  .ecoa::before { clip-path: inset(calc(100% - 0.27em) 0 0 0); transform: translate(var(--eco-x), 0.25em) scale(0.95); }
+  .ecoa::after { clip-path: inset(calc(100% - 0.14em) 0 0 0); transform: translate(calc(var(--eco-x) * 2), 0.41em) scale(0.89); }
 
   /* para cima: o título sobe e os ecos seguem subindo */
   .ecoa-cima { margin-bottom: 0; margin-top: 0.5em; --de-y: 0.4em; }
   .ecoa-cima::before, .ecoa-cima::after { transform-origin: 50% 0; }
-  .ecoa-cima::before { clip-path: inset(0 0 calc(100% - 0.3em) 0); transform: translateY(-0.25em) scale(0.95); }
-  .ecoa-cima::after { clip-path: inset(0 0 calc(100% - 0.17em) 0); transform: translateY(-0.41em) scale(0.89); }
+  .ecoa-cima::before { clip-path: inset(0 0 calc(100% - 0.3em) 0); transform: translate(var(--eco-x), -0.25em) scale(0.95); }
+  .ecoa-cima::after { clip-path: inset(0 0 calc(100% - 0.17em) 0); transform: translate(calc(var(--eco-x) * 2), -0.41em) scale(0.89); }
 
-  /* para a direita: o título chega da esquerda e os ecos escapam pela direita */
-  .ecoa-direita { margin-bottom: 0; --de-x: -0.6em; --de-y: 0em; }
-  .ecoa-direita::before, .ecoa-direita::after { transform-origin: 100% 50%; }
-  .ecoa-direita::before { clip-path: inset(0 0 0 calc(100% - 0.62em)); transform: translateX(0.52em) scale(0.95); }
-  .ecoa-direita::after { clip-path: inset(0 0 0 calc(100% - 0.34em)); transform: translateX(0.88em) scale(0.89); }
-
-  /* para a esquerda: título encostado à direita, chega da direita e os ecos escapam pela esquerda */
-  .ecoa-esquerda { margin-bottom: 0; margin-left: auto; --de-x: 0.6em; --de-y: 0em; }
-  .ecoa-esquerda::before, .ecoa-esquerda::after { transform-origin: 0 50%; }
-  .ecoa-esquerda::before { clip-path: inset(0 calc(100% - 0.62em) 0 0); transform: translateX(-0.52em) scale(0.95); }
-  .ecoa-esquerda::after { clip-path: inset(0 calc(100% - 0.34em) 0 0); transform: translateX(-0.88em) scale(0.89); }
+  /* Diagonais: o eco para baixo ou para cima ganha um desvio lateral.
+     Para a direita, o título fica à esquerda; para a esquerda, encosta à direita. */
+  .ecoa-direita { --eco-x: 0.2em; }
+  .ecoa-esquerda { --eco-x: -0.2em; margin-left: auto; }
 
   /* O cabeçalho acompanha a direção do eco */
   .abre { overflow-x: clip; }
@@ -225,7 +248,7 @@ const caminho = Astro.url.pathname;
   .js .ecoa::before { animation: eco-solta 0.75s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.5s both; }
   .js .ecoa::after { animation: eco-solta 0.75s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.62s both; }
   .js .ecoa[data-anima]:not(.visto), .js .ecoa[data-anima]:not(.visto)::before, .js .ecoa[data-anima]:not(.visto)::after { animation-play-state: paused; }
-  @keyframes titulo-entra { from { transform: translate(var(--de-x), var(--de-y)) scale(0.82); opacity: 0; } 40% { opacity: 1; } }
+  @keyframes titulo-entra { from { transform: translate(calc(var(--eco-x) * -3), var(--de-y)) scale(0.82); opacity: 0; } 40% { opacity: 1; } }
   @keyframes eco-solta { from { transform: none; opacity: 0; } }
 
   /* Animações de entrada ao rolar. Só valem com JavaScript ligado;
@@ -257,6 +280,34 @@ const caminho = Astro.url.pathname;
   .link { font-weight: 500; }
 
   /* Topo */
+  .menu-abre, .menu-fecha { display: none; align-items: center; gap: 0.35em; padding: 0.6rem 0; background: none; border: 0; color: inherit; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; cursor: pointer; }
+  .menu-abre span, .menu-fecha span { width: 0.34em; height: 1.35em; border-radius: 0.05em; background: var(--destaque); transform: skewX(26.5deg); }
+  .menu-abre span:first-of-type, .menu-fecha span:first-of-type { margin-left: 0.5em; }
+  .menu-fecha span { background: currentColor; }
+  .menu-fecha span + span { transform: skewX(-26.5deg); margin-left: -0.69em; }
+
+  /* Menu em tela cheia, com as cores invertidas para marcar a mudança de camada */
+  .menu { width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: 0 var(--margem) 2rem; border: 0; background: var(--texto); color: var(--fundo); overflow-y: auto; }
+  .menu::backdrop { background: var(--texto); }
+  .menu[open] { display: flex; flex-direction: column; }
+  .menu-topo { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; }
+  .menu-topo .topo-marca, .menu-topo .topo-marca:hover { color: var(--fundo); }
+  .menu-fecha { display: inline-flex; }
+  .menu nav { flex: 1; display: grid; align-content: center; padding: 1.5rem 0; }
+  .menu nav li { overflow: hidden; }
+  .menu nav a { position: relative; display: block; padding: 0.14em 0 0.14em 0; font-size: clamp(2.75rem, 13.5vw, 5rem); font-weight: 800; line-height: 1; letter-spacing: -0.04em; text-transform: uppercase; text-decoration: none; }
+  .menu nav a[aria-current='page'] { padding-left: 0.42em; }
+  .menu nav a[aria-current='page']::before { content: ''; position: absolute; left: 0.06em; top: 0.2em; bottom: 0.22em; width: 0.17em; background: var(--destaque); transform: skewX(26.5deg); }
+  .menu[open] nav a { animation: menu-sobe 0.7s cubic-bezier(0.62, 0.05, 0.01, 0.99) both; animation-delay: calc(var(--i, 0) * 55ms + 80ms); }
+  @keyframes menu-sobe { from { transform: translateY(105%); } }
+  .menu-fora { display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; padding-top: 1.25rem; border-top: 1.5px solid color-mix(in srgb, var(--fundo) 30%, transparent); }
+  .menu-fora a { font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; text-decoration: none; }
+  @media (prefers-reduced-motion: reduce) { .menu[open] nav a { animation: none; } }
+
+  @media (max-width: 860px) {
+    .topo-nav { display: none !important; }
+    .menu-abre { display: inline-flex; }
+  }
   .topo { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.1rem var(--margem); }
   /* Logo do menu: fica mais forte e solta ecos ao passar o mouse */
   .topo-marca { position: relative; width: 2.4rem; flex: none; color: color-mix(in srgb, var(--texto) 78%, var(--fundo)); transition: color 0.3s; }
@@ -268,7 +319,7 @@ const caminho = Astro.url.pathname;
   .topo-marca:hover .tm-eco1, .topo-marca:focus-visible .tm-eco1 { transform: translateY(34%) scale(0.92); }
   .topo-marca:hover .tm-eco2, .topo-marca:focus-visible .tm-eco2 { transform: translateY(58%) scale(0.82); }
   @media (prefers-reduced-motion: reduce) { .tm-eco { transition: none; } }
-  .topo nav { flex: 1; display: flex; justify-content: space-between; gap: 1.25rem; max-width: 62rem; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+  .topo .topo-nav { flex: 1; display: flex; justify-content: space-between; gap: 1.25rem; max-width: 62rem; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
   .topo nav a { text-decoration: none; font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; white-space: nowrap; padding: 0.35rem 0; border-bottom: 1.5px solid transparent; }
   /* Marcador do menu: a barra inclinada das letras do logo.
      O espaço dela já fica reservado em cada item, então nada se desloca quando ela aparece. */
@@ -289,6 +340,8 @@ const caminho = Astro.url.pathname;
   .rodape-fim { margin-top: clamp(2.5rem, 6vw, 5rem); font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; }
   /* Logo gigante sangrando para fora da página */
   .rodape-marca { display: block; margin: clamp(1.5rem, 4vw, 3rem) 0 -5.2%; }
+  /* No celular o logo aparece inteiro: cortado, ele briga com a barra do navegador. */
+  @media (max-width: 860px) { .rodape { padding-bottom: 2.5rem; } .rodape-marca { margin-bottom: 0; } .rodape li a { font-size: 1.125rem; } }
   .rodape-marca svg { width: 100%; height: auto; }
 
   /* Cabeçalho das páginas internas */
@@ -305,6 +358,8 @@ const caminho = Astro.url.pathname;
   /* Grade genérica de cartões (equipe, parceiros, passados) */
   .grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: clamp(1rem, 2.5vw, 2rem); }
   .card { display: block; text-decoration: none; }
+  /* No celular os cartões ficam em duas colunas, para a página não virar uma fila sem fim. */
+  @media (max-width: 560px) { .grade { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem 0.75rem; } .card h3 { font-size: 1.0625rem; margin-top: 0.55rem; } .card p { font-size: 0.875rem; } }
   .card img { border-radius: clamp(0.6rem, 1.2vw, 1rem); }
   .card h3 { font-size: 1.375rem; font-weight: 500; letter-spacing: -0.01em; margin-top: 0.8rem; }
   .card p { color: var(--suave); }

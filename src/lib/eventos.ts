@@ -139,6 +139,18 @@ async function fonteShotgun(): Promise<Evento[]> {
       locaisSemNome: [...new Set(eventos.map((e) => e.local).filter((l) => l && !locais.some((c) => c.nome === l)))],
       // Formatos de capa dos próximos eventos, e se a API manda uma segunda imagem diferente.
       proporcoesDosProximos: eventos.filter((e) => e.proporcao).map((e) => Number(e.proporcao!.toFixed(2))),
+      proporcoesDaSegundaImagem: await Promise.all(
+        futuros.slice(0, 3).map(async (e) => {
+          try {
+            if (!e.coverThumbnailUrl) return null;
+            const r = await fetch(naLargura(e.coverThumbnailUrl, 160));
+            const { width, height } = await sharp(Buffer.from(await r.arrayBuffer())).metadata();
+            return width && height ? Number((width / height).toFixed(2)) : null;
+          } catch {
+            return null;
+          }
+        }),
+      ),
       comSegundaImagemDiferente: [...futuros, ...passados].filter((e) => e.coverThumbnailUrl && e.coverUrl && e.coverThumbnailUrl !== e.coverUrl).length,
       maisAntigo: passados.at(-1)?.startTime?.slice(0, 10) ?? null,
     };
