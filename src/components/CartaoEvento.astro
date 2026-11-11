@@ -5,8 +5,10 @@ import type { Evento } from '../lib/eventos';
 import { partesDaData } from '../lib/eventos';
 import Botao from './Botao.astro';
 import Arroba from './marca/Arroba.astro';
-interface Props { evento: Evento }
-const { evento } = Astro.props;
+// "principal" troca a chamada para a versão primária (usada na Agenda, onde comprar
+// é a razão da seção). "selo" põe um rótulo acima do nome.
+interface Props { evento: Evento; principal?: boolean; selo?: string }
+const { evento, principal = false, selo } = Astro.props;
 const d = partesDaData(evento.data);
 const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sympla', manual: 'Ingressos' };
 // Com capa: fundo em degradê com a cor de cada canto da arte, no mesmo canto do cartão.
@@ -23,6 +25,7 @@ const cores = m
       : <span class="cartao-sem-capa"><Arroba /></span>}
   </a>
   <div class="cartao-texto">
+    {selo && <p class="cartao-selo"><Arroba />{selo}</p>}
     <h3 class="cartao-nome">{evento.nome}</h3>
     <p class="cartao-quando">{d.semana.slice(0, 3)}, {d.dia} {d.mes}, {d.hora}</p>
     {evento.local && (
@@ -32,7 +35,7 @@ const cores = m
       </p>
     )}
   </div>
-  <Botao href={evento.url} externo tipo="linha" class="cartao-botao">{plataformas[evento.origem]}</Botao>
+  <Botao href={evento.url} externo tipo={principal ? 'cheio' : 'linha'} class={principal ? 'cartao-botao cartao-botao-cheio' : 'cartao-botao'}>{plataformas[evento.origem]}</Botao>
 </article>
 
 <style>
@@ -60,6 +63,9 @@ const cores = m
   .cartao-local { display: flex; align-items: flex-start; margin-top: var(--e-1); font-size: 0.9375rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.25; }
   .cartao-local svg { flex: none; width: 0.72em; height: 0.9em; margin: 0.14em 0.45em 0 0; fill: currentColor; }
 
+  .cartao-selo { display: flex; align-items: center; gap: 0.6em; margin-bottom: var(--e-2); font-size: var(--t-rotulo); font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; line-height: 1; }
+  .cartao-selo :global(svg) { flex: none; width: 1.5em; height: auto; }
+  .cartao :global(.cartao-botao-cheio) { --botao-texto: var(--c2); align-self: stretch; }
   .cartao :global(.cartao-botao) { --botao-fundo: var(--tinta); --botao-destaque: var(--tinta); margin-top: auto; align-self: flex-start; }
   @media (prefers-reduced-motion: reduce) { .cartao, .cartao-capa img { transition: none; } .cartao:hover { translate: none; } }
 </style>

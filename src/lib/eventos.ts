@@ -55,7 +55,12 @@ export function limparNome(nome: string) {
   // ...seguida ou não da hora ("- 22h", "22h30") e de até duas palavras soltas, como o nome da casa.
   const hora = '(?:\\s*[-–—|,]?\\s*\\d{1,2}\\s*h(?:\\d{2})?(?:\\s+\\S{1,12}){0,2})?';
   const fim = new RegExp(`\\s*[-–—|,]?\\s*\\d{1,2}[/.]${mes}(?:[/.]\\d{2,4})?${hora}\\s*$`, 'i');
-  return nome.replace(fim, '').replace(/\s*[-–—|,]\s*$/, '').trim() || nome;
+  // Data no meio, seguida de pouca coisa (hora, casa): "Festa X 02/08 - GIS" vira "Festa X".
+  // Se depois da data vier um texto longo, ele é parte do nome e fica.
+  const meio = /^(.{6,}?)\s*[-–—|,]?\s*\d{1,2}\/\d{1,2}(?:\/\d{2,4})?(?!\d)(.{0,25})$/;
+  const limpo = nome.replace(fim, '').replace(meio, '$1');
+  // Sobra de "23 e 25/7": tira o "23 e" que ficou no fim.
+  return limpo.replace(/\s+\d{1,2}\s+e$/i, '').replace(/\s*[-–—|,/]\s*$/, '').trim() || nome;
 }
 
 // Pede ao Cloudinary (onde o Shotgun guarda as capas) uma versão na largura desejada.
