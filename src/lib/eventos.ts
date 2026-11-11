@@ -65,7 +65,7 @@ export function limparNome(nome: string) {
   const meio = /^(.{6,}?)\s*[-–—|,]?\s*\d{1,2}\/\d{1,2}(?:\/\d{2,4})?(?!\d)(.{0,25})$/;
   const limpo = nome.replace(fim, '').replace(meio, '$1');
   // Sobra de "23 e 25/7": tira o "23 e" que ficou no fim.
-  return limpo.replace(/\s+\d{1,2}\s+e$/i, '').replace(/\s*[-–—|,/]\s*$/, '').trim() || nome;
+  return limpo.replace(/\s+\d{1,2}\s+[ea]$/i, '').replace(/\s*[-–—|,/]\s*$/, '').trim() || nome;
 }
 
 // Pede ao Cloudinary (onde o Shotgun guarda as capas) uma versão na largura desejada.
