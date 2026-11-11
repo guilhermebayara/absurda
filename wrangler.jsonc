@@ -1,0 +1,8 @@
+{
+	"name": "absurda",
+	"compatibility_date": "2026-11-10",
+	// Site totalmente estático: a Cloudflare só serve a pasta gerada pelo build.
+	"assets": {
+		"directory": "./dist"
+	}
+}

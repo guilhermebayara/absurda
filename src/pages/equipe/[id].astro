@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const pessoas = await getCollection('pessoas');
+  return pessoas.map((pessoa) => ({ params: { id: pessoa.id }, props: { pessoa } }));
+}
+const { pessoa } = Astro.props;
+const { Content } = await render(pessoa);
+const projetos = (await getCollection('projetos')).filter((pr) => pr.data.pessoas.some((ref) => ref.id === pessoa.id));
+---
+<Base titulo={pessoa.data.nome}>
+  <p><a href="/equipe">← Equipe</a></p>
+  <span class="etiqueta">{pessoa.data.situacao === 'atual' ? pessoa.data.funcao : `Fez parte · ${pessoa.data.funcao}`}</span>
+  <h1>{pessoa.data.nome}</h1>
+  <Content />
+  {pessoa.data.instagram && <p><a href={pessoa.data.instagram}>Instagram</a></p>}
+  {pessoa.data.links.length > 0 && (
+    <section>
+      <h2>Outros projetos</h2>
+      <ul>{pessoa.data.links.map((l) => <li><a href={l.url}>{l.rotulo}</a></li>)}</ul>
+    </section>
+  )}
+  {projetos.length > 0 && (
+    <section>
+      <h2>Na @bsurda</h2>
+      <ul class="grade">{projetos.map((pr) => <li><a class="card" href={`/projetos/${pr.id}`}><h3>{pr.data.nome}</h3></a></li>)}</ul>
+    </section>
+  )}
+</Base>

@@ -1,0 +1,66 @@
+---
+import { SITE, NAV } from '../config';
+interface Props { titulo?: string; descricao?: string }
+const { titulo, descricao = SITE.descricao } = Astro.props;
+const tituloPagina = titulo ? `${titulo} · ${SITE.nome}` : `${SITE.nome} · ${SITE.lema}`;
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{tituloPagina}</title>
+    <meta name="description" content={descricao} />
+  </head>
+  <body>
+    <header class="topo">
+      <a class="marca" href="/">{SITE.nome}</a>
+      <nav aria-label="Principal">
+        {NAV.map((item) => <a href={item.href}>{item.rotulo}</a>)}
+        <a href={SITE.fotos} target="_blank" rel="noopener">Fotos ↗</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="rodape">
+      <p class="marca">{SITE.nome}</p>
+      <p>{SITE.lema}</p>
+      <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+      <p>
+        <a href={SITE.redes.instagram}>Instagram</a>
+        <a href={SITE.redes.tiktok}>TikTok</a>
+        <a href={SITE.redes.x}>X</a>
+      </p>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  /* Estilo provisório de esqueleto. O desenho de verdade vem na etapa de design. */
+  :root { --fundo: #111; --texto: #f4f4f0; --apagado: #9a9a94; --linha: #333; --destaque: #ffa800; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--fundo); color: var(--texto); font: 16px/1.5 system-ui, sans-serif; }
+  a { color: inherit; }
+  main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+  h1 { font-size: clamp(2.2rem, 7vw, 5rem); line-height: 1; margin: 2rem 0 1rem; text-wrap: balance; }
+  h2 { font-size: 1.5rem; margin: 3rem 0 1rem; }
+  .topo { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: baseline; padding: 1rem 1.25rem; border-bottom: 1px solid var(--linha); }
+  .topo nav { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .topo nav a { text-decoration: none; color: var(--apagado); }
+  .topo nav a:hover { color: var(--texto); }
+  .marca { font-weight: 700; text-decoration: none; letter-spacing: 0.04em; }
+  .rodape { border-top: 1px solid var(--linha); padding: 2rem 1.25rem; color: var(--apagado); }
+  .rodape a { margin-right: 1rem; }
+  .grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; padding: 0; list-style: none; }
+  .card { display: block; border: 1px solid var(--linha); padding: 1rem; text-decoration: none; height: 100%; }
+  .card:hover { border-color: var(--destaque); }
+  .card .img { aspect-ratio: 4 / 5; background: #222; display: grid; place-items: center; color: var(--apagado); margin-bottom: 0.75rem; font-size: 0.85rem; }
+  .card h3 { margin: 0 0 0.25rem; }
+  .card p { margin: 0; color: var(--apagado); }
+  .etiqueta { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--destaque); }
+  .botao { display: inline-block; border: 1px solid var(--texto); padding: 0.6rem 1rem; text-decoration: none; margin-top: 1rem; }
+  .linha-tempo { list-style: none; padding: 0; }
+  .linha-tempo li { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; padding: 0.75rem 0; border-top: 1px solid var(--linha); }
+  .linha-tempo .ano { color: var(--destaque); font-weight: 700; }
+</style>

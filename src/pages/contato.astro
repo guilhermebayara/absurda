@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+---
+<Base titulo="Contato">
+  <h1>Contato</h1>
+  <p>Formulário de marcação. O envio será ligado na etapa de design.</p>
+  <form style="display:grid;gap:0.75rem;max-width:32rem">
+    <label>Nome <input name="nome" style="width:100%" /></label>
+    <label>E-mail <input name="email" type="email" style="width:100%" /></label>
+    <label>Assunto
+      <select name="assunto" style="width:100%">
+        <option>Imprensa</option>
+        <option>Parcerias e patrocínio</option>
+        <option>Contratação de DJs</option>
+        <option>Outro</option>
+      </select>
+    </label>
+    <label>Mensagem <textarea name="mensagem" rows="5" style="width:100%"></textarea></label>
+    <button type="button" disabled>Enviar</button>
+  </form>
+  <p>Ou escreva para <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+</Base>

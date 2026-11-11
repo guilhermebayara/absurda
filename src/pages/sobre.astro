@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const marcos = (await getCollection('marcos')).sort((a, b) => a.id.localeCompare(b.id));
+const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estruturamos', 'Renascemos'];
+---
+<Base titulo="Sobre">
+  <h1>Sobre</h1>
+  <p>Texto de marcação com a história da @bsurda.</p>
+
+  <h2>O caminho até aqui</h2>
+  <ul class="grade">{verbos.map((v) => <li><div class="card"><div class="img">foto</div><h3>{v}</h3></div></li>)}</ul>
+
+  <h2>Marcos</h2>
+  <ol class="linha-tempo">
+    {marcos.map((m) => (
+      <li><span class="ano">{m.data.ano}</span><div><strong>{m.data.titulo}</strong>{m.data.texto && <p style="margin:0;color:var(--apagado)">{m.data.texto}</p>}</div></li>
+    ))}
+  </ol>
+
+  <h2>Quem já passou pelo palco</h2>
+  <p>Mural de artistas, lista de marcação.</p>
+</Base>

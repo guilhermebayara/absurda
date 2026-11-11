@@ -1,0 +1,50 @@
+---
+import Base from '../layouts/Base.astro';
+import CardEvento from '../components/CardEvento.astro';
+import { SITE } from '../config';
+import { getEventos } from '../lib/eventos';
+import { getCollection } from 'astro:content';
+
+const { proximos } = await getEventos();
+const [destaque, ...outros] = proximos;
+const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
+---
+<Base>
+  <h1>{SITE.nome}<br />{SITE.lema}</h1>
+
+  {destaque && (
+    <section>
+      <h2>Próximo evento</h2>
+      <CardEvento evento={destaque} />
+    </section>
+  )}
+
+  {outros.length > 0 && (
+    <section>
+      <h2>Agenda</h2>
+      <ul class="grade">{outros.slice(0, 3).map((e) => <li><CardEvento evento={e} /></li>)}</ul>
+      <a class="botao" href="/agenda">Ver agenda completa</a>
+    </section>
+  )}
+
+  <section>
+    <h2>Sobre</h2>
+    <p>{SITE.descricao}</p>
+    <a class="botao" href="/sobre">Conheça a história</a>
+  </section>
+
+  <section>
+    <h2>Projetos</h2>
+    <ul class="grade">
+      {projetos.map((p) => (
+        <li><a class="card" href={`/projetos/${p.id}`}><h3>{p.data.nome}</h3><p>{p.data.resumo}</p></a></li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Fotos</h2>
+    <p>Todas as fotos das festas ficam no nosso Pixieset.</p>
+    <a class="botao" href={SITE.fotos} target="_blank" rel="noopener">Ver fotos ↗</a>
+  </section>
+</Base>

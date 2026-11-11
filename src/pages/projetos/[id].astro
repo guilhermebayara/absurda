@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, getEntries, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projetos = await getCollection('projetos');
+  return projetos.map((projeto) => ({ params: { id: projeto.id }, props: { projeto } }));
+}
+const { projeto } = Astro.props;
+const { Content } = await render(projeto);
+const pessoas = await getEntries(projeto.data.pessoas);
+---
+<Base titulo={projeto.data.nome} descricao={projeto.data.resumo}>
+  <p><a href="/projetos">← Projetos</a></p>
+  <h1>{projeto.data.nome}</h1>
+  <p>{projeto.data.resumo}</p>
+  <Content />
+  {pessoas.length > 0 && (
+    <section>
+      <h2>Quem faz</h2>
+      <ul class="grade">{pessoas.map((p) => <li><a class="card" href={`/equipe/${p.id}`}><h3>{p.data.nome}</h3><p>{p.data.funcao}</p></a></li>)}</ul>
+    </section>
+  )}
+</Base>

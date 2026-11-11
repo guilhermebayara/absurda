@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const pessoas = (await getCollection('pessoas')).sort((a, b) => a.data.ordem - b.data.ordem);
+const atuais = pessoas.filter((p) => p.data.situacao === 'atual');
+const anteriores = pessoas.filter((p) => p.data.situacao === 'anterior');
+---
+<Base titulo="Equipe">
+  <h1>Equipe</h1>
+  <ul class="grade">
+    {atuais.map((p) => (
+      <li><a class="card" href={`/equipe/${p.id}`}><div class="img">foto</div><h3>{p.data.nome}</h3><p>{p.data.funcao}</p></a></li>
+    ))}
+  </ul>
+
+  {anteriores.length > 0 && (
+    <section>
+      <h2>Quem fez parte</h2>
+      <ul class="grade">
+        {anteriores.map((p) => (
+          <li><a class="card" href={`/equipe/${p.id}`}><h3>{p.data.nome}</h3><p>{p.data.funcao}</p></a></li>
+        ))}
+      </ul>
+    </section>
+  )}
+</Base>

@@ -1,0 +1,6 @@
+[
+  { "id": "m1", "nome": "Evento de marcação 1", "data": "2026-12-05T22:30:00-03:00", "local": "Local de marcação", "url": "https://shotgun.live/en/venues/festaabsurda", "origem": "manual" },
+  { "id": "m2", "nome": "Evento de marcação 2", "data": "2026-12-12T22:00:00-03:00", "local": "Local de marcação", "url": "https://shotgun.live/en/venues/festaabsurda", "origem": "manual" },
+  { "id": "m3", "nome": "Evento passado de marcação 1", "data": "2026-10-24T22:00:00-03:00", "local": "Local de marcação", "url": "https://shotgun.live/en/venues/festaabsurda", "origem": "manual" },
+  { "id": "m4", "nome": "Evento passado de marcação 2", "data": "2026-10-03T22:00:00-03:00", "local": "Local de marcação", "url": "https://shotgun.live/en/venues/festaabsurda", "origem": "manual" }
+]

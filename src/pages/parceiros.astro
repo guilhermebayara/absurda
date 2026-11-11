@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+import { getCollection } from 'astro:content';
+const parceiros = await getCollection('parceiros');
+const grupos = [
+  { tipo: 'apoio', titulo: 'Marcas que apoiam' },
+  { tipo: 'captacao', titulo: 'Parceiros de captação' },
+  { tipo: 'fornecedor', titulo: 'Fornecedores destaque' },
+];
+---
+<Base titulo="Parceiros">
+  <h1>Parceiros</h1>
+  {grupos.map((g) => (
+    <section>
+      <h2>{g.titulo}</h2>
+      <ul class="grade">
+        {parceiros.filter((p) => p.data.tipo === g.tipo).map((p) => (
+          <li><div class="card"><div class="img" style="aspect-ratio:3/2">logo</div><h3>{p.data.nome}</h3></div></li>
+        ))}
+      </ul>
+    </section>
+  ))}
+
+  <section>
+    <h2>Sua marca na @bsurda</h2>
+    <p>Texto de marcação com números de público, anos de estrada e formatos de parceria.</p>
+    <a class="botao" href={`mailto:${SITE.email}`}>Fale com a gente</a>
+  </section>
+</Base>
