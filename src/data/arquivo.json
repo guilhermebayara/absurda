@@ -1092,7 +1092,7 @@
   "data": "2020-11-28T21:00:00.000Z",
   "url": "https://www.sympla.com.br/promo-week----24-a-2811__1063957",
   "origem": "sympla",
-  "local": "BELO HORIZONTE"
+  "local": "Venda antecipada"
  },
  {
   "id": "sympla-1005323",
@@ -1235,16 +1235,6 @@
   "origem": "sympla",
   "capa": "/arquivo/sympla-856113.jpg",
   "capaPequena": "/arquivo/sympla-856113-p.jpg"
- },
- {
-  "id": "sympla-781533",
-  "nome": "@bsurda Leviosa  9/5/20 - 22h",
-  "data": "2020-05-10T01:00:00.000Z",
-  "url": "https://www.sympla.com.br/bsurda-leviosa--9520---22h__781533",
-  "origem": "sympla",
-  "local": "BELO HORIZONTE",
-  "capa": "/arquivo/sympla-781533.jpg",
-  "capaPequena": "/arquivo/sympla-781533-p.jpg"
  },
  {
   "id": "sympla-827306",

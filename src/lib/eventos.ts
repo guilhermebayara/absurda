@@ -225,6 +225,7 @@ function dataSympla(texto: string) {
 const FORA_DA_AGENDA = [
   'sympla-35115', // Please Come to Brazil, 2015
   'sympla-818582', // @bsurda Latina, 30/5/2020
+  'sympla-781533', // @bsurda Leviosa, 9/5/2020: não aconteceu, quarentena
 ];
 // Quarentena: da primeira @bsurda Em Casa até a véspera da Sentadinha, tudo aconteceu online.
 const ONLINE_DE = new Date('2020-05-29T00:00:00-03:00').getTime();
