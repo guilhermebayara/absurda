@@ -278,11 +278,41 @@ async function contaSympla(token: string, chave: string): Promise<Evento[]> {
   }
 }
 
+// Conferência: a mesma pergunta feita às versões antigas da API do Sympla, para saber
+// se alguma delas entrega os anos que a atual não entrega. Só diagnóstico: o resultado
+// vai para /estado.json e não entra na agenda.
+async function conferirVersoesAntigas(token: string) {
+  const resultado: Record<string, unknown> = {};
+  for (const versao of ['v3', 'v4', 'v1.5.1']) {
+    try {
+      const anos: Record<string, number> = {};
+      let total = 0;
+      let estado_ = 0;
+      for (let pagina = 1; pagina <= 15; pagina++) {
+        const resposta = await fetch(`https://api.sympla.com.br/public/${versao}/events?page_size=200&page=${pagina}&published=all`, { headers: { s_token: token } });
+        estado_ = resposta.status;
+        if (!resposta.ok) break;
+        const corpo = (await resposta.json()) as { data?: Array<{ start_date?: string }>; pagination?: { has_next?: boolean } };
+        const lote = corpo.data ?? [];
+        total += lote.length;
+        for (const e of lote) { const ano = (e.start_date ?? '').slice(0, 4); anos[ano] = (anos[ano] ?? 0) + 1; }
+        if (!corpo.pagination?.has_next || lote.length === 0) break;
+      }
+      resultado[versao] = { resposta: estado_, recebidos: total, porAno: Object.fromEntries(Object.entries(anos).sort()) };
+    } catch (erro) {
+      resultado[versao] = { erro: erro instanceof Error ? erro.message : 'erro' };
+    }
+  }
+  estado.symplaVersoesAntigas = resultado;
+}
+
 // Cada conta do Sympla tem a sua chave e só enxerga os eventos que ela mesma criou.
 // Por isso o site aceita mais de uma: SYMPLA_TOKEN, SYMPLA_TOKEN_2 e SYMPLA_TOKEN_3.
 async function fonteSympla(): Promise<Evento[]> {
   const contas = [['SYMPLA_TOKEN', 'sympla'], ['SYMPLA_TOKEN_2', 'sympla2'], ['SYMPLA_TOKEN_3', 'sympla3']] as const;
   if (!env('SYMPLA_TOKEN')) estado.sympla = { ligado: false, motivo: 'faltando SYMPLA_TOKEN' };
+  const principal = env('SYMPLA_TOKEN');
+  if (principal) await conferirVersoesAntigas(principal);
   const listas = await Promise.all(contas.map(([variavel, chave]) => { const token = env(variavel); return token ? contaSympla(token, chave) : Promise.resolve([]); }));
   return listas.flat();
 }
