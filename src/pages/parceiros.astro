@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { SITE } from '../config';
 import { getCollection } from 'astro:content';
-import { atributo, TEMAS_DA_MARCA } from '../lib/temas';
+import Botao from '../components/Botao.astro';
 const parceiros = await getCollection('parceiros');
 const grupos = [
   { tipo: 'apoio', titulo: 'Marcas que apoiam' },
@@ -12,7 +12,7 @@ const grupos = [
 ---
 <Base titulo="Parceiros">
   <header class="abre">
-    <h1 class="t-gigante">Parceiros</h1>
+    <h1 class="t-gigante ecoa" data-eco="Parceiros">Parceiros</h1>
     <p class="t-apoio">Texto de marcação: quem ajuda a @bsurda a acontecer.</p>
   </header>
 
@@ -29,10 +29,10 @@ const grupos = [
     ))}
   </div>
 
-  <section class="secao convite" data-tema={atributo(TEMAS_DA_MARCA[9])} aria-labelledby="t-convite">
+  <section class="secao convite" aria-labelledby="t-convite">
     <h2 id="t-convite" class="t-grande">Sua marca na @bsurda</h2>
     <p class="t-apoio">Texto de marcação com números de público, anos de estrada e formatos de parceria.</p>
-    <a class="botao botao-cheio" href={`mailto:${SITE.email}`}>Escrever para o comercial</a>
+    <Botao href={`mailto:${SITE.email}`}>Escrever para o comercial</Botao>
   </section>
 </Base>
 

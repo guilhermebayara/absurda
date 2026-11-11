@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Capa from '../../components/Capa.astro';
 import { getCollection, render } from 'astro:content';
+import Botao from '../../components/Botao.astro';
 import { atributo, temaPara } from '../../lib/temas';
 
 export async function getStaticPaths() {
@@ -22,7 +23,7 @@ const tema = temaPara(pessoa.id);
       <p class="etiqueta">{pessoa.data.situacao === 'atual' ? pessoa.data.funcao : `Fez parte da @bsurda como ${pessoa.data.funcao.toLowerCase()}`}</p>
       <h1 class="t-grande">{pessoa.data.nome}</h1>
       <div class="prosa"><Content /></div>
-      {pessoa.data.instagram && <p><a class="botao" href={pessoa.data.instagram} target="_blank" rel="noopener">Instagram</a></p>}
+      {pessoa.data.instagram && <p><Botao href={pessoa.data.instagram} externo>Instagram</Botao></p>}
 
       {pessoa.data.links.length > 0 && (
         <section aria-labelledby="t-outros">

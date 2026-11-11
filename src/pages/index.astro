@@ -6,7 +6,8 @@ import PainelEvento from '../components/PainelEvento.astro';
 import Arroba from '../components/marca/Arroba.astro';
 import { SITE } from '../config';
 import { getEventos } from '../lib/eventos';
-import { atributo, temaPara, TEMAS_DA_MARCA } from '../lib/temas';
+import Botao from '../components/Botao.astro';
+import { atributo, temaPara, TEMAS_DO_SITE } from '../lib/temas';
 import { getCollection } from 'astro:content';
 
 const { proximos } = await getEventos();
@@ -14,8 +15,7 @@ const [destaque, ...outros] = proximos;
 const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
 const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estruturamos', 'Renascemos'];
 // A abertura do site veste as cores do próximo evento.
-const temaInicial = destaque?.tema ?? TEMAS_DA_MARCA[0];
-const temaSobre = TEMAS_DA_MARCA[2];
+const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
 ---
 <Base tema={temaInicial}>
   <section class="abertura" data-tema={atributo(temaInicial)}>
@@ -35,12 +35,14 @@ const temaSobre = TEMAS_DA_MARCA[2];
   {outros.slice(0, 3).map((e) => <PainelEvento evento={e} />)}
 
   {proximos.length > 0 && (
-    <p class="ver-agenda"><a class="botao" href="/agenda">Agenda completa e eventos passados</a></p>
+    <p class="ver-agenda"><Botao href="/agenda" tipo="linha">Agenda completa e eventos passados</Botao></p>
   )}
 
+  <!-- Daqui para baixo a página fica num único tema do site, sorteado a cada visita. -->
+  <div data-tema="sorteio" data-reserva={atributo(TEMAS_DO_SITE[0])}>
   <Faixa texto={`${SITE.lema} desde 2009`} />
 
-  <section class="historia" data-tema={atributo(temaSobre)} aria-labelledby="t-sobre">
+  <section class="historia" aria-labelledby="t-sobre">
     <h2 id="t-sobre" class="titulo-secao">17 anos de @bsurda</h2>
     <p class="so-leitor">{verbos.join('. ')}.</p>
     <div class="verbos" aria-hidden="true">
@@ -50,16 +52,16 @@ const temaSobre = TEMAS_DA_MARCA[2];
     </div>
     <div class="historia-fim">
       <p class="t-apoio">{SITE.descricao}</p>
-      <a class="botao" href="/sobre">A história da @bsurda</a>
+      <Botao href="/sobre">A história da @bsurda</Botao>
     </div>
   </section>
 
-  <section class="secao" data-tema="sorteio" data-reserva={atributo(TEMAS_DA_MARCA[7])} aria-labelledby="t-projetos">
+  <section class="secao" aria-labelledby="t-projetos">
     <h2 id="t-projetos" class="titulo-secao">Projetos</h2>
     <ul class="indice">
       {projetos.map((p) => (
         <li>
-          <a href={`/projetos/${p.id}`} data-tema-ao-passar={atributo(temaPara(p.id))} data-espia={p.data.capa ?? ''}>
+          <a href={`/projetos/${p.id}`} data-espia={p.data.capa ?? ''} data-espia-cores={atributo(temaPara(p.id))}>
             <span class="indice-nome">{p.data.nome}</span>
             <span class="indice-resumo">{p.data.resumo}</span>
           </a>
@@ -72,17 +74,17 @@ const temaSobre = TEMAS_DA_MARCA[2];
 
   <Faixa texto="Foi? Se acha nas fotos" contra />
 
-  <section class="secao fotos" data-tema={atributo(TEMAS_DA_MARCA[9])} aria-labelledby="t-fotos">
-    <h2 id="t-fotos" class="t-gigante">Se acha nas fotos</h2>
+  <section class="secao fotos" aria-labelledby="t-fotos">
+    <h2 id="t-fotos" class="t-gigante ecoa" data-eco="Se acha nas fotos">Se acha nas fotos</h2>
     <div class="fotos-fim">
       <p class="t-apoio">As fotos de todas as edições ficam no nosso Pixieset, separadas por festa.</p>
-      <a class="botao botao-cheio" href={SITE.fotos} target="_blank" rel="noopener">Ver fotos no Pixieset</a>
+      <Botao href={SITE.fotos} externo>Fotos no Pixieset</Botao>
     </div>
   </section>
+  </div>
 </Base>
 
 <script>
-  const raiz = document.documentElement;
   const calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Verbos que deslizam para lados opostos conforme a rolagem.
@@ -97,48 +99,34 @@ const temaSobre = TEMAS_DA_MARCA[2];
         if (r.bottom < -200 || r.top > window.innerHeight + 200) continue;
         const centro = el.offsetTop + el.offsetHeight / 2 + r.top;
         const distancia = (centro - meio) / window.innerHeight;
-        el.style.transform = `translateX(${distancia * Number(el.dataset.desliza) * 8}vw)`;
+        el.style.transform = `translateX(${distancia * Number(el.dataset.desliza) * 5}vw)`;
       }
     };
     window.addEventListener('scroll', () => { if (!marcado) { marcado = true; requestAnimationFrame(mover); } }, { passive: true });
     mover();
   }
 
-  // Índice de projetos: passar por um nome mostra a cor do projeto
-  // e uma prévia que acompanha o cursor.
-  let guardado: string[] | null = null;
-  const nomes = ['--fundo', '--texto', '--destaque'];
-  const ler = () => nomes.map((v) => raiz.style.getPropertyValue(v));
-  const por = (cores: string[]) => nomes.forEach((v, i) => raiz.style.setProperty(v, cores[i]));
+  // Índice de projetos: uma prévia acompanha o cursor, nas cores do projeto.
+  // A página em si não muda de cor.
   const espia = document.querySelector<HTMLElement>('.espia');
   const imagem = espia?.querySelector('img');
-  const fino = window.matchMedia('(pointer: fine)').matches;
-
-  document.querySelectorAll<HTMLElement>('[data-tema-ao-passar]').forEach((el) => {
-    const entrar = () => {
-      guardado ??= ler();
-      por(el.dataset.temaAoPassar!.split('|'));
-      if (espia && fino) {
+  if (espia && window.matchMedia('(pointer: fine)').matches) {
+    document.querySelectorAll<HTMLElement>('[data-espia-cores]').forEach((el) => {
+      el.addEventListener('pointerenter', () => {
+        const [fundo, , destaque] = el.dataset.espiaCores!.split('|');
+        espia.style.setProperty('--espia-fundo', fundo);
+        espia.style.setProperty('--espia-cor', destaque);
         if (imagem) { imagem.hidden = !el.dataset.espia; if (el.dataset.espia) imagem.src = el.dataset.espia; }
         espia.classList.add('visivel');
-      }
-    };
-    const sair = () => {
-      if (guardado) por(guardado);
-      guardado = null;
-      espia?.classList.remove('visivel');
-    };
-    el.addEventListener('pointerenter', entrar);
-    el.addEventListener('pointerleave', sair);
-    el.addEventListener('focus', entrar);
-    el.addEventListener('blur', sair);
-    el.addEventListener('pointermove', (e) => {
-      if (!espia || !fino) return;
-      espia.style.setProperty('--x', `${e.clientX}px`);
-      espia.style.setProperty('--y', `${e.clientY}px`);
-      espia.style.setProperty('--giro', `${Math.max(-8, Math.min(8, e.movementX * 0.6))}deg`);
+      });
+      el.addEventListener('pointerleave', () => espia.classList.remove('visivel'));
+      el.addEventListener('pointermove', (e) => {
+        espia.style.setProperty('--x', `${e.clientX}px`);
+        espia.style.setProperty('--y', `${e.clientY}px`);
+        espia.style.setProperty('--giro', `${Math.max(-8, Math.min(8, e.movementX * 0.6))}deg`);
+      });
     });
-  });
+  }
 </script>
 
 <style>
@@ -152,7 +140,7 @@ const temaSobre = TEMAS_DA_MARCA[2];
   .historia { padding: clamp(3.5rem, 9vw, 8rem) 0; overflow: hidden; }
   .historia .titulo-secao, .historia-fim { padding: 0 var(--margem); }
   .verbos { display: grid; gap: 0; }
-  .verbo { font-size: clamp(2.3rem, 10vw, 10.5rem); font-weight: 800; line-height: 0.86; letter-spacing: -0.05em; text-transform: uppercase; white-space: nowrap; text-align: center; will-change: transform; }
+  .verbo { font-size: clamp(2.1rem, 9vw, 9.5rem); font-weight: 800; line-height: 0.86; letter-spacing: -0.05em; text-transform: uppercase; white-space: nowrap; text-align: center; will-change: transform; }
   .verbo-cor { color: var(--destaque); }
   .historia-fim { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem 3rem; margin-top: clamp(2.5rem, 6vw, 5rem); }
 
@@ -165,7 +153,7 @@ const temaSobre = TEMAS_DA_MARCA[2];
   @media (max-width: 720px) { .indice a { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { .indice a { transition: none; } }
 
-  .espia { position: fixed; left: 0; top: 0; z-index: 5; width: clamp(11rem, 18vw, 17rem); aspect-ratio: 4 / 5; display: grid; place-items: center; overflow: hidden; background: var(--texto); color: var(--fundo); pointer-events: none; opacity: 0; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(0.85); transition: opacity 0.2s, transform 0.18s ease-out; }
+  .espia { position: fixed; left: 0; top: 0; z-index: 5; width: clamp(11rem, 18vw, 17rem); aspect-ratio: 4 / 5; display: grid; place-items: center; overflow: hidden; background: var(--espia-fundo, var(--texto)); color: var(--espia-cor, var(--fundo)); pointer-events: none; opacity: 0; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(0.85); transition: opacity 0.2s, transform 0.18s ease-out; }
   .espia.visivel { opacity: 1; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(1); }
   .espia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .espia :global(svg) { width: 46%; }

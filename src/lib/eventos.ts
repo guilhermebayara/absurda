@@ -1,6 +1,8 @@
 import manuais from '../data/eventos-manual.json';
-import { TEMAS_DA_MARCA, temaPara, type Tema } from './temas';
+import locais from '../data/locais.json';
+import { TEMAS_DO_SITE, temaPara, type Tema } from './temas';
 import { temaDaImagem } from './paleta';
+import sharp from 'sharp';
 
 // Formato único de evento, seja qual for a plataforma de origem.
 export interface Evento {
@@ -9,6 +11,10 @@ export interface Evento {
   data: string; // ISO 8601
   local?: string;
   capa?: string;
+  // Versão pequena da capa, usada desfocada como fundo do bloco do evento.
+  capaPequena?: string;
+  // Largura dividida pela altura da capa (16:9 dá 1,78; 3:4 dá 0,75).
+  proporcao?: number;
   url: string;
   origem: 'shotgun' | 'sympla' | 'manual';
   // Cores do evento. Vêm da capa; sem capa, usa um par da marca.
@@ -53,19 +59,25 @@ function localDe(e: EventoShotgun) {
   if (e.addressVisibility && e.addressVisibility !== 'public') return undefined;
   const g = e.geolocation;
   if (!g) return undefined;
-  // O endereço vem completo; fica só o começo (rua e número).
+  // A API só traz o endereço. O nome da casa vem da lista em src/data/locais.json.
+  const conhecido = locais.find((l) => g.street?.includes(l.endereco));
+  if (conhecido) return conhecido.nome;
+  // Casa ainda não cadastrada: fica o começo do endereço (rua e número).
   const rua = g.street?.split(',').slice(0, 2).join(',').trim();
   return rua || g.city || undefined;
 }
 
-async function temaDaCapa(url: string | undefined, id: string): Promise<Tema> {
-  if (!url) return temaPara(id);
+// Baixa uma versão pequena da capa para tirar as cores e medir a proporção.
+async function lerCapa(url: string | undefined, id: string): Promise<{ tema: Tema; proporcao?: number }> {
+  if (!url) return { tema: temaPara(id) };
   try {
-    const resposta = await fetch(naLargura(url, 96));
-    if (!resposta.ok) return temaPara(id);
-    return await temaDaImagem(Buffer.from(await resposta.arrayBuffer()));
+    const resposta = await fetch(naLargura(url, 160));
+    if (!resposta.ok) return { tema: temaPara(id) };
+    const imagem = Buffer.from(await resposta.arrayBuffer());
+    const { width, height } = await sharp(imagem).metadata();
+    return { tema: await temaDaImagem(imagem), proporcao: width && height ? width / height : undefined };
   } catch {
-    return temaPara(id);
+    return { tema: temaPara(id) };
   }
 }
 
@@ -102,16 +114,19 @@ async function fonteShotgun(): Promise<Evento[]> {
         const id = `shotgun-${e.id}`;
         const capa = e.coverUrl ?? e.coverThumbnailUrl ?? undefined;
         const futuro = new Date(e.startTime).getTime() >= agora;
+        // Só os próximos têm cor e proporção lidas da capa; para os passados não faz diferença.
+        const lido = futuro ? await lerCapa(capa, id) : { tema: temaPara(id) };
         return {
           id,
           nome: limparNome(e.name),
           data: e.startTime,
           local: localDe(e),
-          capa: capa ? naLargura(capa, futuro ? 1080 : 600) : undefined,
+          capa: capa ? naLargura(capa, futuro ? 1280 : 600) : undefined,
+          capaPequena: capa ? naLargura(capa, 240) : undefined,
+          proporcao: lido.proporcao,
           url: e.url,
           origem: 'shotgun',
-          // Só os próximos têm a cor tirada da capa; para os passados não faz diferença.
-          tema: futuro ? await temaDaCapa(capa, id) : temaPara(id),
+          tema: lido.tema,
         };
       }),
     );
@@ -120,7 +135,11 @@ async function fonteShotgun(): Promise<Evento[]> {
       futuros: futuros.length,
       passados: passados.length,
       comCapa: eventos.filter((e) => e.capa).length,
-      exemploDeLocal: eventos.find((e) => e.local)?.local ?? null,
+      // Endereços que ainda não têm nome de casa cadastrado em locais.json.
+      locaisSemNome: [...new Set(eventos.map((e) => e.local).filter((l) => l && !locais.some((c) => c.nome === l)))],
+      // Formatos de capa dos próximos eventos, e se a API manda uma segunda imagem diferente.
+      proporcoesDosProximos: eventos.filter((e) => e.proporcao).map((e) => Number(e.proporcao!.toFixed(2))),
+      comSegundaImagemDiferente: [...futuros, ...passados].filter((e) => e.coverThumbnailUrl && e.coverUrl && e.coverThumbnailUrl !== e.coverUrl).length,
       maisAntigo: passados.at(-1)?.startTime?.slice(0, 10) ?? null,
     };
     return eventos;
@@ -139,7 +158,7 @@ async function fonteSympla(): Promise<Evento[]> {
 
 // ---------- Manuais ----------
 async function fonteManual(): Promise<Evento[]> {
-  return (manuais as Array<Omit<Evento, 'tema'>>).map((e, i) => ({ ...e, tema: TEMAS_DA_MARCA[[8, 0, 5, 3, 2, 10][i % 6]] }));
+  return (manuais as Array<Omit<Evento, 'tema'>>).map((e, i) => ({ ...e, tema: TEMAS_DO_SITE[i % TEMAS_DO_SITE.length] }));
 }
 
 let guardado: Promise<{ proximos: Evento[]; passados: Evento[] }> | null = null;

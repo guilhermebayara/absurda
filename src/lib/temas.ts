@@ -1,14 +1,12 @@
 // Sistema de cores do site.
 //
-// Um tema são três cores: fundo, texto e destaque. Cada trecho de página
-// declara o seu, e a página troca de cor conforme a pessoa rola.
+// Um tema são três cores: fundo, texto e destaque.
 //
-// De onde vem o tema de cada coisa:
-// 1. Eventos: das cores da capa (quando Shotgun e Sympla estiverem ligados).
-// 2. Pessoas e projetos: das cores da foto ou capa de cada um.
-// 3. Sem imagem: um dos pares dos avatares da marca, listados abaixo.
-//
-// Enquanto as imagens são de marcação, tudo usa a opção 3.
+// Regras:
+// 1. Eventos sempre usam as cores tiradas da própria capa (ver paleta.ts).
+// 2. Pessoas e projetos usarão as cores da foto ou capa de cada um.
+// 3. Todo o resto usa um dos temas do site, listados abaixo, e muda pouco:
+//    uma página sorteia um tema por visita e fica nele.
 
 export interface Tema {
   fundo: string;
@@ -16,34 +14,27 @@ export interface Tema {
   destaque: string;
 }
 
-// Pares tirados do arquivo de avatares. Só entram os que têm contraste
-// suficiente para texto (4,5:1 ou mais entre fundo e texto).
-export const TEMAS_DA_MARCA: Tema[] = [
-  { fundo: '#711a40', texto: '#ffa500', destaque: '#f55275' },
-  { fundo: '#ffa500', texto: '#711a40', destaque: '#0c032c' },
-  { fundo: '#0c032c', texto: '#ff00ff', destaque: '#1e90ff' },
-  { fundo: '#ffff00', texto: '#b63339', destaque: '#711a40' },
-  { fundo: '#fcf6e4', texto: '#19287f', destaque: '#f1ac0d' },
-  { fundo: '#1b35cf', texto: '#fffffd', destaque: '#78dbfc' },
-  { fundo: '#6c0d0b', texto: '#87ceeb', destaque: '#ffa500' },
-  { fundo: '#2f1459', texto: '#ee82ee', destaque: '#edf12e' },
-  { fundo: '#ee82ee', texto: '#2f1459', destaque: '#680f5a' },
-  { fundo: '#680f5a', texto: '#ffd700', destaque: '#f170ba' },
-  { fundo: '#ff4500', texto: '#17271c', destaque: '#fffdee' },
-  { fundo: '#008080', texto: '#f7ffe9', destaque: '#e8e385' },
+// Temas do site. Partem das cores dos avatares da marca, mas foram montados
+// para leitura em tela: fundos profundos, texto claro e suave, e a cor viva
+// dos avatares guardada para o destaque. Todos passam de 7:1 entre fundo e texto.
+export const TEMAS_DO_SITE: Tema[] = [
+  { fundo: '#5a1235', texto: '#ffe9c9', destaque: '#ffa500' }, // vinho com laranja
+  { fundo: '#0e0730', texto: '#efe6ff', destaque: '#ff3df2' }, // noite com magenta
+  { fundo: '#14205e', texto: '#fcf6e4', destaque: '#78dbfc' }, // marinho com céu
+  { fundo: '#06371f', texto: '#ffe6f2', destaque: '#f170ba' }, // floresta com rosa
+  { fundo: '#2a1050', texto: '#f6e9ff', destaque: '#edf12e' }, // berinjela com limão
+  { fundo: '#05454a', texto: '#f7ffe9', destaque: '#e8e385' }, // petróleo com palha
+  { fundo: '#1b1b1b', texto: '#fffdee', destaque: '#ff4500' }, // tinta com laranja vivo
+  { fundo: '#fcf6e4', texto: '#19287f', destaque: '#f55275' }, // creme com marinho
+  { fundo: '#5c0c0a', texto: '#e3f4fb', destaque: '#ffd700' }, // vinho escuro com ouro
 ];
 
 // Escolhe sempre o mesmo tema para o mesmo identificador,
-// para a cor de um evento ou projeto não mudar a cada publicação.
+// para a cor de um projeto ou pessoa não mudar a cada publicação.
 export function temaPara(id: string): Tema {
   let soma = 0;
   for (const letra of id) soma = (soma * 31 + letra.charCodeAt(0)) >>> 0;
-  return TEMAS_DA_MARCA[soma % TEMAS_DA_MARCA.length];
-}
-
-// Mesmo tema com fundo e texto trocados, para alternar dentro da mesma paleta.
-export function inverter(tema: Tema): Tema {
-  return { fundo: tema.texto, texto: tema.fundo, destaque: tema.destaque };
+  return TEMAS_DO_SITE[soma % TEMAS_DO_SITE.length];
 }
 
 // Texto do atributo data-tema que o script da página lê.

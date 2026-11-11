@@ -2,24 +2,23 @@
 import Base from '../../layouts/Base.astro';
 import Capa from '../../components/Capa.astro';
 import { getCollection } from 'astro:content';
-import { atributo, temaPara } from '../../lib/temas';
+import Botao from '../../components/Botao.astro';
 const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
 const rotulos = { ativo: '', 'em-elaboracao': 'Em elaboração', arquivo: 'Arquivo' };
-const temaInicial = temaPara(projetos[0].id);
 ---
-<Base titulo="Projetos" tema={temaInicial}>
-  <header class="abre" data-tema={atributo(temaInicial)}>
-    <h1 class="t-gigante">Projetos</h1>
+<Base titulo="Projetos">
+  <header class="abre">
+    <h1 class="t-gigante ecoa" data-eco="Projetos">Projetos</h1>
     <p class="t-apoio">Texto de marcação: uma frase sobre tudo o que a @bsurda faz além da festa.</p>
   </header>
 
   {projetos.map((p) => (
-    <article class="projeto" data-tema={atributo(temaPara(p.id))}>
+    <article class="projeto">
       <div>
         {rotulos[p.data.situacao] && <p class="etiqueta">{rotulos[p.data.situacao]}</p>}
         <h2 class="t-grande"><a href={`/projetos/${p.id}`}>{p.data.nome}</a></h2>
         <p class="t-apoio">{p.data.resumo}</p>
-        <a class="botao" href={`/projetos/${p.id}`}>Conhecer<span class="so-leitor"> {p.data.nome}</span></a>
+        <Botao href={`/projetos/${p.id}`}>Conhecer<span class="so-leitor"> {p.data.nome}</span></Botao>
       </div>
       <a href={`/projetos/${p.id}`} tabindex="-1" aria-hidden="true"><Capa src={p.data.capa} proporcao="4 / 3" /></a>
     </article>

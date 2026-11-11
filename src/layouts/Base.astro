@@ -1,7 +1,7 @@
 ---
 import '@fontsource-variable/urbanist';
 import { SITE, NAV } from '../config';
-import { TEMAS_DA_MARCA, atributo, type Tema } from '../lib/temas';
+import { TEMAS_DO_SITE, atributo, type Tema } from '../lib/temas';
 import Arroba from '../components/marca/Arroba.astro';
 import Completo from '../components/marca/Completo.astro';
 
@@ -13,8 +13,8 @@ interface Props {
 }
 const { titulo, descricao = SITE.descricao, tema } = Astro.props;
 const tituloPagina = titulo ? `${titulo} | ${SITE.nome}` : `${SITE.nome}, ${SITE.lema.toLowerCase()}`;
-const inicial = tema ?? TEMAS_DA_MARCA[0];
-const sorteio = TEMAS_DA_MARCA.map(atributo);
+const inicial = tema ?? TEMAS_DO_SITE[0];
+const sorteio = TEMAS_DO_SITE.map(atributo);
 const caminho = Astro.url.pathname;
 ---
 <!doctype html>
@@ -29,12 +29,22 @@ const caminho = Astro.url.pathname;
       // Roda antes de a página aparecer, para não piscar a cor errada.
       (function () {
         var raiz = document.documentElement;
+        // Um tema do site por visita: sorteia na primeira página e guarda enquanto
+        // a aba estiver aberta, para o site não mudar de cor a cada clique.
+        // Páginas sem tema próprio já abrem nele; nas outras, ele entra nos
+        // trechos marcados com data-tema="sorteio".
+        var escolhido = null;
+        try { escolhido = sessionStorage.getItem('tema-da-visita'); } catch (e) {}
+        if (!escolhido || sorteio.indexOf(escolhido) === -1) {
+          escolhido = sorteio[Math.floor(Math.random() * sorteio.length)];
+          try { sessionStorage.setItem('tema-da-visita', escolhido); } catch (e) {}
+        }
+        raiz.dataset.temaSorteado = escolhido;
         if (sortear) {
-          var t = sorteio[Math.floor(Math.random() * sorteio.length)].split('|');
+          var t = escolhido.split('|');
           raiz.style.setProperty('--fundo', t[0]);
           raiz.style.setProperty('--texto', t[1]);
           raiz.style.setProperty('--destaque', t[2]);
-          raiz.dataset.temaSorteado = t.join('|');
         }
       })();
     </script>
@@ -149,6 +159,13 @@ const caminho = Astro.url.pathname;
   .t-apoio { font-size: clamp(1.125rem, 1.6vw, 1.375rem); line-height: 1.4; max-width: 34em; }
   .t-pequeno { font-size: 0.9375rem; color: var(--suave); }
 
+  /* Eco: fatias repetidas abaixo de um título, como na abertura da Home.
+     O texto das fatias vem do atributo data-eco e é ignorado por leitores de tela. */
+  .ecoa { position: relative; margin-bottom: 0.42em; }
+  .ecoa::before, .ecoa::after { content: attr(data-eco) / ''; position: absolute; left: 0; top: 0; width: 100%; color: var(--destaque); pointer-events: none; }
+  .ecoa::before { clip-path: inset(70% 0 0 0); transform: translateY(30%); }
+  .ecoa::after { clip-path: inset(86% 0 0 0); transform: translateY(46%); opacity: 0.55; }
+
   .secao { padding: clamp(3.5rem, 9vw, 8rem) var(--margem); }
   .secao + .secao { border-top: 1px solid var(--linha); }
   .titulo-secao { font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: clamp(1.5rem, 4vw, 3rem); }
@@ -164,7 +181,12 @@ const caminho = Astro.url.pathname;
   .topo-marca { width: 2.4rem; flex: none; }
   .topo nav { flex: 1; display: flex; justify-content: space-between; gap: 1.25rem; max-width: 62rem; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
   .topo nav a { text-decoration: none; font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; white-space: nowrap; padding: 0.35rem 0; border-bottom: 1.5px solid transparent; }
-  .topo nav a:hover, .topo nav a[aria-current='page'] { border-bottom-color: currentColor; }
+  /* Marcador do menu: a barra inclinada das letras do logo */
+  .topo nav a { position: relative; border-bottom: 0; transition: padding-left 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .topo nav a::before { content: ''; position: absolute; left: 0; top: 50%; width: 0.4em; height: 1.5em; background: var(--destaque); transform: translateY(-50%) skewX(26.5deg) scaleY(0); transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .topo nav a:hover, .topo nav a:focus-visible, .topo nav a[aria-current='page'] { padding-left: 1.3em; }
+  .topo nav a:hover::before, .topo nav a:focus-visible::before, .topo nav a[aria-current='page']::before { transform: translateY(-50%) skewX(26.5deg) scaleY(1); }
+  @media (prefers-reduced-motion: reduce) { .topo nav a, .topo nav a::before { transition: none; } }
 
   /* Rodapé grande */
   .rodape { border-top: 1px solid var(--linha); padding: clamp(3rem, 8vw, 7rem) var(--margem) 0; overflow: hidden; }

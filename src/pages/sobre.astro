@@ -2,24 +2,23 @@
 import Base from '../layouts/Base.astro';
 import Capa from '../components/Capa.astro';
 import { getCollection } from 'astro:content';
-import { atributo, TEMAS_DA_MARCA } from '../lib/temas';
 const marcos = (await getCollection('marcos')).sort((a, b) => a.id.localeCompare(b.id));
 const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estruturamos', 'Renascemos'];
 ---
 <Base titulo="Sobre">
   <header class="abre">
-    <h1 class="t-gigante">Sem frescuras desde 2009</h1>
+    <h1 class="t-gigante ecoa" data-eco="Sem frescuras desde 2009">Sem frescuras desde 2009</h1>
     <p class="t-apoio">Texto de marcação com a história da @bsurda.</p>
   </header>
 
   {verbos.map((v, i) => (
-    <section class="verbo" data-tema={atributo(TEMAS_DA_MARCA[(i * 5 + 1) % TEMAS_DA_MARCA.length])}>
+    <section class:list={['verbo', { 'verbo-cor': i % 2 === 1 }]}>
       <h2 class="t-gigante">{v}</h2>
       <Capa proporcao="16 / 10" />
     </section>
   ))}
 
-  <section class="secao" data-tema="sorteio" data-reserva={atributo(TEMAS_DA_MARCA[4])} aria-labelledby="t-marcos">
+  <section class="secao" aria-labelledby="t-marcos">
     <h2 id="t-marcos" class="titulo-secao">Marcos</h2>
     <ol class="linha-tempo">
       {marcos.map((m) => (
@@ -38,6 +37,7 @@ const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estrutur
 <style>
   .verbo { display: grid; grid-template-columns: 1fr minmax(12rem, 0.8fr); gap: clamp(1.5rem, 4vw, 4rem); align-items: end; padding: clamp(3rem, 8vw, 7rem) var(--margem); border-top: 1px solid var(--linha); }
   .verbo h2 { font-size: clamp(2.75rem, 9.5vw, 9rem); overflow-wrap: anywhere; }
+  .verbo-cor h2 { color: var(--destaque); }
   .palco { max-width: 22em; }
   @media (max-width: 720px) { .verbo { grid-template-columns: 1fr; } }
 </style>

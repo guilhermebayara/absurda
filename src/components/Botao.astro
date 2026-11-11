@@ -1,0 +1,42 @@
+---
+// Botão do site. A forma vem do logo: um bloco cortado na mesma inclinação
+// das letras, e ao passar o mouse saem dele duas fatias, como os ecos da abertura.
+interface Props {
+  href: string;
+  // Link que sai do site: abre em outra aba e ganha o ícone de link externo.
+  externo?: boolean;
+  // "cheio" é o principal; "linha" é o secundário.
+  tipo?: 'cheio' | 'linha';
+  class?: string;
+  [atributo: string]: unknown;
+}
+const { href, externo = false, tipo = 'cheio', class: classe, ...resto } = Astro.props;
+---
+<a class:list={['recorte', `recorte-${tipo}`, classe]} href={href} target={externo ? '_blank' : undefined} rel={externo ? 'noopener' : undefined} {...resto}>
+  <span class="recorte-eco" aria-hidden="true"></span>
+  <span class="recorte-eco" aria-hidden="true"></span>
+  <span class="recorte-corpo">
+    <slot />
+    {externo && (
+      <svg class="recorte-icone" viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3h8v8M13 3 3 13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" /></svg>
+    )}
+    {externo && <span class="so-leitor"> (abre em outra aba)</span>}
+  </span>
+</a>
+
+<style>
+  .recorte { --corte: 1.15em; position: relative; display: inline-flex; text-decoration: none; font-size: clamp(0.8125rem, 1.1vw, 0.9375rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; line-height: 1; isolation: isolate; }
+  .recorte-corpo { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 0.7em; padding: 1.15em calc(1.3em + var(--corte)) 1.15em 1.5em; clip-path: polygon(0 0, calc(100% - var(--corte)) 0, 100% 100%, 0 100%); background: var(--botao-fundo, var(--texto)); color: var(--botao-texto, var(--fundo)); transition: background-color 0.2s, color 0.2s; }
+  .recorte-linha .recorte-corpo { background: transparent; color: var(--botao-fundo, var(--texto)); box-shadow: inset 0 0 0 2px currentColor; clip-path: none; padding-right: 1.5em; }
+  .recorte-icone { width: 0.95em; height: 0.95em; flex: none; }
+
+  /* Fatias que saem do botão, na mesma inclinação */
+  .recorte-eco { position: absolute; top: 0; bottom: 0; right: 0; width: calc(var(--corte) + 0.5em); background: var(--botao-eco, var(--destaque)); clip-path: polygon(0 0, 0.5em 0, 100% 100%, calc(100% - 0.5em) 100%); transform: translateX(0); opacity: 0; transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s; }
+  .recorte-linha .recorte-eco { display: none; }
+  .recorte:hover .recorte-eco, .recorte:focus-visible .recorte-eco { opacity: 1; transform: translateX(0.75em); }
+  .recorte:hover .recorte-eco + .recorte-eco, .recorte:focus-visible .recorte-eco + .recorte-eco { opacity: 0.5; transform: translateX(1.5em); }
+  .recorte-linha:hover .recorte-corpo, .recorte-linha:focus-visible .recorte-corpo { background: var(--botao-fundo, var(--texto)); color: var(--botao-texto, var(--fundo)); }
+  @media (prefers-reduced-motion: reduce) { .recorte-eco { transition: none; } }
+
+  .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+</style>
