@@ -161,16 +161,21 @@ const caminho = Astro.url.pathname;
       document.querySelector('.menu-fecha')?.addEventListener('click', () => menu?.close());
       menu?.addEventListener('click', (e) => { if (e.target === menu) menu.close(); });
 
-      // Animações de entrada: marca o elemento quando ele entra na tela e desmarca
-      // quando ele sai por inteiro. Assim a animação se repete ao voltar para ele,
-      // rolando para baixo ou para cima.
+      // Animações de entrada: cada elemento anima uma vez, quando entra na tela.
+      // A exceção são os ecos (títulos com eco e o logo do rodapé): eles se recolhem
+      // quando saem da tela e se soltam de novo ao voltar, rolando para baixo ou para cima.
       const animados = document.querySelectorAll<HTMLElement>('[data-anima]');
       if (animados.length > 0) {
+        const repete = (el: Element) => ['eco', 'rodape'].includes((el as HTMLElement).dataset.anima ?? '');
         const entrada = new IntersectionObserver(
           (entradas) => {
-            for (const e of entradas) if (e.isIntersecting) e.target.classList.add('visto');
+            for (const e of entradas) {
+              if (!e.isIntersecting) continue;
+              e.target.classList.add('visto', 'entrou');
+              if (!repete(e.target)) entrada.unobserve(e.target);
+            }
           },
-          { rootMargin: '-8% 0px -8% 0px' },
+          { rootMargin: '0px 0px -10% 0px' },
         );
         const saida = new IntersectionObserver(
           (entradas) => {
@@ -178,7 +183,7 @@ const caminho = Astro.url.pathname;
           },
           { rootMargin: '10% 0px 10% 0px' },
         );
-        animados.forEach((el) => { entrada.observe(el); saida.observe(el); });
+        animados.forEach((el) => { entrada.observe(el); if (repete(el)) saida.observe(el); });
       }
     </script>
   </body>
@@ -275,7 +280,11 @@ const caminho = Astro.url.pathname;
   .js .ecoa { animation: titulo-entra 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99) both; }
   .js .ecoa::before { animation: eco-solta 0.75s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.5s both; }
   .js .ecoa::after { animation: eco-solta 0.75s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.62s both; }
-  .js .ecoa[data-anima]:not(.visto), .js .ecoa[data-anima]:not(.visto)::before, .js .ecoa[data-anima]:not(.visto)::after { animation-play-state: paused; }
+  /* O título entra uma vez. Os ecos se recolhem fora da tela e se soltam de novo a cada volta. */
+  .js .ecoa[data-anima]:not(.entrou) { animation-play-state: paused; }
+  .js .ecoa[data-anima]:not(.visto)::before, .js .ecoa[data-anima]:not(.visto)::after { animation: none; transform: none; opacity: 0; }
+  .js .ecoa[data-anima].entrou::before { animation-delay: 0.1s; }
+  .js .ecoa[data-anima].entrou::after { animation-delay: 0.22s; }
   @keyframes titulo-entra { from { transform: translate(calc(var(--eco-x) * -3), var(--de-y)) scale(0.82); opacity: 0; } 40% { opacity: 1; } }
   @keyframes eco-solta { from { transform: none; opacity: 0; } }
 
