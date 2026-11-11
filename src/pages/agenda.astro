@@ -43,7 +43,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
     {proximos.length > 0
       ? (
         <div class="proximos-grade">
-          {proximos.map((e, i) => <CartaoEvento evento={e} principal selo={i === 0 ? 'Próximo evento' : undefined} />)}
+          {proximos.map((e) => <CartaoEvento evento={e} />)}
         </div>
       )
       : <p class="t-apoio">As próximas aparecem aqui assim que os ingressos abrirem. Enquanto isso, acompanhe pelo <a href={SITE.redes.instagram}>Instagram</a>.</p>}
@@ -74,7 +74,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
             <span class="ano-numero">{ano}</span>
             {marcosDe(ano).length > 0 && (
               <span class="ano-marcos">
-                {marcosDe(ano).map((m) => <span><i aria-hidden="true"></i>{m.titulo}</span>)}
+                {marcosDe(ano).map((m) => <span><i aria-hidden="true"></i>{m.tema && <em>{m.tema}</em>}{m.titulo}</span>)}
               </span>
             )}
             <span class="ano-sinal" aria-hidden="true">
@@ -84,7 +84,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
           </summary>
           <div class="ano-corpo">
             {marcosDe(ano).map((m) => (
-              <p class="marco"><span aria-hidden="true"></span><strong>{m.titulo}</strong>{m.texto && <em>{m.texto}</em>}</p>
+              <p class="marco"><span aria-hidden="true"></span>{m.tema && <b>{m.tema}</b>}<strong>{m.titulo}</strong>{m.texto && <em>{m.texto}</em>}</p>
             ))}
             {eventos.length === 0 && <p class="sem-arquivo">As festas deste ano ainda não estão no arquivo.</p>}
             <ul class="linhas">
@@ -92,13 +92,27 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
                 const d = partesDaData(e.data);
                 return (
                   <li>
-                    <a href={e.url} target="_blank" rel="noopener" data-espia={e.capa ?? ''}>
-                      <span class="linha-data">{d.dia} {d.mes}</span>
-                      <span class="linha-nome">{e.nome}</span>
-                      <span class="linha-local">{e.local ?? ''}{e.album && <span class:list={['linha-fotos', { so: !e.local }]}>Fotos no Flickr</span>}</span>
-                      {e.capaPequena && <img class="linha-mini" src={e.capaPequena} alt="" loading="lazy" />}
-                      <span class="so-leitor"> (abre em outra aba)</span>
-                    </a>
+                    {/* Sem link (como os trios de carnaval mais antigos), a linha é só registro */}
+                    <Fragment>
+                      {e.url
+                        ? (
+                          <a class="linha" href={e.url} target="_blank" rel="noopener" data-espia={e.capa ?? ''}>
+                            <span class="linha-data">{d.dia} {d.mes}</span>
+                            <span class="linha-nome">{e.nome}</span>
+                            <span class="linha-local">{e.local ?? ''}{e.album && <span class:list={['linha-fotos', { so: !e.local }]}>Fotos no Flickr</span>}</span>
+                            {e.capaPequena && <img class="linha-mini" src={e.capaPequena} alt="" loading="lazy" />}
+                            <span class="so-leitor"> (abre em outra aba)</span>
+                          </a>
+                        )
+                        : (
+                          <div class="linha" data-espia={e.capa ?? ''}>
+                            <span class="linha-data">{d.dia} {d.mes}</span>
+                            <span class="linha-nome">{e.nome}</span>
+                            <span class="linha-local">{e.local ?? ''}</span>
+                            {e.capaPequena && <img class="linha-mini" src={e.capaPequena} alt="" loading="lazy" />}
+                          </div>
+                        )}
+                    </Fragment>
                   </li>
                 );
               })}
@@ -119,7 +133,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   const espia = document.querySelector<HTMLElement>('.espia-capa');
   const imagem = espia?.querySelector('img');
   if (espia && imagem && window.matchMedia('(pointer: fine)').matches) {
-    document.querySelectorAll<HTMLElement>('.linhas a').forEach((el) => {
+    document.querySelectorAll<HTMLElement>('.linhas .linha').forEach((el) => {
       el.addEventListener('pointerenter', (e) => {
         if (!el.dataset.espia) return;
         espia.style.setProperty('--x', `${e.clientX}px`);
@@ -212,25 +226,28 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .marco { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2em 0.8em; margin: var(--e-2) 0 var(--e-3); color: var(--destaque); font-size: var(--t-4); line-height: 1.05; }
   .marco span { align-self: center; flex: none; width: 0.18em; height: 0.8em; background: currentColor; transform: skewX(26.5deg); }
   .marco strong { font-weight: 800; letter-spacing: -0.03em; text-transform: uppercase; }
+  /* Etiqueta do tipo de marco (por enquanto, só Carnaval) */
+  .marco b, .ano-marcos em { padding: 0.2em 0.6em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.75rem; font-style: normal; font-weight: 700; letter-spacing: 0.08em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+  .marco b { align-self: center; }
   .marco em { font-size: var(--t-apoio); font-style: normal; color: var(--texto); }
 
   .sem-arquivo { color: var(--suave); font-size: var(--t-apoio); }
 
   /* Lista de eventos: uma linha por data. A capa passa por trás dos nomes. */
   .linhas li { border-top: 1px solid var(--linha); }
-  .linhas a { position: relative; z-index: 2; display: grid; grid-template-columns: 6.5rem minmax(0, 1.6fr) minmax(0, 1fr); gap: var(--e-3); align-items: baseline; padding: 0.7rem 0; text-decoration: none; transition: padding 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.2s; }
-  .linhas a:hover, .linhas a:focus-visible { padding-left: 0.9rem; color: var(--destaque); }
+  .linhas .linha { position: relative; z-index: 2; display: grid; grid-template-columns: 6.5rem minmax(0, 1.6fr) minmax(0, 1fr); gap: var(--e-3); align-items: baseline; padding: 0.7rem 0; text-decoration: none; transition: padding 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.2s; }
+  .linhas a.linha:hover, .linhas a.linha:focus-visible { padding-left: 0.9rem; color: var(--destaque); }
   .linha-data { font-size: 0.9375rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
   .linha-nome { font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; }
   .linha-local { font-size: 0.9375rem; color: var(--suave); }
-  .linhas a:hover .linha-local { color: inherit; }
+  .linhas .linha:hover .linha-local { color: inherit; }
   /* Marca das festas antigas cujo link leva ao álbum de fotos */
   .linha-fotos { display: inline-block; margin-left: 0.8em; padding: 0.15em 0.6em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
   .linha-fotos.so { margin-left: 0; }
   .linha-mini { display: none; }
   @media (max-width: 720px) {
     /* No celular não existe hover: a capa vira miniatura ao lado */
-    .linhas a { grid-template-columns: 4.75rem minmax(0, 1fr); grid-template-areas: 'mini data' 'mini nome' 'mini local'; gap: 0.15rem 0.9rem; align-items: start; }
+    .linhas .linha { grid-template-columns: 4.75rem minmax(0, 1fr); grid-template-areas: 'mini data' 'mini nome' 'mini local'; gap: 0.15rem 0.9rem; align-items: start; }
     .linha-mini { display: block; grid-area: mini; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0.4rem; margin-top: 0.2rem; }
     .linha-data { grid-area: data; font-size: 0.8125rem; }
     .linha-nome { grid-area: nome; }
@@ -242,5 +259,5 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .espia-capa { position: fixed; left: 0; top: 0; z-index: 1; width: clamp(15rem, 24vw, 24rem); aspect-ratio: 16 / 9; overflow: hidden; border-radius: clamp(0.6rem, 1.2vw, 1rem); background: var(--texto); box-shadow: 0 1.5rem 3rem -1.25rem rgb(0 0 0 / 0.55); pointer-events: none; opacity: 0; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(0.85); transition: opacity 0.2s, transform 0.18s ease-out; }
   .espia-capa.visivel { opacity: 1; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(1); }
   .espia-capa img { width: 100%; height: 100%; object-fit: cover; }
-  @media (prefers-reduced-motion: reduce) { .anos-nav a::before, .ano-arco, .ano-seta, .linhas a, .espia-capa { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .anos-nav a::before, .ano-arco, .ano-seta, .linhas .linha, .espia-capa { transition: none; } }
 </style>

@@ -64,9 +64,9 @@
   },
   {
     "id": "trio-2026",
-    "nome": "Trio @bsurda no Carnaval de BH",
+    "nome": "Trio da @bsurda",
     "data": "2026-02-08T14:00:00-03:00",
-    "local": "Viaduto Santa Tereza",
+    "local": "Viaduto Santa Tereza → Rua da Bahia → Afonso Pena",
     "url": "https://portalbelohorizonte.com.br/2026/eventos/evento-de-rua/musica/trio-bsurda-2026",
     "origem": "manual",
     "capa": "/capas/trio-2026.jpg",
@@ -74,12 +74,62 @@
   },
   {
     "id": "trio-2025",
-    "nome": "Trio @bsurda no Carnaval de BH",
+    "nome": "Trio da @bsurda",
     "data": "2025-02-23T14:00:00-03:00",
-    "local": "Rua Aarão Reis, Centro",
+    "local": "Viaduto Santa Tereza → Rua da Bahia → Afonso Pena",
     "url": "https://portalbelohorizonte.com.br/eventos/evento-de-rua/cultura-urbana/carnaval-2025-bloco-bsurda",
     "origem": "manual",
     "capa": "/capas/trio-2025.jpg",
     "capaPequena": "/capas/trio-2025-p.jpg"
+  },
+  {
+    "id": "trio-2023",
+    "nome": "Trio da @bsurda",
+    "data": "2023-02-12T14:00:00-03:00",
+    "local": "Viaduto Santa Tereza → Rua da Bahia → Afonso Pena",
+    "url": "",
+    "origem": "manual",
+    "capa": "/capas/trio-2023.jpg",
+    "capaPequena": "/capas/trio-2023-p.jpg"
+  },
+  {
+    "id": "trio-2020",
+    "nome": "Trio da @bsurda",
+    "data": "2020-02-16T13:00:00-03:00",
+    "local": "Praça da Estação → Rua da Bahia → Afonso Pena",
+    "url": "",
+    "origem": "manual",
+    "capa": "/capas/trio-2020.jpg",
+    "capaPequena": "/capas/trio-2020-p.jpg"
+  },
+  {
+    "id": "trio-2019",
+    "nome": "Trio da @bsurda",
+    "data": "2019-02-24T13:00:00-03:00",
+    "local": "Praça da Estação → Rua da Bahia → Afonso Pena",
+    "url": "",
+    "origem": "manual",
+    "capa": "/capas/trio-2019.jpg",
+    "capaPequena": "/capas/trio-2019-p.jpg"
+  },
+  {
+    "id": "trio-2018",
+    "nome": "Trio da @bsurda",
+    "data": "2018-02-12T14:00:00-03:00",
+    "local": "Avenida dos Andradas",
+    "url": "",
+    "origem": "manual",
+    "capa": "/capas/trio-2018.jpg",
+    "capaPequena": "/capas/trio-2018-p.jpg"
+  },
+  {
+    "id": "trio-2016",
+    "nome": "Trio Sem Frescuras",
+    "data": "2016-02-07T16:00:00-03:00",
+    "local": "Viaduto Santa Tereza, Avenida dos Andradas",
+    "url": "",
+    "origem": "manual",
+    "capa": "/capas/trio-2016.jpg",
+    "capaPequena": "/capas/trio-2016-p.jpg"
   }
 ]

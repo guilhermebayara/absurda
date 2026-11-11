@@ -346,7 +346,7 @@ function semRepetidos(lista: Evento[]) {
     const repetido = ficam.some(
       (f) =>
         f.id === e.id ||
-        chave(f.url) === chave(e.url) ||
+        (e.url !== '' && chave(f.url) === chave(e.url)) ||
         // Plataformas diferentes, começando com menos de uma hora e meia de diferença
         (f.origem !== e.origem && Math.abs(hora(f) - hora(e)) <= 90 * 60 * 1000) ||
         // Um dos dois só tem o dia (álbum de fotos): basta ser no mesmo dia
@@ -388,7 +388,8 @@ export function getEventos() {
     // vale a versão manual.
     const todos = [...manual.filter((e) => !e.id.startsWith('m')), ...albuns, ...reais, ...(reais.length === 0 ? marcacao : [])];
     // Tira repetidos (mesmo evento vindo de duas fontes) e ordena por data.
-    const unicos = semRepetidos(todos).sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
+    // Eventos anunciados como adiados ficam fora: a data nova aparece como outro evento.
+    const unicos = semRepetidos(todos.filter((e) => !/\badiad[oa]\b/i.test(e.nome))).sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
     estado.repetidosRemovidos = todos.length - unicos.length;
     const agoraMs = Date.now();
     const agora = new Date().toISOString();
