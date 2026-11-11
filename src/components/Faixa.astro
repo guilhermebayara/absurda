@@ -17,8 +17,8 @@ const vezes = Array.from({ length: 8 });
   .faixa-trilho { display: flex; width: max-content; animation: corre 38s linear infinite; }
   .contra .faixa-trilho { animation-direction: reverse; }
   .faixa-trilho span { display: flex; align-items: center; gap: 0.85em; padding-right: 0.85em; font-size: clamp(1.75rem, 5vw, 4.25rem); font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; white-space: nowrap; line-height: 1; }
-  /* O símbolo é enfeite: pode ter pouco contraste com a faixa. */
-  .faixa-trilho :global(svg) { height: 0.72em; width: auto; color: color-mix(in oklab, var(--destaque) 70%, var(--texto)); }
+  /* O símbolo é enfeite: usa combinações que texto não poderia, mas sem sumir na faixa (ver --enfeite em Base). */
+  .faixa-trilho :global(svg) { height: 0.72em; width: auto; color: var(--enfeite); }
   @keyframes corre { to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .faixa-trilho { animation: none; } }
   .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
