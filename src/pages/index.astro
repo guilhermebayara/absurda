@@ -1,7 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
+import Eco from '../components/Eco.astro';
+import Faixa from '../components/Faixa.astro';
 import PainelEvento from '../components/PainelEvento.astro';
-import Completo from '../components/marca/Completo.astro';
+import Arroba from '../components/marca/Arroba.astro';
 import { SITE } from '../config';
 import { getEventos } from '../lib/eventos';
 import { atributo, temaPara, TEMAS_DA_MARCA } from '../lib/temas';
@@ -11,40 +13,45 @@ const { proximos } = await getEventos();
 const [destaque, ...outros] = proximos;
 const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
 const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estruturamos', 'Renascemos'];
-// A capa do site veste as cores do próximo evento.
+// A abertura do site veste as cores do próximo evento.
 const temaInicial = destaque?.tema ?? TEMAS_DA_MARCA[0];
-const temaSobre = TEMAS_DA_MARCA[4];
+const temaSobre = TEMAS_DA_MARCA[2];
 ---
 <Base tema={temaInicial}>
-  <section class="capa-site" data-tema={atributo(temaInicial)}>
-    <h1 class="capa-marca"><Completo titulo="@bsurda" /></h1>
-    <p class="capa-lema t-medio">Festa pop LGBTQIA+ de Belo Horizonte. {SITE.lema}, desde 2009.</p>
+  <section class="abertura" data-tema={atributo(temaInicial)}>
+    <Eco />
+    <p class="lema"><span aria-hidden="true"></span>Festa pop LGBTQIA+ de Belo Horizonte.<br />{SITE.lema}, desde 2009.<span aria-hidden="true"></span></p>
   </section>
 
   {destaque
     ? <PainelEvento evento={destaque} destaque />
     : (
       <section class="secao">
-        <p class="t-medio">Nenhuma data anunciada no momento.</p>
-        <p class="t-apoio" style="margin-top:1rem">As próximas aparecem aqui assim que os ingressos abrirem. Enquanto isso, acompanhe pelo <a href={SITE.redes.instagram}>Instagram</a>.</p>
+        <p class="t-grande">Nenhuma data anunciada no momento.</p>
+        <p class="t-apoio" style="margin-top:1.5rem">As próximas aparecem aqui assim que os ingressos abrirem. Enquanto isso, acompanhe pelo <a href={SITE.redes.instagram}>Instagram</a>.</p>
       </section>
     )}
 
-  {outros.length > 0 && (
-    <section aria-labelledby="t-agenda">
-      <h2 id="t-agenda" class="titulo-secao faixa">Também na agenda</h2>
-      {outros.slice(0, 3).map((e) => <PainelEvento evento={e} />)}
-      <p class="faixa faixa-fim"><a class="link" href="/agenda">Agenda completa e eventos passados</a></p>
-    </section>
+  {outros.slice(0, 3).map((e) => <PainelEvento evento={e} />)}
+
+  {proximos.length > 0 && (
+    <p class="ver-agenda"><a class="botao" href="/agenda">Agenda completa e eventos passados</a></p>
   )}
 
-  <section class="secao sobre" data-tema={atributo(temaSobre)} aria-labelledby="t-sobre">
+  <Faixa texto={`${SITE.lema} desde 2009`} />
+
+  <section class="historia" data-tema={atributo(temaSobre)} aria-labelledby="t-sobre">
     <h2 id="t-sobre" class="titulo-secao">17 anos de @bsurda</h2>
-    <p class="verbos t-grande">
-      {verbos.map((v) => <span>{v}. </span>)}
-    </p>
-    <p class="t-apoio">{SITE.descricao}</p>
-    <a class="botao" href="/sobre">A história da @bsurda</a>
+    <p class="so-leitor">{verbos.join('. ')}.</p>
+    <div class="verbos" aria-hidden="true">
+      {verbos.map((v, i) => (
+        <p class:list={['verbo', { 'verbo-cor': i % 2 === 1 }]} data-desliza={i % 2 === 0 ? '-1' : '1'}>{v}</p>
+      ))}
+    </div>
+    <div class="historia-fim">
+      <p class="t-apoio">{SITE.descricao}</p>
+      <a class="botao" href="/sobre">A história da @bsurda</a>
+    </div>
   </section>
 
   <section class="secao" data-tema="sorteio" data-reserva={atributo(TEMAS_DA_MARCA[7])} aria-labelledby="t-projetos">
@@ -52,58 +59,119 @@ const temaSobre = TEMAS_DA_MARCA[4];
     <ul class="indice">
       {projetos.map((p) => (
         <li>
-          <a href={`/projetos/${p.id}`} data-tema-ao-passar={atributo(temaPara(p.id))}>
-            <span class="indice-nome t-grande">{p.data.nome}</span>
+          <a href={`/projetos/${p.id}`} data-tema-ao-passar={atributo(temaPara(p.id))} data-espia={p.data.capa ?? ''}>
+            <span class="indice-nome">{p.data.nome}</span>
             <span class="indice-resumo">{p.data.resumo}</span>
           </a>
         </li>
       ))}
     </ul>
+    <!-- Prévia que acompanha o cursor no índice de projetos -->
+    <div class="espia" aria-hidden="true"><img alt="" hidden /><Arroba /></div>
   </section>
 
-  <section class="secao fotos" data-tema={atributo(TEMAS_DA_MARCA[2])} aria-labelledby="t-fotos">
-    <h2 id="t-fotos" class="t-grande">Foi e quer se achar nas fotos?</h2>
-    <p class="t-apoio">As fotos de todas as edições ficam no nosso Pixieset, separadas por festa.</p>
-    <a class="botao botao-cheio" href={SITE.fotos} target="_blank" rel="noopener">Ver fotos no Pixieset</a>
+  <Faixa texto="Foi? Se acha nas fotos" contra />
+
+  <section class="secao fotos" data-tema={atributo(TEMAS_DA_MARCA[9])} aria-labelledby="t-fotos">
+    <h2 id="t-fotos" class="t-gigante">Se acha nas fotos</h2>
+    <div class="fotos-fim">
+      <p class="t-apoio">As fotos de todas as edições ficam no nosso Pixieset, separadas por festa.</p>
+      <a class="botao botao-cheio" href={SITE.fotos} target="_blank" rel="noopener">Ver fotos no Pixieset</a>
+    </div>
   </section>
 </Base>
 
 <script>
-  // No índice de projetos, passar por um nome mostra a cor daquele projeto.
   const raiz = document.documentElement;
+  const calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Verbos que deslizam para lados opostos conforme a rolagem.
+  const deslizantes = [...document.querySelectorAll<HTMLElement>('[data-desliza]')];
+  if (deslizantes.length > 0 && !calmo) {
+    let marcado = false;
+    const mover = () => {
+      marcado = false;
+      const meio = window.innerHeight / 2;
+      for (const el of deslizantes) {
+        const r = el.parentElement!.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > window.innerHeight + 200) continue;
+        const centro = el.offsetTop + el.offsetHeight / 2 + r.top;
+        const distancia = (centro - meio) / window.innerHeight;
+        el.style.transform = `translateX(${distancia * Number(el.dataset.desliza) * 8}vw)`;
+      }
+    };
+    window.addEventListener('scroll', () => { if (!marcado) { marcado = true; requestAnimationFrame(mover); } }, { passive: true });
+    mover();
+  }
+
+  // Índice de projetos: passar por um nome mostra a cor do projeto
+  // e uma prévia que acompanha o cursor.
   let guardado: string[] | null = null;
-  const ler = () => ['--fundo', '--texto', '--destaque'].map((v) => raiz.style.getPropertyValue(v));
-  const por = (cores: string[]) => ['--fundo', '--texto', '--destaque'].forEach((v, i) => raiz.style.setProperty(v, cores[i]));
+  const nomes = ['--fundo', '--texto', '--destaque'];
+  const ler = () => nomes.map((v) => raiz.style.getPropertyValue(v));
+  const por = (cores: string[]) => nomes.forEach((v, i) => raiz.style.setProperty(v, cores[i]));
+  const espia = document.querySelector<HTMLElement>('.espia');
+  const imagem = espia?.querySelector('img');
+  const fino = window.matchMedia('(pointer: fine)').matches;
+
   document.querySelectorAll<HTMLElement>('[data-tema-ao-passar]').forEach((el) => {
-    const entrar = () => { guardado ??= ler(); por(el.dataset.temaAoPassar!.split('|')); };
-    const sair = () => { if (guardado) por(guardado); guardado = null; };
+    const entrar = () => {
+      guardado ??= ler();
+      por(el.dataset.temaAoPassar!.split('|'));
+      if (espia && fino) {
+        if (imagem) { imagem.hidden = !el.dataset.espia; if (el.dataset.espia) imagem.src = el.dataset.espia; }
+        espia.classList.add('visivel');
+      }
+    };
+    const sair = () => {
+      if (guardado) por(guardado);
+      guardado = null;
+      espia?.classList.remove('visivel');
+    };
     el.addEventListener('pointerenter', entrar);
     el.addEventListener('pointerleave', sair);
     el.addEventListener('focus', entrar);
     el.addEventListener('blur', sair);
+    el.addEventListener('pointermove', (e) => {
+      if (!espia || !fino) return;
+      espia.style.setProperty('--x', `${e.clientX}px`);
+      espia.style.setProperty('--y', `${e.clientY}px`);
+      espia.style.setProperty('--giro', `${Math.max(-8, Math.min(8, e.movementX * 0.6))}deg`);
+    });
   });
 </script>
 
 <style>
-  .capa-site { padding: clamp(1rem, 3vw, 2.5rem) var(--margem) 0; }
-  .capa-marca { margin: 0; }
-  .capa-marca :global(svg) { width: 100%; height: auto; }
-  .capa-lema { margin-top: clamp(1.25rem, 3vw, 2.5rem); max-width: 22em; }
+  .abertura { padding: 0 var(--margem) clamp(2rem, 5vw, 4rem); }
+  .lema { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: clamp(0.5rem, 2vw, 1.5rem); text-align: center; font-size: clamp(0.8125rem, 1.5vw, 1.125rem); font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; line-height: 1.9; }
+  /* Barras inclinadas nas pontas, no ângulo das letras do logo */
+  .lema span { flex: none; width: clamp(0.55rem, 1vw, 0.9rem); height: clamp(2.75rem, 5vw, 4.5rem); background: currentColor; transform: skewX(26.5deg); }
 
-  .faixa { padding: 0 var(--margem); }
-  h2.faixa { margin: clamp(2rem, 5vw, 4rem) 0 clamp(1rem, 2vw, 1.5rem); }
-  .faixa-fim { padding-top: 2rem; padding-bottom: clamp(3rem, 7vw, 6rem); border-top: 1px solid var(--linha); font-size: 1.25rem; }
+  .ver-agenda { padding: clamp(1rem, 3vw, 2rem) var(--margem) clamp(3rem, 7vw, 6rem); text-align: center; }
 
-  .sobre > * + * { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
-  .verbos { max-width: 16em; }
+  .historia { padding: clamp(3.5rem, 9vw, 8rem) 0; overflow: hidden; }
+  .historia .titulo-secao, .historia-fim { padding: 0 var(--margem); }
+  .verbos { display: grid; gap: 0; }
+  .verbo { font-size: clamp(2.3rem, 10vw, 10.5rem); font-weight: 800; line-height: 0.86; letter-spacing: -0.05em; text-transform: uppercase; white-space: nowrap; text-align: center; will-change: transform; }
+  .verbo-cor { color: var(--destaque); }
+  .historia-fim { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem 3rem; margin-top: clamp(2.5rem, 6vw, 5rem); }
 
-  .indice li { border-top: 1px solid var(--linha); }
-  .indice li:last-child { border-bottom: 1px solid var(--linha); }
-  .indice a { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1rem 3rem; align-items: baseline; padding: clamp(1rem, 2.5vw, 2rem) 0; text-decoration: none; }
-  .indice-resumo { color: var(--suave); max-width: 26em; }
-  .indice a:hover .indice-nome, .indice a:focus-visible .indice-nome { text-decoration: underline; text-decoration-thickness: 0.05em; }
+  .indice li { border-top: 1.5px solid var(--texto); }
+  .indice li:last-child { border-bottom: 1.5px solid var(--texto); }
+  .indice a { display: grid; grid-template-columns: 1.7fr 1fr; gap: 0.5rem 2rem; align-items: baseline; padding: clamp(0.9rem, 2vw, 1.6rem) 0; text-decoration: none; transition: padding-left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .indice-nome { font-size: clamp(2rem, 6.2vw, 5.75rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.04em; text-transform: uppercase; }
+  .indice-resumo { max-width: 24em; }
+  .indice a:hover, .indice a:focus-visible { padding-left: clamp(0.75rem, 2vw, 2rem); }
   @media (max-width: 720px) { .indice a { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .indice a { transition: none; } }
 
-  .fotos > * + * { margin-top: clamp(1.25rem, 3vw, 2rem); }
-  .fotos h2 { max-width: 12em; }
+  .espia { position: fixed; left: 0; top: 0; z-index: 5; width: clamp(11rem, 18vw, 17rem); aspect-ratio: 4 / 5; display: grid; place-items: center; overflow: hidden; background: var(--texto); color: var(--fundo); pointer-events: none; opacity: 0; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(0.85); transition: opacity 0.2s, transform 0.18s ease-out; }
+  .espia.visivel { opacity: 1; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(1); }
+  .espia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .espia :global(svg) { width: 46%; }
+
+  .fotos h2 { max-width: 9em; }
+  .fotos-fim { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem 3rem; margin-top: clamp(2rem, 5vw, 4rem); }
+
+  .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 </style>

@@ -1,6 +1,8 @@
 ---
-// Um evento ocupando a largura toda, com a cor dele.
-// A página troca para o tema do evento quando o painel chega ao meio da tela.
+// Um evento como um grande bloco de cor, com a capa colada por cima feito cartaz.
+// A capa aparece inteira e sem texto por cima, porque as artes dos eventos
+// já vêm cheias de informação.
+// A página troca para o tema do evento quando o bloco chega ao meio da tela.
 import type { Evento } from '../lib/eventos';
 import { partesDaData } from '../lib/eventos';
 import { atributo } from '../lib/temas';
@@ -9,45 +11,60 @@ interface Props { evento: Evento; destaque?: boolean }
 const { evento, destaque = false } = Astro.props;
 const d = partesDaData(evento.data);
 ---
-<article class:list={['painel', { 'painel-destaque': destaque }]} data-tema={atributo(evento.tema)}>
-  <div class="painel-data" aria-hidden="true">
-    <span class="painel-dia">{d.dia}</span>
-    <span class="painel-mes">{d.mes}</span>
-  </div>
-  <div class="painel-texto">
-    {destaque && <p class="etiqueta">Próximo evento</p>}
-    <h3 class={destaque ? 't-grande' : 't-medio'}>
-      <a href={evento.url} target="_blank" rel="noopener">{evento.nome}</a>
-    </h3>
-    <p class="painel-quando">
-      <span class="so-leitor">{d.dia} de {d.mes}, </span>{d.semana}, {d.hora}{evento.local && `. ${evento.local}`}
+<article class:list={['cartaz-area', { 'cartaz-destaque': destaque }]} data-tema={atributo(evento.tema)}>
+  <div class="cartaz">
+    <p class="cartaz-topo">
+      <span>{destaque ? 'Próximo evento' : 'Na agenda'}</span>
+      <span>{d.semana}, {d.hora}</span>
+      {evento.local && <span>{evento.local}</span>}
     </p>
-    <a class:list={['botao', { 'botao-cheio': destaque }]} href={evento.url} target="_blank" rel="noopener">
-      Ingressos<span class="so-leitor"> para {evento.nome}</span>
+
+    <p class="cartaz-data" aria-hidden="true"><span>{d.dia}</span><span class="cartaz-mes">{d.mes}</span></p>
+
+    <div class="cartaz-base">
+      <h3 class="cartaz-nome">
+        <a href={evento.url} target="_blank" rel="noopener">{evento.nome}<span class="so-leitor">, {d.dia} de {d.mes}</span></a>
+      </h3>
+      <a class="cartaz-botao" href={evento.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">Ingressos</a>
+    </div>
+
+    <a class="cartaz-capa" href={evento.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+      <Capa src={evento.capa} />
     </a>
   </div>
-  <a class="painel-capa" href={evento.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
-    <Capa src={evento.capa} />
-  </a>
 </article>
 
 <style>
-  .painel { display: grid; grid-template-columns: minmax(5rem, 0.7fr) 2fr minmax(9rem, 1fr); gap: clamp(1rem, 4vw, 4rem); align-items: center; padding: clamp(2.5rem, 7vw, 6rem) var(--margem); border-top: 1px solid var(--linha); }
-  .painel-destaque { grid-template-columns: minmax(5rem, 0.7fr) 1.6fr minmax(12rem, 1.3fr); border-top: 0; padding-top: clamp(1.5rem, 4vw, 3rem); }
-  .painel-data { display: flex; flex-direction: column; line-height: 0.85; }
-  .painel-dia { font-size: clamp(3.5rem, 11vw, 10rem); font-weight: 600; letter-spacing: -0.05em; }
-  .painel-mes { font-size: clamp(1.25rem, 3vw, 2.5rem); font-weight: 500; margin-top: 0.4em; }
-  .painel-texto > * + * { margin-top: 1rem; }
-  .painel-texto h3 a { text-decoration: none; }
-  .painel-texto h3 a:hover { text-decoration: underline; text-decoration-thickness: 0.05em; }
-  .painel-quando { font-size: clamp(1.0625rem, 1.5vw, 1.25rem); }
-  .painel-quando::first-letter { text-transform: uppercase; }
-  .painel-capa { display: block; }
+  .cartaz-area { padding: clamp(1.25rem, 3.5vw, 3rem) var(--margem); }
+  .cartaz { position: relative; display: grid; grid-template-columns: 1fr minmax(11rem, 30%); grid-template-rows: auto 1fr auto; column-gap: clamp(1.5rem, 4vw, 4rem); min-height: min(46rem, 82vh); padding: clamp(1.25rem, 3vw, 2.75rem); border-radius: clamp(1.25rem, 3vw, 2.5rem); background: var(--texto); color: var(--fundo); }
+  .cartaz-destaque .cartaz { min-height: min(52rem, 88vh); }
+
+  .cartaz-topo { grid-column: 1; display: flex; flex-wrap: wrap; gap: 0.4rem 2rem; font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; }
+  .cartaz-topo span:first-child { color: color-mix(in srgb, var(--fundo) 62%, var(--texto)); }
+
+  .cartaz-data { grid-column: 1; align-self: center; display: flex; align-items: baseline; gap: 0.12em; font-size: clamp(5.5rem, 21vw, 21rem); font-weight: 800; line-height: 0.8; letter-spacing: -0.06em; margin: 0.12em 0 0.06em -0.04em; }
+  .cartaz-mes { font-size: 0.26em; letter-spacing: -0.02em; text-transform: uppercase; }
+
+  .cartaz-base { grid-column: 1; display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.25rem 2rem; }
+  .cartaz-nome { font-size: clamp(1.75rem, 4.6vw, 4.25rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.03em; text-transform: uppercase; max-width: 14em; text-wrap: balance; }
+  .cartaz-nome a { text-decoration: none; }
+  /* O bloco inteiro é clicável, sem repetir o link para quem navega por teclado. */
+  .cartaz-nome a::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+  .cartaz-botao { position: relative; display: inline-block; padding: 0.9em 1.6em; background: var(--fundo); color: var(--texto); font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.875rem; text-decoration: none; border-radius: 99rem; transition: background-color 0.2s, color 0.2s; }
+  .cartaz:hover .cartaz-botao { background: var(--destaque); color: var(--fundo); }
+
+  .cartaz-capa { grid-column: 2; grid-row: 1 / -1; align-self: center; display: block; transform: rotate(3.5deg) translateY(-4%); transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); box-shadow: 0 1.5rem 3rem -1.5rem color-mix(in srgb, var(--fundo) 70%, transparent); }
+  .cartaz-area:nth-of-type(even) .cartaz-capa { transform: rotate(-3deg) translateY(3%); }
+  .cartaz:hover .cartaz-capa { transform: rotate(0) scale(1.04); }
+  .cartaz-capa :global(.capa) { background: color-mix(in srgb, var(--fundo) 34%, var(--texto)); }
+  .cartaz-capa :global(.capa-simbolo) { color: var(--texto); }
+  @media (prefers-reduced-motion: reduce) { .cartaz-capa { transition: none; } }
+
   .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
   @media (max-width: 720px) {
-    .painel, .painel-destaque { grid-template-columns: auto 1fr; align-items: start; }
-    .painel-capa { grid-column: 1 / -1; grid-row: 1; }
-    .painel-destaque .painel-capa { max-width: 100%; }
+    .cartaz { grid-template-columns: 1fr; min-height: 0; row-gap: 1.25rem; }
+    .cartaz-capa { grid-column: 1; grid-row: 2; width: 72%; justify-self: end; margin-top: -0.5rem; }
+    .cartaz-data { grid-row: 3; }
   }
 </style>

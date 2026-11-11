@@ -5,7 +5,7 @@ import '@fontsource-variable/albert-sans';
 import { SITE, NAV } from '../config';
 import { TEMAS_DA_MARCA, atributo, type Tema } from '../lib/temas';
 import Arroba from '../components/marca/Arroba.astro';
-import Silabas from '../components/marca/Silabas.astro';
+import Completo from '../components/marca/Completo.astro';
 
 interface Props {
   titulo?: string;
@@ -62,7 +62,6 @@ const caminho = Astro.url.pathname;
     </main>
 
     <footer class="rodape">
-      <a class="rodape-marca" href="/" aria-label="@bsurda, página inicial"><Silabas /></a>
       <div class="rodape-colunas">
         <div>
           <h2>Site</h2>
@@ -88,6 +87,7 @@ const caminho = Astro.url.pathname;
         </div>
       </div>
       <p class="rodape-fim">{SITE.lema}, desde 2009. Belo Horizonte.</p>
+      <a class="rodape-marca" href="/" aria-label="@bsurda, página inicial"><Completo /></a>
     </footer>
 
     <!-- Provisório: seletor para comparar as fontes candidatas. Sai antes do lançamento. -->
@@ -173,17 +173,17 @@ const caminho = Astro.url.pathname;
   .pular:focus { left: 0; }
 
   /* Escala tipográfica */
-  .t-gigante { font-size: clamp(3.25rem, 13vw, 12rem); font-weight: 600; line-height: 0.88; letter-spacing: -0.035em; text-wrap: balance; }
-  .t-grande { font-size: clamp(2.25rem, 6.5vw, 5.5rem); font-weight: 600; line-height: 0.95; letter-spacing: -0.03em; text-wrap: balance; }
+  .t-gigante { font-size: clamp(3.25rem, 13.5vw, 13rem); font-weight: 800; line-height: 0.84; letter-spacing: -0.045em; text-transform: uppercase; text-wrap: balance; }
+  .t-grande { font-size: clamp(2.25rem, 6.5vw, 5.75rem); font-weight: 800; line-height: 0.9; letter-spacing: -0.035em; text-transform: uppercase; text-wrap: balance; }
   .t-medio { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 500; line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
   .t-apoio { font-size: clamp(1.125rem, 1.6vw, 1.375rem); line-height: 1.4; max-width: 34em; }
   .t-pequeno { font-size: 0.9375rem; color: var(--suave); }
 
   .secao { padding: clamp(3.5rem, 9vw, 8rem) var(--margem); }
   .secao + .secao { border-top: 1px solid var(--linha); }
-  .titulo-secao { font-size: 1rem; font-weight: 500; margin-bottom: clamp(1.5rem, 4vw, 3rem); color: var(--suave); }
+  .titulo-secao { font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: clamp(1.5rem, 4vw, 3rem); }
 
-  .botao { display: inline-block; padding: 0.85em 1.4em; border: 1.5px solid currentColor; font-weight: 500; text-decoration: none; transition: background-color 0.15s, color 0.15s; }
+  .botao { display: inline-block; padding: 0.95em 1.7em; border: 1.5px solid currentColor; border-radius: 99rem; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; text-decoration: none; transition: background-color 0.15s, color 0.15s; }
   .botao:hover { background: var(--texto); color: var(--fundo); border-color: var(--texto); }
   .botao-cheio { background: var(--texto); color: var(--fundo); border-color: var(--texto); }
   .botao-cheio:hover { background: var(--destaque); border-color: var(--destaque); }
@@ -192,20 +192,21 @@ const caminho = Astro.url.pathname;
   /* Topo */
   .topo { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.1rem var(--margem); }
   .topo-marca { width: 2.4rem; flex: none; }
-  .topo nav { display: flex; gap: clamp(0.9rem, 2vw, 1.9rem); overflow-x: auto; scrollbar-width: none; }
-  .topo nav a { text-decoration: none; font-weight: 500; white-space: nowrap; padding: 0.35rem 0; border-bottom: 1.5px solid transparent; }
+  .topo nav { flex: 1; display: flex; justify-content: space-between; gap: 1.25rem; max-width: 62rem; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+  .topo nav a { text-decoration: none; font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; white-space: nowrap; padding: 0.35rem 0; border-bottom: 1.5px solid transparent; }
   .topo nav a:hover, .topo nav a[aria-current='page'] { border-bottom-color: currentColor; }
 
   /* Rodapé grande */
-  .rodape { border-top: 1px solid var(--linha); padding: clamp(3rem, 8vw, 7rem) var(--margem) 2rem; display: grid; gap: clamp(2.5rem, 6vw, 5rem); grid-template-columns: minmax(9rem, 22vw) 1fr; align-items: start; }
-  .rodape-marca { display: block; }
+  .rodape { border-top: 1px solid var(--linha); padding: clamp(3rem, 8vw, 7rem) var(--margem) 0; overflow: hidden; }
   .rodape-colunas { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 2rem; }
-  .rodape h2 { font-size: 0.9375rem; font-weight: 500; color: var(--suave); margin-bottom: 0.9rem; }
+  .rodape h2 { font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 1rem; }
   .rodape li { margin-bottom: 0.45rem; }
-  .rodape li a { text-decoration: none; font-size: 1.125rem; }
+  .rodape li a { text-decoration: none; font-size: 1.25rem; font-weight: 500; }
   .rodape li a:hover { text-decoration: underline; }
-  .rodape-fim { grid-column: 1 / -1; padding-top: 1.5rem; border-top: 1px solid var(--linha); color: var(--suave); font-size: 0.9375rem; }
-  @media (max-width: 640px) { .rodape { grid-template-columns: 1fr; } .rodape-marca { width: 45%; } }
+  .rodape-fim { margin-top: clamp(2.5rem, 6vw, 5rem); font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; }
+  /* Logo gigante sangrando para fora da página */
+  .rodape-marca { display: block; margin: clamp(1.5rem, 4vw, 3rem) 0 -5.2%; }
+  .rodape-marca svg { width: 100%; height: auto; }
 
   /* Cabeçalho das páginas internas */
   .abre { padding: clamp(2.5rem, 7vw, 6rem) var(--margem) clamp(2rem, 5vw, 4rem); }
@@ -214,7 +215,7 @@ const caminho = Astro.url.pathname;
   .voltar:hover { text-decoration: underline; }
   .conteudo { padding: 0 var(--margem) clamp(3.5rem, 9vw, 8rem); }
   .conteudo > * + * { margin-top: 1.25rem; }
-  .conteudo h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -0.02em; margin-top: clamp(3rem, 7vw, 5.5rem); margin-bottom: 1.5rem; }
+  .conteudo h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; margin-top: clamp(3rem, 7vw, 5.5rem); margin-bottom: 1.5rem; }
   .conteudo p { max-width: 38em; }
   .prosa p { font-size: clamp(1.125rem, 1.6vw, 1.375rem); line-height: 1.45; max-width: 34em; }
 
@@ -224,7 +225,7 @@ const caminho = Astro.url.pathname;
   .card h3 { font-size: 1.375rem; font-weight: 500; letter-spacing: -0.01em; margin-top: 0.8rem; }
   .card p { color: var(--suave); }
   a.card:hover h3 { text-decoration: underline; }
-  .etiqueta { font-size: 0.9375rem; font-weight: 500; color: var(--suave); }
+  .etiqueta { font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; }
 
   .linha-tempo li { display: grid; grid-template-columns: minmax(4rem, 8rem) 1fr; gap: 1rem; padding: 1.1rem 0; border-top: 1px solid var(--linha); }
   .linha-tempo .ano { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
