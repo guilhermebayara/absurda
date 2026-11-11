@@ -164,18 +164,25 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
     mover();
   }
 
-  // Blocos de evento: a capa inclina de leve acompanhando o cursor.
+  // Blocos e cartões de evento: a capa inclina de leve acompanhando o cursor.
+  // No cartão, o degradê do fundo também se desloca.
   if (!calmo && window.matchMedia('(pointer: fine)').matches) {
-    document.querySelectorAll<HTMLElement>('.ev').forEach((bloco) => {
-      const capa = bloco.querySelector<HTMLElement>('.ev-capa img');
-      if (!capa) return;
+    document.querySelectorAll<HTMLElement>('.ev, .cartao').forEach((bloco) => {
+      const capa = bloco.querySelector<HTMLElement>('.ev-capa img, .cartao-capa img');
+      const forca = bloco.classList.contains('cartao') ? 12 : 7;
       bloco.addEventListener('pointermove', (e) => {
         const r = bloco.getBoundingClientRect();
         const x = (e.clientX - r.left) / r.width - 0.5;
         const y = (e.clientY - r.top) / r.height - 0.5;
-        capa.style.transform = `perspective(900px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg)`;
+        if (capa) capa.style.transform = `perspective(900px) rotateY(${x * forca}deg) rotateX(${-y * forca}deg) scale(${forca > 7 ? 1.03 : 1})`;
+        bloco.style.setProperty('--px', String(x * 2));
+        bloco.style.setProperty('--py', String(y * 2));
       });
-      bloco.addEventListener('pointerleave', () => { capa.style.transform = ''; });
+      bloco.addEventListener('pointerleave', () => {
+        if (capa) capa.style.transform = '';
+        bloco.style.setProperty('--px', '0');
+        bloco.style.setProperty('--py', '0');
+      });
     });
   }
 

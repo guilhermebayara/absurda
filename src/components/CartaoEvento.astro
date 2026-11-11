@@ -1,7 +1,6 @@
 ---
 // Evento em versão compacta, para os que vêm depois do destaque na Home.
-// Mesmas regras do bloco grande: as cores saem da capa do próprio evento e a
-// capa aparece inteira, com uma cópia desfocada dando o clima ao fundo.
+// As cores saem da capa do próprio evento e a capa aparece inteira.
 import type { Evento } from '../lib/eventos';
 import { partesDaData } from '../lib/eventos';
 import Botao from './Botao.astro';
@@ -10,12 +9,14 @@ interface Props { evento: Evento }
 const { evento } = Astro.props;
 const d = partesDaData(evento.data);
 const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sympla', manual: 'Ingressos' };
-const cores = `--fundo:${evento.tema.fundo};--texto:${evento.tema.texto};--destaque:${evento.tema.destaque}`;
+// Com capa: fundo em degradê com a cor de cada canto da arte, no mesmo canto do cartão.
+// Sem capa: as cores do tema, chapadas.
+const m = evento.malha;
+const cores = m
+  ? `--c0:${m.cores[0]};--c1:${m.cores[1]};--c2:${m.cores[2]};--c3:${m.cores[3]};--tinta:${m.texto}`
+  : `--c0:${evento.tema.texto};--c1:${evento.tema.texto};--c2:${evento.tema.texto};--c3:${evento.tema.texto};--tinta:${evento.tema.fundo}`;
 ---
 <article class="cartao" style={cores} data-anima="surge">
-  <div class="cartao-fundo" aria-hidden="true">
-    {evento.capaPequena && <img src={evento.capaPequena} alt="" loading="lazy" />}
-  </div>
   <a class="cartao-capa" href={evento.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
     {evento.capa
       ? <img src={evento.capa} alt="" loading="lazy" style={evento.proporcao ? `aspect-ratio:${evento.proporcao}` : undefined} />
@@ -35,15 +36,22 @@ const cores = `--fundo:${evento.tema.fundo};--texto:${evento.tema.texto};--desta
 </article>
 
 <style>
-  .cartao { position: relative; isolation: isolate; display: flex; flex-direction: column; gap: var(--e-3); min-width: 0; padding: var(--e-3); border-radius: clamp(1rem, 2vw, 1.75rem); color: var(--fundo); }
-  .cartao-fundo { position: absolute; inset: 0; z-index: -1; overflow: hidden; border-radius: inherit; background: var(--texto); }
-  .cartao-fundo img { width: 100%; height: 100%; object-fit: cover; filter: blur(40px) saturate(1.4); transform: scale(1.5); opacity: 0.85; }
-  .cartao-fundo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--texto) 25%, transparent) 0%, color-mix(in srgb, var(--texto) 82%, transparent) 45%, var(--texto) 100%); }
+  /* O fundo é um degradê de quatro pontos. Cada ponto se desloca um pouco com o
+     cursor (--px e --py vão de -1 a 1), como se a luz da capa escorresse pelo cartão. */
+  .cartao { --px: 0; --py: 0; position: relative; display: flex; flex-direction: column; gap: var(--e-3); min-width: 0; padding: var(--e-3); border-radius: clamp(1rem, 2vw, 1.75rem); color: var(--tinta);
+    background:
+      radial-gradient(ellipse 85% 70% at calc(0% + var(--px) * 14%) calc(0% + var(--py) * 14%), var(--c0), transparent 100%),
+      radial-gradient(ellipse 85% 70% at calc(100% + var(--px) * 14%) calc(0% + var(--py) * 14%), var(--c1), transparent 100%),
+      radial-gradient(ellipse 85% 70% at calc(0% + var(--px) * 14%) calc(100% + var(--py) * 14%), var(--c2), transparent 100%),
+      radial-gradient(ellipse 85% 70% at calc(100% + var(--px) * 14%) calc(100% + var(--py) * 14%), var(--c3), transparent 100%),
+      color-mix(in oklab, color-mix(in oklab, var(--c0), var(--c3)), color-mix(in oklab, var(--c1), var(--c2)));
+    transition: translate 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s; }
+  .cartao:hover { translate: 0 -0.35rem; box-shadow: 0 1.75rem 3rem -1.5rem rgb(0 0 0 / 0.5); }
 
-  .cartao-capa { display: block; transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
-  .cartao:hover .cartao-capa { transform: rotate(-1.5deg) scale(1.02); }
-  .cartao-capa img { width: 100%; height: auto; border-radius: clamp(0.6rem, 1.2vw, 1rem); box-shadow: 0 1.25rem 2.5rem -1.25rem rgb(0 0 0 / 0.55); }
-  .cartao-sem-capa { display: grid; place-items: center; aspect-ratio: 16 / 9; border-radius: clamp(0.6rem, 1.2vw, 1rem); background: var(--fundo); color: var(--texto); }
+  /* A capa inclina com o cursor, como a do destaque */
+  .cartao-capa { display: block; }
+  .cartao-capa img { width: 100%; height: auto; border-radius: clamp(0.6rem, 1.2vw, 1rem); box-shadow: 0 1.25rem 2.5rem -1.25rem rgb(0 0 0 / 0.55); transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .cartao-sem-capa { display: grid; place-items: center; aspect-ratio: 16 / 9; border-radius: clamp(0.6rem, 1.2vw, 1rem); background: var(--tinta); color: var(--c0); }
   .cartao-sem-capa :global(svg) { width: 22%; }
 
   /* Mesma ordem do bloco grande, um degrau abaixo na escala: nome, data e hora, local */
@@ -52,6 +60,6 @@ const cores = `--fundo:${evento.tema.fundo};--texto:${evento.tema.texto};--desta
   .cartao-local { display: flex; align-items: flex-start; margin-top: var(--e-1); font-size: 0.9375rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.25; }
   .cartao-local svg { flex: none; width: 0.72em; height: 0.9em; margin: 0.14em 0.45em 0 0; fill: currentColor; }
 
-  .cartao :global(.cartao-botao) { --botao-fundo: var(--fundo); --botao-destaque: var(--fundo); margin-top: auto; align-self: flex-start; }
-  @media (prefers-reduced-motion: reduce) { .cartao-capa { transition: none; } }
+  .cartao :global(.cartao-botao) { --botao-fundo: var(--tinta); --botao-destaque: var(--tinta); margin-top: auto; align-self: flex-start; }
+  @media (prefers-reduced-motion: reduce) { .cartao, .cartao-capa img { transition: none; } .cartao:hover { translate: none; } }
 </style>

@@ -2,7 +2,8 @@ import manuais from '../data/eventos-manual.json';
 import locais from '../data/locais.json';
 import historico from '../data/sympla-historico.json';
 import { TEMAS_DO_SITE, temaPara, type Tema } from './temas';
-import { temaDaImagem } from './paleta';
+import { temaDaImagem, malhaDaImagem, type Malha } from './paleta';
+import { readFile } from 'node:fs/promises';
 import sharp from 'sharp';
 
 // Formato único de evento, seja qual for a plataforma de origem.
@@ -20,6 +21,8 @@ export interface Evento {
   origem: 'shotgun' | 'sympla' | 'manual';
   // Cores do evento. Vêm da capa; sem capa, usa um par da marca.
   tema: Tema;
+  // Cores dos quatro cantos da capa, para o fundo do cartão compacto. Só os próximos têm.
+  malha?: Malha;
 }
 
 // Resumo do que aconteceu na busca, publicado em /estado.json para conferência.
@@ -71,14 +74,20 @@ function localDe(e: EventoShotgun) {
 }
 
 // Baixa uma versão pequena da capa para tirar as cores e medir a proporção.
-async function lerCapa(url: string | undefined, id: string): Promise<{ tema: Tema; proporcao?: number }> {
+async function lerCapa(url: string | undefined, id: string): Promise<{ tema: Tema; proporcao?: number; malha?: Malha }> {
   if (!url) return { tema: temaPara(id) };
   try {
-    const resposta = await fetch(naLargura(url, 160));
-    if (!resposta.ok) return { tema: temaPara(id) };
-    const imagem = Buffer.from(await resposta.arrayBuffer());
+    let imagem: Buffer;
+    if (url.startsWith('/')) {
+      // Capa guardada no próprio site (pasta public).
+      imagem = await readFile(`public${url}`);
+    } else {
+      const resposta = await fetch(naLargura(url, 160));
+      if (!resposta.ok) return { tema: temaPara(id) };
+      imagem = Buffer.from(await resposta.arrayBuffer());
+    }
     const { width, height } = await sharp(imagem).metadata();
-    return { tema: await temaDaImagem(imagem), proporcao: width && height ? width / height : undefined };
+    return { tema: await temaDaImagem(imagem), proporcao: width && height ? width / height : undefined, malha: await malhaDaImagem(imagem) };
   } catch {
     return { tema: temaPara(id) };
   }
@@ -130,6 +139,7 @@ async function fonteShotgun(): Promise<Evento[]> {
           url: e.url,
           origem: 'shotgun',
           tema: lido.tema,
+          malha: lido.malha,
         };
       }),
     );
@@ -230,7 +240,7 @@ async function fonteSympla(): Promise<Evento[]> {
           const futuro = new Date(data).getTime() >= agora;
           const lido = futuro ? await lerCapa(capa, id) : { tema: temaPara(id) };
           const casa = e.address?.name?.trim() || [e.address?.address, e.address?.address_num].filter(Boolean).join(', ') || e.address?.city;
-          return { id, nome: limparNome(e.name), data, local: casa || undefined, capa, capaPequena: capa, proporcao: lido.proporcao, url: e.url, origem: 'sympla', tema: lido.tema };
+          return { id, nome: limparNome(e.name), data, local: casa || undefined, capa, capaPequena: capa, proporcao: lido.proporcao, url: e.url, origem: 'sympla', tema: lido.tema, malha: lido.malha };
         }),
       )
     ).filter((e): e is Evento => e !== null);
@@ -292,7 +302,7 @@ async function fonteManual(): Promise<Evento[]> {
       // Evento futuro com capa: cores e proporção saem da capa, como nos automáticos.
       if (e.capa && new Date(e.data).getTime() >= agora) {
         const lido = await lerCapa(e.capaPequena ?? e.capa, e.id);
-        return { ...e, proporcao: e.proporcao ?? lido.proporcao, tema: lido.tema };
+        return { ...e, proporcao: e.proporcao ?? lido.proporcao, tema: lido.tema, malha: lido.malha };
       }
       return { ...e, tema: TEMAS_DO_SITE[i % TEMAS_DO_SITE.length] };
     }),

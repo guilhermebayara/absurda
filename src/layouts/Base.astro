@@ -161,20 +161,24 @@ const caminho = Astro.url.pathname;
       document.querySelector('.menu-fecha')?.addEventListener('click', () => menu?.close());
       menu?.addEventListener('click', (e) => { if (e.target === menu) menu.close(); });
 
-      // Animações de entrada: marca o elemento quando ele entra na tela, uma vez só.
+      // Animações de entrada: marca o elemento quando ele entra na tela e desmarca
+      // quando ele sai por inteiro. Assim a animação se repete ao voltar para ele,
+      // rolando para baixo ou para cima.
       const animados = document.querySelectorAll<HTMLElement>('[data-anima]');
       if (animados.length > 0) {
         const entrada = new IntersectionObserver(
           (entradas) => {
-            for (const e of entradas) {
-              if (!e.isIntersecting) continue;
-              e.target.classList.add('visto');
-              entrada.unobserve(e.target);
-            }
+            for (const e of entradas) if (e.isIntersecting) e.target.classList.add('visto');
           },
-          { rootMargin: '0px 0px -10% 0px' },
+          { rootMargin: '-8% 0px -8% 0px' },
         );
-        animados.forEach((el) => entrada.observe(el));
+        const saida = new IntersectionObserver(
+          (entradas) => {
+            for (const e of entradas) if (!e.isIntersecting) e.target.classList.remove('visto');
+          },
+          { rootMargin: '10% 0px 10% 0px' },
+        );
+        animados.forEach((el) => { entrada.observe(el); saida.observe(el); });
       }
     </script>
   </body>

@@ -79,3 +79,53 @@ export async function temaDaImagem(imagem: Buffer): Promise<Tema> {
 
   return { fundo: hex(fundo), texto: hex(texto), destaque: hex(destaque) };
 }
+
+// Malha de cores para o cartão compacto: uma cor por canto da capa (em cima à
+// esquerda, em cima à direita, embaixo à esquerda, embaixo à direita), na mesma
+// posição em que aparece na arte. O fundo do cartão vira um degradê entre elas,
+// então dá para ver de onde as cores vieram.
+export interface Malha {
+  cores: [string, string, string, string];
+  texto: string;
+}
+
+export async function malhaDaImagem(imagem: Buffer): Promise<Malha> {
+  const lado = 32;
+  const { data } = await sharp(imagem).resize(lado, lado, { fit: 'fill' }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const meio = lado / 2;
+  const cantos: RGB[] = [];
+  for (const [x0, y0] of [[0, 0], [meio, 0], [0, meio], [meio, meio]]) {
+    // Em cada canto vale a cor que mais aparece, com preferência pelas mais vivas
+    // (a média simples de uma arte cheia de detalhes dá sempre um marrom).
+    const grupos = new Map<number, { soma: RGB; n: number }>();
+    for (let y = y0; y < y0 + meio; y++) {
+      for (let x = x0; x < x0 + meio; x++) {
+        const i = (y * lado + x) * 3;
+        const chave = ((data[i] >> 5) << 6) | ((data[i + 1] >> 5) << 3) | (data[i + 2] >> 5);
+        const g = grupos.get(chave) ?? { soma: [0, 0, 0] as RGB, n: 0 };
+        g.soma[0] += data[i];
+        g.soma[1] += data[i + 1];
+        g.soma[2] += data[i + 2];
+        g.n++;
+        grupos.set(chave, g);
+      }
+    }
+    const melhor = [...grupos.values()].sort((a, b) => b.n * (0.3 + vivacidade(b.soma.map((v) => v / b.n) as RGB)) - a.n * (0.3 + vivacidade(a.soma.map((v) => v / a.n) as RGB)))[0];
+    cantos.push(melhor.soma.map((v) => v / melhor.n) as RGB);
+  }
+  // Texto claro sobre capas escuras, escuro sobre capas claras, puxado de leve para a cor da arte.
+  const media = cantos.reduce((s, c) => s + luminancia(c), 0) / cantos.length;
+  const maisViva = [...cantos].sort((a, b) => vivacidade(b) - vivacidade(a))[0];
+  const alvo: RGB = media < 0.18 ? [255, 255, 255] : [0, 0, 0];
+  const texto = maisViva.map((v, i) => v + (alvo[i] - v) * 0.9) as RGB;
+  // Cada canto é ajustado até o texto ter leitura sobre ele.
+  const oposto: RGB = media < 0.18 ? [0, 0, 0] : [255, 255, 255];
+  const ajustados = cantos.map((c) => {
+    for (let t = 0; t <= 1; t += 0.05) {
+      const tentativa = c.map((v, i) => v + (oposto[i] - v) * t) as RGB;
+      if (contraste(tentativa, texto) >= 4.5) return tentativa;
+    }
+    return oposto;
+  });
+  return { cores: ajustados.map(hex) as Malha['cores'], texto: hex(texto) };
+}
