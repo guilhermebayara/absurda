@@ -43,6 +43,23 @@ export const TEMAS_DO_SITE: Tema[] = [
   { fundo: '#f1ead9', texto: '#1b1b1b', destaque: '#e0480f' }, // areia com tinta
 ];
 
+// Paleta fechada do trecho de posicionamento político (página Sobre).
+// Enquanto esse trecho está na tela, o site só pode usar um destes temas, nunca o
+// sorteado nem cores de capa. A regra é dos produtores:
+// - vermelho é a cor do posicionamento de esquerda da @bsurda (PT, PSOL);
+// - verde com amarelo, e azul com amarelo, não entram: ainda carregam a ligação
+//   com a extrema direita;
+// - verde não entra nem sozinho, para nunca formar o par com um amarelo vizinho.
+// Amarelo só aparece como detalhe sobre vermelho ou roxo.
+// Ao incluir um tema novo aqui, confira essas três regras antes.
+export const TEMAS_DE_POSICAO: Tema[] = [
+  { fundo: '#c4101f', texto: '#fff6ea', destaque: '#ffd23f' }, // vermelho com estrela amarela
+  { fundo: '#5c0c0a', texto: '#ffeede', destaque: '#ff5a4d' }, // vinho com vermelho vivo
+  { fundo: '#fff3e2', texto: '#3a0a0a', destaque: '#cf0f1e' }, // creme com vermelho
+  { fundo: '#431670', texto: '#fff4e0', destaque: '#ffcb05' }, // roxo com amarelo
+  { fundo: '#161012', texto: '#fff1e6', destaque: '#ff4338' }, // preto com vermelho
+];
+
 // Escolhe sempre o mesmo tema para o mesmo identificador,
 // para a cor de um projeto ou pessoa não mudar a cada publicação.
 export function temaPara(id: string): Tema {

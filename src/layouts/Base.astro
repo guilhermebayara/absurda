@@ -176,6 +176,12 @@ const caminho = Astro.url.pathname;
         raiz.style.setProperty('--destaque', destaque);
         raiz.style.setProperty('--enfeite', (window as any).__enfeite?.(destaque, cor) ?? destaque);
       };
+      // Trechos com paleta fechada (data-tema-lista): sorteiam um tema só entre os permitidos.
+      document.querySelectorAll<HTMLElement>('[data-tema-lista]').forEach((trecho) => {
+        const opcoes = (trecho.dataset.temaLista ?? '').split(';').filter(Boolean);
+        if (opcoes.length > 0) trecho.dataset.tema = opcoes[Math.floor(Math.random() * opcoes.length)];
+      });
+      let fechado: HTMLElement | null = null;
       const trechos = document.querySelectorAll<HTMLElement>('[data-tema]');
       if (trechos.length > 0) {
         const observador = new IntersectionObserver(
@@ -183,12 +189,33 @@ const caminho = Astro.url.pathname;
             for (const entrada of entradas) {
               if (!entrada.isIntersecting) continue;
               const alvo = entrada.target as HTMLElement;
+              if (fechado) continue;
               aplicar(alvo.dataset.tema === 'sorteio' ? raiz.dataset.temaSorteado ?? alvo.dataset.reserva : alvo.dataset.tema);
             }
           },
           { rootMargin: '-45% 0px -45% 0px' },
         );
         trechos.forEach((trecho) => observador.observe(trecho));
+      }
+      // Um trecho de paleta fechada manda na página enquanto qualquer parte dele estiver
+      // na tela, e não só quando chega ao meio: assim ele nunca aparece com as cores do vizinho.
+      const temaDe = (t: HTMLElement) => (t.dataset.tema === 'sorteio' ? raiz.dataset.temaSorteado ?? t.dataset.reserva : t.dataset.tema);
+      const fechados = document.querySelectorAll<HTMLElement>('[data-tema-lista]');
+      if (fechados.length > 0) {
+        const guarda = new IntersectionObserver((entradas) => {
+          for (const entrada of entradas) {
+            const alvo = entrada.target as HTMLElement;
+            if (entrada.isIntersecting) { fechado = alvo; aplicar(alvo.dataset.tema); }
+            else if (fechado === alvo) {
+              fechado = null;
+              // Ao sair, volta para o tema do trecho que está no meio da tela.
+              const meio = window.innerHeight / 2;
+              const atual = [...trechos].find((t) => { const r = t.getBoundingClientRect(); return r.top <= meio && r.bottom >= meio; });
+              if (atual) aplicar(temaDe(atual));
+            }
+          }
+        });
+        fechados.forEach((t) => guarda.observe(t));
       }
 
       // Menu do celular.

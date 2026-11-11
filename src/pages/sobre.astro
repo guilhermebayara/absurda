@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import Capa from '../components/Capa.astro';
 import marcos from '../data/marcos.json';
+import { TEMAS_DE_POSICAO, TEMAS_DO_SITE, atributo } from '../lib/temas';
+const reserva = atributo(TEMAS_DO_SITE[0]);
 // Aqui os marcos contam a história na ordem em que aconteceram, do primeiro ano ao atual.
 // (Na agenda eles aparecem do mais recente para trás, como índice do arquivo.)
 type Marco = { id: string; ano: string; titulo: string; texto?: string; tema?: string };
@@ -26,7 +28,7 @@ const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estrutur
   <!-- Marcos: o ano fica preso na tela, gigante, e vira conforme a história passa ao lado.
        Mesmo universo da agenda (número grande, barra inclinada, etiquetas), outra leitura:
        lá é índice que se abre, aqui é uma narrativa contínua. -->
-  <section class="marcos" aria-labelledby="t-marcos">
+  <section class="marcos" aria-labelledby="t-marcos" data-tema="sorteio" data-reserva={reserva}>
     <h2 id="t-marcos" class="titulo-secao" data-anima="sobe">Marcos</h2>
     <div class="marcos-grade">
       <div class="marcos-ano" aria-hidden="true">
@@ -52,14 +54,17 @@ const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estrutur
   </section>
 
   <!-- Posicionamento: a @bsurda sempre se posicionou e esteve em manifestações e nas Paradas de BH.
-       Texto e fotos de marcação, a escrever. -->
-  <section class="secao" aria-labelledby="t-posicao">
+       Texto e fotos de marcação, a escrever.
+       Este trecho tem paleta fechada (TEMAS_DE_POSICAO em lib/temas.ts): enquanto ele está na
+       tela, a página sai do tema sorteado e usa só as cores permitidas. O primeiro tema da lista
+       fica no data-tema para valer mesmo sem o sorteio. -->
+  <section class="secao" aria-labelledby="t-posicao" data-tema={atributo(TEMAS_DE_POSICAO[0])} data-tema-lista={TEMAS_DE_POSICAO.map(atributo).join(';')}>
     <h2 id="t-posicao" class="titulo-secao" data-anima="sobe">De que lado a gente está</h2>
     <p class="t-grande posicao" data-anima="surge">Texto de marcação: o posicionamento político da @bsurda.</p>
     <p class="t-apoio" data-anima="surge" style="margin-top:1.5rem">Texto de marcação: as manifestações e Paradas de que a @bsurda participou, com datas e fotos.</p>
   </section>
 
-  <section class="secao" aria-labelledby="t-palco">
+  <section class="secao" aria-labelledby="t-palco" data-tema="sorteio" data-reserva={reserva}>
     <h2 id="t-palco" class="titulo-secao">Quem já passou pelo palco</h2>
     <p class="t-grande palco">Pabllo Vittar, Jão, Karol Conka, Elke Maravilha, Gloria Groove, Banda Uó, Bonde do Rolê, Kaya Conky, Pepita, Aretuza Lovi, Gretchen</p>
     <p class="t-pequeno" style="margin-top:1.5rem">Lista de marcação, a completar.</p>
