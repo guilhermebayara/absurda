@@ -1,7 +1,7 @@
 ---
 // Abertura da Home: o logo com ecos em fatias.
 // Em telas largas usa o logo em uma linha, com ecos acima e abaixo.
-// No celular usa o logo em sílabas, bem maior, com os ecos só para baixo.
+// No celular usa o logo em sílabas, bem maior, com ecos para os dois lados.
 // As fatias abrem ao carregar e fecham conforme a pessoa rola a página.
 // O logo da frente é sempre o mais forte; os ecos repetem a cor, cada vez mais fraca.
 import Completo from './marca/Completo.astro';
@@ -17,11 +17,31 @@ const largo = [
   { y: 61, corte: '84% 0 0 0', escala: 0.85, nivel: 2 },
   { y: 82, corte: '91% 0 0 0', escala: 0.77, nivel: 3 },
 ];
-const alto = [
-  { y: 13.5, corte: '86% 0 0 0', escala: 0.93, nivel: 1 },
-  { y: 24, corte: '92% 0 0 0', escala: 0.85, nivel: 2 },
-  { y: 32.5, corte: '96% 0 0 0', escala: 0.77, nivel: 3 },
+// No logo em sílabas os ecos saem pelas duas laterais e seguem o contorno da marca:
+// cada linha ("@B", "SUR", "DA") ecoa a partir da sua própria letra da ponta,
+// e não de uma linha reta na borda do bloco.
+// Medidas em porcentagem do logo: onde cada linha começa, termina e sua faixa de altura.
+const linhas = [
+  { esq: 0, dir: 70.5, topo: 0, base: 32.65 },
+  { esq: 11.75, dir: 100, topo: 32.65, base: 68.35 },
+  { esq: 13.64, dir: 79.23, topo: 68.35, base: 100 },
 ];
+// Recorte em degraus: uma faixa de largura "l" colada à ponta de cada linha.
+function contorno(lado: 'dir' | 'esq', l: number) {
+  const fora = linhas.map((r) => (lado === 'dir' ? r.dir : r.esq));
+  const dentro = fora.map((x) => (lado === 'dir' ? x - l : x + l));
+  const ida = linhas.flatMap((r, i) => [`${fora[i]}% ${r.topo}%`, `${fora[i]}% ${r.base}%`]);
+  const volta = linhas.flatMap((r, i) => [`${dentro[i]}% ${r.topo}%`, `${dentro[i]}% ${r.base}%`]).reverse();
+  return `polygon(${[...ida, ...volta].join(', ')})`;
+}
+const niveis = [
+  { largura: 15, x: 21, escala: 0.93, nivel: 1 },
+  { largura: 9, x: 37, escala: 0.85, nivel: 2 },
+  { largura: 5, x: 50, escala: 0.77, nivel: 3 },
+];
+const alto = (['dir', 'esq'] as const).flatMap((lado) =>
+  niveis.map((n) => ({ ...n, x: lado === 'dir' ? n.x : -n.x, corte: contorno(lado, n.largura) })),
+);
 ---
 <h1 class="so-leitor">@bsurda</h1>
 
@@ -37,7 +57,7 @@ const alto = [
 <div class="eco eco-alto" data-eco aria-hidden="true">
   {alto.map((f) => (
     <div class={`eco-fatia eco-n${f.nivel}`}>
-      <div class="eco-corte" style={`--y:${f.y}%;--corte:inset(${f.corte});--escala:${f.escala}`}><Silabas /></div>
+      <div class="eco-corte" style={`--x:${f.x}%;--corte:${f.corte};--escala:${f.escala}`}><Silabas /></div>
     </div>
   ))}
   <div class="eco-marca"><Silabas /></div>
@@ -78,10 +98,10 @@ const alto = [
 
   /* Logo em uma linha: ecos acima e abaixo */
   .eco-largo, .eco-largo .eco-fatia { padding: 13.5% 0; }
-  /* Logo em sílabas (celular): ecos só para baixo */
-  .eco-alto { display: none; width: min(72%, 21rem); margin: 0 auto; padding: 4% 0 43%; }
-  .eco-alto .eco-fatia { padding: 4% 0 43%; }
-  .eco-alto .eco-corte { transform-origin: 50% 100%; }
+  /* Logo em sílabas (celular): ecos para os dois lados, podendo sair da tela */
+  .eco-alto { display: none; width: min(62%, 19rem); margin: 0 auto; padding: 5% 0 9%; }
+  .eco-alto .eco-fatia { padding: 5% 0 9%; }
+  .eco-alto .eco-corte { transform: translateX(calc(var(--x) * var(--abre))) scale(calc(1 - (1 - var(--escala)) * var(--abre))); }
   @media (max-width: 700px) {
     .eco-largo { display: none; }
     .eco-alto { display: block; }
