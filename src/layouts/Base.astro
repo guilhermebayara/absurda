@@ -307,6 +307,26 @@ const caminho = Astro.url.pathname;
      Para a direita, o título fica à esquerda; para a esquerda, encosta à direita. */
   .ecoa-direita { --eco-x: 0.2em; }
   .ecoa-esquerda { --eco-x: -0.2em; margin-left: auto; }
+  /* Na diagonal o recorte de cada eco é um L: a faixa de cima (ou de baixo) e a
+     faixa do lado para onde ele vai. Assim o que sobra para o lado não se perde.
+     O eco encolhe a partir desse mesmo lado, para a borda lateral aparecer inteira. */
+  .ecoa-direita, .ecoa-esquerda { --l1: 0.22em; --l2: 0.2em; }
+  .ecoa-esquerda::before, .ecoa-esquerda::after { transform-origin: 0 100%; }
+  .ecoa-direita::before, .ecoa-direita::after { transform-origin: 100% 100%; }
+  .ecoa-cima.ecoa-esquerda::before, .ecoa-cima.ecoa-esquerda::after { transform-origin: 0 0; }
+  .ecoa-cima.ecoa-direita::before, .ecoa-cima.ecoa-direita::after { transform-origin: 100% 0; }
+  /* para baixo e para a esquerda */
+  .ecoa-esquerda::before { clip-path: polygon(0 0, var(--l1) 0, var(--l1) calc(100% - 0.27em), 100% calc(100% - 0.27em), 100% 100%, 0 100%); }
+  .ecoa-esquerda::after { clip-path: polygon(0 0, var(--l2) 0, var(--l2) calc(100% - 0.14em), 100% calc(100% - 0.14em), 100% 100%, 0 100%); }
+  /* para baixo e para a direita */
+  .ecoa-direita::before { clip-path: polygon(calc(100% - var(--l1)) 0, 100% 0, 100% 100%, 0 100%, 0 calc(100% - 0.27em), calc(100% - var(--l1)) calc(100% - 0.27em)); }
+  .ecoa-direita::after { clip-path: polygon(calc(100% - var(--l2)) 0, 100% 0, 100% 100%, 0 100%, 0 calc(100% - 0.14em), calc(100% - var(--l2)) calc(100% - 0.14em)); }
+  /* para cima e para a esquerda */
+  .ecoa-cima.ecoa-esquerda::before { clip-path: polygon(0 0, 100% 0, 100% 0.3em, var(--l1) 0.3em, var(--l1) 100%, 0 100%); }
+  .ecoa-cima.ecoa-esquerda::after { clip-path: polygon(0 0, 100% 0, 100% 0.17em, var(--l2) 0.17em, var(--l2) 100%, 0 100%); }
+  /* para cima e para a direita */
+  .ecoa-cima.ecoa-direita::before { clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - var(--l1)) 100%, calc(100% - var(--l1)) 0.3em, 0 0.3em); }
+  .ecoa-cima.ecoa-direita::after { clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - var(--l2)) 100%, calc(100% - var(--l2)) 0.17em, 0 0.17em); }
 
   /* O cabeçalho acompanha a direção do eco */
   .abre { overflow-x: clip; }
