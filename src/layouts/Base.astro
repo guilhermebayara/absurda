@@ -63,7 +63,7 @@ const caminho = Astro.url.pathname;
         {NAV.map((item) => (
           <a href={item.href} aria-current={caminho.startsWith(item.href) ? 'page' : undefined}>{item.rotulo}</a>
         ))}
-        <a href={SITE.fotos} target="_blank" rel="noopener">Fotos</a>
+        <a class="nav-fora" href={SITE.fotos} target="_blank" rel="noopener">Fotos<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 3.5h8v8M12.5 3.5 3.5 12.5" /></svg><span class="so-leitor"> (abre em outra aba)</span></a>
       </nav>
     </header>
 
@@ -82,7 +82,7 @@ const caminho = Astro.url.pathname;
       </nav>
       <ul class="menu-fora">
         <li><a href={SITE.ingressos} target="_blank" rel="noopener">Ingressos</a></li>
-        <li><a href={SITE.fotos} target="_blank" rel="noopener">Fotos</a></li>
+        <li><a class="nav-fora" href={SITE.fotos} target="_blank" rel="noopener">Fotos<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 3.5h8v8M12.5 3.5 3.5 12.5" /></svg></a></li>
         <li><a href={SITE.redes.instagram} target="_blank" rel="noopener">Instagram</a></li>
       </ul>
     </dialog>
@@ -190,6 +190,21 @@ const caminho = Astro.url.pathname;
   :root {
     --fonte: 'Urbanist Variable', system-ui, sans-serif;
     --margem: clamp(1.25rem, 4vw, 3.5rem);
+    /* Escala de texto: cada degrau é cerca de 1,5 vez o anterior, para a hierarquia
+       ficar clara sem saltos soltos. Rótulo, corpo, apoio, e três degraus de título. */
+    --t-rotulo: 0.8125rem;
+    --t-apoio: clamp(1.125rem, 1.5vw, 1.375rem);
+    --t-3: clamp(1.125rem, 1.75vw, 1.75rem);
+    --t-4: clamp(1.5rem, 2.7vw, 2.625rem);
+    --t-5: clamp(2.25rem, 6.5vw, 5.75rem);
+    /* Escala de espaço: o que pertence ao mesmo grupo fica perto (1 e 2),
+       grupos diferentes se afastam (3 e 4), seções se afastam mais (5 e 6). */
+    --e-1: clamp(0.375rem, 0.6vw, 0.625rem);
+    --e-2: clamp(0.75rem, 1.2vw, 1.125rem);
+    --e-3: clamp(1.25rem, 2.2vw, 2rem);
+    --e-4: clamp(2rem, 4vw, 3.5rem);
+    --e-5: clamp(3rem, 7vw, 6rem);
+    --e-6: clamp(3.5rem, 9vw, 8rem);
     --linha: color-mix(in srgb, var(--texto) 28%, transparent);
     --suave: color-mix(in srgb, var(--texto) 72%, var(--fundo));
     transition: --fundo 0.7s ease, --texto 0.7s ease, --destaque 0.7s ease;
@@ -280,7 +295,7 @@ const caminho = Astro.url.pathname;
 
   .secao { padding: clamp(3.5rem, 9vw, 8rem) var(--margem); }
   .secao + .secao { border-top: 1px solid var(--linha); }
-  .titulo-secao { font-size: 0.8125rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: clamp(1.5rem, 4vw, 3rem); }
+  .titulo-secao { font-size: var(--t-4); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; margin-bottom: var(--e-3); }
 
   .botao { display: inline-block; padding: 0.95em 1.7em; border: 1.5px solid currentColor; border-radius: 99rem; font-size: 0.875rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; text-decoration: none; transition: background-color 0.15s, color 0.15s; }
   .botao:hover { background: var(--texto); color: var(--fundo); border-color: var(--texto); }
@@ -340,17 +355,19 @@ const caminho = Astro.url.pathname;
   .topo nav a:hover::before, .topo nav a:focus-visible::before, .topo nav a[aria-current='page']::before { transform: skewX(26.5deg) scaleY(1); }
   @media (prefers-reduced-motion: reduce) { .topo nav a::before { transition: none; } }
 
+  /* Link que sai do site: seta diagonal ao lado do nome */
+  .nav-fora svg { display: inline-block; width: 0.72em; height: 0.72em; margin-left: 0.4em; vertical-align: -0.02em; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+
   /* Rodapé grande */
   .rodape { --lw: min(100vw - 2 * var(--margem), 165svh); margin-top: clamp(2rem, 5vw, 4rem); padding: clamp(2rem, min(4.5vw, 6svh), 4rem) var(--margem) 0; border-radius: clamp(1.5rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 3.5rem) 0 0; background: var(--texto); color: var(--fundo); overflow: hidden; transition: none; }
   .rodape-topo { display: grid; grid-template-columns: auto 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
   /* Menu grande em duas colunas de três: continua enorme sem deixar o rodapé mais alto que a tela */
-  .rodape-nav ul { display: grid; grid-template-rows: repeat(3, auto); grid-auto-flow: column; column-gap: 0.55em; font-size: clamp(1.6rem, min(5.3vw, 10.5svh), 6.5rem); }
+  .rodape-nav ul { display: grid; grid-template-rows: repeat(3, auto); grid-auto-flow: column; column-gap: 0.9em; font-size: clamp(1.6rem, min(5.1vw, 10.5svh), 6.5rem); }
   /* Menu grande, com a barra inclinada entrando no hover */
-  .rodape-nav li { overflow: hidden; }
-  .rodape-nav a { position: relative; display: block; width: fit-content; padding: 0.06em 0; font-size: inherit; font-weight: 800; line-height: 0.98; letter-spacing: -0.045em; text-transform: uppercase; text-decoration: none; transition: padding-left 0.5s cubic-bezier(0.62, 0.05, 0.01, 0.99), clip-path 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99), transform 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99); }
-  .js .rodape-nav a[data-anima] { transition: padding-left 0.5s cubic-bezier(0.62, 0.05, 0.01, 0.99), clip-path 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99), transform 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99); }
-  .rodape-nav a::before { content: ''; position: absolute; left: 0.06em; top: 0.16em; bottom: 0.18em; width: 0.17em; background: var(--destaque); transform: skewX(26.5deg) scaleY(0); transition: transform 0.5s cubic-bezier(0.62, 0.05, 0.01, 0.99); }
-  .rodape-nav a:hover, .rodape-nav a:focus-visible { padding-left: 0.42em; }
+  .rodape-nav a { position: relative; display: block; width: fit-content; padding: 0.06em 0; font-size: inherit; font-weight: 800; line-height: 0.98; letter-spacing: -0.045em; text-transform: uppercase; text-decoration: none; transition: color 0.3s; }
+  /* A barra entra na margem, à esquerda do nome: nada se desloca */
+  .js .rodape-nav a[data-anima].visto { clip-path: inset(-0.3em -0.2em -0.3em -0.7em); }
+  .rodape-nav a::before { content: ''; position: absolute; left: -0.4em; top: 0.16em; bottom: 0.18em; width: 0.14em; background: var(--destaque); transform: skewX(26.5deg) scaleY(0); transition: transform 0.5s cubic-bezier(0.62, 0.05, 0.01, 0.99); }
   .rodape-nav a:hover::before, .rodape-nav a:focus-visible::before { transform: skewX(26.5deg) scaleY(1); }
   .rodape-lado { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 3vw, 2.75rem); padding-top: 0.4rem; }
   .rodape h2 { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 0.9rem; padding-bottom: 0.9rem; border-bottom: 1.5px solid color-mix(in srgb, var(--fundo) 35%, transparent); }
