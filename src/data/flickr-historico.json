@@ -198,7 +198,7 @@
   "nome": "BR!NK5 eike @bsurda",
   "data": "2012-01-21T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629005434463",
-  "local": "Salvador"
+  "local": "San Sebastian, Salvador"
  },
  {
   "id": "flickr-72157628924621507",
@@ -279,14 +279,15 @@
   "id": "flickr-72157627298281202",
   "nome": "Acampamento de Férias @bsurda",
   "data": "2011-07-29T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627298281202"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627298281202",
+  "local": "Up e.music"
  },
  {
   "id": "flickr-72157627280663872",
   "nome": "72dpi + @bsurda",
   "data": "2011-07-23T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627280663872",
-  "local": "São Paulo"
+  "local": "Bofetada Club, São Paulo"
  },
  {
   "id": "flickr-72157627174091376",
@@ -298,7 +299,8 @@
   "id": "flickr-72157627001435387",
   "nome": "Super Hero Party",
   "data": "2011-07-01T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627001435387"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627001435387",
+  "local": "Up e.music"
  },
  {
   "id": "flickr-72157626929622979",
@@ -326,6 +328,20 @@
   "local": "Up e.music"
  },
  {
+  "id": "flickr-72157626730479274",
+  "nome": "Bazinga! Twister Safadão",
+  "data": "2011-05-19T22:00:00-03:00",
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626730479274",
+  "local": "Up e.music"
+ },
+ {
+  "id": "flickr-72157626573033463",
+  "nome": "Equipe @bsurda na Batalha de iPods",
+  "data": "2011-05-06T22:00:00-03:00",
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626573033463",
+  "local": "Dduck"
+ },
+ {
   "id": "flickr-72157626307075963",
   "nome": "@bsurda vol. 14: Bilabilândia",
   "data": "2011-04-23T22:00:00-03:00",
@@ -342,72 +358,84 @@
   "id": "flickr-72157626269819508",
   "nome": "@bsurda vol. 13: Bazinga!!",
   "data": "2011-03-19T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626269819508"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626269819508",
+  "local": "Up e.music"
  },
  {
   "id": "flickr-72157626136111807",
   "nome": "Carnaval @bsurda 2011",
   "data": "2011-03-05T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626136111807"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626136111807",
+  "local": "Up e.music"
  },
  {
   "id": "flickr-72157626260962954",
   "nome": "@bsurda vol. 10: Preto ou Branco",
   "data": "2011-01-29T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626260962954"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626260962954",
+  "local": "Up e.music"
  },
  {
   "id": "flickr-72157626135993237",
   "nome": "@bsurda Mobile: As Donas",
   "data": "2010-12-23T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626135993237"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626135993237",
+  "local": "Loja As Donas"
  },
  {
   "id": "flickr-72157625683287144",
   "nome": "@bsurda 1 ano",
   "data": "2010-12-18T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157625683287144"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157625683287144",
+  "local": "Up e.music"
  },
  {
   "id": "flickr-72157625267080239",
   "nome": "@bsurda Sucks: True Blood(es)",
   "data": "2010-11-12T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157625267080239"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157625267080239",
+  "local": "Teachers Pub, Vitória"
  },
  {
   "id": "flickr-72157626246718558",
   "nome": "@bsurda vol. 6",
   "data": "2010-10-16T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626246718558"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626246718558",
+  "local": "Up e.music"
  },
  {
   "id": "flickr-72157626131647907",
   "nome": "@bsurda vol. 5: Brinks",
   "data": "2010-09-18T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626131647907"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626131647907",
+  "local": "Up e.music"
  },
  {
   "id": "flickr-72157626256515932",
   "nome": "@bsurda vol. 4: Drama Queen",
   "data": "2010-07-24T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626256515932"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626256515932",
+  "local": "Up e.music"
  },
  {
   "id": "flickr-72157626256432612",
   "nome": "@bsurda vol. 3: Chromatic",
   "data": "2010-06-02T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626256432612"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626256432612",
+  "local": "Up e.music"
  },
  {
   "id": "flickr-72157626246847574",
   "nome": "@bsurda vol. 2",
   "data": "2010-05-15T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626246847574"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626246847574",
+  "local": "Up e.music"
  },
  {
   "id": "flickr-72157626121696541",
   "nome": "@bsurda vol. 1",
   "data": "2009-11-12T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626121696541"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626121696541",
+  "local": "Velvet Club"
  }
 ]
