@@ -1,6 +1,6 @@
 import { defineConfig } from 'astro/config';
 
-// Trocar pelo domínio definitivo quando ele for apontado para a Cloudflare.
+// Endereço definitivo do site.
 export default defineConfig({
-  site: 'https://absurda.workers.dev',
+  site: 'https://festaabsurda.com',
 });
