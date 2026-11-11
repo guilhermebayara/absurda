@@ -148,13 +148,44 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
     });
   }
 
+  // Abrir e fechar um ano: o corpo cresce ou encolhe e o conteúdo entra junto, de leve.
+  // Abre em 0,45s e fecha um pouco mais rápido. Quem pede menos movimento fica com a troca seca.
+  const calmo = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const curva = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
+  const emCurso = new WeakMap<HTMLElement, Animation>();
+  const alternar = (bloco: HTMLDetailsElement, abrir: boolean) => {
+    const corpo = bloco.querySelector<HTMLElement>('.ano-corpo');
+    if (!corpo || calmo.matches) { bloco.open = abrir; return; }
+    const anterior = emCurso.get(corpo);
+    if (anterior) { anterior.onfinish = null; anterior.oncancel = null; anterior.cancel(); }
+    bloco.classList.toggle('fechando', !abrir);
+    if (abrir) bloco.open = true;
+    const altura = corpo.offsetHeight;
+    const quadros = abrir
+      ? [{ height: '0px', opacity: 0, transform: 'translateY(-0.6rem)' }, { height: `${altura}px`, opacity: 1, transform: 'none' }]
+      : [{ height: `${altura}px`, opacity: 1, transform: 'none' }, { height: '0px', opacity: 0, transform: 'translateY(-0.6rem)' }];
+    corpo.style.overflow = 'clip';
+    const anima = corpo.animate(quadros, { duration: abrir ? 450 : 320, easing: curva });
+    emCurso.set(corpo, anima);
+    anima.onfinish = () => {
+      corpo.style.overflow = '';
+      if (!abrir) { bloco.open = false; bloco.classList.remove('fechando'); }
+    };
+  };
+  document.querySelectorAll<HTMLDetailsElement>('details.ano').forEach((bloco) => {
+    bloco.querySelector('summary')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      alternar(bloco, !bloco.open || bloco.classList.contains('fechando'));
+    });
+  });
+
   // Atalho de anos: marca o ano que está na tela e abre o ano clicado.
   const atalhos = [...document.querySelectorAll<HTMLAnchorElement>('.anos-nav a')];
   const blocos = [...document.querySelectorAll<HTMLDetailsElement>('details.ano')];
   for (const a of atalhos) {
     a.addEventListener('click', () => {
       const bloco = document.getElementById(`ano-${a.dataset.ano}`) as HTMLDetailsElement | null;
-      if (bloco) bloco.open = true;
+      if (bloco && !bloco.open) alternar(bloco, true);
     });
   }
   if (blocos.length > 0) {
@@ -216,7 +247,11 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .ano-marcos { display: grid; gap: 0.3em; align-self: center; color: var(--destaque); font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; }
   .ano-marcos span { display: flex; align-items: center; gap: 0.6em; }
   .ano-marcos i { flex: none; width: 0.18em; height: 0.8em; background: currentColor; transform: skewX(26.5deg); }
-  .ano[open] .ano-marcos { display: none; }
+  .ano[open]:not(.fechando) .ano-marcos { display: none; }
+  /* Ao fechar, os marcos voltam para o lado do número sem estalo; o sinal já mostra "+". */
+  .ano.fechando .ano-marcos { animation: marcos-voltam 0.32s ease both; }
+  .ano.fechando .ano-mais-v { transform: none; }
+  @keyframes marcos-voltam { from { opacity: 0; } }
   @media (max-width: 720px) { .ano summary { flex-wrap: wrap; } .ano-marcos { order: 3; flex-basis: 100%; font-size: 1rem; } }
   .ano-corpo { padding-bottom: var(--e-4); }
 
