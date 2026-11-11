@@ -221,10 +221,12 @@ async function fonteSympla(): Promise<Evento[]> {
   try {
     const brutos: EventoSympla[] = [];
     let cursor: string | undefined;
+    let paginasLidas = 0;
     // O limite de páginas é só uma trava de segurança.
     for (let pagina = 0; pagina < 30; pagina++) {
       const endereco = new URL('https://api.sympla.com.br/public/v1.6.0/events');
-      endereco.searchParams.set('published', 'true');
+      // Pede tudo (publicados ou não) para o diagnóstico; o filtro vem depois.
+      endereco.searchParams.set('published', 'all');
       endereco.searchParams.set('timezone', 'America/Sao_Paulo');
       endereco.searchParams.set('sort', 'desc');
       endereco.searchParams.set('field_sort', 'start_date');
@@ -234,6 +236,7 @@ async function fonteSympla(): Promise<Evento[]> {
       if (!resposta.ok) throw new Error(`Sympla respondeu ${resposta.status}`);
       const corpo = (await resposta.json()) as { data?: EventoSympla[]; pagination?: { next_cursor?: string | null } };
       brutos.push(...(corpo.data ?? []));
+      paginasLidas++;
       cursor = corpo.pagination?.next_cursor ?? undefined;
       if (!cursor) break;
     }
@@ -262,6 +265,14 @@ async function fonteSympla(): Promise<Evento[]> {
       comCapa: eventos.filter((e) => e.capa).length,
       // Como a data chega, para conferir o fuso.
       exemploDeData: brutos[0]?.start_date ?? null,
+      // Conferência: por ano, quantos vieram e quantos caíram em cada filtro.
+      porAno: Object.fromEntries(
+        [...new Set(brutos.map((e) => e.start_date.slice(0, 4)))].sort().map((ano) => {
+          const doAno = brutos.filter((e) => e.start_date.startsWith(ano));
+          return [ano, { vieram: doAno.length, privados: doAno.filter((e) => e.private_event).length, naoPublicados: doAno.filter((e) => e.published === 0).length, cancelados: doAno.filter((e) => e.cancelled).length }];
+        }),
+      ),
+      paginas: paginasLidas,
       maisAntigo: eventos.map((e) => e.data).sort()[0]?.slice(0, 10) ?? null,
     };
     return eventos;

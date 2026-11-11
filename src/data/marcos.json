@@ -1,7 +1,7 @@
 [
   {"id": "2009", "ano": "2009", "titulo": "A primeira noite", "texto": "@bsurda vol. 1, em 12 de novembro, no Velvet Club."},
+  {"id": "2010-0-fora", "ano": "2010", "titulo": "Primeira edição fora de MG", "texto": "12 de novembro, no Teachers Pub, em Vitória."},
   {"id": "2010-1ano", "ano": "2010", "titulo": "1 ano de @bsurda", "texto": "18 de dezembro, no Up e.music."},
-  {"id": "2011-fora", "ano": "2011", "titulo": "Primeira edição fora de MG"},
   {"id": "2012-1-deize", "ano": "2012", "titulo": "Deize Tigrona na @bsurda", "texto": "13 de abril, no Mary in Hell."},
   {"id": "2012-2-postit", "ano": "2012", "titulo": "@bsurda PostiT, com a Papel Pop", "texto": "2 de junho, no Mercado das Borboletas."},
   {"id": "2012-3-pfvr", "ano": "2012", "titulo": "Primeira PFVR, na Quina Galeria", "texto": "29 de setembro. A Quina era uma galeria de arte no Maletta, hoje extinta."},
@@ -9,7 +9,7 @@
   {"id": "2013-2-karol", "ano": "2013", "titulo": "Primeiro show da Karol Conká em BH", "texto": "Setembro, no Granfinos."},
   {"id": "2015-wig", "ano": "2015", "titulo": "@bsurda WIG com Pabllo Vittar", "texto": "Primeiro show da Pabllo."},
   {"id": "2017-premio", "ano": "2017", "titulo": "Melhor balada LGBT de BH", "texto": "Prêmio Melhores de BH, do Bhaz."},
-  {"id": "2018-jao", "ano": "2018", "titulo": "Jão no Granfinos", "texto": "Agosto de 2018."},
+  {"id": "2018-jao", "ano": "2018", "titulo": "Primeiro show do Jão em BH", "texto": "Agosto, no Granfinos."},
   {"id": "2019", "ano": "2019", "titulo": "Dez anos, bloco na rua e trio na Parada"},
   {"id": "2020", "ano": "2020", "titulo": "60 mil pessoas no bloco"},
   {"id": "2024", "ano": "2024", "titulo": "Halloween de 15 anos no Mineirão"},
