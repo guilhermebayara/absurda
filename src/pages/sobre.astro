@@ -6,8 +6,8 @@ const marcos = (await getCollection('marcos')).sort((a, b) => a.id.localeCompare
 const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estruturamos', 'Renascemos'];
 ---
 <Base titulo="Sobre">
-  <header class="abre">
-    <h1 class="t-gigante ecoa" data-eco="Sem frescuras desde 2009">Sem frescuras desde 2009</h1>
+  <header class="abre abre-cima">
+    <h1 class="t-gigante ecoa ecoa-cima" data-eco="Sem frescuras desde 2009">Sem frescuras desde 2009</h1>
     <p class="t-apoio">Texto de marcação com a história da @bsurda.</p>
   </header>
 
@@ -27,6 +27,14 @@ const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estrutur
     </ol>
   </section>
 
+  <!-- Posicionamento: a @bsurda sempre se posicionou e esteve em manifestações e nas Paradas de BH.
+       Texto e fotos de marcação, a escrever. -->
+  <section class="secao" aria-labelledby="t-posicao">
+    <h2 id="t-posicao" class="titulo-secao" data-anima="sobe">De que lado a gente está</h2>
+    <p class="t-grande posicao" data-anima="surge">Texto de marcação: o posicionamento político da @bsurda.</p>
+    <p class="t-apoio" data-anima="surge" style="margin-top:1.5rem">Texto de marcação: as manifestações e Paradas de que a @bsurda participou, com datas e fotos.</p>
+  </section>
+
   <section class="secao" aria-labelledby="t-palco">
     <h2 id="t-palco" class="titulo-secao">Quem já passou pelo palco</h2>
     <p class="t-grande palco">Pabllo Vittar, Jão, Karol Conka, Elke Maravilha, Gloria Groove, Banda Uó, Bonde do Rolê, Kaya Conky, Pepita, Aretuza Lovi, Gretchen</p>
@@ -39,5 +47,6 @@ const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estrutur
   .verbo h2 { font-size: clamp(2.75rem, 9.5vw, 9rem); overflow-wrap: anywhere; }
   .verbo-cor h2 { color: var(--destaque); }
   .palco { max-width: 22em; }
+  .posicao { max-width: 16em; }
   @media (max-width: 720px) { .verbo { grid-template-columns: 1fr; } }
 </style>

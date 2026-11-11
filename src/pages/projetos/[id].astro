@@ -22,7 +22,7 @@ const tema = temaPara(projeto.id);
   <header class="abre" data-tema={atributo(tema)}>
     <a class="voltar" href="/projetos">Todos os projetos</a>
     {rotulos[projeto.data.situacao] && <p class="etiqueta">{rotulos[projeto.data.situacao]}</p>}
-    <h1 class="t-gigante ecoa ecoa-diagonal" data-eco={projeto.data.nome}>{projeto.data.nome}</h1>
+    <h1 class="t-gigante ecoa" data-eco={projeto.data.nome}>{projeto.data.nome}</h1>
     <p class="t-apoio">{projeto.data.resumo}</p>
   </header>
 

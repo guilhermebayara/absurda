@@ -180,32 +180,52 @@ const caminho = Astro.url.pathname;
 
   /* Eco nos títulos: fatias repetidas atrás do título, cada vez menores e mais fracas.
      O título é sempre o mais forte. O texto das fatias vem do atributo data-eco
-     e é ignorado por leitores de tela. As medidas são em "em", presas à última
-     (ou primeira) linha, para funcionar em títulos de várias linhas.
-     Cada página usa uma direção: para baixo, na diagonal do logo ou para cima. */
-  .ecoa { position: relative; --eco-x: 0em; }
-  .ecoa::before, .ecoa::after { content: attr(data-eco) / ''; position: absolute; left: 0; top: 0; width: 100%; pointer-events: none; transform-origin: 0 100%; }
+     e é ignorado por leitores de tela. As medidas são em "em", presas à borda do
+     título, para funcionar em títulos de várias linhas.
+     Cada página usa uma direção: para baixo, para cima, para a direita ou para a esquerda. */
+  .ecoa { position: relative; width: fit-content; max-width: 100%; --de-x: 0em; --de-y: -0.4em; }
+  .ecoa::before, .ecoa::after { content: attr(data-eco) / ''; position: absolute; left: 0; top: 0; width: 100%; pointer-events: none; }
   .ecoa::before { color: color-mix(in oklab, currentColor 55%, var(--fundo)); }
   .ecoa::after { color: color-mix(in oklab, currentColor 28%, var(--fundo)); }
-  /* para baixo (padrão) */
+
+  /* para baixo (padrão): o título desce e os ecos continuam a queda */
   .ecoa { margin-bottom: 0.5em; }
-  .ecoa::before { clip-path: inset(calc(100% - 0.27em) 0 0 0); transform: translate(var(--eco-x), 0.25em) scale(0.95); }
-  .ecoa::after { clip-path: inset(calc(100% - 0.14em) 0 0 0); transform: translate(calc(var(--eco-x) * 1.8), 0.41em) scale(0.89); }
-  /* na diagonal das hastes do logo */
-  .ecoa-diagonal { --eco-x: 0.13em; }
-  /* para cima */
-  .ecoa-cima { margin-bottom: 0; margin-top: 0.45em; }
-  .ecoa-cima::before, .ecoa-cima::after { transform-origin: 0 0; }
+  .ecoa::before, .ecoa::after { transform-origin: 50% 100%; }
+  .ecoa::before { clip-path: inset(calc(100% - 0.27em) 0 0 0); transform: translateY(0.25em) scale(0.95); }
+  .ecoa::after { clip-path: inset(calc(100% - 0.14em) 0 0 0); transform: translateY(0.41em) scale(0.89); }
+
+  /* para cima: o título sobe e os ecos seguem subindo */
+  .ecoa-cima { margin-bottom: 0; margin-top: 0.5em; --de-y: 0.4em; }
+  .ecoa-cima::before, .ecoa-cima::after { transform-origin: 50% 0; }
   .ecoa-cima::before { clip-path: inset(0 0 calc(100% - 0.3em) 0); transform: translateY(-0.25em) scale(0.95); }
   .ecoa-cima::after { clip-path: inset(0 0 calc(100% - 0.17em) 0); transform: translateY(-0.41em) scale(0.89); }
 
-  /* Entrada do título com eco: o título cresce e as fatias se soltam dele em seguida.
+  /* para a direita: o título chega da esquerda e os ecos escapam pela direita */
+  .ecoa-direita { margin-bottom: 0; --de-x: -0.6em; --de-y: 0em; }
+  .ecoa-direita::before, .ecoa-direita::after { transform-origin: 100% 50%; }
+  .ecoa-direita::before { clip-path: inset(0 0 0 calc(100% - 0.62em)); transform: translateX(0.52em) scale(0.95); }
+  .ecoa-direita::after { clip-path: inset(0 0 0 calc(100% - 0.34em)); transform: translateX(0.88em) scale(0.89); }
+
+  /* para a esquerda: título encostado à direita, chega da direita e os ecos escapam pela esquerda */
+  .ecoa-esquerda { margin-bottom: 0; margin-left: auto; --de-x: 0.6em; --de-y: 0em; }
+  .ecoa-esquerda::before, .ecoa-esquerda::after { transform-origin: 0 50%; }
+  .ecoa-esquerda::before { clip-path: inset(0 calc(100% - 0.62em) 0 0); transform: translateX(-0.52em) scale(0.95); }
+  .ecoa-esquerda::after { clip-path: inset(0 calc(100% - 0.34em) 0 0); transform: translateX(-0.88em) scale(0.89); }
+
+  /* O cabeçalho acompanha a direção do eco */
+  .abre { overflow-x: clip; }
+  .abre-esquerda { text-align: right; }
+  .abre-esquerda .t-apoio { margin-left: auto; }
+  .abre-cima { padding-top: clamp(4rem, 11vw, 10rem); }
+
+  /* Entrada do título com eco: o título chega no sentido do eco e as fatias
+     se soltam dele em seguida, continuando o movimento.
      Em títulos marcados com data-anima, só começa quando entram na tela. */
-  .js .ecoa { transform-origin: 0 100%; animation: titulo-entra 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99) both; }
-  .js .ecoa::before { animation: eco-solta 0.75s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.45s both; }
-  .js .ecoa::after { animation: eco-solta 0.75s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.55s both; }
+  .js .ecoa { animation: titulo-entra 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99) both; }
+  .js .ecoa::before { animation: eco-solta 0.75s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.5s both; }
+  .js .ecoa::after { animation: eco-solta 0.75s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.62s both; }
   .js .ecoa[data-anima]:not(.visto), .js .ecoa[data-anima]:not(.visto)::before, .js .ecoa[data-anima]:not(.visto)::after { animation-play-state: paused; }
-  @keyframes titulo-entra { from { transform: scale(0.6); opacity: 0; } 35% { opacity: 1; } }
+  @keyframes titulo-entra { from { transform: translate(var(--de-x), var(--de-y)) scale(0.82); opacity: 0; } 40% { opacity: 1; } }
   @keyframes eco-solta { from { transform: none; opacity: 0; } }
 
   /* Animações de entrada ao rolar. Só valem com JavaScript ligado;
