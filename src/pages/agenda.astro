@@ -1,18 +1,60 @@
 ---
 import Base from '../layouts/Base.astro';
-import CardEvento from '../components/CardEvento.astro';
+import PainelEvento from '../components/PainelEvento.astro';
+import Capa from '../components/Capa.astro';
 import { SITE } from '../config';
-import { getEventos } from '../lib/eventos';
+import { getEventos, partesDaData } from '../lib/eventos';
+import { atributo, TEMAS_DA_MARCA } from '../lib/temas';
 const { proximos, passados } = await getEventos();
+const temaInicial = proximos[0]?.tema ?? TEMAS_DA_MARCA[0];
+// Agrupa os passados por ano para a linha do tempo.
+const anos = new Map<number, typeof passados>();
+for (const e of passados) {
+  const ano = partesDaData(e.data).ano;
+  anos.set(ano, [...(anos.get(ano) ?? []), e]);
+}
 ---
-<Base titulo="Agenda">
-  <h1>Agenda</h1>
-  {proximos.length > 0
-    ? <ul class="grade">{proximos.map((e) => <li><CardEvento evento={e} /></li>)}</ul>
-    : <p>Nenhuma data anunciada no momento. Acompanhe pelo <a href={SITE.redes.instagram}>Instagram</a>.</p>}
+<Base titulo="Agenda" tema={temaInicial}>
+  <header class="abre" data-tema={atributo(temaInicial)}>
+    <h1 class="t-gigante">Agenda</h1>
+  </header>
 
-  <h2>Eventos passados</h2>
-  <p>As fotos de todas as edições estão no Pixieset.</p>
-  <a class="botao" href={SITE.fotos} target="_blank" rel="noopener">Ver fotos ↗</a>
-  <ul class="grade" style="margin-top:1.5rem">{passados.map((e) => <li><CardEvento evento={e} passado /></li>)}</ul>
+  {proximos.length > 0
+    ? proximos.map((e, i) => <PainelEvento evento={e} destaque={i === 0} />)
+    : (
+      <section class="secao">
+        <p class="t-medio">Nenhuma data anunciada no momento.</p>
+        <p class="t-apoio" style="margin-top:1rem">As próximas aparecem aqui assim que os ingressos abrirem. Enquanto isso, acompanhe pelo <a href={SITE.redes.instagram}>Instagram</a>.</p>
+      </section>
+    )}
+
+  <section class="secao passados" data-tema="sorteio" data-reserva={atributo(TEMAS_DA_MARCA[4])} aria-labelledby="t-passados">
+    <h2 id="t-passados" class="t-grande">Já rolou</h2>
+    <p class="t-apoio">As fotos de todas as edições ficam no Pixieset, separadas por festa.</p>
+    <a class="botao" href={SITE.fotos} target="_blank" rel="noopener">Ver fotos no Pixieset</a>
+
+    {[...anos].map(([ano, eventos]) => (
+      <div class="ano">
+        <h3 class="t-medio">{ano}</h3>
+        <ul class="grade">
+          {eventos.map((e) => {
+            const d = partesDaData(e.data);
+            return (
+              <li class="card">
+                <Capa src={e.capa} />
+                <h3>{e.nome}</h3>
+                <p>{d.dia} de {d.mes}{e.local && `, ${e.local}`}</p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    ))}
+  </section>
 </Base>
+
+<style>
+  .passados > * + * { margin-top: clamp(1.25rem, 3vw, 2rem); }
+  .ano { margin-top: clamp(3rem, 7vw, 5rem); display: grid; grid-template-columns: minmax(4rem, 8rem) 1fr; gap: 1.5rem; border-top: 1px solid var(--linha); padding-top: 1.5rem; }
+  @media (max-width: 640px) { .ano { grid-template-columns: 1fr; } }
+</style>

@@ -1,21 +1,36 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Capa from '../../components/Capa.astro';
 import { getCollection } from 'astro:content';
+import { atributo, temaPara } from '../../lib/temas';
 const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
-const rotulos = { ativo: 'Ativo', 'em-elaboracao': 'Em elaboração', arquivo: 'Arquivo' };
+const rotulos = { ativo: '', 'em-elaboracao': 'Em elaboração', arquivo: 'Arquivo' };
+const temaInicial = temaPara(projetos[0].id);
 ---
-<Base titulo="Projetos">
-  <h1>Projetos</h1>
-  <ul class="grade">
-    {projetos.map((p) => (
-      <li>
-        <a class="card" href={`/projetos/${p.id}`}>
-          <div class="img">capa</div>
-          <span class="etiqueta">{rotulos[p.data.situacao]}</span>
-          <h3>{p.data.nome}</h3>
-          <p>{p.data.resumo}</p>
-        </a>
-      </li>
-    ))}
-  </ul>
+<Base titulo="Projetos" tema={temaInicial}>
+  <header class="abre" data-tema={atributo(temaInicial)}>
+    <h1 class="t-gigante">Projetos</h1>
+    <p class="t-apoio">Texto de marcação: uma frase sobre tudo o que a @bsurda faz além da festa.</p>
+  </header>
+
+  {projetos.map((p) => (
+    <article class="projeto" data-tema={atributo(temaPara(p.id))}>
+      <div>
+        {rotulos[p.data.situacao] && <p class="etiqueta">{rotulos[p.data.situacao]}</p>}
+        <h2 class="t-grande"><a href={`/projetos/${p.id}`}>{p.data.nome}</a></h2>
+        <p class="t-apoio">{p.data.resumo}</p>
+        <a class="botao" href={`/projetos/${p.id}`}>Conhecer<span class="so-leitor"> {p.data.nome}</span></a>
+      </div>
+      <a href={`/projetos/${p.id}`} tabindex="-1" aria-hidden="true"><Capa src={p.data.capa} proporcao="4 / 3" /></a>
+    </article>
+  ))}
 </Base>
+
+<style>
+  .projeto { display: grid; grid-template-columns: 1.2fr 1fr; gap: clamp(1.5rem, 5vw, 5rem); align-items: center; padding: clamp(3rem, 8vw, 7rem) var(--margem); border-top: 1px solid var(--linha); }
+  .projeto > div > * + * { margin-top: 1.25rem; }
+  .projeto h2 a { text-decoration: none; }
+  .projeto h2 a:hover { text-decoration: underline; text-decoration-thickness: 0.05em; }
+  .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  @media (max-width: 720px) { .projeto { grid-template-columns: 1fr; } }
+</style>

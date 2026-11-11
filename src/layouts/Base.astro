@@ -1,66 +1,242 @@
 ---
+import '@fontsource-variable/outfit';
+import '@fontsource-variable/urbanist';
+import '@fontsource-variable/albert-sans';
 import { SITE, NAV } from '../config';
-interface Props { titulo?: string; descricao?: string }
-const { titulo, descricao = SITE.descricao } = Astro.props;
-const tituloPagina = titulo ? `${titulo} · ${SITE.nome}` : `${SITE.nome} · ${SITE.lema}`;
+import { TEMAS_DA_MARCA, atributo, type Tema } from '../lib/temas';
+import Arroba from '../components/marca/Arroba.astro';
+import Silabas from '../components/marca/Silabas.astro';
+
+interface Props {
+  titulo?: string;
+  descricao?: string;
+  // Tema inicial da página. Sem ele, a página sorteia um par da marca a cada visita.
+  tema?: Tema;
+}
+const { titulo, descricao = SITE.descricao, tema } = Astro.props;
+const tituloPagina = titulo ? `${titulo} | ${SITE.nome}` : `${SITE.nome}, ${SITE.lema.toLowerCase()}`;
+const inicial = tema ?? TEMAS_DA_MARCA[0];
+const sorteio = TEMAS_DA_MARCA.map(atributo);
+const caminho = Astro.url.pathname;
 ---
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" style={`--fundo:${inicial.fundo};--texto:${inicial.texto};--destaque:${inicial.destaque}`}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{tituloPagina}</title>
     <meta name="description" content={descricao} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <script is:inline define:vars={{ sorteio, sortear: !tema }}>
+      // Roda antes de a página aparecer, para não piscar a cor errada.
+      (function () {
+        var raiz = document.documentElement;
+        try {
+          var fonte = localStorage.getItem('fonte-teste');
+          if (fonte) raiz.dataset.fonte = fonte;
+        } catch (e) {}
+        if (sortear) {
+          var t = sorteio[Math.floor(Math.random() * sorteio.length)].split('|');
+          raiz.style.setProperty('--fundo', t[0]);
+          raiz.style.setProperty('--texto', t[1]);
+          raiz.style.setProperty('--destaque', t[2]);
+          raiz.dataset.temaSorteado = t.join('|');
+        }
+      })();
+    </script>
   </head>
   <body>
+    <a class="pular" href="#conteudo">Pular para o conteúdo</a>
     <header class="topo">
-      <a class="marca" href="/">{SITE.nome}</a>
+      <a class="topo-marca" href="/" aria-label="@bsurda, página inicial"><Arroba /></a>
       <nav aria-label="Principal">
-        {NAV.map((item) => <a href={item.href}>{item.rotulo}</a>)}
-        <a href={SITE.fotos} target="_blank" rel="noopener">Fotos ↗</a>
+        {NAV.map((item) => (
+          <a href={item.href} aria-current={caminho.startsWith(item.href) ? 'page' : undefined}>{item.rotulo}</a>
+        ))}
+        <a href={SITE.fotos} target="_blank" rel="noopener">Fotos</a>
       </nav>
     </header>
-    <main>
+
+    <main id="conteudo">
       <slot />
     </main>
+
     <footer class="rodape">
-      <p class="marca">{SITE.nome}</p>
-      <p>{SITE.lema}</p>
-      <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
-      <p>
-        <a href={SITE.redes.instagram}>Instagram</a>
-        <a href={SITE.redes.tiktok}>TikTok</a>
-        <a href={SITE.redes.x}>X</a>
-      </p>
+      <a class="rodape-marca" href="/" aria-label="@bsurda, página inicial"><Silabas /></a>
+      <div class="rodape-colunas">
+        <div>
+          <h2>Site</h2>
+          <ul>{NAV.map((item) => <li><a href={item.href}>{item.rotulo}</a></li>)}</ul>
+        </div>
+        <div>
+          <h2>Fora daqui</h2>
+          <ul>
+            <li><a href={SITE.ingressos} target="_blank" rel="noopener">Ingressos no Shotgun</a></li>
+            <li><a href={SITE.fotos} target="_blank" rel="noopener">Fotos no Pixieset</a></li>
+            <li><a href={SITE.redes.instagram} target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href={SITE.redes.tiktok} target="_blank" rel="noopener">TikTok</a></li>
+            <li><a href={SITE.redes.x} target="_blank" rel="noopener">X</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Fale com a gente</h2>
+          <ul>
+            <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+            <li><a href="/contato">Formulário de contato</a></li>
+            <li><a href="/parceiros">Sua marca na @bsurda</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="rodape-fim">{SITE.lema}, desde 2009. Belo Horizonte.</p>
     </footer>
+
+    <!-- Provisório: seletor para comparar as fontes candidatas. Sai antes do lançamento. -->
+    <div class="teste-fonte" role="group" aria-label="Fonte em teste">
+      <span>Fonte em teste</span>
+      <button type="button" data-fonte="outfit">Outfit</button>
+      <button type="button" data-fonte="urbanist">Urbanist</button>
+      <button type="button" data-fonte="albert">Albert Sans</button>
+    </div>
+
+    <script>
+      // Troca o tema conforme o trecho que está no meio da tela.
+      const raiz = document.documentElement;
+      const aplicar = (texto: string | undefined) => {
+        if (!texto) return;
+        const [fundo, cor, destaque] = texto.split('|');
+        raiz.style.setProperty('--fundo', fundo);
+        raiz.style.setProperty('--texto', cor);
+        raiz.style.setProperty('--destaque', destaque);
+      };
+      const trechos = document.querySelectorAll<HTMLElement>('[data-tema]');
+      if (trechos.length > 0) {
+        const observador = new IntersectionObserver(
+          (entradas) => {
+            for (const entrada of entradas) {
+              if (!entrada.isIntersecting) continue;
+              const alvo = entrada.target as HTMLElement;
+              aplicar(alvo.dataset.tema === 'sorteio' ? raiz.dataset.temaSorteado ?? alvo.dataset.reserva : alvo.dataset.tema);
+            }
+          },
+          { rootMargin: '-45% 0px -45% 0px' },
+        );
+        trechos.forEach((trecho) => observador.observe(trecho));
+      }
+
+      // Seletor provisório de fonte.
+      const botoes = document.querySelectorAll<HTMLButtonElement>('.teste-fonte button');
+      const marcar = () => {
+        const atual = raiz.dataset.fonte ?? 'outfit';
+        botoes.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.fonte === atual)));
+      };
+      botoes.forEach((botao) =>
+        botao.addEventListener('click', () => {
+          raiz.dataset.fonte = botao.dataset.fonte;
+          try { localStorage.setItem('fonte-teste', botao.dataset.fonte ?? ''); } catch {}
+          marcar();
+        }),
+      );
+      marcar();
+    </script>
   </body>
 </html>
 
 <style is:global>
-  /* Estilo provisório de esqueleto. O desenho de verdade vem na etapa de design. */
-  :root { --fundo: #111; --texto: #f4f4f0; --apagado: #9a9a94; --linha: #333; --destaque: #ffa800; }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--fundo); color: var(--texto); font: 16px/1.5 system-ui, sans-serif; }
-  a { color: inherit; }
-  main { max-width: 1100px; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
-  h1 { font-size: clamp(2.2rem, 7vw, 5rem); line-height: 1; margin: 2rem 0 1rem; text-wrap: balance; }
-  h2 { font-size: 1.5rem; margin: 3rem 0 1rem; }
-  .topo { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; align-items: baseline; padding: 1rem 1.25rem; border-bottom: 1px solid var(--linha); }
-  .topo nav { display: flex; flex-wrap: wrap; gap: 1rem; }
-  .topo nav a { text-decoration: none; color: var(--apagado); }
-  .topo nav a:hover { color: var(--texto); }
-  .marca { font-weight: 700; text-decoration: none; letter-spacing: 0.04em; }
-  .rodape { border-top: 1px solid var(--linha); padding: 2rem 1.25rem; color: var(--apagado); }
-  .rodape a { margin-right: 1rem; }
-  .grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; padding: 0; list-style: none; }
-  .card { display: block; border: 1px solid var(--linha); padding: 1rem; text-decoration: none; height: 100%; }
-  .card:hover { border-color: var(--destaque); }
-  .card .img { aspect-ratio: 4 / 5; background: #222; display: grid; place-items: center; color: var(--apagado); margin-bottom: 0.75rem; font-size: 0.85rem; }
-  .card h3 { margin: 0 0 0.25rem; }
-  .card p { margin: 0; color: var(--apagado); }
-  .etiqueta { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--destaque); }
-  .botao { display: inline-block; border: 1px solid var(--texto); padding: 0.6rem 1rem; text-decoration: none; margin-top: 1rem; }
-  .linha-tempo { list-style: none; padding: 0; }
-  .linha-tempo li { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; padding: 0.75rem 0; border-top: 1px solid var(--linha); }
-  .linha-tempo .ano { color: var(--destaque); font-weight: 700; }
+  /* Cores registradas como propriedades animáveis: a página inteira
+     desliza de um tema para o outro em vez de trocar de uma vez. */
+  @property --fundo { syntax: '<color>'; inherits: true; initial-value: #711a40; }
+  @property --texto { syntax: '<color>'; inherits: true; initial-value: #ffa500; }
+  @property --destaque { syntax: '<color>'; inherits: true; initial-value: #f55275; }
+
+  :root {
+    --fonte: 'Outfit Variable', system-ui, sans-serif;
+    --margem: clamp(1.25rem, 4vw, 3.5rem);
+    --linha: color-mix(in srgb, var(--texto) 28%, transparent);
+    --suave: color-mix(in srgb, var(--texto) 72%, var(--fundo));
+    transition: --fundo 0.7s ease, --texto 0.7s ease, --destaque 0.7s ease;
+  }
+  :root[data-fonte='urbanist'] { --fonte: 'Urbanist Variable', system-ui, sans-serif; }
+  :root[data-fonte='albert'] { --fonte: 'Albert Sans Variable', system-ui, sans-serif; }
+  @media (prefers-reduced-motion: reduce) { :root { transition: none; } }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { background: var(--fundo); color: var(--texto); }
+  body { margin: 0; font: 400 1.0625rem/1.5 var(--fonte); -webkit-font-smoothing: antialiased; }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.06em; }
+  :focus-visible { outline: 3px solid var(--destaque); outline-offset: 3px; }
+  ::selection { background: var(--texto); color: var(--fundo); }
+  h1, h2, h3, p, ul, ol { margin: 0; }
+  ul, ol { padding: 0; list-style: none; }
+
+  .pular { position: absolute; left: -999px; top: 0; background: var(--texto); color: var(--fundo); padding: 0.75rem 1rem; z-index: 10; }
+  .pular:focus { left: 0; }
+
+  /* Escala tipográfica */
+  .t-gigante { font-size: clamp(3.25rem, 13vw, 12rem); font-weight: 600; line-height: 0.88; letter-spacing: -0.035em; text-wrap: balance; }
+  .t-grande { font-size: clamp(2.25rem, 6.5vw, 5.5rem); font-weight: 600; line-height: 0.95; letter-spacing: -0.03em; text-wrap: balance; }
+  .t-medio { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 500; line-height: 1.08; letter-spacing: -0.02em; text-wrap: balance; }
+  .t-apoio { font-size: clamp(1.125rem, 1.6vw, 1.375rem); line-height: 1.4; max-width: 34em; }
+  .t-pequeno { font-size: 0.9375rem; color: var(--suave); }
+
+  .secao { padding: clamp(3.5rem, 9vw, 8rem) var(--margem); }
+  .secao + .secao { border-top: 1px solid var(--linha); }
+  .titulo-secao { font-size: 1rem; font-weight: 500; margin-bottom: clamp(1.5rem, 4vw, 3rem); color: var(--suave); }
+
+  .botao { display: inline-block; padding: 0.85em 1.4em; border: 1.5px solid currentColor; font-weight: 500; text-decoration: none; transition: background-color 0.15s, color 0.15s; }
+  .botao:hover { background: var(--texto); color: var(--fundo); border-color: var(--texto); }
+  .botao-cheio { background: var(--texto); color: var(--fundo); border-color: var(--texto); }
+  .botao-cheio:hover { background: var(--destaque); border-color: var(--destaque); }
+  .link { font-weight: 500; }
+
+  /* Topo */
+  .topo { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding: 1.1rem var(--margem); }
+  .topo-marca { width: 2.4rem; flex: none; }
+  .topo nav { display: flex; gap: clamp(0.9rem, 2vw, 1.9rem); overflow-x: auto; scrollbar-width: none; }
+  .topo nav a { text-decoration: none; font-weight: 500; white-space: nowrap; padding: 0.35rem 0; border-bottom: 1.5px solid transparent; }
+  .topo nav a:hover, .topo nav a[aria-current='page'] { border-bottom-color: currentColor; }
+
+  /* Rodapé grande */
+  .rodape { border-top: 1px solid var(--linha); padding: clamp(3rem, 8vw, 7rem) var(--margem) 2rem; display: grid; gap: clamp(2.5rem, 6vw, 5rem); grid-template-columns: minmax(9rem, 22vw) 1fr; align-items: start; }
+  .rodape-marca { display: block; }
+  .rodape-colunas { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 2rem; }
+  .rodape h2 { font-size: 0.9375rem; font-weight: 500; color: var(--suave); margin-bottom: 0.9rem; }
+  .rodape li { margin-bottom: 0.45rem; }
+  .rodape li a { text-decoration: none; font-size: 1.125rem; }
+  .rodape li a:hover { text-decoration: underline; }
+  .rodape-fim { grid-column: 1 / -1; padding-top: 1.5rem; border-top: 1px solid var(--linha); color: var(--suave); font-size: 0.9375rem; }
+  @media (max-width: 640px) { .rodape { grid-template-columns: 1fr; } .rodape-marca { width: 45%; } }
+
+  /* Cabeçalho das páginas internas */
+  .abre { padding: clamp(2.5rem, 7vw, 6rem) var(--margem) clamp(2rem, 5vw, 4rem); }
+  .abre .t-apoio { margin-top: 1.5rem; }
+  .voltar { display: inline-block; margin-bottom: 1.5rem; text-decoration: none; font-weight: 500; }
+  .voltar:hover { text-decoration: underline; }
+  .conteudo { padding: 0 var(--margem) clamp(3.5rem, 9vw, 8rem); }
+  .conteudo > * + * { margin-top: 1.25rem; }
+  .conteudo h2 { font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 500; letter-spacing: -0.02em; margin-top: clamp(3rem, 7vw, 5.5rem); margin-bottom: 1.5rem; }
+  .conteudo p { max-width: 38em; }
+  .prosa p { font-size: clamp(1.125rem, 1.6vw, 1.375rem); line-height: 1.45; max-width: 34em; }
+
+  /* Grade genérica de cartões (equipe, parceiros, passados) */
+  .grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr)); gap: clamp(1rem, 2.5vw, 2rem); }
+  .card { display: block; text-decoration: none; }
+  .card h3 { font-size: 1.375rem; font-weight: 500; letter-spacing: -0.01em; margin-top: 0.8rem; }
+  .card p { color: var(--suave); }
+  a.card:hover h3 { text-decoration: underline; }
+  .etiqueta { font-size: 0.9375rem; font-weight: 500; color: var(--suave); }
+
+  .linha-tempo li { display: grid; grid-template-columns: minmax(4rem, 8rem) 1fr; gap: 1rem; padding: 1.1rem 0; border-top: 1px solid var(--linha); }
+  .linha-tempo .ano { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; }
+  .linha-tempo strong { font-size: 1.5rem; font-weight: 500; letter-spacing: -0.02em; }
+
+  form label { display: grid; gap: 0.35rem; font-weight: 500; }
+  input, select, textarea { font: inherit; color: var(--texto); background: transparent; border: 1.5px solid var(--linha); padding: 0.7rem 0.8rem; border-radius: 0; }
+  button { font: inherit; }
+
+  /* Seletor provisório de fonte */
+  .teste-fonte { position: fixed; left: 0.75rem; bottom: 0.75rem; z-index: 20; display: flex; align-items: center; gap: 0.25rem; padding: 0.3rem 0.4rem 0.3rem 0.7rem; background: #111; color: #fff; font: 500 0.8125rem/1 system-ui, sans-serif; }
+  .teste-fonte button { background: transparent; color: inherit; border: 1px solid transparent; padding: 0.4rem 0.55rem; cursor: pointer; font: inherit; }
+  .teste-fonte button[aria-pressed='true'] { background: #fff; color: #111; }
+  @media print { .teste-fonte { display: none; } }
 </style>

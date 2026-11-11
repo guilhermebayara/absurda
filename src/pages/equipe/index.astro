@@ -1,26 +1,39 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Capa from '../../components/Capa.astro';
 import { getCollection } from 'astro:content';
 const pessoas = (await getCollection('pessoas')).sort((a, b) => a.data.ordem - b.data.ordem);
 const atuais = pessoas.filter((p) => p.data.situacao === 'atual');
 const anteriores = pessoas.filter((p) => p.data.situacao === 'anterior');
 ---
 <Base titulo="Equipe">
-  <h1>Equipe</h1>
-  <ul class="grade">
-    {atuais.map((p) => (
-      <li><a class="card" href={`/equipe/${p.id}`}><div class="img">foto</div><h3>{p.data.nome}</h3><p>{p.data.funcao}</p></a></li>
-    ))}
-  </ul>
+  <header class="abre">
+    <h1 class="t-gigante">Equipe</h1>
+  </header>
 
-  {anteriores.length > 0 && (
-    <section>
-      <h2>Quem fez parte</h2>
-      <ul class="grade">
-        {anteriores.map((p) => (
-          <li><a class="card" href={`/equipe/${p.id}`}><h3>{p.data.nome}</h3><p>{p.data.funcao}</p></a></li>
-        ))}
-      </ul>
-    </section>
-  )}
+  <div class="conteudo">
+    <ul class="grade">
+      {atuais.map((p) => (
+        <li><a class="card" href={`/equipe/${p.id}`}><Capa src={p.data.foto} /><h3>{p.data.nome}</h3><p>{p.data.funcao}</p></a></li>
+      ))}
+    </ul>
+
+    {anteriores.length > 0 && (
+      <section aria-labelledby="t-anteriores">
+        <h2 id="t-anteriores">Quem fez parte</h2>
+        <ul class="anteriores">
+          {anteriores.map((p) => (
+            <li><a href={`/equipe/${p.id}`}><span class="t-medio">{p.data.nome}</span><span class="t-pequeno">{p.data.funcao}</span></a></li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </div>
 </Base>
+
+<style>
+  .anteriores li { border-top: 1px solid var(--linha); }
+  .anteriores li:last-child { border-bottom: 1px solid var(--linha); }
+  .anteriores a { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.5rem 2rem; padding: 1rem 0; text-decoration: none; }
+  .anteriores a:hover .t-medio { text-decoration: underline; }
+</style>

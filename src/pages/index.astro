@@ -1,50 +1,109 @@
 ---
 import Base from '../layouts/Base.astro';
-import CardEvento from '../components/CardEvento.astro';
+import PainelEvento from '../components/PainelEvento.astro';
+import Completo from '../components/marca/Completo.astro';
 import { SITE } from '../config';
 import { getEventos } from '../lib/eventos';
+import { atributo, temaPara, TEMAS_DA_MARCA } from '../lib/temas';
 import { getCollection } from 'astro:content';
 
 const { proximos } = await getEventos();
 const [destaque, ...outros] = proximos;
 const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
+const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estruturamos', 'Renascemos'];
+// A capa do site veste as cores do próximo evento.
+const temaInicial = destaque?.tema ?? TEMAS_DA_MARCA[0];
+const temaSobre = TEMAS_DA_MARCA[4];
 ---
-<Base>
-  <h1>{SITE.nome}<br />{SITE.lema}</h1>
-
-  {destaque && (
-    <section>
-      <h2>Próximo evento</h2>
-      <CardEvento evento={destaque} />
-    </section>
-  )}
-
-  {outros.length > 0 && (
-    <section>
-      <h2>Agenda</h2>
-      <ul class="grade">{outros.slice(0, 3).map((e) => <li><CardEvento evento={e} /></li>)}</ul>
-      <a class="botao" href="/agenda">Ver agenda completa</a>
-    </section>
-  )}
-
-  <section>
-    <h2>Sobre</h2>
-    <p>{SITE.descricao}</p>
-    <a class="botao" href="/sobre">Conheça a história</a>
+<Base tema={temaInicial}>
+  <section class="capa-site" data-tema={atributo(temaInicial)}>
+    <h1 class="capa-marca"><Completo titulo="@bsurda" /></h1>
+    <p class="capa-lema t-medio">Festa pop LGBTQIA+ de Belo Horizonte. {SITE.lema}, desde 2009.</p>
   </section>
 
-  <section>
-    <h2>Projetos</h2>
-    <ul class="grade">
+  {destaque
+    ? <PainelEvento evento={destaque} destaque />
+    : (
+      <section class="secao">
+        <p class="t-medio">Nenhuma data anunciada no momento.</p>
+        <p class="t-apoio" style="margin-top:1rem">As próximas aparecem aqui assim que os ingressos abrirem. Enquanto isso, acompanhe pelo <a href={SITE.redes.instagram}>Instagram</a>.</p>
+      </section>
+    )}
+
+  {outros.length > 0 && (
+    <section aria-labelledby="t-agenda">
+      <h2 id="t-agenda" class="titulo-secao faixa">Também na agenda</h2>
+      {outros.slice(0, 3).map((e) => <PainelEvento evento={e} />)}
+      <p class="faixa faixa-fim"><a class="link" href="/agenda">Agenda completa e eventos passados</a></p>
+    </section>
+  )}
+
+  <section class="secao sobre" data-tema={atributo(temaSobre)} aria-labelledby="t-sobre">
+    <h2 id="t-sobre" class="titulo-secao">17 anos de @bsurda</h2>
+    <p class="verbos t-grande">
+      {verbos.map((v) => <span>{v}. </span>)}
+    </p>
+    <p class="t-apoio">{SITE.descricao}</p>
+    <a class="botao" href="/sobre">A história da @bsurda</a>
+  </section>
+
+  <section class="secao" data-tema="sorteio" data-reserva={atributo(TEMAS_DA_MARCA[7])} aria-labelledby="t-projetos">
+    <h2 id="t-projetos" class="titulo-secao">Projetos</h2>
+    <ul class="indice">
       {projetos.map((p) => (
-        <li><a class="card" href={`/projetos/${p.id}`}><h3>{p.data.nome}</h3><p>{p.data.resumo}</p></a></li>
+        <li>
+          <a href={`/projetos/${p.id}`} data-tema-ao-passar={atributo(temaPara(p.id))}>
+            <span class="indice-nome t-grande">{p.data.nome}</span>
+            <span class="indice-resumo">{p.data.resumo}</span>
+          </a>
+        </li>
       ))}
     </ul>
   </section>
 
-  <section>
-    <h2>Fotos</h2>
-    <p>Todas as fotos das festas ficam no nosso Pixieset.</p>
-    <a class="botao" href={SITE.fotos} target="_blank" rel="noopener">Ver fotos ↗</a>
+  <section class="secao fotos" data-tema={atributo(TEMAS_DA_MARCA[2])} aria-labelledby="t-fotos">
+    <h2 id="t-fotos" class="t-grande">Foi e quer se achar nas fotos?</h2>
+    <p class="t-apoio">As fotos de todas as edições ficam no nosso Pixieset, separadas por festa.</p>
+    <a class="botao botao-cheio" href={SITE.fotos} target="_blank" rel="noopener">Ver fotos no Pixieset</a>
   </section>
 </Base>
+
+<script>
+  // No índice de projetos, passar por um nome mostra a cor daquele projeto.
+  const raiz = document.documentElement;
+  let guardado: string[] | null = null;
+  const ler = () => ['--fundo', '--texto', '--destaque'].map((v) => raiz.style.getPropertyValue(v));
+  const por = (cores: string[]) => ['--fundo', '--texto', '--destaque'].forEach((v, i) => raiz.style.setProperty(v, cores[i]));
+  document.querySelectorAll<HTMLElement>('[data-tema-ao-passar]').forEach((el) => {
+    const entrar = () => { guardado ??= ler(); por(el.dataset.temaAoPassar!.split('|')); };
+    const sair = () => { if (guardado) por(guardado); guardado = null; };
+    el.addEventListener('pointerenter', entrar);
+    el.addEventListener('pointerleave', sair);
+    el.addEventListener('focus', entrar);
+    el.addEventListener('blur', sair);
+  });
+</script>
+
+<style>
+  .capa-site { padding: clamp(1rem, 3vw, 2.5rem) var(--margem) 0; }
+  .capa-marca { margin: 0; }
+  .capa-marca :global(svg) { width: 100%; height: auto; }
+  .capa-lema { margin-top: clamp(1.25rem, 3vw, 2.5rem); max-width: 22em; }
+
+  .faixa { padding: 0 var(--margem); }
+  h2.faixa { margin: clamp(2rem, 5vw, 4rem) 0 clamp(1rem, 2vw, 1.5rem); }
+  .faixa-fim { padding-top: 2rem; padding-bottom: clamp(3rem, 7vw, 6rem); border-top: 1px solid var(--linha); font-size: 1.25rem; }
+
+  .sobre > * + * { margin-top: clamp(1.5rem, 3vw, 2.5rem); }
+  .verbos { max-width: 16em; }
+
+  .indice li { border-top: 1px solid var(--linha); }
+  .indice li:last-child { border-bottom: 1px solid var(--linha); }
+  .indice a { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1rem 3rem; align-items: baseline; padding: clamp(1rem, 2.5vw, 2rem) 0; text-decoration: none; }
+  .indice-resumo { color: var(--suave); max-width: 26em; }
+  .indice a:hover .indice-nome, .indice a:focus-visible .indice-nome { text-decoration: underline; text-decoration-thickness: 0.05em; }
+  @media (max-width: 720px) { .indice a { grid-template-columns: 1fr; } }
+
+  .fotos > * + * { margin-top: clamp(1.25rem, 3vw, 2rem); }
+  .fotos h2 { max-width: 12em; }
+</style>

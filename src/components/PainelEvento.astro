@@ -1,0 +1,53 @@
+---
+// Um evento ocupando a largura toda, com a cor dele.
+// A página troca para o tema do evento quando o painel chega ao meio da tela.
+import type { Evento } from '../lib/eventos';
+import { partesDaData } from '../lib/eventos';
+import { atributo } from '../lib/temas';
+import Capa from './Capa.astro';
+interface Props { evento: Evento; destaque?: boolean }
+const { evento, destaque = false } = Astro.props;
+const d = partesDaData(evento.data);
+---
+<article class:list={['painel', { 'painel-destaque': destaque }]} data-tema={atributo(evento.tema)}>
+  <div class="painel-data" aria-hidden="true">
+    <span class="painel-dia">{d.dia}</span>
+    <span class="painel-mes">{d.mes}</span>
+  </div>
+  <div class="painel-texto">
+    {destaque && <p class="etiqueta">Próximo evento</p>}
+    <h3 class={destaque ? 't-grande' : 't-medio'}>
+      <a href={evento.url} target="_blank" rel="noopener">{evento.nome}</a>
+    </h3>
+    <p class="painel-quando">
+      <span class="so-leitor">{d.dia} de {d.mes}, </span>{d.semana}, {d.hora}{evento.local && `. ${evento.local}`}
+    </p>
+    <a class:list={['botao', { 'botao-cheio': destaque }]} href={evento.url} target="_blank" rel="noopener">
+      Ingressos<span class="so-leitor"> para {evento.nome}</span>
+    </a>
+  </div>
+  <a class="painel-capa" href={evento.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+    <Capa src={evento.capa} />
+  </a>
+</article>
+
+<style>
+  .painel { display: grid; grid-template-columns: minmax(5rem, 0.7fr) 2fr minmax(9rem, 1fr); gap: clamp(1rem, 4vw, 4rem); align-items: center; padding: clamp(2.5rem, 7vw, 6rem) var(--margem); border-top: 1px solid var(--linha); }
+  .painel-destaque { grid-template-columns: minmax(5rem, 0.7fr) 1.6fr minmax(12rem, 1.3fr); border-top: 0; padding-top: clamp(1.5rem, 4vw, 3rem); }
+  .painel-data { display: flex; flex-direction: column; line-height: 0.85; }
+  .painel-dia { font-size: clamp(3.5rem, 11vw, 10rem); font-weight: 600; letter-spacing: -0.05em; }
+  .painel-mes { font-size: clamp(1.25rem, 3vw, 2.5rem); font-weight: 500; margin-top: 0.4em; }
+  .painel-texto > * + * { margin-top: 1rem; }
+  .painel-texto h3 a { text-decoration: none; }
+  .painel-texto h3 a:hover { text-decoration: underline; text-decoration-thickness: 0.05em; }
+  .painel-quando { font-size: clamp(1.0625rem, 1.5vw, 1.25rem); }
+  .painel-quando::first-letter { text-transform: uppercase; }
+  .painel-capa { display: block; }
+  .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+  @media (max-width: 720px) {
+    .painel, .painel-destaque { grid-template-columns: auto 1fr; align-items: start; }
+    .painel-capa { grid-column: 1 / -1; grid-row: 1; }
+    .painel-destaque .painel-capa { max-width: 100%; }
+  }
+</style>

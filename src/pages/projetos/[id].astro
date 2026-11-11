@@ -1,24 +1,58 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Capa from '../../components/Capa.astro';
 import { getCollection, getEntries, render } from 'astro:content';
+import { atributo, inverter, temaPara } from '../../lib/temas';
 
 export async function getStaticPaths() {
-  const projetos = await getCollection('projetos');
-  return projetos.map((projeto) => ({ params: { id: projeto.id }, props: { projeto } }));
+  const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
+  return projetos.map((projeto, i) => ({
+    params: { id: projeto.id },
+    props: { projeto, seguinte: projetos[(i + 1) % projetos.length] },
+  }));
 }
-const { projeto } = Astro.props;
+const { projeto, seguinte } = Astro.props;
 const { Content } = await render(projeto);
 const pessoas = await getEntries(projeto.data.pessoas);
+const rotulos = { ativo: '', 'em-elaboracao': 'Em elaboração', arquivo: 'Projeto de arquivo' };
+// O tema virá da capa do projeto. Por enquanto, um par fixo da marca.
+const tema = temaPara(projeto.id);
 ---
-<Base titulo={projeto.data.nome} descricao={projeto.data.resumo}>
-  <p><a href="/projetos">← Projetos</a></p>
-  <h1>{projeto.data.nome}</h1>
-  <p>{projeto.data.resumo}</p>
-  <Content />
+<Base titulo={projeto.data.nome} descricao={projeto.data.resumo} tema={tema}>
+  <header class="abre" data-tema={atributo(tema)}>
+    <a class="voltar" href="/projetos">Todos os projetos</a>
+    {rotulos[projeto.data.situacao] && <p class="etiqueta">{rotulos[projeto.data.situacao]}</p>}
+    <h1 class="t-gigante">{projeto.data.nome}</h1>
+    <p class="t-apoio">{projeto.data.resumo}</p>
+  </header>
+
+  <div class="capa-projeto"><Capa src={projeto.data.capa} proporcao="21 / 9" /></div>
+
+  <div class="conteudo prosa" data-tema={atributo(inverter(tema))}>
+    <Content />
+  </div>
+
   {pessoas.length > 0 && (
-    <section>
-      <h2>Quem faz</h2>
-      <ul class="grade">{pessoas.map((p) => <li><a class="card" href={`/equipe/${p.id}`}><h3>{p.data.nome}</h3><p>{p.data.funcao}</p></a></li>)}</ul>
+    <section class="secao" data-tema={atributo(tema)} aria-labelledby="t-quem">
+      <h2 id="t-quem" class="titulo-secao">Quem faz</h2>
+      <ul class="grade">
+        {pessoas.map((p) => (
+          <li><a class="card" href={`/equipe/${p.id}`}><Capa src={p.data.foto} /><h3>{p.data.nome}</h3><p>{p.data.funcao}</p></a></li>
+        ))}
+      </ul>
     </section>
   )}
+
+  <a class="seguinte" href={`/projetos/${seguinte.id}`} data-tema={atributo(temaPara(seguinte.id))}>
+    <span class="etiqueta">Próximo projeto</span>
+    <span class="t-gigante">{seguinte.data.nome}</span>
+  </a>
 </Base>
+
+<style>
+  .abre .etiqueta { margin-bottom: 0.75rem; }
+  .capa-projeto { padding: 0 var(--margem) clamp(3rem, 7vw, 6rem); }
+  .prosa { padding-top: clamp(3rem, 7vw, 6rem); }
+  .seguinte { display: grid; gap: 1rem; padding: clamp(3.5rem, 9vw, 8rem) var(--margem); border-top: 1px solid var(--linha); text-decoration: none; }
+  .seguinte:hover .t-gigante { text-decoration: underline; text-decoration-thickness: 0.04em; }
+</style>

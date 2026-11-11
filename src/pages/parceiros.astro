@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { SITE } from '../config';
 import { getCollection } from 'astro:content';
+import { atributo, TEMAS_DA_MARCA } from '../lib/temas';
 const parceiros = await getCollection('parceiros');
 const grupos = [
   { tipo: 'apoio', titulo: 'Marcas que apoiam' },
@@ -10,21 +11,33 @@ const grupos = [
 ];
 ---
 <Base titulo="Parceiros">
-  <h1>Parceiros</h1>
-  {grupos.map((g) => (
-    <section>
-      <h2>{g.titulo}</h2>
-      <ul class="grade">
-        {parceiros.filter((p) => p.data.tipo === g.tipo).map((p) => (
-          <li><div class="card"><div class="img" style="aspect-ratio:3/2">logo</div><h3>{p.data.nome}</h3></div></li>
-        ))}
-      </ul>
-    </section>
-  ))}
+  <header class="abre">
+    <h1 class="t-gigante">Parceiros</h1>
+    <p class="t-apoio">Texto de marcação: quem ajuda a @bsurda a acontecer.</p>
+  </header>
 
-  <section>
-    <h2>Sua marca na @bsurda</h2>
-    <p>Texto de marcação com números de público, anos de estrada e formatos de parceria.</p>
-    <a class="botao" href={`mailto:${SITE.email}`}>Fale com a gente</a>
+  <div class="conteudo">
+    {grupos.map((g) => (
+      <section>
+        <h2>{g.titulo}</h2>
+        <ul class="logos">
+          {parceiros.filter((p) => p.data.tipo === g.tipo).map((p) => (
+            <li>{p.data.logo ? <img src={p.data.logo} alt={p.data.nome} loading="lazy" /> : <span>{p.data.nome}</span>}</li>
+          ))}
+        </ul>
+      </section>
+    ))}
+  </div>
+
+  <section class="secao convite" data-tema={atributo(TEMAS_DA_MARCA[9])} aria-labelledby="t-convite">
+    <h2 id="t-convite" class="t-grande">Sua marca na @bsurda</h2>
+    <p class="t-apoio">Texto de marcação com números de público, anos de estrada e formatos de parceria.</p>
+    <a class="botao botao-cheio" href={`mailto:${SITE.email}`}>Escrever para o comercial</a>
   </section>
 </Base>
+
+<style>
+  .logos { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr)); gap: 1px; background: var(--linha); border: 1px solid var(--linha); }
+  .logos li { background: var(--fundo); aspect-ratio: 3 / 2; display: grid; place-items: center; padding: 1.5rem; text-align: center; font-weight: 500; transition: background-color 0.7s; }
+  .convite > * + * { margin-top: clamp(1.25rem, 3vw, 2rem); }
+</style>

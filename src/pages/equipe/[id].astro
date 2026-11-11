@@ -1,6 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Capa from '../../components/Capa.astro';
 import { getCollection, render } from 'astro:content';
+import { atributo, temaPara } from '../../lib/temas';
 
 export async function getStaticPaths() {
   const pessoas = await getCollection('pessoas');
@@ -9,23 +11,40 @@ export async function getStaticPaths() {
 const { pessoa } = Astro.props;
 const { Content } = await render(pessoa);
 const projetos = (await getCollection('projetos')).filter((pr) => pr.data.pessoas.some((ref) => ref.id === pessoa.id));
+// O tema virá da foto da pessoa. Por enquanto, um par fixo da marca.
+const tema = temaPara(pessoa.id);
 ---
-<Base titulo={pessoa.data.nome}>
-  <p><a href="/equipe">← Equipe</a></p>
-  <span class="etiqueta">{pessoa.data.situacao === 'atual' ? pessoa.data.funcao : `Fez parte · ${pessoa.data.funcao}`}</span>
-  <h1>{pessoa.data.nome}</h1>
-  <Content />
-  {pessoa.data.instagram && <p><a href={pessoa.data.instagram}>Instagram</a></p>}
-  {pessoa.data.links.length > 0 && (
-    <section>
-      <h2>Outros projetos</h2>
-      <ul>{pessoa.data.links.map((l) => <li><a href={l.url}>{l.rotulo}</a></li>)}</ul>
-    </section>
-  )}
-  {projetos.length > 0 && (
-    <section>
-      <h2>Na @bsurda</h2>
-      <ul class="grade">{projetos.map((pr) => <li><a class="card" href={`/projetos/${pr.id}`}><h3>{pr.data.nome}</h3></a></li>)}</ul>
-    </section>
-  )}
+<Base titulo={pessoa.data.nome} tema={tema}>
+  <div class="pessoa" data-tema={atributo(tema)}>
+    <div class="pessoa-foto"><Capa src={pessoa.data.foto} /></div>
+    <div class="pessoa-texto">
+      <a class="voltar" href="/equipe">Toda a equipe</a>
+      <p class="etiqueta">{pessoa.data.situacao === 'atual' ? pessoa.data.funcao : `Fez parte da @bsurda como ${pessoa.data.funcao.toLowerCase()}`}</p>
+      <h1 class="t-grande">{pessoa.data.nome}</h1>
+      <div class="prosa"><Content /></div>
+      {pessoa.data.instagram && <p><a class="botao" href={pessoa.data.instagram} target="_blank" rel="noopener">Instagram</a></p>}
+
+      {pessoa.data.links.length > 0 && (
+        <section aria-labelledby="t-outros">
+          <h2 id="t-outros" class="titulo-secao">Outros projetos</h2>
+          <ul>{pessoa.data.links.map((l) => <li><a class="link" href={l.url} target="_blank" rel="noopener">{l.rotulo}</a></li>)}</ul>
+        </section>
+      )}
+
+      {projetos.length > 0 && (
+        <section aria-labelledby="t-na">
+          <h2 id="t-na" class="titulo-secao">Na @bsurda</h2>
+          <ul>{projetos.map((pr) => <li><a class="t-medio" href={`/projetos/${pr.id}`}>{pr.data.nome}</a></li>)}</ul>
+        </section>
+      )}
+    </div>
+  </div>
 </Base>
+
+<style>
+  .pessoa { display: grid; grid-template-columns: minmax(14rem, 0.8fr) 1.2fr; gap: clamp(1.5rem, 5vw, 5rem); padding: clamp(2rem, 5vw, 4rem) var(--margem) clamp(3.5rem, 9vw, 8rem); align-items: start; }
+  .pessoa-texto > * + * { margin-top: 1.25rem; }
+  .pessoa-texto section { margin-top: clamp(2.5rem, 5vw, 4rem); }
+  .pessoa-texto .titulo-secao { margin-bottom: 0.75rem; }
+  @media (max-width: 720px) { .pessoa { grid-template-columns: 1fr; } }
+</style>
