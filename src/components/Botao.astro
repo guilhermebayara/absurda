@@ -1,12 +1,15 @@
 ---
-// Botão do site: um bloco de cantos arredondados, na mesma família dos blocos
-// de evento, com a seta numa peça própria. Ao passar o mouse, a seta sai por
-// um lado e entra pelo outro, e a peça acende na cor de destaque.
+// Chamada para ação do site. Em vez de uma caixa genérica, usa uma peça do logo:
+// o anel aberto do "@", com uma seta no lugar do "A".
+// Ao passar o mouse, o anel gira até a abertura ficar na direção da seta,
+// e a seta sai por ela enquanto outra entra pelo lado oposto.
+//
+// "cheio" é a barra principal (rótulo de um lado, anel do outro).
+// "linha" é a versão secundária: rótulo, anel e um traço embaixo.
 interface Props {
   href: string;
   // Link que sai do site: abre em outra aba e a seta aponta para fora (diagonal).
   externo?: boolean;
-  // "cheio" é o principal; "linha" é o secundário.
   tipo?: 'cheio' | 'linha';
   class?: string;
   [atributo: string]: unknown;
@@ -14,35 +17,47 @@ interface Props {
 const { href, externo = false, tipo = 'cheio', class: classe, ...resto } = Astro.props;
 const seta = externo ? 'M4.5 3.5h8v8M12.5 3.5 3.5 12.5' : 'M2.5 8h11M9 3.5 13.5 8 9 12.5';
 ---
-<a class:list={['bt', `bt-${tipo}`, { 'bt-externo': externo }, classe]} href={href} target={externo ? '_blank' : undefined} rel={externo ? 'noopener' : undefined} {...resto}>
-  <span class="bt-rotulo"><slot />{externo && <span class="so-leitor"> (abre em outra aba)</span>}</span>
-  <span class="bt-seta" aria-hidden="true">
-    <svg viewBox="0 0 16 16"><path d={seta} /></svg>
-    <svg viewBox="0 0 16 16"><path d={seta} /></svg>
+<a class:list={['cta', `cta-${tipo}`, { 'cta-externo': externo }, classe]} href={href} target={externo ? '_blank' : undefined} rel={externo ? 'noopener' : undefined} {...resto}>
+  <span class="cta-rotulo"><slot />{externo && <span class="so-leitor"> (abre em outra aba)</span>}</span>
+  <span class="cta-anel" aria-hidden="true">
+    <svg class="cta-arco" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" /></svg>
+    <svg class="cta-seta" viewBox="0 0 16 16"><path d={seta} /></svg>
+    <svg class="cta-seta" viewBox="0 0 16 16"><path d={seta} /></svg>
   </span>
 </a>
 
 <style>
-  .bt { --b-fundo: var(--botao-fundo, var(--texto)); --b-texto: var(--botao-texto, var(--fundo)); --b-destaque: var(--botao-destaque, var(--destaque));
-    display: inline-flex; align-items: center; gap: 1.1em; padding: 0.5em 0.5em 0.5em 1.5em; border-radius: 1.15em; background: var(--b-fundo); color: var(--b-texto);
-    font-size: clamp(0.8125rem, 1.05vw, 0.9375rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; line-height: 1.15; text-decoration: none;
-    transition: transform 0.5s cubic-bezier(0.62, 0.05, 0.01, 0.99); }
-  .bt-linha { background: transparent; color: var(--b-fundo); box-shadow: inset 0 0 0 1.5px var(--b-fundo); }
+  .cta { --c-fundo: var(--botao-fundo, var(--texto)); --c-texto: var(--botao-texto, var(--fundo)); --c-destaque: var(--botao-destaque, var(--destaque)); --curva: cubic-bezier(0.62, 0.05, 0.01, 0.99);
+    display: inline-flex; align-items: center; justify-content: space-between; gap: 1.1em; max-width: 100%; text-decoration: none;
+    font-size: clamp(0.9375rem, 1.3vw, 1.1875rem); font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.05; }
+  .cta-rotulo { transition: transform 0.5s var(--curva); }
 
-  .bt-seta { position: relative; flex: none; width: 2.9em; height: 2.9em; border-radius: 0.78em; overflow: hidden; background: var(--b-texto); color: var(--b-fundo); transition: background-color 0.3s, color 0.3s; }
-  .bt-linha .bt-seta { background: var(--b-fundo); color: var(--b-texto); }
-  .bt-seta svg { position: absolute; inset: 0; margin: auto; width: 1.05em; height: 1.05em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.5s cubic-bezier(0.62, 0.05, 0.01, 0.99); }
-  /* A segunda seta espera fora da peça, do lado de onde a primeira vai sair */
-  .bt-seta svg + svg { transform: translate(-260%, 0); }
-  .bt-externo .bt-seta svg + svg { transform: translate(-260%, 260%); }
+  /* Barra principal */
+  .cta-cheio { padding: 0.6em 0.65em 0.6em 1.25em; border-radius: 0.9em; background: var(--c-fundo); color: var(--c-texto); }
+  /* Secundária: só tipografia, anel e um traço que se redesenha no hover */
+  .cta-linha { position: relative; padding: 0 0 0.55em; color: var(--c-fundo); }
+  .cta-linha::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: currentColor; transform-origin: 100% 50%; transition: transform 0.5s var(--curva); }
+  .cta-linha:hover::after, .cta-linha:focus-visible::after { transform-origin: 0 50%; animation: cta-traco 0.9s var(--curva); }
+  @keyframes cta-traco { 0% { transform: scaleX(1); transform-origin: 100% 50%; } 45% { transform: scaleX(0); transform-origin: 100% 50%; } 46% { transform: scaleX(0); transform-origin: 0 50%; } 100% { transform: scaleX(1); transform-origin: 0 50%; } }
 
-  .bt:hover .bt-seta, .bt:focus-visible .bt-seta { background: var(--b-destaque); color: var(--b-fundo); }
-  .bt-linha:hover .bt-seta, .bt-linha:focus-visible .bt-seta { color: var(--b-texto); }
-  .bt:hover .bt-seta svg, .bt:focus-visible .bt-seta svg { transform: translate(260%, 0); }
-  .bt-externo:hover .bt-seta svg, .bt-externo:focus-visible .bt-seta svg { transform: translate(260%, -260%); }
-  .bt:hover .bt-seta svg + svg, .bt:focus-visible .bt-seta svg + svg { transform: translate(0, 0); }
-  .bt:active { transform: scale(0.97); }
-  @media (prefers-reduced-motion: reduce) { .bt, .bt-seta svg { transition: none; } }
+  /* O anel aberto do "@" */
+  .cta-anel { position: relative; flex: none; width: 2.5em; height: 2.5em; }
+  .cta-linha .cta-anel { width: 2.1em; height: 2.1em; }
+  .cta-arco { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; transform: rotate(150deg); transition: transform 0.7s var(--curva), color 0.3s; }
+  .cta-arco circle { fill: none; stroke: currentColor; stroke-width: 3.4; stroke-dasharray: 89 17.8; }
+  .cta-seta { position: absolute; inset: 0; margin: auto; width: 38%; height: 38%; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.5s var(--curva), opacity 0.3s; }
+  .cta-seta + .cta-seta { opacity: 0; transform: translate(-150%, 0); }
+  .cta-externo .cta-seta + .cta-seta { transform: translate(-130%, 130%); }
+
+  /* Hover: a abertura do anel vai para a direção da seta, e a seta atravessa */
+  .cta:hover .cta-arco, .cta:focus-visible .cta-arco { transform: rotate(390deg); color: var(--c-destaque); }
+  .cta-externo:hover .cta-arco, .cta-externo:focus-visible .cta-arco { transform: rotate(345deg); }
+  .cta:hover .cta-seta, .cta:focus-visible .cta-seta { opacity: 0; transform: translate(150%, 0); }
+  .cta-externo:hover .cta-seta, .cta-externo:focus-visible .cta-seta { transform: translate(130%, -130%); }
+  .cta:hover .cta-seta + .cta-seta, .cta:focus-visible .cta-seta + .cta-seta { opacity: 1; transform: translate(0, 0); }
+  .cta:hover .cta-rotulo, .cta:focus-visible .cta-rotulo { transform: translateX(0.2em); }
+  .cta:active { transform: scale(0.98); }
+  @media (prefers-reduced-motion: reduce) { .cta-arco, .cta-seta, .cta-rotulo, .cta-linha::after { transition: none; animation: none !important; } }
 
   .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 </style>

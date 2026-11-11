@@ -9,11 +9,23 @@ import { getEventos } from '../lib/eventos';
 import Botao from '../components/Botao.astro';
 import { atributo, temaPara, TEMAS_DO_SITE } from '../lib/temas';
 import { getCollection } from 'astro:content';
+import palavras from '../data/palavras.json';
 
-const { proximos } = await getEventos();
+const { proximos, passados } = await getEventos();
 const [destaque, ...outros] = proximos;
 const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
-const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estruturamos', 'Renascemos'];
+// Parede de palavras: a lista fica em src/data/palavras.json, uma linha por fileira.
+const fileiras: string[][] = palavras;
+// Imagens que flutuam pela parede: as capas das edições mais recentes.
+// Cada uma tem posição, velocidade de subida e a camada (entre quais fileiras passa).
+const capas = passados.filter((e) => e.capa).slice(0, 5);
+const flutuantes = [
+  { esquerda: '4%', topo: '6%', vel: 0.22, camada: 1 },
+  { esquerda: '64%', topo: '-4%', vel: -0.16, camada: 5 },
+  { esquerda: '36%', topo: '38%', vel: 0.34, camada: 3 },
+  { esquerda: '74%', topo: '52%', vel: 0.2, camada: 9 },
+  { esquerda: '10%', topo: '64%', vel: -0.24, camada: 7 },
+];
 // A abertura do site veste as cores do próximo evento.
 const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
 ---
@@ -44,10 +56,20 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
 
   <section class="historia" aria-labelledby="t-sobre">
     <h2 id="t-sobre" class="titulo-secao" data-anima="sobe">17 anos de @bsurda</h2>
-    <p class="so-leitor">{verbos.join('. ')}.</p>
-    <div class="verbos" aria-hidden="true">
-      {verbos.map((v, i) => (
-        <p class:list={['verbo', { 'verbo-cor': i % 2 === 1 }]} data-desliza={i % 2 === 0 ? '-1' : '1'}>{v}</p>
+    <p class="so-leitor">{fileiras.flat().join('. ')}.</p>
+    <!-- Parede em movimento: fileiras de palavras correndo para lados opostos,
+         com as capas das últimas edições subindo e descendo entre elas. -->
+    <div class="parede" data-parede aria-hidden="true">
+      {fileiras.map((linha, i) => (
+        <div class="parede-fileira" style={`--i:${i};z-index:${i * 2 + 2}`}>
+          <div class:list={['parede-trilho', { contra: i % 2 === 1 }]} style={`--dur:${46 + i * 9}s`}>
+            {[...linha, ...linha, ...linha, ...linha].map((p, j) => <span class:list={{ cor: (i + j) % 3 === 1 }}>{p}<i></i></span>)}
+          </div>
+        </div>
+      ))}
+      {capas.map((e, i) => (
+        <img class={`parede-foto parede-foto-${i}`} src={e.capa} alt="" loading="lazy" data-flutua={flutuantes[i].vel}
+          style={`left:${flutuantes[i].esquerda};top:${flutuantes[i].topo};z-index:${flutuantes[i].camada}`} />
       ))}
     </div>
     <div class="historia-fim" data-anima="surge">
@@ -56,7 +78,7 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
     </div>
   </section>
 
-  <section class="secao" aria-labelledby="t-projetos">
+  <section class="secao projetos" aria-labelledby="t-projetos">
     <h2 id="t-projetos" class="titulo-secao" data-anima="sobe">Projetos</h2>
     <ul class="indice">
       {projetos.map((p, i) => (
@@ -87,20 +109,17 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
 <script>
   const calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Verbos que deslizam para lados opostos conforme a rolagem.
-  const deslizantes = [...document.querySelectorAll<HTMLElement>('[data-desliza]')];
-  if (deslizantes.length > 0 && !calmo) {
+  // Parede: as imagens sobem ou descem conforme a rolagem, cada uma no seu ritmo.
+  const parede = document.querySelector<HTMLElement>('[data-parede]');
+  const fotos = [...document.querySelectorAll<HTMLElement>('[data-flutua]')];
+  if (parede && fotos.length > 0 && !calmo) {
     let marcado = false;
     const mover = () => {
       marcado = false;
-      const meio = window.innerHeight / 2;
-      for (const el of deslizantes) {
-        const r = el.parentElement!.getBoundingClientRect();
-        if (r.bottom < -200 || r.top > window.innerHeight + 200) continue;
-        const centro = el.offsetTop + el.offsetHeight / 2 + r.top;
-        const distancia = (centro - meio) / window.innerHeight;
-        el.style.transform = `translateX(${distancia * Number(el.dataset.desliza) * 5}vw)`;
-      }
+      const r = parede.getBoundingClientRect();
+      if (r.bottom < -300 || r.top > window.innerHeight + 300) return;
+      const distancia = r.top + r.height / 2 - window.innerHeight / 2;
+      for (const foto of fotos) foto.style.translate = `0 ${distancia * Number(foto.dataset.flutua)}px`;
     };
     window.addEventListener('scroll', () => { if (!marcado) { marcado = true; requestAnimationFrame(mover); } }, { passive: true });
     mover();
@@ -160,9 +179,20 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
 
   .historia { padding: clamp(3.5rem, 9vw, 8rem) 0; overflow: hidden; }
   .historia .titulo-secao, .historia-fim { padding: 0 var(--margem); }
-  .verbos { display: grid; gap: 0; }
-  .verbo { font-size: clamp(2.1rem, 9vw, 9.5rem); font-weight: 800; line-height: 0.86; letter-spacing: -0.05em; text-transform: uppercase; white-space: nowrap; text-align: center; will-change: transform; }
-  .verbo-cor { color: var(--destaque); }
+  .parede { position: relative; isolation: isolate; overflow: clip; display: grid; padding: clamp(1rem, 3vw, 3rem) 0; }
+  .parede-fileira { position: relative; }
+  .parede-trilho { display: flex; width: max-content; animation: parede-corre var(--dur, 50s) linear infinite; }
+  .parede-trilho.contra { animation-direction: reverse; }
+  .parede-trilho span { display: flex; align-items: center; font-size: clamp(2.75rem, 9.2vw, 9.5rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.045em; text-transform: uppercase; white-space: nowrap; }
+  .parede-trilho span.cor { color: var(--destaque); }
+  /* Entre as palavras, a barra inclinada do logo */
+  .parede-trilho i { flex: none; width: 0.13em; height: 0.66em; margin: 0 0.3em; background: currentColor; opacity: 0.5; transform: skewX(26.5deg); }
+  @keyframes parede-corre { to { transform: translateX(-50%); } }
+  .parede-foto { position: absolute; width: clamp(9rem, 21vw, 21rem); aspect-ratio: 16 / 9; object-fit: cover; border-radius: clamp(0.6rem, 1.2vw, 1rem); box-shadow: 0 1.5rem 3rem -1.25rem rgb(0 0 0 / 0.55); will-change: translate; }
+  .parede-foto-1, .parede-foto-4 { rotate: -3deg; }
+  .parede-foto-0, .parede-foto-3 { rotate: 2.5deg; }
+  @media (max-width: 720px) { .parede-foto { width: 40vw; } .parede-foto-3, .parede-foto-4 { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .parede-trilho { animation: none; } }
   .historia-fim { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem 3rem; margin-top: clamp(2.5rem, 6vw, 5rem); }
 
   /* Índice de projetos. As linhas se desenham ao entrar na tela. Ao passar o
@@ -170,18 +200,21 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   .indice li { border-top: 1.5px solid transparent; }
   :global(html:not(.js)) .indice li { border-top-color: var(--texto); }
   .indice li:last-child { border-bottom: 1.5px solid var(--texto); }
-  .indice a { position: relative; display: grid; grid-template-columns: 1.7fr 1fr; gap: 0.5rem 2rem; align-items: baseline; padding: clamp(0.9rem, 2vw, 1.6rem) clamp(1.75rem, 3.2vw, 3.25rem); text-decoration: none; }
+  .indice { position: relative; }
+  .indice a { position: relative; z-index: 2; display: grid; grid-template-columns: 1.7fr 1fr; gap: 0.5rem 2rem; align-items: baseline; padding: clamp(0.9rem, 2vw, 1.6rem) clamp(1.75rem, 3.2vw, 3.25rem); text-decoration: none; }
   .indice a::before, .indice a::after { content: ''; position: absolute; top: 22%; bottom: 22%; width: clamp(0.5rem, 0.9vw, 0.85rem); background: var(--destaque); opacity: 0; transition: transform 0.5s cubic-bezier(0.62, 0.05, 0.01, 0.99), opacity 0.3s; }
   .indice a::before { left: 0.35rem; transform: translateX(-3rem) skewX(26.5deg); }
   .indice a::after { right: 0.35rem; transform: translateX(3rem) skewX(26.5deg); }
   .indice a:hover::before, .indice a:hover::after, .indice a:focus-visible::before, .indice a:focus-visible::after { opacity: 1; transform: translateX(0) skewX(26.5deg); }
+  /* A prévia fica atrás dos nomes e à frente das linhas divisórias */
+  .projetos { isolation: isolate; }
   .indice-nome { font-size: clamp(2rem, 6.2vw, 5.75rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.04em; text-transform: uppercase; }
   .indice-nome > span { display: block; }
   .indice-resumo { max-width: 24em; }
   @media (max-width: 720px) { .indice a { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { .indice a::before, .indice a::after { transition: none; } }
 
-  .espia { border-radius: clamp(0.6rem, 1.2vw, 1rem); position: fixed; left: 0; top: 0; z-index: 5; width: clamp(11rem, 18vw, 17rem); aspect-ratio: 4 / 5; display: grid; place-items: center; overflow: hidden; background: var(--espia-fundo, var(--texto)); color: var(--espia-cor, var(--fundo)); pointer-events: none; opacity: 0; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(0.85); transition: opacity 0.2s, transform 0.18s ease-out; }
+  .espia { border-radius: clamp(0.6rem, 1.2vw, 1rem); position: fixed; left: 0; top: 0; z-index: 1; width: clamp(11rem, 18vw, 17rem); aspect-ratio: 4 / 5; display: grid; place-items: center; overflow: hidden; background: var(--espia-fundo, var(--texto)); color: var(--espia-cor, var(--fundo)); pointer-events: none; opacity: 0; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(0.85); transition: opacity 0.2s, transform 0.18s ease-out; }
   .espia.visivel { opacity: 1; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(1); }
   .espia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .espia :global(svg) { width: 46%; }

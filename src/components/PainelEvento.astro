@@ -25,13 +25,21 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
 
     <div class="ev-texto" data-anima="surge">
       {destaque && <p class="ev-selo">Próximo evento</p>}
-      <p class="ev-quando">
-        <span class="ev-data"><span class="ev-dia">{d.dia}</span> {d.mes}</span>
-        <span class="ev-hora">{d.semana}, {d.hora}</span>
-      </p>
       <h3 class={`ev-nome ev-nome-${tamanho}`}>{evento.nome}</h3>
-      {evento.local && <p class="ev-local">{evento.local}</p>}
-      <Botao href={evento.url} externo class="ev-botao">{plataformas[evento.origem]}</Botao>
+
+      <div class="ev-pe">
+        <ul class="ev-info">
+          <li class="ev-data"><span class="so-leitor">Data: </span><span class="ev-dia">{d.dia}</span> {d.mes}</li>
+          <li class="ev-hora">{d.semana}, {d.hora}</li>
+          {evento.local && (
+            <li class="ev-local">
+              <svg viewBox="0 0 16 20" aria-hidden="true"><path d="M8 0a8 8 0 0 0-8 8c0 5.6 8 12 8 12s8-6.4 8-12a8 8 0 0 0-8-8Zm0 11.2A3.2 3.2 0 1 1 8 4.8a3.2 3.2 0 0 1 0 6.4Z" /></svg>
+              <span><span class="so-leitor">Local: </span>{evento.local}</span>
+            </li>
+          )}
+        </ul>
+        <Botao href={evento.url} externo class="ev-botao">{plataformas[evento.origem]}</Botao>
+      </div>
     </div>
 
     <a class="ev-capa" href={evento.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" data-anima="capa">
@@ -54,14 +62,10 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
   .ev-fundo img { width: 100%; height: 100%; object-fit: cover; filter: blur(56px) saturate(1.4); transform: scale(1.4); opacity: 0.9; }
   .ev-fundo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, var(--texto) 30%, color-mix(in srgb, var(--texto) 78%, transparent) 55%, color-mix(in srgb, var(--texto) 30%, transparent) 100%); }
 
-  .ev-texto { display: grid; justify-items: start; gap: clamp(0.9rem, 1.8vw, 1.6rem); min-width: 0; }
-  .ev-quando { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1.25rem; }
-  /* A data leva a barra inclinada do logo como marcador.
-     Bloco cheio fica reservado para o que é clicável. */
-  .ev-data { position: relative; padding-left: 0.62em; font-size: clamp(1.75rem, 3.4vw, 3.25rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
-  .ev-data::before { content: ''; position: absolute; left: 0.12em; top: 0.02em; bottom: 0.06em; width: 0.2em; border-radius: 0.04em; background: currentColor; transform: skewX(26.5deg); }
-  .ev-hora, .ev-local { font-size: clamp(0.8125rem, 1.2vw, 1rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; }
-  .ev-hora::first-letter { text-transform: uppercase; }
+  /* Texto: o nome no alto, e no pé um bloco único com as informações e a
+     chamada, alinhado à base da capa. Tudo na mesma largura e na mesma margem. */
+  .ev-texto { align-self: stretch; display: flex; flex-direction: column; gap: clamp(1rem, 2vw, 1.75rem); min-width: 0; }
+  .ev-selo { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; }
 
   .ev-nome { font-weight: 800; line-height: 0.88; letter-spacing: -0.045em; text-transform: uppercase; text-wrap: balance; overflow-wrap: anywhere; }
   .ev-nome-curto { font-size: clamp(3rem, 8.4vw, 9rem); }
@@ -71,12 +75,19 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
   .ev-em-pe .ev-nome-medio { font-size: clamp(2.5rem, 7.2vw, 8rem); }
   .ev-em-pe .ev-nome-longo { font-size: clamp(2rem, 5vw, 5.5rem); }
 
-  .ev :global(.ev-botao) { --botao-fundo: var(--fundo); --botao-texto: var(--texto); margin-top: clamp(0.25rem, 1vw, 0.75rem); font-size: clamp(0.875rem, 1.2vw, 1.0625rem); }
+  .ev-pe { margin-top: auto; display: grid; gap: clamp(0.9rem, 1.6vw, 1.4rem); }
+  /* Faixa de informações: data, dia e hora, local. Entre elas, a barra inclinada do logo. */
+  .ev-info { display: grid; grid-template-columns: auto 1fr; align-items: center; column-gap: clamp(1.6rem, 3vw, 2.6rem); row-gap: 0.3rem; padding: clamp(0.8rem, 1.4vw, 1.2rem) 0; border-top: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; }
+  .ev-info li { display: flex; align-items: flex-start; font-size: clamp(0.8125rem, 1.15vw, 1rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; line-height: 1.35; }
+  .ev-info li.ev-data { position: relative; grid-row: 1 / span 2; align-items: center; align-self: center; font-size: clamp(2rem, 3.4vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1; gap: 0.22em; }
+  .ev-info li.ev-data::after { content: ''; position: absolute; right: calc(clamp(1.6rem, 3vw, 2.6rem) / -2); top: 50%; width: 0.09em; height: 1.15em; background: currentColor; opacity: 0.45; transform: translate(50%, -50%) skewX(26.5deg); }
+  .ev-info li.ev-hora { align-self: end; }
+  .ev-info li.ev-local { align-self: start; }
+  .ev-info li.ev-hora:last-child { grid-row: 1 / span 2; align-self: center; }
+  .ev-hora::first-letter { text-transform: uppercase; }
+  .ev-local svg { flex: none; width: 0.8em; height: 1em; margin: 0.17em 0.55em 0 0; fill: currentColor; }
 
-  /* Entrada da capa: chega girando, de baixo, e pousa na inclinação final */
-  :global(.js) .ev-capa[data-anima='capa'] { opacity: 0; translate: 0 18%; rotate: 9deg; transition: opacity 0.6s ease, translate 1.1s cubic-bezier(0.62, 0.05, 0.01, 0.99), rotate 1.1s cubic-bezier(0.62, 0.05, 0.01, 0.99), transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
-  :global(.js) .ev-capa[data-anima='capa']:global(.visto) { opacity: 1; translate: 0 0; rotate: 0deg; }
-  @media (prefers-reduced-motion: reduce) { :global(.js) .ev-capa[data-anima='capa'] { opacity: 1; translate: none; rotate: none; transition: none; } }
+  .ev :global(.ev-botao) { --botao-fundo: var(--fundo); --botao-texto: var(--texto); width: 100%; }
 
   /* A capa nítida sai um pouco para fora do bloco e fica levemente torta */
   .ev-capa { display: block; transform: rotate(2deg); transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
@@ -88,8 +99,6 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
   .ev-sem-capa { display: grid; place-items: center; aspect-ratio: 16 / 9; background: var(--fundo); color: var(--destaque); border-radius: clamp(0.5rem, 1vw, 0.9rem); }
   .ev-sem-capa :global(svg) { width: 22%; }
   @media (prefers-reduced-motion: reduce) { .ev-capa { transition: none; } }
-
-  .ev-selo { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; }
 
   @media (max-width: 820px) {
     .ev-deitada, .ev-em-pe { grid-template-columns: 1fr; }
