@@ -1,9 +1,14 @@
-# Atualiza a agenda do site sem ninguém precisar publicar nada.
-# Três vezes por dia, pede à Cloudflare que gere o site de novo,
-# e o site busca os eventos mais recentes no Shotgun.
+# Mantém a agenda do site em dia sem ninguém precisar publicar nada.
 #
-# Depende de um segredo do repositório chamado CLOUDFLARE_DEPLOY_HOOK,
-# com o endereço do Deploy Hook criado no painel da Cloudflare.
+# 1. Três vezes por dia, pede à Cloudflare que gere o site de novo, e o site busca
+#    os eventos mais recentes no Shotgun e no Sympla.
+# 2. Nas mesmas rodadas, copia para dentro do repositório os eventos que já passaram
+#    (dados e capas), para o histórico não depender mais das plataformas.
+#
+# Segredos do repositório usados aqui:
+#   CLOUDFLARE_DEPLOY_HOOK  endereço do Deploy Hook criado no painel da Cloudflare
+#   SHOTGUN_TOKEN, SHOTGUN_ORGANIZER_ID, SYMPLA_TOKEN  os mesmos valores cadastrados
+#   na Cloudflare; sem eles o passo 2 é pulado e o resto continua funcionando.
 name: Atualiza a agenda
 
 on:
@@ -16,7 +21,59 @@ on:
 permissions: {}
 
 jobs:
+  arquivar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Confere se as chaves das plataformas estão cadastradas
+        id: chaves
+        env:
+          SHOTGUN_TOKEN: ${{ secrets.SHOTGUN_TOKEN }}
+          SYMPLA_TOKEN: ${{ secrets.SYMPLA_TOKEN }}
+        run: |
+          if [ -z "$SHOTGUN_TOKEN" ] && [ -z "$SYMPLA_TOKEN" ]; then
+            echo "Sem SHOTGUN_TOKEN nem SYMPLA_TOKEN nos segredos do repositório: arquivo não atualizado."
+            echo "tem=nao" >> "$GITHUB_OUTPUT"
+          else
+            echo "tem=sim" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/checkout@v4
+        if: steps.chaves.outputs.tem == 'sim'
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        if: steps.chaves.outputs.tem == 'sim'
+        with:
+          node-version: 22
+          cache: npm
+      - name: Gera o site e copia os eventos passados para o arquivo
+        if: steps.chaves.outputs.tem == 'sim'
+        env:
+          SHOTGUN_TOKEN: ${{ secrets.SHOTGUN_TOKEN }}
+          SHOTGUN_ORGANIZER_ID: ${{ secrets.SHOTGUN_ORGANIZER_ID }}
+          SYMPLA_TOKEN: ${{ secrets.SYMPLA_TOKEN }}
+        run: |
+          npm ci
+          npx astro build
+          node scripts/arquivar.mjs
+      - name: Guarda o arquivo no repositório
+        if: steps.chaves.outputs.tem == 'sim'
+        run: |
+          git config user.name "arquivo-da-agenda"
+          git config user.email "arquivo-da-agenda@users.noreply.github.com"
+          git add src/data/arquivo.json public/arquivo
+          if git diff --cached --quiet; then
+            echo "Nada novo para guardar."
+          else
+            git commit -m "Arquivo da agenda: eventos que já passaram"
+            git push origin main
+          fi
+
   atualizar:
+    # Roda depois do arquivo (mesmo que ele tenha sido pulado ou falhado).
+    needs: arquivar
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Pede um novo build à Cloudflare

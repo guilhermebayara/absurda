@@ -2,6 +2,7 @@ import manuais from '../data/eventos-manual.json';
 import locais from '../data/locais.json';
 import historico from '../data/sympla-historico.json';
 import flickr from '../data/flickr-historico.json';
+import arquivo from '../data/arquivo.json';
 import { TEMAS_DO_SITE, temaPara, type Tema } from './temas';
 import { temaDaImagem, malhaDaImagem, type Malha } from './paleta';
 import { readFile } from 'node:fs/promises';
@@ -28,6 +29,11 @@ export interface Evento {
   album?: 'flickr';
   // Só o dia é conhecido; a hora é um palpite e não deve ser usada para comparar.
   soDia?: boolean;
+  // Veio agora de uma plataforma (e não de um arquivo do próprio site). Guarda o nome
+  // como a plataforma mandou, para o arquivo poder refazer a limpeza no futuro.
+  nomeBruto?: string;
+  // Já está guardado no arquivo do site.
+  arquivado?: boolean;
 }
 
 // Resumo do que aconteceu na busca, publicado em /estado.json para conferência.
@@ -148,6 +154,7 @@ async function fonteShotgun(): Promise<Evento[]> {
           proporcao: lido.proporcao,
           url: e.url,
           origem: 'shotgun',
+          nomeBruto: e.name,
           tema: lido.tema,
           malha: lido.malha,
         };
@@ -276,7 +283,7 @@ async function contaSympla(token: string, chave: string): Promise<Evento[]> {
           const futuro = new Date(data).getTime() >= agora;
           const lido = futuro ? await lerCapa(capa, id) : { tema: temaPara(id) };
           const casa = e.address?.name?.trim() || [e.address?.address, e.address?.address_num].filter(Boolean).join(', ') || e.address?.city;
-          return { id, nome: limparNome(e.name), data, local: casa || undefined, capa, capaPequena: capa, proporcao: lido.proporcao, url: e.url, origem: 'sympla', tema: lido.tema, malha: lido.malha };
+          return { id, nome: limparNome(e.name), data, local: casa || undefined, capa, capaPequena: capa, proporcao: lido.proporcao, url: e.url, origem: 'sympla', nomeBruto: e.name, tema: lido.tema, malha: lido.malha };
         }),
       )
     ).filter((e): e is Evento => e !== null);
@@ -325,6 +332,17 @@ async function fonteHistorico(): Promise<Evento[]> {
     const casa = locais.find((l) => e.local?.includes(l.endereco))?.nome ?? e.local;
     return { id: e.id, nome: limparNome(e.nome), data: e.data, local: casa, capa: e.capa, capaPequena: e.capa?.replace('-lg.', '-xs.'), url: e.url, origem: 'sympla', tema: temaPara(e.id) };
   });
+}
+
+// ---------- Arquivo do site ----------
+// Cópia permanente dos eventos que já passaram, guardada no próprio repositório
+// (src/data/arquivo.json, com as capas em public/arquivo). Um robô semanal acrescenta
+// aqui o que passou desde a última vez (ver scripts/arquivar.mjs). A partir daí o
+// evento não depende mais da plataforma: se o Shotgun ou o Sympla mudarem, saírem do
+// ar ou deixarem de entregar o histórico, ele continua no site.
+interface Arquivado { id: string; nome: string; data: string; url: string; origem: 'shotgun' | 'sympla'; local?: string; capa?: string; capaPequena?: string }
+async function fonteArquivo(): Promise<Evento[]> {
+  return (arquivo as Arquivado[]).map((e) => ({ ...e, nome: limparNome(e.nome), tema: temaPara(e.id), arquivado: true }));
 }
 
 // ---------- Álbuns do Flickr ----------
@@ -379,9 +397,11 @@ let guardado: Promise<{ proximos: Evento[]; passados: Evento[] }> | null = null;
 // Busca uma vez só por geração do site, mesmo que várias páginas peçam.
 export function getEventos() {
   guardado ??= (async () => {
-    const [shotgun, sympla, antigos, manual, albuns] = await Promise.all([fonteShotgun(), fonteSympla(), fonteHistorico(), fonteManual(), fonteFlickr()]);
+    const [shotgun, sympla, antigos, manual, albuns, guardados] = await Promise.all([fonteShotgun(), fonteSympla(), fonteHistorico(), fonteManual(), fonteFlickr(), fonteArquivo()]);
     // Os eventos de marcação só aparecem enquanto nenhuma plataforma devolve eventos de verdade.
-    const reais = [...shotgun, ...sympla, ...antigos];
+    // O que já está no arquivo vem antes do que as plataformas mandam agora: para um
+    // evento passado, vale a cópia guardada.
+    const reais = [...guardados, ...shotgun, ...sympla, ...antigos];
     const marcacao = manual.filter((e) => e.id.startsWith('m'));
     // Os cadastrados à mão vêm primeiro: quando o mesmo evento também chega por uma
     // plataforma (como o Halloween de 2025, criado no Sympla e vendido em outro site),
@@ -391,6 +411,7 @@ export function getEventos() {
     // Eventos anunciados como adiados ficam fora: a data nova aparece como outro evento.
     const unicos = semRepetidos(todos.filter((e) => !/\badiad[oa]\b/i.test(e.nome))).sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
     estado.repetidosRemovidos = todos.length - unicos.length;
+    estado.arquivo = { guardados: guardados.length, passadosAindaSoNaPlataforma: unicos.filter((e) => e.nomeBruto && new Date(e.data).getTime() < Date.now()).length };
     const agoraMs = Date.now();
     const agora = new Date().toISOString();
     estado.geradoEm = agora;
