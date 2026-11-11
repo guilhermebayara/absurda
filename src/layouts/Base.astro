@@ -317,7 +317,11 @@ const caminho = Astro.url.pathname;
      faixa do lado para onde ele vai. O eco encolhe a partir desse mesmo lado.
      As larguras laterais (--l1, --l2) são menores que o deslocamento, para sobrar
      entre as camadas a mesma folga que existe na vertical. */
-  .ecoa-direita, .ecoa-esquerda { --l1: calc(0.18em * var(--ab)); --l2: calc(0.105em * var(--ab)); --a1: calc(var(--f1) * var(--ab)); --a2: calc(var(--f2) * var(--ab)); }
+  .ecoa-direita, .ecoa-esquerda { --a1: calc(var(--f1) * var(--ab)); --a2: calc(var(--f2) * var(--ab)); }
+  /* As larguras diferem por lado porque as letras têm um respiro próprio antes do
+     primeiro traço (maior à esquerda), que entra na conta da folga. */
+  .ecoa-esquerda { --l1: calc(0.287em * var(--ab)); --l2: calc(0.205em * var(--ab)); }
+  .ecoa-direita { --l1: calc(0.226em * var(--ab)); --l2: calc(0.143em * var(--ab)); }
   .ecoa-esquerda::before, .ecoa-esquerda::after { transform-origin: 0 100%; }
   .ecoa-direita::before, .ecoa-direita::after { transform-origin: 100% 100%; }
   .ecoa-cima.ecoa-esquerda::before, .ecoa-cima.ecoa-esquerda::after { transform-origin: 0 0; }
