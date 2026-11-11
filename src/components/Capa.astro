@@ -1,10 +1,12 @@
 ---
 // Imagem de capa. Sem imagem, mostra um bloco de marcação com o símbolo.
 import Arroba from './marca/Arroba.astro';
-interface Props { src?: string; alt?: string; proporcao?: string; class?: string }
-const { src, alt = '', proporcao = '4 / 5', class: classe } = Astro.props;
+// Com "inteira", a imagem aparece na proporção original, sem corte
+// (as artes dos eventos têm texto que não pode ser cortado).
+interface Props { src?: string; alt?: string; proporcao?: string; inteira?: boolean; class?: string }
+const { src, alt = '', proporcao = '4 / 5', inteira = false, class: classe } = Astro.props;
 ---
-<div class:list={['capa', classe]} style={`aspect-ratio:${proporcao}`}>
+<div class:list={['capa', classe, { 'capa-inteira': inteira && src }]} style={inteira && src ? undefined : `aspect-ratio:${proporcao}`}>
   {src
     ? <img src={src} alt={alt} loading="lazy" />
     : <Arroba class="capa-simbolo" />}
@@ -13,5 +15,6 @@ const { src, alt = '', proporcao = '4 / 5', class: classe } = Astro.props;
 <style>
   .capa { position: relative; overflow: hidden; background: color-mix(in srgb, var(--texto) 14%, var(--fundo)); display: grid; place-items: center; }
   .capa img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .capa-inteira img { height: auto; object-fit: contain; }
   .capa :global(.capa-simbolo) { height: 42%; width: auto; color: var(--destaque); opacity: 0.9; }
 </style>
