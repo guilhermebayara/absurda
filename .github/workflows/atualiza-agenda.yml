@@ -1,0 +1,31 @@
+# Atualiza a agenda do site sem ninguém precisar publicar nada.
+# Três vezes por dia, pede à Cloudflare que gere o site de novo,
+# e o site busca os eventos mais recentes no Shotgun.
+#
+# Depende de um segredo do repositório chamado CLOUDFLARE_DEPLOY_HOOK,
+# com o endereço do Deploy Hook criado no painel da Cloudflare.
+name: Atualiza a agenda
+
+on:
+  schedule:
+    # Horário de Brasília: 6h17, 12h17 e 18h17 (o agendamento é em UTC).
+    - cron: '17 9,15,21 * * *'
+  # Permite rodar na hora, pelo botão "Run workflow" na aba Actions.
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pede um novo build à Cloudflare
+        env:
+          GANCHO: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$GANCHO" ]; then
+            echo "Falta o segredo CLOUDFLARE_DEPLOY_HOOK no repositório."
+            exit 1
+          fi
+          curl --fail --silent --show-error --output /dev/null -X POST "$GANCHO"
+          echo "Build pedido."

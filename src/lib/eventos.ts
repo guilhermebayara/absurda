@@ -46,10 +46,12 @@ interface EventoShotgun {
 // Os nomes no Shotgun costumam terminar com a data e a hora ("Festa X 13/11 - 22h").
 // Como o site já mostra a data em destaque, esse final sai do nome.
 export function limparNome(nome: string) {
-  return nome
-    .replace(/\s*[-–—|,]?\s*\d{1,2}[/.]\d{1,2}(?:[/.]\d{2,4})?(?:\s*[-–—|,]?\s*\d{1,2}\s*h(?:\d{2})?)?\s*$/i, '')
-    .replace(/\s*[-–—|,]\s*$/, '')
-    .trim() || nome;
+  // Data no fim: "13/11", "13/11/26", "31/janeiro" ou "1/novembro"...
+  const mes = '(?:\\d{1,2}|jan\\w*|fev\\w*|mar\\w*|abr\\w*|mai\\w*|jun\\w*|jul\\w*|ago\\w*|set\\w*|out\\w*|nov\\w*|dez\\w*)';
+  // ...seguida ou não da hora ("- 22h", "22h30") e de até duas palavras soltas, como o nome da casa.
+  const hora = '(?:\\s*[-–—|,]?\\s*\\d{1,2}\\s*h(?:\\d{2})?(?:\\s+\\S{1,12}){0,2})?';
+  const fim = new RegExp(`\\s*[-–—|,]?\\s*\\d{1,2}[/.]${mes}(?:[/.]\\d{2,4})?${hora}\\s*$`, 'i');
+  return nome.replace(fim, '').replace(/\s*[-–—|,]\s*$/, '').trim() || nome;
 }
 
 // Pede ao Cloudinary (onde o Shotgun guarda as capas) uma versão na largura desejada.
