@@ -53,7 +53,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
       <header class="arquivo-abre">
         <h2 id="t-passados" class="t-gigante ecoa ecoa-direita" data-eco="Já rolou" data-anima="eco">Já rolou</h2>
         <div class="arquivo-fotos">
-          <p class="t-apoio">As fotos de todas as edições ficam no Pixieset, separadas por festa.</p>
+          <p class="t-apoio">As fotos das edições recentes ficam no Pixieset, separadas por festa. As de 2009 a 2013 estão no Flickr: cada festa dessa época leva direto ao álbum.</p>
           <Botao href={SITE.fotos} externo tipo="linha">Fotos no Pixieset</Botao>
         </div>
       </header>
@@ -86,7 +86,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
                     <a href={e.url} target="_blank" rel="noopener" data-espia={e.capa ?? ''}>
                       <span class="linha-data">{d.dia} {d.mes}</span>
                       <span class="linha-nome">{e.nome}</span>
-                      <span class="linha-local">{e.local ?? ''}</span>
+                      <span class="linha-local">{e.local ?? ''}{e.album && <span class:list={['linha-fotos', { so: !e.local }]}>Fotos no Flickr</span>}</span>
                       {e.capaPequena && <img class="linha-mini" src={e.capaPequena} alt="" loading="lazy" />}
                       <span class="so-leitor"> (abre em outra aba)</span>
                     </a>
@@ -207,6 +207,9 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .linha-nome { font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; }
   .linha-local { font-size: 0.9375rem; color: var(--suave); }
   .linhas a:hover .linha-local { color: inherit; }
+  /* Marca das festas antigas cujo link leva ao álbum de fotos */
+  .linha-fotos { display: inline-block; margin-left: 0.8em; padding: 0.15em 0.6em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+  .linha-fotos.so { margin-left: 0; }
   .linha-mini { display: none; }
   @media (max-width: 720px) {
     /* No celular não existe hover: a capa vira miniatura ao lado */

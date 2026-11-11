@@ -1,6 +1,7 @@
 import manuais from '../data/eventos-manual.json';
 import locais from '../data/locais.json';
 import historico from '../data/sympla-historico.json';
+import flickr from '../data/flickr-historico.json';
 import { TEMAS_DO_SITE, temaPara, type Tema } from './temas';
 import { temaDaImagem, malhaDaImagem, type Malha } from './paleta';
 import { readFile } from 'node:fs/promises';
@@ -23,6 +24,10 @@ export interface Evento {
   tema: Tema;
   // Cores dos quatro cantos da capa, para o fundo do cartão compacto. Só os próximos têm.
   malha?: Malha;
+  // O link leva a um álbum de fotos (e não à página de ingressos).
+  album?: 'flickr';
+  // Só o dia é conhecido; a hora é um palpite e não deve ser usada para comparar.
+  soDia?: boolean;
 }
 
 // Resumo do que aconteceu na busca, publicado em /estado.json para conferência.
@@ -278,11 +283,20 @@ async function fonteHistorico(): Promise<Evento[]> {
   });
 }
 
+// ---------- Álbuns do Flickr ----------
+// Cópia estática, feita em novembro de 2026, dos álbuns de flickr.com/photos/absurdaparty:
+// as festas de 2009 a 2013, de antes das plataformas de ingresso. O nome, a data e a
+// casa vieram do título de cada álbum, e o link leva às fotos.
+async function fonteFlickr(): Promise<Evento[]> {
+  return (flickr as Array<{ id: string; nome: string; data: string; url: string; local?: string }>).map((e) => ({ ...e, origem: 'manual', tema: temaPara(e.id), album: 'flickr', soDia: true }));
+}
+
 // O mesmo evento pode chegar por mais de um caminho: token e histórico do Sympla,
 // ou vendido no Shotgun e no Sympla ao mesmo tempo. Fica o primeiro da lista.
 function semRepetidos(lista: Evento[]) {
   const chave = (url: string) => url.toLowerCase().split('?')[0].replace(/\/$/, '');
   const hora = (e: Evento) => new Date(e.data).getTime();
+  const dia = (e: Evento) => new Date(hora(e) - 3 * 3600 * 1000).toISOString().slice(0, 10);
   const ficam: Evento[] = [];
   for (const e of lista) {
     const repetido = ficam.some(
@@ -291,6 +305,8 @@ function semRepetidos(lista: Evento[]) {
         chave(f.url) === chave(e.url) ||
         // Plataformas diferentes, começando com menos de uma hora e meia de diferença
         (f.origem !== e.origem && Math.abs(hora(f) - hora(e)) <= 90 * 60 * 1000) ||
+        // Um dos dois só tem o dia (álbum de fotos): basta ser no mesmo dia
+        (f.origem !== e.origem && (f.soDia || e.soDia) && dia(f) === dia(e)) ||
         // Mesma plataforma, mesmo nome e mesmo horário
         (f.origem === e.origem && f.nome.toLowerCase() === e.nome.toLowerCase() && hora(f) === hora(e)),
     );
@@ -319,14 +335,14 @@ let guardado: Promise<{ proximos: Evento[]; passados: Evento[] }> | null = null;
 // Busca uma vez só por geração do site, mesmo que várias páginas peçam.
 export function getEventos() {
   guardado ??= (async () => {
-    const [shotgun, sympla, antigos, manual] = await Promise.all([fonteShotgun(), fonteSympla(), fonteHistorico(), fonteManual()]);
+    const [shotgun, sympla, antigos, manual, albuns] = await Promise.all([fonteShotgun(), fonteSympla(), fonteHistorico(), fonteManual(), fonteFlickr()]);
     // Os eventos de marcação só aparecem enquanto nenhuma plataforma devolve eventos de verdade.
     const reais = [...shotgun, ...sympla, ...antigos];
     const marcacao = manual.filter((e) => e.id.startsWith('m'));
     // Os cadastrados à mão vêm primeiro: quando o mesmo evento também chega por uma
     // plataforma (como o Halloween de 2025, criado no Sympla e vendido em outro site),
     // vale a versão manual.
-    const todos = [...manual.filter((e) => !e.id.startsWith('m')), ...reais, ...(reais.length === 0 ? marcacao : [])];
+    const todos = [...manual.filter((e) => !e.id.startsWith('m')), ...albuns, ...reais, ...(reais.length === 0 ? marcacao : [])];
     // Tira repetidos (mesmo evento vindo de duas fontes) e ordena por data.
     const unicos = semRepetidos(todos).sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
     estado.repetidosRemovidos = todos.length - unicos.length;
