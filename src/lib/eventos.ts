@@ -1,5 +1,6 @@
 import manuais from '../data/eventos-manual.json';
 import locais from '../data/locais.json';
+import historico from '../data/sympla-historico.json';
 import { TEMAS_DO_SITE, temaPara, type Tema } from './temas';
 import { temaDaImagem } from './paleta';
 import sharp from 'sharp';
@@ -171,6 +172,7 @@ async function fonteShotgun(): Promise<Evento[]> {
 
 interface EventoSympla {
   id: string;
+  reference_id?: number;
   name: string;
   start_date: string;
   url: string;
@@ -222,7 +224,8 @@ async function fonteSympla(): Promise<Evento[]> {
         validos.map(async (e): Promise<Evento | null> => {
           const data = dataSympla(e.start_date);
           if (!data) return null;
-          const id = `sympla-${e.id}`;
+          // O número de referência é o mesmo que aparece no endereço público do evento.
+          const id = `sympla-${e.reference_id ?? e.id}`;
           const capa = e.image || undefined;
           const futuro = new Date(data).getTime() >= agora;
           const lido = futuro ? await lerCapa(capa, id) : { tema: temaPara(id) };
@@ -249,6 +252,38 @@ async function fonteSympla(): Promise<Evento[]> {
   }
 }
 
+// ---------- Histórico do Sympla ----------
+// Cópia estática, feita uma vez em novembro de 2026, dos eventos encerrados que
+// aparecem na página de produtor (sympla.com.br/produtor/festaabsurda). Inclui os
+// criados por outras contas e compartilhados com a @bsurda, que o token não enxerga.
+async function fonteHistorico(): Promise<Evento[]> {
+  return (historico as Array<{ id: string; nome: string; data: string; url: string; capa?: string; local?: string }>).map((e) => {
+    const casa = locais.find((l) => e.local?.includes(l.endereco))?.nome ?? e.local;
+    return { id: e.id, nome: limparNome(e.nome), data: e.data, local: casa, capa: e.capa, capaPequena: e.capa?.replace('-lg.', '-xs.'), url: e.url, origem: 'sympla', tema: temaPara(e.id) };
+  });
+}
+
+// O mesmo evento pode chegar por mais de um caminho: token e histórico do Sympla,
+// ou vendido no Shotgun e no Sympla ao mesmo tempo. Fica o primeiro da lista.
+function semRepetidos(lista: Evento[]) {
+  const chave = (url: string) => url.toLowerCase().split('?')[0].replace(/\/$/, '');
+  const hora = (e: Evento) => new Date(e.data).getTime();
+  const ficam: Evento[] = [];
+  for (const e of lista) {
+    const repetido = ficam.some(
+      (f) =>
+        f.id === e.id ||
+        chave(f.url) === chave(e.url) ||
+        // Plataformas diferentes, começando com menos de uma hora e meia de diferença
+        (f.origem !== e.origem && f.origem !== 'manual' && e.origem !== 'manual' && Math.abs(hora(f) - hora(e)) <= 90 * 60 * 1000) ||
+        // Mesma plataforma, mesmo nome e mesmo horário
+        (f.origem === e.origem && f.nome.toLowerCase() === e.nome.toLowerCase() && hora(f) === hora(e)),
+    );
+    if (!repetido) ficam.push(e);
+  }
+  return ficam;
+}
+
 // ---------- Manuais ----------
 async function fonteManual(): Promise<Evento[]> {
   const agora = Date.now();
@@ -269,19 +304,21 @@ let guardado: Promise<{ proximos: Evento[]; passados: Evento[] }> | null = null;
 // Busca uma vez só por geração do site, mesmo que várias páginas peçam.
 export function getEventos() {
   guardado ??= (async () => {
-    const [shotgun, sympla, manual] = await Promise.all([fonteShotgun(), fonteSympla(), fonteManual()]);
+    const [shotgun, sympla, antigos, manual] = await Promise.all([fonteShotgun(), fonteSympla(), fonteHistorico(), fonteManual()]);
     // Os eventos de marcação só aparecem enquanto nenhuma plataforma devolve eventos de verdade.
-    const reais = [...shotgun, ...sympla];
+    const reais = [...shotgun, ...sympla, ...antigos];
     const marcacao = manual.filter((e) => e.id.startsWith('m'));
     const todos = [...reais, ...manual.filter((e) => !e.id.startsWith('m')), ...(reais.length === 0 ? marcacao : [])];
     // Tira repetidos (mesmo evento vindo de duas fontes) e ordena por data.
-    const unicos = [...new Map(todos.map((e) => [e.id, e])).values()].sort((a, b) => a.data.localeCompare(b.data));
+    const unicos = semRepetidos(todos).sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
+    estado.repetidosRemovidos = todos.length - unicos.length;
+    const agoraMs = Date.now();
     const agora = new Date().toISOString();
     estado.geradoEm = agora;
-    estado.total = { proximos: unicos.filter((e) => e.data >= agora).length, passados: unicos.filter((e) => e.data < agora).length };
+    estado.total = { proximos: unicos.filter((e) => new Date(e.data).getTime() >= agoraMs).length, passados: unicos.filter((e) => new Date(e.data).getTime() < agoraMs).length };
     return {
-      proximos: unicos.filter((e) => e.data >= agora),
-      passados: unicos.filter((e) => e.data < agora).reverse(),
+      proximos: unicos.filter((e) => new Date(e.data).getTime() >= agoraMs),
+      passados: unicos.filter((e) => new Date(e.data).getTime() < agoraMs).reverse(),
     };
   })();
   return guardado;
