@@ -191,7 +191,7 @@ async function fonteShotgun(): Promise<Evento[]> {
 // Minha Conta > Integrações.
 
 interface EventoSympla {
-  id: string;
+  id: string | number;
   reference_id?: number;
   name: string;
   start_date: string;
@@ -212,36 +212,58 @@ function dataSympla(texto: string) {
   return Number.isNaN(data.getTime()) ? null : data.toISOString();
 }
 
+// Procura no nome uma data no formato dia/mês ("22/10", "22.10.2022"). Se ela existir e
+// for diferente da data cadastrada, devolve a cadastrada com o dia e o mês trocados.
+function dataDoNome(nome: string, iso: string) {
+  const achado = nome.match(/(?<!\d)(\d{1,2})[/.](\d{1,2})(?:[/.](\d{2,4}))?(?!\d)/);
+  if (!achado) return iso;
+  const dia = Number(achado[1]);
+  const mes = Number(achado[2]);
+  if (dia < 1 || dia > 31 || mes < 1 || mes > 12) return iso;
+  // A data cadastrada, vista no horário de Brasília.
+  const local = new Date(new Date(iso).getTime() - 3 * 3600 * 1000);
+  if (local.getUTCDate() === dia && local.getUTCMonth() + 1 === mes) return iso;
+  // Festa que começa depois da meia-noite costuma levar no nome a data da véspera.
+  const vespera = new Date(local.getTime() - 24 * 3600 * 1000);
+  if (vespera.getUTCDate() === dia && vespera.getUTCMonth() + 1 === mes) return iso;
+  let ano = local.getUTCFullYear();
+  if (achado[3]) ano = Number(achado[3].length === 2 ? `20${achado[3]}` : achado[3]);
+  const nova = new Date(Date.UTC(ano, mes - 1, dia, local.getUTCHours() + 3, local.getUTCMinutes()));
+  return Number.isNaN(nova.getTime()) ? iso : nova.toISOString();
+}
+
 async function contaSympla(token: string, chave: string): Promise<Evento[]> {
   try {
+    // A versão 3 da API é a que devolve o histórico completo da conta. A mais nova
+    // (1.6.0) deixa de fora os eventos de 2015 a 2022, sem explicação na documentação.
     const brutos: EventoSympla[] = [];
-    let cursor: string | undefined;
     let paginasLidas = 0;
     // O limite de páginas é só uma trava de segurança.
-    for (let pagina = 0; pagina < 30; pagina++) {
-      const endereco = new URL('https://api.sympla.com.br/public/v1.6.0/events');
-      // Pede tudo (publicados ou não) para o diagnóstico; o filtro vem depois.
+    for (let pagina = 1; pagina <= 30; pagina++) {
+      const endereco = new URL('https://api.sympla.com.br/public/v3/events');
       endereco.searchParams.set('published', 'all');
-      endereco.searchParams.set('timezone', 'America/Sao_Paulo');
-      endereco.searchParams.set('sort', 'desc');
-      endereco.searchParams.set('field_sort', 'start_date');
       endereco.searchParams.set('page_size', '200');
-      if (cursor) endereco.searchParams.set('cursor', cursor);
+      endereco.searchParams.set('page', String(pagina));
       const resposta = await fetch(endereco, { headers: { s_token: token } });
       if (!resposta.ok) throw new Error(`Sympla respondeu ${resposta.status}`);
-      const corpo = (await resposta.json()) as { data?: EventoSympla[]; pagination?: { next_cursor?: string | null } };
-      brutos.push(...(corpo.data ?? []));
+      const corpo = (await resposta.json()) as { data?: EventoSympla[]; pagination?: { has_next?: boolean } };
+      const lote = corpo.data ?? [];
+      brutos.push(...lote);
       paginasLidas++;
-      cursor = corpo.pagination?.next_cursor ?? undefined;
-      if (!cursor) break;
+      if (!corpo.pagination?.has_next || lote.length === 0) break;
     }
+    const ajustadas: string[] = [];
     const agora = Date.now();
     const validos = brutos.filter((e) => !e.cancelled && !e.private_event && e.published !== 0);
     const eventos = (
       await Promise.all(
         validos.map(async (e): Promise<Evento | null> => {
-          const data = dataSympla(e.start_date);
-          if (!data) return null;
+          const cadastrada = dataSympla(e.start_date);
+          if (!cadastrada) return null;
+          // Em alguns eventos a data cadastrada é a da abertura das vendas, e a da
+          // festa está só no nome. Quando as duas não batem, vale a do nome.
+          const data = dataDoNome(e.name, cadastrada);
+          if (data !== cadastrada) ajustadas.push(`${e.name}: ${cadastrada.slice(0, 10)} > ${data.slice(0, 10)}`);
           // O número de referência é o mesmo que aparece no endereço público do evento.
           const id = `sympla-${e.reference_id ?? e.id}`;
           const capa = e.image || undefined;
@@ -260,6 +282,7 @@ async function contaSympla(token: string, chave: string): Promise<Evento[]> {
       comCapa: eventos.filter((e) => e.capa).length,
       // Como a data chega, para conferir o fuso.
       exemploDeData: brutos[0]?.start_date ?? null,
+      datasTiradasDoNome: ajustadas,
       // Conferência: por ano, quantos vieram e quantos caíram em cada filtro.
       porAno: Object.fromEntries(
         [...new Set(brutos.map((e) => e.start_date.slice(0, 4)))].sort().map((ano) => {
@@ -278,41 +301,11 @@ async function contaSympla(token: string, chave: string): Promise<Evento[]> {
   }
 }
 
-// Conferência: a mesma pergunta feita às versões antigas da API do Sympla, para saber
-// se alguma delas entrega os anos que a atual não entrega. Só diagnóstico: o resultado
-// vai para /estado.json e não entra na agenda.
-async function conferirVersoesAntigas(token: string) {
-  const resultado: Record<string, unknown> = {};
-  for (const versao of ['v3', 'v4', 'v1.5.1']) {
-    try {
-      const anos: Record<string, number> = {};
-      let total = 0;
-      let estado_ = 0;
-      for (let pagina = 1; pagina <= 15; pagina++) {
-        const resposta = await fetch(`https://api.sympla.com.br/public/${versao}/events?page_size=200&page=${pagina}&published=all`, { headers: { s_token: token } });
-        estado_ = resposta.status;
-        if (!resposta.ok) break;
-        const corpo = (await resposta.json()) as { data?: Array<{ start_date?: string }>; pagination?: { has_next?: boolean } };
-        const lote = corpo.data ?? [];
-        total += lote.length;
-        for (const e of lote) { const ano = (e.start_date ?? '').slice(0, 4); anos[ano] = (anos[ano] ?? 0) + 1; }
-        if (!corpo.pagination?.has_next || lote.length === 0) break;
-      }
-      resultado[versao] = { resposta: estado_, recebidos: total, porAno: Object.fromEntries(Object.entries(anos).sort()) };
-    } catch (erro) {
-      resultado[versao] = { erro: erro instanceof Error ? erro.message : 'erro' };
-    }
-  }
-  estado.symplaVersoesAntigas = resultado;
-}
-
 // Cada conta do Sympla tem a sua chave e só enxerga os eventos que ela mesma criou.
 // Por isso o site aceita mais de uma: SYMPLA_TOKEN, SYMPLA_TOKEN_2 e SYMPLA_TOKEN_3.
 async function fonteSympla(): Promise<Evento[]> {
   const contas = [['SYMPLA_TOKEN', 'sympla'], ['SYMPLA_TOKEN_2', 'sympla2'], ['SYMPLA_TOKEN_3', 'sympla3']] as const;
   if (!env('SYMPLA_TOKEN')) estado.sympla = { ligado: false, motivo: 'faltando SYMPLA_TOKEN' };
-  const principal = env('SYMPLA_TOKEN');
-  if (principal) await conferirVersoesAntigas(principal);
   const listas = await Promise.all(contas.map(([variavel, chave]) => { const token = env(variavel); return token ? contaSympla(token, chave) : Promise.resolve([]); }));
   return listas.flat();
 }
