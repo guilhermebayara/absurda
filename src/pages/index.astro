@@ -57,13 +57,14 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   {seguintes.length > 1 && (
     <section class="seguintes" aria-labelledby="t-seguintes">
       <h2 id="t-seguintes" class="titulo-secao" data-anima="sobe">Próximas datas</h2>
+      <p class="seguintes-agenda"><Botao href="/agenda" tipo="linha">Agenda completa<span class="so-largo"> e eventos passados</span></Botao></p>
       <div class="seguintes-fila" style={`--n:${seguintes.length}`}>
         {seguintes.map((e) => <CartaoEvento evento={e} />)}
       </div>
     </section>
   )}
 
-  {proximos.length > 0 && (
+  {proximos.length > 0 && seguintes.length < 2 && (
     <p class="ver-agenda"><Botao href="/agenda" tipo="linha">Agenda completa e eventos passados</Botao></p>
   )}
 
@@ -199,12 +200,19 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   @keyframes lema-texto { from { opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { :global(.js) .lema, :global(.js) .lema-texto { animation: none; } }
 
-  .seguintes { padding: var(--e-4) var(--margem) 0; }
+  /* O atalho para a agenda pertence ao grupo dos cartões: fica na linha do título,
+     alinhado à borda direita da fila. No celular desce para depois dos cartões. */
+  .seguintes { display: grid; grid-template-columns: 1fr auto; align-items: end; column-gap: var(--e-3); padding: var(--e-4) var(--margem) var(--e-5); }
+  .seguintes .titulo-secao { margin-bottom: 0; }
+  .seguintes-agenda { justify-self: end; }
+  .seguintes-fila { grid-column: 1 / -1; margin-top: var(--e-3); }
   .seguintes-fila { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: var(--e-3); }
   /* No celular os cartões viram uma fila que se arrasta para o lado: o próximo
      aparece pela metade para mostrar que tem mais. */
   @media (max-width: 820px) {
-    .seguintes { padding-right: 0; }
+    .seguintes { grid-template-columns: 1fr; padding-right: 0; }
+    .seguintes-agenda { order: 3; justify-self: start; margin-top: var(--e-3); }
+    .so-largo { display: none; }
     .seguintes-fila { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-right: var(--margem); padding-bottom: 0.5rem; }
     .seguintes-fila::-webkit-scrollbar { display: none; }
     .seguintes-fila > :global(*) { flex: none; width: 78vw; scroll-snap-align: start; }
