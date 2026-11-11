@@ -165,9 +165,88 @@ async function fonteShotgun(): Promise<Evento[]> {
 }
 
 // ---------- Sympla ----------
-// Entra quando houver token (variável SYMPLA_TOKEN).
+// Documentação: https://developers.sympla.com.br/api-doc/index.html
+// Entra quando houver token (variável SYMPLA_TOKEN), gerado no Sympla em
+// Minha Conta > Integrações.
+
+interface EventoSympla {
+  id: string;
+  name: string;
+  start_date: string;
+  url: string;
+  image?: string | null;
+  private_event?: number;
+  published?: number;
+  cancelled?: number;
+  address?: { name?: string; address?: string; address_num?: string; city?: string } | null;
+}
+
+// O Sympla devolve a data no horário de Brasília, sem fuso ("2026-11-13 22:00:00").
+// Aqui ela vira ISO completo. Se já vier com fuso, fica como está.
+function dataSympla(texto: string) {
+  const limpo = texto.trim().replace(' ', 'T');
+  const comFuso = /(?:Z|[+-]\d{2}:?\d{2})$/.test(limpo) ? limpo : `${limpo}-03:00`;
+  const data = new Date(comFuso);
+  return Number.isNaN(data.getTime()) ? null : data.toISOString();
+}
+
 async function fonteSympla(): Promise<Evento[]> {
-  return [];
+  const token = env('SYMPLA_TOKEN');
+  if (!token) {
+    estado.sympla = { ligado: false, motivo: 'faltando SYMPLA_TOKEN' };
+    return [];
+  }
+  try {
+    const brutos: EventoSympla[] = [];
+    let cursor: string | undefined;
+    // O limite de páginas é só uma trava de segurança.
+    for (let pagina = 0; pagina < 30; pagina++) {
+      const endereco = new URL('https://api.sympla.com.br/public/v1.6.0/events');
+      endereco.searchParams.set('published', 'true');
+      endereco.searchParams.set('timezone', 'America/Sao_Paulo');
+      endereco.searchParams.set('sort', 'desc');
+      endereco.searchParams.set('field_sort', 'start_date');
+      endereco.searchParams.set('page_size', '200');
+      if (cursor) endereco.searchParams.set('cursor', cursor);
+      const resposta = await fetch(endereco, { headers: { s_token: token } });
+      if (!resposta.ok) throw new Error(`Sympla respondeu ${resposta.status}`);
+      const corpo = (await resposta.json()) as { data?: EventoSympla[]; pagination?: { next_cursor?: string | null } };
+      brutos.push(...(corpo.data ?? []));
+      cursor = corpo.pagination?.next_cursor ?? undefined;
+      if (!cursor) break;
+    }
+    const agora = Date.now();
+    const validos = brutos.filter((e) => !e.cancelled && !e.private_event && e.published !== 0);
+    const eventos = (
+      await Promise.all(
+        validos.map(async (e): Promise<Evento | null> => {
+          const data = dataSympla(e.start_date);
+          if (!data) return null;
+          const id = `sympla-${e.id}`;
+          const capa = e.image || undefined;
+          const futuro = new Date(data).getTime() >= agora;
+          const lido = futuro ? await lerCapa(capa, id) : { tema: temaPara(id) };
+          const casa = e.address?.name?.trim() || [e.address?.address, e.address?.address_num].filter(Boolean).join(', ') || e.address?.city;
+          return { id, nome: limparNome(e.name), data, local: casa || undefined, capa, capaPequena: capa, proporcao: lido.proporcao, url: e.url, origem: 'sympla', tema: lido.tema };
+        }),
+      )
+    ).filter((e): e is Evento => e !== null);
+    estado.sympla = {
+      ligado: true,
+      recebidos: brutos.length,
+      exibidos: eventos.length,
+      futuros: eventos.filter((e) => new Date(e.data).getTime() >= agora).length,
+      comCapa: eventos.filter((e) => e.capa).length,
+      // Como a data chega, para conferir o fuso.
+      exemploDeData: brutos[0]?.start_date ?? null,
+      maisAntigo: eventos.map((e) => e.data).sort()[0]?.slice(0, 10) ?? null,
+    };
+    return eventos;
+  } catch (erro) {
+    // O site continua sendo gerado mesmo se o Sympla estiver fora do ar.
+    estado.sympla = { ligado: true, erro: erro instanceof Error ? erro.message : 'erro desconhecido' };
+    return [];
+  }
 }
 
 // ---------- Manuais ----------
