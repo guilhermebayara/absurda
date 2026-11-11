@@ -290,7 +290,7 @@ function semRepetidos(lista: Evento[]) {
         f.id === e.id ||
         chave(f.url) === chave(e.url) ||
         // Plataformas diferentes, começando com menos de uma hora e meia de diferença
-        (f.origem !== e.origem && f.origem !== 'manual' && e.origem !== 'manual' && Math.abs(hora(f) - hora(e)) <= 90 * 60 * 1000) ||
+        (f.origem !== e.origem && Math.abs(hora(f) - hora(e)) <= 90 * 60 * 1000) ||
         // Mesma plataforma, mesmo nome e mesmo horário
         (f.origem === e.origem && f.nome.toLowerCase() === e.nome.toLowerCase() && hora(f) === hora(e)),
     );
@@ -323,7 +323,10 @@ export function getEventos() {
     // Os eventos de marcação só aparecem enquanto nenhuma plataforma devolve eventos de verdade.
     const reais = [...shotgun, ...sympla, ...antigos];
     const marcacao = manual.filter((e) => e.id.startsWith('m'));
-    const todos = [...reais, ...manual.filter((e) => !e.id.startsWith('m')), ...(reais.length === 0 ? marcacao : [])];
+    // Os cadastrados à mão vêm primeiro: quando o mesmo evento também chega por uma
+    // plataforma (como o Halloween de 2025, criado no Sympla e vendido em outro site),
+    // vale a versão manual.
+    const todos = [...manual.filter((e) => !e.id.startsWith('m')), ...reais, ...(reais.length === 0 ? marcacao : [])];
     // Tira repetidos (mesmo evento vindo de duas fontes) e ordena por data.
     const unicos = semRepetidos(todos).sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
     estado.repetidosRemovidos = todos.length - unicos.length;

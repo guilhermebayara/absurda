@@ -21,7 +21,6 @@ for (const e of passados) {
   anos.set(ano, [...(anos.get(ano) ?? []), e]);
 }
 const lista = [...anos].sort((a, b) => b[0] - a[0]);
-const primeiroAno = lista.at(-1)?.[0];
 // Os dois anos mais recentes ficam abertos; os outros abrem ao clicar.
 const abertos = new Set(lista.slice(0, 2).map(([ano]) => ano));
 // Marcos da história, por ano (os mesmos da página Sobre).
@@ -32,7 +31,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   <header class="abre" data-tema={atributo(temaInicial)}>
     <h1 class="t-gigante ecoa" data-eco="Agenda">Agenda</h1>
     <p class="t-apoio">
-      {proximos.length > 0 ? `${plural(proximos.length)} pela frente` : 'Nenhuma data anunciada no momento'}{primeiroAno && ` e ${passados.length} no arquivo, desde ${primeiroAno}.`}
+      {proximos.length > 0 ? `${plural(proximos.length)} pela frente` : 'Nenhuma data anunciada no momento'}, e o que já rolou desde 2009.
     </p>
   </header>
 
@@ -48,7 +47,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   </section>
 
   <div data-tema="sorteio" data-reserva={atributo(TEMAS_DO_SITE[0])}>
-    <Faixa texto={`${passados.length} datas desde ${primeiroAno ?? 2009}`} />
+    <Faixa texto={`${SITE.lema} desde 2009`} />
 
     <section class="arquivo" aria-labelledby="t-passados">
       <header class="arquivo-abre">
@@ -70,8 +69,10 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
         <details class="ano" id={`ano-${ano}`} open={abertos.has(ano)}>
           <summary>
             <span class="ano-numero">{ano}</span>
-            <span class="ano-conta">{plural(eventos.length)}</span>
-            <span class="ano-sinal" aria-hidden="true"></span>
+            <span class="ano-sinal" aria-hidden="true">
+              <svg class="ano-arco" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" /></svg>
+              <svg class="ano-seta" viewBox="0 0 16 16"><path d="M8 2.5v11M3.5 9 8 13.5 12.5 9" /></svg>
+            </span>
           </summary>
           <div class="ano-corpo">
             {marcosDe(ano).map((m) => (
@@ -110,8 +111,10 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   const imagem = espia?.querySelector('img');
   if (espia && imagem && window.matchMedia('(pointer: fine)').matches) {
     document.querySelectorAll<HTMLElement>('.linhas a').forEach((el) => {
-      el.addEventListener('pointerenter', () => {
+      el.addEventListener('pointerenter', (e) => {
         if (!el.dataset.espia) return;
+        espia.style.setProperty('--x', `${e.clientX}px`);
+        espia.style.setProperty('--y', `${e.clientY}px`);
         imagem.src = el.dataset.espia;
         espia.classList.add('visivel');
       });
@@ -161,7 +164,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
 
   .arquivo { position: relative; isolation: isolate; padding: var(--e-6) var(--margem); }
   .arquivo-abre { display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--e-4); align-items: end; margin-bottom: var(--e-5); }
-  .arquivo-fotos { display: grid; gap: var(--e-3); justify-items: start; padding-bottom: 0.6em; }
+  .arquivo-fotos { display: grid; gap: var(--e-3); justify-items: start; margin-bottom: calc(clamp(3.25rem, 13.5vw, 13rem) * 0.565); }
   @media (max-width: 820px) { .arquivo-abre { grid-template-columns: 1fr; } }
 
   /* Atalho de anos: uma fila que rola para o lado, presa no topo */
@@ -179,10 +182,15 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .ano summary::-webkit-details-marker { display: none; }
   .ano-numero { font-size: clamp(3.5rem, 12vw, 11rem); font-weight: 800; line-height: 0.84; letter-spacing: -0.05em; transition: color 0.3s; }
   .ano summary:hover .ano-numero { color: var(--destaque); }
-  .ano-conta { font-size: var(--t-3); font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
-  /* O sinal de abrir é o anel do "@": gira e fecha a abertura quando o ano está aberto */
-  .ano-sinal { align-self: center; flex: none; width: clamp(1.75rem, 3vw, 2.75rem); aspect-ratio: 1; margin-left: auto; border: 0.22em solid currentColor; border-radius: 50%; border-left-color: transparent; font-size: clamp(0.8rem, 1.2vw, 1.1rem); transform: rotate(-45deg); transition: transform 0.6s cubic-bezier(0.62, 0.05, 0.01, 0.99), border-color 0.3s; }
-  .ano[open] .ano-sinal { transform: rotate(135deg); border-left-color: currentColor; }
+  /* O sinal de abrir é o mesmo dos botões: o anel do "@" com uma seta dentro.
+     Fechado, a seta aponta para baixo; aberto, vira para cima. */
+  .ano-sinal { position: relative; align-self: center; flex: none; width: clamp(2.25rem, 3.6vw, 3.25rem); aspect-ratio: 1; margin-left: auto; }
+  .ano-arco { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; transform: rotate(158.5deg); transition: transform 0.7s cubic-bezier(0.62, 0.05, 0.01, 0.99); }
+  .ano-arco circle { fill: none; stroke: currentColor; stroke-width: 3; stroke-dasharray: 75.8 31; }
+  .ano-seta { position: absolute; inset: 0; margin: auto; width: 40%; height: 40%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.5s cubic-bezier(0.62, 0.05, 0.01, 0.99); }
+  .ano[open] .ano-seta { transform: rotate(180deg); }
+  .ano summary:hover .ano-arco { transform: rotate(518.5deg); }
+  .ano summary:hover .ano-sinal { color: var(--destaque); }
   .ano-corpo { padding-bottom: var(--e-4); }
 
   /* Marco do ano: entra antes da lista, com a barra do logo */
@@ -214,5 +222,5 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .espia-capa { position: fixed; left: 0; top: 0; z-index: 1; width: clamp(15rem, 24vw, 24rem); aspect-ratio: 16 / 9; overflow: hidden; border-radius: clamp(0.6rem, 1.2vw, 1rem); background: var(--texto); box-shadow: 0 1.5rem 3rem -1.25rem rgb(0 0 0 / 0.55); pointer-events: none; opacity: 0; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(0.85); transition: opacity 0.2s, transform 0.18s ease-out; }
   .espia-capa.visivel { opacity: 1; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(1); }
   .espia-capa img { width: 100%; height: 100%; object-fit: cover; }
-  @media (prefers-reduced-motion: reduce) { .anos-nav a::before, .ano-sinal, .linhas a, .espia-capa { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .anos-nav a::before, .ano-arco, .ano-seta, .linhas a, .espia-capa { transition: none; } }
 </style>

@@ -40,5 +40,16 @@
     "origem": "sympla",
     "capa": "https://images.sympla.com.br/6af4b04b61a1d-lg.png",
     "capaPequena": "https://images.sympla.com.br/6af4b04b61a1d-xs.png"
+  },
+  {
+    "id": "gofree-37387",
+    "nome": "Halloween @bsurda 16 anos",
+    "data": "2025-10-18T22:00:00-03:00",
+    "local": "Galpão 54",
+    "url": "https://eventos.gofree.co/halloween-bsurda-16-anos-1810-22h-galpo-54_37387/",
+    "origem": "manual",
+    "capa": "/capas/halloween-16-anos.jpg",
+    "capaPequena": "/capas/halloween-16-anos-p.jpg",
+    "proporcao": 2.18
   }
 ]
