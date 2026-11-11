@@ -24,8 +24,6 @@ for (const e of passados) {
 // do tempo não pular os anos de que ainda não há arquivo.
 for (const m of marcos) if (!anos.has(Number(m.ano))) anos.set(Number(m.ano), []);
 const lista = [...anos].sort((a, b) => b[0] - a[0]);
-// Os dois anos mais recentes ficam abertos; os outros abrem ao clicar.
-const abertos = new Set(lista.slice(0, 2).map(([ano]) => ano));
 // Marcos da história, por ano (os mesmos da página Sobre).
 const marcosDe = (ano: number) => marcos.filter((m) => Number(m.ano) === ano);
 const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
@@ -69,22 +67,22 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
       </nav>
 
       {lista.map(([ano, eventos]) => (
-        <details class="ano" id={`ano-${ano}`} open={abertos.has(ano)}>
+        <details class="ano" id={`ano-${ano}`}>
           <summary>
             <span class="ano-numero">{ano}</span>
             {marcosDe(ano).length > 0 && (
               <span class="ano-marcos">
-                {marcosDe(ano).map((m) => <span><i aria-hidden="true"></i>{m.tema && <em>{m.tema}</em>}{m.titulo}</span>)}
+                {marcosDe(ano).map((m) => <span><i aria-hidden="true"></i>{m.titulo}{m.tema && <em>{m.tema}</em>}</span>)}
               </span>
             )}
             <span class="ano-sinal" aria-hidden="true">
               <svg class="ano-arco" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" /></svg>
-              <svg class="ano-seta" viewBox="0 0 16 16"><path d="M8 2.5v11M3.5 9 8 13.5 12.5 9" /></svg>
+              <svg class="ano-mais" viewBox="0 0 16 16"><path d="M2.5 8h11" /><path class="ano-mais-v" d="M8 2.5v11" /></svg>
             </span>
           </summary>
           <div class="ano-corpo">
             {marcosDe(ano).map((m) => (
-              <p class="marco"><span aria-hidden="true"></span>{m.tema && <b>{m.tema}</b>}<strong>{m.titulo}</strong>{m.texto && <em>{m.texto}</em>}</p>
+              <p class="marco"><span aria-hidden="true"></span><strong>{m.titulo}</strong>{m.tema && <b>{m.tema}</b>}{m.texto && <em>{m.texto}</em>}</p>
             ))}
             {eventos.length === 0 && <p class="sem-arquivo">As festas deste ano ainda não estão no arquivo.</p>}
             <ul class="linhas">
@@ -205,13 +203,13 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .ano summary::-webkit-details-marker { display: none; }
   .ano-numero { font-size: clamp(3.5rem, 12vw, 11rem); font-weight: 800; line-height: 0.84; letter-spacing: -0.05em; transition: color 0.3s; }
   .ano summary:hover .ano-numero { color: var(--destaque); }
-  /* O sinal de abrir é o mesmo dos botões: o anel do "@" com uma seta dentro.
-     Fechado, a seta aponta para baixo; aberto, vira para cima. */
+  /* O sinal de abrir é o anel do "@" com um "+" dentro. Aberto, o "+" vira "−". */
   .ano-sinal { position: relative; align-self: center; flex: none; width: clamp(2.25rem, 3.6vw, 3.25rem); aspect-ratio: 1; margin-left: auto; }
   .ano-arco { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; transform: rotate(158.5deg); transition: transform 0.7s cubic-bezier(0.62, 0.05, 0.01, 0.99); }
   .ano-arco circle { fill: none; stroke: currentColor; stroke-width: 3; stroke-dasharray: 75.8 31; }
-  .ano-seta { position: absolute; inset: 0; margin: auto; width: 40%; height: 40%; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.5s cubic-bezier(0.62, 0.05, 0.01, 0.99); }
-  .ano[open] .ano-seta { transform: rotate(180deg); }
+  .ano-mais { position: absolute; inset: 0; margin: auto; width: 42%; height: 42%; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: butt; }
+  .ano-mais-v { transform-origin: center; transition: transform 0.4s cubic-bezier(0.62, 0.05, 0.01, 0.99); }
+  .ano[open] .ano-mais-v { transform: scaleY(0); }
   .ano summary:hover .ano-arco { transform: rotate(518.5deg); }
   .ano summary:hover .ano-sinal { color: var(--destaque); }
   /* Com o ano fechado, os marcos aparecem ao lado do número. Aberto, eles descem para o corpo, com o texto completo. */
@@ -259,5 +257,5 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .espia-capa { position: fixed; left: 0; top: 0; z-index: 1; width: clamp(15rem, 24vw, 24rem); aspect-ratio: 16 / 9; overflow: hidden; border-radius: clamp(0.6rem, 1.2vw, 1rem); background: var(--texto); box-shadow: 0 1.5rem 3rem -1.25rem rgb(0 0 0 / 0.55); pointer-events: none; opacity: 0; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(0.85); transition: opacity 0.2s, transform 0.18s ease-out; }
   .espia-capa.visivel { opacity: 1; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(1); }
   .espia-capa img { width: 100%; height: 100%; object-fit: cover; }
-  @media (prefers-reduced-motion: reduce) { .anos-nav a::before, .ano-arco, .ano-seta, .linhas .linha, .espia-capa { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .anos-nav a::before, .ano-arco, .ano-mais-v, .linhas .linha, .espia-capa { transition: none; } }
 </style>

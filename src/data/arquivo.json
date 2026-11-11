@@ -1460,7 +1460,9 @@
   "data": "2019-08-04T01:30:00.000Z",
   "url": "https://www.sympla.com.br/bsurda-premium-38__593386",
   "origem": "sympla",
-  "local": "CHURCH HOUSE"
+  "local": "CHURCH HOUSE",
+  "capa": "/arquivo/sympla-593386.jpg",
+  "capaPequena": "/arquivo/sympla-593386-p.jpg"
  },
  {
   "id": "sympla-590003",
@@ -1721,7 +1723,9 @@
   "data": "2018-09-02T02:00:00.000Z",
   "url": "https://www.sympla.com.br/bsurda-premium__345601",
   "origem": "sympla",
-  "local": "Casa @bsurda"
+  "local": "Casa @bsurda",
+  "capa": "/arquivo/sympla-345601.jpg",
+  "capaPequena": "/arquivo/sympla-345601-p.jpg"
  },
  {
   "id": "sympla-317613",
@@ -2181,14 +2185,6 @@
   "capaPequena": "/arquivo/sympla-31960-p.jpg"
  },
  {
-  "id": "sympla-35115",
-  "nome": "PLEASE COME TO BRAZIL THE OFFICIAL PARTY| EDIÇÃO PRETTY GIRLS| BH - MG",
-  "data": "2015-06-06T02:00:00.000Z",
-  "url": "https://www.sympla.com.br/please-come-to-brazil-the-official-party-edio-pretty-girls-bh---mg__35115",
-  "origem": "sympla",
-  "local": "JOSEFINE CLUB"
- },
- {
   "id": "sympla-33009",
   "nome": "MONEY edição Pour It Up - 23 de maio @ SKORPIUS NIGHT CLUB",
   "data": "2015-05-24T01:00:00.000Z",
@@ -2373,7 +2369,9 @@
   "nome": "@bsurda apresenta PFVR",
   "data": "2014-03-29T17:00:00.000Z",
   "url": "https://www.sympla.com.br/bsurda-apresenta-pfvr__17675",
-  "origem": "sympla"
+  "origem": "sympla",
+  "capa": "/arquivo/sympla-17675.jpg",
+  "capaPequena": "/arquivo/sympla-17675-p.jpg"
  },
  {
   "id": "sympla-17120",
@@ -2410,7 +2408,9 @@
   "nome": "@bsurda Card #3",
   "data": "2014-01-24T05:50:00.000Z",
   "url": "https://www.sympla.com.br/bsurda-card-3__16963",
-  "origem": "sympla"
+  "origem": "sympla",
+  "capa": "/arquivo/sympla-16963.jpg",
+  "capaPequena": "/arquivo/sympla-16963-p.jpg"
  },
  {
   "id": "sympla-16699",
@@ -2514,13 +2514,17 @@
   "nome": "@bsurda Card (2ª venda)",
   "data": "2013-06-03T02:50:00.000Z",
   "url": "https://www.sympla.com.br/bsurda-card-2-venda__13002",
-  "origem": "sympla"
+  "origem": "sympla",
+  "capa": "/arquivo/sympla-13002.jpg",
+  "capaPequena": "/arquivo/sympla-13002-p.jpg"
  },
  {
   "id": "sympla-12100",
   "nome": "@bsurda Card",
   "data": "2013-04-01T16:00:00.000Z",
   "url": "https://www.sympla.com.br/bsurda-card__12100",
-  "origem": "sympla"
+  "origem": "sympla",
+  "capa": "/arquivo/sympla-12100.jpg",
+  "capaPequena": "/arquivo/sympla-12100-p.jpg"
  }
 ]
