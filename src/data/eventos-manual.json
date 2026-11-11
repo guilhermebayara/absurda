@@ -51,5 +51,15 @@
     "capa": "/capas/halloween-16-anos.jpg",
     "capaPequena": "/capas/halloween-16-anos-p.jpg",
     "proporcao": 2.18
+  },
+  {
+    "id": "manual-halloween-13-anos",
+    "nome": "Halloween @bsurda 13 anos",
+    "data": "2022-10-22T22:00:00-03:00",
+    "local": "A Autêntica",
+    "url": "https://www.sympla.com.br/evento/halloween-bsurda-13-anos-22-10-2022/1403934",
+    "origem": "manual",
+    "capa": "/capas/halloween-13-anos.jpg",
+    "capaPequena": "/capas/halloween-13-anos-p.jpg"
   }
 ]
