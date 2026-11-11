@@ -20,7 +20,7 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
 <Base tema={temaInicial}>
   <section class="abertura" data-tema={atributo(temaInicial)}>
     <Eco />
-    <p class="lema"><span aria-hidden="true"></span>Festa pop LGBTQIA+ de Belo Horizonte.<br />{SITE.lema}, desde 2009.<span aria-hidden="true"></span></p>
+    <p class="lema"><span aria-hidden="true"></span><span class="lema-texto">Festa pop LGBTQIA+ de Belo Horizonte.<br />{SITE.lema}, desde 2009.</span><span aria-hidden="true"></span></p>
   </section>
 
   {destaque
@@ -43,26 +43,26 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   <Faixa texto={`${SITE.lema} desde 2009`} />
 
   <section class="historia" aria-labelledby="t-sobre">
-    <h2 id="t-sobre" class="titulo-secao">17 anos de @bsurda</h2>
+    <h2 id="t-sobre" class="titulo-secao" data-anima="sobe">17 anos de @bsurda</h2>
     <p class="so-leitor">{verbos.join('. ')}.</p>
     <div class="verbos" aria-hidden="true">
       {verbos.map((v, i) => (
         <p class:list={['verbo', { 'verbo-cor': i % 2 === 1 }]} data-desliza={i % 2 === 0 ? '-1' : '1'}>{v}</p>
       ))}
     </div>
-    <div class="historia-fim">
+    <div class="historia-fim" data-anima="surge">
       <p class="t-apoio">{SITE.descricao}</p>
       <Botao href="/sobre">A história da @bsurda</Botao>
     </div>
   </section>
 
   <section class="secao" aria-labelledby="t-projetos">
-    <h2 id="t-projetos" class="titulo-secao">Projetos</h2>
+    <h2 id="t-projetos" class="titulo-secao" data-anima="sobe">Projetos</h2>
     <ul class="indice">
-      {projetos.map((p) => (
-        <li>
+      {projetos.map((p, i) => (
+        <li data-anima="linha" style={`--i:${i}`}>
           <a href={`/projetos/${p.id}`} data-espia={p.data.capa ?? ''} data-espia-cores={atributo(temaPara(p.id))}>
-            <span class="indice-nome">{p.data.nome}</span>
+            <span class="indice-nome"><span data-anima="sobe" style={`--i:${i}`}>{p.data.nome}</span></span>
             <span class="indice-resumo">{p.data.resumo}</span>
           </a>
         </li>
@@ -75,8 +75,8 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   <Faixa texto="Foi? Se acha nas fotos" contra />
 
   <section class="secao fotos" aria-labelledby="t-fotos">
-    <h2 id="t-fotos" class="t-gigante ecoa" data-eco="Se acha nas fotos">Se acha nas fotos</h2>
-    <div class="fotos-fim">
+    <h2 id="t-fotos" class="t-gigante ecoa" data-eco="Se acha nas fotos" data-anima="eco">Se acha nas fotos</h2>
+    <div class="fotos-fim" data-anima="surge">
       <p class="t-apoio">As fotos de todas as edições ficam no nosso Pixieset, separadas por festa.</p>
       <Botao href={SITE.fotos} externo>Fotos no Pixieset</Botao>
     </div>
@@ -106,6 +106,21 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
     mover();
   }
 
+  // Blocos de evento: a capa inclina de leve acompanhando o cursor.
+  if (!calmo && window.matchMedia('(pointer: fine)').matches) {
+    document.querySelectorAll<HTMLElement>('.ev').forEach((bloco) => {
+      const capa = bloco.querySelector<HTMLElement>('.ev-capa img');
+      if (!capa) return;
+      bloco.addEventListener('pointermove', (e) => {
+        const r = bloco.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - 0.5;
+        const y = (e.clientY - r.top) / r.height - 0.5;
+        capa.style.transform = `perspective(900px) rotateY(${x * 7}deg) rotateX(${-y * 7}deg)`;
+      });
+      bloco.addEventListener('pointerleave', () => { capa.style.transform = ''; });
+    });
+  }
+
   // Índice de projetos: uma prévia acompanha o cursor, nas cores do projeto.
   // A página em si não muda de cor.
   const espia = document.querySelector<HTMLElement>('.espia');
@@ -133,7 +148,13 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   .abertura { padding: 0 var(--margem) clamp(2rem, 5vw, 4rem); }
   .lema { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: clamp(0.5rem, 2vw, 1.5rem); text-align: center; font-size: clamp(0.8125rem, 1.5vw, 1.125rem); font-weight: 600; text-transform: uppercase; letter-spacing: 0.2em; line-height: 1.9; }
   /* Barras inclinadas nas pontas, no ângulo das letras do logo */
-  .lema span { flex: none; width: clamp(0.55rem, 1vw, 0.9rem); height: clamp(2.75rem, 5vw, 4.5rem); background: currentColor; transform: skewX(26.5deg); }
+  .lema > span:not(.lema-texto) { flex: none; width: clamp(0.55rem, 1vw, 0.9rem); height: clamp(2.75rem, 5vw, 4.5rem); background: currentColor; transform: skewX(26.5deg); }
+
+  :global(.js) .lema { animation: lema-abre 1s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.25s both; }
+  :global(.js) .lema-texto { animation: lema-texto 0.8s ease 0.75s both; }
+  @keyframes lema-abre { from { padding-inline: 38%; opacity: 0; } 30% { opacity: 1; } to { padding-inline: 0; } }
+  @keyframes lema-texto { from { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { :global(.js) .lema, :global(.js) .lema-texto { animation: none; } }
 
   .ver-agenda { padding: clamp(1rem, 3vw, 2rem) var(--margem) clamp(3rem, 7vw, 6rem); text-align: center; }
 
@@ -144,16 +165,23 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   .verbo-cor { color: var(--destaque); }
   .historia-fim { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem 3rem; margin-top: clamp(2.5rem, 6vw, 5rem); }
 
-  .indice li { border-top: 1.5px solid var(--texto); }
+  /* Índice de projetos. As linhas se desenham ao entrar na tela. Ao passar o
+     mouse, duas barras inclinadas entram pelas laterais, sem deslocar o texto. */
+  .indice li { border-top: 1.5px solid transparent; }
+  :global(html:not(.js)) .indice li { border-top-color: var(--texto); }
   .indice li:last-child { border-bottom: 1.5px solid var(--texto); }
-  .indice a { display: grid; grid-template-columns: 1.7fr 1fr; gap: 0.5rem 2rem; align-items: baseline; padding: clamp(0.9rem, 2vw, 1.6rem) 0; text-decoration: none; transition: padding-left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .indice a { position: relative; display: grid; grid-template-columns: 1.7fr 1fr; gap: 0.5rem 2rem; align-items: baseline; padding: clamp(0.9rem, 2vw, 1.6rem) clamp(1.75rem, 3.2vw, 3.25rem); text-decoration: none; }
+  .indice a::before, .indice a::after { content: ''; position: absolute; top: 22%; bottom: 22%; width: clamp(0.5rem, 0.9vw, 0.85rem); background: var(--destaque); opacity: 0; transition: transform 0.5s cubic-bezier(0.62, 0.05, 0.01, 0.99), opacity 0.3s; }
+  .indice a::before { left: 0.35rem; transform: translateX(-3rem) skewX(26.5deg); }
+  .indice a::after { right: 0.35rem; transform: translateX(3rem) skewX(26.5deg); }
+  .indice a:hover::before, .indice a:hover::after, .indice a:focus-visible::before, .indice a:focus-visible::after { opacity: 1; transform: translateX(0) skewX(26.5deg); }
   .indice-nome { font-size: clamp(2rem, 6.2vw, 5.75rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.04em; text-transform: uppercase; }
+  .indice-nome > span { display: block; }
   .indice-resumo { max-width: 24em; }
-  .indice a:hover, .indice a:focus-visible { padding-left: clamp(0.75rem, 2vw, 2rem); }
   @media (max-width: 720px) { .indice a { grid-template-columns: 1fr; } }
-  @media (prefers-reduced-motion: reduce) { .indice a { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .indice a::before, .indice a::after { transition: none; } }
 
-  .espia { position: fixed; left: 0; top: 0; z-index: 5; width: clamp(11rem, 18vw, 17rem); aspect-ratio: 4 / 5; display: grid; place-items: center; overflow: hidden; background: var(--espia-fundo, var(--texto)); color: var(--espia-cor, var(--fundo)); pointer-events: none; opacity: 0; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(0.85); transition: opacity 0.2s, transform 0.18s ease-out; }
+  .espia { border-radius: clamp(0.6rem, 1.2vw, 1rem); position: fixed; left: 0; top: 0; z-index: 5; width: clamp(11rem, 18vw, 17rem); aspect-ratio: 4 / 5; display: grid; place-items: center; overflow: hidden; background: var(--espia-fundo, var(--texto)); color: var(--espia-cor, var(--fundo)); pointer-events: none; opacity: 0; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(0.85); transition: opacity 0.2s, transform 0.18s ease-out; }
   .espia.visivel { opacity: 1; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(1); }
   .espia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .espia :global(svg) { width: 46%; }

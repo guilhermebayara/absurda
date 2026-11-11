@@ -23,7 +23,7 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
       {evento.capaPequena && <img src={evento.capaPequena} alt="" loading="lazy" />}
     </div>
 
-    <div class="ev-texto">
+    <div class="ev-texto" data-anima="surge">
       {destaque && <p class="ev-selo">Próximo evento</p>}
       <p class="ev-quando">
         <span class="ev-data"><span class="ev-dia">{d.dia}</span> {d.mes}</span>
@@ -34,7 +34,7 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
       <Botao href={evento.url} externo class="ev-botao">{plataformas[evento.origem]}</Botao>
     </div>
 
-    <a class="ev-capa" href={evento.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+    <a class="ev-capa" href={evento.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" data-anima="capa">
       {evento.capa
         ? <img src={evento.capa} alt="" loading={destaque ? 'eager' : 'lazy'} style={evento.proporcao ? `aspect-ratio:${evento.proporcao}` : undefined} />
         : <span class="ev-sem-capa"><Arroba /></span>}
@@ -71,7 +71,12 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
   .ev-em-pe .ev-nome-medio { font-size: clamp(2.5rem, 7.2vw, 8rem); }
   .ev-em-pe .ev-nome-longo { font-size: clamp(2rem, 5vw, 5.5rem); }
 
-  .ev :global(.ev-botao) { --botao-fundo: var(--fundo); --botao-texto: var(--texto); margin-top: clamp(0.25rem, 1vw, 0.75rem); font-size: clamp(0.875rem, 1.25vw, 1.0625rem); }
+  .ev :global(.ev-botao) { --botao-fundo: var(--fundo); --botao-texto: var(--texto); margin-top: clamp(0.25rem, 1vw, 0.75rem); font-size: clamp(0.875rem, 1.2vw, 1.0625rem); }
+
+  /* Entrada da capa: chega girando, de baixo, e pousa na inclinação final */
+  :global(.js) .ev-capa[data-anima='capa'] { opacity: 0; translate: 0 18%; rotate: 9deg; transition: opacity 0.6s ease, translate 1.1s cubic-bezier(0.62, 0.05, 0.01, 0.99), rotate 1.1s cubic-bezier(0.62, 0.05, 0.01, 0.99), transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  :global(.js) .ev-capa[data-anima='capa']:global(.visto) { opacity: 1; translate: 0 0; rotate: 0deg; }
+  @media (prefers-reduced-motion: reduce) { :global(.js) .ev-capa[data-anima='capa'] { opacity: 1; translate: none; rotate: none; transition: none; } }
 
   /* A capa nítida sai um pouco para fora do bloco e fica levemente torta */
   .ev-capa { display: block; transform: rotate(2deg); transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
@@ -79,7 +84,7 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
   .ev-em-pe .ev-capa { margin: -12% -4% -12% 0; transform: rotate(3deg); }
   .ev-area:nth-of-type(even) .ev-capa { transform: rotate(-2deg); }
   .ev:hover .ev-capa { transform: rotate(0) scale(1.03); }
-  .ev-capa img { width: 100%; height: auto; border-radius: clamp(0.5rem, 1vw, 0.9rem); box-shadow: 0 2rem 4rem -1.5rem rgb(0 0 0 / 0.55); }
+  .ev-capa img { transition: transform 0.35s ease-out; width: 100%; height: auto; border-radius: clamp(0.5rem, 1vw, 0.9rem); box-shadow: 0 2rem 4rem -1.5rem rgb(0 0 0 / 0.55); }
   .ev-sem-capa { display: grid; place-items: center; aspect-ratio: 16 / 9; background: var(--fundo); color: var(--destaque); border-radius: clamp(0.5rem, 1vw, 0.9rem); }
   .ev-sem-capa :global(svg) { width: 22%; }
   @media (prefers-reduced-motion: reduce) { .ev-capa { transition: none; } }

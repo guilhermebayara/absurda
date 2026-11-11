@@ -14,7 +14,7 @@ const anteriores = pessoas.filter((p) => p.data.situacao === 'anterior');
   <div class="conteudo">
     <ul class="grade">
       {atuais.map((p) => (
-        <li><a class="card" href={`/equipe/${p.id}`}><Capa src={p.data.foto} /><h3>{p.data.nome}</h3><p>{p.data.funcao}</p></a></li>
+        <li data-anima="surge"><a class="card" href={`/equipe/${p.id}`}><Capa src={p.data.foto} /><h3>{p.data.nome}</h3><p>{p.data.funcao}</p></a></li>
       ))}
     </ul>
 

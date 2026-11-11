@@ -12,7 +12,7 @@ const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estrutur
   </header>
 
   {verbos.map((v, i) => (
-    <section class:list={['verbo', { 'verbo-cor': i % 2 === 1 }]}>
+    <section class:list={['verbo', { 'verbo-cor': i % 2 === 1 }]} data-anima="surge">
       <h2 class="t-gigante">{v}</h2>
       <Capa proporcao="16 / 10" />
     </section>
@@ -22,7 +22,7 @@ const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estrutur
     <h2 id="t-marcos" class="titulo-secao">Marcos</h2>
     <ol class="linha-tempo">
       {marcos.map((m) => (
-        <li><span class="ano">{m.data.ano}</span><div><strong>{m.data.titulo}</strong>{m.data.texto && <p class="t-pequeno">{m.data.texto}</p>}</div></li>
+        <li data-anima="surge"><span class="ano">{m.data.ano}</span><div><strong>{m.data.titulo}</strong>{m.data.texto && <p class="t-pequeno">{m.data.texto}</p>}</div></li>
       ))}
     </ol>
   </section>

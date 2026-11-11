@@ -13,7 +13,7 @@ const rotulos = { ativo: '', 'em-elaboracao': 'Em elaboração', arquivo: 'Arqui
   </header>
 
   {projetos.map((p) => (
-    <article class="projeto">
+    <article class="projeto" data-anima="surge">
       <div>
         {rotulos[p.data.situacao] && <p class="etiqueta">{rotulos[p.data.situacao]}</p>}
         <h2 class="t-grande"><a href={`/projetos/${p.id}`}>{p.data.nome}</a></h2>

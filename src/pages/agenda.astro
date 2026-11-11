@@ -30,7 +30,7 @@ for (const e of passados) {
     )}
 
   <section class="secao passados" data-tema="sorteio" data-reserva={atributo(TEMAS_DO_SITE[0])} aria-labelledby="t-passados">
-    <h2 id="t-passados" class="t-grande">Já rolou</h2>
+    <h2 id="t-passados" class="t-grande" data-anima="sobe">Já rolou</h2>
     <p class="t-apoio">As fotos de todas as edições ficam no Pixieset, separadas por festa.</p>
     <Botao href={SITE.fotos} externo>Fotos no Pixieset</Botao>
 
@@ -41,8 +41,8 @@ for (const e of passados) {
           {eventos.map((e) => {
             const d = partesDaData(e.data);
             return (
-              <li class="card">
-                <Capa src={e.capa} />
+              <li class="card" data-anima="surge">
+                <Capa src={e.capa} proporcao="16 / 9" />
                 <h3>{e.nome}</h3>
                 <p>{d.dia} de {d.mes}{e.local && `, ${e.local}`}</p>
               </li>
@@ -55,6 +55,7 @@ for (const e of passados) {
 </Base>
 
 <style>
+  .passados .grade { grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); }
   .passados > * + * { margin-top: clamp(1.25rem, 3vw, 2rem); }
   .ano { margin-top: clamp(3rem, 7vw, 5rem); display: grid; grid-template-columns: minmax(4rem, 8rem) 1fr; gap: 1.5rem; border-top: 1px solid var(--linha); padding-top: 1.5rem; }
   @media (max-width: 640px) { .ano { grid-template-columns: 1fr; } }

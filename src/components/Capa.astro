@@ -13,7 +13,7 @@ const { src, alt = '', proporcao = '4 / 5', inteira = false, class: classe } = A
 </div>
 
 <style>
-  .capa { position: relative; overflow: hidden; background: color-mix(in srgb, var(--texto) 14%, var(--fundo)); display: grid; place-items: center; }
+  .capa { position: relative; overflow: hidden; border-radius: clamp(0.6rem, 1.2vw, 1rem); background: color-mix(in srgb, var(--texto) 14%, var(--fundo)); display: grid; place-items: center; }
   .capa img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .capa-inteira img { height: auto; object-fit: contain; }
   .capa :global(.capa-simbolo) { height: 42%; width: auto; color: var(--destaque); opacity: 0.9; }
