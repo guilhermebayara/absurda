@@ -1,6 +1,6 @@
 ---
 nome: "Parada da @bsurda"
-resumo: "Texto de marcação."
+resumo: "Nasceu na pandemia, em formato digital, e hoje tem eventos presenciais."
 situacao: ativo
 ordem: 3
 ---
