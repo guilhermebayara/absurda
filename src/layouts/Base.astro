@@ -210,8 +210,11 @@ const caminho = Astro.url.pathname;
               fechado = null;
               // Ao sair, volta para o tema do trecho que está no meio da tela.
               const meio = window.innerHeight / 2;
-              const atual = [...trechos].find((t) => { const r = t.getBoundingClientRect(); return r.top <= meio && r.bottom >= meio; });
-              if (atual) aplicar(temaDe(atual));
+              // Se o meio da tela não cai em nenhum trecho com tema, vale o último que ficou acima.
+              const outros = [...trechos].filter((t) => t !== alvo);
+              const atual = outros.find((t) => { const r = t.getBoundingClientRect(); return r.top <= meio && r.bottom >= meio; })
+                ?? outros.filter((t) => t.getBoundingClientRect().top <= meio).pop();
+              aplicar(atual ? temaDe(atual) : raiz.dataset.temaSorteado);
             }
           }
         });
