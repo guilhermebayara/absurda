@@ -25,18 +25,28 @@ const { href, externo = false, tipo = 'cheio', class: classe, ...resto } = Astro
 </a>
 
 <style>
-  .recorte { --corte: 1.15em; position: relative; display: inline-flex; text-decoration: none; font-size: clamp(0.8125rem, 1.1vw, 0.9375rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; line-height: 1; isolation: isolate; }
-  .recorte-corpo { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 0.7em; padding: 1.15em calc(1.3em + var(--corte)) 1.15em 1.5em; clip-path: polygon(0 0, calc(100% - var(--corte)) 0, 100% 100%, 0 100%); background: var(--botao-fundo, var(--texto)); color: var(--botao-texto, var(--fundo)); transition: background-color 0.2s, color 0.2s; }
-  .recorte-linha .recorte-corpo { background: transparent; color: var(--botao-fundo, var(--texto)); box-shadow: inset 0 0 0 2px currentColor; clip-path: none; padding-right: 1.5em; }
-  .recorte-icone { width: 0.95em; height: 0.95em; flex: none; }
+  /* O ângulo é o das hastes do logo (26,5 graus). O bloco é desenhado com um
+     elemento inclinado em vez de um recorte, o que dá bordas lisas e permite
+     cantos levemente arredondados. */
+  .recorte { --angulo: 26.5deg; position: relative; display: inline-flex; isolation: isolate; margin-left: 0.55em; text-decoration: none; font-size: clamp(0.8125rem, 1.05vw, 0.9375rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.13em; line-height: 1; }
+  .recorte-corpo { position: relative; display: inline-flex; align-items: center; gap: 0.75em; padding: 1.2em 1.7em; color: var(--botao-texto, var(--fundo)); transition: color 0.2s; }
+  .recorte-corpo::before { content: ''; position: absolute; z-index: -1; inset: 0; border-radius: 0.22em; background: var(--botao-fundo, var(--texto)); transform: skewX(var(--angulo)); transition: background-color 0.2s; }
+  .recorte-icone { width: 0.9em; height: 0.9em; flex: none; transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .recorte:hover .recorte-icone, .recorte:focus-visible .recorte-icone { transform: translate(0.12em, -0.12em); }
 
-  /* Fatias que saem do botão, na mesma inclinação */
-  .recorte-eco { position: absolute; top: 0; bottom: 0; right: 0; width: calc(var(--corte) + 0.5em); background: var(--botao-eco, var(--destaque)); clip-path: polygon(0 0, 0.5em 0, 100% 100%, calc(100% - 0.5em) 100%); transform: translateX(0); opacity: 0; transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s; }
+  /* Secundário: só o contorno */
+  .recorte-linha .recorte-corpo { color: var(--botao-fundo, var(--texto)); }
+  .recorte-linha .recorte-corpo::before { background: transparent; box-shadow: inset 0 0 0 1.5px var(--botao-fundo, var(--texto)); }
+  .recorte-linha:hover .recorte-corpo, .recorte-linha:focus-visible .recorte-corpo { color: var(--botao-texto, var(--fundo)); }
+  .recorte-linha:hover .recorte-corpo::before, .recorte-linha:focus-visible .recorte-corpo::before { background: var(--botao-fundo, var(--texto)); }
+
+  /* Ecos: duas fatias finas que saem de trás do bloco, cada vez mais claras */
+  .recorte-eco { position: absolute; z-index: -2; top: 0; bottom: 0; right: 0; width: 0.5em; border-radius: 0.14em; background: var(--botao-eco, var(--destaque)); transform: skewX(var(--angulo)) translateX(0); opacity: 0; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.25s; }
+  .recorte-eco + .recorte-eco { width: 0.3em; background: color-mix(in oklab, var(--botao-eco, var(--destaque)) 55%, white); }
+  .recorte:hover .recorte-eco, .recorte:focus-visible .recorte-eco { opacity: 1; transform: skewX(var(--angulo)) translateX(0.85em); }
+  .recorte:hover .recorte-eco + .recorte-eco, .recorte:focus-visible .recorte-eco + .recorte-eco { transform: skewX(var(--angulo)) translateX(1.5em); }
   .recorte-linha .recorte-eco { display: none; }
-  .recorte:hover .recorte-eco, .recorte:focus-visible .recorte-eco { opacity: 1; transform: translateX(0.75em); }
-  .recorte:hover .recorte-eco + .recorte-eco, .recorte:focus-visible .recorte-eco + .recorte-eco { opacity: 0.5; transform: translateX(1.5em); }
-  .recorte-linha:hover .recorte-corpo, .recorte-linha:focus-visible .recorte-corpo { background: var(--botao-fundo, var(--texto)); color: var(--botao-texto, var(--fundo)); }
-  @media (prefers-reduced-motion: reduce) { .recorte-eco { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .recorte-eco, .recorte-icone { transition: none; } }
 
   .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 </style>

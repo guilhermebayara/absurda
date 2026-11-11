@@ -55,9 +55,11 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
   .ev-fundo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(100deg, var(--texto) 30%, color-mix(in srgb, var(--texto) 78%, transparent) 55%, color-mix(in srgb, var(--texto) 30%, transparent) 100%); }
 
   .ev-texto { display: grid; justify-items: start; gap: clamp(0.9rem, 1.8vw, 1.6rem); min-width: 0; }
-  .ev-quando { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1.25rem; }
-  /* A data mora num bloco cortado na inclinação do logo */
-  .ev-data { --corte: 0.5em; padding: 0.28em calc(0.5em + var(--corte)) 0.28em 0.45em; clip-path: polygon(0 0, calc(100% - var(--corte)) 0, 100% 100%, 0 100%); background: var(--fundo); color: var(--texto); font-size: clamp(1.75rem, 3.6vw, 3.5rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
+  .ev-quando { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1.25rem; }
+  /* A data leva a barra inclinada do logo como marcador.
+     Bloco cheio fica reservado para o que é clicável. */
+  .ev-data { position: relative; padding-left: 0.62em; font-size: clamp(1.75rem, 3.4vw, 3.25rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
+  .ev-data::before { content: ''; position: absolute; left: 0.12em; top: 0.02em; bottom: 0.06em; width: 0.2em; border-radius: 0.04em; background: currentColor; transform: skewX(26.5deg); }
   .ev-hora, .ev-local { font-size: clamp(0.8125rem, 1.2vw, 1rem); font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; }
   .ev-hora::first-letter { text-transform: uppercase; }
 
