@@ -33,7 +33,7 @@ const caminho = Astro.url.pathname;
         // Cor de enfeite: o destaque usado sobre uma superfície da cor do texto (faixa,
         // menu, rodapé). Enfeite não precisa de contraste de leitura, mas também não pode
         // sumir: se o destaque fica perto demais da superfície, mantém o matiz e a
-        // saturação e anda só na luminosidade até se destacar (2,4:1).
+        // saturação e anda só na luminosidade até se destacar (3:1).
         var lin = function (v) { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
         var rgb = function (h) { h = h.trim(); var m = h.match(/^rgba?\(([^)]+)\)/); if (m) return m[1].split(/[ ,\/]+/).slice(0, 3).map(Number); h = h.replace('#', ''); if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2]; var c = [0, 2, 4].map(function (i) { return parseInt(h.substr(i, 2), 16); }); if (c.some(isNaN)) throw 0; return c; };
         var lum = function (c) { return 0.2126 * lin(c[0]) + 0.7152 * lin(c[1]) + 0.0722 * lin(c[2]); };
@@ -51,7 +51,7 @@ const caminho = Astro.url.pathname;
         window.__enfeite = function (destaque, superficie) {
           try {
             var d = rgb(destaque), s = rgb(superficie);
-            if (razao(d, s) >= 2.4) return destaque;
+            if (razao(d, s) >= 3) return destaque;
             var lab = paraLab(d), passo = lum(s) > 0.35 ? -0.02 : 0.02, cor = d;
             for (var L = lab[0]; L > 0.12 && L < 0.97; L += passo) {
               // Fora do que a tela mostra, cede saturação aos poucos em vez de mudar de matiz.
@@ -59,7 +59,7 @@ const caminho = Astro.url.pathname;
                 var x = deLab(L, lab[1] * k, lab[2] * k);
                 if (x.every(function (v) { return v > -0.002 && v < 1.002; })) { cor = x.map(gama); break; }
               }
-              if (razao(cor, s) >= 2.4) break;
+              if (razao(cor, s) >= 3) break;
             }
             return 'rgb(' + cor.join(',') + ')';
           } catch (e) { return destaque; }

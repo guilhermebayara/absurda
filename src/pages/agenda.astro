@@ -97,7 +97,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
                           <a class="linha" href={e.url} target="_blank" rel="noopener" data-espia={e.capa ?? ''}>
                             <span class="linha-data">{d.dia} {d.mes}</span>
                             <span class="linha-nome">{e.nome}</span>
-                            <span class="linha-local">{e.local ?? ''}{e.album && <span class:list={['linha-fotos', { so: !e.local }]}>Fotos no Flickr</span>}</span>
+                            <span class="linha-local"><span>{e.local ?? ''}</span>{e.album && <span class="linha-fotos">Fotos no Flickr</span>}</span>
                             {e.capaPequena && <img class="linha-mini" src={e.capaPequena} alt="" loading="lazy" />}
                             <span class="so-leitor"> (abre em outra aba)</span>
                           </a>
@@ -201,7 +201,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .ano { border-bottom: 1.5px solid var(--texto); scroll-margin-top: 3.5rem; }
   .ano summary { display: flex; align-items: baseline; gap: var(--e-3); padding: var(--e-3) 0 var(--e-2); cursor: pointer; list-style: none; }
   .ano summary::-webkit-details-marker { display: none; }
-  .ano-numero { font-size: clamp(3.5rem, 12vw, 11rem); font-weight: 800; line-height: 0.84; letter-spacing: -0.05em; transition: color 0.3s; }
+  .ano-numero { flex: none; min-width: calc(4ch - 0.12em); font-size: clamp(3.5rem, 12vw, 11rem); font-weight: 800; line-height: 0.84; letter-spacing: -0.05em; transition: color 0.3s; }
   .ano summary:hover .ano-numero { color: var(--destaque); }
   /* O sinal de abrir é o anel do "@" com um "+" dentro. Aberto, o "+" vira "−". */
   .ano-sinal { position: relative; align-self: center; flex: none; width: clamp(2.25rem, 3.6vw, 3.25rem); aspect-ratio: 1; margin-left: auto; }
@@ -240,8 +240,9 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .linha-local { font-size: 0.9375rem; color: var(--suave); }
   .linhas .linha:hover .linha-local { color: inherit; }
   /* Marca das festas antigas cujo link leva ao álbum de fotos */
-  .linha-fotos { display: inline-block; margin-left: 0.8em; padding: 0.15em 0.6em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
-  .linha-fotos.so { margin-left: 0; }
+  /* Local e etiqueta em colunas próprias: os dois começam sempre no mesmo ponto, linha após linha. */
+  .linha-local { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--e-2); align-items: baseline; }
+  .linha-fotos { display: inline-block; padding: 0.15em 0.6em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
   .linha-mini { display: none; }
   @media (max-width: 720px) {
     /* No celular não existe hover: a capa vira miniatura ao lado */
@@ -249,7 +250,8 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
     .linha-mini { display: block; grid-area: mini; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0.4rem; margin-top: 0.2rem; }
     .linha-data { grid-area: data; font-size: 0.8125rem; }
     .linha-nome { grid-area: nome; }
-    .linha-local { grid-area: local; font-size: 0.8125rem; }
+    .linha-local { grid-area: local; font-size: 0.8125rem; grid-template-columns: auto auto; justify-content: start; column-gap: 0.8em; }
+    .linha-local > span:first-child:empty { display: none; }
   }
 
   .arquivo-fim { margin-top: var(--e-5); text-align: right; }
