@@ -60,8 +60,13 @@ const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estrutur
        fica no data-tema para valer mesmo sem o sorteio. -->
   <section class="secao" aria-labelledby="t-posicao" data-tema={atributo(TEMAS_DE_POSICAO[0])} data-tema-lista={TEMAS_DE_POSICAO.map(atributo).join(';')}>
     <h2 id="t-posicao" class="titulo-secao" data-anima="sobe">De que lado a gente está</h2>
-    <p class="t-grande posicao" data-anima="surge">Texto de marcação: o posicionamento político da @bsurda.</p>
-    <p class="t-apoio" data-anima="surge" style="margin-top:1.5rem">Texto de marcação: as manifestações e Paradas de que a @bsurda participou, com datas e fotos.</p>
+    <p class="t-grande posicao" data-anima="surge">A @bsurda é uma festa LGBTQIA+ e de esquerda. Sempre foi, e a gente nunca escondeu.</p>
+    <div class="posicao-texto" data-anima="surge">
+      <p>Existir em público já é tomar posição, e a gente ocupa a pista e a rua desde 2009. Quando o país cobrou que cada um dissesse de que lado estava, a gente disse: contra o golpe que tirou Dilma e contra o governo Temer que saiu dele. Depois, contra Bolsonaro e tudo o que ele representou para quem é LGBTQIA+.</p>
+      <p>Nas eleições de 2022 e de 2026 fizemos campanha por Lula, e mais de uma vez fomos atração voluntária em manifestações nas ruas de Belo Horizonte. Apoiamos com frequência candidaturas do PT e do PSOL.</p>
+      <p>É pelo mesmo motivo que já levamos o nosso trio para a Parada do Orgulho LGBTQIA+ de BH e que criamos a nossa própria Parada, em 2020. Festa, para nós, sempre foi um jeito de fazer política.</p>
+    </div>
+    {/* Rascunho, a revisar por Gui e Ed. Faltam: datas e nomes das manifestações, e fotos. */}
   </section>
 
   <section class="secao" aria-labelledby="t-palco" data-tema="sorteio" data-reserva={reserva}>
@@ -162,6 +167,7 @@ const verbos = ['Ocupamos', 'Carnavalizamos', 'Viramos', 'Desfilamos', 'Estrutur
   .verbo h2 { font-size: clamp(2rem, 9.5vw, 9rem); overflow-wrap: anywhere; }
   .verbo-cor h2 { color: var(--destaque); }
   .palco { max-width: 22em; }
-  .posicao { max-width: 16em; }
+  .posicao { max-width: 18em; }
+  .posicao-texto { display: grid; gap: var(--e-2); max-width: 36em; margin-top: var(--e-4); font-size: var(--t-apoio); line-height: 1.4; }
   @media (max-width: 720px) { .verbo { grid-template-columns: 1fr; } }
 </style>
