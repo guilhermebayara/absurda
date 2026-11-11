@@ -162,28 +162,64 @@ const caminho = Astro.url.pathname;
       menu?.addEventListener('click', (e) => { if (e.target === menu) menu.close(); });
 
       // Animações de entrada: cada elemento anima uma vez, quando entra na tela.
-      // A exceção são os ecos (títulos com eco e o logo do rodapé): eles se recolhem
-      // quando saem da tela e se soltam de novo ao voltar, rolando para baixo ou para cima.
+      const calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const animados = document.querySelectorAll<HTMLElement>('[data-anima]');
       if (animados.length > 0) {
-        const repete = (el: Element) => ['eco', 'rodape'].includes((el as HTMLElement).dataset.anima ?? '');
         const entrada = new IntersectionObserver(
           (entradas) => {
             for (const e of entradas) {
               if (!e.isIntersecting) continue;
               e.target.classList.add('visto', 'entrou');
-              if (!repete(e.target)) entrada.unobserve(e.target);
+              entrada.unobserve(e.target);
             }
           },
           { rootMargin: '0px 0px -10% 0px' },
         );
-        const saida = new IntersectionObserver(
-          (entradas) => {
-            for (const e of entradas) if (!e.isIntersecting) e.target.classList.remove('visto');
-          },
-          { rootMargin: '10% 0px 10% 0px' },
-        );
-        animados.forEach((el) => { entrada.observe(el); if (repete(el)) saida.observe(el); });
+        animados.forEach((el) => entrada.observe(el));
+      }
+
+      // Ecos: abrem sozinhos na primeira vez e depois respondem à rolagem, como o
+      // logo da abertura. Nos títulos, os ecos se soltam quando o título chega e
+      // se recolhem conforme ele se aproxima das bordas da tela. No rodapé, o logo
+      // solta os ecos à medida que aparece.
+      const titulos = [...document.querySelectorAll<HTMLElement>('.ecoa')];
+      const marca = document.querySelector<HTMLElement>('.rodape-marca');
+      if (!calmo) {
+        const soltos = new Set<HTMLElement>();
+        const limita = (v: number) => Math.min(1, Math.max(0, v));
+        const abre = (el: HTMLElement) => {
+          el.classList.add('eco-aberto');
+          // Passada a abertura inicial, a rolagem assume.
+          setTimeout(() => { el.classList.add('ecoa-solta'); soltos.add(el); mede(); }, 1500);
+        };
+        for (const t of titulos) {
+          if (!t.dataset.anima) { requestAnimationFrame(() => abre(t)); continue; }
+          const espera = new MutationObserver(() => {
+            if (!t.classList.contains('entrou')) return;
+            espera.disconnect();
+            abre(t);
+          });
+          espera.observe(t, { attributes: true, attributeFilter: ['class'] });
+        }
+        let marcado = false;
+        function mede() {
+          marcado = false;
+          const tela = window.innerHeight;
+          for (const t of soltos) {
+            const r = t.getBoundingClientRect();
+            if (r.bottom < -200 || r.top > tela + 200) continue;
+            const centro = (r.top + r.height / 2) / tela;
+            t.style.setProperty('--ab', limita(Math.min((1 - centro) / 0.22, (centro + 0.02) / 0.28)).toFixed(3));
+          }
+          if (marca) {
+            const r = marca.getBoundingClientRect();
+            if (r.top < tela + 200) marca.style.setProperty('--ab', limita((tela - r.top) / (r.height * 0.6)).toFixed(3));
+          }
+        }
+        window.addEventListener('scroll', () => { if (!marcado) { marcado = true; requestAnimationFrame(mede); } }, { passive: true });
+        window.addEventListener('resize', mede);
+        if (marca) marca.style.setProperty('--ab', '0');
+        mede();
       }
     </script>
   </body>
@@ -245,7 +281,10 @@ const caminho = Astro.url.pathname;
      e é ignorado por leitores de tela. As medidas são em "em", presas à borda do
      título, para funcionar em títulos de várias linhas.
      Cada página usa uma direção: para baixo, para cima, para a direita ou para a esquerda. */
-  .ecoa { position: relative; isolation: isolate; width: fit-content; max-width: 100%; --eco-x: 0em; --de-y: -0.4em; }
+  @property --ab { syntax: '<number>'; inherits: true; initial-value: 1; }
+  /* --ab diz o quanto os ecos estão abertos: 0 recolhidos atrás do título, 1 soltos.
+     Abre sozinho na primeira vez; depois quem manda é a rolagem (ver o script). */
+  .ecoa { position: relative; isolation: isolate; width: fit-content; max-width: 100%; --eco-x: 0em; --de-y: -0.4em; --ab: 1; }
   /* z-index negativo: as fatias ficam sempre atrás do título */
   .ecoa::before, .ecoa::after { content: attr(data-eco) / ''; position: absolute; z-index: -1; left: 0; top: 0; width: 100%; pointer-events: none; }
   .ecoa::before { color: color-mix(in oklab, currentColor 55%, var(--fundo)); }
@@ -254,14 +293,15 @@ const caminho = Astro.url.pathname;
   /* para baixo (padrão): o título desce e os ecos continuam a queda */
   .ecoa { margin-bottom: 0.5em; }
   .ecoa::before, .ecoa::after { transform-origin: 50% 100%; }
-  .ecoa::before { clip-path: inset(calc(100% - 0.27em) 0 0 0); transform: translate(var(--eco-x), 0.25em) scale(0.95); }
-  .ecoa::after { clip-path: inset(calc(100% - 0.14em) 0 0 0); transform: translate(calc(var(--eco-x) * 2), 0.41em) scale(0.89); }
+  .ecoa::before, .ecoa::after { opacity: min(1, var(--ab) * 1.6); }
+  .ecoa::before { clip-path: inset(calc(100% - 0.27em) 0 0 0); transform: translate(calc(var(--eco-x) * var(--ab)), calc(0.25em * var(--ab))) scale(calc(1 - 0.05 * var(--ab))); }
+  .ecoa::after { clip-path: inset(calc(100% - 0.14em) 0 0 0); transform: translate(calc(var(--eco-x) * 2 * var(--ab)), calc(0.41em * var(--ab))) scale(calc(1 - 0.11 * var(--ab))); }
 
   /* para cima: o título sobe e os ecos seguem subindo */
   .ecoa-cima { margin-bottom: 0; margin-top: 0.5em; --de-y: 0.4em; }
   .ecoa-cima::before, .ecoa-cima::after { transform-origin: 50% 0; }
-  .ecoa-cima::before { clip-path: inset(0 0 calc(100% - 0.3em) 0); transform: translate(var(--eco-x), -0.25em) scale(0.95); }
-  .ecoa-cima::after { clip-path: inset(0 0 calc(100% - 0.17em) 0); transform: translate(calc(var(--eco-x) * 2), -0.41em) scale(0.89); }
+  .ecoa-cima::before { clip-path: inset(0 0 calc(100% - 0.3em) 0); transform: translate(calc(var(--eco-x) * var(--ab)), calc(-0.25em * var(--ab))) scale(calc(1 - 0.05 * var(--ab))); }
+  .ecoa-cima::after { clip-path: inset(0 0 calc(100% - 0.17em) 0); transform: translate(calc(var(--eco-x) * 2 * var(--ab)), calc(-0.41em * var(--ab))) scale(calc(1 - 0.11 * var(--ab))); }
 
   /* Diagonais: o eco para baixo ou para cima ganha um desvio lateral.
      Para a direita, o título fica à esquerda; para a esquerda, encosta à direita. */
@@ -278,15 +318,10 @@ const caminho = Astro.url.pathname;
      se soltam dele em seguida, continuando o movimento.
      Em títulos marcados com data-anima, só começa quando entram na tela. */
   .js .ecoa { animation: titulo-entra 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99) both; }
-  .js .ecoa::before { animation: eco-solta 0.75s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.5s both; }
-  .js .ecoa::after { animation: eco-solta 0.75s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.62s both; }
-  /* O título entra uma vez. Os ecos se recolhem fora da tela e se soltam de novo a cada volta. */
+  .js .ecoa { --ab: 0; transition: --ab 0.8s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.5s; }
+  .js .ecoa.eco-aberto { --ab: 1; }
+  .js .ecoa.ecoa-solta { transition: none; }
   .js .ecoa[data-anima]:not(.entrou) { animation-play-state: paused; }
-  .js .ecoa[data-anima]:not(.visto)::before, .js .ecoa[data-anima]:not(.visto)::after { animation: none; transform: none; opacity: 0; }
-  .js .ecoa[data-anima].entrou::before { animation-delay: 0.1s; }
-  .js .ecoa[data-anima].entrou::after { animation-delay: 0.22s; }
-  @keyframes titulo-entra { from { transform: translate(calc(var(--eco-x) * -3), var(--de-y)) scale(0.82); opacity: 0; } 40% { opacity: 1; } }
-  @keyframes eco-solta { from { transform: none; opacity: 0; } }
 
   /* Animações de entrada ao rolar. Só valem com JavaScript ligado;
      sem ele, tudo já aparece no lugar. */
@@ -301,7 +336,7 @@ const caminho = Astro.url.pathname;
   .js [data-anima='linha'].visto::before { transform: scaleX(1); }
 
   @media (prefers-reduced-motion: reduce) {
-    .js .ecoa, .js .ecoa::before, .js .ecoa::after { animation: none; }
+    .js .ecoa { animation: none; --ab: 1; transition: none; }
     .js [data-anima] { clip-path: none !important; opacity: 1 !important; transform: none !important; transition: none !important; }
     .js [data-anima='linha']::before { transform: scaleX(1); transition: none; }
   }
@@ -394,10 +429,10 @@ const caminho = Astro.url.pathname;
   .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
   .rodape-marca { position: relative; display: block; width: var(--lw); margin: calc(var(--lw) * 0.1 + 1rem) auto calc(var(--lw) * -0.052); }
   .rodape-marca svg { width: 100%; height: auto; }
-  .rm-eco { position: absolute; inset: 0; transition: transform 1.1s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.15s, opacity 0.5s; }
-  .rm-eco1 { clip-path: inset(0 0 74% 0); color: color-mix(in oklab, var(--fundo) 55%, var(--texto)); transform: translateY(-35%) scale(0.93); }
-  .rm-eco2 { clip-path: inset(0 0 84% 0); color: color-mix(in oklab, var(--fundo) 28%, var(--texto)); transform: translateY(-61%) scale(0.85); }
-  .js .rodape-marca[data-anima]:not(.visto) .rm-eco { transform: none; opacity: 0; }
+  .rodape-marca { --ab: 1; }
+  .rm-eco { position: absolute; inset: 0; opacity: min(1, var(--ab) * 1.6); }
+  .rm-eco1 { clip-path: inset(0 0 74% 0); color: color-mix(in oklab, var(--fundo) 55%, var(--texto)); transform: translateY(calc(-35% * var(--ab))) scale(calc(1 - 0.07 * var(--ab))); }
+  .rm-eco2 { clip-path: inset(0 0 84% 0); color: color-mix(in oklab, var(--fundo) 28%, var(--texto)); transform: translateY(calc(-61% * var(--ab))) scale(calc(1 - 0.15 * var(--ab))); }
   @media (max-width: 860px) {
     .rodape-topo { grid-template-columns: 1fr; gap: 1.75rem; }
     .rodape-nav ul { font-size: clamp(1.6rem, 7.4vw, 3.25rem); }
@@ -406,7 +441,7 @@ const caminho = Astro.url.pathname;
     .rodape { padding-bottom: 2rem; }
     .rodape-marca { margin-bottom: 0; }
   }
-  @media (prefers-reduced-motion: reduce) { .rodape-nav a, .rodape-nav a::before, .rodape-lado li a, .rm-eco { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .rodape-nav a, .rodape-nav a::before, .rodape-lado li a { transition: none; } }
 
   /* Cabeçalho das páginas internas */
   .abre { padding: clamp(2.5rem, 7vw, 6rem) var(--margem) clamp(2rem, 5vw, 4rem); }

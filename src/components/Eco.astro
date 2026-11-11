@@ -81,7 +81,7 @@ const alto = [...ecos('dir'), ...ecos('esq')];
 
 <script>
   const calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.querySelectorAll<HTMLElement>('[data-eco]').forEach((eco) => {
+  document.querySelectorAll<HTMLElement>('.eco[data-eco]').forEach((eco) => {
     if (calmo) {
       eco.style.setProperty('--abre', '1');
       return;
