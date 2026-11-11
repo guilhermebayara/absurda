@@ -61,5 +61,25 @@
     "origem": "manual",
     "capa": "/capas/halloween-13-anos.jpg",
     "capaPequena": "/capas/halloween-13-anos-p.jpg"
+  },
+  {
+    "id": "trio-2026",
+    "nome": "Trio @bsurda no Carnaval de BH",
+    "data": "2026-02-08T14:00:00-03:00",
+    "local": "Viaduto Santa Tereza",
+    "url": "https://portalbelohorizonte.com.br/2026/eventos/evento-de-rua/musica/trio-bsurda-2026",
+    "origem": "manual",
+    "capa": "/capas/trio-2026.jpg",
+    "capaPequena": "/capas/trio-2026-p.jpg"
+  },
+  {
+    "id": "trio-2025",
+    "nome": "Trio @bsurda no Carnaval de BH",
+    "data": "2025-02-23T14:00:00-03:00",
+    "local": "Rua Aarão Reis, Centro",
+    "url": "https://portalbelohorizonte.com.br/eventos/evento-de-rua/cultura-urbana/carnaval-2025-bloco-bsurda",
+    "origem": "manual",
+    "capa": "/capas/trio-2025.jpg",
+    "capaPequena": "/capas/trio-2025-p.jpg"
   }
 ]

@@ -212,6 +212,12 @@ function dataSympla(texto: string) {
   return Number.isNaN(data.getTime()) ? null : data.toISOString();
 }
 
+// Eventos do Sympla que não aconteceram, mas que não puderam ser cancelados na
+// plataforma (cancelar lá devolveria os ingressos). Pelo número do evento.
+const SYMPLA_FORA = ['784522']; // I Hate Remix Lady Gaga, 6/2/2021: adiado pela quarentena
+// Eventos em que a data cadastrada está certa e a do nome não (erro de digitação).
+const DATA_CADASTRADA_VALE = [/aquece @ code bar/i];
+
 // Procura no nome uma data no formato dia/mês ("22/10", "22.10.2022"). Se ela existir e
 // for diferente da data cadastrada, devolve a cadastrada com o dia e o mês trocados.
 function dataDoNome(nome: string, iso: string) {
@@ -254,7 +260,7 @@ async function contaSympla(token: string, chave: string): Promise<Evento[]> {
     }
     const ajustadas: string[] = [];
     const agora = Date.now();
-    const validos = brutos.filter((e) => !e.cancelled && !e.private_event && e.published !== 0);
+    const validos = brutos.filter((e) => !e.cancelled && !e.private_event && e.published !== 0 && !SYMPLA_FORA.includes(String(e.reference_id ?? e.id)));
     const eventos = (
       await Promise.all(
         validos.map(async (e): Promise<Evento | null> => {
@@ -262,7 +268,7 @@ async function contaSympla(token: string, chave: string): Promise<Evento[]> {
           if (!cadastrada) return null;
           // Em alguns eventos a data cadastrada é a da abertura das vendas, e a da
           // festa está só no nome. Quando as duas não batem, vale a do nome.
-          const data = dataDoNome(e.name, cadastrada);
+          const data = DATA_CADASTRADA_VALE.some((r) => r.test(e.name)) ? cadastrada : dataDoNome(e.name, cadastrada);
           if (data !== cadastrada) ajustadas.push(`${e.name}: ${cadastrada.slice(0, 10)} > ${data.slice(0, 10)}`);
           // O número de referência é o mesmo que aparece no endereço público do evento.
           const id = `sympla-${e.reference_id ?? e.id}`;
@@ -345,8 +351,8 @@ function semRepetidos(lista: Evento[]) {
         (f.origem !== e.origem && Math.abs(hora(f) - hora(e)) <= 90 * 60 * 1000) ||
         // Um dos dois só tem o dia (álbum de fotos): basta ser no mesmo dia
         (f.origem !== e.origem && (f.soDia || e.soDia) && dia(f) === dia(e)) ||
-        // Mesma plataforma, mesmo nome e mesmo horário
-        (f.origem === e.origem && f.nome.toLowerCase() === e.nome.toLowerCase() && hora(f) === hora(e)),
+        // Mesma plataforma, mesmo nome e mesmo dia (dois lotes de ingresso da mesma noite)
+        (f.origem === e.origem && f.nome.toLowerCase() === e.nome.toLowerCase() && dia(f) === dia(e)),
     );
     if (!repetido) ficam.push(e);
   }
