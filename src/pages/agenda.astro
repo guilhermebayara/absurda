@@ -20,6 +20,9 @@ for (const e of passados) {
   const ano = partesDaData(e.data).ano;
   anos.set(ano, [...(anos.get(ano) ?? []), e]);
 }
+// Anos que só têm marco (sem eventos registrados) também aparecem, para a linha
+// do tempo não pular os anos de que ainda não há arquivo.
+for (const m of marcos) if (!anos.has(Number(m.ano))) anos.set(Number(m.ano), []);
 const lista = [...anos].sort((a, b) => b[0] - a[0]);
 // Os dois anos mais recentes ficam abertos; os outros abrem ao clicar.
 const abertos = new Set(lista.slice(0, 2).map(([ano]) => ano));
@@ -69,6 +72,11 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
         <details class="ano" id={`ano-${ano}`} open={abertos.has(ano)}>
           <summary>
             <span class="ano-numero">{ano}</span>
+            {marcosDe(ano).length > 0 && (
+              <span class="ano-marcos">
+                {marcosDe(ano).map((m) => <span><i aria-hidden="true"></i>{m.titulo}</span>)}
+              </span>
+            )}
             <span class="ano-sinal" aria-hidden="true">
               <svg class="ano-arco" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" /></svg>
               <svg class="ano-seta" viewBox="0 0 16 16"><path d="M8 2.5v11M3.5 9 8 13.5 12.5 9" /></svg>
@@ -78,6 +86,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
             {marcosDe(ano).map((m) => (
               <p class="marco"><span aria-hidden="true"></span><strong>{m.titulo}</strong>{m.texto && <em>{m.texto}</em>}</p>
             ))}
+            {eventos.length === 0 && <p class="sem-arquivo">As festas deste ano ainda não estão no arquivo.</p>}
             <ul class="linhas">
               {eventos.map((e) => {
                 const d = partesDaData(e.data);
@@ -191,6 +200,12 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .ano[open] .ano-seta { transform: rotate(180deg); }
   .ano summary:hover .ano-arco { transform: rotate(518.5deg); }
   .ano summary:hover .ano-sinal { color: var(--destaque); }
+  /* Com o ano fechado, os marcos aparecem ao lado do número. Aberto, eles descem para o corpo, com o texto completo. */
+  .ano-marcos { display: grid; gap: 0.3em; align-self: center; color: var(--destaque); font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; }
+  .ano-marcos span { display: flex; align-items: center; gap: 0.6em; }
+  .ano-marcos i { flex: none; width: 0.18em; height: 0.8em; background: currentColor; transform: skewX(26.5deg); }
+  .ano[open] .ano-marcos { display: none; }
+  @media (max-width: 720px) { .ano summary { flex-wrap: wrap; } .ano-marcos { order: 3; flex-basis: 100%; font-size: 1rem; } }
   .ano-corpo { padding-bottom: var(--e-4); }
 
   /* Marco do ano: entra antes da lista, com a barra do logo */
@@ -198,6 +213,8 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .marco span { align-self: center; flex: none; width: 0.18em; height: 0.8em; background: currentColor; transform: skewX(26.5deg); }
   .marco strong { font-weight: 800; letter-spacing: -0.03em; text-transform: uppercase; }
   .marco em { font-size: var(--t-apoio); font-style: normal; color: var(--texto); }
+
+  .sem-arquivo { color: var(--suave); font-size: var(--t-apoio); }
 
   /* Lista de eventos: uma linha por data. A capa passa por trás dos nomes. */
   .linhas li { border-top: 1px solid var(--linha); }
