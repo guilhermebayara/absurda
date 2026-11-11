@@ -290,43 +290,50 @@ const caminho = Astro.url.pathname;
   .ecoa::before { color: color-mix(in oklab, currentColor 55%, var(--fundo)); }
   .ecoa::after { color: color-mix(in oklab, currentColor 28%, var(--fundo)); }
 
+  /* Cada eco mostra só uma faixa (--f1 e --f2 são as alturas). A faixa cresce junto
+     com a abertura (--ab): recolhido, o eco some inteiro atrás do título, sem
+     aparecer pelos vãos das letras nem passar por cima da camada da frente. */
+  .ecoa { --f1: 0.27em; --f2: 0.14em; }
+  .ecoa::before, .ecoa::after { opacity: min(1, var(--ab) * 1.6); }
+  .ecoa::after { z-index: -2; }
+
   /* para baixo (padrão): o título desce e os ecos continuam a queda */
   .ecoa { margin-bottom: 0.5em; }
   .ecoa::before, .ecoa::after { transform-origin: 50% 100%; }
-  .ecoa::before, .ecoa::after { opacity: min(1, var(--ab) * 1.6); }
-  .ecoa::before { clip-path: inset(calc(100% - 0.27em) 0 0 0); transform: translate(calc(var(--eco-x) * var(--ab)), calc(0.25em * var(--ab))) scale(calc(1 - 0.05 * var(--ab))); }
-  .ecoa::after { clip-path: inset(calc(100% - 0.14em) 0 0 0); transform: translate(calc(var(--eco-x) * 2 * var(--ab)), calc(0.41em * var(--ab))) scale(calc(1 - 0.11 * var(--ab))); }
+  .ecoa::before { clip-path: inset(calc(100% - var(--f1) * var(--ab)) 0 0 0); transform: translate(calc(var(--eco-x) * var(--ab)), calc(0.25em * var(--ab))) scale(calc(1 - 0.05 * var(--ab))); }
+  .ecoa::after { clip-path: inset(calc(100% - var(--f2) * var(--ab)) 0 0 0); transform: translate(calc(var(--eco-x) * 1.65 * var(--ab)), calc(0.41em * var(--ab))) scale(calc(1 - 0.11 * var(--ab))); }
 
   /* para cima: o título sobe e os ecos seguem subindo */
-  .ecoa-cima { margin-bottom: 0; margin-top: 0.5em; --de-y: 0.4em; }
+  .ecoa-cima { margin-bottom: 0; margin-top: 0.5em; --de-y: 0.4em; --f1: 0.3em; --f2: 0.17em; }
   .ecoa-cima::before, .ecoa-cima::after { transform-origin: 50% 0; }
-  .ecoa-cima::before { clip-path: inset(0 0 calc(100% - 0.3em) 0); transform: translate(calc(var(--eco-x) * var(--ab)), calc(-0.25em * var(--ab))) scale(calc(1 - 0.05 * var(--ab))); }
-  .ecoa-cima::after { clip-path: inset(0 0 calc(100% - 0.17em) 0); transform: translate(calc(var(--eco-x) * 2 * var(--ab)), calc(-0.41em * var(--ab))) scale(calc(1 - 0.11 * var(--ab))); }
+  .ecoa-cima::before { clip-path: inset(0 0 calc(100% - var(--f1) * var(--ab)) 0); transform: translate(calc(var(--eco-x) * var(--ab)), calc(-0.25em * var(--ab))) scale(calc(1 - 0.05 * var(--ab))); }
+  .ecoa-cima::after { clip-path: inset(0 0 calc(100% - var(--f2) * var(--ab)) 0); transform: translate(calc(var(--eco-x) * 1.65 * var(--ab)), calc(-0.41em * var(--ab))) scale(calc(1 - 0.11 * var(--ab))); }
 
   /* Diagonais: o eco para baixo ou para cima ganha um desvio lateral.
      Para a direita, o título fica à esquerda; para a esquerda, encosta à direita. */
-  .ecoa-direita { --eco-x: 0.2em; }
-  .ecoa-esquerda { --eco-x: -0.2em; margin-left: auto; }
+  .ecoa-direita { --eco-x: 0.25em; }
+  .ecoa-esquerda { --eco-x: -0.25em; margin-left: auto; }
   /* Na diagonal o recorte de cada eco é um L: a faixa de cima (ou de baixo) e a
-     faixa do lado para onde ele vai. Assim o que sobra para o lado não se perde.
-     O eco encolhe a partir desse mesmo lado, para a borda lateral aparecer inteira. */
-  .ecoa-direita, .ecoa-esquerda { --l1: 0.22em; --l2: 0.2em; }
+     faixa do lado para onde ele vai. O eco encolhe a partir desse mesmo lado.
+     As larguras laterais (--l1, --l2) são menores que o deslocamento, para sobrar
+     entre as camadas a mesma folga que existe na vertical. */
+  .ecoa-direita, .ecoa-esquerda { --l1: calc(0.18em * var(--ab)); --l2: calc(0.105em * var(--ab)); --a1: calc(var(--f1) * var(--ab)); --a2: calc(var(--f2) * var(--ab)); }
   .ecoa-esquerda::before, .ecoa-esquerda::after { transform-origin: 0 100%; }
   .ecoa-direita::before, .ecoa-direita::after { transform-origin: 100% 100%; }
   .ecoa-cima.ecoa-esquerda::before, .ecoa-cima.ecoa-esquerda::after { transform-origin: 0 0; }
   .ecoa-cima.ecoa-direita::before, .ecoa-cima.ecoa-direita::after { transform-origin: 100% 0; }
   /* para baixo e para a esquerda */
-  .ecoa-esquerda::before { clip-path: polygon(0 0, var(--l1) 0, var(--l1) calc(100% - 0.27em), 100% calc(100% - 0.27em), 100% 100%, 0 100%); }
-  .ecoa-esquerda::after { clip-path: polygon(0 0, var(--l2) 0, var(--l2) calc(100% - 0.14em), 100% calc(100% - 0.14em), 100% 100%, 0 100%); }
+  .ecoa-esquerda::before { clip-path: polygon(0 0, var(--l1) 0, var(--l1) calc(100% - var(--a1)), 100% calc(100% - var(--a1)), 100% 100%, 0 100%); }
+  .ecoa-esquerda::after { clip-path: polygon(0 0, var(--l2) 0, var(--l2) calc(100% - var(--a2)), 100% calc(100% - var(--a2)), 100% 100%, 0 100%); }
   /* para baixo e para a direita */
-  .ecoa-direita::before { clip-path: polygon(calc(100% - var(--l1)) 0, 100% 0, 100% 100%, 0 100%, 0 calc(100% - 0.27em), calc(100% - var(--l1)) calc(100% - 0.27em)); }
-  .ecoa-direita::after { clip-path: polygon(calc(100% - var(--l2)) 0, 100% 0, 100% 100%, 0 100%, 0 calc(100% - 0.14em), calc(100% - var(--l2)) calc(100% - 0.14em)); }
+  .ecoa-direita::before { clip-path: polygon(calc(100% - var(--l1)) 0, 100% 0, 100% 100%, 0 100%, 0 calc(100% - var(--a1)), calc(100% - var(--l1)) calc(100% - var(--a1))); }
+  .ecoa-direita::after { clip-path: polygon(calc(100% - var(--l2)) 0, 100% 0, 100% 100%, 0 100%, 0 calc(100% - var(--a2)), calc(100% - var(--l2)) calc(100% - var(--a2))); }
   /* para cima e para a esquerda */
-  .ecoa-cima.ecoa-esquerda::before { clip-path: polygon(0 0, 100% 0, 100% 0.3em, var(--l1) 0.3em, var(--l1) 100%, 0 100%); }
-  .ecoa-cima.ecoa-esquerda::after { clip-path: polygon(0 0, 100% 0, 100% 0.17em, var(--l2) 0.17em, var(--l2) 100%, 0 100%); }
+  .ecoa-cima.ecoa-esquerda::before { clip-path: polygon(0 0, 100% 0, 100% var(--a1), var(--l1) var(--a1), var(--l1) 100%, 0 100%); }
+  .ecoa-cima.ecoa-esquerda::after { clip-path: polygon(0 0, 100% 0, 100% var(--a2), var(--l2) var(--a2), var(--l2) 100%, 0 100%); }
   /* para cima e para a direita */
-  .ecoa-cima.ecoa-direita::before { clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - var(--l1)) 100%, calc(100% - var(--l1)) 0.3em, 0 0.3em); }
-  .ecoa-cima.ecoa-direita::after { clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - var(--l2)) 100%, calc(100% - var(--l2)) 0.17em, 0 0.17em); }
+  .ecoa-cima.ecoa-direita::before { clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - var(--l1)) 100%, calc(100% - var(--l1)) var(--a1), 0 var(--a1)); }
+  .ecoa-cima.ecoa-direita::after { clip-path: polygon(0 0, 100% 0, 100% 100%, calc(100% - var(--l2)) 100%, calc(100% - var(--l2)) var(--a2), 0 var(--a2)); }
 
   /* O cabeçalho acompanha a direção do eco */
   .abre { overflow-x: clip; }
@@ -451,8 +458,8 @@ const caminho = Astro.url.pathname;
   .rodape-marca svg { width: 100%; height: auto; }
   .rodape-marca { --ab: 1; }
   .rm-eco { position: absolute; inset: 0; opacity: min(1, var(--ab) * 1.6); }
-  .rm-eco1 { clip-path: inset(0 0 74% 0); color: color-mix(in oklab, var(--fundo) 55%, var(--texto)); transform: translateY(calc(-35% * var(--ab))) scale(calc(1 - 0.07 * var(--ab))); }
-  .rm-eco2 { clip-path: inset(0 0 84% 0); color: color-mix(in oklab, var(--fundo) 28%, var(--texto)); transform: translateY(calc(-61% * var(--ab))) scale(calc(1 - 0.15 * var(--ab))); }
+  .rm-eco1 { clip-path: inset(0 0 calc(100% - 26% * var(--ab)) 0); color: color-mix(in oklab, var(--fundo) 55%, var(--texto)); transform: translateY(calc(-35% * var(--ab))) scale(calc(1 - 0.07 * var(--ab))); }
+  .rm-eco2 { clip-path: inset(0 0 calc(100% - 16% * var(--ab)) 0); color: color-mix(in oklab, var(--fundo) 28%, var(--texto)); transform: translateY(calc(-61% * var(--ab))) scale(calc(1 - 0.15 * var(--ab))); }
   @media (max-width: 860px) {
     .rodape-topo { grid-template-columns: 1fr; gap: 1.75rem; }
     .rodape-nav ul { font-size: clamp(1.6rem, 7.4vw, 3.25rem); }
