@@ -222,7 +222,14 @@ function dataSympla(texto: string) {
 // Eventos do Sympla que não aconteceram, mas que não puderam ser cancelados na
 // plataforma (cancelar lá devolveria os ingressos). Pelo número do evento.
 // Eventos que não entram na agenda, venham de onde vierem (pedido dos produtores).
-const FORA_DA_AGENDA = ['sympla-35115']; // Please Come to Brazil, 2015
+const FORA_DA_AGENDA = [
+  'sympla-35115', // Please Come to Brazil, 2015
+  'sympla-818582', // @bsurda Latina, 30/5/2020
+];
+// Quarentena: da primeira @bsurda Em Casa até a véspera da Sentadinha, tudo aconteceu online.
+const ONLINE_DE = new Date('2020-05-29T00:00:00-03:00').getTime();
+const ONLINE_ATE = new Date('2021-09-18T00:00:00-03:00').getTime();
+const naQuarentena = (e: Evento) => { const t = new Date(e.data).getTime(); return t >= ONLINE_DE && t < ONLINE_ATE; };
 const SYMPLA_FORA = ['784522']; // I Hate Remix Lady Gaga, 6/2/2021: adiado pela quarentena
 // Eventos em que a data cadastrada está certa e a do nome não (erro de digitação).
 const DATA_CADASTRADA_VALE = [/aquece @ code bar/i];
@@ -411,7 +418,7 @@ export function getEventos() {
     const todos = [...manual.filter((e) => !e.id.startsWith('m')), ...albuns, ...reais, ...(reais.length === 0 ? marcacao : [])];
     // Tira repetidos (mesmo evento vindo de duas fontes) e ordena por data.
     // Eventos anunciados como adiados ficam fora: a data nova aparece como outro evento.
-    const unicos = semRepetidos(todos.filter((e) => !/\badiad[oa]\b/i.test(e.nome) && !FORA_DA_AGENDA.includes(e.id))).sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
+    const unicos = semRepetidos(todos.filter((e) => !/\badiad[oa]\b/i.test(e.nome) && !FORA_DA_AGENDA.includes(e.id))).map((e) => (!e.local && naQuarentena(e) ? { ...e, local: 'Online' } : e)).sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
     estado.repetidosRemovidos = todos.length - unicos.length;
     estado.arquivo = { guardados: guardados.length, passadosAindaSoNaPlataforma: unicos.filter((e) => e.nomeBruto && new Date(e.data).getTime() < Date.now()).length };
     const agoraMs = Date.now();
