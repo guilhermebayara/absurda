@@ -1,0 +1,57 @@
+---
+// Evento em versão compacta, para os que vêm depois do destaque na Home.
+// Mesmas regras do bloco grande: as cores saem da capa do próprio evento e a
+// capa aparece inteira, com uma cópia desfocada dando o clima ao fundo.
+import type { Evento } from '../lib/eventos';
+import { partesDaData } from '../lib/eventos';
+import Botao from './Botao.astro';
+import Arroba from './marca/Arroba.astro';
+interface Props { evento: Evento }
+const { evento } = Astro.props;
+const d = partesDaData(evento.data);
+const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sympla', manual: 'Ingressos' };
+const cores = `--fundo:${evento.tema.fundo};--texto:${evento.tema.texto};--destaque:${evento.tema.destaque}`;
+---
+<article class="cartao" style={cores} data-anima="surge">
+  <div class="cartao-fundo" aria-hidden="true">
+    {evento.capaPequena && <img src={evento.capaPequena} alt="" loading="lazy" />}
+  </div>
+  <a class="cartao-capa" href={evento.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
+    {evento.capa
+      ? <img src={evento.capa} alt="" loading="lazy" style={evento.proporcao ? `aspect-ratio:${evento.proporcao}` : undefined} />
+      : <span class="cartao-sem-capa"><Arroba /></span>}
+  </a>
+  <div class="cartao-texto">
+    <h3 class="cartao-nome">{evento.nome}</h3>
+    <p class="cartao-quando">{d.semana.slice(0, 3)}, {d.dia} {d.mes}, {d.hora}</p>
+    {evento.local && (
+      <p class="cartao-local">
+        <svg viewBox="0 0 16 20" aria-hidden="true"><path d="M8 0a8 8 0 0 0-8 8c0 5.6 8 12 8 12s8-6.4 8-12a8 8 0 0 0-8-8Zm0 11.2A3.2 3.2 0 1 1 8 4.8a3.2 3.2 0 0 1 0 6.4Z" /></svg>
+        <span><span class="so-leitor">Local: </span>{evento.local}</span>
+      </p>
+    )}
+  </div>
+  <Botao href={evento.url} externo tipo="linha" class="cartao-botao">{plataformas[evento.origem]}</Botao>
+</article>
+
+<style>
+  .cartao { position: relative; isolation: isolate; display: flex; flex-direction: column; gap: var(--e-3); min-width: 0; padding: var(--e-3); border-radius: clamp(1rem, 2vw, 1.75rem); color: var(--fundo); }
+  .cartao-fundo { position: absolute; inset: 0; z-index: -1; overflow: hidden; border-radius: inherit; background: var(--texto); }
+  .cartao-fundo img { width: 100%; height: 100%; object-fit: cover; filter: blur(40px) saturate(1.4); transform: scale(1.5); opacity: 0.85; }
+  .cartao-fundo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, color-mix(in srgb, var(--texto) 25%, transparent) 0%, color-mix(in srgb, var(--texto) 82%, transparent) 45%, var(--texto) 100%); }
+
+  .cartao-capa { display: block; transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .cartao:hover .cartao-capa { transform: rotate(-1.5deg) scale(1.02); }
+  .cartao-capa img { width: 100%; height: auto; border-radius: clamp(0.6rem, 1.2vw, 1rem); box-shadow: 0 1.25rem 2.5rem -1.25rem rgb(0 0 0 / 0.55); }
+  .cartao-sem-capa { display: grid; place-items: center; aspect-ratio: 16 / 9; border-radius: clamp(0.6rem, 1.2vw, 1rem); background: var(--fundo); color: var(--texto); }
+  .cartao-sem-capa :global(svg) { width: 22%; }
+
+  /* Mesma ordem do bloco grande, um degrau abaixo na escala: nome, data e hora, local */
+  .cartao-nome { font-size: var(--t-4); font-weight: 800; line-height: 0.95; letter-spacing: -0.035em; text-transform: uppercase; text-wrap: balance; overflow-wrap: anywhere; }
+  .cartao-quando { margin-top: var(--e-2); font-size: var(--t-3); font-weight: 800; line-height: 1; letter-spacing: -0.02em; text-transform: uppercase; }
+  .cartao-local { display: flex; align-items: flex-start; margin-top: var(--e-1); font-size: 0.9375rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.25; }
+  .cartao-local svg { flex: none; width: 0.72em; height: 0.9em; margin: 0.14em 0.45em 0 0; fill: currentColor; }
+
+  .cartao :global(.cartao-botao) { --botao-fundo: var(--fundo); --botao-destaque: var(--fundo); margin-top: auto; align-self: flex-start; }
+  @media (prefers-reduced-motion: reduce) { .cartao-capa { transition: none; } }
+</style>

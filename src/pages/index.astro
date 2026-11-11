@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Eco from '../components/Eco.astro';
 import Faixa from '../components/Faixa.astro';
 import PainelEvento from '../components/PainelEvento.astro';
+import CartaoEvento from '../components/CartaoEvento.astro';
 import Arroba from '../components/marca/Arroba.astro';
 import { SITE } from '../config';
 import { getEventos } from '../lib/eventos';
@@ -13,6 +14,8 @@ import palavras from '../data/palavras.json';
 
 const { proximos, passados } = await getEventos();
 const [destaque, ...outros] = proximos;
+// Na Home entram o destaque e até mais três.
+const seguintes = outros.slice(0, 3);
 const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
 // Parede de palavras: a lista fica em src/data/palavras.json, uma linha por fileira.
 const fileiras: string[][] = palavras;
@@ -48,7 +51,17 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
       </section>
     )}
 
-  {outros.slice(0, 3).map((e) => <PainelEvento evento={e} />)}
+  <!-- Depois do destaque, os próximos em cartões compactos, lado a lado.
+       Se houver só mais um, ele continua no bloco grande. -->
+  {seguintes.length === 1 && <PainelEvento evento={seguintes[0]} />}
+  {seguintes.length > 1 && (
+    <section class="seguintes" aria-labelledby="t-seguintes">
+      <h2 id="t-seguintes" class="titulo-secao" data-anima="sobe">Próximas datas</h2>
+      <div class="seguintes-fila" style={`--n:${seguintes.length}`}>
+        {seguintes.map((e) => <CartaoEvento evento={e} />)}
+      </div>
+    </section>
+  )}
 
   {proximos.length > 0 && (
     <p class="ver-agenda"><Botao href="/agenda" tipo="linha">Agenda completa e eventos passados</Botao></p>
@@ -201,6 +214,16 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   @keyframes lema-texto { from { opacity: 0; } }
   @media (prefers-reduced-motion: reduce) { :global(.js) .lema, :global(.js) .lema-texto { animation: none; } }
 
+  .seguintes { padding: var(--e-4) var(--margem) 0; }
+  .seguintes-fila { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: var(--e-3); }
+  /* No celular os cartões viram uma fila que se arrasta para o lado: o próximo
+     aparece pela metade para mostrar que tem mais. */
+  @media (max-width: 820px) {
+    .seguintes { padding-right: 0; }
+    .seguintes-fila { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-right: var(--margem); padding-bottom: 0.5rem; }
+    .seguintes-fila::-webkit-scrollbar { display: none; }
+    .seguintes-fila > :global(*) { flex: none; width: 78vw; scroll-snap-align: start; }
+  }
   .ver-agenda { padding: var(--e-3) var(--margem) var(--e-5); text-align: center; }
 
   .historia { position: relative; }
