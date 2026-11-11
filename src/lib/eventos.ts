@@ -251,7 +251,17 @@ async function fonteSympla(): Promise<Evento[]> {
 
 // ---------- Manuais ----------
 async function fonteManual(): Promise<Evento[]> {
-  return (manuais as Array<Omit<Evento, 'tema'>>).map((e, i) => ({ ...e, tema: TEMAS_DO_SITE[i % TEMAS_DO_SITE.length] }));
+  const agora = Date.now();
+  return Promise.all(
+    (manuais as Array<Omit<Evento, 'tema'>>).map(async (e, i): Promise<Evento> => {
+      // Evento futuro com capa: cores e proporção saem da capa, como nos automáticos.
+      if (e.capa && new Date(e.data).getTime() >= agora) {
+        const lido = await lerCapa(e.capaPequena ?? e.capa, e.id);
+        return { ...e, proporcao: e.proporcao ?? lido.proporcao, tema: lido.tema };
+      }
+      return { ...e, tema: TEMAS_DO_SITE[i % TEMAS_DO_SITE.length] };
+    }),
+  );
 }
 
 let guardado: Promise<{ proximos: Evento[]; passados: Evento[] }> | null = null;
