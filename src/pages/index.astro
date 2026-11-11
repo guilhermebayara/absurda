@@ -19,12 +19,13 @@ const fileiras: string[][] = palavras;
 // Imagens que flutuam pela parede: as capas das edições mais recentes.
 // Cada uma tem posição, velocidade de subida e a camada (entre quais fileiras passa).
 const capas = passados.filter((e) => e.capa).slice(0, 5);
+// "lado" vai de 0 (encostada à esquerda) a 1 (à direita); "camada" diz entre quais fileiras passa.
 const flutuantes = [
-  { esquerda: '4%', topo: '6%', vel: 0.22, camada: 1 },
-  { esquerda: '64%', topo: '-4%', vel: -0.16, camada: 5 },
-  { esquerda: '36%', topo: '38%', vel: 0.34, camada: 3 },
-  { esquerda: '74%', topo: '52%', vel: 0.2, camada: 9 },
-  { esquerda: '10%', topo: '64%', vel: -0.24, camada: 7 },
+  { lado: 0.08, giro: -3, camada: 3 },
+  { lado: 0.9, giro: 2.5, camada: 9 },
+  { lado: 0.42, giro: 1.5, camada: 5 },
+  { lado: 0.78, giro: -2, camada: 13 },
+  { lado: 0.16, giro: 3, camada: 7 },
 ];
 // A abertura do site veste as cores do próximo evento.
 const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
@@ -54,27 +55,30 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   <div data-tema="sorteio" data-reserva={atributo(TEMAS_DO_SITE[0])}>
   <Faixa texto={`${SITE.lema} desde 2009`} />
 
-  <section class="historia" aria-labelledby="t-sobre">
-    <h2 id="t-sobre" class="titulo-secao" data-anima="sobe">17 anos de @bsurda</h2>
-    <p class="so-leitor">{fileiras.flat().join('. ')}.</p>
-    <!-- Parede em movimento: fileiras de palavras correndo para lados opostos,
-         com as capas das últimas edições subindo e descendo entre elas. -->
-    <div class="parede" data-parede aria-hidden="true">
-      {fileiras.map((linha, i) => (
-        <div class="parede-fileira" style={`--i:${i};z-index:${i * 2 + 2}`}>
-          <div class:list={['parede-trilho', { contra: i % 2 === 1 }]} style={`--dur:${46 + i * 9}s`}>
-            {[...linha, ...linha, ...linha, ...linha].map((p, j) => <span class:list={{ cor: (i + j) % 3 === 1 }}>{p}<i></i></span>)}
+  <!-- Parede em movimento. A seção fica presa na tela enquanto se rola: as fileiras
+       correm para lados opostos e as capas das últimas edições surgem de baixo,
+       atravessam as fileiras (por cima de umas, por baixo de outras) e somem no topo. -->
+  <section class="historia" aria-labelledby="t-sobre" data-parede>
+    <div class="historia-pino">
+      <h2 id="t-sobre" class="historia-titulo" data-anima="sobe">17 anos de @bsurda</h2>
+      <p class="so-leitor">{fileiras.flat().join('. ')}.</p>
+      <div class="parede" aria-hidden="true">
+        {fileiras.map((linha, i) => (
+          <div class="parede-fileira" style={`z-index:${i * 2 + 2}`}>
+            <div class:list={['parede-trilho', { contra: i % 2 === 0 }]} style={`--dur:${52 + (i * 13) % 31}s`}>
+              {[...linha, ...linha, ...linha, ...linha].map((p, j) => <span class:list={{ cor: (i + j) % 3 === 1 }}>{p}<i></i></span>)}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
       {capas.map((e, i) => (
-        <img class={`parede-foto parede-foto-${i}`} src={e.capa} alt="" loading="lazy" data-flutua={flutuantes[i].vel}
-          style={`left:${flutuantes[i].esquerda};top:${flutuantes[i].topo};z-index:${flutuantes[i].camada}`} />
+        <img class="parede-foto" src={e.capa} alt="" loading="lazy" data-flutua={i}
+          style={`--lado:${flutuantes[i].lado};--giro:${flutuantes[i].giro}deg;--topo:${8 + i * 17}%;z-index:${flutuantes[i].camada}`} />
       ))}
-    </div>
-    <div class="historia-fim" data-anima="surge">
-      <p class="t-apoio">{SITE.descricao}</p>
-      <Botao href="/sobre">A história da @bsurda</Botao>
+      <div class="historia-fim">
+        <p class="t-apoio">{SITE.descricao}</p>
+        <Botao href="/sobre">A história da @bsurda</Botao>
+      </div>
     </div>
   </section>
 
@@ -109,19 +113,27 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
 <script>
   const calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Parede: as imagens sobem ou descem conforme a rolagem, cada uma no seu ritmo.
+  // Parede: enquanto a seção está presa, cada capa atravessa a tela de baixo para
+  // cima, mais rápido que a rolagem, uma depois da outra.
   const parede = document.querySelector<HTMLElement>('[data-parede]');
   const fotos = [...document.querySelectorAll<HTMLElement>('[data-flutua]')];
   if (parede && fotos.length > 0 && !calmo) {
+    parede.classList.add('viva');
     let marcado = false;
     const mover = () => {
       marcado = false;
       const r = parede.getBoundingClientRect();
-      if (r.bottom < -300 || r.top > window.innerHeight + 300) return;
-      const distancia = r.top + r.height / 2 - window.innerHeight / 2;
-      for (const foto of fotos) foto.style.translate = `0 ${distancia * Number(foto.dataset.flutua)}px`;
+      const tela = window.innerHeight;
+      if (r.bottom < -tela || r.top > tela * 2) return;
+      const p = -r.top / Math.max(1, r.height - tela);
+      for (const foto of fotos) {
+        const i = Number(foto.dataset.flutua);
+        const q = (p - (-0.07 + i * 0.15)) / 0.48;
+        foto.style.translate = `0 ${tela - q * (tela + foto.offsetHeight * 1.2)}px`;
+      }
     };
     window.addEventListener('scroll', () => { if (!marcado) { marcado = true; requestAnimationFrame(mover); } }, { passive: true });
+    window.addEventListener('resize', mover);
     mover();
   }
 
@@ -177,23 +189,29 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
 
   .ver-agenda { padding: clamp(1rem, 3vw, 2rem) var(--margem) clamp(3rem, 7vw, 6rem); text-align: center; }
 
-  .historia { padding: clamp(3.5rem, 9vw, 8rem) 0; overflow: hidden; }
-  .historia .titulo-secao, .historia-fim { padding: 0 var(--margem); }
-  .parede { position: relative; isolation: isolate; overflow: clip; display: grid; padding: clamp(1rem, 3vw, 3rem) 0; }
+  .historia { position: relative; }
+  .historia-pino { position: relative; isolation: isolate; overflow: clip; display: flex; flex-direction: column; justify-content: space-between; gap: clamp(1.25rem, 3vh, 2.5rem); padding: clamp(2.5rem, 7vh, 5rem) 0; }
+  /* Com movimento: a seção é alta e o conteúdo fica preso ocupando a tela inteira */
+  .historia.viva { height: 250vh; height: 250svh; }
+  .historia.viva .historia-pino { position: sticky; top: 0; height: 100vh; height: 100svh; padding: clamp(1.25rem, 4vh, 3rem) 0; }
+  .historia-titulo, .historia-fim { position: relative; padding: 0 var(--margem); }
+  .historia-titulo { z-index: 1; font-size: clamp(1.5rem, 3.6vw, 3.25rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
+  .parede { display: grid; }
   .parede-fileira { position: relative; }
   .parede-trilho { display: flex; width: max-content; animation: parede-corre var(--dur, 50s) linear infinite; }
   .parede-trilho.contra { animation-direction: reverse; }
   .parede-trilho span { display: flex; align-items: center; font-size: clamp(2.75rem, 9.2vw, 9.5rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.045em; text-transform: uppercase; white-space: nowrap; }
+  /* Presa na tela, a parede se mede pela altura: seis fileiras enchem a tela */
+  .historia.viva .parede-trilho span { font-size: clamp(2.5rem, 10.6vh, 10rem); font-size: clamp(2.5rem, 10.6svh, 10rem); }
   .parede-trilho span.cor { color: var(--destaque); }
   /* Entre as palavras, a barra inclinada do logo */
   .parede-trilho i { flex: none; width: 0.13em; height: 0.66em; margin: 0 0.3em; background: currentColor; opacity: 0.5; transform: skewX(26.5deg); }
   @keyframes parede-corre { to { transform: translateX(-50%); } }
-  .parede-foto { position: absolute; width: clamp(9rem, 21vw, 21rem); aspect-ratio: 16 / 9; object-fit: cover; border-radius: clamp(0.6rem, 1.2vw, 1rem); box-shadow: 0 1.5rem 3rem -1.25rem rgb(0 0 0 / 0.55); will-change: translate; }
-  .parede-foto-1, .parede-foto-4 { rotate: -3deg; }
-  .parede-foto-0, .parede-foto-3 { rotate: 2.5deg; }
-  @media (max-width: 720px) { .parede-foto { width: 40vw; } .parede-foto-3, .parede-foto-4 { display: none; } }
+  .parede-foto { --w: clamp(11rem, 25vw, 24rem); position: absolute; top: var(--topo); left: calc((100% - var(--w)) * var(--lado)); width: var(--w); aspect-ratio: 16 / 9; object-fit: cover; border-radius: clamp(0.6rem, 1.2vw, 1rem); box-shadow: 0 1.5rem 3rem -1.25rem rgb(0 0 0 / 0.55); rotate: var(--giro); pointer-events: none; will-change: translate; }
+  .historia.viva .parede-foto { top: 0; translate: 0 110vh; }
+  @media (max-width: 720px) { .parede-foto { --w: 52vw; } }
   @media (prefers-reduced-motion: reduce) { .parede-trilho { animation: none; } }
-  .historia-fim { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1.5rem 3rem; margin-top: clamp(2.5rem, 6vw, 5rem); }
+  .historia-fim { z-index: 20; display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 1rem 3rem; }
 
   /* Índice de projetos. As linhas se desenham ao entrar na tela. Ao passar o
      mouse, duas barras inclinadas entram pelas laterais, sem deslocar o texto. */
