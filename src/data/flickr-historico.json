@@ -408,34 +408,44 @@
   "nome": "@bsurda vol. 5: Brinks",
   "data": "2010-09-18T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626131647907",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/vol-5.jpg",
+  "capaPequena": "/capas/vol-5-p.jpg"
  },
  {
   "id": "flickr-72157626256515932",
   "nome": "@bsurda vol. 4: Drama Queen",
   "data": "2010-07-24T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626256515932",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/vol-4.jpg",
+  "capaPequena": "/capas/vol-4-p.jpg"
  },
  {
   "id": "flickr-72157626256432612",
   "nome": "@bsurda vol. 3: Chromatic",
   "data": "2010-06-02T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626256432612",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/vol-3.jpg",
+  "capaPequena": "/capas/vol-3-p.jpg"
  },
  {
   "id": "flickr-72157626246847574",
   "nome": "@bsurda vol. 2",
   "data": "2010-05-15T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626246847574",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/vol-2.jpg",
+  "capaPequena": "/capas/vol-2-p.jpg"
  },
  {
   "id": "flickr-72157626121696541",
   "nome": "@bsurda vol. 1",
   "data": "2009-11-12T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626121696541",
-  "local": "Velvet Club"
+  "local": "Velvet Club",
+  "capa": "/capas/vol-1.jpg",
+  "capaPequena": "/capas/vol-1-p.jpg"
  }
 ]

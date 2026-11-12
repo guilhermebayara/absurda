@@ -403,7 +403,8 @@ async function fonteArquivo(): Promise<Evento[]> {
 // as festas de 2009 a 2013, de antes das plataformas de ingresso. O nome, a data e a
 // casa vieram do título de cada álbum, e o link leva às fotos.
 async function fonteFlickr(): Promise<Evento[]> {
-  return (flickr as Array<{ id: string; nome: string; data: string; url: string; local?: string }>).map((e) => ({ ...e, origem: 'manual', tema: temaPara(e.id), album: 'flickr', soDia: true }));
+  // Algumas têm a arte original da festa, guardada em public/capas (as cinco primeiras edições).
+  return (flickr as Array<{ id: string; nome: string; data: string; url: string; local?: string; capa?: string; capaPequena?: string }>).map((e) => ({ ...e, origem: 'manual', tema: temaPara(e.id), album: 'flickr', soDia: true }));
 }
 
 // O mesmo evento pode chegar por mais de um caminho: token e histórico do Sympla,
