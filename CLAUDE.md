@@ -60,7 +60,25 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
 1. `git fetch origin main` e traga a `main` para a branch.
 2. `npm run build` sem erro.
 3. `npm run confere:arquivo` passando.
-4. Só então `main`. A publicação na Cloudflare sai sozinha a cada push.
+4. `npm run confere:links` e `npm run confere:temas` passando (ver "Conferências do site").
+5. Só então `main`. A publicação na Cloudflare sai sozinha a cada push.
+
+## Conferências do site
+
+Além da guarda do histórico, duas conferências rodam na máquina e, sozinhas, no GitHub a cada
+push fora da `main` (`.github/workflows/confere-site.yml`):
+
+- `npm run confere:links` (depois do build): falha se algum link interno, âncora ou imagem do
+  próprio site apontar para algo que não existe. Link externo não entra.
+- `npm run confere:temas`: falha se um tema de `src/lib/temas.ts` sair da regra de contraste.
+
+**Regra de contraste (do Gui):** texto que se lê precisa de contraste de leitura (4,5:1).
+Enfeite pode ousar e abrir mão disso, desde que continue visível (3:1): a barra inclinada, o
+"@" das faixas, e também texto usado como enfeite, como a parede de palavras da Home. Não
+"corrija" o contraste de um enfeite: o efeito dele depende justamente dessa ousadia.
+Na prática: `--destaque` é cor de enfeite. Texto pequeno na cor de destaque usa
+`--destaque-texto`, e texto secundário usa `--suave`; o script de `src/layouts/Base.astro`
+ajusta as duas para 4,5:1 só nos temas em que seria preciso.
 
 ## Sessões de QA
 

@@ -8,7 +8,9 @@
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
-    "confere:arquivo": "node scripts/confere-arquivo.mjs"
+    "confere:arquivo": "node scripts/confere-arquivo.mjs",
+    "confere:links": "node scripts/confere-links.mjs",
+    "confere:temas": "node scripts/confere-temas.mjs"
   },
   "dependencies": {
     "@fontsource-variable/urbanist": "^5.3.0",

@@ -1,0 +1,31 @@
+# Conferências do site: a cada push fora da main, gera o site e confere os links internos
+# (scripts/confere-links.mjs) e o contraste dos temas (scripts/confere-temas.mjs).
+# O build aqui roda sem as chaves das plataformas: a agenda sai só com o histórico arquivado,
+# o que basta para conferir links e cores. Ver CLAUDE.md, "Achado vira conferência".
+name: Confere o site
+
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  conferir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Contraste dos temas
+        run: npm run confere:temas
+      - name: Gera o site
+        run: npm run build
+      - name: Links internos, âncoras e imagens
+        run: npm run confere:links
