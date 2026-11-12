@@ -29,14 +29,16 @@ const anteriores = [...pessoas.filter((p) => p.data.situacao === 'anterior'), ..
 // Fora da cabine. "url" é opcional: perfil, site, o que fizer sentido para cada um.
 // Com "url", informe também "destino", o nome curto que aparece na ponta da pulseira
 // ("Instagram", "Site").
-const foraDaCabine: { area: string; nome: string; url?: string; destino?: string }[] = [
-  { area: 'Foto e vídeo', nome: 'Estilingue', url: 'https://www.instagram.com/estilingue/', destino: 'Instagram' },
-  { area: 'Foto', nome: 'Felipe Cesar', url: 'https://www.instagram.com/felipecesard_/', destino: 'Instagram' },
-  { area: 'Foto', nome: 'Yury Oliveira', url: 'https://www.instagram.com/hey.yury/', destino: 'Instagram' },
-  { area: 'Bar', nome: 'Jaci', url: 'https://linktr.ee/jacigestaodebares', destino: 'Linktree' },
-  { area: 'Som e luz', nome: 'Léo' },
+// "grupo" decide a cor da pulseira: quem trabalha com a mesma coisa usa a mesma cor, ainda que a
+// área escrita na estampa seja diferente (foto, foto e vídeo).
+const foraDaCabine: { area: string; grupo: string; nome: string; url?: string; destino?: string }[] = [
+  { area: 'Foto e vídeo', grupo: 'imagem', nome: 'Estilingue', url: 'https://www.instagram.com/estilingue/', destino: 'Instagram' },
+  { area: 'Foto', grupo: 'imagem', nome: 'Felipe Cesar', url: 'https://www.instagram.com/felipecesard_/', destino: 'Instagram' },
+  { area: 'Foto', grupo: 'imagem', nome: 'Yury Oliveira', url: 'https://www.instagram.com/hey.yury/', destino: 'Instagram' },
+  { area: 'Bar', grupo: 'bar', nome: 'Jaci', url: 'https://linktr.ee/jacigestaodebares', destino: 'Linktree' },
+  { area: 'Som e luz', grupo: 'som', nome: 'Léo' },
 ];
-const areas = [...new Set(foraDaCabine.map((n) => n.area))];
+const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
 ---
 <Base titulo="Equipe">
   <header class="abre abre-cima">
@@ -72,11 +74,12 @@ const areas = [...new Set(foraDaCabine.map((n) => n.area))];
   <section class="fora" aria-labelledby="t-fora">
     <h2 id="t-fora" class="t-secao" data-anima="sobe">Fora da cabine</h2>
     <p class="t-apoio fora-texto" data-anima="surge">Parceiros que voltam festa após festa. Sem eles não tem foto, não tem bar, não tem som.</p>
+    <div class="bancada">
     <ul class="pulseiras" data-anima="surge">
       {foraDaCabine.map((n) => {
         const Tag = n.url ? 'a' : 'span';
         return (
-          <li class:list={{ 'pulseira-b': areas.indexOf(n.area) % 2 === 1 }}>
+          <li class:list={{ 'pulseira-b': grupos.indexOf(n.grupo) % 2 === 1 }}>
             <Tag class="pulseira" href={n.url} target={n.url ? '_blank' : undefined} rel={n.url ? 'noopener' : undefined}>
               <span class="pulseira-cola" aria-hidden="true"></span>
               <strong>{n.nome}</strong>
@@ -91,6 +94,8 @@ const areas = [...new Set(foraDaCabine.map((n) => n.area))];
         );
       })}
     </ul>
+    {foraDaCabine.map((_, i) => <span class={`papel papel-${i + 1}`} aria-hidden="true"></span>)}
+    </div>
     <p class="fora-botao" data-anima="surge"><Botao href="/sobre#t-palco" tipo="linha">A cena que já tocou com a gente</Botao></p>
   </section>
 </Base>
@@ -174,8 +179,8 @@ const areas = [...new Set(foraDaCabine.map((n) => n.area))];
   .fora-texto { max-width: 30em; margin-top: var(--e-2); }
   /* Pulseira de papel, como as de entrada: todas do mesmo tamanho, com a aba de cola
      (em zigue-zague) numa ponta, a estampa repetida no corpo e a sobra na outra ponta.
-     A cor muda por área, como muda por tipo de acesso na festa: uma usa o subtema vivo
-     com aba na cor do texto, a outra o contrário. */
+     A cor muda por grupo de trabalho (imagem, bar, som), como muda por tipo de acesso na festa,
+     alternando entre o subtema vivo com aba na cor do texto e o contrário. */
   .pulseiras { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.1rem; max-width: 68rem; margin-top: var(--e-4); }
   .pulseiras li { --p-fundo: var(--vivo); --p-texto: var(--sobre-vivo); --p-aba: var(--texto); --p-risco: var(--fundo); }
   .pulseiras li.pulseira-b { --p-fundo: var(--texto); --p-texto: var(--fundo); --p-aba: var(--vivo); --p-risco: var(--sobre-vivo); }
@@ -196,7 +201,7 @@ const areas = [...new Set(foraDaCabine.map((n) => n.area))];
   @keyframes puxa { to { transform: translateX(-50%); } }
   .pulseiras li { transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
   @media (hover: hover) and (pointer: fine) {
-    .pulseiras li:hover, .pulseiras li:focus-within { transform: rotate(0deg) translateX(0.75rem); }
+    .pulseiras li:nth-child(n):hover, .pulseiras li:nth-child(n):focus-within { transform: translateX(calc(var(--x, 0%) + 0.75rem)) rotate(0deg); z-index: 2; }
     .pulseiras li:hover .pulseira-trilho, .pulseiras li:focus-within .pulseira-trilho { animation-play-state: running; }
   }
   /* Pulseira com link: o destino fica escrito perto da sobra, com a seta de link externo. */
@@ -206,6 +211,30 @@ const areas = [...new Set(foraDaCabine.map((n) => n.area))];
   .pulseira-rabo { flex: none; align-self: stretch; width: clamp(1rem, 3%, 2.25rem); background: var(--p-aba); }
   a.pulseira:hover .pulseira-destino, a.pulseira:focus-visible .pulseira-destino { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
   .fora-botao { margin-top: var(--e-5); }
+  .papel { display: none; }
+
+  /* Em tela larga as pulseiras se espalham pela bancada, como os crachás na mesa: todas do mesmo
+     tamanho, cada uma num ângulo, deslocadas e cruzando umas sobre as outras. Soltos em volta,
+     os papéis que protegiam a cola, já arrancados da aba em zigue-zague. */
+  @media (min-width: 1101px) {
+    .bancada { position: relative; margin-top: var(--e-5); padding: 2.5rem 0 3.5rem; }
+    .pulseiras { position: relative; z-index: 1; max-width: none; gap: clamp(1.6rem, 2.6vw, 2.6rem); margin-top: 0; }
+    .pulseiras li:nth-child(n) { width: 70%; margin: 0; --r: 0deg; --x: 0%; transform: translateX(var(--x)) rotate(var(--r)); }
+    .pulseiras li:nth-child(1) { --r: -4.5deg; --x: 2%; }
+    .pulseiras li:nth-child(2) { --r: 3deg; --x: 40%; }
+    .pulseiras li:nth-child(3) { --r: -1.4deg; --x: 14%; }
+    .pulseiras li:nth-child(4) { --r: 5.5deg; --x: 42%; }
+    .pulseiras li:nth-child(5) { --r: -3.2deg; --x: 7%; }
+    .pulseiras li:nth-child(n + 6) { --r: 2deg; --x: 24%; }
+    .papel { display: block; position: absolute; z-index: 0; width: clamp(4.5rem, 6.5vw, 6.5rem); height: clamp(3.25rem, 4.6vw, 4.25rem); border-radius: 2px;
+      background: linear-gradient(100deg, transparent 46%, color-mix(in srgb, var(--fundo) 22%, transparent) 50%, transparent 54%), color-mix(in srgb, var(--texto) 84%, var(--vivo)); }
+    .papel-1 { right: 3%; top: 0; transform: rotate(24deg); }
+    .papel-2 { right: 12%; top: 36%; transform: rotate(-12deg) skewX(-4deg); }
+    .papel-3 { left: 1%; top: 47%; transform: rotate(-38deg); }
+    .papel-4 { left: 16%; bottom: 0; transform: rotate(14deg) skewX(5deg); }
+    .papel-5 { right: 6%; bottom: 12%; transform: rotate(68deg); }
+    .papel:nth-of-type(n + 6) { display: none; }
+  }
 
   @media (max-width: 820px) {
     /* No celular os crachás continuam em pé, todos do mesmo tamanho, numa fila para arrastar de
