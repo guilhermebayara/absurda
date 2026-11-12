@@ -13,6 +13,8 @@ const pessoas = defineCollection({
     situacao: z.enum(['atual', 'anterior']).default('atual'),
     ordem: z.number().default(99),
     foto: z.string().optional(),
+    // Ano em que entrou na @bsurda. Aparece no verso do crachá; sem ele, fica a marcação XXXX.
+    desde: z.number().optional(),
     instagram: z.string().optional(),
     links: z.array(z.object({ rotulo: z.string(), url: z.string() })).default([]),
   }),

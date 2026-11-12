@@ -1,6 +1,7 @@
 ---
 nome: "Gui Bayara"
 funcao: "Designer e produtor"
+desde: 2013
 grupo: socios
 situacao: atual
 ordem: 2

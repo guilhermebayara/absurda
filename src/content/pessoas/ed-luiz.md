@@ -1,6 +1,7 @@
 ---
 nome: "Ed Luiz"
-funcao: "Fundador, produtor e DJ"
+funcao: "Produtor e DJ"
+desde: 2009
 foto: "/equipe/ed-luiz.jpg"
 grupo: socios
 situacao: atual

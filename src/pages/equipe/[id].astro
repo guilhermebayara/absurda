@@ -1,6 +1,6 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Capa from '../../components/Capa.astro';
+import Cracha from '../../components/Cracha.astro';
 import { getCollection, render } from 'astro:content';
 import Botao from '../../components/Botao.astro';
 import { atributo } from '../../lib/temas';
@@ -18,11 +18,19 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
 ---
 <Base titulo={pessoa.data.nome} tema={tema} imagem={pessoa.data.foto}>
   <div class="pessoa" data-tema={atributo(tema)}>
-    <div class="pessoa-foto"><Capa src={pessoa.data.foto} /></div>
+    <div class="pessoa-cracha">
+      <Cracha nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} foto={pessoa.data.foto} desde={pessoa.data.desde} fundador={pessoa.id === 'ed-luiz'} />
+    </div>
     <div class="pessoa-texto">
       <a class="voltar" href="/equipe">Toda a equipe</a>
       <p class="etiqueta">{pessoa.data.situacao === 'atual' ? pessoa.data.funcao : `Fez parte da @bsurda como ${pessoa.data.funcao.toLowerCase()}`}</p>
       <h1 class="t-grande">{pessoa.data.nome}</h1>
+      {pessoa.data.situacao === 'atual' && (
+        <ul class="pessoa-dados">
+          <li><strong>{pessoa.data.desde ?? 'XXXX'}</strong><span>na @bsurda desde</span></li>
+          <li><strong>{pessoa.data.desde ? new Date().getFullYear() - pessoa.data.desde : 'X'}</strong><span>anos de festa</span></li>
+        </ul>
+      )}
       <div class="prosa"><Content /></div>
       {pessoa.data.instagram && <p><Botao href={pessoa.data.instagram} externo>Instagram</Botao></p>}
 
@@ -45,8 +53,14 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
 
 <style>
   .pessoa { display: grid; grid-template-columns: minmax(14rem, 0.8fr) 1.2fr; gap: clamp(1.5rem, 5vw, 5rem); padding: clamp(2rem, 5vw, 4rem) var(--margem) clamp(3.5rem, 9vw, 8rem); align-items: start; }
+  /* O crachá da pessoa, o mesmo da página Equipe, pendurado ao lado do texto. */
+  .pessoa-cracha { max-width: 22rem; transform: rotate(-1.5deg); }
+  .pessoa-dados { display: flex; flex-wrap: wrap; gap: var(--e-2) var(--e-4); }
+  .pessoa-dados li { display: grid; gap: 0.3em; }
+  .pessoa-dados strong { font-size: var(--t-4); font-weight: 800; line-height: 0.85; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+  .pessoa-dados span { font-size: 0.9375rem; color: var(--suave); }
   .pessoa-texto > * + * { margin-top: 1.25rem; }
   .pessoa-texto section { margin-top: clamp(2.5rem, 5vw, 4rem); }
   .pessoa-texto .titulo-secao { margin-bottom: 0.75rem; }
-  @media (max-width: 720px) { .pessoa { grid-template-columns: 1fr; } }
+  @media (max-width: 720px) { .pessoa { grid-template-columns: 1fr; } .pessoa-cracha { max-width: 17rem; } }
 </style>
