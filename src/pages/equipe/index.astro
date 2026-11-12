@@ -36,6 +36,7 @@ const foraDaCabine: { area: string; grupo: string; nome: string; url?: string; d
   { area: 'Foto', grupo: 'imagem', nome: 'Yury Oliveira', url: 'https://www.instagram.com/hey.yury/', destino: 'Instagram' },
   { area: 'Bar', grupo: 'bar', nome: 'Jaci', url: 'https://linktr.ee/jacigestaodebares', destino: 'Linktree' },
   { area: 'Som e luz', grupo: 'som', nome: 'Léo' },
+  { area: 'Cenografia', grupo: 'cenografia', nome: 'Ayumi Takizawa', url: 'https://www.instagram.com/_ayuready/', destino: 'Instagram' },
 ];
 const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
 ---
@@ -224,7 +225,8 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
     .pulseiras li:nth-child(3) { --r: -1.4deg; --x: 14%; }
     .pulseiras li:nth-child(4) { --r: 5.5deg; --x: 42%; }
     .pulseiras li:nth-child(5) { --r: -3.2deg; --x: 7%; }
-    .pulseiras li:nth-child(n + 6) { --r: 2deg; --x: 24%; }
+    .pulseiras li:nth-child(6) { --r: 2.4deg; --x: 36%; }
+    .pulseiras li:nth-child(n + 7) { --r: -1deg; --x: 16%; }
     .papel { display: block; position: absolute; z-index: 0; width: clamp(4.5rem, 6.5vw, 6.5rem); height: clamp(3.25rem, 4.6vw, 4.25rem); border-radius: 2px;
       background: linear-gradient(100deg, transparent 46%, color-mix(in srgb, var(--fundo) 22%, transparent) 50%, transparent 54%), color-mix(in srgb, var(--texto) 84%, var(--vivo)); }
     .papel-1 { right: 3%; top: 0; transform: rotate(24deg); }
@@ -232,7 +234,8 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
     .papel-3 { left: 1%; top: 47%; transform: rotate(-38deg); }
     .papel-4 { left: 16%; bottom: 0; transform: rotate(14deg) skewX(5deg); }
     .papel-5 { right: 6%; bottom: 12%; transform: rotate(68deg); }
-    .papel:nth-of-type(n + 6) { display: none; }
+    .papel-6 { left: 38%; top: -1%; transform: rotate(-20deg); }
+    .papel:nth-of-type(n + 7) { display: none; }
   }
 
   @media (max-width: 820px) {

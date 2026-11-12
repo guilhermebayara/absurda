@@ -15,19 +15,133 @@
     "atual": true,
     "papel": "Bebida",
     "texto": "Texto de marcação: uma linha sobre a parceria com a Xeque Mate.",
-    "registros": []
+    "registros": [
+      {
+        "ano": "2019",
+        "onde": "Halloween 10 anos"
+      }
+    ]
   },
   {
     "id": "stone-light",
-    "nome": "Stone Light",
-    "registros": [{ "ano": "2024", "onde": "Halloween 15 anos" }]
+    "nome": "Stone Light Drinks",
+    "registros": [
+      {
+        "ano": "2024",
+        "onde": "Halloween 15 anos"
+      }
+    ]
   },
   {
     "id": "amstel",
     "nome": "Amstel",
     "registros": [
-      { "ano": "2025", "onde": "Halloween 16 anos" },
-      { "ano": "2025", "onde": "Parada da @bsurda, na Funarte (ano a confirmar)" }
+      {
+        "ano": "2025",
+        "onde": "Halloween 16 anos"
+      },
+      {
+        "ano": "2025",
+        "onde": "Parada da @bsurda, na Funarte"
+      }
+    ]
+  },
+  {
+    "id": "homodriver",
+    "nome": "Homodriver",
+    "registros": [
+      {
+        "ano": "2019",
+        "onde": "Trio da @bsurda"
+      },
+      {
+        "ano": "2019",
+        "onde": "Halloween 10 anos"
+      }
+    ]
+  },
+  {
+    "id": "culturaliza",
+    "nome": "Culturaliza",
+    "registros": [
+      {
+        "ano": "2019",
+        "onde": "Trio da @bsurda"
+      }
+    ]
+  },
+  {
+    "id": "palco-pop",
+    "nome": "Palco Pop",
+    "registros": [
+      {
+        "ano": "2019",
+        "onde": "Trio da @bsurda"
+      }
+    ]
+  },
+  {
+    "id": "popline",
+    "nome": "POPline",
+    "registros": [
+      {
+        "ano": "2018",
+        "onde": "Evento a confirmar"
+      }
+    ]
+  },
+  {
+    "id": "99-pop",
+    "nome": "99 Pop",
+    "registros": [
+      {
+        "ano": "2017",
+        "onde": "Halloween 8 anos"
+      }
+    ]
+  },
+  {
+    "id": "muza",
+    "nome": "Muza",
+    "registros": [
+      {
+        "ano": "2016",
+        "onde": "Wig (a confirmar)"
+      }
+    ]
+  },
+  {
+    "id": "giro",
+    "nome": "Giro",
+    "registros": [
+      {
+        "ano": "2022",
+        "onde": "Parada da @bsurda"
+      }
+    ]
+  },
+  {
+    "id": "dduck",
+    "nome": "Dduck",
+    "registros": [
+      {
+        "ano": "2022",
+        "onde": "Parada da @bsurda"
+      }
+    ]
+  },
+  {
+    "id": "sula",
+    "nome": "Sula",
+    "registros": [
+      {
+        "ano": "2023",
+        "onde": "Bichanice (a confirmar)"
+      },
+      {
+        "ano": "2022",
+        "onde": "Carnaval (a confirmar)"
+      }
     ]
   }
 ]

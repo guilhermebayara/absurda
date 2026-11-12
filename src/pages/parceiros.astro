@@ -18,10 +18,15 @@ import { numeros } from '../lib/historia';
 const parceiros = (await getCollection('parceiros')).map((p) => p.data);
 const atuais = parceiros.filter((p) => p.atual);
 
-// Uma linha por marca e evento, agrupada por ano, do mais recente para o mais antigo.
+// Agrupado por ano, do mais recente para o mais antigo. A marca aparece uma vez por ano, com
+// todos os eventos daquele ano ao lado.
 const linhas = parceiros.flatMap((p) => p.registros.map((r) => ({ ...r, nome: p.nome })));
 const anos = [...new Set(linhas.map((l) => l.ano))].sort((a, b) => b.localeCompare(a));
-const registro = anos.map((ano) => ({ ano, linhas: linhas.filter((l) => l.ano === ano).sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR')) }));
+const registro = anos.map((ano) => {
+  const doAno = linhas.filter((l) => l.ano === ano);
+  const nomes = [...new Set(doAno.map((l) => l.nome))].sort((a, b) => a.localeCompare(b, 'pt-BR'));
+  return { ano, marcas: nomes.map((nome) => ({ nome, eventos: doAno.filter((l) => l.nome === nome).map((l) => l.onde) })) };
+});
 ---
 <Base titulo="Parceiros">
   <header class="abre abre-cima">
@@ -51,7 +56,7 @@ const registro = anos.map((ano) => ({ ano, linhas: linhas.filter((l) => l.ano ==
         <div class="ano" data-anima="surge">
           <h3 class="ano-numero">{g.ano}</h3>
           <ul class="ano-linhas">
-            {g.linhas.map((l) => <li><strong>{l.nome}</strong><span>{l.onde}</span></li>)}
+            {g.marcas.map((m) => <li><strong>{m.nome}</strong><span>{m.eventos.map((e) => <span>{e}</span>)}</span></li>)}
           </ul>
         </div>
       ))}
@@ -98,7 +103,7 @@ const registro = anos.map((ano) => ({ ano, linhas: linhas.filter((l) => l.ano ==
   .ano-linhas { display: grid; gap: var(--e-2); }
   .ano-linhas li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.25rem var(--e-3); align-items: baseline; }
   .ano-linhas strong { font-size: var(--t-4); font-weight: 800; line-height: 0.95; letter-spacing: -0.035em; text-transform: uppercase; }
-  .ano-linhas span { font-size: 1.0625rem; line-height: 1.35; }
+  .ano-linhas li > span { display: grid; gap: 0.15rem; font-size: 1.0625rem; line-height: 1.35; }
   .registro-nota { margin-top: var(--e-2); }
 
   /* 3. Convite. */
