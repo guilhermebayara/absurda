@@ -3,7 +3,8 @@ import Base from '../../layouts/Base.astro';
 import Capa from '../../components/Capa.astro';
 import { getCollection, render } from 'astro:content';
 import Botao from '../../components/Botao.astro';
-import { atributo, temaPara } from '../../lib/temas';
+import { atributo } from '../../lib/temas';
+import { temaDaPessoa } from '../../lib/pessoas';
 
 export async function getStaticPaths() {
   const pessoas = await getCollection('pessoas');
@@ -12,8 +13,8 @@ export async function getStaticPaths() {
 const { pessoa } = Astro.props;
 const { Content } = await render(pessoa);
 const projetos = (await getCollection('projetos')).filter((pr) => pr.data.pessoas.some((ref) => ref.id === pessoa.id));
-// O tema virá da foto da pessoa. Por enquanto, um par fixo da marca.
-const tema = temaPara(pessoa.id);
+// O tema vem da foto da pessoa. Sem foto, um par fixo da marca.
+const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
 ---
 <Base titulo={pessoa.data.nome} tema={tema} imagem={pessoa.data.foto}>
   <div class="pessoa" data-tema={atributo(tema)}>

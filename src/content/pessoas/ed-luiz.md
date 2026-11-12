@@ -1,6 +1,7 @@
 ---
 nome: "Ed Luiz"
 funcao: "Fundador, produtor e DJ"
+foto: "/equipe/ed-luiz.jpg"
 grupo: socios
 situacao: atual
 ordem: 1
