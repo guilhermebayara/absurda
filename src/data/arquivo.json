@@ -210,6 +210,16 @@
   "capaPequena": "/arquivo/shotgun-528332-p.jpg"
  },
  {
+  "id": "sympla-3326528",
+  "nome": "IHR MILEY, DEMI E SELENA - 28/03 - 21H",
+  "data": "2026-03-29T00:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/ihr-miley-demi-e-selena-28-03-21h/3326528",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-3326528.jpg",
+  "capaPequena": "/arquivo/sympla-3326528-p.jpg"
+ },
+ {
   "id": "shotgun-519642",
   "nome": "@BSURDA LOLLA 13/3 - 22H",
   "data": "2026-03-14T01:00:00.000Z",
@@ -329,6 +339,16 @@
   "capaPequena": "/arquivo/shotgun-474433-p.jpg"
  },
  {
+  "id": "sympla-3208430",
+  "nome": "KINTOU - KARAOKÊ + MPB (@BSURDA)",
+  "data": "2025-11-13T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/kintou-karaoke-mpb-bsurda/3208430",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-3208430.jpg",
+  "capaPequena": "/arquivo/sympla-3208430-p.jpg"
+ },
+ {
   "id": "shotgun-474432",
   "nome": "I HATE REMIX UK + Região Metropolitana 08/11 - 22H",
   "data": "2025-11-09T01:00:00.000Z",
@@ -349,6 +369,16 @@
   "capaPequena": "/arquivo/shotgun-481403-p.jpg"
  },
  {
+  "id": "sympla-3153203",
+  "nome": "KINTOU - KARAOKÊ + MPB (@BSURDA)",
+  "data": "2025-10-30T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/kintou-karaoke-mpb-bsurda/3153203",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-3153203.jpg",
+  "capaPequena": "/arquivo/sympla-3153203-p.jpg"
+ },
+ {
   "id": "shotgun-476272",
   "nome": "@bsurda IT’S NOT THAT DEEP 24/10 - 22h",
   "data": "2025-10-25T01:00:00.000Z",
@@ -357,6 +387,26 @@
   "local": "Mira",
   "capa": "/arquivo/shotgun-476272.jpg",
   "capaPequena": "/arquivo/shotgun-476272-p.jpg"
+ },
+ {
+  "id": "sympla-3153197",
+  "nome": "KINTOU - KARAOKÊ + MPB (@BSURDA) - 23/10",
+  "data": "2025-10-23T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/kintou-karaoke-mpb-bsurda-23-10/3153197",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-3153197.jpg",
+  "capaPequena": "/arquivo/sympla-3153197-p.jpg"
+ },
+ {
+  "id": "sympla-3153189",
+  "nome": "KINTOU - KARAOKÊ + MPB (@BSURDA)",
+  "data": "2025-10-16T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/kintou-karaoke-mpb-bsurda/3153189",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-3153189.jpg",
+  "capaPequena": "/arquivo/sympla-3153189-p.jpg"
  },
  {
   "id": "shotgun-467741",
@@ -389,6 +439,16 @@
   "capaPequena": "/arquivo/shotgun-464316-p.jpg"
  },
  {
+  "id": "sympla-3060472",
+  "nome": "IHR SABRINA CARPENTER e FRIENDS 30/08 - 21h",
+  "data": "2025-08-31T00:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/ihr-sabrina-carpenter-e-friends-30-08-21h/3060472",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-3060472.jpg",
+  "capaPequena": "/arquivo/sympla-3060472-p.jpg"
+ },
+ {
   "id": "shotgun-458135",
   "nome": "@bsurda Summer Eletrohits 16/08 22H30",
   "data": "2025-08-17T01:30:00.000Z",
@@ -407,6 +467,16 @@
   "local": "GIS",
   "capa": "/arquivo/sympla-3034498.jpg",
   "capaPequena": "/arquivo/sympla-3034498-p.jpg"
+ },
+ {
+  "id": "sympla-3008990",
+  "nome": "I HATE REMIX BEYONCÉ (after Parada @bsurda) 27/7 - 20h",
+  "data": "2025-07-27T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-beyonce-after-parada-bsurda-27-7-20h/3008990",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-3008990.jpg",
+  "capaPequena": "/arquivo/sympla-3008990-p.jpg"
  },
  {
   "id": "sympla-2959783",
@@ -465,6 +535,16 @@
   "capaPequena": "/arquivo/sympla-2990614-p.jpg"
  },
  {
+  "id": "sympla-2982600",
+  "nome": "IHR LORDE E FRIENDS - 27/06 - 22H",
+  "data": "2025-06-28T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/ihr-lorde-e-friends-27-06-22h/2982600",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2982600.jpg",
+  "capaPequena": "/arquivo/sympla-2982600-p.jpg"
+ },
+ {
   "id": "sympla-2953393",
   "nome": "PACIFY + @BSURDA 14/06 22H LAB",
   "data": "2025-06-15T01:00:00.000Z",
@@ -475,6 +555,16 @@
   "capaPequena": "/arquivo/sympla-2953393-p.jpg"
  },
  {
+  "id": "sympla-2928483",
+  "nome": "IHR MARINA E FRIENDS - 06/06 - 22H",
+  "data": "2025-06-07T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/ihr-marina-e-friends-06-06-22h/2928483",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2928483.jpg",
+  "capaPequena": "/arquivo/sympla-2928483-p.jpg"
+ },
+ {
   "id": "sympla-2890327",
   "nome": "IHR MILEY Something Beautiful 30/05 22H LAB",
   "data": "2025-05-31T01:00:00.000Z",
@@ -483,6 +573,26 @@
   "local": "Lab",
   "capa": "/arquivo/sympla-2890327.jpg",
   "capaPequena": "/arquivo/sympla-2890327-p.jpg"
+ },
+ {
+  "id": "sympla-2927463",
+  "nome": "@BSURDA BORN THIS WAY 23/05 - 21H - CASA SAPUCAÍ",
+  "data": "2025-05-24T00:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/bsurda-born-this-way-23-05-21h-casa-sapucai/2927463",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-2927463.jpg",
+  "capaPequena": "/arquivo/sympla-2927463-p.jpg"
+ },
+ {
+  "id": "sympla-2907357",
+  "nome": "@BSURDA esp SUMMER ELETROHITS 17/05 - 22H30",
+  "data": "2025-05-18T01:30:00.000Z",
+  "url": "https://www.sympla.com.br/evento/bsurda-esp-summer-eletrohits-17-05-22h30/2907357",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2907357.jpg",
+  "capaPequena": "/arquivo/sympla-2907357-p.jpg"
  },
  {
   "id": "sympla-2930984",
@@ -535,6 +645,16 @@
   "capaPequena": "/arquivo/sympla-2872197-p.jpg"
  },
  {
+  "id": "sympla-2869278",
+  "nome": "I HATE REMIX THE WEEKND E JUSTIN BIEBER 04/04 - 22h",
+  "data": "2025-04-05T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-the-weeknd-e-justin-bieber-04-04-22h/2869278",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2869278.jpg",
+  "capaPequena": "/arquivo/sympla-2869278-p.jpg"
+ },
+ {
   "id": "sympla-2831278",
   "nome": "IHR ARIANA GRANDE 15/03 - 23h Espaço Loc",
   "data": "2025-03-16T02:00:00.000Z",
@@ -543,6 +663,36 @@
   "local": "Espaço Loc",
   "capa": "/arquivo/sympla-2831278.jpg",
   "capaPequena": "/arquivo/sympla-2831278-p.jpg"
+ },
+ {
+  "id": "sympla-2778090",
+  "nome": "IHR LADY GAGA MAYHEM - 08/03 - 22H30",
+  "data": "2025-03-09T01:30:00.000Z",
+  "url": "https://www.sympla.com.br/evento/ihr-lady-gaga-mayhem-08-03-22h30/2778090",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2778090.jpg",
+  "capaPequena": "/arquivo/sympla-2778090-p.jpg"
+ },
+ {
+  "id": "sympla-2798399",
+  "nome": "@BSURDA DE CARNAVAL 01/03 22H",
+  "data": "2025-03-02T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/bsurda-de-carnaval-01-03-22h/2798399",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2798399.jpg",
+  "capaPequena": "/arquivo/sympla-2798399-p.jpg"
+ },
+ {
+  "id": "sympla-2772455",
+  "nome": "@BSURDA esp SUMMER ELETROHITS 25/01 - 22H30",
+  "data": "2025-01-26T01:30:00.000Z",
+  "url": "https://www.sympla.com.br/evento/bsurda-esp-summer-eletrohits-25-01-22h30/2772455",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2772455.jpg",
+  "capaPequena": "/arquivo/sympla-2772455-p.jpg"
  },
  {
   "id": "sympla-2763047",
@@ -564,6 +714,26 @@
   "capaPequena": "/arquivo/sympla-2777411-p.jpg"
  },
  {
+  "id": "sympla-2565224",
+  "nome": "RÉVEILLON MIRA! / 31/12 - 22H",
+  "data": "2025-01-01T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/reveillon-mira-31-12-22h/2565224",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2565224.jpg",
+  "capaPequena": "/arquivo/sympla-2565224-p.jpg"
+ },
+ {
+  "id": "sympla-2707812",
+  "nome": "@BSURDA MELHORES DE 2024 - 14/12 - 22H",
+  "data": "2024-12-15T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/bsurda-melhores-de-2024-14-12-22h/2707812",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2707812.jpg",
+  "capaPequena": "/arquivo/sympla-2707812-p.jpg"
+ },
+ {
   "id": "sympla-2707808",
   "nome": "I HATE REMIX BRITNEY - 07/12 - 22H - ANDALUZ",
   "data": "2024-12-08T01:00:00.000Z",
@@ -572,6 +742,26 @@
   "local": "Andaluz PUB",
   "capa": "/arquivo/sympla-2707808.jpg",
   "capaPequena": "/arquivo/sympla-2707808-p.jpg"
+ },
+ {
+  "id": "sympla-2688414",
+  "nome": "I HATE REMIX YES, RENY? 23/11 -  20H",
+  "data": "2024-11-23T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-yes-reny-23-11-20h/2688414",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-2688414.jpg",
+  "capaPequena": "/arquivo/sympla-2688414-p.jpg"
+ },
+ {
+  "id": "sympla-2678523",
+  "nome": "@BSURDA PROM esp SUMMER ELETROHITS 09/11 - 22H30",
+  "data": "2024-11-10T01:30:00.000Z",
+  "url": "https://www.sympla.com.br/evento/bsurda-prom-esp-summer-eletrohits-09-11-22h30/2678523",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2678523.jpg",
+  "capaPequena": "/arquivo/sympla-2678523-p.jpg"
  },
  {
   "id": "sympla-2232912",
@@ -584,6 +774,36 @@
   "capaPequena": "/arquivo/sympla-2232912-p.jpg"
  },
  {
+  "id": "sympla-2595063",
+  "nome": "@bsurda Pré Halloween + IHR Lorde, Tove Lo e Charli - 13/09 -20h",
+  "data": "2024-09-13T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/bsurda-pre-halloween-ihr-lorde-tove-lo-e-charli-13-09-20h/2595063",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-2595063.jpg",
+  "capaPequena": "/arquivo/sympla-2595063-p.jpg"
+ },
+ {
+  "id": "sympla-2552800",
+  "nome": "IHR MARILIA MENDONÇA E ALCIONE 18/08 - 16H",
+  "data": "2024-08-18T19:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/ihr-marilia-mendonca-e-alcione-18-08-16h/2552800",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2552800.jpg",
+  "capaPequena": "/arquivo/sympla-2552800-p.jpg"
+ },
+ {
+  "id": "sympla-2546140",
+  "nome": "IHR SUMMER ELETROHITS - 10/08 - 20h",
+  "data": "2024-08-10T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/ihr-summer-eletrohits-10-08-20h/2546140",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-2546140.jpg",
+  "capaPequena": "/arquivo/sympla-2546140-p.jpg"
+ },
+ {
   "id": "sympla-2548662",
   "nome": "I HATE REMIX SUNSET - 27/7 - 15H",
   "data": "2024-07-27T18:00:00.000Z",
@@ -592,6 +812,66 @@
   "local": "Casa Rosa do Bonfim",
   "capa": "/arquivo/sympla-2548662.jpg",
   "capaPequena": "/arquivo/sympla-2548662-p.jpg"
+ },
+ {
+  "id": "sympla-2525100",
+  "nome": "AFTER PARADA LGBT 21/07",
+  "data": "2024-07-21T21:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/after-parada-lgbt-21-07/2525100",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2525100.jpg",
+  "capaPequena": "/arquivo/sympla-2525100-p.jpg"
+ },
+ {
+  "id": "sympla-2505824",
+  "nome": "I HATE REMIX KATY PERRY 12/7 - 22H",
+  "data": "2024-07-13T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-katy-perry-12-7-22h/2505824",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2505824.jpg",
+  "capaPequena": "/arquivo/sympla-2505824-p.jpg"
+ },
+ {
+  "id": "sympla-2464024",
+  "nome": "I HATE REMIX ALL SINGLES 29/06 - 20H",
+  "data": "2024-06-29T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-all-singles-29-06-20h/2464024",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-2464024.jpg",
+  "capaPequena": "/arquivo/sympla-2464024-p.jpg"
+ },
+ {
+  "id": "sympla-2515755",
+  "nome": "After Sensacional na Autêntica",
+  "data": "2024-06-23T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/after-sensacional-na-autentica/2515755",
+  "origem": "sympla",
+  "local": "Autêntica",
+  "capa": "/arquivo/sympla-2515755.jpg",
+  "capaPequena": "/arquivo/sympla-2515755-p.jpg"
+ },
+ {
+  "id": "sympla-2501731",
+  "nome": "MPB - Música PÓÓÓÓÓP de Bixa",
+  "data": "2024-06-13T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/mpb-musica-pooooop-de-bixa/2501731",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-2501731.jpg",
+  "capaPequena": "/arquivo/sympla-2501731-p.jpg"
+ },
+ {
+  "id": "sympla-2462486",
+  "nome": "1º ARRAIÁ SAPUCAÍ",
+  "data": "2024-06-08T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/1o-arraia-sapucai/2462486",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-2462486.jpg",
+  "capaPequena": "/arquivo/sympla-2462486-p.jpg"
  },
  {
   "id": "sympla-2466477",
@@ -614,6 +894,16 @@
   "capaPequena": "/arquivo/shotgun-371059-p.jpg"
  },
  {
+  "id": "sympla-2419764",
+  "nome": "I HATE REMIX DUA LIPA 18/5 - 22H",
+  "data": "2024-05-19T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-dua-lipa-18-5-22h/2419764",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2419764.jpg",
+  "capaPequena": "/arquivo/sympla-2419764-p.jpg"
+ },
+ {
   "id": "sympla-2429838",
   "nome": "WATCH PARTY MADONNA IN RIO - 04/05 - 20H",
   "data": "2024-05-04T23:00:00.000Z",
@@ -622,6 +912,26 @@
   "local": "Lab",
   "capa": "/arquivo/sympla-2429838.jpg",
   "capaPequena": "/arquivo/sympla-2429838-p.jpg"
+ },
+ {
+  "id": "sympla-2365086",
+  "nome": "I HATE REMIX TAYLOR SWIFT - 20/4 - 20H",
+  "data": "2024-04-20T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-taylor-swift-20-4-20h/2365086",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-2365086.jpg",
+  "capaPequena": "/arquivo/sympla-2365086-p.jpg"
+ },
+ {
+  "id": "sympla-2416184",
+  "nome": "Exibição Final de RPDR 16 - WIG Party ft. IHR especial Drags",
+  "data": "2024-04-19T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/exibicao-final-de-rpdr-16-wig-party-ft-ihr-especial-drags/2416184",
+  "origem": "sympla",
+  "local": "GIS CLUBE",
+  "capa": "/arquivo/sympla-2416184.jpg",
+  "capaPequena": "/arquivo/sympla-2416184-p.jpg"
  },
  {
   "id": "sympla-2365155",
@@ -634,6 +944,16 @@
   "capaPequena": "/arquivo/sympla-2365155-p.jpg"
  },
  {
+  "id": "sympla-2397099",
+  "nome": "I HATE REMIX MADONNA 12/4 - 22H",
+  "data": "2024-04-13T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-madonna-12-4-22h/2397099",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2397099.jpg",
+  "capaPequena": "/arquivo/sympla-2397099-p.jpg"
+ },
+ {
   "id": "sympla-2341521",
   "nome": "I HATE REMIX ATO II BEYONCE - 29/03 - LAB 22H",
   "data": "2024-03-30T01:00:00.000Z",
@@ -644,6 +964,56 @@
   "capaPequena": "/arquivo/sympla-2341521-p.jpg"
  },
  {
+  "id": "sympla-2350523",
+  "nome": "I HATE REMIX TAYLOR THE ERAS 16/3 - 22H",
+  "data": "2024-03-17T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-taylor-the-eras-16-3-22h/2350523",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2350523.jpg",
+  "capaPequena": "/arquivo/sympla-2350523-p.jpg"
+ },
+ {
+  "id": "sympla-2300582",
+  "nome": "I HATE REMIX - ARIANA, YES, AND? 9/3 - 20H",
+  "data": "2024-03-09T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-ariana-yes-and-9-3-20h/2300582",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-2300582.jpg",
+  "capaPequena": "/arquivo/sympla-2300582-p.jpg"
+ },
+ {
+  "id": "sympla-2318047",
+  "nome": "@BSURDA DE CARNAVAL 13/02 13h / ESPAÇO SAPUCAÍ",
+  "data": "2024-02-13T16:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/bsurda-de-carnaval-13-02-13h-espaco-sapucai/2318047",
+  "origem": "sympla",
+  "local": "Espaço Sapucaí",
+  "capa": "/arquivo/sympla-2318047.jpg",
+  "capaPequena": "/arquivo/sympla-2318047-p.jpg"
+ },
+ {
+  "id": "sympla-2279821",
+  "nome": "I HATE REMIX RIHANNA 27/1 - 22H",
+  "data": "2024-01-28T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-rihanna-27-1-22h/2279821",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2279821.jpg",
+  "capaPequena": "/arquivo/sympla-2279821-p.jpg"
+ },
+ {
+  "id": "sympla-2252856",
+  "nome": "RENAISSANCE: A PARTY BY @BSURDA 22/12 - 20H",
+  "data": "2023-12-22T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/renaissance-a-party-by-bsurda-22-12-20h/2252856",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-2252856.jpg",
+  "capaPequena": "/arquivo/sympla-2252856-p.jpg"
+ },
+ {
   "id": "sympla-2271948",
   "nome": "PINK FRIDAY 15/12 - 23H CHURCH PRAD0",
   "data": "2023-12-16T02:00:00.000Z",
@@ -652,6 +1022,16 @@
   "local": "Church Prado",
   "capa": "/arquivo/sympla-2271948.jpg",
   "capaPequena": "/arquivo/sympla-2271948-p.jpg"
+ },
+ {
+  "id": "sympla-2188046",
+  "nome": "@BSURDA PROM 02/12 - 22h",
+  "data": "2023-12-03T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/bsurda-prom-02-12-22h/2188046",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2188046.jpg",
+  "capaPequena": "/arquivo/sympla-2188046-p.jpg"
  },
  {
   "id": "sympla-2234674",
@@ -684,6 +1064,26 @@
   "capaPequena": "/arquivo/sympla-1892621-p.jpg"
  },
  {
+  "id": "sympla-2132313",
+  "nome": "FESTIVAL @BSURDA 23/09 - 22H",
+  "data": "2023-09-24T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/festival-bsurda-23-09-22h/2132313",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2132313.jpg",
+  "capaPequena": "/arquivo/sympla-2132313-p.jpg"
+ },
+ {
+  "id": "sympla-2097892",
+  "nome": "I HATE REMIX esp ARIANA, SELENA E LITTLE MIX 9/9 20H",
+  "data": "2023-09-09T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-esp-ariana-selena-e-little-mix-9-9-20h/2097892",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-2097892.jpg",
+  "capaPequena": "/arquivo/sympla-2097892-p.jpg"
+ },
+ {
   "id": "sympla-2019172",
   "nome": "CLUB RENY - 02/09 22H LAB",
   "data": "2023-09-03T01:00:00.000Z",
@@ -704,6 +1104,26 @@
   "capaPequena": "/arquivo/sympla-2103516-p.jpg"
  },
  {
+  "id": "sympla-2048673",
+  "nome": "I HATE REMIX DUA LIPA 12/8 - 22H MIRA!",
+  "data": "2023-08-13T01:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-dua-lipa-12-8-22h-mira/2048673",
+  "origem": "sympla",
+  "local": "Mira! Centro Cultural",
+  "capa": "/arquivo/sympla-2048673.jpg",
+  "capaPequena": "/arquivo/sympla-2048673-p.jpg"
+ },
+ {
+  "id": "sympla-2030418",
+  "nome": "CHRONUS - o espetáculo Drag  /// (Temporada em São Paulo)",
+  "data": "2023-08-04T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/chronus-o-espetaculo-drag-temporada-em-sao-paulo/2030418",
+  "origem": "sympla",
+  "local": "Galpão do Folias",
+  "capa": "/arquivo/sympla-2030418.jpg",
+  "capaPequena": "/arquivo/sympla-2030418-p.jpg"
+ },
+ {
   "id": "shotgun-332230",
   "nome": "@bsurda apresenta Bichanice #2",
   "data": "2023-07-29T22:00:00.000Z",
@@ -722,6 +1142,16 @@
   "local": "Lab",
   "capa": "/arquivo/sympla-2004190.jpg",
   "capaPequena": "/arquivo/sympla-2004190-p.jpg"
+ },
+ {
+  "id": "sympla-2009557",
+  "nome": "I HATE REMIX 11 ANOS - 23/6 - 20H - CASA SAPUCAÍ",
+  "data": "2023-06-23T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-11-anos-23-6-20h-casa-sapucai/2009557",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-2009557.jpg",
+  "capaPequena": "/arquivo/sympla-2009557-p.jpg"
  },
  {
   "id": "sympla-2016142",
@@ -764,6 +1194,16 @@
   "capaPequena": "/arquivo/sympla-1977508-p.jpg"
  },
  {
+  "id": "sympla-1977328",
+  "nome": "WIG Passport - 2/6 - 23H",
+  "data": "2023-06-03T02:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/wig-passport-2-6-23h/1977328",
+  "origem": "sympla",
+  "local": "GIS +",
+  "capa": "/arquivo/sympla-1977328.jpg",
+  "capaPequena": "/arquivo/sympla-1977328-p.jpg"
+ },
+ {
   "id": "sympla-1985916",
   "nome": "@BSURDA ANOS 2000 - LAB 27/5 - 22H",
   "data": "2023-05-28T01:00:00.000Z",
@@ -794,6 +1234,16 @@
   "capaPequena": "/arquivo/sympla-1962627-p.jpg"
  },
  {
+  "id": "sympla-1935424",
+  "nome": "@BSURDA JOGOS ETÍLICOS + IHR KPOP 29/4 - 20H",
+  "data": "2023-04-29T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/bsurda-jogos-etilicos-ihr-kpop-29-4-20h/1935424",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1935424.jpg",
+  "capaPequena": "/arquivo/sympla-1935424-p.jpg"
+ },
+ {
   "id": "sympla-1924601",
   "nome": "I HATE REMIX ANITTA E LUDMILLA - 15/4 - 22H - LAB",
   "data": "2023-04-16T01:00:00.000Z",
@@ -814,6 +1264,116 @@
   "capaPequena": "/arquivo/sympla-1904606-p.jpg"
  },
  {
+  "id": "sympla-1929374",
+  "nome": "MPB - Música PÓÓÓÓÓP de Bixa",
+  "data": "2023-03-30T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/mpb-musica-pooooop-de-bixa/1929374",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1929374.jpg",
+  "capaPequena": "/arquivo/sympla-1929374-p.jpg"
+ },
+ {
+  "id": "sympla-1915449",
+  "nome": "@BSURDA no Irregular!",
+  "data": "2023-03-25T02:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/bsurda-no-irregular/1915449",
+  "origem": "sympla",
+  "local": "Irregular",
+  "capa": "/arquivo/sympla-1915449.jpg",
+  "capaPequena": "/arquivo/sympla-1915449-p.jpg"
+ },
+ {
+  "id": "sympla-1920960",
+  "nome": "MPB - Música PÓÓÓÓÓP de Bixa",
+  "data": "2023-03-23T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/mpb-musica-pooooop-de-bixa/1920960",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1920960.jpg",
+  "capaPequena": "/arquivo/sympla-1920960-p.jpg"
+ },
+ {
+  "id": "sympla-1911381",
+  "nome": "MPB - Música PÓÓÓÓÓP de Bixa",
+  "data": "2023-03-16T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/mpb-musica-pooooop-de-bixa/1911381",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1911381.jpg",
+  "capaPequena": "/arquivo/sympla-1911381-p.jpg"
+ },
+ {
+  "id": "sympla-1860753",
+  "nome": "I HATE REMIX MILEY E LANA 11/3 - 20H",
+  "data": "2023-03-11T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/i-hate-remix-miley-e-lana-11-3-20h/1860753",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1860753.jpg",
+  "capaPequena": "/arquivo/sympla-1860753-p.jpg"
+ },
+ {
+  "id": "sympla-1902201",
+  "nome": "MPB - Música PÓÓÓÓÓP de Bixa",
+  "data": "2023-03-09T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/mpb-musica-pooooop-de-bixa/1902201",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1902201.jpg",
+  "capaPequena": "/arquivo/sympla-1902201-p.jpg"
+ },
+ {
+  "id": "sympla-1893411",
+  "nome": "MIAU ^-^ O Pop das Gatas",
+  "data": "2023-03-04T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/miau-o-pop-das-gatas/1893411",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1893411.jpg",
+  "capaPequena": "/arquivo/sympla-1893411-p.jpg"
+ },
+ {
+  "id": "sympla-1893303",
+  "nome": "MPB - Música PÓÓÓÓÓP de Bixa",
+  "data": "2023-03-02T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/mpb-musica-pooooop-de-bixa/1893303",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1893303.jpg",
+  "capaPequena": "/arquivo/sympla-1893303-p.jpg"
+ },
+ {
+  "id": "sympla-1888666",
+  "nome": "MPB - Música PÓÓÓÓÓP de Bixa",
+  "data": "2023-02-23T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/mpb-musica-pooooop-de-bixa/1888666",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1888666.jpg",
+  "capaPequena": "/arquivo/sympla-1888666-p.jpg"
+ },
+ {
+  "id": "sympla-1877522",
+  "nome": "MPB - Música PÓÓÓÓÓP de Bixa",
+  "data": "2023-02-16T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/mpb-musica-pooooop-de-bixa/1877522",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1877522.jpg",
+  "capaPequena": "/arquivo/sympla-1877522-p.jpg"
+ },
+ {
+  "id": "sympla-1869488",
+  "nome": "MPB - Música PÓÓÓÓÓP de Bixa",
+  "data": "2023-02-09T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/mpb-musica-pooooop-de-bixa/1869488",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1869488.jpg",
+  "capaPequena": "/arquivo/sympla-1869488-p.jpg"
+ },
+ {
   "id": "sympla-1847103",
   "nome": "@BSURDA BAILE FUNK - 4/2 - 22H",
   "data": "2023-02-05T01:00:00.000Z",
@@ -824,6 +1384,16 @@
   "capaPequena": "/arquivo/sympla-1847103-p.jpg"
  },
  {
+  "id": "sympla-1860925",
+  "nome": "MPB - Música PÓÓÓÓÓP de Bixa",
+  "data": "2023-02-02T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/mpb-musica-pooooop-de-bixa/1860925",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1860925.jpg",
+  "capaPequena": "/arquivo/sympla-1860925-p.jpg"
+ },
+ {
   "id": "sympla-1826930",
   "nome": "I HATE REMIX 2023",
   "data": "2023-01-31T20:00:00.000Z",
@@ -832,6 +1402,36 @@
   "local": "Local a definir",
   "capa": "/arquivo/sympla-1826930.jpg",
   "capaPequena": "/arquivo/sympla-1826930-p.jpg"
+ },
+ {
+  "id": "sympla-1854607",
+  "nome": "MPB - Música PÓÓÓÓÓP de Bixa",
+  "data": "2023-01-26T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/mpb-musica-pooooop-de-bixa/1854607",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1854607.jpg",
+  "capaPequena": "/arquivo/sympla-1854607-p.jpg"
+ },
+ {
+  "id": "sympla-1845432",
+  "nome": "MPB - Música PÓÓÓÓÓP de Bixa",
+  "data": "2023-01-19T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/mpb-musica-pooooop-de-bixa/1845432",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1845432.jpg",
+  "capaPequena": "/arquivo/sympla-1845432-p.jpg"
+ },
+ {
+  "id": "sympla-1838732",
+  "nome": "MPB - Música PÓÓÓÓÓP de Bixa",
+  "data": "2023-01-12T23:00:00.000Z",
+  "url": "https://www.sympla.com.br/evento/mpb-musica-pooooop-de-bixa/1838732",
+  "origem": "sympla",
+  "local": "Casa Sapucaí",
+  "capa": "/arquivo/sympla-1838732.jpg",
+  "capaPequena": "/arquivo/sympla-1838732-p.jpg"
  },
  {
   "id": "sympla-1820494",
