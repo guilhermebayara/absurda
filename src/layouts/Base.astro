@@ -107,6 +107,19 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
           var suave = destaque;
           try { var t = rgb(texto), f = rgb(fundo); suave = 'rgb(' + [0, 1, 2].map(function (i) { return Math.round(t[i] * 0.72 + f[i] * 0.28); }).join(',') + ')'; } catch (e) { suave = texto; }
           raiz.style.setProperty('--suave', window.__enfeite(suave, fundo, 4.5));
+          // Subtema "vivo": uma superfície sólida na cor de destaque, para objetos que precisam
+          // se separar tanto da página quanto das superfícies invertidas (crachás de produção,
+          // pulseiras). O texto sobre ela é a cor do tema que mais contrasta (fundo ou texto); se
+          // nem assim houver leitura (4,5:1), a superfície anda na luminosidade, sem mudar o matiz.
+          // --vivo: a superfície. --sobre-vivo: texto sobre ela. --vivo-detalhe: enfeite sobre ela.
+          try {
+            var d = rgb(destaque), cf = rgb(fundo), ct = rgb(texto);
+            var sobre = razao(d, cf) >= razao(d, ct) ? fundo : texto, outra = sobre === fundo ? texto : fundo;
+            var vivo = window.__enfeite(destaque, sobre, 4.5);
+            raiz.style.setProperty('--vivo', vivo);
+            raiz.style.setProperty('--sobre-vivo', sobre);
+            raiz.style.setProperty('--vivo-detalhe', razao(rgb(vivo), rgb(outra)) >= 3 ? outra : sobre);
+          } catch (e) { /* ficam os padrões do CSS */ }
         };
         // Cada página sorteia um tema do site ao abrir, nunca o mesmo da página anterior.
         // Páginas sem tema próprio já abrem nele; nas outras, ele entra nos
@@ -437,6 +450,9 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
        para o contraste de leitura quando o tema pede (ver __derivadas). */
     --suave: color-mix(in srgb, var(--texto) 72%, var(--fundo));
     --destaque-texto: var(--destaque);
+    --vivo: var(--destaque);
+    --sobre-vivo: var(--fundo);
+    --vivo-detalhe: var(--fundo);
   }
   /* A troca suave de tema só liga depois que a página abriu (classe posta pelo script do fim).
      Antes disso o tema sorteado entra de uma vez. Sem isso, no Safari do iPhone a página às

@@ -30,6 +30,7 @@ const foraDaCabine: { area: string; nome: string; url?: string }[] = [
   { area: 'Bar', nome: 'Jaci' },
   { area: 'Som e luz', nome: 'Léo' },
 ];
+const areas = [...new Set(foraDaCabine.map((n) => n.area))];
 ---
 <Base titulo="Equipe">
   <header class="abre abre-cima">
@@ -68,10 +69,15 @@ const foraDaCabine: { area: string; nome: string; url?: string }[] = [
       {foraDaCabine.map((n) => {
         const Tag = n.url ? 'a' : 'span';
         return (
-          <li>
+          <li class:list={{ 'pulseira-b': areas.indexOf(n.area) % 2 === 1 }}>
             <Tag class="pulseira" href={n.url} target={n.url ? '_blank' : undefined} rel={n.url ? 'noopener' : undefined}>
-              <span class="pulseira-ponta"><Arroba class="pulseira-marca" /><span>{n.area}</span></span>
+              <span class="pulseira-cola" aria-hidden="true"></span>
               <strong>{n.nome}</strong>
+              <span class="pulseira-area">{n.area}</span>
+              <span class="pulseira-estampa" aria-hidden="true">
+                {Array.from({ length: 16 }).map(() => <><Arroba class="pulseira-marca" /><span>{n.area}</span></>)}
+              </span>
+              <span class="pulseira-rabo" aria-hidden="true"></span>
             </Tag>
           </li>
         );
@@ -92,6 +98,19 @@ const foraDaCabine: { area: string; nome: string; url?: string }[] = [
   .time { padding: var(--e-3) var(--margem) var(--e-6); }
   .time .titulo-secao { margin-bottom: var(--e-3); }
   .crachas { display: grid; grid-template-columns: 1.7fr repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.75rem); }
+  /* Em tela larga a composição inteira cabe numa tela: duas linhas de altura igual, e a foto de
+     cada crachá cede altura para isso. O do Ed vai de cima a baixo. */
+  @media (min-width: 1101px) {
+    /* No crachá grande o ano do verso cresce junto. */
+    .crachas li.ed :global(.cracha-desde strong) { font-size: clamp(6rem, 11vw, 10rem); }
+    .crachas li.ed :global(.cracha-desde span) { font-size: 1.125rem; }
+    .crachas { grid-template-rows: repeat(2, minmax(0, 1fr)); height: clamp(33rem, calc(100svh - 7.5rem), 56rem); }
+    .crachas :global(.cracha-retrato) { aspect-ratio: auto; min-height: 0; }
+    .crachas :global(.cracha-face) { padding-top: 0.7rem; padding-bottom: 0.8rem; }
+    .crachas :global(.cracha-topo) { margin-top: 0.55rem; }
+    .crachas :global(.cracha-texto) { margin-top: 0.7rem; }
+    .crachas :global(.cracha-acesso) { margin-top: 0.7rem; padding-top: 0.55rem; }
+  }
   /* Pendurados, cada um cai de um jeito. A inclinação fica no crachá, e não no item da lista,
      porque o item já usa transform na animação de entrada. */
   .crachas li > :global(.cracha) { transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
@@ -103,16 +122,17 @@ const foraDaCabine: { area: string; nome: string; url?: string }[] = [
   .crachas li > :global(.cracha:hover), .crachas li > :global(.cracha:focus-visible) { transform: rotate(0deg) translateY(-0.3rem); }
   .crachas li:hover, .crachas li:focus-within { position: relative; z-index: 2; }
   /* No crachá grande a foto cresce para ocupar a altura das duas linhas, e o texto sobe de tamanho. */
-  .crachas li.ed :global(.cracha-retrato) { aspect-ratio: auto; min-height: 12rem; }
   .crachas li.ed :global(.cracha-nome) { font-size: clamp(2.5rem, 4.6vw, 4.5rem); }
   .crachas li.ed :global(.cracha-funcao) { font-size: 1.125rem; }
   .crachas li.ed :global(.cracha-selo) { top: 5.5rem; right: -1.4rem; width: 8.5rem; }
   .crachas li.ed :global(.cracha-selo strong) { font-size: 1rem; }
   .crachas li.ed :global(.cracha-selo span) { font-size: 2.25rem; }
+  /* No verso o selo fica dentro do crachá, embaixo. */
+  .crachas li.ed :global(.cracha-verso .cracha-selo) { top: auto; bottom: 6.5rem; right: 1.25rem; }
   /* A casa que sobra na composição vira a dica do verso. Só aparece onde existe cursor. */
   .crachas-vaga { display: none; }
   @media (hover: hover) and (pointer: fine) and (min-width: 1101px) {
-    .crachas-vaga { display: grid; place-items: center; padding: 1.5rem; border: 2px dashed color-mix(in srgb, var(--texto) 45%, transparent); border-radius: clamp(1rem, 1.8vw, 1.5rem); transform: rotate(1.4deg); text-align: center; font-size: 0.9375rem; line-height: 1.3; color: var(--suave); }
+    .crachas-vaga { display: grid; place-items: center; padding: 1.5rem; border: 2px dashed color-mix(in srgb, var(--texto) 45%, transparent); min-height: 0; border-radius: clamp(1rem, 1.8vw, 1.5rem); transform: rotate(1.4deg); text-align: center; font-size: 0.9375rem; line-height: 1.3; color: var(--suave); }
     .crachas-vaga span { max-width: 11em; }
   }
   .crachas-dica { display: none; }
@@ -132,13 +152,27 @@ const foraDaCabine: { area: string; nome: string; url?: string }[] = [
   /* 3. Fora da cabine: pulseiras de acesso. A ponta destacável diz a área; o corpo, o nome. */
   .fora { padding: var(--e-4) var(--margem) var(--e-6); }
   .fora-texto { max-width: 30em; margin-top: var(--e-2); }
-  .pulseiras { display: flex; flex-wrap: wrap; gap: 0.9rem clamp(0.75rem, 1.5vw, 1.25rem); margin-top: var(--e-4); }
-  .pulseiras li:nth-child(odd) { transform: rotate(-0.8deg); }
-  .pulseiras li:nth-child(even) { transform: rotate(0.7deg); }
-  .pulseira { display: flex; align-items: stretch; min-height: 4.5rem; border-radius: 0.6rem 2.25rem 2.25rem 0.6rem; background: var(--texto); color: var(--fundo); text-decoration: none; overflow: hidden; }
-  .pulseira-ponta { display: flex; align-items: center; gap: 0.6rem; flex: none; padding: 0 0.9rem; border-right: 2px dashed var(--fundo); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
-  .pulseira-ponta :global(.pulseira-marca) { height: 1.5rem; width: auto; color: var(--enfeite); }
-  .pulseira strong { align-self: center; padding: 0.5rem 2.25rem 0.5rem 1.1rem; font-size: clamp(1.5rem, 2.6vw, 2.25rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; white-space: nowrap; }
+  /* Pulseira de papel, como as de entrada: todas do mesmo tamanho, com a aba de cola
+     (em zigue-zague) numa ponta, a estampa repetida no corpo e a sobra na outra ponta.
+     A cor muda por área, como muda por tipo de acesso na festa: uma usa o subtema vivo
+     com aba na cor do texto, a outra o contrário. */
+  .pulseiras { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.1rem; max-width: 68rem; margin-top: var(--e-4); }
+  .pulseiras li { --p-fundo: var(--vivo); --p-texto: var(--sobre-vivo); --p-aba: var(--texto); --p-risco: var(--fundo); }
+  .pulseiras li.pulseira-b { --p-fundo: var(--texto); --p-texto: var(--fundo); --p-aba: var(--vivo); --p-risco: var(--sobre-vivo); }
+  .pulseiras li:nth-child(odd) { transform: rotate(-0.6deg); }
+  .pulseiras li:nth-child(even) { transform: rotate(0.5deg); margin-left: 2.5%; margin-right: -2.5%; }
+  .pulseira { display: flex; align-items: center; height: clamp(3.25rem, 4.6vw, 4.25rem); border-radius: 3px; background: var(--p-fundo); color: var(--p-texto); text-decoration: none; overflow: hidden; white-space: nowrap; }
+  .pulseira-cola { flex: none; align-self: stretch; width: clamp(3.5rem, 9%, 7rem); background-color: var(--p-aba);
+    background-image: linear-gradient(135deg, var(--p-risco) 25%, transparent 25%), linear-gradient(225deg, var(--p-risco) 25%, transparent 25%), linear-gradient(315deg, var(--p-risco) 25%, transparent 25%), linear-gradient(45deg, var(--p-risco) 25%, transparent 25%);
+    background-size: 14px 14px; background-position: -7px 0, -7px 0, 0 0, 0 0; background-blend-mode: normal; opacity: 1; }
+  .pulseira-cola { box-shadow: inset 0 0 0 100vmax color-mix(in srgb, var(--p-aba) 62%, transparent); }
+  .pulseira strong { flex: none; padding: 0 0.9rem 0 1rem; font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
+  /* A área, uma vez, para quem lê com leitor de tela; na tela ela aparece na estampa. */
+  .pulseira-area { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .pulseira-estampa { display: flex; align-items: center; gap: 0.9rem; flex: 1; min-width: 0; overflow: hidden; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; -webkit-mask-image: linear-gradient(90deg, #000 10rem, rgba(0, 0, 0, 0.5) 20rem); mask-image: linear-gradient(90deg, #000 10rem, rgba(0, 0, 0, 0.5) 20rem); }
+  .pulseira-estampa :global(.pulseira-marca) { flex: none; height: 1.35rem; width: auto; }
+  .pulseira-estampa span { flex: none; }
+  .pulseira-rabo { flex: none; align-self: stretch; width: clamp(1rem, 3%, 2.25rem); background: var(--p-aba); }
   a.pulseira:hover strong { text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.12em; }
   .fora-botao { margin-top: var(--e-5); }
 
@@ -166,8 +200,11 @@ const foraDaCabine: { area: string; nome: string; url?: string }[] = [
     .crachas li.ed :global(.cracha-selo strong) { font-size: 0.8125rem; }
     .crachas li.ed :global(.cracha-selo span) { font-size: 1.5rem; }
     .crachas-dica { display: block; margin-top: var(--e-1, 0.5rem); }
-    .pulseira { min-height: 3.75rem; }
-    .pulseira strong { white-space: normal; padding-right: 1.5rem; }
+    .pulseiras { gap: 0.9rem; }
+    .pulseiras li:nth-child(even) { margin-left: 0; margin-right: 0; }
+    .pulseira-cola { width: 2.75rem; }
+    .pulseira strong { font-size: 1.375rem; padding: 0 0.7rem 0 0.75rem; }
+    .pulseira-estampa { -webkit-mask-image: none; mask-image: none; }
   }
   @media (prefers-reduced-motion: reduce) { .crachas li > :global(.cracha), .previa { transition: none; } }
 </style>

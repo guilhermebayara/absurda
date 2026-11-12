@@ -2,8 +2,9 @@
 // Crachá de produção de uma pessoa da equipe.
 //
 // Duas cores, pelo papel na festa:
-// - produção (sócios): crachá na cor da página, com contorno;
+// - produção (sócios): crachá na cor de destaque do tema (subtema "vivo", ver Base.astro);
 // - cabine (residentes): crachá invertido, na cor do texto.
+// Os dois são sólidos: crachá na cor da página parecia vazado.
 // O selo "Fundador" é exclusivo do crachá do Ed.
 //
 // Com "verso", o crachá vira ao passar o cursor (só onde existe cursor) e mostra desde quando a
@@ -26,6 +27,8 @@ const producao = grupo === 'socios';
 const rotulo = producao ? 'Produção' : grupo === 'residentes' ? 'Residente' : 'Equipe';
 const acesso = producao ? 'Total' : grupo === 'residentes' ? 'Cabine' : 'Produção';
 const anos = desde ? new Date().getFullYear() - desde : undefined;
+// Código do verso, de brincadeira: iniciais, ano de entrada e o lema.
+const codigo = `${nome.split(' ').map((n) => n[0]).join('').toUpperCase()} ${desde ?? 'XXXX'} SEM FRESCURAS`;
 const Tag = href ? 'a' : 'div';
 ---
 <Tag class:list={['cracha', producao ? 'cracha-producao' : 'cracha-cabine', { 'cracha-vira': verso }, classe]} href={href}>
@@ -47,30 +50,34 @@ const Tag = href ? 'a' : 'div';
       <span class="cracha-face cracha-verso" aria-hidden="true">
         <span class="cracha-furo"></span>
         <span class="cracha-topo"><Arroba class="cracha-marca" /><span>Na @bsurda</span></span>
+        {fundador && <span class="cracha-selo"><strong>Fundador</strong><span>2009</span></span>}
         <span class="cracha-desde">
           <span>Desde</span>
           <strong>{desde ?? 'XXXX'}</strong>
           <span>{anos ?? 'X'} anos de festa</span>
         </span>
-        <span class="cracha-acesso"><span>{nome}</span><strong>Ver página</strong></span>
+        <span class="cracha-codigo">
+          <span class="cracha-barras"></span>
+          <span>{codigo}</span>
+        </span>
+        <span class="cracha-acesso"><span>Pessoal e intransferível</span><strong>Ver página</strong></span>
       </span>
     )}
   </span>
 </Tag>
 
 <style>
-  .cracha { --c-fundo: var(--texto); --c-texto: var(--fundo); --c-detalhe: var(--enfeite); --c-borda: transparent;
+  .cracha { --c-fundo: var(--texto); --c-texto: var(--fundo); --c-detalhe: var(--enfeite);
     display: block; height: 100%; color: var(--c-texto); text-decoration: none; perspective: 1400px; }
-  .cracha-producao { --c-fundo: var(--fundo); --c-texto: var(--texto); --c-detalhe: var(--destaque); --c-borda: var(--texto); }
+  .cracha-producao { --c-fundo: var(--vivo); --c-texto: var(--sobre-vivo); --c-detalhe: var(--vivo-detalhe); }
   .cracha-giro { position: relative; display: block; height: 100%; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
-  .cracha-face { position: relative; display: grid; grid-template-rows: auto auto 1fr auto auto; height: 100%; padding: 0.9rem 0.9rem 1rem; border: 3px solid var(--c-borda); border-radius: clamp(1rem, 1.8vw, 1.5rem); background: var(--c-fundo); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-  .cracha-verso { position: absolute; inset: 0; grid-template-rows: auto auto 1fr auto; transform: rotateY(180deg); }
+  .cracha-face { position: relative; display: grid; grid-template-rows: auto auto 1fr auto auto; height: 100%; padding: 0.9rem 0.9rem 1rem; border-radius: clamp(1rem, 1.8vw, 1.5rem); background: var(--c-fundo); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .cracha-verso { position: absolute; inset: 0; grid-template-rows: auto auto 1fr auto auto; transform: rotateY(180deg); }
   @media (hover: hover) and (pointer: fine) {
     .cracha-vira:hover .cracha-giro, .cracha-vira:focus-visible .cracha-giro { transform: rotateY(180deg); }
   }
 
-  .cracha-furo { justify-self: center; width: 2.75rem; height: 0.6rem; border-radius: 1rem; background: var(--c-texto); }
-  .cracha-cabine .cracha-furo { background: var(--fundo); }
+  .cracha-furo { justify-self: center; width: 2.75rem; height: 0.6rem; border-radius: 1rem; background: var(--fundo); }
   .cracha-topo { display: flex; align-items: center; justify-content: space-between; margin-top: 0.8rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
   .cracha-topo :global(.cracha-marca) { height: 1.5rem; width: auto; color: var(--c-detalhe); }
   .cracha-retrato { position: relative; display: block; overflow: hidden; min-height: 0; margin-top: 0.7rem; aspect-ratio: 1; border-radius: clamp(0.6rem, 1vw, 0.9rem); background: color-mix(in srgb, var(--c-texto) 12%, var(--c-fundo)); }
@@ -84,15 +91,19 @@ const Tag = href ? 'a' : 'div';
   .cracha-acesso strong { font-weight: 800; }
 
   /* Selo do fundador: um adesivo redondo colado por cima do crachá, só no do Ed. */
-  .cracha-selo { position: absolute; top: 4.6rem; right: -0.9rem; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 0.1rem; width: 6rem; aspect-ratio: 1; border-radius: 50%; background: var(--c-texto); color: var(--c-fundo); transform: rotate(12deg); text-transform: uppercase; }
+  .cracha-selo { position: absolute; top: 4.6rem; right: -0.9rem; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 0.1rem; width: 6rem; aspect-ratio: 1; border-radius: 50%; background: var(--c-texto); color: var(--c-fundo); transform: rotate(12deg); text-transform: uppercase; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  /* No verso o selo vai para o canto de baixo, para não cobrir o ano. */
+  .cracha-verso .cracha-selo { top: auto; bottom: 4.2rem; right: 0.9rem; transform: rotate(-10deg); }
   .cracha-selo strong { font-size: 0.8125rem; font-weight: 800; letter-spacing: 0.08em; }
   .cracha-selo span { font-size: 1.5rem; font-weight: 800; line-height: 0.9; letter-spacing: -0.03em; }
 
-  /* Verso. */
-  .cracha-desde { display: grid; align-content: center; gap: 0.5rem; }
+  /* Verso: o ano de entrada em tamanho de cartaz, um código de barras de brincadeira e o aviso
+     de crachá de verdade. */
+  .cracha-desde { display: grid; align-content: center; gap: 0.4rem; min-height: 0; }
   .cracha-desde span { font-size: 0.9375rem; line-height: 1.25; }
   .cracha-desde strong { font-size: clamp(3.5rem, 6vw, 5.5rem); font-weight: 800; line-height: 0.85; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; color: var(--c-detalhe); }
-  .cracha-cabine .cracha-desde strong { color: var(--c-texto); }
+  .cracha-codigo { display: grid; gap: 0.35rem; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap; overflow: hidden; }
+  .cracha-barras { display: block; height: 2rem; background: linear-gradient(90deg, currentColor 0 2px, transparent 2px 5px, currentColor 5px 6px, transparent 6px 10px, currentColor 10px 14px, transparent 14px 16px, currentColor 16px 17px, transparent 17px 22px, currentColor 22px 24px, transparent 24px 27px, currentColor 27px 28px, transparent 28px 31px) 0 0 / 31px 100% repeat-x; }
 
   @media (prefers-reduced-motion: reduce) { .cracha-giro { transition: none; } }
 </style>

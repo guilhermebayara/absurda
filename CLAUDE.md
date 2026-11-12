@@ -80,6 +80,13 @@ Na prática: `--destaque` é cor de enfeite. Texto pequeno na cor de destaque us
 `--destaque-texto`, e texto secundário usa `--suave`; o script de `src/layouts/Base.astro`
 ajusta as duas para 4,5:1 só nos temas em que seria preciso.
 
+**Subtema "vivo" (do Gui):** objeto que imita coisa física (crachá, pulseira) é sempre sólido,
+nunca na cor da página, senão parece vazado. Além da superfície invertida (`--texto` com
+`--fundo` por cima), todo tema tem uma segunda superfície sólida: `--vivo` (o destaque), com
+`--sobre-vivo` para texto e `--vivo-detalhe` para enfeite. O script de `Base.astro` calcula as
+três e garante leitura (4,5:1). Use esse par quando precisar de duas cores de objeto no mesmo
+bloco, como produção e cabine nos crachás da Equipe.
+
 ## Sessões de QA
 
 Vale para sessões abertas só para conferir o site. As regras acima continuam valendo
