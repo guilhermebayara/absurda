@@ -648,19 +648,19 @@ const premios = [
   :global(.toque) .trio-quadro img { transform: none; }
 
   /* Toque com animação ligada à rolagem (o caso do iPhone): as fotos continuam trocando com a
-     cena parada, mas quem segura a cena é essa animação, e não sticky. A cena vai até a borda de baixo (lvh) e a
-     legenda guarda a diferença para a tela com a barra aberta (svh). */
+     cena parada, mas quem segura a cena é essa animação, e não sticky. */
   /* A cena é um cartão no meio da tela: cantos arredondados e a mesma folga dos quatro lados,
      com a cor da página em volta. No iPhone a página aparece atrás do relógio e da barra de
      endereço; sem os cantos, a cena parecia um retângulo cortado no meio da tela. */
-  :global(.pino-novo) .trio { height: calc(var(--n) * 85svh + 100lvh); padding: var(--folga-cartao); background: none; view-timeline: --trio block; }
-  :global(.pino-novo) .trio-pino { position: relative; top: auto; height: calc(100lvh - 2 * var(--folga-cartao)); background: #0d0a0c; border-radius: var(--raio-cartao); clip-path: inset(0 round var(--raio-cartao)); animation: pino-trio linear both; }
+  /* Altura do cartão: fixa, a meio caminho entre a tela com as barras do Safari recolhidas (lvh)
+     e abertas (svh). Assim ele cabe inteiro acima da barra nos três estados do Safari e a
+     legenda não precisa se ajustar: fica sempre com a mesma margem de baixo. O que o cartão
+     perde de altura (--corte) sai também do fim da seção, para não sobrar um vão depois dele. */
+  :global(.pino-novo) .trio { --corte: calc((100lvh - 100svh) / 2); height: calc(var(--n) * 85svh + 100lvh); margin-bottom: calc(-1 * var(--corte)); padding: var(--folga-cartao); background: none; view-timeline: --trio block; }
+  :global(.pino-novo) .trio-pino { position: relative; top: auto; height: calc(100lvh - var(--corte) - 2 * var(--folga-cartao)); background: #0d0a0c; border-radius: var(--raio-cartao); clip-path: inset(0 round var(--raio-cartao)); animation: pino-trio linear both; }
   /* Regra separada de propósito (ver a mesma nota na Home). */
   :global(.pino-novo) .trio > .trio-pino { animation-timeline: --trio; animation-range: contain 0% contain 100%; }
-  /* O cartão tem a altura da tela com a barra do Safari recolhida (lvh). A legenda guarda só a
-     diferença para a tela visível no momento (dvh): com a barra aberta ela sobe para não ficar
-     escondida; com a barra recolhida, encosta na margem de baixo do cartão, igual à de cima. */
-  :global(.pino-novo) .trio-legenda { padding-bottom: calc(var(--e-4) + 100lvh - 100svh); padding-bottom: calc(var(--e-4) + 100lvh - 100dvh); }
+  :global(.pino-novo) .trio-legenda { padding-bottom: var(--e-4); }
   /* Cada foto ocupa a cena inteira (antes parava na altura da tela com a barra aberta, e a
      sombra da legenda ficava desalinhada do pé da imagem). */
   :global(.pino-novo) .trio-quadro { height: auto; overflow: hidden; }
