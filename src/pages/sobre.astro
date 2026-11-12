@@ -45,6 +45,8 @@ const trio = [
   { ano: '2019', numero: '30 mil', texto: 'Em movimento pela primeira vez: da Praça da Estação, subindo a Bahia até a Afonso Pena.', foto: '/sobre/trio-2019.jpg' },
   { ano: '2020', numero: '60 mil', texto: 'Trio maior, mesmo trajeto. O maior público da nossa história.', foto: '/sobre/trio-2020.jpg' },
   { ano: '2023', numero: 'De volta', texto: 'A rua de novo depois da pandemia, saindo do Viaduto Santa Tereza.', foto: '/sobre/trio-2023.jpg' },
+  { ano: '2025', numero: 'Na rua', texto: '23 de fevereiro, do Viaduto Santa Tereza à Afonso Pena. (público a confirmar)', foto: '/capas/trio-2025.jpg', arte: true },
+  { ano: '2026', numero: '10 anos', texto: '8 de fevereiro. Uma década de Trio da @bsurda, no mesmo caminho até a Afonso Pena.', foto: '/capas/trio-2026.jpg', arte: true },
 ];
 
 // A cena de BH que já tocou, cantou e performou com a gente, em ordem alfabética para não
@@ -201,7 +203,7 @@ const premios = [
       <h2 id="t-trio" class="trio-titulo">Trio da @bsurda</h2>
       <ol class="trio-quadros">
         {trio.map((t, i) => (
-          <li class:list={['trio-quadro', { ativo: i === 0, arte: t.arte }]}>
+          <li class:list={['trio-quadro', { ativo: i === 0, arte: t.arte }]} style={t.arte ? `--arte:url(${t.foto})` : undefined}>
             <img src={t.foto} alt="" loading="lazy" />
             <div class="trio-legenda">
               <p class="trio-ano">{t.ano}</p>
@@ -534,7 +536,11 @@ const premios = [
   .trio-pino::before { content: ''; position: absolute; z-index: 2; inset: 0 0 auto 0; height: 32svh; background: linear-gradient(to bottom, rgb(13 10 12 / 0.85), rgb(13 10 12 / 0.4) 55%, transparent); pointer-events: none; }
   .trio-quadro { position: relative; }
   .trio-quadro img { width: 100%; height: 100%; object-fit: cover; }
-  .trio-quadro.arte img { object-fit: contain; }
+  /* Quando o quadro é a arte do evento (e não uma foto), ela aparece inteira no centro,
+     sobre uma versão desfocada dela mesma que enche a tela: sem faixas pretas. */
+  .trio-quadro.arte { overflow: hidden; }
+  .trio-quadro.arte::before { content: ''; position: absolute; inset: -8%; background: var(--arte) center / cover; filter: blur(2.5rem) brightness(0.55) saturate(1.2); }
+  .trio-quadro.arte img { position: relative; object-fit: contain; padding: 14svh var(--margem) 30svh; }
   .trio-legenda { position: absolute; left: 0; right: 0; bottom: 0; padding: 30svh var(--margem) var(--e-4); background: linear-gradient(to top, rgb(13 10 12 / 0.92), rgb(13 10 12 / 0.55) 45%, transparent); }
   .trio-ano { font-size: var(--t-3); font-weight: 800; letter-spacing: -0.02em; }
   .trio-numero { font-size: clamp(4rem, 17vw, 16rem); font-weight: 800; line-height: 0.82; letter-spacing: -0.06em; text-transform: uppercase; }
