@@ -9,7 +9,8 @@ export const SITE = {
   redes: {
     instagram: 'https://instagram.com/bsurda',
     tiktok: 'https://tiktok.com/@bsurda',
-    x: 'https://x.com/bsurda',
+    // A rede hoje se chama X, mas no site ela aparece como Twitter (escolha do Gui).
+    twitter: 'https://x.com/bsurda',
   },
 };
 
