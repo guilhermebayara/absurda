@@ -112,7 +112,7 @@ const premios = [
 
   <!-- 3. Por onde passou: casas, lugares improváveis, estrada -->
   <section class="lugares" aria-labelledby="t-lugares" data-tema="sorteio" data-reserva={reserva}>
-    <h2 id="t-lugares" class="t-grande" data-anima="sobe">Sem endereço fixo</h2>
+    <h2 id="t-lugares" class="t-secao" data-anima="sobe">Sem endereço fixo</h2>
     <p class="t-apoio lugares-texto" data-anima="surge">A @bsurda circula. Passou por dezenas de endereços de Belo Horizonte, de inferninho a galpão, de parque a estádio. Cada mudança abriu uma porta nova para a nossa pista.</p>
     <div class="lineup" aria-label="Endereços por onde a festa passou">
       {lineup.map((faixa, i) => (
@@ -169,7 +169,7 @@ const premios = [
        Mesmo universo da agenda (número grande, barra inclinada, etiquetas), outra leitura:
        lá é índice que se abre, aqui é uma narrativa contínua. -->
   <section class="marcos" aria-labelledby="t-marcos" data-tema="sorteio" data-reserva={reserva}>
-    <h2 id="t-marcos" class="titulo-secao" data-anima="sobe">Marcos</h2>
+    <h2 id="t-marcos" class="t-secao" data-anima="sobe">Marcos</h2>
     <div class="marcos-grade">
       <div class="marcos-ano" aria-hidden="true">
         <p class="marcos-num">{anosDosMarcos[0].split('').map((d) => <span>{d}</span>)}</p>
@@ -215,11 +215,11 @@ const premios = [
 
   <!-- 7. O palco -->
   <section class="palco" aria-labelledby="t-palco" data-tema="sorteio" data-reserva={reserva}>
-    <h2 id="t-palco" class="t-grande" data-anima="sobe">Quem a gente trouxe</h2>
+    <h2 id="t-palco" class="t-secao" data-anima="sobe">Quem a gente trouxe</h2>
     <p class="nomes">
       {palco.map((a) => <span>{a.nome}{a.de && <sup>{a.de}</sup>}</span>)}
     </p>
-    <h2 class="t-grande cena-titulo" data-anima="sobe">E a cena de BH, que é a base de tudo</h2>
+    <h2 class="t-secao cena-titulo" data-anima="sobe">E a cena de BH, que é a base de tudo</h2>
     <p class="nomes nomes-cena">
       {cena.map((c) => <span class:list={{ residente: c.daEquipe }}>{c.nome}</span>)}
     </p>
@@ -257,7 +257,7 @@ const premios = [
 
   <!-- 9. Além da pista, e o reconhecimento -->
   <section class="alem" aria-labelledby="t-alem" data-tema="sorteio" data-reserva={reserva}>
-    <h2 id="t-alem" class="t-grande" data-anima="sobe">Além da pista</h2>
+    <h2 id="t-alem" class="t-secao" data-anima="sobe">Além da pista</h2>
     <ul class="alem-lista">
       {alem.map((a) => (
         <li data-anima="surge"><h3>{a.titulo}</h3><p>{a.texto}</p></li>
@@ -436,6 +436,15 @@ const premios = [
   }
   @media (prefers-reduced-motion: reduce) { .marcos-item, .marcos-item::before, .marcos-titulo { transition: none; } }
 
+  /* ---------- Hierarquia da página ----------
+     Quatro degraus de título, do maior para o menor:
+     1. título da página (.t-gigante, com eco);
+     2. título de seção (.t-secao): Sem endereço fixo, Marcos, Quem a gente trouxe, Além da pista;
+     3. destaque de conteúdo (--t-5): headliners, cidades, frases, nomes nos cartões;
+     4. subtítulo e rótulo de bloco (.titulo-secao, --t-4): Lugares improváveis, E pegou estrada, Reconhecimento.
+     O título de seção fica um degrau acima do conteúdo que ele abre, para nunca empatar com ele. */
+  .t-secao { font-size: clamp(2.75rem, 9.5vw, 8.75rem); font-weight: 800; line-height: 1; letter-spacing: -0.045em; text-transform: uppercase; text-wrap: balance; }
+
   /* ---------- Abertura ---------- */
   .sobre-abre .t-apoio { max-width: 30em; }
   /* Janela de foto: a imagem é mais alta que a moldura e desliza devagar com a rolagem */
@@ -463,8 +472,13 @@ const premios = [
   .lineup { margin: var(--e-4) var(--margem) 0; display: grid; gap: var(--e-3); font-weight: 800; text-transform: uppercase; }
   .lineup p { display: flex; flex-wrap: wrap; align-items: center; }
   .lineup span { display: inline-flex; align-items: center; }
-  .lineup span::before, .cidades span::before { content: ''; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.4em; background: var(--destaque); transform: skewX(26.5deg); }
-  .lineup-1 { gap: 0.1em 0; font-size: var(--t-5); line-height: 0.92; letter-spacing: -0.045em; }
+  /* Alinhamento ótico das barras: a barra é inclinada, então o ponto mais à esquerda dela é
+     o topo. O recuo de 0,18em põe esse topo na mesma vertical do texto da página, em qualquer
+     corpo. O espaço entre um nome e a barra seguinte fica no fim do nome, para a barra que
+     abre uma linha não herdar recuo nenhum. */
+  .lineup span, .cidades span, .nomes span { margin-right: 0.3em; }
+  .lineup span::before, .cidades span::before { content: ''; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.4em 0 0.18em; background: var(--destaque); transform: skewX(26.5deg); }
+  .lineup-1 { gap: 0.1em 0; font-size: var(--t-5); line-height: 1; letter-spacing: -0.045em; }
   .lineup-2 { gap: 0.2em 0; font-size: var(--t-4); line-height: 1; letter-spacing: -0.03em; }
   .lineup-3 { gap: 0.35em 0; font-size: clamp(0.9375rem, 1.35vw, 1.3125rem); line-height: 1.1; letter-spacing: 0.02em; color: var(--suave); }
   .casas-nota { margin: var(--e-3) var(--margem) 0; }
@@ -486,7 +500,7 @@ const premios = [
   .improvaveis h4 { position: relative; margin: -0.55em 0 0.2em var(--e-2); font-size: var(--t-5); font-weight: 800; line-height: 0.88; letter-spacing: -0.045em; text-transform: uppercase; text-wrap: balance; text-shadow: 0 0 0.5em var(--fundo); }
   .improvaveis li > p:last-child { max-width: 30em; margin-left: var(--e-2); font-size: var(--t-apoio); line-height: 1.35; }
   .estrada { margin-top: var(--e-5); }
-  .cidades { display: flex; flex-wrap: wrap; gap: 0.12em 0; font-size: clamp(1.75rem, 6.5vw, 5.75rem); font-weight: 800; line-height: 0.95; letter-spacing: -0.04em; text-transform: uppercase; }
+  .cidades { display: flex; flex-wrap: wrap; gap: 0.1em 0; font-size: clamp(1.75rem, 6.5vw, 5.75rem); font-weight: 800; line-height: 1; letter-spacing: -0.04em; text-transform: uppercase; }
   .cidades span { display: inline-flex; align-items: center; }
 
   /* ---------- Mineirão: bloco invertido ---------- */
@@ -535,10 +549,8 @@ const premios = [
   /* As duas listas no mesmo corpo: quem veio de fora e a cena local têm o mesmo peso */
   .nomes { display: flex; flex-wrap: wrap; gap: 0.18em 0; margin-top: var(--e-3); font-size: var(--t-4); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
   .nomes span { display: inline-flex; align-items: flex-start; }
-  .nomes span::before { content: ''; align-self: center; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.4em; background: var(--destaque); transform: skewX(26.5deg); }
+  .nomes span::before { content: ''; align-self: center; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.4em 0 0.18em; background: var(--destaque); transform: skewX(26.5deg); }
   .nomes .residente { color: var(--destaque); }
-  /* Na cena, a cor de destaque fica só para a equipe: as barras vão para a cor do texto, mais leves */
-  .nomes-cena span::before { background: var(--texto); opacity: 0.4; }
   .legenda { display: flex; align-items: center; gap: 0.6em; margin-top: var(--e-3); font-size: var(--t-rotulo); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
   .legenda i { flex: none; width: 1em; height: 1em; border-radius: 50%; background: var(--destaque); }
   .nomes sup { margin: 0.2em 0 0 0.3em; padding: 0.2em 0.5em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; }
