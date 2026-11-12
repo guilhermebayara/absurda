@@ -4,6 +4,7 @@ import Capa from '../components/Capa.astro';
 import Botao from '../components/Botao.astro';
 import marcos from '../data/marcos.json';
 import { TEMAS_DE_POSICAO, TEMAS_DO_SITE, atributo } from '../lib/temas';
+import { lineup, totalDeLugares, cidades, numeros } from '../lib/historia';
 const reserva = atributo(TEMAS_DO_SITE[0]);
 
 // PÁGINA EM EXERCÍCIO. O conteúdo é guia: o que está marcado com "(a confirmar)" ou
@@ -17,35 +18,6 @@ const porAno = new Map<string, Marco[]>();
 for (const m of marcos as Marco[]) porAno.set(m.ano, [...(porAno.get(m.ano) ?? []), m]);
 const anosDosMarcos = [...porAno.keys()].sort();
 
-const idade = new Date().getFullYear() - 2009;
-
-// Todos os endereços de Belo Horizonte por onde a festa passou, montados como o line-up
-// de um festival: primeiro os grandes nomes, depois os de meio de cartaz, depois todos os outros.
-// Vem do arquivo de eventos, com nomes repetidos unificados. A ordem dentro de cada faixa é de época.
-const lineup = [
-  ['Mineirão', 'Mercado das Borboletas', 'Granfinos', 'Casa Sapucaí', 'Mira', 'Up e.music'],
-  ['Velvet Club', 'Mary in Hell', 'CentoeQuatro', 'Hotel Diamante', 'Royalty Club', 'Studio Bar', 'GIS', 'Deputamadre', 'O Mercado',
-    'A Central', 'Viaduto Santa Tereza', 'Praça da Estação', 'Parque das Mangabeiras', 'Church', 'Lab', 'Funarte MG'],
-  ['On Board', 'Quina Galeria', 'Emme Lounge', 'União Israelita', 'Matriz', 'Anda', 'Secreto', 'Roxy Club', 'Josefine Club', 'Moss Club',
-    'Skorpius', 'Soleá', 'Rua Guaicurus', 'Necup', 'A Fábrica', 'Factory', 'Avenida dos Andradas', 'Ita Park', 'Fábrica Criativa',
-    'Galpão La Trupe', 'QG Rooftop', 'Gruta', 'Urbana', 'Espaço Even', 'LOL', 'Rock Content', 'Casa Híbrido', 'Jhon Jhon Club', 'Espettos',
-    'Pampulha', 'Rua da Bahia', 'Avenida Afonso Pena', 'Dduck', 'Code Bar', 'Yanã Bar', 'Villa Paraty', 'Catavento Cultural',
-    'Teatro da Cidade', 'Mamão com Açúcar', 'Jackie O', 'Prime Hall', 'A Autêntica', 'Sítio Via Lazer', '80Bar', 'Zona', 'Distrital', 'Lavos',
-    'Galpão do Folias', 'Irregular', 'Praça Sete', 'Casa Rosa do Bonfim', 'Andaluz Pub', 'Espaço Sapucaí', 'Galpão 54', 'Espaço Loc',
-    'Espaço Y', 'Clube Labareda', 'Major Lock'],
-];
-const totalDeLugares = lineup.flat().length;
-
-const cidades = ['Vitória', 'São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador', 'Maringá', 'Londrina', 'Sete Lagoas', 'Juiz de Fora', 'Montes Claros'];
-
-// Números da abertura. "mais" põe um "+" na frente.
-const numeros = [
-  { n: idade, rotulo: 'anos de festa' },
-  { n: 390, mais: true, rotulo: 'eventos' },
-  { n: totalDeLugares, mais: false, rotulo: 'endereços em BH', nota: 'e contando' },
-  { n: cidades.length + 1, rotulo: 'cidades', nota: 'a confirmar' },
-];
-
 // Lugares improváveis: onde festa LGBTQIA+ não costumava entrar.
 const improvaveis = [
   { nome: 'Uma piscina de clube', ano: '2014', texto: 'O primeiro Tibum, na União Israelita. Boia e canga liberadas, sapatênis proibido.', capa: '/arquivo/sympla-16563.jpg' },
@@ -53,6 +25,7 @@ const improvaveis = [
   { nome: 'A Guaicurus', ano: '2015', texto: 'Os residentes no palco da Virada Cultural, na rua mais falada do baixo centro.' },
   { nome: 'Um viaduto', ano: '2016', texto: 'O primeiro trio, parado embaixo do Santa Tereza, com 12 mil pessoas em volta.', capa: '/capas/trio-2016.jpg' },
   { nome: 'Um parque na serra', ano: '2016', texto: 'QE @bsurda no Parque das Mangabeiras: ar livre, música e gastronomia das 14h às 22h.', capa: '/arquivo/sympla-77360.jpg' },
+  { nome: 'Um estádio de futebol', ano: '2018', texto: 'A edição 200 foi a primeira festa LGBT dentro do Mineirão. Voltamos outras três.', capa: '/sobre/mineirao-10-anos.jpg' },
   { nome: 'Um parque de diversões', ano: '2018', texto: 'Festa para mil pessoas no Ita Park, entre os brinquedos.', capa: '/arquivo/sympla-227150.jpg' },
   { nome: 'A Praça Sete', ano: '2024', texto: 'Virada Cultural, no marco zero da cidade. (a confirmar)' },
   { nome: 'A Funarte', ano: '2025', texto: 'A 5ª Parada da @bsurda fechou um mês de ocupação de BH.', capa: '/arquivo/sympla-2959783.jpg' },
@@ -84,17 +57,15 @@ const palco = [
   { nome: 'Alyssa Edwards', de: 'EUA' }, { nome: 'Latrice Royale', de: 'EUA' }, { nome: 'Jujubee', de: 'EUA' },
   { nome: 'Coco Montrese', de: 'EUA' }, { nome: 'April Carrión', de: 'Porto Rico' },
 ];
-// Residentes, de hoje e de outras fases.
-const residentes = ['Ed Luiz', 'Keoma', 'Grabs', 'Nath Leles', 'Charlotte', 'Gui Bayara'];
-// A cena de BH que já tocou, cantou e performou com a gente. Vem das programações que achei
-// (Halloweens de 10 e 15 anos, Festival de 2016 e quarta edição, Parada Virtual, 5ª Parada)
-// e dos nomes que o Gui passou. A completar: com certeza falta gente.
-const cena = ['Omoloko', 'Barbara Egidio', 'Baile da Bôta', 'FAB', 'Jaddy Stone', 'Joanna Mescladi', 'Mannu Mallibu', 'Mellody Queen',
-  'Mira MiuMiu', 'Nickary Aycker', 'Giovana Heliodoro', 'Thiago Richard', 'Vil Araújo', 'Paolla B', 'Samantha Brooks', 'Rafah’el',
-  'Supololo', 'Glico', 'Djalma Não Entende de Política', 'Alfredo Francis', 'Lugh', 'Green Grass', 'Votú', 'Xoxottini', 'Diega',
-  'Rafa Ventura', 'Jimmy Andrade', 'Rasec', 'Marco Romani', 'Nalla', 'Aria Dreamz', 'Guta Leão', 'Gaia', 'Voga', 'Vormitx', 'Lázara',
-  'João Andrade', 'Clara Tannure', 'Flip', 'Kaike', 'Lourandes', 'Nanauê', 'Las Palozas', 'Madison', 'Gana', 'Richard Santos',
-  'Aysla Pirv', 'Vovó da ZN', 'Jezz', 'Carambola'];
+// A cena de BH que já tocou, cantou e performou com a gente, em ordem alfabética para não
+// ter fila nem ego. Quem é ou já foi da equipe (residentes de hoje e de outras fases) aparece
+// na cor de destaque, espalhado pela lista. Vem das programações que achei e dos nomes que o
+// Gui passou. A completar: com certeza falta gente.
+const equipe = ['André Victor', 'Charlotte', 'Ed Luiz', 'FAB', 'Grabs', 'Gui Bayara', 'Keoma', 'Nath Leles', 'Vil Araújo'];
+const cena = [
+  ...equipe,
+  'Omoloko', 'Barbara Egidio', 'Baile da Bôta', 'Jaddy Stone', 'Joanna Mescladi', 'Mannu Mallibu', 'Mellody Queen', 'Mira MiuMiu', 'Nickary Aycker', 'Giovana Heliodoro', 'Thiago Richard', 'Paolla B', 'Samantha Brooks', 'Rafah’el', 'Supololo', 'Glico', 'Djalma Não Entende de Política', 'Alfredo Francis', 'Lugh', 'Green Grass', 'Votú', 'Xoxottini', 'Diega', 'Rafa Ventura', 'Jimmy Andrade', 'Rasec', 'Marco Romani', 'Nalla', 'Aria Dreamz', 'Guta Leão', 'Gaia', 'Voga', 'Vormitx', 'Lázara', 'João Andrade', 'Clara Tannure', 'Flip', 'Kaike', 'Lourandes', 'Nanauê', 'Las Palozas', 'Madison', 'Gana', 'Richard Santos', 'Aysla Pirv', 'Vovó da ZN', 'Jezz', 'Carambola',
+].sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' })).map((nome) => ({ nome, daEquipe: equipe.includes(nome) }));
 
 // Posições tomadas. (Anos a confirmar.)
 const posicoes = [
@@ -259,11 +230,11 @@ const premios = [
       {palco.map((a) => <span>{a.nome}{a.de && <sup>{a.de}</sup>}</span>)}
     </p>
     <h2 class="t-grande cena-titulo" data-anima="sobe">E a cena de BH, que é a base de tudo</h2>
-    <p class="nomes">
-      {residentes.map((n) => <span class="residente">{n}</span>)}
-      {cena.map((n) => <span>{n}</span>)}
+    <p class="nomes nomes-cena">
+      {cena.map((c) => <span class:list={{ residente: c.daEquipe }}>{c.nome}</span>)}
     </p>
-    <p class="t-pequeno">Em destaque, os residentes de hoje e de outras fases. Listas em construção.</p>
+    <p class="legenda"><i aria-hidden="true"></i>Equipe @bsurda: residentes de hoje e de outras fases</p>
+    <p class="t-pequeno">Listas em construção.</p>
   </section>
 
   <!-- 8. Posicionamento. Paleta fechada (TEMAS_DE_POSICAO em lib/temas.ts): enquanto este trecho
@@ -499,14 +470,14 @@ const premios = [
   .lugares > h2, .lugares-texto, .casas, .improvaveis-topo, .estrada { margin-left: var(--margem); margin-right: var(--margem); }
   .lugares-texto { max-width: 32em; margin-top: var(--e-3); }
   /* Os endereços como line-up de festival: três faixas de tamanho, centralizadas, com a barra da marca entre os nomes */
-  .lineup { margin: var(--e-4) var(--margem) 0; display: grid; gap: var(--e-3); text-align: center; font-weight: 800; text-transform: uppercase; }
-  .lineup p { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; }
+  .lineup { margin: var(--e-4) var(--margem) 0; display: grid; gap: var(--e-3); font-weight: 800; text-transform: uppercase; }
+  .lineup p { display: flex; flex-wrap: wrap; align-items: center; }
   .lineup span { display: inline-flex; align-items: center; }
   .lineup span + span::before, .cidades span + span::before { content: ''; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.4em; background: var(--destaque); transform: skewX(26.5deg); }
   .lineup-1 { gap: 0.1em 0; font-size: var(--t-5); line-height: 0.92; letter-spacing: -0.045em; }
   .lineup-2 { gap: 0.2em 0; font-size: var(--t-4); line-height: 1; letter-spacing: -0.03em; }
   .lineup-3 { gap: 0.35em 0; font-size: clamp(0.9375rem, 1.35vw, 1.3125rem); line-height: 1.1; letter-spacing: 0.02em; color: var(--suave); }
-  .casas-nota { margin: var(--e-3) var(--margem) 0; text-align: center; }
+  .casas-nota { margin: var(--e-3) var(--margem) 0; }
   .improvaveis-topo { display: flex; align-items: center; justify-content: space-between; gap: var(--e-3); margin-top: var(--e-5); }
   .improvaveis-topo .titulo-secao { margin-bottom: 0; }
   .improvaveis-setas { display: flex; gap: 0.6rem; }
@@ -576,9 +547,13 @@ const premios = [
   .nomes span { display: inline-flex; align-items: flex-start; }
   .nomes span + span::before { content: ''; align-self: center; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.4em; background: var(--destaque); transform: skewX(26.5deg); }
   .nomes .residente { color: var(--destaque); }
+  /* Na cena, a cor de destaque fica só para a equipe: as barras vão para a cor do texto, mais leves */
+  .nomes-cena span + span::before { background: var(--texto); opacity: 0.4; }
+  .legenda { display: flex; align-items: center; gap: 0.6em; margin-top: var(--e-3); font-size: var(--t-rotulo); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .legenda i { flex: none; width: 1em; height: 1em; border-radius: 50%; background: var(--destaque); }
   .nomes sup { margin: 0.2em 0 0 0.3em; padding: 0.2em 0.5em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; }
   .cena-titulo { margin-top: var(--e-5); max-width: 14em; }
-  .palco .t-pequeno { margin-top: var(--e-3); }
+  .palco .t-pequeno { margin-top: var(--e-1); }
 
   /* ---------- Posicionamento ---------- */
   .posicao { padding-bottom: var(--e-6); }

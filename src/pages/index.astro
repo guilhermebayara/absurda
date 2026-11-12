@@ -11,6 +11,7 @@ import Botao from '../components/Botao.astro';
 import { atributo, temaPara, TEMAS_DO_SITE } from '../lib/temas';
 import { getCollection } from 'astro:content';
 import palavras from '../data/palavras.json';
+import { numeros } from '../lib/historia';
 
 const { proximos, passados } = await getEventos();
 const [destaque, ...outros] = proximos;
@@ -99,7 +100,10 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
           style={`--lado:${flutuantes[i].lado};--giro:${flutuantes[i].giro}deg;--topo:${8 + i * 17}%;z-index:${flutuantes[i].camada}`} />
       ))}
       <div class="historia-fim">
-        <p class="t-apoio">{SITE.descricao}</p>
+        {/* Os mesmos números que abrem a página Sobre (lib/historia.ts) */}
+        <ul class="historia-numeros">
+          {numeros.map((x) => <li><b>{x.mais && '+'}{x.n}</b><span>{x.rotulo}</span></li>)}
+        </ul>
         <Botao href="/sobre">A história da @bsurda</Botao>
       </div>
     </div>
@@ -245,7 +249,11 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   .historia.viva .parede-foto { top: 0; translate: 0 110vh; }
   @media (max-width: 720px) { .parede-foto { --w: 52vw; } }
   @media (prefers-reduced-motion: reduce) { .parede-grupo { animation: none; } }
-  .historia-fim { z-index: 20; display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--e-3) var(--e-4); }
+  .historia-fim { z-index: 20; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--e-3) var(--e-4); }
+  .historia-numeros { display: flex; flex-wrap: wrap; gap: var(--e-2) var(--e-4); }
+  .historia-numeros li { display: grid; gap: 0.2em; }
+  .historia-numeros b { font-size: var(--t-4); font-weight: 800; line-height: 0.9; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+  .historia-numeros span { font-size: var(--t-rotulo); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
 
   /* Índice de projetos. As linhas se desenham ao entrar na tela. Ao passar o
      mouse, duas barras inclinadas entram pelas laterais, sem deslocar o texto. */
