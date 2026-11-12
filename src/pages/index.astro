@@ -25,13 +25,16 @@ type Fileira = { palavras: string[]; menor?: boolean };
 const verbos: Fileira[] = (palavras as string[][]).map((p) => ({ palavras: p }));
 const fileiras: Fileira[] = [
   ...verbos.slice(0, 2),
-  { palavras: [...lineup[0], ...lineup[1]], menor: true },
+  { palavras: [...lineup[0], ...lineup[1].slice(0, 3)], menor: true },
   ...verbos.slice(2, 4),
-  { palavras: palco.map((a) => a.nome), menor: true },
+  { palavras: palco.slice(0, 9).map((a) => a.nome), menor: true },
   ...verbos.slice(4, 6),
-  { palavras: ['Belo Horizonte', ...cidades, ...lineup[2].slice(0, 14)], menor: true },
+  { palavras: ['Belo Horizonte', ...cidades], menor: true },
   ...verbos.slice(6),
 ];
+// Cada fileira menor leva no máximo uns dez nomes. Não é economia: cada grupo animado vira
+// uma camada no navegador, e o Safari deixa de desenhar camadas largas demais (era o que
+// cortava a fileira no meio). Com poucos nomes, o grupo fica da largura de uma fileira de verbos.
 // Nas fileiras menores não há palavra em contorno: nesse corpo o traço fino não lê.
 const estilosMenores = ['', '', 'cor', '', '', '', 'cor', '', 'cor', '', '', ''];
 // Cada palavra é cheia, na cor de destaque ou só em contorno. A sequência é
@@ -39,14 +42,12 @@ const estilosMenores = ['', '', 'cor', '', '', '', 'cor', '', 'cor', '', '', '']
 const estilos = ['', 'cor', '', 'vazada', '', '', 'cor', 'vazada', '', 'cor', '', '', 'vazada', 'cor', '', 'vazada', '', 'cor', 'cor', '', 'vazada', '', '', 'cor', '', 'vazada', '', ''];
 // Imagens que flutuam pela parede: as capas das edições mais recentes.
 // Cada uma tem posição, velocidade de subida e a camada (entre quais fileiras passa).
-const capas = passados.filter((e) => e.capa).slice(0, 5);
+const capas = passados.filter((e) => e.capa).slice(0, 3);
 // "lado" vai de 0 (encostada à esquerda) a 1 (à direita); "camada" diz entre quais fileiras passa.
 const flutuantes = [
-  { lado: 0.08, giro: -3, camada: 3 },
-  { lado: 0.9, giro: 2.5, camada: 9 },
-  { lado: 0.42, giro: 1.5, camada: 5 },
-  { lado: 0.78, giro: -2, camada: 13 },
-  { lado: 0.16, giro: 3, camada: 7 },
+  { lado: 0.08, giro: -3, camada: 5 },
+  { lado: 0.9, giro: 2.5, camada: 15 },
+  { lado: 0.46, giro: 1.5, camada: 11 },
 ];
 // A abertura do site veste as cores do próximo evento.
 const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
@@ -98,7 +99,7 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
         <div class="parede" aria-hidden="true">
           {fileiras.map((linha, i) => (
             <div class:list={['parede-fileira', { menor: linha.menor }]} style={`z-index:${i * 2 + 2}`}>
-              <div class:list={['parede-trilho', { contra: i % 2 === 0 }]} style={`--dur:${(linha.menor ? 70 : 30) + (i * 11) % 17}s`}>
+              <div class:list={['parede-trilho', { contra: i % 2 === 0 }]} style={`--dur:${(linha.menor ? 58 : 30) + (i * 11) % 17}s`}>
                 {[0, 1, 2].map(() => (
                   <div class="parede-grupo">
                     {linha.palavras.map((p, j) => <span class={linha.menor ? estilosMenores[(i * 5 + j) % estilosMenores.length] : estilos[(i * 4 + j) % estilos.length]}>{p}<i></i></span>)}
@@ -111,7 +112,7 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
       </div>
       {capas.map((e, i) => (
         <img class="parede-foto" src={e.capa} alt="" loading="lazy" data-flutua={i}
-          style={`--lado:${flutuantes[i].lado};--giro:${flutuantes[i].giro}deg;--topo:${8 + i * 17}%;z-index:${flutuantes[i].camada}`} />
+          style={`--lado:${flutuantes[i].lado};--giro:${flutuantes[i].giro}deg;--topo:${10 + i * 28}%;z-index:${flutuantes[i].camada}`} />
       ))}
       <div class="historia-fim">
         {/* Os mesmos números que abrem a página Sobre (lib/historia.ts) */}
@@ -200,7 +201,7 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
       const topoDoPino = pino.getBoundingClientRect().top;
       for (const foto of fotos) {
         const i = Number(foto.dataset.flutua);
-        const q = (p - i * 0.13) / 0.48;
+        const q = (p - i * 0.2) / 0.48;
         foto.style.translate = `0 ${tela - q * (tela + foto.offsetHeight * 1.2) - topoDoPino}px`;
       }
     };
