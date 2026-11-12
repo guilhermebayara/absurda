@@ -62,6 +62,62 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
 3. `npm run confere:arquivo` passando.
 4. Só então `main`. A publicação na Cloudflare sai sozinha a cada push.
 
+## Sessões de QA
+
+Vale para sessões abertas só para conferir o site. As regras acima continuam valendo
+inteiras; esta seção diz o que muda quando o trabalho é QA.
+
+### Onde a sessão trabalha
+
+**Fase atual (site ainda não divulgado):** correção pequena e segura entra direto, pela
+mesma rotina de sempre: commit na `design`, depois `main` e `design` publicadas juntas por
+fast-forward. Mensagem de commit começa com `QA:`. Correção grande ou arriscada vai para
+uma branch `qa-<assunto>`, nascida da `main` atualizada, e espera o Gui.
+
+**Depois que o site for a público:** correção vai para a `design` (homologação). Correção
+grande ou arriscada vai para uma branch `qa-<assunto>`. A sessão de QA **nunca commita nem
+publica na `main` sem a aprovação do Gui**.
+
+Em qualquer fase: outra sessão pode estar publicando ao mesmo tempo. Traga a `main` de
+novo antes de cada push e nunca force um push. Se o push for recusado, traga a `main`,
+confira de novo e repita.
+
+### Antes de começar e antes de cada push
+
+- Antes de começar: igualar a agenda trazendo a `main` (seção "Antes de começar qualquer
+  rodada").
+- Antes de cada push: `npm run build` sem erro e `npm run confere:arquivo` passando, mais
+  qualquer conferência que tenha sido acrescentada ao repositório depois desta regra.
+
+### O que QA não decide
+
+QA corrige defeito: algo quebrado, link errado, erro de build, comportamento diferente do
+que foi combinado. QA **nunca altera nem remove** evento do histórico, capa, texto, cor,
+layout ou qualquer conteúdo definido pelo Gui ou pelo Ed. Isso é decisão dos dois. Se algo
+assim parecer errado, a sessão relata e espera. Na dúvida entre defeito e decisão, trate
+como decisão.
+
+Tokens e chaves continuam fora do código e da conversa, também em relatório, log colado e
+mensagem de commit.
+
+### Relatório no fim
+
+Toda sessão de QA termina com um relatório curto, nesta ordem:
+
+1. O que foi conferido.
+2. O que foi corrigido, com o commit de cada correção e a branch onde ficou.
+3. O que foi encontrado e ficou para o Gui decidir.
+4. O que não deu para conferir, e por quê (por exemplo, Safari no iPhone, que só se
+   verifica no aparelho).
+
+### Achado vira conferência
+
+Regra nova que nascer de um achado de QA vira conferência automática no repositório
+(script em `scripts/`, comando em `package.json` e, quando couber, fluxo em
+`.github/workflows/`), no modelo do `confere:arquivo`. Assim ela continua valendo sem
+depender de memória. A sessão propõe a conferência no relatório; criá-la segue as mesmas
+regras de branch desta seção.
+
 ## Cuidados que já custaram tempo
 
 - **Fundo da página no iPhone:** `<html>` tem a cor da página; `<body>` e `<main>` não têm
