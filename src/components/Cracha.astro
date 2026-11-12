@@ -60,7 +60,7 @@ const Tag = href ? 'a' : 'div';
           <span class="cracha-barras"></span>
           <span>{codigo}</span>
         </span>
-        <span class="cracha-acesso"><span>Pessoal e intransferível</span><strong>Ver página</strong></span>
+        <span class="cracha-acesso"><span>Intransferível</span><strong>Ver página</strong></span>
       </span>
     )}
   </span>
@@ -68,7 +68,8 @@ const Tag = href ? 'a' : 'div';
 
 <style>
   .cracha { --c-fundo: var(--texto); --c-texto: var(--fundo); --c-detalhe: var(--enfeite);
-    display: block; height: 100%; color: var(--c-texto); text-decoration: none; perspective: 1400px; }
+    display: block; aspect-ratio: 5 / 7; color: var(--c-texto); text-decoration: none; perspective: 1400px; }
+  /* Proporção de crachá de verdade (5 por 7), sempre. A foto ocupa a altura que sobra. */
   .cracha-producao { --c-fundo: var(--vivo); --c-texto: var(--sobre-vivo); --c-detalhe: var(--vivo-detalhe); }
   .cracha-giro { position: relative; display: block; height: 100%; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
   .cracha-face { position: relative; display: grid; grid-template-rows: auto auto 1fr auto auto; height: 100%; padding: 0.9rem 0.9rem 1rem; border-radius: clamp(1rem, 1.8vw, 1.5rem); background: var(--c-fundo); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
@@ -80,7 +81,7 @@ const Tag = href ? 'a' : 'div';
   .cracha-furo { justify-self: center; width: 2.75rem; height: 0.6rem; border-radius: 1rem; background: var(--fundo); }
   .cracha-topo { display: flex; align-items: center; justify-content: space-between; margin-top: 0.8rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
   .cracha-topo :global(.cracha-marca) { height: 1.5rem; width: auto; color: var(--c-detalhe); }
-  .cracha-retrato { position: relative; display: block; overflow: hidden; min-height: 0; margin-top: 0.7rem; aspect-ratio: 1; border-radius: clamp(0.6rem, 1vw, 0.9rem); background: color-mix(in srgb, var(--c-texto) 12%, var(--c-fundo)); }
+  .cracha-retrato { position: relative; display: block; overflow: hidden; min-height: 0; margin-top: 0.7rem; border-radius: clamp(0.6rem, 1vw, 0.9rem); background: color-mix(in srgb, var(--c-texto) 12%, var(--c-fundo)); }
   .cracha-retrato img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; display: block; }
   .cracha-inicial { position: absolute; left: -0.04em; bottom: -0.2em; font-size: clamp(11rem, 19vw, 17rem); font-weight: 800; line-height: 0.8; letter-spacing: -0.06em; text-transform: uppercase; color: var(--c-detalhe); }
   .cracha-texto { display: grid; gap: 0.3rem; margin-top: 0.9rem; }
@@ -101,7 +102,7 @@ const Tag = href ? 'a' : 'div';
      de crachá de verdade. */
   .cracha-desde { display: grid; align-content: center; gap: 0.4rem; min-height: 0; }
   .cracha-desde span { font-size: 0.9375rem; line-height: 1.25; }
-  .cracha-desde strong { font-size: clamp(3.5rem, 6vw, 5.5rem); font-weight: 800; line-height: 0.85; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; color: var(--c-detalhe); }
+  .cracha-desde strong { font-size: clamp(3rem, 4.6vw, 4.5rem); font-weight: 800; line-height: 0.85; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; color: var(--c-detalhe); }
   .cracha-codigo { display: grid; gap: 0.35rem; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap; overflow: hidden; }
   .cracha-barras { display: block; height: 2rem; background: linear-gradient(90deg, currentColor 0 2px, transparent 2px 5px, currentColor 5px 6px, transparent 6px 10px, currentColor 10px 14px, transparent 14px 16px, currentColor 16px 17px, transparent 17px 22px, currentColor 22px 24px, transparent 24px 27px, currentColor 27px 28px, transparent 28px 31px) 0 0 / 31px 100% repeat-x; }
 

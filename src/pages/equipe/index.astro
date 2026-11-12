@@ -2,8 +2,10 @@
 // Página Equipe.
 //
 // Três blocos:
-// 1. Quem faz hoje, em crachás de produção. Duas cores: produção (Ed e Gui) e cabine
-//    (residentes). O do Ed é maior na composição e leva o selo "Fundador", que só ele tem.
+// 1. Quem faz hoje, em crachás de produção, espalhados como numa mesa de produção antes da
+//    festa: uns por cima dos outros, alguns presos com fita, e uma pilha de crachás em branco
+//    no canto. Duas cores: produção (Ed e Gui) e cabine (residentes). O do Ed é maior e leva
+//    o selo "Fundador", que só ele tem. Tudo cabe numa tela, com o crachá sempre 5 por 7.
 //    No celular todos têm o mesmo tamanho e ficam em fila, para arrastar de lado.
 //    Com cursor, o crachá vira e mostra desde quando a pessoa está na festa.
 // 2. Quem já fez parte, como line-up: os nomes separam os dois blocos mais visuais.
@@ -40,15 +42,22 @@ const areas = [...new Set(foraDaCabine.map((n) => n.area))];
 
   <section class="time" aria-labelledby="t-time">
     <h2 id="t-time" class="titulo-secao" data-anima="sobe">Quem faz hoje</h2>
-    <ul class="crachas">
-      {atuais.map((p, i) => (
-        <li class:list={{ ed: p.id === 'ed-luiz' }} data-anima="surge" style={`--i:${i}`}>
-          <Cracha nome={p.data.nome} funcao={p.data.funcao} grupo={p.data.grupo} foto={p.data.foto} desde={p.data.desde}
-            href={`/equipe/${p.id}`} fundador={p.id === 'ed-luiz'} verso />
+    <div class="mesa">
+      <ul class="crachas">
+        {atuais.map((p, i) => (
+          <li class:list={{ ed: p.id === 'ed-luiz' }} data-anima="surge" style={`--i:${i}`}>
+            {[0, 1, 3, 4].includes(i) && <span class="fita" aria-hidden="true"></span>}
+            <Cracha nome={p.data.nome} funcao={p.data.funcao} grupo={p.data.grupo} foto={p.data.foto} desde={p.data.desde}
+              href={`/equipe/${p.id}`} fundador={p.id === 'ed-luiz'} verso />
+          </li>
+        ))}
+        <li class="pilha" aria-hidden="true">
+          <span class="branco branco-3"></span>
+          <span class="branco branco-2"></span>
+          <span class="branco branco-1"><span class="branco-furo"></span><Arroba class="branco-marca" /><span class="branco-dica">Passe o cursor num crachá para ver o verso</span></span>
         </li>
-      ))}
-      <li class="crachas-vaga" aria-hidden="true"><span>Passe o cursor num crachá para ver o verso</span></li>
-    </ul>
+      </ul>
+    </div>
     <p class="t-pequeno crachas-dica" aria-hidden="true">Arraste para ver todo mundo</p>
   </section>
 
@@ -97,45 +106,71 @@ const areas = [...new Set(foraDaCabine.map((n) => n.area))];
   /* 1. Quem faz hoje. Composição de crachás: o do Ed ocupa duas linhas, os outros se arrumam ao lado. */
   .time { padding: var(--e-3) var(--margem) var(--e-6); }
   .time .titulo-secao { margin-bottom: var(--e-3); }
-  .crachas { display: grid; grid-template-columns: 1.7fr repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.75rem); }
-  /* Em tela larga a composição inteira cabe numa tela: duas linhas de altura igual, e a foto de
-     cada crachá cede altura para isso. O do Ed vai de cima a baixo. */
+  /* Base (tela média): grade simples de três colunas. A mesa vem na tela larga, o trilho no celular. */
+  .crachas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2vw, 1.75rem); }
+  .crachas li { position: relative; }
+  /* Pendurados ou largados, cada um cai de um jeito. A inclinação fica no crachá, e não no item
+     da lista, porque o item já usa transform na animação de entrada. */
+  .crachas li > :global(.cracha) { transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .crachas li:nth-child(odd) > :global(.cracha) { transform: rotate(-2.2deg); }
+  .crachas li:nth-child(even) > :global(.cracha) { transform: rotate(1.6deg); }
+  .crachas li:nth-child(3n) > :global(.cracha) { transform: rotate(3.1deg); }
+  .crachas li.ed > :global(.cracha) { transform: rotate(-1.6deg); }
+  .crachas li > :global(.cracha:hover), .crachas li > :global(.cracha:focus-visible) { transform: rotate(0deg) translateY(-0.3rem); }
+  .crachas li:hover, .crachas li:focus-within { z-index: 5; }
+  .pilha, .fita { display: none; }
+  .crachas-dica { display: none; }
+
+  /* A mesa. Tudo é medido pela altura e pela largura da própria mesa (cqh e cqw), para a
+     composição caber numa tela em qualquer monitor sem deformar os crachás. */
   @media (min-width: 1101px) {
-    /* No crachá grande o ano do verso cresce junto. */
+    .mesa { container-type: size; height: clamp(34rem, calc(100svh - 7.5rem), 60rem); }
+    .crachas { position: relative; display: block; height: 100%;
+      --lp: min(33cqh, 19.2cqw);              /* largura de um crachá pequeno */
+      --ap: calc(var(--lp) * 1.4);            /* altura dele */
+      --le: min(62cqh, 35cqw);                /* largura do crachá do Ed */
+      --x0: calc(var(--le) + 3cqw);           /* onde começam os pequenos */
+      --dx: calc(var(--lp) + 1.4cqw); }       /* passo entre eles */
+    .crachas li { position: absolute; width: var(--lp); }
+    .crachas li.ed { left: 0; top: 4cqh; width: var(--le); z-index: 1; }
+    .crachas li:nth-child(2) { left: var(--x0); top: 0; }
+    .crachas li:nth-child(3) { left: calc(var(--x0) + var(--dx)); top: 4cqh; z-index: 2; }
+    .crachas li:nth-child(4) { left: calc(var(--x0) + 2 * var(--dx)); top: 1cqh; }
+    .crachas li:nth-child(5) { left: calc(var(--x0) + 0.22 * var(--dx)); top: calc(var(--ap) + 5.5cqh); z-index: 3; }
+    .crachas li:nth-child(6) { left: calc(var(--x0) + 1.18 * var(--dx)); top: calc(var(--ap) + 3.5cqh); z-index: 2; }
+    .crachas li:hover, .crachas li:focus-within { z-index: 6; }
+
+    /* No crachá grande tudo cresce junto. */
+    .crachas li.ed :global(.cracha-nome) { font-size: clamp(2.5rem, 4.6vw, 4.5rem); }
+    .crachas li.ed :global(.cracha-funcao) { font-size: 1.125rem; }
+    .crachas li.ed :global(.cracha-selo) { top: 5.5rem; right: -1.4rem; width: 8.5rem; }
+    .crachas li.ed :global(.cracha-selo strong) { font-size: 1rem; }
+    .crachas li.ed :global(.cracha-selo span) { font-size: 2.25rem; }
+    .crachas li.ed :global(.cracha-verso .cracha-selo) { top: auto; bottom: 6.5rem; right: 1.25rem; }
     .crachas li.ed :global(.cracha-desde strong) { font-size: clamp(6rem, 11vw, 10rem); }
     .crachas li.ed :global(.cracha-desde span) { font-size: 1.125rem; }
-    .crachas { grid-template-rows: repeat(2, minmax(0, 1fr)); height: clamp(33rem, calc(100svh - 7.5rem), 56rem); }
-    .crachas :global(.cracha-retrato) { aspect-ratio: auto; min-height: 0; }
-    .crachas :global(.cracha-face) { padding-top: 0.7rem; padding-bottom: 0.8rem; }
-    .crachas :global(.cracha-topo) { margin-top: 0.55rem; }
-    .crachas :global(.cracha-texto) { margin-top: 0.7rem; }
-    .crachas :global(.cracha-acesso) { margin-top: 0.7rem; padding-top: 0.55rem; }
+    .crachas li:not(.ed) :global(.cracha-face) { padding: 0.7rem 0.8rem 0.8rem; }
+    .crachas li:not(.ed) :global(.cracha-topo) { margin-top: 0.55rem; }
+
+    /* Fita: um pedaço de durex segurando o crachá na mesa. Enfeite puro. */
+    .fita { display: block; position: absolute; z-index: 4; top: -0.7rem; left: 50%; width: 5.5rem; height: 1.6rem; margin-left: -2.75rem; background: color-mix(in srgb, var(--texto) 38%, transparent); transform: rotate(-4deg); pointer-events: none;
+      clip-path: polygon(0 0, 3% 20%, 0 40%, 3% 60%, 0 80%, 3% 100%, 97% 100%, 100% 80%, 97% 60%, 100% 40%, 97% 20%, 100% 0); }
+    .crachas li:nth-child(2) .fita { left: 22%; transform: rotate(-38deg); top: -0.3rem; }
+    .crachas li:nth-child(4) .fita { left: 80%; transform: rotate(34deg); top: -0.2rem; }
+    .crachas li:nth-child(5) .fita { left: 50%; transform: rotate(5deg); }
+    .crachas li.ed .fita { left: 16%; width: 7rem; height: 1.9rem; transform: rotate(-32deg); top: 0; }
+
+    /* Pilha de crachás em branco, esperando nome. O de cima leva a dica do verso. */
+    .pilha { display: block; right: 0; bottom: 1cqh; aspect-ratio: 5 / 7; }
+    .branco { position: absolute; inset: 0; border-radius: clamp(1rem, 1.8vw, 1.5rem); }
+    .branco-3 { background: var(--vivo); transform: rotate(9deg) translate(4%, 2%); }
+    .branco-2 { background: var(--texto); transform: rotate(-6deg) translate(-3%, 1%); box-shadow: 0 0 0 2px var(--fundo); }
+    .branco-1 { display: grid; grid-template-rows: auto 1fr auto; justify-items: center; padding: 0.7rem 1rem 1.25rem; background: var(--vivo); color: var(--sobre-vivo); transform: rotate(2.5deg); box-shadow: 0 0 0 2px var(--fundo); }
+    .branco-furo { width: 2.75rem; height: 0.6rem; border-radius: 1rem; background: var(--fundo); }
+    .branco-1 :global(.branco-marca) { align-self: center; width: 46%; height: auto; color: var(--vivo-detalhe); }
+    .branco-dica { max-width: 12em; text-align: center; font-size: 0.875rem; line-height: 1.3; }
+    @media not ((hover: hover) and (pointer: fine)) { .branco-dica { visibility: hidden; } }
   }
-  /* Pendurados, cada um cai de um jeito. A inclinação fica no crachá, e não no item da lista,
-     porque o item já usa transform na animação de entrada. */
-  .crachas li > :global(.cracha) { transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
-  .crachas li:nth-child(odd) > :global(.cracha) { transform: rotate(-1.4deg); }
-  .crachas li:nth-child(even) > :global(.cracha) { transform: rotate(1.1deg) translateY(0.4rem); }
-  .crachas li:nth-child(3n) > :global(.cracha) { transform: rotate(1.9deg); }
-  .crachas li.ed { grid-row: span 2; }
-  .crachas li.ed > :global(.cracha) { transform: rotate(-1deg); }
-  .crachas li > :global(.cracha:hover), .crachas li > :global(.cracha:focus-visible) { transform: rotate(0deg) translateY(-0.3rem); }
-  .crachas li:hover, .crachas li:focus-within { position: relative; z-index: 2; }
-  /* No crachá grande a foto cresce para ocupar a altura das duas linhas, e o texto sobe de tamanho. */
-  .crachas li.ed :global(.cracha-nome) { font-size: clamp(2.5rem, 4.6vw, 4.5rem); }
-  .crachas li.ed :global(.cracha-funcao) { font-size: 1.125rem; }
-  .crachas li.ed :global(.cracha-selo) { top: 5.5rem; right: -1.4rem; width: 8.5rem; }
-  .crachas li.ed :global(.cracha-selo strong) { font-size: 1rem; }
-  .crachas li.ed :global(.cracha-selo span) { font-size: 2.25rem; }
-  /* No verso o selo fica dentro do crachá, embaixo. */
-  .crachas li.ed :global(.cracha-verso .cracha-selo) { top: auto; bottom: 6.5rem; right: 1.25rem; }
-  /* A casa que sobra na composição vira a dica do verso. Só aparece onde existe cursor. */
-  .crachas-vaga { display: none; }
-  @media (hover: hover) and (pointer: fine) and (min-width: 1101px) {
-    .crachas-vaga { display: grid; place-items: center; padding: 1.5rem; border: 2px dashed color-mix(in srgb, var(--texto) 45%, transparent); min-height: 0; border-radius: clamp(1rem, 1.8vw, 1.5rem); transform: rotate(1.4deg); text-align: center; font-size: 0.9375rem; line-height: 1.3; color: var(--suave); }
-    .crachas-vaga span { max-width: 11em; }
-  }
-  .crachas-dica { display: none; }
 
   /* 2. Quem já fez parte: line-up, no desenho das listas do Sobre. */
   .passado { padding: var(--e-4) var(--margem) var(--e-6); }
@@ -176,29 +211,13 @@ const areas = [...new Set(foraDaCabine.map((n) => n.area))];
   a.pulseira:hover strong { text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.12em; }
   .fora-botao { margin-top: var(--e-5); }
 
-  @media (max-width: 1100px) and (min-width: 821px) {
-    .crachas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .crachas li.ed { grid-row: auto; }
-    .crachas li.ed :global(.cracha-retrato) { aspect-ratio: 1; }
-    .crachas li.ed :global(.cracha-nome) { font-size: clamp(1.5rem, 2.2vw, 2rem); }
-    .crachas li.ed :global(.cracha-funcao) { font-size: 0.9375rem; }
-    .crachas li.ed :global(.cracha-selo) { top: 4.6rem; right: -0.9rem; width: 6rem; }
-    .crachas li.ed :global(.cracha-selo strong) { font-size: 0.8125rem; }
-    .crachas li.ed :global(.cracha-selo span) { font-size: 1.5rem; }
-  }
   @media (max-width: 820px) {
     /* No celular os crachás continuam em pé, todos do mesmo tamanho, numa fila para arrastar de
        lado. O próximo sempre aparece um pouco, para avisar que tem mais. */
     .crachas { display: flex; gap: 0.9rem; margin: 0 calc(-1 * var(--margem)); padding: 0.75rem var(--margem) 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--margem); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
     .crachas::-webkit-scrollbar { display: none; }
     .crachas li { flex: 0 0 min(72%, 17rem); scroll-snap-align: start; }
-    .crachas li.ed { grid-row: auto; }
-    .crachas li.ed :global(.cracha-retrato) { aspect-ratio: 1; min-height: 0; }
-    .crachas li.ed :global(.cracha-nome) { font-size: clamp(1.5rem, 2.2vw, 2rem); }
-    .crachas li.ed :global(.cracha-funcao) { font-size: 0.9375rem; }
-    .crachas li.ed :global(.cracha-selo) { top: 4.6rem; right: -0.6rem; width: 6rem; }
-    .crachas li.ed :global(.cracha-selo strong) { font-size: 0.8125rem; }
-    .crachas li.ed :global(.cracha-selo span) { font-size: 1.5rem; }
+    .crachas li.ed :global(.cracha-selo) { right: -0.6rem; }
     .crachas-dica { display: block; margin-top: var(--e-1, 0.5rem); }
     .pulseiras { gap: 0.9rem; }
     .pulseiras li:nth-child(even) { margin-left: 0; margin-right: 0; }
