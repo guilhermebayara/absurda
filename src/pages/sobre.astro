@@ -56,8 +56,8 @@ const trio: Array<{ ano: string; numero: string; texto: string; foto: string; fo
 // na cor de destaque, espalhado pela lista. Vem das programações que achei e dos nomes que o
 // Gui passou. A completar: com certeza falta gente.
 const equipe = ['André Victor', 'Charlotte', 'Ed Luiz', 'FAB', 'Grabs', 'Gui Bayara', 'Keoma', 'Nath Leles', 'Vil Araújo'];
-// Etiqueta ao lado do nome, no mesmo desenho da etiqueta de país: a marca com que um estilista
-// desfilou, quando ela não leva o nome dele. Quem desfilou com marca homônima fica só com o nome.
+// Marca entre parênteses depois do nome, no mesmo peso, como em line-up (nome da festa ou da
+// cidade junto do nome da pessoa): a marca com que um estilista desfilou, quando ela não leva o nome dele. Quem desfilou com marca homônima fica só com o nome.
 const marcas: Record<string, string> = { 'Célio Dias': 'LED' };
 const cena = [
   ...equipe,
@@ -234,7 +234,7 @@ const premios = [
     </p>
     <h2 class="t-secao cena-titulo" data-anima="sobe">E a cena de BH, que é a base de tudo</h2>
     <p class="nomes nomes-cena">
-      {cena.map((c) => <span class:list={{ residente: c.daEquipe }}>{c.nome}{c.marca && <sup>{c.marca}</sup>}</span>)}
+      {cena.map((c) => <span class:list={{ residente: c.daEquipe }}>{c.nome}{c.marca && ` (${c.marca})`}</span>)}
     </p>
     <p class="legenda"><i aria-hidden="true"></i>Equipe @bsurda: residentes de hoje e de outras fases</p>
     <p class="t-pequeno">Listas em construção.</p>
