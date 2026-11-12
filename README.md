@@ -14,6 +14,10 @@ Site estático feito em [Astro](https://astro.build), hospedado na Cloudflare.
 | Eventos fora do Shotgun e da Sympla | `src/data/eventos-manual.json` |
 | Junção das fontes da agenda | `src/lib/eventos.ts` |
 | Páginas | `src/pages/` |
+| Página de erro (endereço que não existe) | `src/pages/404.astro` |
+| Mapa do site para buscadores | `src/pages/sitemap.xml.ts` (página nova entra na lista "fixas") |
+| Regras para buscadores | `public/robots.txt` |
+| Cache e cabeçalhos de segurança na Cloudflare | `public/_headers` |
 
 Para mover alguém da equipe atual para "quem fez parte", troque `situacao: atual` por `situacao: anterior` no arquivo da pessoa.
 
@@ -23,6 +27,8 @@ Para mover alguém da equipe atual para "quem fez parte", troque `situacao: atua
 npm install
 npm run dev
 ```
+
+Para conferir se há erro de código antes de publicar: `npm run check`.
 
 ## Publicação
 

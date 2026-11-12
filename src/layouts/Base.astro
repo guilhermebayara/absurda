@@ -4,18 +4,27 @@ import { SITE, NAV } from '../config';
 import { TEMAS_DO_SITE, atributo, type Tema } from '../lib/temas';
 import Arroba from '../components/marca/Arroba.astro';
 import Completo from '../components/marca/Completo.astro';
+// Arquivo da fonte usado em quase todo o texto: pedido logo no início do carregamento.
+import fonteLatina from '@fontsource-variable/urbanist/files/urbanist-latin-wght-normal.woff2?url';
 
 interface Props {
   titulo?: string;
   descricao?: string;
   // Tema inicial da página. Sem ele, a página sorteia um par da marca a cada visita.
   tema?: Tema;
+  // Imagem que aparece quando o link da página é compartilhado (caminho do site ou endereço completo).
+  imagem?: string;
+  // Página que não deve aparecer em buscadores (a de erro, por exemplo).
+  semIndice?: boolean;
 }
-const { titulo, descricao = SITE.descricao, tema } = Astro.props;
+const { titulo, descricao = SITE.descricao, tema, imagem, semIndice = false } = Astro.props;
 const tituloPagina = titulo ? `${titulo} | ${SITE.nome}` : `${SITE.nome}, ${SITE.lema.toLowerCase()}`;
 const inicial = tema ?? TEMAS_DO_SITE[0];
 const sorteio = TEMAS_DO_SITE.map(atributo);
 const caminho = Astro.url.pathname;
+// Endereço oficial da página, sem barra no fim (a Home fica só com o domínio).
+const canonico = new URL(caminho.replace(/(?:\/index)?(?:\.html)?\/?$/, '') || '/', Astro.site).href;
+const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
 ---
 <!doctype html>
 <html lang="pt-BR" style={`--fundo:${inicial.fundo};--texto:${inicial.texto};--destaque:${inicial.destaque};--enfeite:${inicial.destaque}`}>
@@ -24,7 +33,18 @@ const caminho = Astro.url.pathname;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{tituloPagina}</title>
     <meta name="description" content={descricao} />
+    {semIndice ? <meta name="robots" content="noindex" /> : <link rel="canonical" href={canonico} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.nome} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content={tituloPagina} />
+    <meta property="og:description" content={descricao} />
+    {!semIndice && <meta property="og:url" content={canonico} />}
+    {imagemCompleta && <meta property="og:image" content={imagemCompleta} />}
+    <meta name="twitter:card" content={imagemCompleta ? 'summary_large_image' : 'summary'} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="preload" href={fonteLatina} as="font" type="font/woff2" crossorigin />
     <script is:inline define:vars={{ sorteio, sortear: !tema }}>
       // Roda antes de a página aparecer, para não piscar a cor errada.
       (function () {

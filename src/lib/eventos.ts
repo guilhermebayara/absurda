@@ -346,7 +346,7 @@ async function fonteHistorico(): Promise<Evento[]> {
 
 // ---------- Arquivo do site ----------
 // Cópia permanente dos eventos que já passaram, guardada no próprio repositório
-// (src/data/arquivo.json, com as capas em public/arquivo). Um robô semanal acrescenta
+// (src/data/arquivo.json, com as capas em public/arquivo). Um robô, três vezes por dia, acrescenta
 // aqui o que passou desde a última vez (ver scripts/arquivar.mjs). A partir daí o
 // evento não depende mais da plataforma: se o Shotgun ou o Sympla mudarem, saírem do
 // ar ou deixarem de entregar o histórico, ele continua no site.

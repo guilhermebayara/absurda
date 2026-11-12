@@ -18,7 +18,7 @@ const rotulos = { ativo: '', 'em-elaboracao': 'Em elaboração', arquivo: 'Proje
 // O tema virá da capa do projeto. Por enquanto, um par fixo da marca.
 const tema = temaPara(projeto.id);
 ---
-<Base titulo={projeto.data.nome} descricao={projeto.data.resumo} tema={tema}>
+<Base titulo={projeto.data.nome} descricao={projeto.data.resumo} tema={tema} imagem={projeto.data.capa}>
   <header class="abre abre-cima" data-tema={atributo(tema)}>
     <a class="voltar" href="/projetos">Todos os projetos</a>
     {rotulos[projeto.data.situacao] && <p class="etiqueta">{rotulos[projeto.data.situacao]}</p>}

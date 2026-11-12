@@ -15,7 +15,7 @@ const projetos = (await getCollection('projetos')).filter((pr) => pr.data.pessoa
 // O tema virá da foto da pessoa. Por enquanto, um par fixo da marca.
 const tema = temaPara(pessoa.id);
 ---
-<Base titulo={pessoa.data.nome} tema={tema}>
+<Base titulo={pessoa.data.nome} tema={tema} imagem={pessoa.data.foto}>
   <div class="pessoa" data-tema={atributo(tema)}>
     <div class="pessoa-foto"><Capa src={pessoa.data.foto} /></div>
     <div class="pessoa-texto">

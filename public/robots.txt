@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+# Arquivos de conferência das integrações, sem interesse para busca.
+Disallow: /estado.json
+Disallow: /arquivo-pendente.json
+
+Sitemap: https://festaabsurda.com/sitemap.xml

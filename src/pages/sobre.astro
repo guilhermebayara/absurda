@@ -39,7 +39,8 @@ const mineirao = [
 ];
 
 // O trio, ano a ano. A foto troca conforme a página rola.
-const trio = [
+// "arte" marca imagem que é arte de divulgação (e não foto): aparece inteira sobre fundo desfocado.
+const trio: Array<{ ano: string; numero: string; texto: string; foto: string; foco?: string; arte?: boolean }> = [
   { ano: '2016', numero: '12 mil', texto: 'O primeiro. Trio parado no Viaduto Santa Tereza, mais de 6 horas de festa.', foto: '/sobre/trio-2016.jpg' },
   { ano: '2018', numero: '20 mil', texto: 'Trio embargado no dia. A festa aconteceu assim mesmo, na Andradas.', foto: '/sobre/trio-2018.jpg' },
   { ano: '2019', numero: '30 mil', texto: 'Em movimento pela primeira vez: da Praça da Estação, subindo a Bahia até a Afonso Pena.', foto: '/sobre/trio-2019.jpg' },
@@ -85,7 +86,7 @@ const premios = [
   { titulo: 'Melhor DJ do carnaval', de: 'BH Folia, 2019 (Ed Luiz)' },
 ];
 ---
-<Base titulo="Sobre">
+<Base titulo="Sobre" imagem="/sobre/mineirao-10-anos.jpg">
   <!-- 1. Abertura: título curto, a frase que resume, e a rua em foto -->
   <header class="abre abre-cima sobre-abre">
     <h1 class="t-gigante ecoa ecoa-cima" data-eco="Desde 2009">Desde 2009</h1>
