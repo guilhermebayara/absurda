@@ -34,13 +34,21 @@ const projetos = defineCollection({
   }),
 });
 
+// Parceiros: marcas que apoiam hoje ("atual") e o registro de todas as parcerias.
+// Cada registro é uma marca num evento: é o que alimenta o histórico da página Parceiros.
+// Fornecedores e parceiros recorrentes de produção ficam na página Equipe (Fora da cabine).
 const parceiros = defineCollection({
   loader: file('src/data/parceiros.json'),
   schema: z.object({
     nome: z.string(),
-    tipo: z.enum(['apoio', 'captacao', 'fornecedor']),
-    logo: z.string().optional(),
+    atual: z.boolean().default(false),
+    // Só para os atuais: o que a marca faz na festa, uma linha de texto e o link.
+    papel: z.string().optional(),
+    texto: z.string().optional(),
     url: z.string().optional(),
+    destino: z.string().optional(),
+    logo: z.string().optional(),
+    registros: z.array(z.object({ ano: z.string(), onde: z.string() })).default([]),
   }),
 });
 

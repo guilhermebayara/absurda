@@ -62,7 +62,7 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
 
   {anteriores.length > 0 && (
     <section class="passado" aria-labelledby="t-passado">
-      <h2 id="t-passado" class="titulo-secao" data-anima="sobe">Já passaram pela cabine</h2>
+      <h2 id="t-passado" class="titulo-secao" data-anima="sobe">Já foram residentes</h2>
       <p class="nomes" data-anima="surge">
         {anteriores.map((p) => <a href={`/equipe/${p.id}`}>{p.data.nome}{p.data.foto && <img class="previa" src={p.data.foto} alt="" loading="lazy" />}</a>)}
       </p>

@@ -1,6 +1,33 @@
 [
-  { "id": "marca-1", "nome": "Marca de marcação 1", "tipo": "apoio" },
-  { "id": "marca-2", "nome": "Marca de marcação 2", "tipo": "apoio" },
-  { "id": "captacao-1", "nome": "Parceiro de captação de marcação", "tipo": "captacao" },
-  { "id": "fornecedor-1", "nome": "Fornecedor de marcação", "tipo": "fornecedor" }
+  {
+    "id": "shotgun",
+    "nome": "Shotgun",
+    "atual": true,
+    "papel": "Ingressos",
+    "texto": "É por lá que saem os ingressos de todas as festas. (marcação)",
+    "url": "https://shotgun.live/en/venues/festaabsurda",
+    "destino": "Ver ingressos",
+    "registros": []
+  },
+  {
+    "id": "xeque-mate",
+    "nome": "Xeque Mate",
+    "atual": true,
+    "papel": "Bebida",
+    "texto": "Texto de marcação: uma linha sobre a parceria com a Xeque Mate.",
+    "registros": []
+  },
+  {
+    "id": "stone-light",
+    "nome": "Stone Light",
+    "registros": [{ "ano": "2024", "onde": "Halloween 15 anos" }]
+  },
+  {
+    "id": "amstel",
+    "nome": "Amstel",
+    "registros": [
+      { "ano": "2025", "onde": "Halloween 16 anos" },
+      { "ano": "2025", "onde": "Parada da @bsurda, na Funarte (ano a confirmar)" }
+    ]
+  }
 ]
