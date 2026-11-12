@@ -59,8 +59,10 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
         </div>
       </header>
 
-      <!-- Atalho para os anos: fica preso no topo enquanto se rola pelo arquivo -->
-      <nav class="anos-nav" aria-label="Anos">
+      <!-- Atalho para os anos: fica preso no topo enquanto se rola pelo arquivo.
+           O bloco em volta (data-trilho) marca até onde a barra acompanha; ver "Barras presas" em Base.astro. -->
+      <div data-trilho>
+      <nav class="anos-nav" aria-label="Anos" data-barra="sempre">
         <ul>
           {lista.map(([ano]) => <li><a href={`#ano-${ano}`} data-ano={ano}>{ano}</a></li>)}
         </ul>
@@ -118,6 +120,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
           </div>
         </details>
       ))}
+      </div>
 
       <p class="arquivo-fim"><Botao href={SITE.fotos} externo tipo="linha">Se ache nas fotos</Botao></p>
       <!-- Capa que acompanha o cursor na lista -->

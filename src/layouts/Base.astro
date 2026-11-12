@@ -288,6 +288,26 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
         fechados.forEach((t) => guarda.observe(t));
       }
 
+      // Barras presas no topo, em aparelho de toque (atalho de anos da Agenda, ano dos Marcos no
+      // Sobre). No iPhone, uma barra sticky no topo basta para o Safari criar a banda atrás das
+      // suas barras, embaixo também, e ela não some mais. Então, no toque, a barra acompanha a
+      // rolagem por animação (ver "Barras presas" no CSS). A animação precisa saber a altura do
+      // trecho por onde a barra anda e a da própria barra: é o que se mede aqui.
+      if (raiz.classList.contains('pino-novo') && 'ResizeObserver' in window) {
+        document.querySelectorAll<HTMLElement>('[data-trilho]').forEach((trilho) => {
+          const barra = trilho.querySelector<HTMLElement>(':scope > [data-barra]');
+          if (!barra) return;
+          const medir = () => {
+            trilho.style.setProperty('--alt', `${trilho.offsetHeight}px`);
+            trilho.style.setProperty('--barra', `${barra.offsetHeight}px`);
+          };
+          const olho = new ResizeObserver(medir);
+          olho.observe(trilho);
+          olho.observe(barra);
+          medir();
+        });
+      }
+
       // Menu do celular.
       const menu = document.querySelector<HTMLDialogElement>('#menu-celular');
       document.querySelector('.menu-abre')?.addEventListener('click', () => menu?.showModal());
@@ -612,6 +632,20 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
 
   /* Link que sai do site: seta diagonal ao lado do nome */
   .nav-fora svg { display: inline-block; width: 0.72em; height: 0.72em; margin-left: 0.4em; vertical-align: -0.02em; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* Barras presas no topo, no toque. O trecho (data-trilho) é a linha do tempo; a barra
+     (data-barra) desce na mesma medida em que o trecho sobe, do instante em que o trecho
+     encosta no topo da tela até o fim dele. "sempre" vale em qualquer largura; "estreita", só
+     no desenho de celular. A linha do tempo fica em regra separada da animação de propósito:
+     juntas, o compactador de CSS funde as duas e o navegador descarta a declaração. */
+  html.pino-novo [data-trilho] { view-timeline: --trilho block; }
+  html.pino-novo [data-barra='sempre'] { position: relative; top: auto; animation: barra-presa linear both; }
+  html.pino-novo [data-trilho] > [data-barra='sempre'] { animation-timeline: --trilho; animation-range: contain 0% exit calc(100% - var(--barra, 0px)); }
+  @media (max-width: 820px) {
+    html.pino-novo [data-barra='estreita'] { position: relative; top: auto; animation: barra-presa linear both; }
+    html.pino-novo [data-trilho] > [data-barra='estreita'] { animation-timeline: --trilho; animation-range: contain 0% exit calc(100% - var(--barra, 0px)); }
+  }
+  @keyframes barra-presa { to { transform: translateY(calc(var(--alt, 0px) - var(--barra, 0px))); } }
 
   /* Rodapé grande */
   .rodape { position: relative; --lw: min(100vw - 2 * var(--margem), 165svh); margin-top: clamp(2rem, 5vw, 4rem); padding: clamp(2rem, min(4.5vw, 6svh), 4rem) var(--margem) 0; border-radius: clamp(1.5rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 3.5rem) 0 0; background: var(--texto); color: var(--fundo); overflow: hidden; transition: none; }

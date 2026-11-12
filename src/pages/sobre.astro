@@ -176,8 +176,8 @@ const premios = [
        lá é índice que se abre, aqui é uma narrativa contínua. -->
   <section class="marcos" aria-labelledby="t-marcos" data-tema="sorteio" data-reserva={reserva}>
     <h2 id="t-marcos" class="titulo-secao" data-anima="sobe">Marcos</h2>
-    <div class="marcos-grade">
-      <div class="marcos-ano" aria-hidden="true">
+    <div class="marcos-grade" data-trilho>
+      <div class="marcos-ano" aria-hidden="true" data-barra="estreita">
         <p class="marcos-num">{anosDosMarcos[0].split('').map((d) => <span>{d}</span>)}</p>
         <p class="marcos-conta"><span class="marcos-barra"></span><span class="marcos-idade"></span></p>
       </div>
@@ -373,6 +373,7 @@ const premios = [
   const janelas = [...document.querySelectorAll<HTMLElement>('[data-paralaxe]')];
   const secaoTrio = document.querySelector<HTMLElement>('.trio');
   const quadros = [...document.querySelectorAll<HTMLElement>('.trio-quadro')];
+  const listaTrio = document.querySelector<HTMLElement>('.trio-quadros');
   let quadroAtual = 0;
   let naFila = 0;
   const rolar = () => {
@@ -397,7 +398,9 @@ const premios = [
         quadros[i]?.classList.add('ativo');
         quadroAtual = i;
       }
-      secaoTrio.style.setProperty('--avanco', p.toFixed(3));
+      // No bloco das fotos, e não na seção: mexer na seção a cada quadro refaz o estilo do bloco
+      // que a animação de rolagem segura no toque.
+      (listaTrio ?? secaoTrio).style.setProperty('--avanco', p.toFixed(3));
     }
   };
   const chamar = () => { if (!naFila) naFila = requestAnimationFrame(rolar); };
@@ -562,7 +565,8 @@ const premios = [
   :global(.js) .trio-quadro.ativo .trio-legenda > * { transform: none; opacity: 1; }
   :global(.js) .trio-regra { position: absolute; z-index: 3; top: 0; right: 0; }
   /* Barra de avanço, com a inclinação da marca */
-  :global(.js) .trio-pino::after { content: ''; position: absolute; z-index: 3; left: 0; bottom: 0; height: 0.4rem; width: 100%; background: #fff; transform-origin: left; transform: scaleX(var(--avanco, 0)); }
+  /* Barra de avanço: mora no bloco das fotos, que é quem recebe --avanco, e se posiciona pela cena. */
+  :global(.js) .trio-quadros::after { content: ''; position: absolute; z-index: 3; left: 0; bottom: 0; height: 0.4rem; width: 100%; background: #fff; transform-origin: left; transform: scaleX(var(--avanco, 0)); }
 
   /* ---------- Palco ---------- */
   .palco { padding: var(--e-6) var(--margem); }
@@ -631,7 +635,7 @@ const premios = [
      ano e a sua legenda. Sem sticky, o Safari do iPhone não cria a banda na borda da tela. */
   :global(.toque) .trio { height: auto; }
   :global(.toque) .trio-pino { position: relative; top: auto; height: auto; overflow: visible; }
-  :global(.toque) .trio-pino::after { content: none; }
+  :global(.toque) .trio-quadros::after { content: none; }
   :global(.toque) .trio-quadro { position: relative; inset: auto; height: 88svh; opacity: 1; overflow: hidden; }
   :global(.toque) .trio-quadro + .trio-quadro { margin-top: 0.4rem; }
   :global(.toque) .trio-quadro .trio-legenda > * { transform: none; opacity: 1; }
@@ -648,5 +652,13 @@ const premios = [
   /* Cada foto ocupa a cena inteira (antes parava na altura da tela com a barra aberta, e a
      sombra da legenda ficava desalinhada do pé da imagem). */
   :global(.pino-novo) .trio-quadro { height: auto; overflow: hidden; }
+  /* Camadas da cena, ditas com todas as letras. No Safari do iPhone, com a cena segurada pela
+     animação, a foto que entrava passava por cima do título e do escurecido do topo durante a
+     troca, e o texto piscava. Cada foto fica numa camada baixa; título, regra e escurecido
+     ganham camada própria por cima. */
+  :global(.pino-novo) .trio-quadro { z-index: 1; }
+  :global(.pino-novo) .trio-pino::before { transform: translateZ(0); }
+  :global(.pino-novo) .trio-titulo, :global(.pino-novo) .trio-regra { z-index: 4; transform: translateZ(0); }
+  :global(.pino-novo) .trio-quadros::after { z-index: 4; }
   @keyframes pino-trio { to { transform: translateY(calc(var(--n) * 85svh)); } }
 </style>
