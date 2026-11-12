@@ -228,7 +228,9 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
     .pulseiras li:nth-child(6) { --r: 2.4deg; --x: 36%; }
     .pulseiras li:nth-child(n + 7) { --r: -1deg; --x: 16%; }
     .papel { display: block; position: absolute; z-index: 0; width: clamp(4.5rem, 6.5vw, 6.5rem); height: clamp(3.25rem, 4.6vw, 4.25rem); border-radius: 2px;
-      background: linear-gradient(100deg, transparent 46%, color-mix(in srgb, var(--fundo) 22%, transparent) 50%, transparent 54%), color-mix(in srgb, var(--texto) 84%, var(--vivo)); }
+      /* Semitransparentes de propósito (pedido do Gui): valem pelo layout, não pelo realismo, e assim
+         não pesam em nenhum tema. A dobra é só um pouco mais marcada que o papel. */
+      background: linear-gradient(100deg, transparent 46%, color-mix(in srgb, var(--texto) 16%, transparent) 50%, transparent 54%), color-mix(in srgb, var(--texto) 30%, transparent); }
     .papel-1 { right: 3%; top: 0; transform: rotate(24deg); }
     .papel-2 { right: 12%; top: 36%; transform: rotate(-12deg) skewX(-4deg); }
     .papel-3 { left: 1%; top: 47%; transform: rotate(-38deg); }
