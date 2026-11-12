@@ -23,7 +23,8 @@ import { getCollection } from 'astro:content';
 const pessoas = (await getCollection('pessoas')).sort((a, b) => a.data.ordem - b.data.ordem);
 const atuais = pessoas.filter((p) => p.data.situacao === 'atual');
 // Quem já foi residente: os que saíram e os que seguem na equipe em outra função.
-const anteriores = pessoas.filter((p) => p.data.situacao === 'anterior' || p.data.passouPelaCabine);
+// Primeiro quem saiu; por último, quem segue na equipe em outra função (pedido do Gui).
+const anteriores = [...pessoas.filter((p) => p.data.situacao === 'anterior'), ...pessoas.filter((p) => p.data.situacao !== 'anterior' && p.data.passouPelaCabine)];
 
 // Fora da cabine. "url" é opcional: perfil, site, o que fizer sentido para cada um.
 // Com "url", informe também "destino", o nome curto que aparece na ponta da pulseira
