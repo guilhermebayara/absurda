@@ -484,21 +484,25 @@ const premios = [
   /* ---------- Sem endereço fixo ---------- */
   .lugares { padding: var(--e-6) 0; border-top: 1px solid var(--linha); }
   .lugares > h2, .lugares-texto, .casas, .improvaveis-topo, .estrada { margin-left: var(--margem); margin-right: var(--margem); }
-  .lugares-texto { max-width: 32em; margin-top: var(--e-3); }
+  /* Ritmo dentro de uma seção, por proximidade: título e parágrafo formam o cabeçalho e ficam
+     colados (--e-2); do cabeçalho para o conteúdo que ele abre, um respiro bem maior (--e-4);
+     nota ou legenda colada ao conteúdo que explica (--e-2); novo sub-bloco, --e-5. */
+  .lugares-texto { max-width: 32em; margin-top: var(--e-2); }
   /* Os endereços como line-up de festival: três faixas de tamanho, centralizadas, com a barra da marca entre os nomes */
   .lineup { margin: var(--e-4) var(--margem) 0; display: grid; gap: var(--e-3); font-weight: 800; text-transform: uppercase; }
   .lineup p { display: flex; flex-wrap: wrap; align-items: center; }
-  .lineup span { display: inline-flex; align-items: center; }
+  .lineup span, .cidades span { display: inline-flex; align-items: flex-start; }
   /* Alinhamento ótico das barras: a barra é inclinada, então o ponto mais à esquerda dela é
      o topo. O recuo de 0,18em põe esse topo na mesma vertical do texto da página, em qualquer
      corpo. O espaço entre um nome e a barra seguinte fica no fim do nome, para a barra que
      abre uma linha não herdar recuo nenhum. */
+  /* A barra acompanha a primeira linha do nome: quando o nome quebra, ela não desce para o meio. */
   .lineup span, .cidades span, .nomes span { margin-right: 0.3em; }
-  .lineup span::before, .cidades span::before { content: ''; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.4em 0 0.18em; background: var(--destaque); transform: skewX(26.5deg); }
+  .lineup span::before, .cidades span::before { content: ''; flex: none; width: 0.14em; height: 0.72em; margin: 0.14em 0.4em 0 0.18em; margin-top: calc((1lh - 0.72em) / 2); background: var(--destaque); transform: skewX(26.5deg); }
   .lineup-1 { gap: 0.1em 0; font-size: var(--t-5); line-height: 1; letter-spacing: -0.045em; }
   .lineup-2 { gap: 0.2em 0; font-size: var(--t-4); line-height: 1; letter-spacing: -0.03em; }
   .lineup-3 { gap: 0.35em 0; font-size: clamp(0.9375rem, 1.35vw, 1.3125rem); line-height: 1.1; letter-spacing: 0.02em; color: var(--suave); }
-  .casas-nota { margin: var(--e-3) var(--margem) 0; }
+  .casas-nota { margin: var(--e-2) var(--margem) 0; }
   .improvaveis-topo { display: flex; align-items: center; justify-content: space-between; gap: var(--e-3); margin-top: var(--e-5); }
   .improvaveis-topo .titulo-secao { margin-bottom: 0; }
   .improvaveis-setas { display: flex; gap: 0.6rem; }
@@ -518,7 +522,6 @@ const premios = [
   .improvaveis li > p:last-child { max-width: 30em; margin-left: var(--e-2); font-size: var(--t-apoio); line-height: 1.35; }
   .estrada { margin-top: var(--e-5); }
   .cidades { display: flex; flex-wrap: wrap; gap: 0.1em 0; font-size: clamp(1.75rem, 6.5vw, 5.75rem); font-weight: 800; line-height: 1; letter-spacing: -0.04em; text-transform: uppercase; }
-  .cidades span { display: inline-flex; align-items: center; }
 
   /* ---------- Mineirão: bloco invertido ---------- */
   .mineirao { position: relative; margin: 0 clamp(0rem, 1.5vw, 1.25rem); padding: var(--e-6) var(--margem); overflow: hidden; border-radius: clamp(1.5rem, 4vw, 3.5rem); background: var(--texto); color: var(--fundo); }
@@ -526,7 +529,7 @@ const premios = [
   .mineirao-palavra { position: absolute; left: -0.04em; right: 0; bottom: -0.16em; font-size: 24.5vw; font-weight: 800; line-height: 0.8; letter-spacing: -0.06em; text-transform: uppercase; white-space: nowrap; color: var(--enfeite); opacity: 0.3; pointer-events: none; }
   .mineirao-grade { position: relative; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--e-4); align-items: start; padding-bottom: 14vw; }
   .mineirao h2 { max-width: 11em; }
-  .mineirao .t-apoio { max-width: 26em; margin-top: var(--e-3); }
+  .mineirao .t-apoio { max-width: 26em; margin-top: var(--e-2); }
   .mineirao-vezes { display: grid; gap: var(--e-2); }
   .mineirao-vezes li { display: grid; grid-template-columns: 5.5rem minmax(0, 1fr); gap: var(--e-2); align-items: center; }
   .mineirao-vezes img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0.4rem; transform: rotate(calc((var(--i) - 1.5) * 1.6deg)); }
@@ -573,9 +576,9 @@ const premios = [
   /* As duas listas no mesmo corpo: quem veio de fora e a cena local têm o mesmo peso */
   .nomes { display: flex; flex-wrap: wrap; gap: 0.18em 0; margin-top: var(--e-3); font-size: var(--t-4); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
   .nomes span { display: inline-flex; align-items: flex-start; }
-  .nomes span::before { content: ''; align-self: center; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.4em 0 0.18em; background: var(--destaque); transform: skewX(26.5deg); }
+  .nomes span::before { content: ''; flex: none; width: 0.14em; height: 0.72em; margin: 0.14em 0.4em 0 0.18em; margin-top: calc((1lh - 0.72em) / 2); background: var(--destaque); transform: skewX(26.5deg); }
   .nomes .residente { color: var(--destaque-texto); }
-  .legenda { display: flex; align-items: center; gap: 0.6em; margin-top: var(--e-3); font-size: var(--t-rotulo); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .legenda { display: flex; align-items: center; gap: 0.6em; margin-top: var(--e-2); font-size: var(--t-rotulo); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
   .legenda i { flex: none; width: 1em; height: 1em; border-radius: 50%; background: var(--destaque); }
   .nomes sup i { margin-right: 0.35em; font-style: normal; font-size: 1.25em; line-height: 0; vertical-align: -0.12em; }
   .nomes sup { margin: 0.2em 0 0 0.3em; padding: 0.2em 0.5em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; }
@@ -623,6 +626,9 @@ const premios = [
     .numeros { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-4) var(--e-3); }
     .mineirao-grade { padding-bottom: 22vw; }
     .trio-legenda { padding-top: 20svh; }
+    /* No celular os nomes cedem tamanho para caberem dois ou três por linha, em vez de um. */
+    .nomes { gap: 0.3em 0; font-size: 1.125rem; letter-spacing: -0.02em; }
+    .nomes sup { margin-top: 0.05em; font-size: 0.625rem; }
     :global(.js) .trio-regra { top: calc(var(--e-3) + var(--t-4) + 0.4rem); right: auto; left: 0; padding-top: 0; text-align: left; font-size: 0.75rem; }
   }
   @media (prefers-reduced-motion: reduce) {
