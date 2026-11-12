@@ -19,30 +19,41 @@ const anosDosMarcos = [...porAno.keys()].sort();
 
 const idade = new Date().getFullYear() - 2009;
 
+// Todos os endereços de Belo Horizonte por onde a festa passou, em ordem de época.
+// Vem do arquivo de eventos, com nomes repetidos unificados. "rua" marca espaço público.
+const lugares: Array<{ nome: string; rua?: boolean }> = [
+  'Velvet Club', 'Up e.music', 'Loja As Donas', 'On Board', 'Mary in Hell', 'Quina Galeria', 'Casa @bsurda', 'Granfinos',
+  'Mercado das Borboletas', 'Emme Lounge', 'CentoeQuatro', 'União Israelita', 'Matriz', 'Anda', 'Hotel Diamante', 'Secreto',
+  'Roxy Club', 'Josefine Club', 'Moss Club', 'Skorpius', 'Royalty Club', 'Studio Bar', 'Soleá', 'GIS', 'Deputamadre', 'O Mercado',
+  'Necup', 'A Fábrica', 'Factory', 'A Central', 'Ita Park', 'Fábrica Criativa', 'Galpão La Trupe', 'QG Rooftop', 'Mansão @bsurda',
+  'Mineirão', 'Gruta', 'Urbana', 'Espaço Even', 'LOL', 'Church House', 'Rock Content', 'Casa Híbrido', 'Jhon Jhon Club', 'Espettos',
+  'Dduck', 'Code Bar', 'Yanã Bar', 'Villa Paraty', 'Casa Sapucaí', 'Catavento Cultural', 'Teatro da Cidade', 'Mamão com Açúcar',
+  'Jackie O', 'Church Savassi', 'Church Prado', 'Prime Hall', 'A Autêntica', 'Sítio Via Lazer', 'Lab', '80Bar', 'Zona', 'Distrital',
+  'Lavos', 'Galpão do Folias', 'Irregular', 'Mira', 'Casa Rosa do Bonfim', 'Andaluz Pub', 'Espaço Sapucaí', 'Galpão 54',
+  'Espaço Loc', 'Espaço Y', 'Funarte MG', 'Clube Labareda', 'Major Lock',
+].map((nome) => ({ nome })).concat([
+  'Parque das Mangabeiras', 'Viaduto Santa Tereza', 'Avenida dos Andradas', 'Praça da Estação', 'Rua da Bahia', 'Avenida Afonso Pena', 'Rua Guaicurus', 'Pampulha',
+].map((nome) => ({ nome, rua: true })));
+
+const cidades = ['Vitória', 'São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador', 'Maringá', 'Londrina', 'Sete Lagoas', 'Juiz de Fora', 'Montes Claros'];
+
 // Números da abertura. "mais" põe um "+" na frente.
 const numeros = [
   { n: idade, rotulo: 'anos de festa' },
-  { n: 300, mais: true, rotulo: 'edições', nota: 'a confirmar' },
-  { n: 100, mais: true, rotulo: 'endereços em BH', nota: 'a confirmar' },
-  { n: 12, rotulo: 'cidades', nota: 'a confirmar' },
+  { n: 390, mais: true, rotulo: 'eventos' },
+  { n: lugares.length, mais: false, rotulo: 'endereços em BH', nota: 'e contando' },
+  { n: cidades.length + 1, rotulo: 'cidades', nota: 'a confirmar' },
 ];
-
-// Casas por onde a festa passou, em ordem de época.
-const casas = ['Velvet Club', 'Up e.music', 'Mary in Hell', 'Mercado das Borboletas', 'Granfinos', 'Deputamadre', 'O Mercado', 'A Central', 'Casa Sapucaí', 'Lab', 'Mira'];
 
 // Lugares improváveis: onde festa LGBTQIA+ não costumava entrar.
 const improvaveis = [
-  { nome: 'Inhotim', ano: '2014', texto: 'A @bsurda Trip levou a pista para dentro do museu, em Brumadinho.', capa: '/arquivo/sympla-21543.jpg' },
   { nome: 'Uma piscina de clube', ano: '2014', texto: 'O primeiro Tibum, na União Israelita. Boia e canga liberadas, sapatênis proibido.', capa: '/arquivo/sympla-16563.jpg' },
-  { nome: 'Hotel Diamante', ano: '2015', texto: 'Os 6 anos, com Elke Maravilha. (a confirmar)' },
-  { nome: 'Rua Guaicurus', ano: '2015', texto: 'Os residentes no palco da Virada Cultural de BH. (a confirmar)' },
+  { nome: 'Hotel Diamante', ano: '2015', texto: 'Os 6 anos, com Elke Maravilha.' },
+  { nome: 'Rua Guaicurus', ano: '2015', texto: 'Os residentes no palco da Virada Cultural de BH.' },
   { nome: 'Parque das Mangabeiras', ano: '2016', texto: 'QE @bsurda: ar livre, música e gastronomia das 14h às 22h.', capa: '/arquivo/sympla-77360.jpg' },
   { nome: 'Um parque de diversões', ano: '2018', texto: 'Festa para mil pessoas no Ita Park, entre os brinquedos.', capa: '/arquivo/sympla-227150.jpg' },
   { nome: 'Funarte MG', ano: '2025', texto: 'A 5ª Parada da @bsurda fechou um mês de ocupação da cidade.', capa: '/arquivo/sympla-2959783.jpg' },
 ];
-
-const cidades = ['Vitória', 'São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador', 'Maringá', 'Sete Lagoas', 'Brumadinho'];
-const cidadesAConfirmar = ['Juiz de Fora', 'Montes Claros', 'Londrina'];
 
 const mineirao = [
   { data: '9 jun 2018', nome: 'Edição 200', capa: '/arquivo/sympla-273251-p.jpg' },
@@ -64,16 +75,22 @@ const trio = [
 const palco = [
   { nome: 'Pabllo Vittar' }, { nome: 'Jão' }, { nome: 'Gloria Groove' }, { nome: 'Karol Conká' }, { nome: 'Elke Maravilha' },
   { nome: 'Gretchen' }, { nome: 'Banda Uó' }, { nome: 'Bonde do Rolê' }, { nome: 'Deize Tigrona' }, { nome: 'Rico Dalasam' },
-  { nome: 'Jaloo' }, { nome: 'Daniel Peixoto' }, { nome: 'Copacabana Club' }, { nome: 'Pearls Negras' },
+  { nome: 'Jaloo' }, { nome: 'Kaya Conky' }, { nome: 'Pepita' }, { nome: 'Aretuza Lovi' }, { nome: 'Daniel Peixoto' },
+  { nome: 'Dornelles' }, { nome: 'S4Tan' }, { nome: 'Frimes' }, { nome: 'Copacabana Club' }, { nome: 'Pearls Negras' },
   { nome: 'Alyssa Edwards', de: 'EUA' }, { nome: 'Latrice Royale', de: 'EUA' }, { nome: 'Jujubee', de: 'EUA' },
-  { nome: 'Coco Montrese', de: 'EUA' }, { nome: 'Sharon Needles', de: 'EUA' }, { nome: 'April Carrión', de: 'Porto Rico' },
+  { nome: 'Coco Montrese', de: 'EUA' }, { nome: 'April Carrión', de: 'Porto Rico' },
 ];
+// A cena de BH que já tocou, cantou e performou com a gente. Lista inicial, tirada das
+// programações que achei (Halloween de 10 e de 15 anos, Festival de 2016, Parada Virtual). A completar.
+const cena = ['Omoloko', 'Barbara Egidio', 'Baile da Bôta', 'Charlotte', 'FAB', 'Jaddy Stone', 'Joanna Mescladi', 'Mannu Mallibu',
+  'Mellody Queen', 'Mira MiuMiu', 'Nickary Aycker', 'Giovana Heliodoro', 'Thiago Richard', 'Vil Araújo', 'Dumbá', 'Paolla B',
+  'Samantha Brooks', 'Rafah’el', 'Supololo', 'Glico', 'Djalma Não Entende de Política', 'Alfredo Francis', 'Lugh', 'Green Grass'];
 
 // Posições tomadas. (Anos a confirmar.)
 const posicoes = [
   { ano: '2016', frase: 'Contra o golpe' },
   { ano: '2017', frase: 'Fora Temer' },
-  { ano: '2018', frase: 'Contra Bolsonaro' },
+  { ano: '2018', frase: 'Ele não' },
   { ano: '2022', frase: 'Com Lula' },
   { ano: '2026', frase: 'Com Lula, de novo' },
 ];
@@ -99,7 +116,7 @@ const premios = [
     <p class="t-apoio">Uma festa pop LGBTQIA+ de Belo Horizonte que ganhou a rua e virou produtora. Sem frescuras desde a primeira noite.</p>
   </header>
   <figure class="janela" data-paralaxe>
-    <img src="/sobre/trio-2019.jpg" alt="Multidão no Trio da @bsurda, na Rua da Bahia, em 2019" />
+    <img src="/sobre/mineirao-10-anos.jpg" alt="Pista da @bsurda dentro do Mineirão, na festa de 10 anos, em 2019" />
   </figure>
 
   <!-- 2. Como começou, e o tamanho que tomou -->
@@ -109,7 +126,7 @@ const premios = [
       <p class="t-grande origem-frase" data-anima="surge">Uma festa que tocasse de tudo, para todo mundo se sentir bem.</p>
       <div class="origem-texto" data-anima="surge">
         <p>Em 2009, as festas de BH tocavam ou só rock ou só pop. O Ed Luiz quis uma que juntasse as duas pistas e as pessoas das duas. O “sem frescuras” saiu daí.</p>
-        <p>Ela quase se chamou Candy. Virou @bsurda, com arroba, porque o Twitter estava começando a bombar. <small>(a confirmar)</small></p>
+        <p>Ela quase se chamou Candy. Virou @bsurda, com arroba, porque o Twitter estava começando a bombar.</p>
       </div>
     </div>
     <ul class="numeros">
@@ -125,10 +142,11 @@ const premios = [
   <!-- 3. Por onde passou: casas, lugares improváveis, estrada -->
   <section class="lugares" aria-labelledby="t-lugares" data-tema="sorteio" data-reserva={reserva}>
     <h2 id="t-lugares" class="t-grande" data-anima="sobe">Sem endereço fixo</h2>
-    <p class="t-apoio lugares-texto" data-anima="surge">A @bsurda circula. Passou por mais de cem endereços de Belo Horizonte, de inferninho a galpão, de parque a estádio. Cada mudança abriu uma porta nova para a nossa pista.</p>
-    <p class="casas" aria-label="Casas por onde a festa passou">
-      {casas.map((c) => <span>{c}</span>)}
+    <p class="t-apoio lugares-texto" data-anima="surge">A @bsurda circula. Passou por dezenas de endereços de Belo Horizonte, de inferninho a galpão, de parque a estádio. Cada mudança abriu uma porta nova para a nossa pista.</p>
+    <p class="casas" aria-label="Endereços por onde a festa passou">
+      {lugares.map((l) => <span class:list={{ rua: l.rua }}>{l.nome}</span>)}
     </p>
+    <p class="t-pequeno casas-nota">{lugares.length} endereços até aqui. Em destaque, os que são rua, praça e parque.</p>
 
     <div class="improvaveis-topo">
       <h3 class="titulo-secao">Lugares improváveis</h3>
@@ -152,9 +170,7 @@ const premios = [
       <h3 class="titulo-secao">E pegou estrada</h3>
       <p class="cidades">
         {cidades.map((c) => <span>{c}</span>)}
-        {cidadesAConfirmar.map((c) => <span class="incerta">{c}</span>)}
       </p>
-      <p class="t-pequeno">As três últimas ainda a confirmar.</p>
     </div>
   </section>
 
@@ -231,7 +247,11 @@ const premios = [
     <p class="palco-nomes">
       {palco.map((a) => <span>{a.nome}{a.de && <sup>{a.de}</sup>}</span>)}
     </p>
-    <p class="t-pequeno">Lista em construção.</p>
+    <h3 class="titulo-secao cena-titulo">E a cena de BH, que é a base de tudo</h3>
+    <p class="cena-nomes">
+      {cena.map((n) => <span>{n}</span>)}
+    </p>
+    <p class="t-pequeno">Listas em construção.</p>
   </section>
 
   <!-- 8. Posicionamento. Paleta fechada (TEMAS_DE_POSICAO em lib/temas.ts): enquanto este trecho
@@ -447,7 +467,8 @@ const premios = [
   .sobre-abre .t-apoio { max-width: 30em; }
   /* Janela de foto: a imagem é mais alta que a moldura e desliza devagar com a rolagem */
   .janela { margin: 0 var(--margem); height: clamp(18rem, 62svh, 44rem); overflow: hidden; border-radius: clamp(1rem, 2.5vw, 2.25rem); }
-  .janela img { width: 100%; height: 116%; margin-top: -8%; object-fit: cover; transform: translateY(var(--desvio, 0%)); will-change: transform; }
+  .janela { position: relative; }
+  .janela img { position: absolute; left: 0; top: -8%; width: 100%; height: 116%; max-width: none; object-fit: cover; transform: translateY(var(--desvio, 0%)); will-change: transform; }
   .janela-baixa { height: clamp(14rem, 44svh, 30rem); }
 
   /* ---------- Como começou ---------- */
@@ -466,8 +487,10 @@ const premios = [
   .lugares > h2, .lugares-texto, .casas, .improvaveis-topo, .estrada { margin-left: var(--margem); margin-right: var(--margem); }
   .lugares-texto { max-width: 32em; margin-top: var(--e-3); }
   /* As casas como uma frase só, separadas pela barra da marca */
-  .casas { display: flex; flex-wrap: wrap; gap: 0.35em 0; margin-top: var(--e-4); font-size: var(--t-4); font-weight: 800; line-height: 1.05; letter-spacing: -0.03em; text-transform: uppercase; }
+  .casas { display: flex; flex-wrap: wrap; gap: 0.35em 0; margin-top: var(--e-4); font-size: var(--t-3); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; text-transform: uppercase; }
   .casas span { display: inline-flex; align-items: center; }
+  .casas .rua { color: var(--destaque); }
+  .casas-nota { margin-left: var(--margem); margin-right: var(--margem); margin-top: var(--e-2); }
   .casas span + span::before, .cidades span + span::before { content: ''; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.42em; background: var(--destaque); transform: skewX(26.5deg); }
   .improvaveis-topo { display: flex; align-items: center; justify-content: space-between; gap: var(--e-3); margin-top: var(--e-5); }
   .improvaveis-topo .titulo-secao { margin-bottom: 0; }
@@ -486,8 +509,6 @@ const premios = [
   .estrada { margin-top: var(--e-5); }
   .cidades { display: flex; flex-wrap: wrap; gap: 0.3em 0; font-size: var(--t-3); font-weight: 800; letter-spacing: -0.02em; text-transform: uppercase; }
   .cidades span { display: inline-flex; align-items: center; }
-  .cidades .incerta { color: var(--suave); }
-  .estrada .t-pequeno { margin-top: var(--e-2); }
 
   /* ---------- Mineirão: bloco invertido ---------- */
   .mineirao { position: relative; margin: 0 clamp(0rem, 1.5vw, 1.25rem); padding: var(--e-6) var(--margem); overflow: hidden; border-radius: clamp(1.5rem, 4vw, 3.5rem); background: var(--texto); color: var(--fundo); }
@@ -505,7 +526,9 @@ const premios = [
 
   /* ---------- Trio: a foto presa que troca ---------- */
   .trio { position: relative; background: #0d0a0c; color: #fff; }
-  .trio-titulo { position: absolute; z-index: 3; top: var(--e-3); left: var(--margem); font-size: var(--t-rotulo); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+  .trio-titulo { position: absolute; z-index: 3; top: var(--e-3); left: var(--margem); font-size: var(--t-4); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
+  /* Sombra no alto, para o título e a regra lerem sobre qualquer foto */
+  .trio-pino::before { content: ''; position: absolute; z-index: 2; inset: 0 0 auto 0; height: 32svh; background: linear-gradient(to bottom, rgb(13 10 12 / 0.85), rgb(13 10 12 / 0.4) 55%, transparent); pointer-events: none; }
   .trio-quadro { position: relative; }
   .trio-quadro img { width: 100%; height: 100%; object-fit: cover; }
   .trio-quadro.arte img { object-fit: contain; }
@@ -513,7 +536,7 @@ const premios = [
   .trio-ano { font-size: var(--t-3); font-weight: 800; letter-spacing: -0.02em; }
   .trio-numero { font-size: clamp(4rem, 17vw, 16rem); font-weight: 800; line-height: 0.82; letter-spacing: -0.06em; text-transform: uppercase; }
   .trio-texto { max-width: 30em; margin-top: var(--e-2); font-size: var(--t-apoio); line-height: 1.35; }
-  .trio-regra { padding: var(--e-3) var(--margem); font-size: var(--t-rotulo); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+  .trio-regra { padding: var(--e-3) var(--margem); font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; text-align: right; max-width: 16em; }
   /* Sem script, os quadros ficam empilhados, um embaixo do outro. Com script, a seção
      ganha altura para a rolagem, e um quadro só ocupa a tela por vez. */
   .trio-quadro { height: 100svh; }
@@ -535,6 +558,10 @@ const premios = [
   .palco-nomes span:nth-child(3n + 2) { color: var(--destaque); }
   .palco-nomes span:not(:last-child)::after { content: ''; align-self: center; width: 0.1em; height: 0.62em; margin: 0 0.3em; background: var(--texto); opacity: 0.45; transform: skewX(26.5deg); }
   .palco-nomes sup { margin: 0.35em 0 0 0.3em; padding: 0.2em 0.5em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; }
+  .cena-titulo { margin-top: var(--e-5); }
+  .cena-nomes { display: flex; flex-wrap: wrap; gap: 0.3em 0; font-size: var(--t-3); font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; text-transform: uppercase; }
+  .cena-nomes span { display: inline-flex; align-items: center; }
+  .cena-nomes span + span::before { content: ''; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.42em; background: var(--destaque); transform: skewX(26.5deg); }
   .palco .t-pequeno { margin-top: var(--e-3); }
 
   /* ---------- Posicionamento ---------- */
@@ -571,15 +598,14 @@ const premios = [
   /* ---------- Fecho ---------- */
   .fecho { padding: 0 0 var(--e-6); }
   .fecho .t-grande { max-width: 14em; margin: var(--e-5) var(--margem) 0; }
-  .fecho-botoes { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-3) var(--e-4); margin: var(--e-4) var(--margem) 0; }
+  .fecho-botoes { display: flex; flex-wrap: wrap; align-items: flex-end; gap: var(--e-3) var(--e-4); margin: var(--e-4) var(--margem) 0; }
 
   @media (max-width: 820px) {
     .origem-grade, .mineirao-grade, .posicao-grade, .alem-lista { grid-template-columns: 1fr; }
     .numeros, .premios { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-4) var(--e-3); }
     .mineirao-grade { padding-bottom: 22vw; }
     .trio-legenda { padding-top: 20svh; }
-    :global(.js) .trio-regra { top: auto; bottom: 0.6rem; right: auto; left: 0; padding-top: 0; padding-bottom: 0.6rem; }
-    .trio-legenda { padding-bottom: 3.25rem; }
+    :global(.js) .trio-regra { top: calc(var(--e-3) + var(--t-4) + 0.4rem); right: auto; left: 0; padding-top: 0; text-align: left; font-size: 0.9375rem; }
   }
   @media (prefers-reduced-motion: reduce) {
     .janela img { transform: none; }
