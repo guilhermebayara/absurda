@@ -176,10 +176,8 @@ const premios = [
        lá é índice que se abre, aqui é uma narrativa contínua. -->
   <section class="marcos" aria-labelledby="t-marcos" data-tema="sorteio" data-reserva={reserva}>
     <h2 id="t-marcos" class="titulo-secao" data-anima="sobe">Marcos</h2>
-    <div class="marcos-grade">
-      {/* No celular com toque, este bloco vira um cartão parado na tela (ver "Marcos em cartão" no CSS). */}
-      <div class="marcos-cartao">
-      <div class="marcos-ano" aria-hidden="true">
+    <div class="marcos-grade" data-trilho>
+      <div class="marcos-ano" aria-hidden="true" data-barra="estreita">
         <p class="marcos-num">{anosDosMarcos[0].split('').map((d) => <span>{d}</span>)}</p>
         <p class="marcos-conta"><span class="marcos-barra"></span><span class="marcos-idade"></span></p>
       </div>
@@ -198,7 +196,6 @@ const premios = [
           </li>
         ))}
       </ol>
-      </div>
     </div>
   </section>
 
@@ -338,22 +335,6 @@ const premios = [
     medir();
   }
 
-  // Marcos em cartão (celular com toque): a lista corre dentro do cartão parado. A animação
-  // precisa saber quanto a lista tem para correr: a altura dela menos a janela do cartão.
-  const gradeMarcos = document.querySelector<HTMLElement>('.marcos-grade');
-  const cartaoMarcos = document.querySelector<HTMLElement>('.marcos-cartao');
-  const listaMarcos = document.querySelector<HTMLElement>('.marcos-lista');
-  const anoMarcos = document.querySelector<HTMLElement>('.marcos-ano');
-  if (document.documentElement.classList.contains('pino-novo') && gradeMarcos && cartaoMarcos && listaMarcos && anoMarcos && 'ResizeObserver' in window) {
-    const medirCurso = () => {
-      const janela = cartaoMarcos.clientHeight - anoMarcos.offsetHeight;
-      gradeMarcos.style.setProperty('--curso', `${Math.max(0, listaMarcos.offsetHeight - janela)}px`);
-    };
-    const olho = new ResizeObserver(medirCurso);
-    [cartaoMarcos, listaMarcos, anoMarcos].forEach((el) => olho.observe(el));
-    medirCurso();
-  }
-
   // ---------- O resto da página ----------
   const semMovimento = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -430,8 +411,6 @@ const premios = [
 
 <style>
   .marcos { padding: var(--e-6) var(--margem); border-top: 1px solid var(--linha); }
-  /* O cartão só existe no celular com toque; fora dele, este bloco não interfere na grade. */
-  .marcos-cartao { display: contents; }
   .marcos-grade { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr); column-gap: var(--e-4); align-items: start; margin-top: var(--e-4); }
   /* O ano preso: um número só para a seção inteira */
   .marcos-ano { position: sticky; top: 24svh; }
@@ -665,10 +644,10 @@ const premios = [
   /* Toque com animação ligada à rolagem (o caso do iPhone): as fotos continuam trocando com a
      cena parada, mas quem segura a cena é essa animação, e não sticky. A cena vai até a borda de baixo (lvh) e a
      legenda guarda a diferença para a tela com a barra aberta (svh). */
-  /* A cena é um cartão, como o rodapé: cantos arredondados e uma folga em cima e embaixo, com
-     a cor da página em volta. No iPhone a página aparece atrás do relógio e da barra de
+  /* A cena é um cartão no meio da tela: cantos arredondados e a mesma folga dos quatro lados,
+     com a cor da página em volta. No iPhone a página aparece atrás do relógio e da barra de
      endereço; sem os cantos, a cena parecia um retângulo cortado no meio da tela. */
-  :global(.pino-novo) .trio { height: calc(var(--n) * 85svh + 100lvh); padding: var(--folga-cartao) 0; background: none; view-timeline: --trio block; }
+  :global(.pino-novo) .trio { height: calc(var(--n) * 85svh + 100lvh); padding: var(--folga-cartao); background: none; view-timeline: --trio block; }
   :global(.pino-novo) .trio-pino { position: relative; top: auto; height: calc(100lvh - 2 * var(--folga-cartao)); background: #0d0a0c; border-radius: var(--raio-cartao); clip-path: inset(0 round var(--raio-cartao)); animation: pino-trio linear both; }
   /* Regra separada de propósito (ver a mesma nota na Home). */
   :global(.pino-novo) .trio > .trio-pino { animation-timeline: --trio; animation-range: contain 0% contain 100%; }
@@ -686,21 +665,4 @@ const premios = [
   :global(.pino-novo) .trio-quadros::after { z-index: 4; }
   @keyframes pino-trio { to { transform: translateY(calc(var(--n) * 85svh)); } }
 
-  /* Marcos em cartão (celular com toque, onde a cena é segurada por animação). O cartão fica
-     parado na tela, com o ano no alto e a história correndo dentro dele: assim o texto some
-     na borda do cartão, em vez de aparecer acima do ano, atrás do relógio do iPhone.
-     --curso (medido pelo script) é quanto a lista tem para correr. O cartão desce essa
-     medida enquanto a seção sobe, e a lista sobe a mesma medida dentro dele. */
-  @media (max-width: 820px) {
-    :global(.pino-novo) .marcos-grade { display: block; height: calc(100lvh + var(--curso, 0px)); padding: var(--folga-cartao) 0; view-timeline: --marcos block; }
-    :global(.pino-novo) .marcos-cartao { display: flex; flex-direction: column; height: calc(100lvh - 2 * var(--folga-cartao)); overflow: hidden; border: 1.5px solid var(--texto); border-radius: var(--raio-cartao); animation: pino-marcos linear both; }
-    :global(.pino-novo) .marcos-grade > .marcos-cartao { animation-timeline: --marcos; animation-range: contain 0% contain 100%; }
-    :global(.pino-novo) .marcos-ano { position: relative; top: auto; flex: none; margin: 0; padding: var(--e-2) var(--e-3); }
-    /* Dentro do cartão a linha é mais estreita: o número encolhe um pouco para a contagem caber ao lado. */
-    :global(.pino-novo) .marcos-num { font-size: 20vw; }
-    :global(.pino-novo) .marcos-lista { flex: none; padding: var(--e-3) var(--e-3) var(--e-4) calc(var(--e-3) + 0.75rem); animation: lista-marcos linear both; }
-    :global(.pino-novo) .marcos-cartao > .marcos-lista { animation-timeline: --marcos; animation-range: contain 0% contain 100%; }
-  }
-  @keyframes pino-marcos { to { transform: translateY(var(--curso, 0px)); } }
-  @keyframes lista-marcos { to { transform: translateY(calc(-1 * var(--curso, 0px))); } }
 </style>

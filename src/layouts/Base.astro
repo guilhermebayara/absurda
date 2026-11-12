@@ -288,7 +288,8 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
         fechados.forEach((t) => guarda.observe(t));
       }
 
-      // Barras presas no topo, em aparelho de toque (atalho de anos da Agenda). No iPhone, uma barra sticky no topo basta para o Safari criar a banda atrás das
+      // Barras presas no topo, em aparelho de toque (atalho de anos da Agenda, ano dos Marcos no
+      // Sobre). No iPhone, uma barra sticky no topo basta para o Safari criar a banda atrás das
       // suas barras, embaixo também, e ela não some mais. Então, no toque, a barra acompanha a
       // rolagem por animação (ver "Barras presas" no CSS). A animação precisa saber a altura do
       // trecho por onde a barra anda e a da própria barra: é o que se mede aqui.
@@ -656,6 +657,13 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
   html.pino-novo [data-barra='sempre']::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 8rem; background: var(--fundo); pointer-events: none; animation: barra-cobre linear both; }
   html.pino-novo [data-trilho] > [data-barra='sempre']::before { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + 3rem); }
   @keyframes barra-cobre { from { opacity: 0; } to { opacity: 1; } }
+  /* "estreita": a mesma barra presa, só no desenho de celular (o ano dos Marcos, no Sobre). */
+  @media (max-width: 820px) {
+    html.pino-novo [data-barra='estreita'] { position: relative; top: auto; animation: barra-presa linear both; }
+    html.pino-novo [data-trilho] > [data-barra='estreita'] { animation-timeline: --trilho; animation-range: contain 0% exit calc(100% - var(--barra, 0px)); }
+    html.pino-novo [data-barra='estreita']::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 8rem; background: var(--fundo); pointer-events: none; animation: barra-cobre linear both; }
+    html.pino-novo [data-trilho] > [data-barra='estreita']::before { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + 3rem); }
+  }
   @keyframes barra-presa { to { transform: translateY(calc(var(--alt, 0px) - var(--barra, 0px))); } }
 
   /* Rodapé grande */
