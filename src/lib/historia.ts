@@ -34,7 +34,7 @@ export const numeros = [
 export const palco = [
   { nome: 'Pabllo Vittar' }, { nome: 'Jão' }, { nome: 'Gloria Groove' }, { nome: 'Karol Conká' }, { nome: 'Elke Maravilha' },
   { nome: 'Gretchen' }, { nome: 'Banda Uó' }, { nome: 'Candy Mel' }, { nome: 'Mateus Carrilho' }, { nome: 'Bonde do Rolê' }, { nome: 'Deize Tigrona' }, { nome: 'Rico Dalasam' },
-  { nome: 'Jaloo' }, { nome: 'Potyguara Bardo' }, { nome: 'Kaya Conky' }, { nome: 'Pepita' }, { nome: 'Aretuza Lovi' },
+  { nome: 'Jaloo' }, { nome: 'Potyguara Bardo' }, { nome: 'Tiê' }, { nome: 'Kaya Conky' }, { nome: 'Pepita' }, { nome: 'Aretuza Lovi' },
   { nome: 'Penelopy Jean' }, { nome: 'Daniel Peixoto' }, { nome: 'Dornelles' }, { nome: 'S4Tan' }, { nome: 'Frimes' },
   { nome: 'Copacabana Club' }, { nome: 'Pearls Negras' },
   { nome: 'Alyssa Edwards', de: 'EUA' }, { nome: 'Latrice Royale', de: 'EUA' }, { nome: 'Jujubee', de: 'EUA' },
