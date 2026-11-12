@@ -44,8 +44,14 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
   falha se algum evento da `main` estiver faltando ou alterado, ou se uma capa tiver sido
   apagada. Rode antes de levar qualquer coisa para a `main`. Ela também roda sozinha no
   GitHub a cada push fora da `main`.
-- Mudança pedida de propósito: rode `ARQUIVO_EDITADO=1 npm run confere:arquivo`, e diga no
-  commit o que mudou e quem pediu.
+- Mudança pedida de propósito: escreva a marca `[arquivo-editado]` na mensagem do commit,
+  dizendo o que mudou e quem pediu. É a marca que as conferências do GitHub leem. Na
+  máquina, `ARQUIVO_EDITADO=1 npm run confere:arquivo` faz o mesmo papel.
+- **Alarme na `main`:** não existe bloqueio de verdade (o GitHub só oferece em repositório
+  privado no plano pago, e este repositório fica privado e sem custo). No lugar,
+  `.github/workflows/alarme-arquivo.yml` confere cada push na `main` contra o estado
+  anterior e falha, com aviso por e-mail, se o histórico mudou sem a marca. Se o alarme
+  tocar, restaure o arquivo a partir do commit anterior antes de qualquer outra coisa.
 - Eventos que não devem voltar (por exemplo, festas que não aconteceram) ficam na lista
   `FORA_DA_AGENDA` em `src/lib/eventos.ts`, para o robô não trazer de volta.
 

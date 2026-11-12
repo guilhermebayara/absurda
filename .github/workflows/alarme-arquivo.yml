@@ -1,0 +1,32 @@
+# Alarme do histórico na main: a cada push feito por gente (ou por uma sessão de trabalho),
+# compara o arquivo de eventos passados com o estado anterior da própria main. Se um evento
+# sumiu ou mudou, ou uma capa foi apagada, sem a marca [arquivo-editado] na mensagem do commit,
+# este fluxo falha e o GitHub avisa por e-mail quem fez o push.
+#
+# Ele não impede o push (isso exigiria plano pago do GitHub): avisa na hora, e o git guarda
+# tudo para desfazer. Os pushes do robô da agenda não disparam este fluxo, porque o GitHub
+# não encadeia fluxos a partir de pushes feitos com o token do próprio Actions.
+# Ver scripts/confere-arquivo.mjs e CLAUDE.md.
+name: Alarme do histórico
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  conferir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Compara o arquivo com o que estava na main antes deste push
+        env:
+          ARQUIVO_BASE: ${{ github.event.before }}
+        run: node scripts/confere-arquivo.mjs
