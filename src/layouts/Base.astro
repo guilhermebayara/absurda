@@ -50,6 +50,16 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
       (function () {
         var raiz = document.documentElement;
         raiz.classList.add('js');
+        // Aparelho de toque (celular, tablet). No iPhone com iOS 26, o Safari desenha uma banda
+        // sólida atrás das suas barras sempre que existe um elemento preso (sticky ou fixed)
+        // encostado na borda da tela, mesmo invisível. Por isso, no toque, as cenas que ficavam
+        // presas na tela inteira (parede da Home, fotos do Trio no Sobre) deixam de usar sticky.
+        // TESTE: com ?pino=novo no endereço, a cena continua parada, só que por animação ligada
+        // à rolagem em vez de sticky (classe pino-novo). Sem isso, ela rola junto (classe toque).
+        if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
+          var novo = /[?&]pino=novo/.test(location.search) && window.CSS && CSS.supports('animation-timeline: view()');
+          raiz.classList.add(novo ? 'pino-novo' : 'toque');
+        }
         // Cor de enfeite: o destaque usado sobre uma superfície da cor do texto (faixa,
         // menu, rodapé). Enfeite não precisa de contraste de leitura, mas também não pode
         // sumir: se o destaque fica perto demais da superfície, mantém o matiz e a
@@ -210,32 +220,7 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
         raiz.style.setProperty('--texto', cor);
         raiz.style.setProperty('--destaque', destaque);
         (window as any).__derivadas?.(fundo, cor, destaque);
-        temaMudou = true;
-        assentar(900);
       };
-      // TESTE (branch qa-faixa-safari), para a tira que às vezes fica atrás da barra do Safari
-      // no iPhone com uma cor que não é a da página.
-      // Hipótese: a barra copia a cor de fundo do <html>, mas a cor da página troca aos poucos
-      // (0,7s). O Safari às vezes guarda uma cor do meio do caminho, ou a anterior, e não olha
-      // de novo quando a troca termina. Nas capturas do Gui a tira tinha justamente a cor
-      // intermediária (Home) ou a do tema anterior (Agenda).
-      // O que isto faz: quando a troca de tema termina e a rolagem para, o fundo do <html>
-      // recebe por dois quadros a mesma cor com uma diferença invisível (1 em 255) e volta.
-      // É só um empurrão para o Safari olhar de novo. A cor continua sendo a da página: não
-      // pinta a faixa com outra cor, nem usa elemento fixo (ver o aviso mais abaixo, no CSS).
-      let temaMudou = false;
-      let espera = 0;
-      const olharDeNovo = () => {
-        if (!temaMudou) return;
-        temaMudou = false;
-        const canais = getComputedStyle(raiz).backgroundColor.match(/\d+/g);
-        if (!canais || canais.length < 3) return;
-        const azul = Number(canais[2]);
-        raiz.style.backgroundColor = `rgb(${canais[0]}, ${canais[1]}, ${azul < 255 ? azul + 1 : azul - 1})`;
-        requestAnimationFrame(() => requestAnimationFrame(() => { raiz.style.backgroundColor = ''; }));
-      };
-      function assentar(ms: number) { window.clearTimeout(espera); espera = window.setTimeout(olharDeNovo, ms); }
-      window.addEventListener('scroll', () => { if (temaMudou) assentar(350); }, { passive: true });
       // Trechos com paleta fechada (data-tema-lista): sorteiam um tema só entre os permitidos.
       document.querySelectorAll<HTMLElement>('[data-tema-lista]').forEach((trecho) => {
         const opcoes = (trecho.dataset.temaLista ?? '').split(';').filter(Boolean);

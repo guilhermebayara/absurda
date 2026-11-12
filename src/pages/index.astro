@@ -99,9 +99,9 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
         <div class="parede" aria-hidden="true">
           {fileiras.map((linha, i) => (
             <div class:list={['parede-fileira', { menor: linha.menor }]} style={`z-index:${i * 2 + 2}`}>
-              <div class:list={['parede-trilho', { contra: i % 2 === 0 }]} style={`--dur:${(linha.menor ? 58 : 30) + (i * 11) % 17}s`}>
+              <div class:list={['parede-trilho', { contra: i % 2 === 0 }]}>
                 {[0, 1, 2].map(() => (
-                  <div class="parede-grupo">
+                  <div class="parede-grupo" style={`animation-duration:${(linha.menor ? 58 : 30) + (i * 11) % 17}s`}>
                     {linha.palavras.map((p, j) => <span class={linha.menor ? estilosMenores[(i * 5 + j) % estilosMenores.length] : estilos[(i * 4 + j) % estilos.length]}>{p}<i></i></span>)}
                   </div>
                 ))}
@@ -279,7 +279,8 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   .parede-fileira { position: relative; }
   /* Cada fileira são três grupos iguais andando juntos: quando um sai, o outro já entrou */
   .parede-trilho { display: flex; width: max-content; }
-  .parede-grupo { flex: none; display: flex; animation: parede-corre var(--dur, 34s) linear infinite; will-change: transform; }
+  /* A duração de cada fileira vem escrita no próprio grupo (animation-duration), em segundos. */
+  .parede-grupo { flex: none; display: flex; animation: parede-corre 34s linear infinite; }
   .parede-trilho.contra .parede-grupo { animation-direction: reverse; }
   .parede-grupo span { display: flex; align-items: center; font-size: clamp(2.75rem, 9.2vw, 9.5rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.045em; text-transform: uppercase; white-space: nowrap; }
   /* Presa na tela, a parede se mede pela altura: sete fileiras enchem a tela */
@@ -340,8 +341,23 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   .fotos-fim { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--e-3) var(--e-4); margin-top: var(--e-4); }
 
   .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  /* TESTE (branch qa-faixa-safari): em tela de toque a prévia que segue o cursor nunca aparece.
-     Fora da página, ela deixa de ser um elemento fixo que o Safari possa levar em conta ao
-     escolher a cor das barras. */
+  /* Em tela de toque a prévia que segue o cursor nunca aparece, e um elemento fixo, mesmo
+     invisível, faz o Safari do iPhone desenhar uma banda atrás das barras. Sai da página. */
   @media (hover: none) { .espia { display: none; } }
+
+  /* Toque: a parede não fica presa. Ela rola com a página, as fileiras continuam correndo e as
+     capas continuam atravessando. Sem sticky, o Safari do iPhone não cria a banda na borda. */
+  :global(.toque) .historia.viva { height: auto; }
+  :global(.toque) .historia.viva .historia-pino { position: relative; top: auto; height: auto; padding: var(--e-4) 0; }
+
+  /* TESTE (?pino=novo): a parede continua parada na tela, mas quem a segura é uma animação
+     ligada à rolagem (o bloco desce na mesma medida em que a página sobe), e não sticky.
+     A cena ocupa a tela inteira, até por baixo da barra do navegador (lvh); o conteúdo guarda
+     no pé a diferença para a tela com a barra aberta (svh). */
+  :global(.pino-novo) .historia.viva { height: calc(100lvh + 50vh); view-timeline: --parede block; }
+  :global(.pino-novo) .historia.viva .historia-pino { position: relative; top: auto; height: 100lvh; padding-bottom: calc(var(--e-3) + 100lvh - 100svh); animation: pino-parede linear both; }
+  /* Em regra separada de propósito: junto do "animation", o compactador de CSS funde a linha do
+     tempo no atalho e o navegador descarta a declaração inteira. */
+  :global(.pino-novo) .historia.viva > .historia-pino { animation-timeline: --parede; animation-range: contain 0% contain 100%; }
+  @keyframes pino-parede { to { transform: translateY(50vh); } }
 </style>
