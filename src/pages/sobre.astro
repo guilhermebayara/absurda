@@ -169,7 +169,7 @@ const premios = [
        Mesmo universo da agenda (número grande, barra inclinada, etiquetas), outra leitura:
        lá é índice que se abre, aqui é uma narrativa contínua. -->
   <section class="marcos" aria-labelledby="t-marcos" data-tema="sorteio" data-reserva={reserva}>
-    <h2 id="t-marcos" class="t-secao" data-anima="sobe">Marcos</h2>
+    <h2 id="t-marcos" class="titulo-secao" data-anima="sobe">Marcos</h2>
     <div class="marcos-grade">
       <div class="marcos-ano" aria-hidden="true">
         <p class="marcos-num">{anosDosMarcos[0].split('').map((d) => <span>{d}</span>)}</p>
@@ -439,10 +439,12 @@ const premios = [
   /* ---------- Hierarquia da página ----------
      Quatro degraus de título, do maior para o menor:
      1. título da página (.t-gigante, com eco);
-     2. título de seção (.t-secao): Sem endereço fixo, Marcos, Quem a gente trouxe, Além da pista;
+     2. título de seção (.t-secao): Sem endereço fixo, Quem a gente trouxe, Além da pista;
      3. destaque de conteúdo (--t-5): headliners, cidades, frases, nomes nos cartões;
      4. subtítulo e rótulo de bloco (.titulo-secao, --t-4): Lugares improváveis, E pegou estrada, Reconhecimento.
-     O título de seção fica um degrau acima do conteúdo que ele abre, para nunca empatar com ele. */
+     O título de seção fica um degrau acima do conteúdo que ele abre, para nunca empatar com ele.
+     Exceção: quando a seção abre com um texto gigante próprio (a frase de Como começou, o ano
+     dos Marcos, a faixa do posicionamento), o título vira chamada pequena (.titulo-secao). */
   .t-secao { font-size: clamp(2.75rem, 9.5vw, 8.75rem); font-weight: 800; line-height: 1; letter-spacing: -0.045em; text-transform: uppercase; text-wrap: balance; }
 
   /* ---------- Abertura ---------- */
