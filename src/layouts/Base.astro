@@ -347,7 +347,8 @@ const caminho = Astro.url.pathname;
 
   *, *::before, *::after { box-sizing: border-box; }
   html { overflow-x: clip; background: var(--fundo); color: var(--texto); }
-  body { overflow-x: clip; margin: 0; font: 400 1.0625rem/1.5 var(--fonte); -webkit-font-smoothing: antialiased; }
+  /* Corpo em peso 500: a Urbanist em 400 afina demais sobre fundos de cor viva e nos temas claros */
+  body { overflow-x: clip; margin: 0; font: 500 1.0625rem/1.5 var(--fonte); -webkit-font-smoothing: antialiased; }
   img, svg { display: block; max-width: 100%; }
   a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.06em; }
   :focus-visible { outline: 3px solid var(--destaque); outline-offset: 3px; }
