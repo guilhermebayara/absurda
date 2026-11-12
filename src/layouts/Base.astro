@@ -156,7 +156,7 @@ const caminho = Astro.url.pathname;
           </div>
         </div>
       </div>
-      <p class="rodape-fim"><span aria-hidden="true"></span>{SITE.lema}, desde 2009. Belo Horizonte.<span aria-hidden="true"></span></p>
+      <p class="rodape-fim"><span aria-hidden="true"></span><b><em>© {new Date().getFullYear()} @bsurda.</em> <em>{SITE.lema}, desde 2009.</em> <em>Belo Horizonte.</em></b><span aria-hidden="true"></span></p>
       <a class="rodape-marca" href="/" aria-label="@bsurda, página inicial" data-anima="rodape">
         <span class="rm-eco rm-eco2" aria-hidden="true"><Completo /></span>
         <span class="rm-eco rm-eco1" aria-hidden="true"><Completo /></span>
@@ -549,6 +549,9 @@ const caminho = Astro.url.pathname;
   .rodape-lado li a:hover, .rodape-lado li a:focus-visible { background-size: 100% 2px; }
   /* Assinatura entre as barras do logo, como o lema da abertura */
   .rodape-fim { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: clamp(1.75rem, min(4vw, 5svh), 3.5rem); text-align: center; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; line-height: 1.7; }
+  /* Cada frase é um bloco que não quebra no meio: em tela estreita elas se empilham inteiras */
+  .rodape-fim b { font-weight: inherit; }
+  .rodape-fim em { display: inline-block; font-style: normal; white-space: nowrap; }
   .rodape-fim span { flex: none; width: 0.5rem; height: 2.4rem; background: currentColor; transform: skewX(26.5deg); }
   /* Logo gigante sangrando para fora da página, com ecos que sobem quando ele entra na tela */
   .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
