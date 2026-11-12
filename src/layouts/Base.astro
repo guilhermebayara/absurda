@@ -400,6 +400,10 @@ const caminho = Astro.url.pathname;
 
   /* Diagonais: o eco para baixo ou para cima ganha um desvio lateral.
      Para a direita, o título fica à esquerda; para a esquerda, encosta à direita. */
+  /* Variantes diagonais: fora de uso desde nov/2026. O padrão das páginas internas é título
+     sempre na mesma posição, com eco superior (.ecoa-cima) e fuga central. No meio de uma
+     página o eco pode ser inferior (.ecoa) ou superior, conforme o contexto. Deslocamento
+     lateral só em casos como a logo vertical da home no celular. */
   .ecoa-direita { --eco-x: 0.25em; }
   .ecoa-esquerda { --eco-x: -0.25em; margin-left: auto; }
   /* Na diagonal o recorte de cada eco é um L: a faixa de cima (ou de baixo) e a

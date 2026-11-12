@@ -29,8 +29,8 @@ const marcosDe = (ano: number) => marcos.filter((m) => Number(m.ano) === ano);
 const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
 ---
 <Base titulo="Agenda" tema={temaInicial}>
-  <header class="abre" data-tema={atributo(temaInicial)}>
-    <h1 class="t-gigante ecoa" data-eco="Agenda">Agenda</h1>
+  <header class="abre abre-cima" data-tema={atributo(temaInicial)}>
+    <h1 class="t-gigante ecoa ecoa-cima" data-eco="Agenda">Agenda</h1>
     <p class="t-apoio">
       {proximos.length > 0 ? `${plural(proximos.length)} pela frente` : 'Nenhuma data anunciada no momento'}, e o que já rolou desde 2009.
     </p>
@@ -52,7 +52,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
 
     <section class="arquivo" aria-labelledby="t-passados">
       <header class="arquivo-abre">
-        <h2 id="t-passados" class="t-gigante ecoa ecoa-direita" data-eco="Já rolou" data-anima="eco">Já rolou</h2>
+        <h2 id="t-passados" class="t-gigante ecoa" data-eco="Já rolou" data-anima="eco">Já rolou</h2>
         <div class="arquivo-fotos">
           <p class="t-apoio">As fotos das edições recentes ficam no Pixieset, separadas por festa. As de 2009 a 2013 estão no Flickr: cada festa dessa época leva direto ao álbum.</p>
           <Botao href={SITE.fotos} externo tipo="linha">Fotos no Pixieset</Botao>
