@@ -29,8 +29,9 @@ export interface Evento {
   album?: 'flickr';
   // Só o dia é conhecido; a hora é um palpite e não deve ser usada para comparar.
   soDia?: boolean;
-  // Veio agora de uma plataforma (e não de um arquivo do próprio site). Guarda o nome
-  // como a plataforma mandou, para o arquivo poder refazer a limpeza no futuro.
+  // Ainda depende de uma plataforma (veio dela agora, ou da cópia estática do histórico do
+  // Sympla) e não está no arquivo do site. Guarda o nome como a plataforma mandou, para o
+  // arquivo poder refazer a limpeza no futuro.
   nomeBruto?: string;
   // Já está guardado no arquivo do site.
   arquivado?: boolean;
@@ -227,6 +228,46 @@ const FORA_DA_AGENDA = [
   'sympla-818582', // @bsurda Latina, 30/5/2020
   'sympla-781533', // @bsurda Leviosa, 9/5/2020: não aconteceu, quarentena
 ];
+// Nomes corrigidos à mão (pedido do Gui): eventos antigos cujo nome na plataforma trazia a
+// data, a hora ou a casa, ou um erro de digitação. A agenda já mostra data e casa ao lado.
+// O arquivo (src/data/arquivo.json) continua com o nome original; a troca é só na exibição.
+const NOMES_CORRIGIDOS: Record<string, string> = {
+  'sympla-3035929': 'OFICINA VOGUE 5ª PARADA DA @BSURDA',
+  'sympla-3035921': 'OFICINA DRAG 5ª PARADA DA @BSURDA',
+  'sympla-2030418': 'CHRONUS - o espetáculo Drag (Temporada em São Paulo)',
+  'sympla-2016142': '4ª PARADA DA @BSURDA - Comunicação e Design LGBT+',
+  'sympla-2016075': '4ª PARADA DA @BSURDA - Empreendedorismo e Empregabilidade LGBT+',
+  'sympla-805879': '@BSURDA LOCAL',
+  'sympla-563012': '@bsurda 10 anos Halloween',
+  'sympla-515915': 'RU@',
+  'sympla-422613': 'TIBUM VERÃO + COLONIA DE FÉRIAS',
+  'sympla-429908': 'MONEY',
+  'sympla-403043': 'I Hate Remix esp Britney',
+  'sympla-317613': '@bsurda',
+  'sympla-273251': '@BSURDA EDIÇÃO 200',
+  'sympla-205786': 'Latina #absurda8anos',
+  'sympla-103636': '@bsurda Sem Frescuras! (SETE LAGOAS)',
+  'sympla-68479': '@bsurda JOKER',
+  'sympla-62071': '@bsurda YOLO #3 - BONDE DO ROLÊ e MC CAROL',
+  'sympla-61019': 'MONEY',
+  'sympla-58480': 'I HATE REMIX',
+  'sympla-50851': 'FESTIVAL @BSURDA 2016 COM RICO DALASAM E JALOO',
+  'sympla-38733': '@BSURDA EM HOGWARTS',
+  'sympla-38472': '@BSURDA COM LATRICE',
+  'sympla-36809': 'FESTONNA BH',
+  'sympla-38362': 'BAILE DAS AMIGAS',
+  'sympla-36725': 'ARRAIÁ SEM FRESCURAS',
+  'sympla-31960': '@BSURDA COM ALYSSA EDWARDS E COCO MONTRESE',
+  'sympla-33009': 'MONEY edição Pour It Up',
+  'sympla-33434': 'PUTZBRILHA! BH',
+  'sympla-32476': '@bsurda YOLO edição RIO DE JANEIRO',
+  'sympla-27406': '@BSURDA COM JUJUBEE',
+  'sympla-24184': 'HALLOWEEN "SEM FRESCURAS"',
+  'sympla-23617': '@bsurda apresenta: ✝✝ INFERNINHO DA @BSURDA ✝✝',
+  'sympla-21569': '@bsurda IFUNCKING w/ BONDE DO ROLE, DANIEL PEIXOTO E OMULU',
+  'sympla-20958': 'ARRAIÁ SEM FRESCURAS',
+  'sympla-20129': 'NÊGA',
+};
 // Quarentena: da primeira @bsurda Em Casa até a véspera da Sentadinha, tudo aconteceu online.
 const ONLINE_DE = new Date('2020-05-29T00:00:00-03:00').getTime();
 const ONLINE_ATE = new Date('2021-09-18T00:00:00-03:00').getTime();
@@ -337,10 +378,12 @@ async function fonteSympla(): Promise<Evento[]> {
 // Cópia estática, feita uma vez em novembro de 2026, dos eventos encerrados que
 // aparecem na página de produtor (sympla.com.br/produtor/festaabsurda). Inclui os
 // criados por outras contas e compartilhados com a @bsurda, que o token não enxerga.
+// Estes eventos também entram no arquivo do site (nomeBruto): o robô baixa a capa de cada um
+// para public/arquivo, e a partir daí a agenda deixa de depender do servidor do Sympla.
 async function fonteHistorico(): Promise<Evento[]> {
   return (historico as Array<{ id: string; nome: string; data: string; url: string; capa?: string; local?: string }>).map((e) => {
     const casa = locais.find((l) => e.local?.includes(l.endereco))?.nome ?? e.local;
-    return { id: e.id, nome: limparNome(e.nome), data: e.data, local: casa, capa: e.capa, capaPequena: e.capa?.replace('-lg.', '-xs.'), url: e.url, origem: 'sympla', tema: temaPara(e.id) };
+    return { id: e.id, nome: limparNome(e.nome), data: e.data, local: casa, capa: e.capa, capaPequena: e.capa?.replace('-lg.', '-xs.'), url: e.url, origem: 'sympla', nomeBruto: e.nome, tema: temaPara(e.id) };
   });
 }
 
@@ -419,7 +462,10 @@ export function getEventos() {
     const todos = [...manual.filter((e) => !e.id.startsWith('m')), ...albuns, ...reais, ...(reais.length === 0 ? marcacao : [])];
     // Tira repetidos (mesmo evento vindo de duas fontes) e ordena por data.
     // Eventos anunciados como adiados ficam fora: a data nova aparece como outro evento.
-    const unicos = semRepetidos(todos.filter((e) => !/\badiad[oa]\b/i.test(e.nome) && !FORA_DA_AGENDA.includes(e.id))).map((e) => (!e.local && naQuarentena(e) ? { ...e, local: 'Online' } : e)).sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
+    const unicos = semRepetidos(todos.filter((e) => !/\badiad[oa]\b/i.test(e.nome) && !FORA_DA_AGENDA.includes(e.id))).map((e) => (!e.local && naQuarentena(e) ? { ...e, local: 'Online' } : e))
+      // A troca de nome vem depois de tirar os repetidos, que comparam o nome original.
+      .map((e) => (NOMES_CORRIGIDOS[e.id] ? { ...e, nome: NOMES_CORRIGIDOS[e.id] } : e))
+      .sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
     estado.repetidosRemovidos = todos.length - unicos.length;
     estado.arquivo = { guardados: guardados.length, passadosAindaSoNaPlataforma: unicos.filter((e) => e.nomeBruto && new Date(e.data).getTime() < Date.now()).length };
     const agoraMs = Date.now();
