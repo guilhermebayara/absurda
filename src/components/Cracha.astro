@@ -17,18 +17,25 @@ interface Props {
   grupo: 'socios' | 'residentes' | 'equipe';
   foto?: string;
   desde?: number;
+  numero?: number;
   href?: string;
   fundador?: boolean;
   verso?: boolean;
   class?: string;
 }
-const { nome, funcao, grupo, foto, desde, href, fundador = false, verso = false, class: classe } = Astro.props;
+const { nome, funcao, grupo, foto, desde, numero, href, fundador = false, verso = false, class: classe } = Astro.props;
 const producao = grupo === 'socios';
 const rotulo = producao ? 'Produção' : grupo === 'residentes' ? 'Residente' : 'Equipe';
 const acesso = producao ? 'Total' : grupo === 'residentes' ? 'Cabine' : 'Produção';
 const anos = desde ? new Date().getFullYear() - desde : undefined;
-// Código do verso, de brincadeira: iniciais, ano de entrada e o lema.
-const codigo = `${nome.split(' ').map((n) => n[0]).join('').toUpperCase()} ${desde ?? 'XXXX'} SEM FRESCURAS`;
+// Número do crachá com três casas; XXX enquanto não foi definido.
+const num = numero ? String(numero).padStart(3, '0') : 'XXX';
+// Código do verso: parece código, mas dá para ler. Cinco partes, nesta ordem:
+// @B (a festa), número do crachá, primeiro nome (até 4 letras), ano de entrada e função
+// (iniciais das palavras; sigla como DJ entra inteira). Ed Luiz: @B-001-ED-2009-PDJ.
+const semAcento = (t: string) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const sigla = semAcento(funcao).split(/\s+/).filter((p) => p.length > 1).map((p) => (p === p.toUpperCase() ? p : p[0].toUpperCase())).join('');
+const codigo = ['@B', num, semAcento(nome.split(' ')[0]).toUpperCase().slice(0, 4), desde ?? 'XXXX', sigla].join('-');
 const Tag = href ? 'a' : 'div';
 ---
 <Tag class:list={['cracha', producao ? 'cracha-producao' : 'cracha-cabine', { 'cracha-vira': verso }, classe]} href={href}>
@@ -55,12 +62,10 @@ const Tag = href ? 'a' : 'div';
           <strong>{desde ?? 'XXXX'}</strong>
           <span>{anos ?? 'X'} anos de festa</span>
         </span>
-        {fundador && (
-          <span class="cracha-registro">
-            <span><span>Crachá nº</span><strong>001</strong></span>
-            <span><span>Condição</span><strong>Fundador</strong></span>
-          </span>
-        )}
+        <span class="cracha-registro">
+          <span><span>Crachá nº</span><strong>{num}</strong></span>
+          {fundador && <span><span>Condição</span><strong>Fundador</strong></span>}
+        </span>
         <span class="cracha-codigo">
           <span class="cracha-barras"></span>
           <span>{codigo}</span>
@@ -111,8 +116,8 @@ const Tag = href ? 'a' : 'div';
   .cracha-desde { display: grid; align-content: center; gap: 0.4rem; min-height: 0; }
   .cracha-desde span { font-size: 0.9375rem; line-height: 1.25; }
   .cracha-desde strong { font-size: clamp(3rem, 4.6vw, 4.5rem); font-weight: 800; line-height: 0.85; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; color: var(--c-detalhe); }
-  /* Só no verso do Ed: "fundador" como dado oficial do crachá, e não como adesivo. */
-  .cracha-registro { display: flex; gap: 1.5rem; margin-bottom: 0.9rem; padding-top: 0.7rem; border-top: 2px solid var(--c-texto); }
+  /* Registro: o número do crachá, em todos. A condição de fundador, como dado oficial, só no do Ed. */
+  .cracha-registro { display: flex; gap: 1.5rem; margin-bottom: 0.7rem; padding-top: 0.6rem; border-top: 2px solid var(--c-texto); }
   .cracha-registro > span { display: grid; gap: 0.2rem; }
   .cracha-registro span span { font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
   .cracha-registro strong { font-size: 1.25rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em; text-transform: uppercase; }

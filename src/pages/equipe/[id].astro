@@ -19,7 +19,7 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
 <Base titulo={pessoa.data.nome} tema={tema} imagem={pessoa.data.foto}>
   <div class="pessoa" data-tema={atributo(tema)}>
     <div class="pessoa-cracha">
-      <Cracha nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} foto={pessoa.data.foto} desde={pessoa.data.desde} fundador={pessoa.id === 'ed-luiz'} />
+      <Cracha nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} foto={pessoa.data.foto} desde={pessoa.data.desde} numero={pessoa.data.numero} fundador={pessoa.id === 'ed-luiz'} />
     </div>
     <div class="pessoa-texto">
       <a class="voltar" href="/equipe">Toda a equipe</a>

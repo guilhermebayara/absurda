@@ -2,6 +2,7 @@
 nome: "Gui Bayara"
 funcao: "Designer e produtor"
 desde: 2013
+passouPelaCabine: true
 grupo: socios
 situacao: atual
 ordem: 2
