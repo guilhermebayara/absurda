@@ -266,7 +266,8 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   }
   .ver-agenda { padding: var(--e-3) var(--margem) var(--e-5); text-align: center; }
 
-  .historia { position: relative; }
+  /* Respiro entre a faixa que corre e o título da parede */
+  .historia { position: relative; margin-top: var(--e-3); }
   .historia-pino { position: relative; isolation: isolate; overflow: clip; display: flex; flex-direction: column; justify-content: center; gap: var(--e-4); padding: var(--e-5) 0; }
   /* Com movimento: a seção prende por pouco tempo (meia tela de rolagem) */
   .historia.viva { height: 150vh; height: calc(100svh + 50vh); }

@@ -413,8 +413,8 @@ const premios = [
   .marcos-ano { position: sticky; top: 24svh; }
   .marcos-num { display: flex; font-size: clamp(4.5rem, 19vw, 19rem); font-weight: 800; line-height: 0.8; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; }
   .marcos-num span { display: block; }
-  .marcos-conta { display: flex; align-items: center; gap: 0.7em; margin-top: var(--e-3); color: var(--destaque); font-size: var(--t-3); font-weight: 800; letter-spacing: -0.02em; text-transform: uppercase; }
-  .marcos-barra { flex: none; width: 0.18em; height: 0.8em; background: currentColor; transform: skewX(26.5deg); }
+  .marcos-conta { display: flex; align-items: center; gap: 0.7em; margin-top: var(--e-3); color: var(--destaque-texto); font-size: var(--t-3); font-weight: 800; letter-spacing: -0.02em; text-transform: uppercase; }
+  .marcos-barra { flex: none; width: 0.18em; height: 0.8em; background: var(--destaque); transform: skewX(26.5deg); }
   /* A história: grupos por ano se afastam (e-5), marcos do mesmo ano ficam perto (e-3) */
   .marcos-grupo + .marcos-grupo { margin-top: var(--e-5); }
   .marcos-rotulo { font-size: var(--t-rotulo); font-weight: 700; letter-spacing: 0.14em; color: var(--suave); margin-bottom: var(--e-2); }
@@ -427,7 +427,7 @@ const premios = [
   /* O marco em leitura acende: ganha a cor de destaque e a barra da marca ao lado */
   .marcos-item::before { content: ''; position: absolute; left: -1.3rem; top: 0.25em; width: 0.5rem; height: calc(var(--t-4) * 0.8); background: var(--destaque); transform: skewX(26.5deg) scaleY(0); transform-origin: bottom; transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
   :global(.marcos-vivos) .marcos-item.aceso { transform: translateX(1.3rem); }
-  :global(.marcos-vivos) .marcos-item.aceso .marcos-titulo { color: var(--destaque); }
+  :global(.marcos-vivos) .marcos-item.aceso .marcos-titulo { color: var(--destaque-texto); }
   :global(.marcos-vivos) .marcos-item.aceso .marcos-texto { color: var(--texto); }
   :global(.marcos-vivos) .marcos-item.aceso::before { transform: skewX(26.5deg) scaleY(1); }
   /* Com o número preso mostrando o ano, o rótulo de cada grupo fica só para leitores de tela */
@@ -570,7 +570,7 @@ const premios = [
   .nomes { display: flex; flex-wrap: wrap; gap: 0.18em 0; margin-top: var(--e-3); font-size: var(--t-4); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
   .nomes span { display: inline-flex; align-items: flex-start; }
   .nomes span::before { content: ''; align-self: center; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.4em 0 0.18em; background: var(--destaque); transform: skewX(26.5deg); }
-  .nomes .residente { color: var(--destaque); }
+  .nomes .residente { color: var(--destaque-texto); }
   .legenda { display: flex; align-items: center; gap: 0.6em; margin-top: var(--e-3); font-size: var(--t-rotulo); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
   .legenda i { flex: none; width: 1em; height: 1em; border-radius: 50%; background: var(--destaque); }
   .nomes sup i { margin-right: 0.35em; font-style: normal; font-size: 1.25em; line-height: 0; vertical-align: -0.12em; }

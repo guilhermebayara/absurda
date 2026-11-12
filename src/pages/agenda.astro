@@ -182,27 +182,48 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   // Atalho de anos: marca o ano que está na tela e abre o ano clicado.
   const atalhos = [...document.querySelectorAll<HTMLAnchorElement>('.anos-nav a')];
   const blocos = [...document.querySelectorAll<HTMLDetailsElement>('details.ano')];
+  const fila = document.querySelector<HTMLElement>('.anos-nav ul');
+  // Só um ano fica marcado por vez: o que cruza uma linha a 27% do alto da tela.
+  // A conta é refeita do zero a cada vez. Antes ela dependia da ordem dos avisos do navegador
+  // e, ao tocar num ano, quem acabava marcado era o seguinte (o tocado ainda estava abrindo).
+  let marcado = '';
+  let travaAte = 0;
+  const pintar = (id: string) => {
+    if (id === marcado) return;
+    marcado = id;
+    for (const a of atalhos) {
+      const atual = `ano-${a.dataset.ano}` === id;
+      if (atual) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+      // Traz o ano marcado para o meio da fila, rolando só a fila (nunca a página).
+      if (atual && fila) {
+        const ra = a.getBoundingClientRect();
+        const rf = fila.getBoundingClientRect();
+        fila.scrollTo({ left: fila.scrollLeft + ra.left - rf.left - (rf.width - ra.width) / 2, behavior: calmo.matches ? 'auto' : 'smooth' });
+      }
+    }
+  };
+  const medir = () => {
+    if (performance.now() < travaAte) return;
+    const linha = window.innerHeight * 0.27;
+    const bloco = blocos.find((b) => { const r = b.getBoundingClientRect(); return r.top <= linha && r.bottom > linha; });
+    if (bloco) pintar(bloco.id);
+  };
   for (const a of atalhos) {
     a.addEventListener('click', () => {
       const bloco = document.getElementById(`ano-${a.dataset.ano}`) as HTMLDetailsElement | null;
-      if (bloco && !bloco.open) alternar(bloco, true);
+      if (!bloco) return;
+      if (!bloco.open) alternar(bloco, true);
+      // O ano tocado fica marcado na hora; a medição volta quando ele termina de abrir.
+      pintar(bloco.id);
+      travaAte = performance.now() + 600;
+      setTimeout(medir, 650);
     });
   }
   if (blocos.length > 0) {
-    const marca = new IntersectionObserver(
-      (entradas) => {
-        for (const e of entradas) {
-          if (!e.isIntersecting) continue;
-          for (const a of atalhos) {
-            const atual = `ano-${a.dataset.ano}` === e.target.id;
-            a.toggleAttribute('aria-current', atual);
-            if (atual) a.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
-          }
-        }
-      },
-      { rootMargin: '-25% 0px -70% 0px' },
-    );
+    const marca = new IntersectionObserver(medir, { rootMargin: '-25% 0px -70% 0px' });
     blocos.forEach((b) => marca.observe(b));
+    // Abrir ou fechar um ano muda a altura dos blocos sem rolar a página: mede de novo.
+    blocos.forEach((b) => b.addEventListener('toggle', () => setTimeout(medir, 500)));
   }
 </script>
 
@@ -225,8 +246,14 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .anos-nav ul::-webkit-scrollbar { display: none; }
   .anos-nav a { position: relative; display: block; padding-left: 0.9em; font-size: clamp(0.875rem, 1.05vw, 1rem); font-weight: 800; letter-spacing: 0.08em; text-decoration: none; transition: color 0.2s; }
   .anos-nav a::before { content: ''; position: absolute; left: 0.2em; top: 50%; width: 0.36em; height: 1.45em; margin-top: -0.725em; background: var(--destaque); transform: skewX(26.5deg) scaleY(0); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
-  .anos-nav a:hover, .anos-nav a[aria-current] { color: var(--destaque); }
-  .anos-nav a:hover::before, .anos-nav a[aria-current]::before { transform: skewX(26.5deg) scaleY(1); }
+  .anos-nav a[aria-current] { color: var(--destaque-texto); }
+  .anos-nav a[aria-current]::before { transform: skewX(26.5deg) scaleY(1); }
+  /* Hover só em aparelho com cursor: no toque ele fica preso no último ano tocado, e dois
+     anos apareciam marcados ao mesmo tempo. */
+  @media (hover: hover) {
+    .anos-nav a:hover { color: var(--destaque-texto); }
+    .anos-nav a:hover::before { transform: skewX(26.5deg) scaleY(1); }
+  }
 
   /* Cada ano: o número gigante é o título e também o botão que abre e fecha */
   .ano { border-bottom: 1.5px solid var(--texto); scroll-margin-top: 3.5rem; }
@@ -244,9 +271,9 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .ano summary:hover .ano-arco { transform: rotate(518.5deg); }
   .ano summary:hover .ano-sinal { color: var(--destaque); }
   /* Com o ano fechado, os marcos aparecem ao lado do número. Aberto, eles descem para o corpo, com o texto completo. */
-  .ano-marcos { display: grid; gap: 0.3em; align-self: center; color: var(--destaque); font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; }
+  .ano-marcos { display: grid; gap: 0.3em; align-self: center; color: var(--destaque-texto); font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; }
   .ano-marcos span { display: flex; align-items: center; gap: 0.6em; }
-  .ano-marcos i { flex: none; width: 0.18em; height: 0.8em; background: currentColor; transform: skewX(26.5deg); }
+  .ano-marcos i { flex: none; width: 0.18em; height: 0.8em; background: var(--destaque); transform: skewX(26.5deg); }
   .ano[open]:not(.fechando) .ano-marcos { display: none; }
   /* Ao fechar, os marcos voltam para o lado do número sem estalo; o sinal já mostra "+". */
   .ano.fechando .ano-marcos { animation: marcos-voltam 0.32s ease both; }
@@ -257,11 +284,11 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
 
   /* Marco do ano: entra antes da lista, com a barra do logo */
   .marco { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2em 0.8em; margin: var(--e-2) 0 var(--e-3); color: var(--destaque); font-size: var(--t-4); line-height: 1.05; }
-  .marco span { align-self: center; flex: none; width: 0.18em; height: 0.8em; background: currentColor; transform: skewX(26.5deg); }
+  .marco span { align-self: center; flex: none; width: 0.18em; height: 0.8em; background: var(--destaque); transform: skewX(26.5deg); }
   .marco strong { font-weight: 800; letter-spacing: -0.03em; text-transform: uppercase; }
   /* Etiqueta do tipo de marco (por enquanto, só Carnaval) */
   .marco b, .ano-marcos em { padding: 0.2em 0.6em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.75rem; font-style: normal; font-weight: 700; letter-spacing: 0.08em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
-  .marco b { align-self: center; }
+  .marco b { align-self: center; color: var(--destaque-texto); }
   .marco em { font-size: var(--t-apoio); font-style: normal; color: var(--texto); }
 
   .sem-arquivo { color: var(--suave); font-size: var(--t-apoio); }
@@ -269,7 +296,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   /* Lista de eventos: uma linha por data. A capa passa por trás dos nomes. */
   .linhas li { border-top: 1px solid var(--linha); }
   .linhas .linha { position: relative; z-index: 2; display: grid; grid-template-columns: 6.5rem minmax(0, 1.6fr) minmax(0, 1fr); gap: var(--e-3); align-items: baseline; padding: 0.7rem 0; text-decoration: none; transition: padding 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.2s; }
-  .linhas a.linha:hover, .linhas a.linha:focus-visible { padding-left: 0.9rem; color: var(--destaque); }
+  .linhas a.linha:hover, .linhas a.linha:focus-visible { padding-left: 0.9rem; color: var(--destaque-texto); }
   .linha-data { font-size: 0.9375rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
   .linha-nome { font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; }
   .linha-local { font-size: 0.9375rem; color: var(--suave); }
