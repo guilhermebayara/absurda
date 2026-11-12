@@ -240,6 +240,41 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
     .papel:nth-of-type(n + 7) { display: none; }
   }
 
+  /* Deriva com a rolagem (só tela larga, e só onde o navegador liga animação à rolagem).
+     Nada entra nem sai: enquanto a página rola, cada objeto da mesa escorrega e gira um pouco,
+     cada um no seu ritmo, como coisas soltas sobre uma mesa que alguém esbarrou. Crachá grande
+     anda menos; papel, que é leve, anda mais. Usa translate e rotate, e não transform, para não
+     brigar com a inclinação, a entrada e o hover, que já usam transform. */
+  @keyframes deriva {
+    from { translate: var(--tx0, 0) var(--ty0, 0); rotate: var(--g0, 0deg); }
+    to { translate: var(--tx1, 0) var(--ty1, 0); rotate: var(--g1, 0deg); }
+  }
+  @media (min-width: 1101px) and (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .crachas li, .pulseiras li, .papel { animation: deriva linear both; }
+      /* Regra separada de propósito: junto do atalho "animation", a linha do tempo é zerada. */
+      .mesa .crachas li, .bancada .pulseiras li, .bancada .papel { animation-timeline: view(); animation-range: cover 0% cover 100%; }
+
+      .crachas li.ed { --ty0: 1rem; --ty1: -1rem; --g0: 0.6deg; --g1: -0.6deg; }
+      .crachas li:nth-child(2) { --ty0: 2.6rem; --ty1: -2.6rem; --g0: -1.6deg; --g1: 1.4deg; }
+      .crachas li:nth-child(3) { --ty0: -1.4rem; --ty1: 1.6rem; --tx0: -0.6rem; --tx1: 0.6rem; --g0: 1.2deg; --g1: -1.8deg; }
+      .crachas li:nth-child(4) { --ty0: 3.4rem; --ty1: -3rem; --g0: 1.8deg; --g1: -1deg; }
+      .crachas li:nth-child(5) { --ty0: 1.8rem; --ty1: -2.2rem; --tx0: 0.8rem; --tx1: -0.8rem; --g0: -1.4deg; --g1: 2deg; }
+      .crachas li:nth-child(6) { --ty0: -2rem; --ty1: 2.4rem; --g0: 2deg; --g1: -1.6deg; }
+
+      /* As pulseiras correm no próprio comprimento, umas para cada lado. */
+      .pulseiras li:nth-child(odd) { --tx0: -2.2rem; --tx1: 2.2rem; --g0: -0.5deg; --g1: 0.5deg; }
+      .pulseiras li:nth-child(even) { --tx0: 2.6rem; --tx1: -2.6rem; --g0: 0.6deg; --g1: -0.6deg; }
+
+      .papel-1 { --tx0: 1.5rem; --ty0: 3rem; --tx1: -2rem; --ty1: -3rem; --g0: -16deg; --g1: 12deg; }
+      .papel-2 { --tx0: -2rem; --ty0: 2rem; --tx1: 2.5rem; --ty1: -3.5rem; --g0: 10deg; --g1: -18deg; }
+      .papel-3 { --tx0: -1rem; --ty0: 4rem; --tx1: 1.5rem; --ty1: -2rem; --g0: 14deg; --g1: -8deg; }
+      .papel-4 { --tx0: 2.5rem; --ty0: 2.5rem; --tx1: -1.5rem; --ty1: -4rem; --g0: -12deg; --g1: 16deg; }
+      .papel-5 { --tx0: 1rem; --ty0: 3.5rem; --tx1: -1rem; --ty1: -2.5rem; --g0: 18deg; --g1: -10deg; }
+      .papel-6 { --tx0: -2.5rem; --ty0: 2rem; --tx1: 2rem; --ty1: -3rem; --g0: -8deg; --g1: 14deg; }
+    }
+  }
+
   @media (max-width: 820px) {
     /* No celular os crachás continuam em pé, todos do mesmo tamanho, numa fila para arrastar de
        lado. O próximo sempre aparece um pouco, para avisar que tem mais. */
