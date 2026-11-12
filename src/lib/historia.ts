@@ -8,15 +8,15 @@ export const idade = new Date().getFullYear() - 2009;
 // Vem do arquivo de eventos, com nomes repetidos unificados. A ordem dentro de cada faixa é de época.
 export const lineup = [
   ['Mineirão', 'Up e.music', 'Mercado das Borboletas', 'Mira', 'Granfinos', 'Casa Sapucaí'],
-  ['Velvet Club', 'Mary in Hell', 'CentoeQuatro', 'Hotel Diamante', 'Royalty Club', 'Studio Bar', 'GIS', 'Deputamadre', 'O Mercado',
-    'A Central', 'Viaduto Santa Tereza', 'Praça da Estação', 'Parque das Mangabeiras', 'Church', 'Lab', 'Funarte MG'],
-  ['On Board', 'Quina Galeria', 'Emme Lounge', 'União Israelita', 'Matriz', 'Anda', 'Secreto', 'Roxy Club', 'Josefine Club', 'Moss Club',
-    'Skorpius', 'Soleá', 'Rua Guaicurus', 'Necup', 'A Fábrica', 'Factory', 'Avenida dos Andradas', 'Ita Park', 'Fábrica Criativa',
-    'Galpão La Trupe', 'QG Rooftop', 'Gruta', 'Urbana', 'Espaço Even', 'LOL', 'Rock Content', 'Casa Híbrido', 'Jhon Jhon Club', 'Espettos',
-    'Pampulha', 'Rua da Bahia', 'Avenida Afonso Pena', 'Dduck', 'Code Bar', 'Yanã Bar', 'Villa Paraty', 'Catavento Cultural',
-    'Teatro da Cidade', 'Mamão com Açúcar', 'Jackie O', 'Prime Hall', 'A Autêntica', 'Sítio Via Lazer', '80Bar', 'Zona', 'Distrital', 'Lavos',
-    'Galpão do Folias', 'Irregular', 'Praça Sete', 'Casa Rosa do Bonfim', 'Andaluz Pub', 'Espaço Sapucaí', 'Galpão 54', 'Espaço Loc',
-    'Espaço Y', 'Clube Labareda', 'Major Lock'],
+  ['Velvet Club', 'Mary in Hell', 'Matriz', 'CentoeQuatro', 'GIS', 'Deputamadre', 'O Mercado', 'Viaduto Santa Tereza',
+    'Praça da Estação', 'Parque das Mangabeiras', 'Ita Park', 'Gruta', 'Avenida Afonso Pena', 'A Autêntica', 'Funarte MG', 'Clube Labareda'],
+  ['On Board', 'Quina Galeria', 'Emme Lounge', 'União Israelita', 'Anda', 'Hotel Diamante', 'Secreto', 'Roxy Club', 'Josefine Club',
+    'Moss Club', 'Skorpius', 'Royalty Club', 'Studio Bar', 'Soleá', 'Rua Guaicurus', 'Necup', 'A Fábrica', 'Factory', 'A Central',
+    'Avenida dos Andradas', 'Fábrica Criativa', 'Galpão La Trupe', 'QG Rooftop', 'Urbana', 'Espaço Even', 'LOL', 'Rock Content',
+    'Casa Híbrido', 'Jhon Jhon Club', 'Espettos', 'Pampulha', 'Rua da Bahia', 'Dduck', 'Code Bar', 'Yanã Bar', 'Villa Paraty',
+    'Catavento Cultural', 'Teatro da Cidade', 'Mamão com Açúcar', 'Jackie O', 'Church', 'Prime Hall', 'Sítio Via Lazer', 'Lab', '80Bar',
+    'Zona', 'Distrital', 'Lavos', 'Galpão do Folias', 'Irregular', 'Praça Sete', 'Casa Rosa do Bonfim', 'Andaluz Pub', 'Espaço Sapucaí',
+    'Galpão 54', 'Espaço Loc', 'Espaço Y', 'Major Lock'],
 ];
 export const totalDeLugares = lineup.flat().length;
 
