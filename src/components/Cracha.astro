@@ -117,12 +117,14 @@ const Tag = href ? 'a' : 'div';
   .cracha-desde span { font-size: 0.9375rem; line-height: 1.25; }
   .cracha-desde strong { font-size: clamp(3rem, 4.6vw, 4.5rem); font-weight: 800; line-height: 0.85; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; color: var(--c-detalhe); }
   /* Registro: o número do crachá, em todos. A condição de fundador, como dado oficial, só no do Ed. */
-  .cracha-registro { display: flex; gap: 1.5rem; margin-bottom: 0.7rem; padding-top: 0.6rem; border-top: 2px solid var(--c-texto); }
-  .cracha-registro > span { display: grid; gap: 0.2rem; }
+  /* Rótulo e valor na mesma linha, assentados na mesma base, colados ao código de barras
+     (desenho do Gui). A condição, quando existe, vai para a direita. */
+  .cracha-registro { display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem; margin-bottom: 0.3rem; padding-top: 0.5rem; border-top: 2px solid var(--c-texto); }
+  .cracha-registro > span { display: inline-flex; align-items: baseline; gap: 0.4em; white-space: nowrap; }
   .cracha-registro span span { font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
-  .cracha-registro strong { font-size: 1.25rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em; text-transform: uppercase; }
-  .cracha-codigo { display: grid; gap: 0.35rem; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap; overflow: hidden; }
-  .cracha-barras { display: block; height: 2rem; background: linear-gradient(90deg, currentColor 0 2px, transparent 2px 5px, currentColor 5px 6px, transparent 6px 10px, currentColor 10px 14px, transparent 14px 16px, currentColor 16px 17px, transparent 17px 22px, currentColor 22px 24px, transparent 24px 27px, currentColor 27px 28px, transparent 28px 31px) 0 0 / 31px 100% repeat-x; }
+  .cracha-registro strong { font-size: 1.375rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em; text-transform: uppercase; }
+  .cracha-codigo { display: grid; gap: 0.3rem; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap; overflow: hidden; }
+  .cracha-barras { display: block; height: 1.75rem; background: linear-gradient(90deg, currentColor 0 2px, transparent 2px 5px, currentColor 5px 6px, transparent 6px 10px, currentColor 10px 14px, transparent 14px 16px, currentColor 16px 17px, transparent 17px 22px, currentColor 22px 24px, transparent 24px 27px, currentColor 27px 28px, transparent 28px 31px) 0 0 / 31px 100% repeat-x; }
 
   @media (prefers-reduced-motion: reduce) { .cracha-giro, .cracha-frente, .cracha-verso { transition: none; } }
 </style>
