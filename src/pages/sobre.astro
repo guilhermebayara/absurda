@@ -657,7 +657,10 @@ const premios = [
   :global(.pino-novo) .trio-pino { position: relative; top: auto; height: calc(100lvh - 2 * var(--folga-cartao)); background: #0d0a0c; border-radius: var(--raio-cartao); clip-path: inset(0 round var(--raio-cartao)); animation: pino-trio linear both; }
   /* Regra separada de propósito (ver a mesma nota na Home). */
   :global(.pino-novo) .trio > .trio-pino { animation-timeline: --trio; animation-range: contain 0% contain 100%; }
-  :global(.pino-novo) .trio-legenda { padding-bottom: calc(var(--e-4) + 100lvh - 100svh); }
+  /* O cartão tem a altura da tela com a barra do Safari recolhida (lvh). A legenda guarda só a
+     diferença para a tela visível no momento (dvh): com a barra aberta ela sobe para não ficar
+     escondida; com a barra recolhida, encosta na margem de baixo do cartão, igual à de cima. */
+  :global(.pino-novo) .trio-legenda { padding-bottom: calc(var(--e-4) + 100lvh - 100svh); padding-bottom: calc(var(--e-4) + 100lvh - 100dvh); }
   /* Cada foto ocupa a cena inteira (antes parava na altura da tela com a barra aberta, e a
      sombra da legenda ficava desalinhada do pé da imagem). */
   :global(.pino-novo) .trio-quadro { height: auto; overflow: hidden; }
