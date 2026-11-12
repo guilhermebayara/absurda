@@ -101,16 +101,6 @@
     ]
   },
   {
-    "id": "muza",
-    "nome": "Muza",
-    "registros": [
-      {
-        "ano": "2016",
-        "onde": "Wig (a confirmar)"
-      }
-    ]
-  },
-  {
     "id": "giro",
     "nome": "Giro",
     "registros": [
@@ -136,11 +126,11 @@
     "registros": [
       {
         "ano": "2023",
-        "onde": "Bichanice (a confirmar)"
+        "onde": "Bichanice"
       },
       {
         "ano": "2022",
-        "onde": "Carnaval (a confirmar)"
+        "onde": "Carnaval"
       }
     ]
   }
