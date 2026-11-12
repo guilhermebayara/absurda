@@ -52,13 +52,12 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
         raiz.classList.add('js');
         // Aparelho de toque (celular, tablet). No iPhone com iOS 26, o Safari desenha uma banda
         // sólida atrás das suas barras sempre que existe um elemento preso (sticky ou fixed)
-        // encostado na borda da tela, mesmo invisível. Por isso, no toque, as cenas que ficavam
-        // presas na tela inteira (parede da Home, fotos do Trio no Sobre) deixam de usar sticky.
-        // TESTE: com ?pino=novo no endereço, a cena continua parada, só que por animação ligada
-        // à rolagem em vez de sticky (classe pino-novo). Sem isso, ela rola junto (classe toque).
+        // encostado na borda da tela, mesmo invisível. Por isso, no toque, as cenas que param
+        // na tela inteira (parede da Home, fotos do Trio no Sobre) não usam sticky:
+        // - pino-novo: a cena fica parada por uma animação ligada à rolagem;
+        // - toque: navegador sem essa animação; a cena simplesmente rola com a página.
         if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
-          var novo = /[?&]pino=novo/.test(location.search) && window.CSS && CSS.supports('animation-timeline: view()');
-          raiz.classList.add(novo ? 'pino-novo' : 'toque');
+          raiz.classList.add(window.CSS && CSS.supports('animation-timeline: view()') ? 'pino-novo' : 'toque');
         }
         // Cor de enfeite: o destaque usado sobre uma superfície da cor do texto (faixa,
         // menu, rodapé). Enfeite não precisa de contraste de leitura, mas também não pode
@@ -220,7 +219,29 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
         raiz.style.setProperty('--texto', cor);
         raiz.style.setProperty('--destaque', destaque);
         (window as any).__derivadas?.(fundo, cor, destaque);
+        conferirBarra(900);
       };
+      setTimeout(() => raiz.classList.add('troca-viva'), 500);
+
+      // Barras do Safari no iPhone. Elas copiam a cor de fundo do <html>, mas a cor da página
+      // troca aos poucos (0,7s) e o Safari às vezes fica com uma cor do meio do caminho. Aí,
+      // quando as barras reaparecem (ao rolar para cima, por exemplo), surge uma faixa de cor
+      // diferente da página. Quando a troca termina e a rolagem para, o fundo do <html> recebe
+      // por dois quadros a mesma cor com uma diferença invisível (1 em 255) e volta: é só um
+      // aviso para o Safari olhar de novo. A cor continua sendo a da página.
+      let espera = 0;
+      const olharDeNovo = () => {
+        const canais = getComputedStyle(raiz).backgroundColor.match(/\d+/g);
+        if (!canais || canais.length < 3) return;
+        const azul = Number(canais[2]);
+        raiz.style.backgroundColor = `rgb(${canais[0]}, ${canais[1]}, ${azul < 255 ? azul + 1 : azul - 1})`;
+        requestAnimationFrame(() => requestAnimationFrame(() => { raiz.style.backgroundColor = ''; }));
+      };
+      let pendente = false;
+      function conferirBarra(ms: number) { pendente = true; window.clearTimeout(espera); espera = window.setTimeout(() => { pendente = false; olharDeNovo(); }, ms); }
+      window.addEventListener('scroll', () => { if (pendente) conferirBarra(350); }, { passive: true });
+      // Ao abrir a página e ao voltar para ela pelo botão de voltar do navegador.
+      window.addEventListener('pageshow', () => conferirBarra(700));
       // Trechos com paleta fechada (data-tema-lista): sorteiam um tema só entre os permitidos.
       document.querySelectorAll<HTMLElement>('[data-tema-lista]').forEach((trecho) => {
         const opcoes = (trecho.dataset.temaLista ?? '').split(';').filter(Boolean);
@@ -392,9 +413,13 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
        para o contraste de leitura quando o tema pede (ver __derivadas). */
     --suave: color-mix(in srgb, var(--texto) 72%, var(--fundo));
     --destaque-texto: var(--destaque);
-    transition: --fundo 0.7s ease, --texto 0.7s ease, --destaque 0.7s ease, --enfeite 0.7s ease, --destaque-texto 0.7s ease, --suave 0.7s ease;
   }
-  @media (prefers-reduced-motion: reduce) { :root { transition: none; } }
+  /* A troca suave de tema só liga depois que a página abriu (classe posta pelo script do fim).
+     Antes disso o tema sorteado entra de uma vez. Sem isso, no Safari do iPhone a página às
+     vezes ficava parada no meio do caminho entre o tema de reserva e o sorteado: um fundo
+     mostarda com texto lilás que não é tema nenhum, e ilegível. */
+  :root.troca-viva { transition: --fundo 0.7s ease, --texto 0.7s ease, --destaque 0.7s ease, --enfeite 0.7s ease, --destaque-texto 0.7s ease, --suave 0.7s ease; }
+  @media (prefers-reduced-motion: reduce) { :root.troca-viva { transition: none; } }
 
   *, *::before, *::after { box-sizing: border-box; }
   html { overflow-x: clip; background: var(--fundo); color: var(--texto); }

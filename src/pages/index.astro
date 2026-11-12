@@ -345,13 +345,13 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
      invisível, faz o Safari do iPhone desenhar uma banda atrás das barras. Sai da página. */
   @media (hover: none) { .espia { display: none; } }
 
-  /* Toque: a parede não fica presa. Ela rola com a página, as fileiras continuam correndo e as
+  /* Toque sem animação ligada à rolagem: a parede não fica presa. Ela rola com a página, as fileiras continuam correndo e as
      capas continuam atravessando. Sem sticky, o Safari do iPhone não cria a banda na borda. */
   :global(.toque) .historia.viva { height: auto; }
   :global(.toque) .historia.viva .historia-pino { position: relative; top: auto; height: auto; padding: var(--e-4) 0; }
 
-  /* TESTE (?pino=novo): a parede continua parada na tela, mas quem a segura é uma animação
-     ligada à rolagem (o bloco desce na mesma medida em que a página sobe), e não sticky.
+  /* Toque com animação ligada à rolagem (o caso do iPhone): a parede continua parada na tela,
+     mas quem a segura é uma animação ligada à rolagem (o bloco desce na mesma medida em que a página sobe), e não sticky.
      A cena ocupa a tela inteira, até por baixo da barra do navegador (lvh); o conteúdo guarda
      no pé a diferença para a tela com a barra aberta (svh). */
   :global(.pino-novo) .historia.viva { height: calc(100lvh + 50vh); view-timeline: --parede block; }

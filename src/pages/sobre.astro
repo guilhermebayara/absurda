@@ -627,7 +627,7 @@ const premios = [
     :global(.js) .trio-quadro img { transform: none; }
   }
 
-  /* Toque: o Trio não fica preso. As fotos viram uma sequência que rola, cada uma com o seu
+  /* Toque sem animação ligada à rolagem: o Trio não fica preso. As fotos viram uma sequência que rola, cada uma com o seu
      ano e a sua legenda. Sem sticky, o Safari do iPhone não cria a banda na borda da tela. */
   :global(.toque) .trio { height: auto; }
   :global(.toque) .trio-pino { position: relative; top: auto; height: auto; overflow: visible; }
@@ -637,13 +637,16 @@ const premios = [
   :global(.toque) .trio-quadro .trio-legenda > * { transform: none; opacity: 1; }
   :global(.toque) .trio-quadro img { transform: none; }
 
-  /* TESTE (?pino=novo): as fotos continuam trocando com a cena parada, mas quem segura a cena
-     é uma animação ligada à rolagem, e não sticky. A cena vai até a borda de baixo (lvh) e a
+  /* Toque com animação ligada à rolagem (o caso do iPhone): as fotos continuam trocando com a
+     cena parada, mas quem segura a cena é essa animação, e não sticky. A cena vai até a borda de baixo (lvh) e a
      legenda guarda a diferença para a tela com a barra aberta (svh). */
   :global(.pino-novo) .trio { height: calc(var(--n) * 85svh + 100lvh); view-timeline: --trio block; }
   :global(.pino-novo) .trio-pino { position: relative; top: auto; height: 100lvh; animation: pino-trio linear both; }
   /* Regra separada de propósito (ver a mesma nota na Home). */
   :global(.pino-novo) .trio > .trio-pino { animation-timeline: --trio; animation-range: contain 0% contain 100%; }
   :global(.pino-novo) .trio-legenda { padding-bottom: calc(var(--e-4) + 100lvh - 100svh); }
+  /* Cada foto ocupa a cena inteira (antes parava na altura da tela com a barra aberta, e a
+     sombra da legenda ficava desalinhada do pé da imagem). */
+  :global(.pino-novo) .trio-quadro { height: auto; overflow: hidden; }
   @keyframes pino-trio { to { transform: translateY(calc(var(--n) * 85svh)); } }
 </style>

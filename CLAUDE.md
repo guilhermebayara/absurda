@@ -141,6 +141,15 @@ regras de branch desta seção.
 - **Fundo da página no iPhone:** `<html>` tem a cor da página; `<body>` e `<main>` não têm
   fundo. Não pinte a faixa do navegador com script nem com elemento fixo (ver o comentário
   em `src/layouts/Base.astro`).
+- **Banda do Safari no iPhone (iOS 26):** o Safari desenha uma banda sólida atrás das suas
+  barras sempre que existe um elemento preso (`sticky` ou `fixed`) encostado na borda da
+  tela, mesmo invisível. Não pode haver banda: em aparelho de toque, nada de `sticky` ou
+  `fixed` que chegue à borda de baixo. As cenas que param na tela inteira (parede da Home,
+  Trio no Sobre) usam animação ligada à rolagem no toque (classe `pino-novo`, posta pelo
+  script de `Base.astro`), e as prévias que seguem o cursor somem no toque.
+- **Troca de tema no iPhone:** a troca suave só liga depois que a página abriu (classe
+  `troca-viva`). Ligada desde o início, o Safari às vezes parava no meio do caminho entre
+  dois temas, com cores ilegíveis.
 - **Letreiros no Safari:** cada grupo animado precisa ser curto (até uns dez nomes), ou o
   Safari deixa de desenhar.
 - **Tokens e chaves** nunca entram no código nem em conversa: só nos segredos da Cloudflare
