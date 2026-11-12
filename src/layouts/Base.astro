@@ -288,8 +288,7 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
         fechados.forEach((t) => guarda.observe(t));
       }
 
-      // Barras presas no topo, em aparelho de toque (atalho de anos da Agenda, ano dos Marcos no
-      // Sobre). No iPhone, uma barra sticky no topo basta para o Safari criar a banda atrás das
+      // Barras presas no topo, em aparelho de toque (atalho de anos da Agenda). No iPhone, uma barra sticky no topo basta para o Safari criar a banda atrás das
       // suas barras, embaixo também, e ela não some mais. Então, no toque, a barra acompanha a
       // rolagem por animação (ver "Barras presas" no CSS). A animação precisa saber a altura do
       // trecho por onde a barra anda e a da própria barra: é o que se mede aqui.
@@ -428,6 +427,10 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
     --e-4: clamp(2rem, 4vw, 3.5rem);
     --e-5: clamp(3rem, 7vw, 6rem);
     --e-6: clamp(3.5rem, 9vw, 8rem);
+    /* Cartões do celular (rodapé, menu, Trio, Marcos): o mesmo canto arredondado e a mesma
+       folga até a borda, para lerem como forma e não como recorte. */
+    --raio-cartao: clamp(1.5rem, 4vw, 3.5rem);
+    --folga-cartao: 0.75rem;
     --linha: color-mix(in srgb, var(--texto) 28%, transparent);
     /* Sem JavaScript valem estas duas. Com ele, o script do início da página ajusta as duas
        para o contraste de leitura quando o tema pede (ver __derivadas). */
@@ -602,6 +605,13 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
   .menu-fora { display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; padding-top: 1.25rem; border-top: 1.5px solid color-mix(in srgb, var(--fundo) 30%, transparent); }
   .menu-fora a { font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; text-decoration: none; }
   @media (prefers-reduced-motion: reduce) { .menu[open] nav a { animation: none; } }
+  /* No celular o menu é um cartão, como o rodapé: cantos arredondados e a cor da página em
+     volta. No iPhone, a área do relógio fica na cor da página enquanto o menu está aberto;
+     com os cantos, o menu parece pousado sobre ela em vez de cortado por uma faixa. */
+  @media (max-width: 860px) {
+    .menu { height: calc(100% - var(--folga-cartao)); border-radius: var(--raio-cartao); }
+    .menu::backdrop { background: var(--fundo); }
+  }
 
   @media (max-width: 860px) {
     .topo-nav { display: none !important; }
@@ -635,16 +645,17 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
 
   /* Barras presas no topo, no toque. O trecho (data-trilho) é a linha do tempo; a barra
      (data-barra) desce na mesma medida em que o trecho sobe, do instante em que o trecho
-     encosta no topo da tela até o fim dele. "sempre" vale em qualquer largura; "estreita", só
-     no desenho de celular. A linha do tempo fica em regra separada da animação de propósito:
+     encosta no topo da tela até o fim dele. A linha do tempo fica em regra separada da animação de propósito:
      juntas, o compactador de CSS funde as duas e o navegador descarta a declaração. */
   html.pino-novo [data-trilho] { view-timeline: --trilho block; }
   html.pino-novo [data-barra='sempre'] { position: relative; top: auto; animation: barra-presa linear both; }
   html.pino-novo [data-trilho] > [data-barra='sempre'] { animation-timeline: --trilho; animation-range: contain 0% exit calc(100% - var(--barra, 0px)); }
-  @media (max-width: 820px) {
-    html.pino-novo [data-barra='estreita'] { position: relative; top: auto; animation: barra-presa linear both; }
-    html.pino-novo [data-trilho] > [data-barra='estreita'] { animation-timeline: --trilho; animation-range: contain 0% exit calc(100% - var(--barra, 0px)); }
-  }
+  /* Enquanto a barra está presa, uma cobertura na cor da página sobe dela até acima da tela.
+     No iPhone a página continua visível atrás do relógio, e sem isso o texto que passa por
+     cima da barra aparecia ali. A cobertura surge quando a barra encosta no topo. */
+  html.pino-novo [data-barra='sempre']::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 8rem; background: var(--fundo); pointer-events: none; animation: barra-cobre linear both; }
+  html.pino-novo [data-trilho] > [data-barra='sempre']::before { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + 3rem); }
+  @keyframes barra-cobre { from { opacity: 0; } to { opacity: 1; } }
   @keyframes barra-presa { to { transform: translateY(calc(var(--alt, 0px) - var(--barra, 0px))); } }
 
   /* Rodapé grande */

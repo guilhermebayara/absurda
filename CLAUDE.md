@@ -147,9 +147,13 @@ regras de branch desta seção.
   ela não some mais até recarregar. Não pode haver banda: em aparelho de toque, nenhum
   `sticky` ou `fixed`. O que precisa ficar parado usa animação ligada à rolagem (classe
   `pino-novo`, posta pelo script de `Base.astro`): as cenas de tela inteira (parede da Home,
-  Trio no Sobre) e as barras do topo (`data-trilho` e `data-barra`: atalho de anos da Agenda,
-  ano dos Marcos no Sobre). As prévias que seguem o cursor somem no toque. Ao criar algo
-  preso novo, siga um desses dois modelos e confira no iPhone.
+  Trio e Marcos no Sobre) e a barra do topo da Agenda (`data-trilho` e `data-barra`). As
+  prévias que seguem o cursor somem no toque. Ao criar algo preso novo, siga um desses
+  modelos e confira no iPhone.
+- **Cartões no celular:** no iPhone a página aparece atrás do relógio e da barra de endereço,
+  então uma cena parada de tela inteira parece um retângulo cortado. A saída (do Gui) é a do
+  rodapé: no celular, rodapé, menu, Trio e Marcos são cartões, com `--raio-cartao` e
+  `--folga-cartao` (em `Base.astro`). Cena nova parada no celular segue o mesmo desenho.
 - **Troca de tema no iPhone:** a troca suave só liga depois que a página abriu (classe
   `troca-viva`). Ligada desde o início, o Safari às vezes parava no meio do caminho entre
   dois temas, com cores ilegíveis.
