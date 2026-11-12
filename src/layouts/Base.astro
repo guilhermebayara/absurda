@@ -182,7 +182,6 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
         <span class="rm-eco rm-eco1" aria-hidden="true"><Completo /></span>
         <Completo />
       </a>
-      <i class="fim-da-pagina" aria-hidden="true"></i>
     </footer>
 
 
@@ -203,9 +202,15 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
         if (opcoes.length > 0) trecho.dataset.tema = opcoes[Math.floor(Math.random() * opcoes.length)];
       });
       let fechado: HTMLElement | null = null;
-      // Fim da página à vista: o fundo do <html> passa a ser o do rodapé (ver html.no-fim).
-      const fim = document.querySelector('.fim-da-pagina');
-      if (fim) new IntersectionObserver(([e]) => raiz.classList.toggle('no-fim', e.isIntersecting && window.scrollY > 0), { rootMargin: '0px 0px 200px 0px' }).observe(fim);
+      // Perto do fim da página (e já fora do topo), o fundo do <html> passa a ser o do rodapé.
+      let fimPedido = 0;
+      const verFim = () => {
+        fimPedido = 0;
+        const falta = document.documentElement.scrollHeight - (window.scrollY + window.innerHeight);
+        raiz.classList.toggle('no-fim', falta < window.innerHeight * 0.5 && window.scrollY > window.innerHeight * 0.2);
+      };
+      addEventListener('scroll', () => { if (!fimPedido) fimPedido = requestAnimationFrame(verFim); }, { passive: true });
+      verFim();
 
       const trechos = document.querySelectorAll<HTMLElement>('[data-tema]');
       if (trechos.length > 0) {
@@ -372,14 +377,19 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
 
   *, *::before, *::after { box-sizing: border-box; }
   html { overflow-x: clip; background: var(--fundo); color: var(--texto); }
-  /* No iPhone, o Safari pinta a faixa atrás da barra de endereço (e o elástico do fim da
-     página) com o fundo do <html>, não com o último elemento. Quando o fim do rodapé está na
-     tela, o <html> assume a cor do rodapé, e o rodapé parece ir até a borda. O <body> guarda
-     a cor normal da página, para o resto não mudar. */
+  /* No iPhone, o Safari pinta a faixa atrás das barras (e o elástico do fim da página) com o
+     fundo do <html>. Para o rodapé parecer ir até a borda, o <html> assume a cor dele quando
+     a página chega perto do fim (html.no-fim). Regras que sustentam isso:
+     - o <body> NÃO tem fundo: se tiver, o Safari passa a usar o dele, e de forma atrasada
+       (foi o que causou a faixa de cor errada no topo);
+     - quem pinta a página são o topo e o <main>, que cobrem o <html> em todo o conteúdo;
+     - o <main> desce por baixo dos cantos arredondados do rodapé, para o canto não deixar
+       ver a cor do <html>. */
   html.no-fim { background: var(--texto); }
-  .fim-da-pagina { position: absolute; left: 0; bottom: 0; width: 1px; height: 1px; }
+  .topo, main { background: var(--fundo); }
+  main { padding-bottom: calc(clamp(2rem, 5vw, 4rem) + clamp(1.5rem, 4vw, 3.5rem)); }
   /* Corpo em peso 500: a Urbanist em 400 afina demais sobre fundos de cor viva e nos temas claros */
-  body { overflow-x: clip; margin: 0; min-height: 100svh; background: var(--fundo); font: 500 1.0625rem/1.5 var(--fonte); -webkit-font-smoothing: antialiased; }
+  body { overflow-x: clip; margin: 0; font: 500 1.0625rem/1.5 var(--fonte); -webkit-font-smoothing: antialiased; }
   img, svg { display: block; max-width: 100%; }
   a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.06em; }
   :focus-visible { outline: 3px solid var(--destaque); outline-offset: 3px; }
@@ -563,7 +573,7 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
   .nav-fora svg { display: inline-block; width: 0.72em; height: 0.72em; margin-left: 0.4em; vertical-align: -0.02em; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 
   /* Rodapé grande */
-  .rodape { position: relative; --lw: min(100vw - 2 * var(--margem), 165svh); margin-top: clamp(2rem, 5vw, 4rem); padding: clamp(2rem, min(4.5vw, 6svh), 4rem) var(--margem) 0; border-radius: clamp(1.5rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 3.5rem) 0 0; background: var(--texto); color: var(--fundo); overflow: hidden; transition: none; }
+  .rodape { position: relative; --lw: min(100vw - 2 * var(--margem), 165svh); margin-top: calc(-1 * clamp(1.5rem, 4vw, 3.5rem)); padding: clamp(2rem, min(4.5vw, 6svh), 4rem) var(--margem) 0; border-radius: clamp(1.5rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 3.5rem) 0 0; background: var(--texto); color: var(--fundo); overflow: hidden; transition: none; }
   .rodape-topo { display: grid; grid-template-columns: auto 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
   /* Menu grande em duas colunas de três: continua enorme sem deixar o rodapé mais alto que a tela */
   .rodape-nav ul { display: grid; grid-template-rows: repeat(3, auto); grid-auto-flow: column; column-gap: 0.9em; font-size: clamp(1.6rem, min(5.1vw, 10.5svh), 6.5rem); }
