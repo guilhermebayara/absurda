@@ -1,6 +1,7 @@
 ---
 nome: "Charlotte Drag"
 funcao: "DJ residente"
+foto: "/equipe/charlotte-drag.jpg"
 grupo: residentes
 situacao: atual
 ordem: 6

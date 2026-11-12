@@ -3,8 +3,8 @@
 //
 // Três blocos:
 // 1. Quem faz hoje, em crachás de produção, espalhados como numa mesa de produção antes da
-//    festa: uns por cima dos outros, alguns presos com fita, e uma pilha de crachás em branco
-//    no canto. Duas cores: produção (Ed e Gui) e cabine (residentes). O do Ed é maior e leva
+//    festa, uns por cima dos outros. Só os crachás: fita e pilha em branco foram testadas e
+//    saíram, a disposição dá conta sozinha. Duas cores: produção (Ed e Gui) e cabine (residentes). O do Ed é maior e leva
 //    o selo "Fundador", que só ele tem. Tudo cabe numa tela, com o crachá sempre 5 por 7.
 //    No celular todos têm o mesmo tamanho e ficam em fila, para arrastar de lado.
 //    Com cursor, o crachá vira e mostra desde quando a pessoa está na festa.
@@ -46,16 +46,10 @@ const areas = [...new Set(foraDaCabine.map((n) => n.area))];
       <ul class="crachas">
         {atuais.map((p, i) => (
           <li class:list={{ ed: p.id === 'ed-luiz' }} data-anima="surge" style={`--i:${i}`}>
-            {[0, 1, 3, 4].includes(i) && <span class="fita" aria-hidden="true"></span>}
             <Cracha nome={p.data.nome} funcao={p.data.funcao} grupo={p.data.grupo} foto={p.data.foto} desde={p.data.desde}
               href={`/equipe/${p.id}`} fundador={p.id === 'ed-luiz'} verso />
           </li>
         ))}
-        <li class="pilha" aria-hidden="true">
-          <span class="branco branco-3"></span>
-          <span class="branco branco-2"></span>
-          <span class="branco branco-1"><span class="branco-furo"></span><Arroba class="branco-marca" /><span class="branco-dica">Passe o cursor num crachá para ver o verso</span></span>
-        </li>
       </ul>
     </div>
     <p class="t-pequeno crachas-dica" aria-hidden="true">Arraste para ver todo mundo</p>
@@ -118,7 +112,6 @@ const areas = [...new Set(foraDaCabine.map((n) => n.area))];
   .crachas li.ed > :global(.cracha) { transform: rotate(-1.6deg); }
   .crachas li > :global(.cracha:hover), .crachas li > :global(.cracha:focus-visible) { transform: rotate(0deg) translateY(-0.3rem); }
   .crachas li:hover, .crachas li:focus-within { z-index: 5; }
-  .pilha, .fita { display: none; }
   .crachas-dica { display: none; }
 
   /* A mesa. Tudo é medido pela altura e pela largura da própria mesa (cqh e cqw), para a
@@ -136,8 +129,9 @@ const areas = [...new Set(foraDaCabine.map((n) => n.area))];
     .crachas li:nth-child(2) { left: var(--x0); top: 0; }
     .crachas li:nth-child(3) { left: calc(var(--x0) + var(--dx)); top: 4cqh; z-index: 2; }
     .crachas li:nth-child(4) { left: calc(var(--x0) + 2 * var(--dx)); top: 1cqh; }
-    .crachas li:nth-child(5) { left: calc(var(--x0) + 0.22 * var(--dx)); top: calc(var(--ap) + 5.5cqh); z-index: 3; }
-    .crachas li:nth-child(6) { left: calc(var(--x0) + 1.18 * var(--dx)); top: calc(var(--ap) + 3.5cqh); z-index: 2; }
+    /* A linha de baixo tem dois, encaixados nos vãos da de cima. */
+    .crachas li:nth-child(5) { left: calc(var(--x0) + 0.5 * var(--dx)); top: calc(var(--ap) + 5.5cqh); z-index: 3; }
+    .crachas li:nth-child(6) { left: calc(var(--x0) + 1.5 * var(--dx)); top: calc(var(--ap) + 3.5cqh); z-index: 2; }
     .crachas li:hover, .crachas li:focus-within { z-index: 6; }
 
     /* No crachá grande tudo cresce junto. */
@@ -146,30 +140,11 @@ const areas = [...new Set(foraDaCabine.map((n) => n.area))];
     .crachas li.ed :global(.cracha-selo) { top: 5.5rem; right: -1.4rem; width: 8.5rem; }
     .crachas li.ed :global(.cracha-selo strong) { font-size: 1rem; }
     .crachas li.ed :global(.cracha-selo span) { font-size: 2.25rem; }
-    .crachas li.ed :global(.cracha-verso .cracha-selo) { top: auto; bottom: 6.5rem; right: 1.25rem; }
+    .crachas li.ed :global(.cracha-registro strong) { font-size: 1.75rem; }
     .crachas li.ed :global(.cracha-desde strong) { font-size: clamp(6rem, 11vw, 10rem); }
     .crachas li.ed :global(.cracha-desde span) { font-size: 1.125rem; }
     .crachas li:not(.ed) :global(.cracha-face) { padding: 0.7rem 0.8rem 0.8rem; }
     .crachas li:not(.ed) :global(.cracha-topo) { margin-top: 0.55rem; }
-
-    /* Fita: um pedaço de durex segurando o crachá na mesa. Enfeite puro. */
-    .fita { display: block; position: absolute; z-index: 4; top: -0.7rem; left: 50%; width: 5.5rem; height: 1.6rem; margin-left: -2.75rem; background: color-mix(in srgb, var(--texto) 38%, transparent); transform: rotate(-4deg); pointer-events: none;
-      clip-path: polygon(0 0, 3% 20%, 0 40%, 3% 60%, 0 80%, 3% 100%, 97% 100%, 100% 80%, 97% 60%, 100% 40%, 97% 20%, 100% 0); }
-    .crachas li:nth-child(2) .fita { left: 22%; transform: rotate(-38deg); top: -0.3rem; }
-    .crachas li:nth-child(4) .fita { left: 80%; transform: rotate(34deg); top: -0.2rem; }
-    .crachas li:nth-child(5) .fita { left: 50%; transform: rotate(5deg); }
-    .crachas li.ed .fita { left: 16%; width: 7rem; height: 1.9rem; transform: rotate(-32deg); top: 0; }
-
-    /* Pilha de crachás em branco, esperando nome. O de cima leva a dica do verso. */
-    .pilha { display: block; right: 0; bottom: 1cqh; aspect-ratio: 5 / 7; }
-    .branco { position: absolute; inset: 0; border-radius: clamp(1rem, 1.8vw, 1.5rem); }
-    .branco-3 { background: var(--vivo); transform: rotate(9deg) translate(4%, 2%); }
-    .branco-2 { background: var(--texto); transform: rotate(-6deg) translate(-3%, 1%); box-shadow: 0 0 0 2px var(--fundo); }
-    .branco-1 { display: grid; grid-template-rows: auto 1fr auto; justify-items: center; padding: 0.7rem 1rem 1.25rem; background: var(--vivo); color: var(--sobre-vivo); transform: rotate(2.5deg); box-shadow: 0 0 0 2px var(--fundo); }
-    .branco-furo { width: 2.75rem; height: 0.6rem; border-radius: 1rem; background: var(--fundo); }
-    .branco-1 :global(.branco-marca) { align-self: center; width: 46%; height: auto; color: var(--vivo-detalhe); }
-    .branco-dica { max-width: 12em; text-align: center; font-size: 0.875rem; line-height: 1.3; }
-    @media not ((hover: hover) and (pointer: fine)) { .branco-dica { visibility: hidden; } }
   }
 
   /* 2. Quem já fez parte: line-up, no desenho das listas do Sobre. */

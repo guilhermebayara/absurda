@@ -50,12 +50,17 @@ const Tag = href ? 'a' : 'div';
       <span class="cracha-face cracha-verso" aria-hidden="true">
         <span class="cracha-furo"></span>
         <span class="cracha-topo"><Arroba class="cracha-marca" /><span>Na @bsurda</span></span>
-        {fundador && <span class="cracha-selo"><strong>Fundador</strong><span>2009</span></span>}
         <span class="cracha-desde">
           <span>Desde</span>
           <strong>{desde ?? 'XXXX'}</strong>
           <span>{anos ?? 'X'} anos de festa</span>
         </span>
+        {fundador && (
+          <span class="cracha-registro">
+            <span><span>Crachá nº</span><strong>001</strong></span>
+            <span><span>Condição</span><strong>Fundador</strong></span>
+          </span>
+        )}
         <span class="cracha-codigo">
           <span class="cracha-barras"></span>
           <span>{codigo}</span>
@@ -73,9 +78,14 @@ const Tag = href ? 'a' : 'div';
   .cracha-producao { --c-fundo: var(--vivo); --c-texto: var(--sobre-vivo); --c-detalhe: var(--vivo-detalhe); }
   .cracha-giro { position: relative; display: block; height: 100%; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
   .cracha-face { position: relative; display: grid; grid-template-rows: auto auto 1fr auto auto; height: 100%; padding: 0.9rem 0.9rem 1rem; border-radius: clamp(1rem, 1.8vw, 1.5rem); background: var(--c-fundo); backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-  .cracha-verso { position: absolute; inset: 0; grid-template-rows: auto auto 1fr auto auto; transform: rotateY(180deg); }
+  .cracha-verso { position: absolute; inset: 0; grid-template-rows: auto auto 1fr; grid-auto-rows: auto; transform: rotateY(180deg); visibility: hidden; transition: visibility 0s 0.14s; }
+  .cracha-frente { transition: visibility 0s 0.14s; }
   @media (hover: hover) and (pointer: fine) {
     .cracha-vira:hover .cracha-giro, .cracha-vira:focus-visible .cracha-giro { transform: rotateY(180deg); }
+    /* Além de esconder o avesso de cada face, troca a face visível no meio do giro. Sem isso,
+       alguns navegadores mostravam o selo da frente espelhado no verso. */
+    .cracha-vira:hover .cracha-frente, .cracha-vira:focus-visible .cracha-frente { visibility: hidden; }
+    .cracha-vira:hover .cracha-verso, .cracha-vira:focus-visible .cracha-verso { visibility: visible; }
   }
 
   .cracha-furo { justify-self: center; width: 2.75rem; height: 0.6rem; border-radius: 1rem; background: var(--fundo); }
@@ -93,8 +103,6 @@ const Tag = href ? 'a' : 'div';
 
   /* Selo do fundador: um adesivo redondo colado por cima do crachá, só no do Ed. */
   .cracha-selo { position: absolute; top: 4.6rem; right: -0.9rem; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 0.1rem; width: 6rem; aspect-ratio: 1; border-radius: 50%; background: var(--c-texto); color: var(--c-fundo); transform: rotate(12deg); text-transform: uppercase; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-  /* No verso o selo vai para o canto de baixo, para não cobrir o ano. */
-  .cracha-verso .cracha-selo { top: auto; bottom: 4.2rem; right: 0.9rem; transform: rotate(-10deg); }
   .cracha-selo strong { font-size: 0.8125rem; font-weight: 800; letter-spacing: 0.08em; }
   .cracha-selo span { font-size: 1.5rem; font-weight: 800; line-height: 0.9; letter-spacing: -0.03em; }
 
@@ -103,8 +111,13 @@ const Tag = href ? 'a' : 'div';
   .cracha-desde { display: grid; align-content: center; gap: 0.4rem; min-height: 0; }
   .cracha-desde span { font-size: 0.9375rem; line-height: 1.25; }
   .cracha-desde strong { font-size: clamp(3rem, 4.6vw, 4.5rem); font-weight: 800; line-height: 0.85; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; color: var(--c-detalhe); }
+  /* Só no verso do Ed: "fundador" como dado oficial do crachá, e não como adesivo. */
+  .cracha-registro { display: flex; gap: 1.5rem; margin-bottom: 0.9rem; padding-top: 0.7rem; border-top: 2px solid var(--c-texto); }
+  .cracha-registro > span { display: grid; gap: 0.2rem; }
+  .cracha-registro span span { font-size: 0.6875rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; }
+  .cracha-registro strong { font-size: 1.25rem; font-weight: 800; line-height: 1; letter-spacing: -0.02em; text-transform: uppercase; }
   .cracha-codigo { display: grid; gap: 0.35rem; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; white-space: nowrap; overflow: hidden; }
   .cracha-barras { display: block; height: 2rem; background: linear-gradient(90deg, currentColor 0 2px, transparent 2px 5px, currentColor 5px 6px, transparent 6px 10px, currentColor 10px 14px, transparent 14px 16px, currentColor 16px 17px, transparent 17px 22px, currentColor 22px 24px, transparent 24px 27px, currentColor 27px 28px, transparent 28px 31px) 0 0 / 31px 100% repeat-x; }
 
-  @media (prefers-reduced-motion: reduce) { .cracha-giro { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .cracha-giro, .cracha-frente, .cracha-verso { transition: none; } }
 </style>
