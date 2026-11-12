@@ -147,7 +147,6 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
     </main>
 
     <!-- Rodapé: um bloco próprio, com as cores invertidas em relação à página -->
-    <div class="chao" aria-hidden="true"></div>
     <footer class="rodape">
       <div class="rodape-topo">
         <nav class="rodape-nav" aria-label="Rodapé">
@@ -203,16 +202,6 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
         if (opcoes.length > 0) trecho.dataset.tema = opcoes[Math.floor(Math.random() * opcoes.length)];
       });
       let fechado: HTMLElement | null = null;
-      // Quando o rodapé já ocupa a borda de baixo da tela, liga o "chão" (ver .chao no CSS).
-      const rodape = document.querySelector('.rodape');
-      let fimPedido = 0;
-      const verFim = () => {
-        fimPedido = 0;
-        raiz.classList.toggle('no-fim', !!rodape && rodape.getBoundingClientRect().top < window.innerHeight - 16);
-      };
-      addEventListener('scroll', () => { if (!fimPedido) fimPedido = requestAnimationFrame(verFim); }, { passive: true });
-      addEventListener('resize', verFim);
-      verFim();
 
       const trechos = document.querySelectorAll<HTMLElement>('[data-tema]');
       if (trechos.length > 0) {
@@ -380,14 +369,11 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
   *, *::before, *::after { box-sizing: border-box; }
   html { overflow-x: clip; background: var(--fundo); color: var(--texto); }
   /* iPhone (Safari): as faixas atrás das barras do navegador seguem o fundo do <html>, e só
-     acompanham as trocas de tema enquanto nada opaco cobre a página inteira. Por isso:
-     - <html> tem sempre a cor da página, e <body> e <main> NÃO têm fundo (com fundo neles,
-       o Safari congela a cor das faixas e o efeito de tela infinita se perde);
-     - para a faixa de baixo ficar da cor do rodapé no fim da página, existe o "chão": uma
-       tira fixa na borda de baixo, da cor do rodapé, que só aparece quando o rodapé já
-       ocupa essa borda. O Safari estende a cor de elementos fixos na borda para a faixa. */
-  .chao { position: fixed; left: 0; right: 0; bottom: 0; z-index: 5; display: none; height: 0.5rem; background: var(--texto); pointer-events: none; }
-  html.no-fim .chao { display: block; }
+     acompanham as trocas de tema enquanto nada opaco cobre a página inteira. Por isso <html>
+     tem sempre a cor da página, e <body> e <main> NÃO têm fundo. Não tente pintar a faixa de
+     baixo com a cor do rodapé (fundo trocado por script, tira fixa na borda): já tentamos, e
+     o Safari congela a cor das faixas no resto da página. A saída foi de design: no celular
+     o rodapé é um cartão, com os quatro cantos arredondados e uma margem embaixo. */
   /* Corpo em peso 500: a Urbanist em 400 afina demais sobre fundos de cor viva e nos temas claros */
   body { overflow-x: clip; margin: 0; font: 500 1.0625rem/1.5 var(--fonte); -webkit-font-smoothing: antialiased; }
   img, svg { display: block; max-width: 100%; }
@@ -607,7 +593,9 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
     .rodape-nav ul { font-size: clamp(1.6rem, 7.4vw, 3.25rem); }
     .rodape h2 { margin-bottom: 0.6rem; padding-bottom: 0.6rem; }
     /* No celular o logo aparece inteiro: cortado, ele briga com a barra do navegador. */
-    .rodape { padding-bottom: 2rem; }
+    /* No celular o rodapé fecha como cartão: cantos arredondados também embaixo e um respiro
+       na cor da página, que é a mesma da faixa do navegador. Assim o fim lê como forma, não como corte. */
+    .rodape { padding-bottom: 2rem; margin-bottom: 0.75rem; border-radius: clamp(1.5rem, 4vw, 3.5rem); }
     .rodape-marca { margin-bottom: 0; }
   }
   @media (prefers-reduced-motion: reduce) { .rodape-nav a, .rodape-nav a::before, .rodape-lado li a { transition: none; } }
