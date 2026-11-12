@@ -17,8 +17,6 @@ const pessoas = defineCollection({
     desde: z.number().optional(),
     // Número do crachá, na ordem de entrada na festa (Gui e Ed definem). Sem ele, fica a marcação XXX.
     numero: z.number().optional(),
-    // Para quem segue na equipe em outra função, mas já foi residente: entra também em "Já passaram pela cabine".
-    passouPelaCabine: z.boolean().default(false),
     instagram: z.string().optional(),
     links: z.array(z.object({ rotulo: z.string(), url: z.string() })).default([]),
   }),
