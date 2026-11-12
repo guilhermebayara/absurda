@@ -7,7 +7,7 @@ export const idade = new Date().getFullYear() - 2009;
 // de um festival: primeiro os grandes nomes, depois os de meio de cartaz, depois todos os outros.
 // Vem do arquivo de eventos, com nomes repetidos unificados. A ordem dentro de cada faixa é de época.
 export const lineup = [
-  ['Mineirão', 'Mercado das Borboletas', 'Granfinos', 'Casa Sapucaí', 'Mira', 'Up e.music'],
+  ['Mercado das Borboletas', 'Granfinos', 'Mineirão', 'Casa Sapucaí', 'Mira', 'Up e.music'],
   ['Velvet Club', 'Mary in Hell', 'CentoeQuatro', 'Hotel Diamante', 'Royalty Club', 'Studio Bar', 'GIS', 'Deputamadre', 'O Mercado',
     'A Central', 'Viaduto Santa Tereza', 'Praça da Estação', 'Parque das Mangabeiras', 'Church', 'Lab', 'Funarte MG'],
   ['On Board', 'Quina Galeria', 'Emme Lounge', 'União Israelita', 'Matriz', 'Anda', 'Secreto', 'Roxy Club', 'Josefine Club', 'Moss Club',
@@ -28,4 +28,15 @@ export const numeros = [
   { n: 390, mais: true, rotulo: 'eventos' },
   { n: totalDeLugares, mais: false, rotulo: 'endereços em BH', nota: 'e contando' },
   { n: cidades.length + 1, rotulo: 'cidades', nota: 'a confirmar' },
+];
+
+// Quem a gente trouxe. "de" marca atração de fora do Brasil.
+export const palco = [
+  { nome: 'Pabllo Vittar' }, { nome: 'Jão' }, { nome: 'Gloria Groove' }, { nome: 'Karol Conká' }, { nome: 'Elke Maravilha' },
+  { nome: 'Gretchen' }, { nome: 'Banda Uó' }, { nome: 'Candy Mel' }, { nome: 'Mateus Carrilho' }, { nome: 'Bonde do Rolê' }, { nome: 'Deize Tigrona' }, { nome: 'Rico Dalasam' },
+  { nome: 'Jaloo' }, { nome: 'Potyguara Bardo' }, { nome: 'Kaya Conky' }, { nome: 'Pepita' }, { nome: 'Aretuza Lovi' },
+  { nome: 'Penelopy Jean' }, { nome: 'Daniel Peixoto' }, { nome: 'Dornelles' }, { nome: 'S4Tan' }, { nome: 'Frimes' },
+  { nome: 'Copacabana Club' }, { nome: 'Pearls Negras' },
+  { nome: 'Alyssa Edwards', de: 'EUA' }, { nome: 'Latrice Royale', de: 'EUA' }, { nome: 'Jujubee', de: 'EUA' },
+  { nome: 'Coco Montrese', de: 'EUA' }, { nome: 'April Carrión', de: 'Porto Rico' },
 ];

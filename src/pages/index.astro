@@ -11,7 +11,7 @@ import Botao from '../components/Botao.astro';
 import { atributo, temaPara, TEMAS_DO_SITE } from '../lib/temas';
 import { getCollection } from 'astro:content';
 import palavras from '../data/palavras.json';
-import { numeros } from '../lib/historia';
+import { numeros, lineup, cidades, palco } from '../lib/historia';
 
 const { proximos, passados } = await getEventos();
 const [destaque, ...outros] = proximos;
@@ -19,7 +19,21 @@ const [destaque, ...outros] = proximos;
 const seguintes = outros.slice(0, 3);
 const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
 // Parede de palavras: a lista fica em src/data/palavras.json, uma linha por fileira.
-const fileiras: string[][] = palavras;
+// Entre os verbos entram três fileiras menores com a história em nomes: os lugares, quem a
+// gente trouxe e as cidades (as mesmas listas da página Sobre, em lib/historia.ts).
+type Fileira = { palavras: string[]; menor?: boolean };
+const verbos: Fileira[] = (palavras as string[][]).map((p) => ({ palavras: p }));
+const fileiras: Fileira[] = [
+  ...verbos.slice(0, 2),
+  { palavras: [...lineup[0], ...lineup[1]], menor: true },
+  ...verbos.slice(2, 4),
+  { palavras: palco.map((a) => a.nome), menor: true },
+  ...verbos.slice(4, 6),
+  { palavras: ['Belo Horizonte', ...cidades, ...lineup[2].slice(0, 14)], menor: true },
+  ...verbos.slice(6),
+];
+// Nas fileiras menores não há palavra em contorno: nesse corpo o traço fino não lê.
+const estilosMenores = ['', '', 'cor', '', '', '', 'cor', '', 'cor', '', '', ''];
 // Cada palavra é cheia, na cor de destaque ou só em contorno. A sequência é
 // irregular de propósito, para não virar listra (cor sim, cor não).
 const estilos = ['', 'cor', '', 'vazada', '', '', 'cor', 'vazada', '', 'cor', '', '', 'vazada', 'cor', '', 'vazada', '', 'cor', 'cor', '', 'vazada', '', '', 'cor', '', 'vazada', '', ''];
@@ -80,14 +94,14 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
     <div class="historia-pino">
       <div class="historia-grupo">
         <h2 id="t-sobre" class="historia-titulo" data-anima="sobe">17 anos de @bsurda</h2>
-        <p class="so-leitor">{fileiras.flat().join('. ')}.</p>
+        <p class="so-leitor">{fileiras.flatMap((f) => f.palavras).join('. ')}.</p>
         <div class="parede" aria-hidden="true">
           {fileiras.map((linha, i) => (
-            <div class="parede-fileira" style={`z-index:${i * 2 + 2}`}>
-              <div class:list={['parede-trilho', { contra: i % 2 === 0 }]} style={`--dur:${30 + (i * 11) % 17}s`}>
+            <div class:list={['parede-fileira', { menor: linha.menor }]} style={`z-index:${i * 2 + 2}`}>
+              <div class:list={['parede-trilho', { contra: i % 2 === 0 }]} style={`--dur:${(linha.menor ? 70 : 30) + (i * 11) % 17}s`}>
                 {[0, 1, 2].map(() => (
                   <div class="parede-grupo">
-                    {linha.map((p, j) => <span class={estilos[(i * 4 + j) % estilos.length]}>{p}<i></i></span>)}
+                    {linha.palavras.map((p, j) => <span class={linha.menor ? estilosMenores[(i * 5 + j) % estilosMenores.length] : estilos[(i * 4 + j) % estilos.length]}>{p}<i></i></span>)}
                   </div>
                 ))}
               </div>
@@ -108,6 +122,15 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
       </div>
     </div>
   </section>
+
+  <!-- A rua: uma janela para a multidão do trio, que leva à história no Sobre -->
+  <a class="rua" href="/sobre#t-trio" data-paralaxe>
+    <img src="/sobre/trio-2020.jpg" alt="Multidão no Trio da @bsurda, no centro de Belo Horizonte, em 2020" loading="lazy" />
+    <span class="rua-texto">
+      <span class="rua-frase">A rua também é pista.</span>
+      <span class="rua-sub">60 mil pessoas no Trio da @bsurda, em 2020. Veja como a gente chegou lá.</span>
+    </span>
+  </a>
 
   <section class="secao projetos" aria-labelledby="t-projetos">
     <h2 id="t-projetos" class="titulo-secao" data-anima="sobe">Projetos</h2>
@@ -139,6 +162,23 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
 </Base>
 
 <script>
+  // Janela da rua: a foto desliza um pouco mais devagar que a página.
+  const ruas = [...document.querySelectorAll<HTMLElement>('[data-paralaxe]')];
+  if (ruas.length > 0 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let pedido = 0;
+    const mover = () => {
+      pedido = 0;
+      const tela = window.innerHeight;
+      for (const j of ruas) {
+        const r = j.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > tela) continue;
+        j.style.setProperty('--desvio', `${(((r.top + r.height / 2 - tela / 2) / (tela / 2 + r.height / 2)) * -7).toFixed(2)}%`);
+      }
+    };
+    addEventListener('scroll', () => { if (!pedido) pedido = requestAnimationFrame(mover); }, { passive: true });
+    mover();
+  }
+
   const calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // Parede: cada capa atravessa a tela de baixo para cima, mais rápido que a
@@ -239,7 +279,11 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   .parede-trilho.contra .parede-grupo { animation-direction: reverse; }
   .parede-grupo span { display: flex; align-items: center; font-size: clamp(2.75rem, 9.2vw, 9.5rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.045em; text-transform: uppercase; white-space: nowrap; }
   /* Presa na tela, a parede se mede pela altura: sete fileiras enchem a tela */
-  .historia.viva .parede-grupo span { font-size: clamp(2.25rem, 9vh, 9rem); font-size: clamp(2.25rem, 9svh, 9rem); }
+  .historia.viva .parede-grupo span { font-size: clamp(2rem, 7.6vh, 8rem); font-size: clamp(2rem, 7.6svh, 8rem); }
+  /* Fileiras menores, de nomes: metade do corpo, com um respiro em cima e embaixo */
+  .parede-fileira.menor { padding: 0.5em 0; font-size: clamp(0.6rem, 1vw, 1rem); }
+  .parede-fileira.menor .parede-grupo span { font-size: clamp(1.125rem, 3.4vw, 3.25rem); line-height: 1; letter-spacing: -0.02em; }
+  .historia.viva .parede-fileira.menor .parede-grupo span { font-size: clamp(1rem, 3.1vh, 3rem); font-size: clamp(1rem, 3.1svh, 3rem); }
   .parede-grupo span.cor { color: var(--destaque); }
   .parede-grupo span.vazada { color: transparent; -webkit-text-stroke: 0.022em var(--texto); }
   /* Entre as palavras, a barra inclinada do logo */
@@ -249,6 +293,14 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   .historia.viva .parede-foto { top: 0; translate: 0 110vh; }
   @media (max-width: 720px) { .parede-foto { --w: 52vw; } }
   @media (prefers-reduced-motion: reduce) { .parede-grupo { animation: none; } }
+  /* Janela da rua: a foto é mais alta que a moldura e desliza devagar com a rolagem */
+  .rua { position: relative; display: block; margin: var(--e-5) var(--margem) 0; height: clamp(20rem, 80svh, 54rem); overflow: hidden; border-radius: clamp(1rem, 2.5vw, 2.25rem); color: #fff; text-decoration: none; }
+  .rua img { position: absolute; left: 0; top: -8%; width: 100%; height: 116%; max-width: none; object-fit: cover; transform: translateY(var(--desvio, 0%)) scale(1.001); transition: scale 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform; }
+  .rua:hover img { scale: 1.04; }
+  .rua-texto { position: absolute; left: 0; right: 0; bottom: 0; display: grid; gap: var(--e-2); padding: 24svh var(--margem) var(--e-4); background: linear-gradient(to top, rgb(13 10 12 / 0.9), rgb(13 10 12 / 0.5) 50%, transparent); }
+  .rua-frase { font-size: var(--t-5); font-weight: 800; line-height: 0.9; letter-spacing: -0.045em; text-transform: uppercase; }
+  .rua-sub { max-width: 30em; font-size: var(--t-apoio); line-height: 1.35; }
+  @media (prefers-reduced-motion: reduce) { .rua img { transform: none; transition: none; } }
   .historia-fim { z-index: 20; display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--e-3) var(--e-4); }
   .historia-numeros { display: flex; flex-wrap: wrap; gap: var(--e-2) var(--e-4); }
   .historia-numeros li { display: grid; gap: 0.2em; }

@@ -4,7 +4,7 @@ import Capa from '../components/Capa.astro';
 import Botao from '../components/Botao.astro';
 import marcos from '../data/marcos.json';
 import { TEMAS_DE_POSICAO, TEMAS_DO_SITE, atributo } from '../lib/temas';
-import { lineup, totalDeLugares, cidades, numeros } from '../lib/historia';
+import { lineup, totalDeLugares, cidades, numeros, palco } from '../lib/historia';
 const reserva = atributo(TEMAS_DO_SITE[0]);
 
 // PÁGINA EM EXERCÍCIO. O conteúdo é guia: o que está marcado com "(a confirmar)" ou
@@ -47,16 +47,6 @@ const trio = [
   { ano: '2023', numero: 'De volta', texto: 'A rua de novo depois da pandemia, saindo do Viaduto Santa Tereza.', foto: '/sobre/trio-2023.jpg' },
 ];
 
-// Quem a gente trouxe. "de" marca atração de fora do Brasil.
-const palco = [
-  { nome: 'Pabllo Vittar' }, { nome: 'Jão' }, { nome: 'Gloria Groove' }, { nome: 'Karol Conká' }, { nome: 'Elke Maravilha' },
-  { nome: 'Gretchen' }, { nome: 'Banda Uó' }, { nome: 'Bonde do Rolê' }, { nome: 'Deize Tigrona' }, { nome: 'Rico Dalasam' },
-  { nome: 'Jaloo' }, { nome: 'Potyguara Bardo' }, { nome: 'Kaya Conky' }, { nome: 'Pepita' }, { nome: 'Aretuza Lovi' },
-  { nome: 'Penelopy Jean' }, { nome: 'Daniel Peixoto' }, { nome: 'Dornelles' }, { nome: 'S4Tan' }, { nome: 'Frimes' },
-  { nome: 'Copacabana Club' }, { nome: 'Pearls Negras' },
-  { nome: 'Alyssa Edwards', de: 'EUA' }, { nome: 'Latrice Royale', de: 'EUA' }, { nome: 'Jujubee', de: 'EUA' },
-  { nome: 'Coco Montrese', de: 'EUA' }, { nome: 'April Carrión', de: 'Porto Rico' },
-];
 // A cena de BH que já tocou, cantou e performou com a gente, em ordem alfabética para não
 // ter fila nem ego. Quem é ou já foi da equipe (residentes de hoje e de outras fases) aparece
 // na cor de destaque, espalhado pela lista. Vem das programações que achei e dos nomes que o
@@ -64,7 +54,7 @@ const palco = [
 const equipe = ['André Victor', 'Charlotte', 'Ed Luiz', 'FAB', 'Grabs', 'Gui Bayara', 'Keoma', 'Nath Leles', 'Vil Araújo'];
 const cena = [
   ...equipe,
-  'Omoloko', 'Barbara Egidio', 'Baile da Bôta', 'Jaddy Stone', 'Joanna Mescladi', 'Mannu Mallibu', 'Mellody Queen', 'Mira MiuMiu', 'Nickary Aycker', 'Giovana Heliodoro', 'Thiago Richard', 'Paolla B', 'Samantha Brooks', 'Rafah’el', 'Supololo', 'Glico', 'Djalma Não Entende de Política', 'Alfredo Francis', 'Lugh', 'Green Grass', 'Votú', 'Xoxottini', 'Diega', 'Rafa Ventura', 'Jimmy Andrade', 'Rasec', 'Marco Romani', 'Nalla', 'Aria Dreamz', 'Guta Leão', 'Gaia', 'Voga', 'Vormitx', 'Lázara', 'João Andrade', 'Clara Tannure', 'Flip', 'Kaike', 'Lourandes', 'Nanauê', 'Las Palozas', 'Madison', 'Gana', 'Richard Santos', 'Aysla Pirv', 'Vovó da ZN', 'Jezz', 'Carambola',
+  'Omoloko', 'Barbara Egidio', 'Baile da Bôta', 'Jaddy Stone', 'Joanna Mescladi', 'Mannu Mallibu', 'Mellody Queen', 'Mira MiuMiu', 'Nickary Aycker', 'Giovana Heliodoro', 'Thiago Richard', 'Paolla B', 'Samantha Brooks', 'Rafah’el', 'Supololo', 'Glico', 'Djalma Não Entende de Política', 'Alfredo Francis', 'Lugh', 'Green Grass', 'Votú', 'Xoxottini', 'Diega', 'Rafa Ventura', 'Jimmy Andrade', 'Rasec', 'Marco Romani', 'Nalla', 'Aria Dreamz', 'Guta Leão', 'Gaia', 'Voga', 'Vormitx', 'Lázara', 'João Andrade', 'Clara Tannure', 'Flip', 'Kaike', 'Lourandes', 'Nanauê', 'Las Palozas', 'Madison', 'Gana', 'Ariella Santos', 'Aysla Pirv', 'Vovó da ZN', 'Jezz', 'Carambola',
 ].sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' })).map((nome) => ({ nome, daEquipe: equipe.includes(nome) }));
 
 // Posições tomadas. (Anos a confirmar.)
@@ -473,7 +463,7 @@ const premios = [
   .lineup { margin: var(--e-4) var(--margem) 0; display: grid; gap: var(--e-3); font-weight: 800; text-transform: uppercase; }
   .lineup p { display: flex; flex-wrap: wrap; align-items: center; }
   .lineup span { display: inline-flex; align-items: center; }
-  .lineup span + span::before, .cidades span + span::before { content: ''; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.4em; background: var(--destaque); transform: skewX(26.5deg); }
+  .lineup span::before, .cidades span::before { content: ''; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.4em; background: var(--destaque); transform: skewX(26.5deg); }
   .lineup-1 { gap: 0.1em 0; font-size: var(--t-5); line-height: 0.92; letter-spacing: -0.045em; }
   .lineup-2 { gap: 0.2em 0; font-size: var(--t-4); line-height: 1; letter-spacing: -0.03em; }
   .lineup-3 { gap: 0.35em 0; font-size: clamp(0.9375rem, 1.35vw, 1.3125rem); line-height: 1.1; letter-spacing: 0.02em; color: var(--suave); }
@@ -545,10 +535,10 @@ const premios = [
   /* As duas listas no mesmo corpo: quem veio de fora e a cena local têm o mesmo peso */
   .nomes { display: flex; flex-wrap: wrap; gap: 0.18em 0; margin-top: var(--e-3); font-size: var(--t-4); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
   .nomes span { display: inline-flex; align-items: flex-start; }
-  .nomes span + span::before { content: ''; align-self: center; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.4em; background: var(--destaque); transform: skewX(26.5deg); }
+  .nomes span::before { content: ''; align-self: center; flex: none; width: 0.14em; height: 0.72em; margin: 0 0.4em; background: var(--destaque); transform: skewX(26.5deg); }
   .nomes .residente { color: var(--destaque); }
   /* Na cena, a cor de destaque fica só para a equipe: as barras vão para a cor do texto, mais leves */
-  .nomes-cena span + span::before { background: var(--texto); opacity: 0.4; }
+  .nomes-cena span::before { background: var(--texto); opacity: 0.4; }
   .legenda { display: flex; align-items: center; gap: 0.6em; margin-top: var(--e-3); font-size: var(--t-rotulo); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
   .legenda i { flex: none; width: 1em; height: 1em; border-radius: 50%; background: var(--destaque); }
   .nomes sup { margin: 0.2em 0 0 0.3em; padding: 0.2em 0.5em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; }
