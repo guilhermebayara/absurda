@@ -29,10 +29,10 @@ const anteriores = pessoas.filter((p) => p.data.situacao === 'anterior' || p.dat
 // Com "url", informe também "destino", o nome curto que aparece na ponta da pulseira
 // ("Instagram", "Site").
 const foraDaCabine: { area: string; nome: string; url?: string; destino?: string }[] = [
-  { area: 'Foto e vídeo', nome: 'Estilingue' },
-  { area: 'Foto', nome: 'Felipe César' },
-  { area: 'Foto', nome: 'Yuri' },
-  { area: 'Bar', nome: 'Jaci' },
+  { area: 'Foto e vídeo', nome: 'Estilingue', url: 'https://www.instagram.com/estilingue/', destino: 'Instagram' },
+  { area: 'Foto', nome: 'Felipe Cesar', url: 'https://www.instagram.com/felipecesard_/', destino: 'Instagram' },
+  { area: 'Foto', nome: 'Yury Oliveira', url: 'https://www.instagram.com/hey.yury/', destino: 'Instagram' },
+  { area: 'Bar', nome: 'Jaci', url: 'https://linktr.ee/jacigestaodebares', destino: 'Linktree' },
   { area: 'Som e luz', nome: 'Léo' },
 ];
 const areas = [...new Set(foraDaCabine.map((n) => n.area))];
@@ -126,10 +126,15 @@ const areas = [...new Set(foraDaCabine.map((n) => n.area))];
       --lp: min(33cqh, 19.2cqw);              /* largura de um crachá pequeno */
       --ap: calc(var(--lp) * 1.4);            /* altura dele */
       --le: min(62cqh, 35cqw);                /* largura do crachá do Ed */
-      --x0: calc(var(--le) + 3cqw);           /* onde começam os pequenos */
-      --dx: calc(var(--lp) + 1.4cqw); }       /* passo entre eles */
+      /* O vão entre crachás divide a largura que sobra, para a composição ir de ponta a ponta em
+         qualquer monitor. Em tela muito larga o vão para de crescer e o conjunto fica centralizado. */
+      --sobra: calc(100cqw - var(--le) - 3 * var(--lp));
+      --vao: clamp(1.2cqw, var(--sobra) / 3, 7cqw);
+      --m: calc((var(--sobra) - 3 * var(--vao)) / 2);   /* margem que centraliza, quando sobra */
+      --x0: calc(var(--m) + var(--le) + var(--vao));    /* onde começam os pequenos */
+      --dx: calc(var(--lp) + var(--vao)); }             /* passo entre eles */
     .crachas li { position: absolute; width: var(--lp); }
-    .crachas li.ed { left: 0; top: 4cqh; width: var(--le); z-index: 1; }
+    .crachas li.ed { left: var(--m); top: 4cqh; width: var(--le); z-index: 1; }
     .crachas li:nth-child(2) { left: var(--x0); top: 0; }
     .crachas li:nth-child(3) { left: calc(var(--x0) + var(--dx)); top: 4cqh; z-index: 2; }
     .crachas li:nth-child(4) { left: calc(var(--x0) + 2 * var(--dx)); top: 1cqh; }
