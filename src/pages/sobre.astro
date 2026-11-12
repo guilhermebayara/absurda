@@ -56,6 +56,9 @@ const trio: Array<{ ano: string; numero: string; texto: string; foto: string; fo
 // na cor de destaque, espalhado pela lista. Vem das programações que achei e dos nomes que o
 // Gui passou. A completar: com certeza falta gente.
 const equipe = ['André Victor', 'Charlotte', 'Ed Luiz', 'FAB', 'Grabs', 'Gui Bayara', 'Keoma', 'Nath Leles', 'Vil Araújo'];
+// Etiqueta ao lado do nome, no mesmo desenho da etiqueta de país: a marca com que um estilista
+// desfilou, quando ela não leva o nome dele. Quem desfilou com marca homônima fica só com o nome.
+const marcas: Record<string, string> = { 'Célio Dias': 'LED' };
 const cena = [
   ...equipe,
   'Dead Lover’s Twisted Heart', 'Bloco Baianas Ozadas', 'Palomita', 'Thiagão', 'Babi Ribeiro', 'Bella La Pierre', 'Dolly Piercing', 'Monalisa Leblanc',
@@ -64,7 +67,7 @@ const cena = [
   'Gustavo Drummond', 'Ravel', 'Rodrigo Leon', 'Rafa Mártir', 'Francis Glam Glam', 'Sandra Lee', 'Camila Too Much', 'Desirée Dandelion', 'Monique Capuccine', 'Stacy Ginger', 'Jhulia Santos', 'Mac Júlia', 'Amerikana', 'Benjamin',
   // Estilistas que desfilaram na festa. Entram na mesma lista: a cena já mistura drags, DJs, cantores e ballroom.
   'Israel Frazoni', 'Célio Dias', 'Guilherme Pires',
-].sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' })).map((nome) => ({ nome, daEquipe: equipe.includes(nome) }));
+].sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' })).map((nome) => ({ nome, daEquipe: equipe.includes(nome), marca: marcas[nome] }));
 
 // Posições tomadas. (Anos a confirmar.)
 const posicoes = [
@@ -231,7 +234,7 @@ const premios = [
     </p>
     <h2 class="t-secao cena-titulo" data-anima="sobe">E a cena de BH, que é a base de tudo</h2>
     <p class="nomes nomes-cena">
-      {cena.map((c) => <span class:list={{ residente: c.daEquipe }}>{c.nome}</span>)}
+      {cena.map((c) => <span class:list={{ residente: c.daEquipe }}>{c.nome}{c.marca && <sup>{c.marca}</sup>}</span>)}
     </p>
     <p class="legenda"><i aria-hidden="true"></i>Equipe @bsurda: residentes de hoje e de outras fases</p>
     <p class="t-pequeno">Listas em construção.</p>
