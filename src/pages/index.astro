@@ -340,4 +340,8 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   .fotos-fim { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--e-3) var(--e-4); margin-top: var(--e-4); }
 
   .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  /* TESTE (branch qa-faixa-safari): em tela de toque a prévia que segue o cursor nunca aparece.
+     Fora da página, ela deixa de ser um elemento fixo que o Safari possa levar em conta ao
+     escolher a cor das barras. */
+  @media (hover: none) { .espia { display: none; } }
 </style>

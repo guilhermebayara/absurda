@@ -322,4 +322,8 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .espia-capa.visivel { opacity: 1; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(1); }
   .espia-capa img { width: 100%; height: 100%; object-fit: cover; }
   @media (prefers-reduced-motion: reduce) { .anos-nav a::before, .ano-arco, .ano-mais-v, .linhas .linha, .espia-capa { transition: none; } }
+  /* TESTE (branch qa-faixa-safari): em tela de toque a prévia que segue o cursor nunca aparece.
+     Fora da página, ela deixa de ser um elemento fixo que o Safari possa levar em conta ao
+     escolher a cor das barras. */
+  @media (hover: none) { .espia-capa { display: none; } }
 </style>
