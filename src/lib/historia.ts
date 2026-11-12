@@ -38,6 +38,7 @@ export const palco = [
   { nome: 'Penelopy Jean' }, { nome: 'Daniel Peixoto' }, { nome: 'Dornelles' }, { nome: 'S4Tan' }, { nome: 'Frimes' },
   { nome: 'Copacabana Club' }, { nome: 'Pearls Negras' },
   { nome: 'Manu Gavassi' }, { nome: 'MC Carol' }, { nome: 'Kika Boom' },
+  { nome: 'Matheus Morais' }, { nome: 'Yuri Frainer' }, { nome: 'Daft Pobre' }, { nome: 'Murilo Caldas' },
   { nome: 'Alyssa Edwards', de: 'EUA', bandeira: '🇺🇸' }, { nome: 'Latrice Royale', de: 'EUA', bandeira: '🇺🇸' }, { nome: 'Jujubee', de: 'EUA', bandeira: '🇺🇸' },
   { nome: 'Coco Montrese', de: 'EUA', bandeira: '🇺🇸' }, { nome: 'April Carrión', de: 'Porto Rico', bandeira: '🇵🇷' },
 ];
