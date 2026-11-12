@@ -6,5 +6,8 @@
 		"directory": "./dist",
 		// Endereço que não existe: mostra a página de erro do site (dist/404.html).
 		"not_found_handling": "404-page"
-	}
+	},
+	// Prévia das branches: a Cloudflare roda "wrangler preview" em toda branch que não é a
+	// main, e esse comando exige este bloco (pode ficar vazio). Sem ele, o deploy da branch falha.
+	"previews": {}
 }
