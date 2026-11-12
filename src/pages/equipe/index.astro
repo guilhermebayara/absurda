@@ -141,13 +141,17 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
       --dx: calc(var(--lp) + var(--vao)); }             /* passo entre eles */
     .crachas li { position: absolute; width: var(--lp); }
     .crachas li.ed { left: var(--m); top: 4cqh; width: var(--le); z-index: 1; }
-    .crachas li:nth-child(2) { left: var(--x0); top: 0; }
-    .crachas li:nth-child(3) { left: calc(var(--x0) + var(--dx)); top: 4cqh; z-index: 2; }
-    .crachas li:nth-child(4) { left: calc(var(--x0) + 2 * var(--dx)); top: 1cqh; }
+    /* A linha de cima fica por cima da de baixo: o que se cobre é só a ponta de cima dos crachás
+       de baixo (o furo), nunca o rodapé de quem está em cima, que tem texto. */
+    .crachas li:nth-child(2) { left: var(--x0); top: 0; z-index: 3; }
+    .crachas li:nth-child(3) { left: calc(var(--x0) + var(--dx)); top: 4cqh; z-index: 3; }
+    .crachas li:nth-child(4) { left: calc(var(--x0) + 2 * var(--dx)); top: 1cqh; z-index: 3; }
     /* A linha de baixo tem dois, encaixados nos vãos da de cima. */
-    .crachas li:nth-child(5) { left: calc(var(--x0) + 0.5 * var(--dx)); top: calc(var(--ap) + 5.5cqh); z-index: 3; }
-    .crachas li:nth-child(6) { left: calc(var(--x0) + 1.5 * var(--dx)); top: calc(var(--ap) + 3.5cqh); z-index: 2; }
+    .crachas li:nth-child(5) { left: calc(var(--x0) + 0.5 * var(--dx)); top: calc(var(--ap) + 2.6cqh); z-index: 2; }
+    .crachas li:nth-child(6) { left: calc(var(--x0) + 1.5 * var(--dx)); top: calc(var(--ap) + 2.2cqh); z-index: 2; }
     .crachas li:hover, .crachas li:focus-within { z-index: 6; }
+    /* Um fio na cor da página em volta de cada crachá, para dois da mesma cor não se fundirem onde se sobrepõem. */
+    .crachas :global(.cracha-face) { box-shadow: 0 0 0 3px var(--fundo); }
 
     /* No crachá grande tudo cresce junto. */
     .crachas li.ed :global(.cracha-nome) { font-size: clamp(2.5rem, 4.6vw, 4.5rem); }
