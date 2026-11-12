@@ -222,7 +222,7 @@ const premios = [
   <section class="palco" aria-labelledby="t-palco" data-tema="sorteio" data-reserva={reserva}>
     <h2 id="t-palco" class="t-secao" data-anima="sobe">Quem a gente trouxe</h2>
     <p class="nomes">
-      {palco.map((a) => <span>{a.nome}{a.de && <sup>{a.de}</sup>}</span>)}
+      {palco.map((a) => <span>{a.nome}{a.de && <sup><i aria-hidden="true">{a.bandeira}</i>{a.de}</sup>}</span>)}
     </p>
     <h2 class="t-secao cena-titulo" data-anima="sobe">E a cena de BH, que é a base de tudo</h2>
     <p class="nomes nomes-cena">
@@ -570,6 +570,7 @@ const premios = [
   .nomes .residente { color: var(--destaque); }
   .legenda { display: flex; align-items: center; gap: 0.6em; margin-top: var(--e-3); font-size: var(--t-rotulo); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
   .legenda i { flex: none; width: 1em; height: 1em; border-radius: 50%; background: var(--destaque); }
+  .nomes sup i { margin-right: 0.35em; font-style: normal; font-size: 1.25em; line-height: 0; vertical-align: -0.12em; }
   .nomes sup { margin: 0.2em 0 0 0.3em; padding: 0.2em 0.5em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; }
   .cena-titulo { margin-top: var(--e-5); max-width: 14em; }
   .palco .t-pequeno { margin-top: var(--e-1); }

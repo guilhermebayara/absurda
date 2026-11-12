@@ -30,13 +30,13 @@ export const numeros = [
   { n: cidades.length + 1, rotulo: 'cidades', nota: 'a confirmar' },
 ];
 
-// Quem a gente trouxe. "de" marca atração de fora do Brasil.
+// Quem a gente trouxe. "de" e "bandeira" marcam atração de fora do Brasil.
 export const palco = [
   { nome: 'Pabllo Vittar' }, { nome: 'Jão' }, { nome: 'Gloria Groove' }, { nome: 'Karol Conká' }, { nome: 'Elke Maravilha' },
   { nome: 'Gretchen' }, { nome: 'Banda Uó' }, { nome: 'Candy Mel' }, { nome: 'Mateus Carrilho' }, { nome: 'Bonde do Rolê' }, { nome: 'Deize Tigrona' }, { nome: 'Rico Dalasam' },
   { nome: 'Jaloo' }, { nome: 'Potyguara Bardo' }, { nome: 'Tiê' }, { nome: 'Kaya Conky' }, { nome: 'Pepita' }, { nome: 'Aretuza Lovi' },
   { nome: 'Penelopy Jean' }, { nome: 'Daniel Peixoto' }, { nome: 'Dornelles' }, { nome: 'S4Tan' }, { nome: 'Frimes' },
   { nome: 'Copacabana Club' }, { nome: 'Pearls Negras' },
-  { nome: 'Alyssa Edwards', de: 'EUA' }, { nome: 'Latrice Royale', de: 'EUA' }, { nome: 'Jujubee', de: 'EUA' },
-  { nome: 'Coco Montrese', de: 'EUA' }, { nome: 'April Carrión', de: 'Porto Rico' },
+  { nome: 'Alyssa Edwards', de: 'EUA', bandeira: '🇺🇸' }, { nome: 'Latrice Royale', de: 'EUA', bandeira: '🇺🇸' }, { nome: 'Jujubee', de: 'EUA', bandeira: '🇺🇸' },
+  { nome: 'Coco Montrese', de: 'EUA', bandeira: '🇺🇸' }, { nome: 'April Carrión', de: 'Porto Rico', bandeira: '🇵🇷' },
 ];
