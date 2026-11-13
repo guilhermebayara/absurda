@@ -26,7 +26,7 @@ incentivo de 2024 não é mencionado (a captação não aconteceu); número que 
 
 - Halloween de 2024 no Mineirão: 2.500 pessoas.
 - Halloween de 2023: 4 DJs residentes e 6 convidados. De 2022: 5 performances de drag.
-- Trio: 75 mil em 2023 (número adotado pelo Gui), 60 mil em 2020.
+- Trio: 75 mil em 2023 e 42 mil em 2019 (números confirmados pelo Gui), 60 mil em 2020.
 - Parada do Orgulho de BH, onde o Trio participa do cortejo: 300 mil pessoas (2019).
 - Em 2019: sold out no Mineirão e em mais 4 festas; festas em Montes Claros, Ouro Preto,
   Divinópolis, Viçosa e Sete Lagoas.
@@ -44,7 +44,6 @@ Nada sobre Amstel e Xeque Mate nessas apresentações. Devem estar no material d
 
 ## Divergências entre fontes (não resolvidas)
 
-- Trio de 2019: o site diz "mais de 30 mil"; a proposta de dezembro de 2019 diz 42 mil.
-- Trio de 2016: o site diz 12 mil no Viaduto Santa Tereza; o PDF de 2016 diz cerca de 11 mil
-  na rua Aarão Reis.
+- Trio de 2016: o site diz 12 mil; o PDF de 2016 diz cerca de 11 mil. O lugar é o mesmo: a rua
+  Aarão Reis passa debaixo do Viaduto Santa Tereza, e a referência é o viaduto (Gui).
 - Trio de 2020: os 60 mil aparecem na proposta de 2019 como público esperado.
