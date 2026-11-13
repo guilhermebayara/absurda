@@ -8,7 +8,8 @@ import Arroba from '../components/marca/Arroba.astro';
 import { SITE } from '../config';
 import { getEventos } from '../lib/eventos';
 import Botao from '../components/Botao.astro';
-import { atributo, temaPara, TEMAS_DO_SITE } from '../lib/temas';
+import { atributo, temaPara, TEMAS_DO_SITE, type Tema } from '../lib/temas';
+import { temaDoProjeto } from '../lib/projetos';
 import { getCollection } from 'astro:content';
 import palavras from '../data/palavras.json';
 import { numeros, lineup, cidades, palco, idade } from '../lib/historia';
@@ -21,6 +22,8 @@ const todosOsProjetos = (await getCollection('projetos')).sort((a, b) => a.data.
 // No índice da Home entram os projetos em atividade. Adormecidos e independentes aparecem
 // depois, menores, para não se confundirem com o que está na agenda (pedido do Gui).
 const projetos = todosOsProjetos.filter((p) => p.data.situacao === 'ativo' || p.data.situacao === 'em-elaboracao');
+const temasDosProjetos: Record<string, Tema> = {};
+for (const p of todosOsProjetos) temasDosProjetos[p.id] = await temaDoProjeto(p.id, p.data.capa);
 const outrosProjetos = todosOsProjetos.filter((p) => p.data.situacao === 'arquivo' || p.data.situacao === 'independente');
 // Parede de palavras: a lista fica em src/data/palavras.json, uma linha por fileira.
 // Entre os verbos entram três fileiras menores com a história em nomes: os lugares, quem a
@@ -142,7 +145,7 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
     <ul class="indice">
       {projetos.map((p, i) => (
         <li data-anima="linha" style={`--i:${i}`}>
-          <a href={`/projetos/${p.id}`} data-espia={p.data.capa ?? ''} data-espia-cores={atributo(temaPara(p.id))}>
+          <a href={`/projetos/${p.id}`} data-espia={p.data.capa ?? ''} data-espia-cores={atributo(temasDosProjetos[p.id])}>
             <span class="indice-nome"><span data-anima="sobe" style={`--i:${i}`}>{p.data.nome}</span></span>
             <span class="indice-resumo">{p.data.resumo}</span>
           </a>

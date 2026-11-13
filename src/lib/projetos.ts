@@ -9,6 +9,9 @@
 // Um evento pode pertencer a dois projetos quando o título traz os dois nomes
 // (por exemplo, uma WIG com IHR). "Pré carnaval" e "pré Halloween" não contam como o evento em si.
 import type { Evento } from './eventos';
+import { readFile } from 'node:fs/promises';
+import { temaPara, type Tema } from './temas';
+import { temaDaImagem } from './paleta';
 
 const FILTROS: Record<string, RegExp> = {
   'i-hate-remix': /i hate remix|\bihr\b/i,
@@ -22,7 +25,8 @@ const FILTROS: Record<string, RegExp> = {
   amorzinho: /amorzinho/i,
 };
 
-const semPrevia = (nome: string) => nome.replace(/pr[ée][ -]?(carnaval|halloween|parada)/gi, '');
+// Também fica de fora o after da Parada LGBT de BH: é da parada da cidade, e não da Parada da @bsurda.
+const semPrevia = (nome: string) => nome.replace(/pr[ée][ -]?(carnaval|halloween|parada)/gi, '').replace(/parada lgbt\b/gi, '');
 
 export function ehDoProjeto(id: string, evento: Evento): boolean {
   const nome = semPrevia(evento.nome);
@@ -66,4 +70,16 @@ export function resumoDoProjeto(id: string, todos: { proximos: Evento[]; passado
   const anos = passados.map((e) => e.data.slice(0, 4));
   const porAno = [...new Set(anos)].sort().map((ano) => ({ ano, n: anos.filter((a) => a === ano).length }));
   return { proximos, passados, desde: porAno[0]?.ano, porAno };
+}
+
+// Cores do projeto: saem da foto de capa, quando há uma; sem capa, um par da marca.
+const temas = new Map<string, Promise<Tema>>();
+export function temaDoProjeto(id: string, capa?: string): Promise<Tema> {
+  if (!temas.has(id)) {
+    temas.set(id, (async () => {
+      if (!capa?.startsWith('/')) return temaPara(id);
+      try { return await temaDaImagem(await readFile(`public${capa}`)); } catch { return temaPara(id); }
+    })());
+  }
+  return temas.get(id)!;
 }

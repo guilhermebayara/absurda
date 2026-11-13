@@ -34,6 +34,8 @@ const projetos = defineCollection({
     // "arquivo" é projeto adormecido; "independente" nasceu na @bsurda e hoje segue por conta própria.
     situacao: z.enum(['ativo', 'em-elaboracao', 'arquivo', 'independente']).default('ativo'),
     ordem: z.number().default(99),
+    // Foto de um evento marcante do projeto (do Gui). O nome vai por cima dela, e as cores do
+    // projeto no site saem da foto. Sem capa, o projeto usa um par de cores da marca.
     capa: z.string().optional(),
     pessoas: z.array(reference('pessoas')).default([]),
     // Ano em que começou, quando a Agenda não alcança (a @bsurda é de 2009).
@@ -49,6 +51,14 @@ const projetos = defineCollection({
     tituloHistorico: z.string().optional(),
     // Eventos aparentados que não pertencem ao projeto (as @bsurdas de carnaval, primas do Trio).
     primas: z.object({ titulo: z.string(), texto: z.string().optional(), filtro: z.string() }).optional(),
+    // Programação que não passou pela Agenda (eventos sem ingresso próprio), por ano. Usada no
+    // histórico "anual-sub": a Parada é sempre uma coleção de eventos. "arte" é a imagem do ano.
+    programacao: z.array(z.object({
+      ano: z.string(),
+      numero: z.string().optional(),
+      arte: z.string().optional(),
+      itens: z.array(z.object({ quando: z.string(), nome: z.string(), local: z.string().optional() })),
+    })).default([]),
     // Para onde o projeto foi, quando segue fora da @bsurda.
     fora: z.object({ rotulo: z.string(), url: z.string() }).optional(),
   }),
