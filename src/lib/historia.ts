@@ -7,9 +7,9 @@ export const idade = new Date().getFullYear() - 2009;
 // de um festival: primeiro os grandes nomes, depois os de meio de cartaz, depois todos os outros.
 // Vem do arquivo de eventos, com nomes repetidos unificados. A ordem dentro de cada faixa é de época.
 export const lineup = [
-  ['Mineirão', 'Up e.music', 'Mercado das Borboletas', 'Mira', 'Granfinos', 'Casa Sapucaí', 'Praça Sete'],
+  ['Mineirão', 'Up e.music', 'Mercado das Borboletas', 'Mira', 'Granfinos', 'Casa Sapucaí'],
   ['Velvet Club', 'Mary in Hell', 'Matriz', 'CentoeQuatro', 'GIS', 'Deputamadre', 'O Mercado', 'Viaduto Santa Tereza',
-    'Praça da Estação', 'Parque das Mangabeiras', 'Ita Park', 'Gruta', 'Avenida Afonso Pena', 'A Autêntica', 'Funarte MG', 'Clube Labareda'],
+    'Praça da Estação', 'Parque das Mangabeiras', 'Ita Park', 'Gruta', 'Avenida Afonso Pena', 'A Autêntica', 'Praça Sete', 'Funarte MG', 'Clube Labareda'],
   ['On Board', 'Quina Galeria', 'Emme Lounge', 'União Israelita', 'Anda', 'Hotel Diamante', 'Secreto', 'Roxy Club', 'Josefine Club',
     'Moss Club', 'Skorpius', 'Royalty Club', 'Studio Bar', 'Soleá', 'Rua Guaicurus', 'Necup', 'A Fábrica', 'Factory', 'A Central',
     'Avenida dos Andradas', 'Fábrica Criativa', 'Galpão La Trupe', 'QG Rooftop', 'Urbana', 'Espaço Even', 'LOL', 'Rock Content',

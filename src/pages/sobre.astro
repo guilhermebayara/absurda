@@ -287,7 +287,9 @@ const premios = [
         {[
           { rotulo: 'Câmara Municipal de BH, 22 jun 2026', src: '/sobre/camara-2026.jpg', alt: 'Certificado de Homenagem e Reconhecimento entregue à @bsurda na Câmara Municipal de Belo Horizonte' },
           { rotulo: 'Parada de BH (marcação)' },
-          { rotulo: 'Ato (marcação)' },
+          // Foto do Gui (10_site/Sobre). O Ed tocou no trio representando a @bsurda; o ato saiu da Praça da
+          // Estação e terminou na Raul Soares, e a foto é da passagem pela Praça Sete.
+          { rotulo: 'Ato por Lula, na Praça Sete, 18 out 2026', src: '/sobre/ato-2026.jpg', alt: 'Ed Luiz em cima de um trio elétrico, de camisa vermelha e fone no pescoço, com a mão erguida, na passagem do ato pela Praça Sete, em Belo Horizonte' },
           { rotulo: 'Parada da @bsurda (marcação)' },
         ].map((f, i) => (
           <li class:list={{ torto: i % 2 === 0 }}><Capa src={f.src} alt={f.alt} proporcao="4 / 5" /><p>{f.rotulo}</p></li>
