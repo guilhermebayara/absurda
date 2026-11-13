@@ -9,7 +9,7 @@ Site estático feito em [Astro](https://astro.build), hospedado na Cloudflare.
 | Dados gerais (links, e-mail, menu) | `src/config.ts` |
 | Pessoas (equipe atual e quem fez parte) | `src/content/pessoas/` (um arquivo por pessoa) |
 | Projetos | `src/content/projetos/` (um arquivo por projeto) |
-| Parceiros | `src/data/parceiros.json` |
+| Parcerias | `src/data/parceiros.json` |
 | Marcos da história | `src/data/marcos.json` |
 | Eventos fora do Shotgun e da Sympla | `src/data/eventos-manual.json` |
 | Junção das fontes da agenda | `src/lib/eventos.ts` |

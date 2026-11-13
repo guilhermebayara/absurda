@@ -19,6 +19,6 @@ export const NAV = [
   { rotulo: 'Projetos', href: '/projetos' },
   { rotulo: 'Sobre', href: '/sobre' },
   { rotulo: 'Equipe', href: '/equipe' },
-  { rotulo: 'Parceiros', href: '/parceiros' },
+  { rotulo: 'Parcerias', href: '/parcerias' },
   { rotulo: 'Contato', href: '/contato' },
 ];

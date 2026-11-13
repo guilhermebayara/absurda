@@ -1,0 +1,211 @@
+---
+// Página Parcerias (antes "Parceiros"; /parceiros redireciona para cá, ver public/_redirects).
+//
+// É a apresentação comercial da @bsurda, com foco em marcas. O Sobre conta a história inteira;
+// aqui a festa se vende. A ordem dos blocos é a ordem do argumento (definida com o Gui):
+// 1. Com a gente agora: as marcas de hoje, em destaque. É o primeiro argumento.
+// 2. A @bsurda em números.
+// 3. Quem vem: o perfil do público.
+// 4. Como uma marca entra: os formatos de parceria.
+// 5. Casos: poucas ativações, com foto e uma linha do que foi feito.
+// 6. Registro de parcerias: o histórico por ano, como prova de consistência. Só cresce.
+// 7. Contato: um botão só.
+//
+// Valores, cotas e contrapartidas negociadas não entram: a página é pública.
+// Número que envelhece (público, alcance) leva o ano ao lado.
+// Fornecedores de produção (foto, bar, som) ficam na página Equipe, em "Fora da cabine".
+// Tudo o que está marcado "(marcação)" ou "(a confirmar)" espera o conteúdo do Gui e do Ed,
+// que vem das apresentações já usadas com marcas.
+import Base from '../layouts/Base.astro';
+import { SITE } from '../config';
+import { getCollection } from 'astro:content';
+import Botao from '../components/Botao.astro';
+import { numeros } from '../lib/historia';
+
+const parceiros = (await getCollection('parceiros')).map((p) => p.data);
+const atuais = parceiros.filter((p) => p.atual);
+
+// Agrupado por ano, do mais recente para o mais antigo. A marca aparece uma vez por ano, com
+// todos os eventos daquele ano ao lado.
+const linhas = parceiros.flatMap((p) => p.registros.map((r) => ({ ...r, nome: p.nome })));
+const anos = [...new Set(linhas.map((l) => l.ano))].sort((a, b) => b.localeCompare(a));
+const registro = anos.map((ano) => {
+  const doAno = linhas.filter((l) => l.ano === ano);
+  const nomes = [...new Set(doAno.map((l) => l.nome))].sort((a, b) => a.localeCompare(b, 'pt-BR'));
+  return { ano, marcas: nomes.map((nome) => ({ nome, eventos: doAno.filter((l) => l.nome === nome).map((l) => l.onde) })) };
+});
+
+// Marcações: saem quando chegar o conteúdo das apresentações.
+const numerosDeMarca = [
+  { n: 'XXX', rotulo: 'pessoas por edição', nota: 'marcação' },
+  { n: 'XXX mil', rotulo: 'seguidores nas redes', nota: 'marcação' },
+];
+const publico = [
+  { rotulo: 'Idade', valor: 'XX a XX anos' },
+  { rotulo: 'De onde vem', valor: 'XX% de BH e região' },
+  { rotulo: 'Com que frequência', valor: 'XX festas por ano' },
+  { rotulo: 'Nas redes', valor: 'XX% acompanha a @bsurda' },
+];
+const formatos = [
+  { nome: 'Edição patrocinada', texto: 'A marca assina uma festa inteira. (marcação)' },
+  { nome: 'Trio da @bsurda', texto: 'No carnaval de rua de BH. (marcação)' },
+  { nome: 'Parada da @bsurda', texto: 'Programação de formação e cultura LGBTQIA+. (marcação)' },
+  { nome: 'Ativação no espaço', texto: 'Bar, cenografia, brinde, experiência dentro da festa. (marcação)' },
+  { nome: 'Conteúdo', texto: 'Foto, vídeo e redes da @bsurda. (marcação)' },
+];
+const casos = [
+  { marca: 'Amstel', onde: 'Halloween 16 anos', ano: '2025', texto: 'Uma linha sobre o que foi feito. (marcação)' },
+  { marca: 'Xeque Mate', onde: 'Halloween 10 anos', ano: '2019', texto: 'Uma linha sobre o que foi feito. (marcação)' },
+];
+---
+<Base titulo="Parcerias">
+  <header class="abre abre-cima">
+    <h1 class="t-gigante ecoa ecoa-cima" data-eco="Parcerias">Parcerias</h1>
+    <p class="t-apoio">Sua marca na @bsurda. Quem está com a gente hoje, o que a festa reúne e como entrar.</p>
+  </header>
+
+  <section class="agora" aria-labelledby="t-agora">
+    <h2 id="t-agora" class="titulo-secao" data-anima="sobe">Com a gente agora</h2>
+    <ul class="marcas">
+      {atuais.map((p, i) => (
+        <li class:list={['marca', { 'marca-b': i % 2 === 1 }]} data-anima="surge" style={`--i:${i}`}>
+          {p.papel && <p class="marca-papel">{p.papel}</p>}
+          <h3 class="marca-nome">{p.logo ? <img src={p.logo} alt={p.nome} /> : p.nome}</h3>
+          {p.texto && <p class="marca-texto">{p.texto}</p>}
+          {p.url && <p class="marca-link"><a href={p.url} target="_blank" rel="noopener">{p.destino ?? 'Conhecer'}<span aria-hidden="true"> ↗</span><span class="so-leitor"> (abre em outra aba)</span></a></p>}
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="bloco" aria-labelledby="t-numeros">
+    <h2 id="t-numeros" class="t-secao" data-anima="sobe">A @bsurda em números</h2>
+    <ul class="numeros" data-anima="surge">
+      {numeros.map((n) => <li><strong>{n.mais ? '+' : ''}{n.n}</strong><span>{n.rotulo}{n.nota ? ` (${n.nota})` : ''}</span></li>)}
+      {numerosDeMarca.map((n) => <li><strong>{n.n}</strong><span>{n.rotulo} ({n.nota})</span></li>)}
+    </ul>
+  </section>
+
+  <section class="bloco" aria-labelledby="t-publico">
+    <h2 id="t-publico" class="t-secao" data-anima="sobe">Quem vem</h2>
+    <p class="t-apoio bloco-texto" data-anima="surge">Texto de marcação: quem é o público da @bsurda e o que ele procura na festa.</p>
+    <dl class="linhas" data-anima="surge">
+      {publico.map((d) => <div><dt>{d.rotulo}</dt><dd>{d.valor}</dd></div>)}
+    </dl>
+    <p class="t-pequeno bloco-nota">Dados de marcação.</p>
+  </section>
+
+  <section class="bloco" aria-labelledby="t-formatos">
+    <h2 id="t-formatos" class="t-secao" data-anima="sobe">Como uma marca entra</h2>
+    <ul class="linhas linhas-grandes">
+      {formatos.map((f) => <li data-anima="surge"><strong>{f.nome}</strong><span>{f.texto}</span></li>)}
+    </ul>
+  </section>
+
+  <section class="bloco" aria-labelledby="t-casos">
+    <h2 id="t-casos" class="t-secao" data-anima="sobe">Casos</h2>
+    <ul class="casos">
+      {casos.map((c, i) => (
+        <li class="caso" data-anima="surge" style={`--i:${i}`}>
+          <div class:list={['caso-foto', { 'caso-foto-b': i % 2 === 1 }]}><span>Foto (marcação)</span></div>
+          <h3 class="caso-marca">{c.marca}</h3>
+          <p class="caso-onde">{c.onde}, {c.ano}</p>
+          <p class="caso-texto">{c.texto}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="registro" aria-labelledby="t-registro">
+    <h2 id="t-registro" class="t-secao" data-anima="sobe">Registro de parcerias</h2>
+    <p class="t-apoio registro-texto" data-anima="surge">Quem já esteve com a gente, festa por festa.</p>
+    <div class="anos">
+      {registro.map((g) => (
+        <div class="ano" data-anima="surge">
+          <h3 class="ano-numero">{g.ano}</h3>
+          <ul class="ano-linhas">
+            {g.marcas.map((m) => <li><strong>{m.nome}</strong><span>{m.eventos.map((e) => <span>{e}</span>)}</span></li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <p class="t-pequeno registro-nota">Registro em construção. (a confirmar)</p>
+  </section>
+
+  <section class="convite" aria-labelledby="t-convite">
+    <h2 id="t-convite" class="t-secao" data-anima="sobe">Vamos conversar</h2>
+    <p class="t-apoio convite-texto" data-anima="surge">Conte o que a sua marca quer fazer. A gente responde com uma proposta. (marcação)</p>
+    <p class="convite-botao" data-anima="surge"><Botao href={`mailto:${SITE.email}`}>Escrever para o comercial</Botao></p>
+  </section>
+</Base>
+
+<style>
+  .abre .t-apoio { margin-top: var(--e-2); }
+  /* Título de seção, igual ao do Sobre e da Equipe. */
+  .t-secao { font-size: clamp(2.75rem, 9.5vw, 8.75rem); font-weight: 800; line-height: 1; letter-spacing: -0.045em; text-transform: uppercase; text-wrap: balance; }
+
+  /* 1. Com a gente agora. Cada marca num bloco sólido, alternando as duas superfícies do tema
+     (vivo e invertida). O nome da marca é o elemento principal; com logo cadastrado, entra o logo. */
+  .agora { padding: var(--e-3) var(--margem) var(--e-6); }
+  .agora .titulo-secao { margin-bottom: var(--e-3); }
+  .marcas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: clamp(1rem, 2vw, 1.75rem); }
+  .marca { --m-fundo: var(--vivo); --m-texto: var(--sobre-vivo); display: grid; grid-template-rows: auto 1fr auto auto; min-height: clamp(18rem, 34vw, 30rem); padding: clamp(1.25rem, 2.6vw, 2.5rem); border-radius: var(--raio-cartao, 1.5rem); background: var(--m-fundo); color: var(--m-texto); }
+  .marca-b { --m-fundo: var(--texto); --m-texto: var(--fundo); }
+  .marca-papel { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  .marca-nome { align-self: end; font-size: clamp(3rem, 7.5vw, 7.5rem); font-weight: 800; line-height: 0.88; letter-spacing: -0.045em; text-transform: uppercase; text-wrap: balance; }
+  .marca-nome img { display: block; max-width: min(100%, 22rem); max-height: 9rem; }
+  .marca-texto { max-width: 26em; margin-top: var(--e-2); font-size: 1.0625rem; line-height: 1.4; }
+  .marca-link { margin-top: var(--e-3); padding-top: 0.9rem; border-top: 2px solid var(--m-texto); font-size: 0.8125rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.16em; }
+  .marca-link a { text-decoration: none; }
+  .marca-link a:hover, .marca-link a:focus-visible { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+
+  /* 6. Registro de parcerias. O ano grande à esquerda, as linhas ao lado: marca em destaque, evento em seguida. */
+  .registro { padding: var(--e-4) var(--margem) var(--e-6); }
+  .registro-texto { max-width: 30em; margin-top: var(--e-2); }
+  .anos { margin-top: var(--e-4); border-top: 2px solid var(--texto); }
+  .ano { display: grid; grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr); gap: var(--e-3); padding: var(--e-3) 0; border-bottom: 2px solid var(--texto); }
+  .ano-numero { font-size: var(--t-5); font-weight: 800; line-height: 0.85; letter-spacing: -0.045em; font-variant-numeric: tabular-nums; color: var(--destaque-texto, var(--destaque)); }
+  .ano-linhas { display: grid; gap: var(--e-2); }
+  .ano-linhas li { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0.25rem var(--e-3); align-items: baseline; }
+  .ano-linhas strong { font-size: var(--t-4); font-weight: 800; line-height: 0.95; letter-spacing: -0.035em; text-transform: uppercase; }
+  .ano-linhas li > span { display: grid; gap: 0.15rem; font-size: 1.0625rem; line-height: 1.35; }
+  .registro-nota { margin-top: var(--e-2); }
+
+  /* Blocos do meio (números, público, formatos, casos): mesma margem e mesmo ritmo do registro. */
+  .bloco { padding: var(--e-4) var(--margem) var(--e-6); }
+  .bloco-texto { max-width: 30em; margin-top: var(--e-2); }
+  .bloco-nota { margin-top: var(--e-2); }
+
+  .numeros { display: flex; flex-wrap: wrap; align-items: flex-start; gap: var(--e-3) var(--e-5); margin-top: var(--e-4); }
+  .numeros li { display: grid; gap: 0.35em; max-width: 12rem; }
+  .numeros strong { font-size: var(--t-5); font-weight: 800; line-height: 0.85; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .numeros span { font-size: 0.9375rem; line-height: 1.25; color: var(--suave); }
+
+  /* Linhas com fio, como as do registro: rótulo de um lado, conteúdo do outro. */
+  .linhas { margin-top: var(--e-4); border-top: 2px solid var(--texto); }
+  .linhas > * { display: grid; grid-template-columns: minmax(0, 0.32fr) minmax(0, 1fr); gap: 0.25rem var(--e-3); align-items: baseline; padding: var(--e-2) 0; border-bottom: 2px solid var(--texto); }
+  .linhas dt { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  .linhas dd { margin: 0; font-size: var(--t-4); font-weight: 800; line-height: 0.95; letter-spacing: -0.035em; text-transform: uppercase; }
+  .linhas-grandes > * { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding: var(--e-3) 0; }
+  .linhas-grandes strong { font-size: var(--t-4); font-weight: 800; line-height: 0.95; letter-spacing: -0.035em; text-transform: uppercase; text-wrap: balance; }
+  .linhas-grandes span { font-size: 1.0625rem; line-height: 1.35; }
+
+  /* Casos. A foto entra depois; até lá, um bloco sólido guarda o lugar (vivo e invertido, como as marcas). */
+  .casos { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: var(--e-4) clamp(1rem, 2vw, 1.75rem); margin-top: var(--e-4); }
+  .caso-foto { display: grid; place-items: center; aspect-ratio: 4 / 3; border-radius: var(--raio-cartao, 1.5rem); background: var(--vivo); color: var(--sobre-vivo); font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  .caso-foto-b { background: var(--texto); color: var(--fundo); }
+  .caso-marca { margin-top: var(--e-2); font-size: var(--t-4); font-weight: 800; line-height: 0.95; letter-spacing: -0.035em; text-transform: uppercase; }
+  .caso-onde { margin-top: 0.4rem; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  .caso-texto { max-width: 26em; margin-top: 0.75rem; font-size: 1.0625rem; line-height: 1.4; }
+
+  /* 7. Contato. */
+  .convite { padding: var(--e-4) var(--margem) var(--e-6); }
+  .convite-texto { max-width: 30em; margin-top: var(--e-2); }
+  .convite-botao { margin-top: var(--e-4); }
+
+  @media (max-width: 820px) {
+    .ano { grid-template-columns: 1fr; gap: var(--e-2); }
+    .ano-linhas li { grid-template-columns: 1fr; }
+    .linhas > * { grid-template-columns: 1fr; }
+  }
+</style>
