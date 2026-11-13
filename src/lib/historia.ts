@@ -39,7 +39,7 @@ export const palco = [
   { nome: 'Copacabana Club' }, { nome: 'Pearls Negras' },
   { nome: 'Manu Gavassi' }, { nome: 'MC Carol' }, { nome: 'Kika Boom' },
   { nome: 'Matheus Morais' }, { nome: 'Yuri Frainer' }, { nome: 'Daft Pobre' }, { nome: 'Murilo Caldas' },
-  { nome: 'Jade Baraldo' }, { nome: 'Não Recomendados' }, { nome: 'Boss in Drama' },
+  { nome: 'Jade Baraldo' }, { nome: 'Não Recomendados' }, { nome: 'Boss in Drama' }, { nome: 'Caio Caprioli' },
   { nome: 'Alyssa Edwards', de: 'EUA', bandeira: '🇺🇸' }, { nome: 'Latrice Royale', de: 'EUA', bandeira: '🇺🇸' }, { nome: 'Jujubee', de: 'EUA', bandeira: '🇺🇸' },
   { nome: 'Coco Montrese', de: 'EUA', bandeira: '🇺🇸' }, { nome: 'April Carrión', de: 'Porto Rico', bandeira: '🇵🇷' },
 ];

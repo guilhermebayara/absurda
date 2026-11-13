@@ -74,7 +74,9 @@
   "nome": "@bsurda Bazinga!",
   "data": "2012-06-16T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157630099114934",
-  "local": "Espaço Galleria, Brasília"
+  "local": "Espaço Galleria, Brasília",
+  "capa": "/capas/bazinga-2012-06-brasilia.jpg",
+  "capaPequena": "/capas/bazinga-2012-06-brasilia-p.jpg"
  },
  {
   "id": "flickr-72157629893060358",
@@ -130,14 +132,18 @@
   "nome": "Bazinga! 1 ano",
   "data": "2012-03-31T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629291898254",
-  "local": "Boombox, Maringá"
+  "local": "Boombox, Maringá",
+  "capa": "/capas/bazinga-2012-03-maringa.jpg",
+  "capaPequena": "/capas/bazinga-2012-03-maringa-p.jpg"
  },
  {
   "id": "flickr-72157629291894734",
   "nome": "Bazinga! 1 ano",
   "data": "2012-03-30T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629291894734",
-  "local": "Velvet Club"
+  "local": "Velvet Club",
+  "capa": "/capas/bazinga-2012-03-bh.jpg",
+  "capaPequena": "/capas/bazinga-2012-03-bh-p.jpg"
  },
  {
   "id": "flickr-72157629629017381",
@@ -224,7 +230,10 @@
   "id": "flickr-72157628183487895",
   "nome": "Bazinga!",
   "data": "2011-12-03T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157628183487895"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157628183487895",
+  "local": "Up e.music",
+  "capa": "/capas/bazinga-2011-12.jpg",
+  "capaPequena": "/capas/bazinga-2011-12-p.jpg"
  },
  {
   "id": "flickr-72157628045022634",
@@ -243,7 +252,9 @@
   "nome": "@bsurda Bazinga!",
   "data": "2011-10-28T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157628015226382",
-  "local": "Funhouse, São Paulo"
+  "local": "Funhouse, São Paulo",
+  "capa": "/capas/bazinga-2011-10-sp.jpg",
+  "capaPequena": "/capas/bazinga-2011-10-sp-p.jpg"
  },
  {
   "id": "flickr-72157627740695781",
@@ -332,7 +343,9 @@
   "nome": "Bazinga! Twister Safadão",
   "data": "2011-05-19T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626730479274",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/bazinga-2011-05.jpg",
+  "capaPequena": "/capas/bazinga-2011-05-p.jpg"
  },
  {
   "id": "flickr-72157626573033463",
@@ -359,7 +372,9 @@
   "nome": "@bsurda vol. 13: Bazinga!!",
   "data": "2011-03-19T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626269819508",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/bazinga-2011-03.jpg",
+  "capaPequena": "/capas/bazinga-2011-03-p.jpg"
  },
  {
   "id": "flickr-72157626136111807",
