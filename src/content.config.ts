@@ -37,6 +37,8 @@ const projetos = defineCollection({
     // Foto de um evento marcante do projeto (do Gui). O nome vai por cima dela, e as cores do
     // projeto no site saem da foto. Sem capa, o projeto usa um par de cores da marca.
     capa: z.string().optional(),
+    // Ponto da foto que não pode ser cortado, no formato do CSS ("50% 100%" é embaixo, no meio).
+    foco: z.string().optional(),
     pessoas: z.array(reference('pessoas')).default([]),
     // Ano em que começou, quando a Agenda não alcança (a @bsurda é de 2009).
     desde: z.string().optional(),
@@ -53,6 +55,8 @@ const projetos = defineCollection({
     primas: z.object({ titulo: z.string(), texto: z.string().optional(), filtro: z.string() }).optional(),
     // Programação que não passou pela Agenda (eventos sem ingresso próprio), por ano. Usada no
     // histórico "anual-sub": a Parada é sempre uma coleção de eventos. "arte" é a imagem do ano.
+    // Só entra ano em que houve Parada de fato: tem de existir algo além das festas de sempre
+    // (regra do Gui). 2024 teve divulgação de mês do orgulho, mas não foi Parada, e fica de fora.
     programacao: z.array(z.object({
       ano: z.string(),
       numero: z.string().optional(),

@@ -54,7 +54,7 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
         return (
           <li class:list={['cartaz', { 'cartaz-foto': p.data.capa, 'cartaz-arcoiris': p.data.arcoiris }]} style={`${cores(p.id)};--i:${i}`} data-cores={temas[p.id].map(atributo).join(';')} data-anima="surge">
             <a href={`/projetos/${p.id}`}>
-              {p.data.capa && <img class="cartaz-imagem" src={p.data.capa} alt="" loading="lazy" />}
+              {p.data.capa && <img class="cartaz-imagem" src={p.data.capa} alt="" loading="lazy" style={p.data.foco ? `object-position:${p.data.foco}` : undefined} />}
               {(p.data.situacao === 'em-elaboracao' || proxima) && (
                 <p class="cartaz-aviso">{p.data.situacao === 'em-elaboracao' ? 'Em elaboração' : `Próxima: ${quando(proxima)}`}</p>
               )}

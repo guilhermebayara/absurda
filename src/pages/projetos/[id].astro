@@ -88,7 +88,7 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
 <Base titulo={projeto.data.nome} descricao={projeto.data.resumo} temas={temas} imagem={projeto.data.capa}>
   <header class:list={['abre', 'abre-cima', { 'abre-foto': capa }]} data-tema="sorteio" data-reserva={atributo(temas[0])}>
     <div class="abre-cartao">
-      {capa && <img class="abre-imagem" src={capa} alt="" />}
+      {capa && <img class="abre-imagem" src={capa} alt="" style={projeto.data.foco ? `object-position:${projeto.data.foco}` : undefined} />}
       <div class="abre-texto">
         {rotulos[projeto.data.situacao] && <p class="etiqueta">{rotulos[projeto.data.situacao]}</p>}
         {capa

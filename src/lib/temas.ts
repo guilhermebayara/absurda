@@ -111,3 +111,27 @@ export function temaPara(id: string): Tema {
 export function atributo(tema: Tema): string {
   return `${tema.fundo}|${tema.texto}|${tema.destaque}`;
 }
+
+// Temas do site que combinam com um conjunto de tons (matizes em graus, de uma foto).
+// Vale o fundo do tema, quando ele tem cor, ou o destaque (com uma pequena desvantagem, para o
+// fundo ganhar em caso de empate). Um tom sem tema próximo o bastante fica sem par.
+function matiz(hex: string): { h: number; s: number } {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+  const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
+  if (d === 0) return { h: 0, s: 0 };
+  const h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return { h: (h * 60 + 360) % 360, s: d / (1 - Math.abs(max + min - 1) || 1) };
+}
+const afastamento = (a: number, b: number) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
+function proximidade(tema: Tema, tom: number): number {
+  const f = matiz(tema.fundo), d = matiz(tema.destaque);
+  return Math.min(f.s >= 0.3 ? afastamento(f.h, tom) : 999, afastamento(d.h, tom) + 20);
+}
+export function temasDoSitePara(tons: number[]): Tema[] {
+  const escolhidos: Tema[] = [];
+  for (const tom of tons) {
+    const melhor = TEMAS_DO_SITE.filter((t) => !escolhidos.includes(t)).sort((a, b) => proximidade(a, tom) - proximidade(b, tom))[0];
+    if (melhor && proximidade(melhor, tom) <= 50) escolhidos.push(melhor);
+  }
+  return escolhidos;
+}
