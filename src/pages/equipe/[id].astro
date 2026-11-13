@@ -21,7 +21,8 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
     <a class="voltar pessoa-voltar" href="/equipe">Toda a equipe</a>
     <div class="pessoa-crachas">
       <div class="pessoa-verso" aria-hidden="true">
-        <Cracha lado="verso" nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} desde={pessoa.data.desde} numero={pessoa.data.numero} sigla={pessoa.data.sigla} fundador={pessoa.id === 'ed-luiz'} />
+        {/* Sem a condição de fundador no verso (escolha do Gui): nesta página o selo da frente está sempre à vista. */}
+        <Cracha lado="verso" nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} desde={pessoa.data.desde} numero={pessoa.data.numero} sigla={pessoa.data.sigla} />
       </div>
       <div class="pessoa-frente">
         <Cracha nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} foto={pessoa.data.foto} desde={pessoa.data.desde} numero={pessoa.data.numero} sigla={pessoa.data.sigla} fundador={pessoa.id === 'ed-luiz'} />
