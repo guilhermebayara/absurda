@@ -1,6 +1,6 @@
 ---
 nome: "Vil Araújo"
-funcao: "DJ residente"
+funcao: "DJ"
 grupo: residentes
 situacao: anterior
 ordem: 52

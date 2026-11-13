@@ -24,6 +24,9 @@ const pessoas = (await getCollection('pessoas')).sort((a, b) => a.data.ordem - b
 const atuais = pessoas.filter((p) => p.data.situacao === 'atual');
 // Quem já fez parte da equipe (regra do Gui): quem só tocou como convidado não entra aqui.
 // O título da seção acompanha o rótulo do crachá de quem saiu, "Já fez parte".
+// Quem já fez parte aparece só como "DJ" (o histórico de residência é nebuloso para alguns);
+// "residente" fica para a equipe atual. A ordem dos nomes vai seguir o número do crachá quando
+// os números estiverem definidos; a da equipe atual não depende disso.
 const anteriores = pessoas.filter((p) => p.data.situacao === 'anterior');
 
 // Fora da cabine. "url" é opcional: perfil, site, o que fizer sentido para cada um.

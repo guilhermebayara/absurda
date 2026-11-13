@@ -1,6 +1,6 @@
 ---
 nome: "André Victor"
-funcao: "DJ residente"
+funcao: "DJ"
 grupo: residentes
 situacao: anterior
 ordem: 51
