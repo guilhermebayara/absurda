@@ -20,14 +20,15 @@ export const lineup = [
 ];
 export const totalDeLugares = lineup.flat().length;
 
-export const cidades = ['Vitória', 'São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador', 'São Luís', 'Maringá', 'Londrina', 'Sete Lagoas', 'Juiz de Fora', 'Montes Claros'];
+export const cidades = ['Vitória', 'São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador', 'São Luís', 'Maringá', 'Londrina', 'Sete Lagoas', 'Juiz de Fora', 'Montes Claros', 'Ouro Preto', 'Divinópolis', 'Viçosa'];
 
 // Números da abertura. "mais" põe um "+" na frente.
 export const numeros = [
   { n: idade, rotulo: 'anos de festa' },
   { n: 390, mais: true, rotulo: 'eventos' },
   { n: totalDeLugares, mais: false, rotulo: 'endereços em BH', nota: 'e contando' },
-  { n: cidades.length + 1, rotulo: 'cidades', nota: 'a confirmar' },
+  // Conta as cidades da lista acima, mais Belo Horizonte (regra do Gui: vale o que está listado).
+  { n: cidades.length + 1, rotulo: 'cidades' },
 ];
 
 // Quem a gente trouxe. "de" e "bandeira" marcam atração de fora do Brasil.
