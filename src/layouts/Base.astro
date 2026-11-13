@@ -584,20 +584,29 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
 
   /* Animações de entrada ao rolar. Só valem com JavaScript ligado;
      sem ele, tudo já aparece no lugar. */
-  .js [data-anima='sobe'] { clip-path: inset(0 0 100% 0); transform: translateY(0.5em); transition: clip-path 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99), transform 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99); transition-delay: calc(var(--i, 0) * 80ms); }
-  .js [data-anima='sobe'].visto { clip-path: inset(-0.2em -0.2em -0.3em -0.2em); transform: none; }
-  .js [data-anima='surge'] { opacity: 0; transform: translateY(1.75rem); transition: opacity 0.7s ease, transform 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99); transition-delay: calc(var(--i, 0) * 80ms); }
-  .js [data-anima='surge'].visto { opacity: 1; transform: none; }
-  .js [data-anima='abre'] { clip-path: inset(0 0 100% 0 round 1rem); transition: clip-path 1.1s cubic-bezier(0.62, 0.05, 0.01, 0.99); transition-delay: calc(var(--i, 0) * 80ms); }
-  .js [data-anima='abre'].visto { clip-path: inset(0 0 0 0 round 1rem); }
+  /* A entrada é uma animação (keyframes), e não uma transição. No Safari do iPhone a transição
+     falhava em quem entrava na tela pela rolagem: o elemento só aparecia. A animação declara o
+     ponto de partida e roda sempre que a classe chega. Os keyframes só têm "from": o destino é o
+     estado normal do elemento, o que deixa cada um terminar no seu próprio recorte ou posição. */
+  .js [data-anima='sobe'] { clip-path: inset(0 0 100% 0); transform: translateY(0.5em); }
+  .js [data-anima='sobe'].visto { clip-path: inset(-0.2em -0.2em -0.3em -0.2em); transform: none; animation: entra-sobe 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99) calc(var(--i, 0) * 80ms) backwards; }
+  .js [data-anima='surge'] { opacity: 0; transform: translateY(1.75rem); }
+  .js [data-anima='surge'].visto { opacity: 1; transform: none; animation: entra-surge 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99) calc(var(--i, 0) * 80ms) backwards; }
+  .js [data-anima='abre'] { clip-path: inset(0 0 100% 0 round 1rem); }
+  .js [data-anima='abre'].visto { clip-path: inset(0 0 0 0 round 1rem); animation: entra-abre 1.1s cubic-bezier(0.62, 0.05, 0.01, 0.99) calc(var(--i, 0) * 80ms) backwards; }
   .js [data-anima='linha'] { position: relative; }
-  .js [data-anima='linha']::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1.5px; background: var(--texto); transform: scaleX(0); transform-origin: 0 50%; transition: transform 1.1s cubic-bezier(0.62, 0.05, 0.01, 0.99); transition-delay: calc(var(--i, 0) * 70ms); }
-  .js [data-anima='linha'].visto::before { transform: scaleX(1); }
+  .js [data-anima='linha']::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1.5px; background: var(--texto); transform: scaleX(0); transform-origin: 0 50%; }
+  .js [data-anima='linha'].visto::before { transform: scaleX(1); animation: entra-linha 1.1s cubic-bezier(0.62, 0.05, 0.01, 0.99) calc(var(--i, 0) * 70ms) backwards; }
+  @keyframes entra-sobe { from { clip-path: inset(0 0 100% 0); transform: translateY(0.5em); } }
+  @keyframes entra-surge { from { opacity: 0; transform: translateY(1.75rem); } }
+  @keyframes entra-abre { from { clip-path: inset(0 0 100% 0 round 1rem); } }
+  @keyframes entra-linha { from { transform: scaleX(0); } }
 
   @media (prefers-reduced-motion: reduce) {
     .js .ecoa { animation: none; --ab: 1; transition: none; }
     .js [data-anima] { clip-path: none !important; opacity: 1 !important; transform: none !important; transition: none !important; }
-    .js [data-anima='linha']::before { transform: scaleX(1); transition: none; }
+    .js [data-anima='sobe'], .js [data-anima='surge'], .js [data-anima='abre'] { animation: none !important; }
+    .js [data-anima='linha']::before { transform: scaleX(1); transition: none; animation: none !important; }
   }
 
   .secao { padding: clamp(3.5rem, 9vw, 8rem) var(--margem); }

@@ -262,6 +262,9 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
       .crachas li, .pulseiras li, .papel { animation: deriva linear both; }
       /* Regra separada de propósito: junto do atalho "animation", a linha do tempo é zerada. */
       .mesa .crachas li, .bancada .pulseiras li, .bancada .papel { animation-timeline: view(); animation-range: cover 0% cover 100%; }
+      /* O crachá também tem animação de entrada (Base.astro). As duas convivem: a entrada corre no
+         tempo, a deriva na rolagem. Sem esta regra, a entrada tomaria o lugar da deriva. */
+      .mesa .crachas li[data-anima].visto { animation: entra-surge 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99) calc(var(--i, 0) * 80ms) backwards, deriva linear both; animation-timeline: auto, view(); animation-range: normal, cover 0% cover 100%; }
 
       .crachas li.ed { --ty0: 1rem; --ty1: -1rem; --g0: 0.6deg; --g1: -0.6deg; }
       .crachas li:nth-child(2) { --ty0: 2.6rem; --ty1: -2.6rem; --g0: -1.6deg; --g1: 1.4deg; }
