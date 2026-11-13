@@ -15,6 +15,8 @@ const pessoas = defineCollection({
     foto: z.string().optional(),
     // Ano em que entrou na @bsurda. Aparece no verso do crachá; sem ele, fica a marcação XXXX.
     desde: z.number().optional(),
+    // Para quem já saiu: o ano de saída. O crachá mostra o intervalo (desde–ate); sem os anos, XXXX–XXXX.
+    ate: z.number().optional(),
     // Número do crachá, na ordem de entrada na festa (Gui e Ed definem). Sem ele, fica a marcação XXX.
     numero: z.number().optional(),
     // Final do código do crachá, quando as iniciais da função não servem (o Gui é PD, e não DP).

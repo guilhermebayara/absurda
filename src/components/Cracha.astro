@@ -7,6 +7,11 @@
 // Os dois são sólidos: crachá na cor da página parecia vazado.
 // O selo "Fundador" é exclusivo do crachá do Ed.
 //
+// Versão alumni, para quem já fez parte: o mesmo crachá, com mudanças de propósito. O rótulo vira
+// "Já fez parte", o acesso vira "Vitalício" (saiu da equipe, a porta segue aberta), o verso mostra
+// o intervalo no lugar de "Desde", com o total de anos fechado, e a borda vem picotada, como
+// ingresso já validado. O número do crachá continua: crachá não se reaproveita.
+//
 // Com "verso", o crachá vira ao passar o cursor (só onde existe cursor) e mostra desde quando a
 // pessoa está na @bsurda. Sem o ano cadastrado, aparecem XXXX e X como marcação.
 import Arroba from './marca/Arroba.astro';
@@ -17,6 +22,8 @@ interface Props {
   grupo: 'socios' | 'residentes' | 'equipe';
   foto?: string;
   desde?: number;
+  ate?: number;
+  alumni?: boolean;
   numero?: number;
   sigla?: string;
   href?: string;
@@ -26,12 +33,13 @@ interface Props {
   lado?: 'frente' | 'verso';
   class?: string;
 }
-const { nome, funcao, grupo, foto, desde, numero, sigla: siglaDada, href, fundador = false, verso = false, lado = 'frente', class: classe } = Astro.props;
+const { nome, funcao, grupo, foto, desde, ate, alumni = false, numero, sigla: siglaDada, href, fundador = false, verso = false, lado = 'frente', class: classe } = Astro.props;
 const soVerso = lado === 'verso';
 const producao = grupo === 'socios';
-const rotulo = producao ? 'Produção' : grupo === 'residentes' ? 'Residente' : 'Equipe';
-const acesso = producao ? 'Total' : grupo === 'residentes' ? 'Cabine' : 'Produção';
-const anos = desde ? new Date().getFullYear() - desde : undefined;
+const rotulo = alumni ? 'Já fez parte' : producao ? 'Produção' : grupo === 'residentes' ? 'Residente' : 'Equipe';
+const acesso = alumni ? 'Vitalício' : producao ? 'Total' : grupo === 'residentes' ? 'Cabine' : 'Produção';
+// Quem está: conta até hoje. Quem saiu: o total fica fechado no ano de saída.
+const anos = alumni ? (desde && ate ? ate - desde : undefined) : desde ? new Date().getFullYear() - desde : undefined;
 // Número do crachá com três casas; XXX enquanto não foi definido.
 const num = numero ? String(numero).padStart(3, '0') : 'XXX';
 // Código do verso: parece código, mas dá para ler. Cinco partes, nesta ordem:
@@ -42,7 +50,7 @@ const sigla = siglaDada ?? semAcento(funcao).split(/\s+/).filter((p) => p.length
 const codigo = ['@B', num, semAcento(nome.split(' ')[0]).toUpperCase().slice(0, 4), desde ?? 'XXXX', sigla].join('-');
 const Tag = href ? 'a' : 'div';
 ---
-<Tag class:list={['cracha', producao ? 'cracha-producao' : 'cracha-cabine', { 'cracha-vira': verso && !soVerso, 'cracha-so-verso': soVerso }, classe]} href={href}>
+<Tag class:list={['cracha', producao ? 'cracha-producao' : 'cracha-cabine', { 'cracha-vira': verso && !soVerso, 'cracha-so-verso': soVerso, 'cracha-alumni': alumni }, classe]} href={href}>
   <span class="cracha-giro">
     {!soVerso && <span class="cracha-face cracha-frente">
       <span class="cracha-furo" aria-hidden="true"></span>
@@ -61,9 +69,9 @@ const Tag = href ? 'a' : 'div';
       <span class="cracha-face cracha-verso" aria-hidden="true">
         <span class="cracha-furo"></span>
         <span class="cracha-topo"><Arroba class="cracha-marca" /><span>Na @bsurda</span></span>
-        <span class="cracha-desde">
-          <span class="cracha-desde-rotulo">Desde</span>
-          <strong>{desde ?? 'XXXX'}</strong>
+        <span class:list={['cracha-desde', { 'cracha-intervalo': alumni }]}>
+          <span class="cracha-desde-rotulo">{alumni ? 'Período' : 'Desde'}</span>
+          <strong>{alumni ? `${desde ?? 'XXXX'}–${ate ?? 'XXXX'}` : (desde ?? 'XXXX')}</strong>
           <span class="cracha-anos">{anos ?? 'X'} anos de @bsurda</span>
         </span>
         <span class="cracha-registro">
@@ -128,6 +136,13 @@ const Tag = href ? 'a' : 'div';
   .cracha-desde { display: grid; justify-self: center; align-content: center; justify-items: start; gap: 0.35rem; min-height: 0; }
   .cracha-desde-rotulo { font-size: 1.125rem; line-height: 1.1; }
   .cracha-desde strong { font-size: clamp(3.25rem, 5vw, 4.75rem); font-weight: 800; line-height: 0.85; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+  /* Alumni: o intervalo tem mais que o dobro de caracteres do ano, então o corpo cai. */
+  .cracha-intervalo strong { font-size: 2.5rem; letter-spacing: -0.04em; white-space: nowrap; }
+  /* Picote de validação: uma mordida redonda na borda lateral, que cabe na margem sem tocar a foto.
+     À esquerda na frente e, como no verso de um objeto real, à direita atrás: são as bordas
+     que ficam livres quando os dois aparecem sobrepostos na página da pessoa. */
+  .cracha-alumni .cracha-frente { -webkit-mask-image: radial-gradient(circle at 0 58%, transparent 0.62rem, #000 0.66rem); mask-image: radial-gradient(circle at 0 58%, transparent 0.62rem, #000 0.66rem); }
+  .cracha-alumni .cracha-verso { -webkit-mask-image: radial-gradient(circle at 100% 58%, transparent 0.62rem, #000 0.66rem); mask-image: radial-gradient(circle at 100% 58%, transparent 0.62rem, #000 0.66rem); }
   .cracha-anos { margin-top: -0.05rem; padding: 0.18em 0.7em 0.22em; border-radius: 99px; background: var(--c-texto); color: var(--c-fundo); font-size: 0.875rem; line-height: 1.2; white-space: nowrap; }
   /* Registro: o número do crachá, em todos. A condição de fundador, como dado oficial, só no do Ed. */
   /* Rótulo e valor na mesma linha, assentados na mesma base, colados ao código de barras

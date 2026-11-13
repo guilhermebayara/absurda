@@ -12,6 +12,10 @@ export async function getStaticPaths() {
 }
 const { pessoa } = Astro.props;
 const { Content } = await render(pessoa);
+const alumni = pessoa.data.situacao === 'anterior';
+// "Fotógrafo e DJ" vira "fotógrafo e DJ" no meio da frase; "DJ residente" continua como está.
+const f = pessoa.data.funcao;
+const funcaoNaFrase = /^[A-ZÀ-Ú][a-zà-ú]/.test(f) ? f[0].toLowerCase() + f.slice(1) : f;
 const projetos = (await getCollection('projetos')).filter((pr) => pr.data.pessoas.some((ref) => ref.id === pessoa.id));
 // O tema vem da foto da pessoa. Sem foto, um par fixo da marca.
 const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
@@ -21,16 +25,16 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
     <div class="pessoa-crachas">
       <div class="pessoa-verso" aria-hidden="true">
         {/* Sem a condição de fundador no verso (escolha do Gui): nesta página o selo da frente está sempre à vista. */}
-        <Cracha lado="verso" nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} desde={pessoa.data.desde} numero={pessoa.data.numero} sigla={pessoa.data.sigla} />
+        <Cracha lado="verso" nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} desde={pessoa.data.desde} ate={pessoa.data.ate} alumni={alumni} numero={pessoa.data.numero} sigla={pessoa.data.sigla} />
       </div>
       <div class="pessoa-frente">
-        <Cracha nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} foto={pessoa.data.foto} desde={pessoa.data.desde} numero={pessoa.data.numero} sigla={pessoa.data.sigla} fundador={pessoa.id === 'ed-luiz'} />
+        <Cracha nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} foto={pessoa.data.foto} desde={pessoa.data.desde} ate={pessoa.data.ate} alumni={alumni} numero={pessoa.data.numero} sigla={pessoa.data.sigla} fundador={pessoa.id === 'ed-luiz'} />
       </div>
     </div>
     <div class="pessoa-texto">
-      <p class="etiqueta">{pessoa.data.situacao === 'atual' ? pessoa.data.funcao : `Fez parte da @bsurda como ${pessoa.data.funcao.toLowerCase()}`}</p>
+      <p class="etiqueta">{pessoa.data.situacao === 'atual' ? pessoa.data.funcao : `Fez parte da @bsurda como ${funcaoNaFrase}`}</p>
       <h1 class="t-grande">{pessoa.data.nome}</h1>
-      <p class="so-leitor">Na @bsurda desde {pessoa.data.desde ?? 'data a confirmar'}.</p>
+      <p class="so-leitor">{alumni ? `Na @bsurda de ${pessoa.data.desde ?? 'ano a confirmar'} a ${pessoa.data.ate ?? 'ano a confirmar'}.` : `Na @bsurda desde ${pessoa.data.desde ?? 'data a confirmar'}.`}</p>
       <div class="prosa"><Content /></div>
       {pessoa.data.instagram && <p><Botao href={pessoa.data.instagram} externo>Instagram</Botao></p>}
 
@@ -61,10 +65,10 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
      o giro do hover, é aqui que o verso aparece. */
   .pessoa-texto .pessoa-volta { margin-top: clamp(2.5rem, 5vw, 4rem); }
   /* Crachás maiores que os pequenos da Equipe e menores que o do Ed lá: o verso precisa caber inteiro. */
-  .pessoa-crachas { --l: clamp(15.5rem, 23vw, 21rem); position: relative; width: calc(var(--l) * 1.9); height: calc(var(--l) * 1.4 * 1.16); }
+  .pessoa-crachas { --l: clamp(15.5rem, 23vw, 21rem); position: relative; width: calc(var(--l) * 1.97); height: calc(var(--l) * 1.4 * 1.16); }
   .pessoa-frente, .pessoa-verso { position: absolute; width: var(--l); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
   .pessoa-frente { left: 0; top: 0; z-index: 1; transform: rotate(-3deg); }
-  .pessoa-verso { left: calc(var(--l) * 0.86); top: calc(var(--l) * 0.18); transform: rotate(4deg); }
+  .pessoa-verso { left: calc(var(--l) * 0.93); top: calc(var(--l) * 0.18); transform: rotate(4deg); }
   .pessoa-frente :global(.cracha-face), .pessoa-verso :global(.cracha-face) { box-shadow: 0 0 0 3px var(--fundo); }
   /* Aqui o selo do fundador fica dentro do crachá: solto para fora, ele caía em cima do verso. */
   .pessoa-frente :global(.cracha-selo) { right: 0.5rem; top: 3.4rem; }
@@ -90,6 +94,7 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
     .pessoa-frente :global(.cracha-selo strong) { font-size: 0.5625rem; }
     .pessoa-frente :global(.cracha-selo span) { font-size: 1.125rem; }
     .pessoa-verso :global(.cracha-desde strong) { font-size: 2.75rem; }
+    .pessoa-verso :global(.cracha-intervalo strong) { font-size: 1.75rem; }
     .pessoa-verso :global(.cracha-registro strong) { font-size: 1.125rem; }
     .pessoa-verso :global(.cracha-verso) { padding: 0.8rem 0.9rem 0.9rem; overflow: hidden; }
     /* Num crachá deste tamanho as linhas miúdas do verso encolhem para caber sem cortar. */

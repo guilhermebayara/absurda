@@ -1,6 +1,9 @@
 ---
 nome: "Lugh"
-funcao: "DJ residente"
+funcao: "Fotógrafo e DJ"
+links:
+  - rotulo: "Estilingue"
+    url: "https://www.instagram.com/estilingue/"
 grupo: residentes
 situacao: anterior
 ordem: 53
