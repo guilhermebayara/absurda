@@ -18,7 +18,6 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
 ---
 <Base titulo={pessoa.data.nome} tema={tema} imagem={pessoa.data.foto}>
   <div class="pessoa" data-tema={atributo(tema)}>
-    <a class="voltar pessoa-voltar" href="/equipe">Toda a equipe</a>
     <div class="pessoa-crachas">
       <div class="pessoa-verso" aria-hidden="true">
         {/* Sem a condição de fundador no verso (escolha do Gui): nesta página o selo da frente está sempre à vista. */}
@@ -48,6 +47,9 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
           <ul>{projetos.map((pr) => <li><a class="t-medio" href={`/projetos/${pr.id}`}>{pr.data.nome}</a></li>)}</ul>
         </section>
       )}
+
+      {/* O caminho de volta fica no fim, onde a leitura termina. No topo ele competia com os crachás. */}
+      <p class="pessoa-volta"><Botao href="/equipe" tipo="linha">Toda a equipe</Botao></p>
     </div>
   </div>
 </Base>
@@ -57,8 +59,7 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
   /* Frente e verso do crachá da pessoa, largados um sobre o outro como na mesa da Equipe:
      a frente por cima, o verso aparecendo por trás, cada um num ângulo. No celular, que não tem
      o giro do hover, é aqui que o verso aparece. */
-  /* O caminho de volta fica no topo da página, acima de tudo, e não no meio do conteúdo. */
-  .pessoa-voltar { grid-column: 1 / -1; justify-self: start; }
+  .pessoa-texto .pessoa-volta { margin-top: clamp(2.5rem, 5vw, 4rem); }
   /* Crachás maiores que os pequenos da Equipe e menores que o do Ed lá: o verso precisa caber inteiro. */
   .pessoa-crachas { --l: clamp(15.5rem, 23vw, 21rem); position: relative; width: calc(var(--l) * 1.9); height: calc(var(--l) * 1.4 * 1.16); }
   .pessoa-frente, .pessoa-verso { position: absolute; width: var(--l); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
