@@ -79,7 +79,9 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
     .pessoa-verso :global(.cracha-verso) { padding: 0.8rem 0.9rem 0.9rem; overflow: hidden; }
     /* Num crachá deste tamanho as linhas miúdas do verso encolhem para caber sem cortar. */
     .pessoa-verso :global(.cracha-topo) { font-size: 0.625rem; letter-spacing: 0.12em; }
-    .pessoa-verso :global(.cracha-acesso) { gap: 0.3rem; font-size: 0.5rem; letter-spacing: 0.04em; }
+    /* As duas frases do rodapé não cabem nesta largura: fica só o lema. */
+    .pessoa-verso :global(.cracha-acesso) { font-size: 0.625rem; letter-spacing: 0.12em; }
+    .pessoa-verso :global(.cracha-acesso span) { display: none; }
     .pessoa-verso :global(.cracha-registro) { flex-wrap: wrap; row-gap: 0.15rem; }
     .pessoa-verso :global(.cracha-registro span span) { font-size: 0.5625rem; letter-spacing: 0.1em; }
     .pessoa-verso :global(.cracha-codigo) { font-size: 0.5625rem; letter-spacing: 0.14em; }
