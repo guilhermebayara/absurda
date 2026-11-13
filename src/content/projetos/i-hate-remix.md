@@ -2,6 +2,8 @@
 nome: "I Hate Remix Club"
 resumo: "Festas livres de remix, com especiais de cantoras, álbuns e eras."
 situacao: ativo
+capa: "/projetos/i-hate-remix.jpg"
+foco: "50% 72%"
 ordem: 5
 historicas:
   - { evento: "sympla-1991728", porque: "A IHR renascida, na Lavos. (marcação)" }

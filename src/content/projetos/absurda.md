@@ -2,7 +2,7 @@
 nome: "@bsurda"
 resumo: "A festa principal. Texto de marcação."
 situacao: ativo
-capa: "/sobre/pista-2.jpg"
+capa: "/projetos/absurda.jpg"
 ordem: 1
 desde: "2009"
 especiais:
