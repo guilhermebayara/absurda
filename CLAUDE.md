@@ -60,17 +60,25 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
 1. `git fetch origin main` e traga a `main` para a branch.
 2. `npm run build` sem erro.
 3. `npm run confere:arquivo` passando.
-4. `npm run confere:links` e `npm run confere:temas` passando (ver "Conferências do site").
+4. `npm run confere:links`, `npm run confere:temas` e `npm run confere:calmo` passando (ver
+   "Conferências do site").
 5. Só então `main`. A publicação na Cloudflare sai sozinha a cada push.
 
 ## Conferências do site
 
-Além da guarda do histórico, duas conferências rodam na máquina e, sozinhas, no GitHub a cada
-push fora da `main` (`.github/workflows/confere-site.yml`):
+Além da guarda do histórico, três conferências rodam na máquina e, sozinhas, no GitHub a cada
+push fora da `main` (`.github/workflows/confere-site.yml`). As três rodam depois do build:
 
-- `npm run confere:links` (depois do build): falha se algum link interno, âncora ou imagem do
-  próprio site apontar para algo que não existe. Link externo não entra.
-- `npm run confere:temas`: falha se um tema de `src/lib/temas.ts` sair da regra de contraste.
+- `npm run confere:links`: falha se algum link interno, âncora ou imagem do próprio site
+  apontar para algo que não existe. Link externo não entra.
+- `npm run confere:temas`: falha se um tema de `src/lib/temas.ts`, ou o tema de uma página de
+  pessoa, sair da regra de contraste. Olha também as cores que a página calcula (subtema vivo,
+  `--destaque-texto`, `--suave`, `--enfeite`), executando o próprio trecho de `Base.astro` que
+  fica entre as marcas `>>> conta das cores` e `<<< conta das cores`. Não tire as marcas.
+- `npm run confere:calmo`: abre cada página num navegador com movimento reduzido, em celular e
+  desktop, e falha se uma entrada ou um eco ficar escondido ou se algo se mexer sozinho. Usa o
+  Playwright (na primeira vez numa máquina: `npx playwright install chromium`). O que nasce
+  escondido de propósito entra na lista `DE_PROPOSITO` do script.
 
 **Regra de contraste (do Gui):** texto que se lê precisa de contraste de leitura (4,5:1).
 Enfeite pode ousar e abrir mão disso, desde que continue visível (3:1): a barra inclinada, o

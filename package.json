@@ -10,7 +10,8 @@
     "check": "astro check",
     "confere:arquivo": "node scripts/confere-arquivo.mjs",
     "confere:links": "node scripts/confere-links.mjs",
-    "confere:temas": "node scripts/confere-temas.mjs"
+    "confere:temas": "node scripts/confere-temas.mjs",
+    "confere:calmo": "node scripts/confere-calmo.mjs"
   },
   "dependencies": {
     "@fontsource-variable/urbanist": "^5.3.0",
@@ -20,6 +21,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "@types/node": "^26.6.6",
+    "playwright": "1.63.0",
     "typescript": "^6.0.3"
   }
 }

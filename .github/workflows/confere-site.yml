@@ -1,7 +1,8 @@
 # Conferências do site: a cada push fora da main, gera o site e confere os links internos
-# (scripts/confere-links.mjs) e o contraste dos temas (scripts/confere-temas.mjs).
+# (scripts/confere-links.mjs), o contraste dos temas, com o subtema vivo
+# (scripts/confere-temas.mjs), e o movimento reduzido (scripts/confere-calmo.mjs).
 # O build aqui roda sem as chaves das plataformas: a agenda sai só com o histórico arquivado,
-# o que basta para conferir links e cores. Ver CLAUDE.md, "Achado vira conferência".
+# o que basta para conferir links, cores e movimento. Ver CLAUDE.md, "Achado vira conferência".
 name: Confere o site
 
 on:
@@ -23,9 +24,14 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Contraste dos temas
-        run: npm run confere:temas
       - name: Gera o site
         run: npm run build
+      # Depois do build, para incluir os temas das páginas de pessoa.
+      - name: Contraste dos temas e do subtema vivo
+        run: npm run confere:temas
       - name: Links internos, âncoras e imagens
         run: npm run confere:links
+      - name: Navegador para a conferência de movimento
+        run: npx playwright install --with-deps --only-shell chromium
+      - name: Movimento reduzido
+        run: npm run confere:calmo

@@ -63,6 +63,8 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
         // menu, rodapé). Enfeite não precisa de contraste de leitura, mas também não pode
         // sumir: se o destaque fica perto demais da superfície, mantém o matiz e a
         // saturação e anda só na luminosidade até se destacar (3:1).
+        // >>> conta das cores: scripts/confere-temas.mjs executa este trecho, até a marca de fim,
+        // para conferir os temas com a mesma conta da página. Mantenha as duas marcas.
         var lin = function (v) { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
         var rgb = function (h) { h = h.trim(); var m = h.match(/^rgba?\(([^)]+)\)/); if (m) return m[1].split(/[ ,\/]+/).slice(0, 3).map(Number); h = h.replace('#', ''); if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2]; var c = [0, 2, 4].map(function (i) { return parseInt(h.substr(i, 2), 16); }); if (c.some(isNaN)) throw 0; return c; };
         var lum = function (c) { return 0.2126 * lin(c[0]) + 0.7152 * lin(c[1]) + 0.0722 * lin(c[2]); };
@@ -121,6 +123,7 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
             raiz.style.setProperty('--vivo-detalhe', razao(rgb(vivo), rgb(outra)) >= 3 ? outra : sobre);
           } catch (e) { /* ficam os padrões do CSS */ }
         };
+        // <<< conta das cores
         // Cada página sorteia um tema do site ao abrir, nunca o mesmo da página anterior.
         // Páginas sem tema próprio já abrem nele; nas outras, ele entra nos
         // trechos marcados com data-tema="sorteio".
