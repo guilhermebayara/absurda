@@ -318,5 +318,48 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
     .anel-arco circle { fill: none; stroke: currentColor; stroke-width: 3.4; stroke-dasharray: 75.8 31; }
     .anel-seta { position: absolute; inset: 0; margin: auto; width: 38%; height: 38%; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
   }
+
+  /* Crachá estreito. O tamanho do crachá na mesa depende da largura e da altura da janela: num
+     notebook comum (1366 por 768, 1440 por 800, 1536 por 864) os pequenos ficam com 180 a 200 px
+     de largura. Com as medidas normais de texto, o verso estourava (código e "Ver página"
+     cortados, "Desde" por cima do topo) e a foto da frente quase sumia. Aqui o texto encolhe
+     conforme a largura do próprio crachá, e não a da janela: cada item da lista é a referência
+     (container). São as mesmas medidas compactas que o verso já usa na página da pessoa, no celular. */
+  .crachas li { container: cracha / inline-size; }
+  @container cracha (max-width: 13.9rem) {
+    .crachas li:not(.ed) :global(.cracha-face) { padding: 0.6rem 0.7rem 0.7rem; }
+    .crachas li:not(.ed) :global(.cracha-topo) { margin-top: 0.45rem; font-size: 0.625rem; letter-spacing: 0.12em; }
+    .crachas li:not(.ed) :global(.cracha-marca) { height: 1.25rem; }
+    .crachas li:not(.ed) :global(.cracha-retrato) { margin-top: 0.5rem; }
+    .crachas li:not(.ed) :global(.cracha-texto) { gap: 0.2rem; margin-top: 0.55rem; }
+    .crachas li:not(.ed) :global(.cracha-nome) { font-size: 1.25rem; }
+    .crachas li:not(.ed) :global(.cracha-funcao) { font-size: 0.8125rem; }
+    .crachas li:not(.ed) :global(.cracha-acesso) { margin-top: 0.55rem; padding-top: 0.45rem; font-size: 0.625rem; letter-spacing: 0.12em; }
+    .crachas li:not(.ed) :global(.cracha-verso) { padding: 0.65rem 0.8rem 0.7rem; }
+    .crachas li:not(.ed) :global(.cracha-desde) { gap: 0.25rem; }
+    .crachas li:not(.ed) :global(.cracha-desde-rotulo) { font-size: 0.9375rem; }
+    .crachas li:not(.ed) :global(.cracha-desde strong) { font-size: 2.6rem; }
+    .crachas li:not(.ed) :global(.cracha-anos) { font-size: 0.6875rem; }
+    .crachas li:not(.ed) :global(.cracha-registro) { padding-top: 0.25rem; margin-bottom: 0.2rem; }
+    .crachas li:not(.ed) :global(.cracha-registro strong) { font-size: 1.0625rem; }
+    .crachas li:not(.ed) :global(.cracha-registro span span) { font-size: 0.5625rem; letter-spacing: 0.1em; }
+    .crachas li:not(.ed) :global(.cracha-barras) { height: 1.25rem; }
+    .crachas li:not(.ed) :global(.cracha-codigo) { gap: 0.2rem; font-size: 0.5rem; letter-spacing: 0.1em; }
+    .crachas li:not(.ed) :global(.cracha-verso .cracha-acesso) { margin-top: 0.2rem; padding-top: 0.35rem; font-size: 0.5rem; letter-spacing: 0.08em; }
+  }
+  /* O crachá do Ed leva duas informações na linha do registro (número e condição de fundador).
+     Abaixo de uns 26rem de largura elas não cabem no corpo grande: o corpo cai e, como garantia,
+     a linha pode quebrar em duas em vez de sair do crachá. */
+  @container cracha (max-width: 26rem) {
+    .crachas li.ed :global(.cracha-verso) { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .crachas li.ed :global(.cracha-registro) { flex-wrap: wrap; row-gap: 0.1rem; }
+    .crachas li.ed :global(.cracha-registro strong) { font-size: 1.25rem; }
+    .crachas li.ed :global(.cracha-registro span span) { font-size: 0.5625rem; letter-spacing: 0.1em; }
+  }
+  @container cracha (max-width: 18.5rem) {
+    .crachas li.ed :global(.cracha-registro strong) { font-size: 1.0625rem; }
+    .crachas li.ed :global(.cracha-verso .cracha-acesso) { font-size: 0.625rem; letter-spacing: 0.1em; }
+  }
+
   @media (prefers-reduced-motion: reduce) { .crachas li > :global(.cracha), .previa, .pulseiras li { transition: none; } .pulseira-trilho { animation: none; } }
 </style>
