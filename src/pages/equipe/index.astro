@@ -68,6 +68,7 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
         {anteriores.map((p) => <a href={`/equipe/${p.id}`}>{p.data.nome}{p.data.foto && <img class="previa" src={p.data.foto} alt="" loading="lazy" />}</a>)}
       </p>
       <p class="t-pequeno passado-nota">Lista em construção. (a confirmar)</p>
+      <p class="passado-botao" data-anima="surge"><Botao href="/sobre#t-palco" tipo="linha">A cena que já tocou com a gente</Botao></p>
     </section>
   )}
 
@@ -96,7 +97,6 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
     </ul>
     {foraDaCabine.map((_, i) => <span class={`papel papel-${i + 1}`} aria-hidden="true"></span>)}
     </div>
-    <p class="fora-botao" data-anima="surge"><Botao href="/sobre#t-palco" tipo="linha">A cena que já tocou com a gente</Botao></p>
   </section>
 </Base>
 
@@ -218,7 +218,7 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
   .pulseira-estampa span { flex: none; }
   .pulseira-rabo { flex: none; align-self: stretch; width: clamp(1rem, 3%, 2.25rem); background: var(--p-aba); }
   a.pulseira:hover .pulseira-destino, a.pulseira:focus-visible .pulseira-destino { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
-  .fora-botao { margin-top: var(--e-5); }
+  .passado-botao { margin-top: var(--e-4); }
   .papel { display: none; }
 
   /* Em tela larga as pulseiras se espalham pela bancada, como os crachás na mesa: todas do mesmo
