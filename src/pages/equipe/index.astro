@@ -22,7 +22,8 @@ import { getCollection } from 'astro:content';
 
 const pessoas = (await getCollection('pessoas')).sort((a, b) => a.data.ordem - b.data.ordem);
 const atuais = pessoas.filter((p) => p.data.situacao === 'atual');
-// Só ex-residentes (regra do Gui): quem tocou como convidado não entra aqui.
+// Quem já fez parte da equipe (regra do Gui): quem só tocou como convidado não entra aqui.
+// O título da seção acompanha o rótulo do crachá de quem saiu, "Já fez parte".
 const anteriores = pessoas.filter((p) => p.data.situacao === 'anterior');
 
 // Fora da cabine. "url" é opcional: perfil, site, o que fizer sentido para cada um.
@@ -63,7 +64,7 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
 
   {anteriores.length > 0 && (
     <section class="passado" aria-labelledby="t-passado">
-      <h2 id="t-passado" class="titulo-secao" data-anima="sobe">Já foram residentes</h2>
+      <h2 id="t-passado" class="titulo-secao" data-anima="sobe">Já fizeram parte</h2>
       <p class="nomes" data-anima="surge">
         {anteriores.map((p) => <a href={`/equipe/${p.id}`}>{p.data.nome}{p.data.foto && <img class="previa" src={p.data.foto} alt="" loading="lazy" />}</a>)}
       </p>
