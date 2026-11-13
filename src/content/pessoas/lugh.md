@@ -7,6 +7,7 @@ links:
 grupo: residentes
 situacao: anterior
 ordem: 53
+foto: "/equipe/lugh.jpg"
 ---
 
 Bio de marcação. Aqui entra um parágrafo sobre Lugh e, mais adiante, os links para os projetos e iniciativas próprias.
