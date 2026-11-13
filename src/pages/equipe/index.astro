@@ -286,7 +286,10 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
   @media (max-width: 820px) {
     /* No celular os crachás continuam em pé, todos do mesmo tamanho, numa fila para arrastar de
        lado. O próximo sempre aparece um pouco, para avisar que tem mais. */
-    .crachas { display: flex; gap: 0.9rem; margin: 0 calc(-1 * var(--margem)); padding: 0.75rem var(--margem) 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: var(--margem); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .crachas { display: flex; gap: 0.9rem; margin: 0 calc(-1 * var(--margem)); padding: 0.75rem var(--margem) 2rem; overflow-x: auto; overflow-y: hidden; touch-action: pan-x pan-y; scroll-snap-type: x mandatory; scroll-padding-inline: var(--margem); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    /* overflow-y: hidden de propósito. Os crachás tortos passam alguns pixels da altura da fila, e
+       com "auto" isso virava uma rolagem vertical dentro dela, que prendia o dedo no iPhone.
+       O respiro de baixo é folga para a ponta torta não ser cortada. */
     .crachas::-webkit-scrollbar { display: none; }
     .crachas li { flex: 0 0 min(72%, 17rem); scroll-snap-align: start; }
     .crachas li.ed :global(.cracha-selo) { right: -0.6rem; }
