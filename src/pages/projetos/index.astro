@@ -11,7 +11,7 @@ import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 import Botao from '../../components/Botao.astro';
 import { getEventos, partesDaData } from '../../lib/eventos';
-import { resumoDoProjeto } from '../../lib/projetos';
+import { resumoDoProjeto, proximoTrio } from '../../lib/projetos';
 import { atributo, temaPara } from '../../lib/temas';
 
 const eventos = await getEventos();
@@ -35,7 +35,7 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
 
   {vivos.map((p) => {
     const desde = p.data.desde ?? p.r.desde;
-    const proxima = p.r.proximos[0];
+    const proxima = p.r.proximos[0]?.data ?? (p.id === 'bloco' ? proximoTrio() : undefined);
     return (
       <article class="faixa" data-tema={atributo(temaPara(p.id))}>
         {p.data.situacao === 'em-elaboracao' && <p class="etiqueta" data-anima="surge">Em elaboração</p>}
@@ -45,7 +45,7 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
           <dl class="ficha">
             {desde && <div><dt>Desde</dt><dd>{desde}</dd></div>}
             {p.id !== 'absurda' && p.r.passados.length > 0 && <div><dt>Edições</dt><dd>{p.r.passados.length}</dd></div>}
-            {proxima && <div><dt>Próxima data</dt><dd>{quando(proxima.data)}</dd></div>}
+            {proxima && <div><dt>Próxima data</dt><dd>{quando(proxima)}</dd></div>}
           </dl>
           <Botao href={`/projetos/${p.id}`}>Conhecer<span class="so-leitor"> {p.data.nome}</span></Botao>
         </div>
@@ -64,7 +64,7 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
               <a href={`/projetos/${p.id}`}>
                 <strong>{p.data.nome}</strong>
                 <span>{p.data.resumo}</span>
-                <span class="linha-periodo">{periodo(p.r)}</span>
+                <span class="linha-periodo">{p.data.situacao === 'arquivo' ? periodo(p.r) : p.r.desde ? `Desde ${p.r.desde}` : ''}</span>
               </a>
             </li>
           ))}

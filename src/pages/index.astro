@@ -17,7 +17,11 @@ const { proximos, passados } = await getEventos();
 const [destaque, ...outros] = proximos;
 // Na Home entram o destaque e até mais três.
 const seguintes = outros.slice(0, 3);
-const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
+const todosOsProjetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
+// No índice da Home entram os projetos em atividade. Adormecidos e independentes aparecem
+// depois, menores, para não se confundirem com o que está na agenda (pedido do Gui).
+const projetos = todosOsProjetos.filter((p) => p.data.situacao === 'ativo' || p.data.situacao === 'em-elaboracao');
+const outrosProjetos = todosOsProjetos.filter((p) => p.data.situacao === 'arquivo' || p.data.situacao === 'independente');
 // Parede de palavras: a lista fica em src/data/palavras.json, uma linha por fileira.
 // Entre os verbos entram três fileiras menores com a história em nomes: os lugares, quem a
 // gente trouxe e as cidades (as mesmas listas da página Sobre, em lib/historia.ts).
@@ -147,6 +151,16 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
     </ul>
     <!-- Prévia que acompanha o cursor no índice de projetos -->
     <div class="espia" aria-hidden="true"><img alt="" hidden /><Arroba /></div>
+    {outrosProjetos.length > 0 && (
+      <div class="indice-outros" data-anima="surge">
+        <p class="etiqueta">Também são da casa</p>
+        <ul>
+          {outrosProjetos.map((p) => (
+            <li><a href={`/projetos/${p.id}`}><strong>{p.data.nome}</strong><span>{p.data.situacao === 'arquivo' ? 'Adormecido' : 'Hoje independente'}</span></a></li>
+          ))}
+        </ul>
+      </div>
+    )}
     <p class="projetos-fim"><Botao href="/projetos" tipo="linha">Todos os projetos</Botao></p>
   </section>
 
@@ -333,6 +347,13 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   /* A prévia fica atrás dos nomes e à frente das linhas divisórias */
   .projetos { isolation: isolate; }
   .projetos-fim { margin-top: var(--e-4); text-align: right; }
+  /* Adormecidos e independentes: uma linha só, bem menor que o índice. */
+  .indice-outros { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--e-2) var(--e-4); margin-top: var(--e-3); padding-inline: clamp(1.75rem, 3.2vw, 3.25rem); }
+  .indice-outros ul { display: flex; flex-wrap: wrap; gap: var(--e-2) var(--e-4); }
+  .indice-outros a { display: inline-flex; align-items: baseline; gap: 0.6rem; text-decoration: none; }
+  .indice-outros strong { font-size: var(--t-4); font-weight: 800; line-height: 1; letter-spacing: -0.035em; text-transform: uppercase; }
+  .indice-outros a:hover strong, .indice-outros a:focus-visible strong { text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.1em; }
+  .indice-outros span { font-size: 0.9375rem; color: var(--suave); }
   .indice-nome { font-size: clamp(2rem, 6.2vw, 5.75rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.04em; text-transform: uppercase; }
   .indice-nome > span { display: block; }
   .indice-resumo { max-width: 24em; }

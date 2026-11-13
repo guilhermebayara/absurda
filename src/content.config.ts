@@ -42,6 +42,13 @@ const projetos = defineCollection({
     especiais: z.array(z.object({ nome: z.string(), filtro: z.string(), texto: z.string().optional() })).default([]),
     // Edições históricas: o id do evento na Agenda e uma linha dizendo por quê.
     historicas: z.array(z.object({ evento: z.string(), porque: z.string() })).default([]),
+    // Desenho do histórico. Sem o campo: lista inteira até doze edições, conta por ano acima disso.
+    // "anual": no máximo uma edição por ano (Halloween, Trio), em cartões de ano.
+    // "anual-sub": uma edição por ano com vários subeventos (Parada).
+    historico: z.enum(['anual', 'anual-sub']).optional(),
+    tituloHistorico: z.string().optional(),
+    // Eventos aparentados que não pertencem ao projeto (as @bsurdas de carnaval, primas do Trio).
+    primas: z.object({ titulo: z.string(), texto: z.string().optional(), filtro: z.string() }).optional(),
     // Para onde o projeto foi, quando segue fora da @bsurda.
     fora: z.object({ rotulo: z.string(), url: z.string() }).optional(),
   }),

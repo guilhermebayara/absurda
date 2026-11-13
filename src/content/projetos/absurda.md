@@ -10,6 +10,7 @@ especiais:
   - { nome: "Viiish!", filtro: "vii+sh", texto: "Texto de marcação." }
   - { nome: "YOLO", filtro: "yolo", texto: "Texto de marcação." }
   - { nome: "@bsurda do Amor", filtro: "do amor", texto: "Texto de marcação." }
+  - { nome: "Prom", filtro: "\\bprom\\b", texto: "Sempre uma das últimas do ano. (marcação)" }
 historicas:
   - { evento: "sympla-17940", porque: "A edição de número 100. (marcação)" }
   - { evento: "sympla-273251", porque: "A edição de número 200. (marcação)" }

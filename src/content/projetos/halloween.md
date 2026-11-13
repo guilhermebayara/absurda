@@ -1,8 +1,9 @@
 ---
 nome: "Halloween"
-resumo: "O maior evento fechado do ano, no aniversário da festa. (a confirmar)"
+resumo: "O maior evento fechado do ano. Desde 2014, é também a festa de aniversário da @bsurda."
 situacao: ativo
-ordem: 4
+ordem: 2
+historico: anual
 historicas:
   - { evento: "sympla-563012", porque: "Os 10 anos, no Mineirão. (marcação)" }
 ---
