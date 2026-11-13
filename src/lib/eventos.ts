@@ -227,6 +227,7 @@ const FORA_DA_AGENDA = [
   'sympla-35115', // Please Come to Brazil, 2015
   'sympla-818582', // @bsurda Latina, 30/5/2020
   'sympla-781533', // @bsurda Leviosa, 9/5/2020: não aconteceu, quarentena
+  'sympla-20129', // NÊGA, 6/6/2014: ocultado a pedido do Gui
 ];
 // Nomes corrigidos à mão (pedido do Gui): eventos antigos cujo nome na plataforma trazia a
 // data, a hora ou a casa, ou um erro de digitação. A agenda já mostra data e casa ao lado.
