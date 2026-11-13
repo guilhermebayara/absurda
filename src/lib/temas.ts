@@ -60,6 +60,36 @@ export const TEMAS_DE_POSICAO: Tema[] = [
   { fundo: '#161012', texto: '#fff1e6', destaque: '#ff4338' }, // preto com vermelho
 ];
 
+// Paletas fechadas de projeto (pedido do Gui). O ideal é a cor do projeto sair da foto de capa,
+// mas três projetos têm um clima que a foto nem sempre entrega, e por isso só usam os temas
+// daqui. Vale o primeiro tema de cada paleta; os outros ficam prontos para troca.
+// Como na paleta de posicionamento, nenhum tema junta amarelo com verde ou com azul.
+//
+// Tibum: água, sol, piscina. Sempre solar, nunca página escura.
+export const TEMAS_DO_TIBUM: Tema[] = [
+  { fundo: '#8fe3f5', texto: '#0d2a4a', destaque: '#c81e55' }, // piscina com rosa
+  { fundo: '#ffd84a', texto: '#4a0f2e', destaque: '#c8300e' }, // sol com vermelho
+  { fundo: '#ff9f45', texto: '#3a0a2a', destaque: '#7a1fa2' }, // fim de tarde com roxo
+];
+// Trio: carnaval de rua, de dia.
+export const TEMAS_DO_TRIO: Tema[] = [
+  { fundo: '#ff8fc0', texto: '#2b0638', destaque: '#5b12c9' }, // rosa com roxo
+  { fundo: '#ffcc2f', texto: '#4b0f5c', destaque: '#d1006f' }, // amarelo com magenta
+  { fundo: '#6d28e0', texto: '#fff4e0', destaque: '#ffd23f' }, // roxo com amarelo
+  { fundo: '#ff9a5c', texto: '#2b0638', destaque: '#5b12c9' }, // laranja com roxo
+];
+// Parada: orgulho LGBTQIA+. Uma cor da bandeira por vez, e não o arco-íris inteiro; o
+// arco-íris entra só como detalhe (campo "arcoiris" do projeto).
+export const TEMAS_DA_PARADA: Tema[] = [
+  { fundo: '#ffe600', texto: '#4a1466', destaque: '#c40d12' }, // amarelo da bandeira
+  { fundo: '#d40d12', texto: '#fff6ea', destaque: '#ffc21a' }, // vermelho da bandeira
+  { fundo: '#ff8c1a', texto: '#3a0a3f', destaque: '#732982' }, // laranja da bandeira
+  { fundo: '#0a7a3b', texto: '#fff6ea', destaque: '#ffb3de' }, // verde da bandeira
+  { fundo: '#24408e', texto: '#fff6ea', destaque: '#ff9a3d' }, // azul da bandeira
+  { fundo: '#732982', texto: '#fff6ea', destaque: '#ffed00' }, // roxo da bandeira
+];
+export const PALETAS_DE_PROJETO: Record<string, Tema[]> = { tibum: TEMAS_DO_TIBUM, bloco: TEMAS_DO_TRIO, parada: TEMAS_DA_PARADA };
+
 // Escolhe sempre o mesmo tema para o mesmo identificador,
 // para a cor de um projeto ou pessoa não mudar a cada publicação.
 export function temaPara(id: string): Tema {

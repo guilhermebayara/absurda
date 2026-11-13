@@ -10,7 +10,7 @@
 // (por exemplo, uma WIG com IHR). "Pré carnaval" e "pré Halloween" não contam como o evento em si.
 import type { Evento } from './eventos';
 import { readFile } from 'node:fs/promises';
-import { temaPara, type Tema } from './temas';
+import { temaPara, PALETAS_DE_PROJETO, type Tema } from './temas';
 import { temaDaImagem } from './paleta';
 
 const FILTROS: Record<string, RegExp> = {
@@ -73,10 +73,14 @@ export function resumoDoProjeto(id: string, todos: { proximos: Evento[]; passado
 }
 
 // Cores do projeto: saem da foto de capa, quando há uma; sem capa, um par da marca.
+// Projeto com paleta fechada (Tibum, Trio, Parada) usa sempre o primeiro tema dela, com ou
+// sem foto: é o que garante Tibum solar, Trio de carnaval e Parada nas cores da bandeira.
 const temas = new Map<string, Promise<Tema>>();
 export function temaDoProjeto(id: string, capa?: string): Promise<Tema> {
   if (!temas.has(id)) {
     temas.set(id, (async () => {
+      const paleta = PALETAS_DE_PROJETO[id];
+      if (paleta) return paleta[0];
       if (!capa?.startsWith('/')) return temaPara(id);
       try { return await temaDaImagem(await readFile(`public${capa}`)); } catch { return temaPara(id); }
     })());

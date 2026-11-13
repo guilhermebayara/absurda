@@ -59,6 +59,8 @@ const projetos = defineCollection({
       arte: z.string().optional(),
       itens: z.array(z.object({ quando: z.string(), nome: z.string(), local: z.string().optional() })),
     })).default([]),
+    // Detalhe de arco-íris, pontual, no cartaz e na página do projeto (Parada).
+    arcoiris: z.boolean().default(false),
     // Para onde o projeto foi, quando segue fora da @bsurda.
     fora: z.object({ rotulo: z.string(), url: z.string() }).optional(),
   }),

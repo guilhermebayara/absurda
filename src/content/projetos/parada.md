@@ -15,6 +15,7 @@ programacao:
       - { quando: "29 jun", nome: "I Hate Remix All Single's", local: "Casa Sapucaí" }
 ordem: 4
 historico: anual-sub
+arcoiris: true
 ---
 
 Texto de marcação sobre Parada da @bsurda.

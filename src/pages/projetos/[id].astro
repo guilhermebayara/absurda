@@ -104,6 +104,7 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
       </div>
     </div>
   </header>
+  {projeto.data.arcoiris && <div class="arcoiris" aria-hidden="true"></div>}
 
   {r.proximos.length > 0 && (
     <section class="bloco" aria-labelledby="t-proxima">
@@ -324,6 +325,8 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
   .seguinte { display: grid; gap: 1rem; padding: clamp(3.5rem, 9vw, 8rem) var(--margem); border-top: 1px solid var(--linha); text-decoration: none; }
   .seguinte:hover .t-gigante { text-decoration: underline; text-decoration-thickness: 0.04em; }
 
+  /* Parada: um fio de arco-íris logo abaixo da abertura. É o único arco-íris da página. */
+  .arcoiris { height: 6px; margin: 0 var(--margem) var(--e-4); border-radius: 3px; background: linear-gradient(to right, #e40303 0 16.66%, #ff8c00 0 33.33%, #ffed00 0 50%, #008026 0 66.66%, #24408e 0 83.33%, #732982 0); }
   /* Ficha da abertura: os dados do projeto, no mesmo desenho da página Projetos. */
   .ficha { display: flex; flex-wrap: wrap; gap: var(--e-2) var(--e-4); margin-top: var(--e-3); }
   .ficha div { display: grid; gap: 0.4rem; }
