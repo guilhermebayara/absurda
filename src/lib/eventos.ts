@@ -366,9 +366,11 @@ async function contaSympla(token: string, chave: string): Promise<Evento[]> {
 }
 
 // Cada conta do Sympla tem a sua chave e só enxerga os eventos que ela mesma criou.
-// Por isso o site aceita mais de uma: SYMPLA_TOKEN, SYMPLA_TOKEN_2 e SYMPLA_TOKEN_3.
+// Por isso o site aceita mais de uma: SYMPLA_TOKEN e SYMPLA_TOKEN_3.
+// SYMPLA_TOKEN_2 saiu (pedido do Gui): era uma chave de teste da mesma conta, que só trazia
+// os mesmos eventos de novo. O número 2 fica vago para não confundir com ela.
 async function fonteSympla(): Promise<Evento[]> {
-  const contas = [['SYMPLA_TOKEN', 'sympla'], ['SYMPLA_TOKEN_2', 'sympla2'], ['SYMPLA_TOKEN_3', 'sympla3']] as const;
+  const contas = [['SYMPLA_TOKEN', 'sympla'], ['SYMPLA_TOKEN_3', 'sympla3']] as const;
   if (!env('SYMPLA_TOKEN')) estado.sympla = { ligado: false, motivo: 'faltando SYMPLA_TOKEN' };
   const listas = await Promise.all(contas.map(([variavel, chave]) => { const token = env(variavel); return token ? contaSympla(token, chave) : Promise.resolve([]); }));
   return listas.flat();
