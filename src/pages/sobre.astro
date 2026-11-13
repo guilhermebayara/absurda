@@ -18,6 +18,8 @@ const reserva = atributo(TEMAS_DO_SITE[0]);
 
 // Aqui os marcos contam a história na ordem em que aconteceram, do primeiro ano ao atual.
 // (Na agenda eles aparecem do mais recente para trás, como índice do arquivo.)
+// Dentro de cada ano, vale a ordem do arquivo src/data/marcos.json: ao incluir um marco, ponha
+// na posição da data dele (em 2026: Trio em fevereiro, Câmara em junho, ato e Halloween em outubro).
 type Marco = { id: string; ano: string; titulo: string; texto?: string; tema?: string };
 const porAno = new Map<string, Marco[]>();
 for (const m of marcos as Marco[]) porAno.set(m.ano, [...(porAno.get(m.ano) ?? []), m]);

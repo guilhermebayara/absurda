@@ -25,7 +25,8 @@
   {"id": "2024-0-virada", "ano": "2024", "tema": "Virada Cultural", "titulo": "Virada Cultural na Praça Sete", "texto": "No marco zero da cidade."},
   {"id": "2024", "ano": "2024", "titulo": "Halloween de 15 anos no Mineirão", "texto": "19 de outubro, para 2.500 pessoas. A quarta vez da @bsurda no estádio."},
   {"id": "2025", "ano": "2025", "titulo": "5ª Parada da @bsurda na Funarte MG"},
-  {"id": "2026", "ano": "2026", "titulo": "Halloween de 17 anos"},
+  {"id": "2026-0-trio", "ano": "2026", "tema": "Carnaval", "titulo": "10 anos do Trio da @bsurda", "texto": "8 de fevereiro, do Viaduto Santa Tereza à Afonso Pena."},
   {"id": "2026-0-camara", "ano": "2026", "titulo": "Homenagem na Câmara Municipal de BH", "texto": "22 de junho. Certificado de Homenagem e Reconhecimento pela defesa dos direitos da população LGBTQIAPN+, entregue pelos vereadores Iza Lourença, Pedro Patrus e Juhlia Santos."},
-  {"id": "2026-0-trio", "ano": "2026", "tema": "Carnaval", "titulo": "10 anos do Trio da @bsurda", "texto": "8 de fevereiro, do Viaduto Santa Tereza à Afonso Pena."}
+  {"id": "2026-0-ato", "ano": "2026", "titulo": "A @bsurda no ato por Lula em BH", "texto": "18 de outubro. Ed Luiz tocou em um dos trios, representando a festa. O ato saiu da Praça da Estação, passou pela Praça Sete e terminou na Praça Raul Soares."},
+  {"id": "2026", "ano": "2026", "titulo": "Halloween de 17 anos", "texto": "24 de outubro."}
 ]
