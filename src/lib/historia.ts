@@ -7,7 +7,7 @@ export const idade = new Date().getFullYear() - 2009;
 // de um festival: primeiro os grandes nomes, depois os de meio de cartaz, depois todos os outros.
 // Vem do arquivo de eventos, com nomes repetidos unificados. A ordem dentro de cada faixa é de época.
 export const lineup = [
-  ['Mineirão', 'Up e.music', 'Mercado das Borboletas', 'Mira', 'Granfinos', 'Casa Sapucaí'],
+  ['Mineirão', 'Up e.music', 'Mercado das Borboletas', 'Mira', 'Granfinos', 'Casa Sapucaí', 'Praça Sete'],
   ['Velvet Club', 'Mary in Hell', 'Matriz', 'CentoeQuatro', 'GIS', 'Deputamadre', 'O Mercado', 'Viaduto Santa Tereza',
     'Praça da Estação', 'Parque das Mangabeiras', 'Ita Park', 'Gruta', 'Avenida Afonso Pena', 'A Autêntica', 'Funarte MG', 'Clube Labareda'],
   ['On Board', 'Quina Galeria', 'Emme Lounge', 'União Israelita', 'Anda', 'Hotel Diamante', 'Secreto', 'Roxy Club', 'Josefine Club',
@@ -15,7 +15,7 @@ export const lineup = [
     'Avenida dos Andradas', 'Fábrica Criativa', 'Galpão La Trupe', 'QG Rooftop', 'Urbana', 'Espaço Even', 'LOL', 'Rock Content',
     'Casa Híbrido', 'Jhon Jhon Club', 'Espettos', 'Pampulha', 'Rua da Bahia', 'Dduck', 'Code Bar', 'Yanã Bar', 'Villa Paraty',
     'Catavento Cultural', 'Teatro da Cidade', 'Mamão com Açúcar', 'Jackie O', 'Church', 'Prime Hall', 'Sítio Via Lazer', 'Lab', '80Bar',
-    'Zona', 'Distrital', 'Lavos', 'Galpão do Folias', 'Irregular', 'Praça Sete', 'Casa Rosa do Bonfim', 'Andaluz Pub', 'Espaço Sapucaí',
+    'Zona', 'Distrital', 'Lavos', 'Galpão do Folias', 'Irregular', 'Casa Rosa do Bonfim', 'Andaluz Pub', 'Espaço Sapucaí',
     'Galpão 54', 'Espaço Loc', 'Espaço Y', 'Major Lock'],
 ];
 export const totalDeLugares = lineup.flat().length;
