@@ -20,7 +20,7 @@ export const lineup = [
 ];
 export const totalDeLugares = lineup.flat().length;
 
-export const cidades = ['Vitória', 'São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador', 'Maringá', 'Londrina', 'Sete Lagoas', 'Juiz de Fora', 'Montes Claros'];
+export const cidades = ['Vitória', 'São Paulo', 'Rio de Janeiro', 'Brasília', 'Salvador', 'São Luís', 'Maringá', 'Londrina', 'Sete Lagoas', 'Juiz de Fora', 'Montes Claros'];
 
 // Números da abertura. "mais" põe um "+" na frente.
 export const numeros = [
