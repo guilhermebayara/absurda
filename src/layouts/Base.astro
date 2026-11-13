@@ -87,15 +87,22 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
           try {
             var d = rgb(destaque), s = rgb(superficie);
             if (razao(d, s) >= minimo) return destaque;
-            var lab = paraLab(d), passo = lum(s) > 0.35 ? -0.02 : 0.02, cor = d;
-            for (var L = lab[0]; L > 0.12 && L < 0.97; L += passo) {
-              // Fora do que a tela mostra, cede saturação aos poucos em vez de mudar de matiz.
-              for (var k = 1; k > 0; k -= 0.05) {
-                var x = deLab(L, lab[1] * k, lab[2] * k);
-                if (x.every(function (v) { return v > -0.002 && v < 1.002; })) { cor = x.map(gama); break; }
+            var lab = paraLab(d), passo = lum(s) > 0.35 ? -0.02 : 0.02;
+            var andar = function (passo) {
+              var cor = d;
+              for (var L = lab[0]; L > 0.12 && L < 0.97; L += passo) {
+                // Fora do que a tela mostra, cede saturação aos poucos em vez de mudar de matiz.
+                for (var k = 1; k > 0; k -= 0.05) {
+                  var x = deLab(L, lab[1] * k, lab[2] * k);
+                  if (x.every(function (v) { return v > -0.002 && v < 1.002; })) { cor = x.map(gama); break; }
+                }
+                if (razao(cor, s) >= minimo) break;
               }
-              if (razao(cor, s) >= minimo) break;
-            }
+              return cor;
+            };
+            var cor = andar(passo);
+            // Superfície de tom médio (cor tirada de foto): se um lado não alcança, tenta o outro.
+            if (razao(cor, s) < minimo) { var outra = andar(-passo); if (razao(outra, s) > razao(cor, s)) cor = outra; }
             return 'rgb(' + cor.join(',') + ')';
           } catch (e) { return destaque; }
         };
