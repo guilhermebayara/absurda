@@ -64,7 +64,7 @@ const Tag = href ? 'a' : 'div';
         <span class="cracha-desde">
           <span class="cracha-desde-rotulo">Desde</span>
           <strong>{desde ?? 'XXXX'}</strong>
-          <span class="cracha-anos">{anos ?? 'X'} anos de festa</span>
+          <span class="cracha-anos">{anos ?? 'X'} anos de @bsurda</span>
         </span>
         <span class="cracha-registro">
           <span><span>Crachá nº</span><strong>{num}</strong></span>
@@ -124,7 +124,7 @@ const Tag = href ? 'a' : 'div';
   /* Mesmo respiro em cima e embaixo do código: do número até as barras, e do código até a linha. */
   .cracha-verso .cracha-acesso { margin-top: 0.3rem; padding-top: 0.5rem; font-size: 0.6875rem; letter-spacing: 0.12em; white-space: nowrap; }
   /* O bloco do ano fica centralizado no crachá, com o texto alinhado à esquerda dentro dele.
-     "N anos de festa" vira uma etiqueta cheia, na cor do texto. */
+     "N anos de @bsurda" vira uma etiqueta cheia, na cor do texto. */
   .cracha-desde { display: grid; justify-self: center; align-content: center; justify-items: start; gap: 0.35rem; min-height: 0; }
   .cracha-desde-rotulo { font-size: 1.125rem; line-height: 1.1; }
   .cracha-desde strong { font-size: clamp(3.25rem, 5vw, 4.75rem); font-weight: 800; line-height: 0.85; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
