@@ -507,7 +507,9 @@ const premios = [
   .origem small, .numero-rotulo small { font-size: 0.75em; color: var(--suave); }
   .numeros { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--e-3); margin-top: var(--e-5); padding-top: var(--e-3); border-top: 1.5px solid var(--texto); }
   .numero { display: flex; align-items: flex-start; font-size: var(--t-5); font-weight: 800; line-height: 0.85; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
-  .numero span { font-size: 0.5em; margin-top: 0.12em; color: var(--destaque); }
+  /* O "+" fica à meia altura dos algarismos, com folga: o espaçamento apertado do número
+     (letter-spacing negativo) fazia o sinal encostar no primeiro algarismo. */
+  .numero span { align-self: center; font-size: 0.5em; line-height: 1; letter-spacing: 0; margin-right: 0.12em; color: var(--destaque); }
   .numero-rotulo { margin-top: var(--e-1); font-size: var(--t-rotulo); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
 
   /* ---------- Sem endereço fixo ---------- */
