@@ -27,14 +27,16 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
         {/* Sem a condição de fundador no verso (escolha do Gui): nesta página o selo da frente está sempre à vista. */}
         <Cracha lado="verso" nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} desde={pessoa.data.desde} ate={pessoa.data.ate} alumni={alumni} numero={pessoa.data.numero} sigla={pessoa.data.sigla} />
       </div>
-      <div class="pessoa-frente">
+      {/* O crachá repete o nome e a função que o texto ao lado já diz: para leitor de tela ele é
+          enfeite, como o verso. O que só ele mostra (selo do fundador) vai na frase só para leitor. */}
+      <div class="pessoa-frente" aria-hidden="true">
         <Cracha nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} foto={pessoa.data.foto} desde={pessoa.data.desde} ate={pessoa.data.ate} alumni={alumni} numero={pessoa.data.numero} sigla={pessoa.data.sigla} fundador={pessoa.id === 'ed-luiz'} />
       </div>
     </div>
     <div class="pessoa-texto">
       <p class="etiqueta">{pessoa.data.situacao === 'atual' ? pessoa.data.funcao : `Fez parte da @bsurda como ${funcaoNaFrase}`}</p>
       <h1 class="t-grande">{pessoa.data.nome}</h1>
-      <p class="so-leitor">{alumni ? `Na @bsurda de ${pessoa.data.desde ?? 'ano a confirmar'} a ${pessoa.data.ate ?? 'ano a confirmar'}.` : `Na @bsurda desde ${pessoa.data.desde ?? 'data a confirmar'}.`}</p>
+      <p class="so-leitor">{pessoa.id === 'ed-luiz' && 'Fundador. '}{alumni ? `Na @bsurda de ${pessoa.data.desde ?? 'ano a confirmar'} a ${pessoa.data.ate ?? 'ano a confirmar'}.` : `Na @bsurda desde ${pessoa.data.desde ?? 'data a confirmar'}.`}</p>
       <div class="prosa"><Content /></div>
       {pessoa.data.instagram && <p><Botao href={pessoa.data.instagram} externo>Instagram</Botao></p>}
 
