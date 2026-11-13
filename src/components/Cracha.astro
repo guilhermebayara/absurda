@@ -18,6 +18,7 @@ interface Props {
   foto?: string;
   desde?: number;
   numero?: number;
+  sigla?: string;
   href?: string;
   fundador?: boolean;
   verso?: boolean;
@@ -25,7 +26,7 @@ interface Props {
   lado?: 'frente' | 'verso';
   class?: string;
 }
-const { nome, funcao, grupo, foto, desde, numero, href, fundador = false, verso = false, lado = 'frente', class: classe } = Astro.props;
+const { nome, funcao, grupo, foto, desde, numero, sigla: siglaDada, href, fundador = false, verso = false, lado = 'frente', class: classe } = Astro.props;
 const soVerso = lado === 'verso';
 const producao = grupo === 'socios';
 const rotulo = producao ? 'Produção' : grupo === 'residentes' ? 'Residente' : 'Equipe';
@@ -37,7 +38,7 @@ const num = numero ? String(numero).padStart(3, '0') : 'XXX';
 // @B (a festa), número do crachá, primeiro nome (até 4 letras), ano de entrada e função
 // (iniciais das palavras; sigla como DJ entra inteira). Ed Luiz: @B-001-ED-2009-PDJ.
 const semAcento = (t: string) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
-const sigla = semAcento(funcao).split(/\s+/).filter((p) => p.length > 1).map((p) => (p === p.toUpperCase() ? p : p[0].toUpperCase())).join('');
+const sigla = siglaDada ?? semAcento(funcao).split(/\s+/).filter((p) => p.length > 1).map((p) => (p === p.toUpperCase() ? p : p[0].toUpperCase())).join('');
 const codigo = ['@B', num, semAcento(nome.split(' ')[0]).toUpperCase().slice(0, 4), desde ?? 'XXXX', sigla].join('-');
 const Tag = href ? 'a' : 'div';
 ---
@@ -73,7 +74,7 @@ const Tag = href ? 'a' : 'div';
           <span class="cracha-barras"></span>
           <span>{codigo}</span>
         </span>
-        <span class="cracha-acesso"><span>Intransferível</span><strong>{href ? 'Ver página' : 'Sem frescuras'}</strong></span>
+        <span class="cracha-acesso">{href ? <><span>Intransferível</span><strong>Ver página</strong></> : <span>Pessoal e intransferível</span>}</span>
       </span>
     )}
   </span>

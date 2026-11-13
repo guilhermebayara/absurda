@@ -18,16 +18,16 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
 ---
 <Base titulo={pessoa.data.nome} tema={tema} imagem={pessoa.data.foto}>
   <div class="pessoa" data-tema={atributo(tema)}>
+    <a class="voltar pessoa-voltar" href="/equipe">Toda a equipe</a>
     <div class="pessoa-crachas">
       <div class="pessoa-verso" aria-hidden="true">
-        <Cracha lado="verso" nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} desde={pessoa.data.desde} numero={pessoa.data.numero} fundador={pessoa.id === 'ed-luiz'} />
+        <Cracha lado="verso" nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} desde={pessoa.data.desde} numero={pessoa.data.numero} sigla={pessoa.data.sigla} fundador={pessoa.id === 'ed-luiz'} />
       </div>
       <div class="pessoa-frente">
-        <Cracha nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} foto={pessoa.data.foto} desde={pessoa.data.desde} numero={pessoa.data.numero} fundador={pessoa.id === 'ed-luiz'} />
+        <Cracha nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} foto={pessoa.data.foto} desde={pessoa.data.desde} numero={pessoa.data.numero} sigla={pessoa.data.sigla} fundador={pessoa.id === 'ed-luiz'} />
       </div>
     </div>
     <div class="pessoa-texto">
-      <a class="voltar" href="/equipe">Toda a equipe</a>
       <p class="etiqueta">{pessoa.data.situacao === 'atual' ? pessoa.data.funcao : `Fez parte da @bsurda como ${pessoa.data.funcao.toLowerCase()}`}</p>
       <h1 class="t-grande">{pessoa.data.nome}</h1>
       <p class="so-leitor">Na @bsurda desde {pessoa.data.desde ?? 'data a confirmar'}.</p>
@@ -56,11 +56,20 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
   /* Frente e verso do crachá da pessoa, largados um sobre o outro como na mesa da Equipe:
      a frente por cima, o verso aparecendo por trás, cada um num ângulo. No celular, que não tem
      o giro do hover, é aqui que o verso aparece. */
-  .pessoa-crachas { --l: clamp(13.5rem, 19vw, 18.5rem); position: relative; width: calc(var(--l) * 1.9); height: calc(var(--l) * 1.4 * 1.16); }
+  /* O caminho de volta fica no topo da página, acima de tudo, e não no meio do conteúdo. */
+  .pessoa-voltar { grid-column: 1 / -1; justify-self: start; }
+  /* Crachás maiores que os pequenos da Equipe e menores que o do Ed lá: o verso precisa caber inteiro. */
+  .pessoa-crachas { --l: clamp(15.5rem, 23vw, 21rem); position: relative; width: calc(var(--l) * 1.9); height: calc(var(--l) * 1.4 * 1.16); }
   .pessoa-frente, .pessoa-verso { position: absolute; width: var(--l); transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
   .pessoa-frente { left: 0; top: 0; z-index: 1; transform: rotate(-3deg); }
   .pessoa-verso { left: calc(var(--l) * 0.86); top: calc(var(--l) * 0.18); transform: rotate(4deg); }
   .pessoa-frente :global(.cracha-face), .pessoa-verso :global(.cracha-face) { box-shadow: 0 0 0 3px var(--fundo); }
+  /* Aqui o selo do fundador fica dentro do crachá: solto para fora, ele caía em cima do verso. */
+  .pessoa-frente :global(.cracha-selo) { right: 0.5rem; top: 3.4rem; }
+  /* Registro mais contido, e com quebra de linha como garantia, para nunca sair do crachá. */
+  .pessoa-verso :global(.cracha-registro) { flex-wrap: wrap; row-gap: 0.15rem; }
+  .pessoa-verso :global(.cracha-registro strong) { font-size: 1.125rem; }
+  .pessoa-verso :global(.cracha-registro span span) { font-size: 0.5625rem; letter-spacing: 0.12em; }
   /* Passar o cursor no verso traz ele para a frente. */
   @media (hover: hover) and (pointer: fine) {
     .pessoa-verso:hover { z-index: 2; transform: rotate(1deg) translateY(-0.4rem); }
@@ -74,15 +83,16 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
        esquerda e o verso descendo à direita, por baixo dela. */
     .pessoa-crachas { --l: min(13.5rem, 60vw); width: 100%; height: calc(var(--l) * 1.4 * 1.78); }
     .pessoa-verso { left: auto; right: 0; top: calc(var(--l) * 1.4 * 0.74); transform: rotate(3deg); }
+    /* Selo menor no celular, para não cobrir o rosto na foto. */
+    .pessoa-frente :global(.cracha-selo) { width: 4.5rem; top: 2.9rem; right: 0.4rem; }
+    .pessoa-frente :global(.cracha-selo strong) { font-size: 0.5625rem; }
+    .pessoa-frente :global(.cracha-selo span) { font-size: 1.125rem; }
     .pessoa-verso :global(.cracha-desde strong) { font-size: 2.75rem; }
     .pessoa-verso :global(.cracha-registro strong) { font-size: 1.125rem; }
     .pessoa-verso :global(.cracha-verso) { padding: 0.8rem 0.9rem 0.9rem; overflow: hidden; }
     /* Num crachá deste tamanho as linhas miúdas do verso encolhem para caber sem cortar. */
     .pessoa-verso :global(.cracha-topo) { font-size: 0.625rem; letter-spacing: 0.12em; }
-    /* As duas frases do rodapé não cabem nesta largura: fica só o lema. */
-    .pessoa-verso :global(.cracha-acesso) { font-size: 0.625rem; letter-spacing: 0.12em; }
-    .pessoa-verso :global(.cracha-acesso span) { display: none; }
-    .pessoa-verso :global(.cracha-registro) { flex-wrap: wrap; row-gap: 0.15rem; }
+    .pessoa-verso :global(.cracha-acesso) { font-size: 0.5625rem; letter-spacing: 0.1em; }
     .pessoa-verso :global(.cracha-registro span span) { font-size: 0.5625rem; letter-spacing: 0.1em; }
     .pessoa-verso :global(.cracha-codigo) { font-size: 0.5625rem; letter-spacing: 0.14em; }
   }

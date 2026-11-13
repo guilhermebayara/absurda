@@ -2,6 +2,7 @@
 nome: "Gui Bayara"
 funcao: "Designer e produtor"
 desde: 2013
+sigla: PD
 grupo: socios
 situacao: atual
 ordem: 2

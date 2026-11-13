@@ -52,7 +52,7 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
       <ul class="crachas">
         {atuais.map((p, i) => (
           <li class:list={{ ed: p.id === 'ed-luiz' }} data-anima="surge" style={`--i:${i}`}>
-            <Cracha nome={p.data.nome} funcao={p.data.funcao} grupo={p.data.grupo} foto={p.data.foto} desde={p.data.desde} numero={p.data.numero}
+            <Cracha nome={p.data.nome} funcao={p.data.funcao} grupo={p.data.grupo} foto={p.data.foto} desde={p.data.desde} numero={p.data.numero} sigla={p.data.sigla}
               href={`/equipe/${p.id}`} fundador={p.id === 'ed-luiz'} verso />
           </li>
         ))}

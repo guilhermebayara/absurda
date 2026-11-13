@@ -17,6 +17,8 @@ const pessoas = defineCollection({
     desde: z.number().optional(),
     // Número do crachá, na ordem de entrada na festa (Gui e Ed definem). Sem ele, fica a marcação XXX.
     numero: z.number().optional(),
+    // Final do código do crachá, quando as iniciais da função não servem (o Gui é PD, e não DP).
+    sigla: z.string().optional(),
     instagram: z.string().optional(),
     links: z.array(z.object({ rotulo: z.string(), url: z.string() })).default([]),
   }),
