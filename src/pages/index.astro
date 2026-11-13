@@ -260,7 +260,10 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
     .seguintes { grid-template-columns: 1fr; padding-right: 0; }
     .seguintes-agenda { order: 3; justify-self: start; margin-top: var(--e-3); }
     .so-largo { display: none; }
-    .seguintes-fila { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-right: var(--margem); padding-bottom: 0.5rem; }
+    /* overflow-y: hidden de propósito, como na fila de crachás da Equipe. Os cartões que ainda não
+       entraram na tela ficam deslocados para baixo (animação de entrada), o que criava uma rolagem
+       vertical dentro da fila e prendia o dedo no iPhone até o último cartão aparecer. */
+    .seguintes-fila { display: flex; overflow-x: auto; overflow-y: hidden; touch-action: pan-x pan-y; scroll-snap-type: x mandatory; scrollbar-width: none; padding-right: var(--margem); padding-bottom: 0.5rem; }
     .seguintes-fila::-webkit-scrollbar { display: none; }
     .seguintes-fila > :global(*) { flex: none; width: 78vw; scroll-snap-align: start; }
   }

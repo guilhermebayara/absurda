@@ -530,7 +530,7 @@ const premios = [
   .improvaveis-setas button { width: 3rem; aspect-ratio: 1; padding: 0; border: 1.5px solid currentColor; border-radius: 50%; background: none; color: inherit; cursor: pointer; transition: background 0.2s, color 0.2s; }
   .improvaveis-setas button:hover { background: var(--texto); color: var(--fundo); }
   .improvaveis-setas svg { width: 40%; margin: auto; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .improvaveis { display: flex; gap: var(--e-3); margin-top: var(--e-3); padding: 1rem var(--margem) 1.25rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: var(--margem); scrollbar-width: none; }
+  .improvaveis { display: flex; gap: var(--e-3); margin-top: var(--e-3); padding: 1rem var(--margem) 1.25rem; overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scroll-padding-left: var(--margem); scrollbar-width: none; }
   .improvaveis::-webkit-scrollbar { display: none; }
   /* Cartões grandes: a foto ocupa quase a tela, o ano vira selo e o nome invade a foto por baixo */
   .improvaveis li { flex: none; width: min(84vw, 46rem); scroll-snap-align: start; transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }

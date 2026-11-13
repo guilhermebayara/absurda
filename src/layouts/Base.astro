@@ -341,7 +341,13 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
           },
           { rootMargin: '0px 0px -10% 0px' },
         );
-        animados.forEach((el) => entrada.observe(el));
+        // Só começa a observar depois que o navegador desenhou o estado inicial (escondido).
+        // Com a página em cache, o Safari avisava que o elemento estava na tela antes do primeiro
+        // desenho: a classe chegava cedo demais, a transição não tinha de onde partir, e o que
+        // estava no topo da página aparecia pronto, sem entrada. Ler o estilo força o cálculo do
+        // estado inicial; os dois quadros de espera garantem que ele foi desenhado.
+        animados.forEach((el) => void getComputedStyle(el).opacity);
+        requestAnimationFrame(() => requestAnimationFrame(() => animados.forEach((el) => entrada.observe(el))));
       }
 
       // Ecos: abrem sozinhos na primeira vez e depois respondem à rolagem, como o
