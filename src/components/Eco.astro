@@ -104,9 +104,14 @@ const alto = [...ecos('dir'), ...ecos('esq')];
 
 <style>
   @property --abre { syntax: '<number>'; inherits: true; initial-value: 0; }
-  .eco { position: relative; --abre: 0; transition: --abre 0.95s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.35s; }
-  .eco.eco-pronto { --abre: 1; }
-  .eco.eco-rolando { transition: none; }
+  /* A abertura é uma animação, e não uma transição: com a página em cache o Safari aplicava a
+     classe antes do primeiro desenho, a transição não tinha de onde partir e os ecos já nasciam
+     abertos. A animação parte sempre do 0 declarado nela. */
+  .eco { position: relative; --abre: 0; }
+  .eco.eco-pronto { --abre: 1; animation: eco-logo-abre 0.95s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.35s both; }
+  /* Com a rolagem no comando, sai a animação, para o valor posto pelo script valer. */
+  .eco.eco-pronto.eco-rolando { animation: none; }
+  @keyframes eco-logo-abre { from { --abre: 0; } to { --abre: 1; } }
   .eco :global(svg) { width: 100%; height: auto; }
   .eco-marca { position: relative; transform-origin: 50% 50%; }
   .eco-fatia { position: absolute; inset: 0; pointer-events: none; }

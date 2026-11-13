@@ -565,9 +565,15 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
      se soltam dele em seguida, continuando o movimento.
      Em títulos marcados com data-anima, só começa quando entram na tela. */
   .js .ecoa { animation: titulo-entra 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99) both; }
-  .js .ecoa { --ab: 0; transition: --ab 0.8s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.5s; }
-  .js .ecoa.eco-aberto { --ab: 1; }
-  .js .ecoa.ecoa-solta { transition: none; }
+  /* A abertura dos ecos é uma animação, e não uma transição. Transição só roda se o navegador já
+     tiver desenhado o estado fechado antes de a classe chegar; com a página em cache (recarga,
+     troca de página) o Safari aplicava a classe antes do primeiro desenho e os ecos já nasciam
+     abertos. A animação parte sempre do 0 declarado nela, em qualquer ordem. */
+  .js .ecoa { --ab: 0; }
+  .js .ecoa.eco-aberto { --ab: 1; animation: titulo-entra 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99) both, eco-abre 0.8s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.5s both; }
+  /* Passada a abertura, a rolagem assume: sai a animação dos ecos, para o valor posto pelo script valer. */
+  .js .ecoa.eco-aberto.ecoa-solta { animation: titulo-entra 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99) both; }
+  @keyframes eco-abre { from { --ab: 0; } to { --ab: 1; } }
   .js .ecoa[data-anima]:not(.entrou) { animation-play-state: paused; }
 
   /* Animações de entrada ao rolar. Só valem com JavaScript ligado;
