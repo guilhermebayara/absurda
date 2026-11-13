@@ -31,10 +31,19 @@ const projetos = defineCollection({
   schema: z.object({
     nome: z.string(),
     resumo: z.string(),
-    situacao: z.enum(['ativo', 'em-elaboracao', 'arquivo']).default('ativo'),
+    // "arquivo" é projeto adormecido; "independente" nasceu na @bsurda e hoje segue por conta própria.
+    situacao: z.enum(['ativo', 'em-elaboracao', 'arquivo', 'independente']).default('ativo'),
     ordem: z.number().default(99),
     capa: z.string().optional(),
     pessoas: z.array(reference('pessoas')).default([]),
+    // Ano em que começou, quando a Agenda não alcança (a @bsurda é de 2009).
+    desde: z.string().optional(),
+    // Edições especiais que não viraram projeto. "filtro" é a expressão que acha as edições na Agenda.
+    especiais: z.array(z.object({ nome: z.string(), filtro: z.string(), texto: z.string().optional() })).default([]),
+    // Edições históricas: o id do evento na Agenda e uma linha dizendo por quê.
+    historicas: z.array(z.object({ evento: z.string(), porque: z.string() })).default([]),
+    // Para onde o projeto foi, quando segue fora da @bsurda.
+    fora: z.object({ rotulo: z.string(), url: z.string() }).optional(),
   }),
 });
 

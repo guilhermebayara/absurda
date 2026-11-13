@@ -1,8 +1,27 @@
 ---
+// Página de um projeto.
+//
+// Estrutura comum a todos, nesta ordem. Cada bloco só aparece quando o projeto tem o que mostrar,
+// então uma página pode ficar incompleta sem parecer quebrada:
+// 1. Abertura: nome, resumo e a ficha (desde quando, quantas edições, situação).
+// 2. Próxima data: os eventos marcados daquele projeto, vindos da Agenda.
+// 3. O texto do projeto (o corpo do arquivo em src/content/projetos).
+// 4. Edições especiais (campo "especiais"): séries que não viraram projeto. Hoje, só a @bsurda.
+// 5. Edições históricas (campo "historicas"): as que marcaram, com uma linha dizendo por quê.
+// 6. Histórico: projeto de poucas edições mostra todas; projeto de muitas mostra a conta por
+//    ano e manda para a Agenda. A @bsurda não repete a Agenda aqui.
+// 7. Quem faz e o próximo projeto.
+//
+// Personalização por projeto (do Gui): a base é comum, mas cada projeto pode pedir blocos
+// próprios. Eles entram entre o texto e o histórico, por campos novos no arquivo do projeto.
 import Base from '../../layouts/Base.astro';
 import Capa from '../../components/Capa.astro';
+import Botao from '../../components/Botao.astro';
+import CartaoEvento from '../../components/CartaoEvento.astro';
 import { getCollection, getEntries, render } from 'astro:content';
 import { atributo, temaPara } from '../../lib/temas';
+import { getEventos } from '../../lib/eventos';
+import { resumoDoProjeto, daEspecial } from '../../lib/projetos';
 
 export async function getStaticPaths() {
   const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
@@ -14,9 +33,29 @@ export async function getStaticPaths() {
 const { projeto, seguinte } = Astro.props;
 const { Content } = await render(projeto);
 const pessoas = await getEntries(projeto.data.pessoas);
-const rotulos = { ativo: '', 'em-elaboracao': 'Em elaboração', arquivo: 'Projeto de arquivo' };
-// O tema virá da capa do projeto. Por enquanto, um par fixo da marca.
+const rotulos = { ativo: '', 'em-elaboracao': 'Em elaboração', arquivo: 'Projeto adormecido', independente: 'Hoje independente' };
 const tema = temaPara(projeto.id);
+
+const eventos = await getEventos();
+const r = resumoDoProjeto(projeto.id, eventos);
+const ehFesta = projeto.id === 'absurda';
+const desde = projeto.data.desde ?? r.desde;
+const ate = r.porAno.length > 0 ? r.porAno[r.porAno.length - 1].ano : undefined;
+const parado = projeto.data.situacao === 'arquivo';
+const dia = (iso: string) => new Date(iso).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'America/Sao_Paulo' }).replace(/\./g, '').replace(/ de /g, ' ');
+
+const especiais = projeto.data.especiais.map((s) => {
+  const edicoes = eventos.passados.filter((e) => daEspecial(s.filtro, e)).reverse();
+  const anos = [...new Set(edicoes.map((e) => e.data.slice(0, 4)))];
+  return { ...s, edicoes, periodo: anos.length === 0 ? '' : anos.length === 1 ? anos[0] : `${anos[0]} a ${anos[anos.length - 1]}` };
+});
+const historicas = projeto.data.historicas
+  .map((h) => ({ ...h, e: eventos.passados.find((e) => e.id === h.evento) }))
+  .filter((h) => h.e);
+// Até doze edições, cabe a lista inteira. Acima disso, a conta por ano.
+const listaInteira = !ehFesta && r.passados.length > 0 && r.passados.length <= 12;
+const contaPorAno = !ehFesta && r.passados.length > 12;
+const maior = Math.max(1, ...r.porAno.map((a) => a.n));
 ---
 <Base titulo={projeto.data.nome} descricao={projeto.data.resumo} tema={tema} imagem={projeto.data.capa}>
   <header class="abre abre-cima" data-tema={atributo(tema)}>
@@ -24,13 +63,110 @@ const tema = temaPara(projeto.id);
     {rotulos[projeto.data.situacao] && <p class="etiqueta">{rotulos[projeto.data.situacao]}</p>}
     <h1 class="t-gigante ecoa ecoa-cima" data-eco={projeto.data.nome}>{projeto.data.nome}</h1>
     <p class="t-apoio">{projeto.data.resumo}</p>
+    <dl class="ficha">
+      {desde && !parado && <div><dt>Desde</dt><dd>{desde}</dd></div>}
+      {desde && parado && <div><dt>Período</dt><dd>{desde === ate || !ate ? desde : `${desde} a ${ate}`}</dd></div>}
+      {!ehFesta && r.passados.length > 0 && <div><dt>Edições</dt><dd>{r.passados.length}</dd></div>}
+    </dl>
   </header>
 
-  <div class="capa-projeto"><Capa src={projeto.data.capa} proporcao="21 / 9" /></div>
+  {r.proximos.length > 0 && (
+    <section class="bloco" aria-labelledby="t-proxima">
+      <h2 id="t-proxima" class="titulo-secao" data-anima="sobe">{r.proximos.length > 1 ? 'Próximas datas' : 'Próxima data'}</h2>
+      <div class="proximas">
+        {r.proximos.slice(0, 3).map((e) => <CartaoEvento evento={e} principal />)}
+      </div>
+      {r.proximos.length > 3 && <p class="bloco-fim"><Botao href="/agenda" tipo="linha">Agenda completa</Botao></p>}
+    </section>
+  )}
+
+  {projeto.data.capa && <div class="capa-projeto"><Capa src={projeto.data.capa} proporcao="21 / 9" /></div>}
 
   <div class="conteudo prosa">
     <Content />
+    {projeto.data.fora && <p><Botao href={projeto.data.fora.url} externo>{projeto.data.fora.rotulo}</Botao></p>}
   </div>
+
+  {especiais.length > 0 && (
+    <section class="bloco" aria-labelledby="t-especiais">
+      <h2 id="t-especiais" class="t-secao" data-anima="sobe">Edições especiais</h2>
+      <p class="t-apoio bloco-texto" data-anima="surge">Não viraram projeto, mas viraram nome. (marcação)</p>
+      <ul class="especiais">
+        {especiais.map((s) => (
+          <li class="especial" data-anima="surge">
+            <div class="especial-cabeca">
+              <h3 class="t-grande">{s.nome}</h3>
+              <p class="especial-dados">{s.periodo}{s.edicoes.length > 0 && <span>{s.edicoes.length} {s.edicoes.length === 1 ? 'edição' : 'edições'}</span>}</p>
+              {s.texto && <p class="especial-texto">{s.texto}</p>}
+            </div>
+            {s.edicoes.length > 0 && (
+              <ul class="especial-capas">
+                {s.edicoes.map((e) => (
+                  <li>
+                    <a href={e.url} target="_blank" rel="noopener">
+                      {e.capaPequena || e.capa ? <img src={e.capaPequena ?? e.capa} alt="" loading="lazy" /> : <span class="sem-capa" aria-hidden="true">@</span>}
+                      <span class="especial-legenda">{e.nome}<span>{dia(e.data)}</span><span class="so-leitor"> (abre em outra aba)</span></span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {historicas.length > 0 && (
+    <section class="bloco" aria-labelledby="t-historicas">
+      <h2 id="t-historicas" class="t-secao" data-anima="sobe">Edições históricas</h2>
+      <ul class="historicas">
+        {historicas.map((h, i) => (
+          <li data-anima="surge" style={`--i:${i}`}>
+            <a class="historica-capa" href={h.e.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><Capa src={h.e.capa} inteira proporcao="16 / 9" /></a>
+            <p class="historica-data">{dia(h.e.data)}{h.e.local && <span>{h.e.local}</span>}</p>
+            <h3 class="historica-nome"><a href={h.e.url} target="_blank" rel="noopener">{h.e.nome}<span class="so-leitor"> (abre em outra aba)</span></a></h3>
+            <p class="historica-porque">{h.porque}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {(listaInteira || contaPorAno) && (
+    <section class="bloco" aria-labelledby="t-historico">
+      <h2 id="t-historico" class="t-secao" data-anima="sobe">Histórico</h2>
+      {listaInteira && (
+        <ul class="edicoes">
+          {r.passados.map((e) => (
+            <li data-anima="surge">
+              <a href={e.url} target="_blank" rel="noopener">
+                <span class="edicao-data">{dia(e.data)}</span>
+                <strong>{e.nome}</strong>
+                <span>{e.local ?? ''}<span class="so-leitor"> (abre em outra aba)</span></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+      {contaPorAno && (
+        <>
+          <ul class="por-ano" data-anima="surge">
+            {r.porAno.map((a) => <li style={`--p:${a.n / maior}`}><strong>{a.n}</strong><span>{a.ano}</span></li>)}
+          </ul>
+          <p class="t-pequeno bloco-nota">Edições por ano, pelo que a Agenda registra.</p>
+          <p class="bloco-fim"><Botao href="/agenda" tipo="linha">Ver na Agenda</Botao></p>
+        </>
+      )}
+    </section>
+  )}
+  {ehFesta && (
+    <section class="bloco" aria-labelledby="t-historico">
+      <h2 id="t-historico" class="t-secao" data-anima="sobe">Histórico</h2>
+      <p class="t-apoio bloco-texto" data-anima="surge">Todas as edições, desde a primeira, estão na Agenda.</p>
+      <p class="bloco-fim"><Botao href="/agenda">Abrir a Agenda</Botao></p>
+    </section>
+  )}
 
   {pessoas.length > 0 && (
     <section class="secao" aria-labelledby="t-quem">
@@ -51,7 +187,70 @@ const tema = temaPara(projeto.id);
 
 <style>
   .abre .etiqueta { margin-bottom: 0.75rem; }
+  .t-secao { font-size: clamp(2.75rem, 9.5vw, 8.75rem); font-weight: 800; line-height: 1; letter-spacing: -0.045em; text-transform: uppercase; text-wrap: balance; }
   .capa-projeto { padding: 0 var(--margem) clamp(3rem, 7vw, 6rem); }
   .seguinte { display: grid; gap: 1rem; padding: clamp(3.5rem, 9vw, 8rem) var(--margem); border-top: 1px solid var(--linha); text-decoration: none; }
   .seguinte:hover .t-gigante { text-decoration: underline; text-decoration-thickness: 0.04em; }
+
+  /* Ficha da abertura: os dados do projeto, no mesmo desenho da página Projetos. */
+  .ficha { display: flex; flex-wrap: wrap; gap: var(--e-2) var(--e-4); margin-top: var(--e-3); }
+  .ficha div { display: grid; gap: 0.4rem; }
+  .ficha dt { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  .ficha dd { margin: 0; font-size: var(--t-4); font-weight: 800; line-height: 0.95; letter-spacing: -0.035em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
+
+  .bloco { padding: var(--e-4) var(--margem) var(--e-6); }
+  .bloco-texto { max-width: 30em; margin-top: var(--e-2); }
+  .bloco-nota { margin-top: var(--e-2); }
+  .bloco-fim { margin-top: var(--e-4); }
+
+  /* Próxima data. */
+  .proximas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 26rem)); gap: clamp(1rem, 2vw, 1.75rem); }
+
+  /* Edições especiais: o nome grande de um lado, as capas das edições em fila do outro.
+     A fila rola de lado; overflow-y fechado para não prender a rolagem da página no Safari. */
+  .especiais { margin-top: var(--e-4); border-top: 2px solid var(--texto); }
+  .especial { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr); gap: var(--e-3) var(--e-4); padding: var(--e-4) 0; border-bottom: 2px solid var(--texto); }
+  .especial-dados { display: flex; gap: var(--e-3); margin-top: var(--e-2); font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; font-variant-numeric: tabular-nums; }
+  .especial-texto { max-width: 26em; margin-top: var(--e-2); font-size: 1.0625rem; line-height: 1.4; }
+  .especial-capas { min-width: 0; display: flex; gap: clamp(0.75rem, 1.4vw, 1.25rem); overflow-x: auto; overflow-y: hidden; scrollbar-width: none; scroll-snap-type: x proximity; }
+  .especial-capas::-webkit-scrollbar { display: none; }
+  .especial-capas li { flex: 0 0 clamp(9.5rem, 15vw, 13rem); scroll-snap-align: start; }
+  .especial-capas a { position: relative; display: grid; gap: 0.6rem; text-decoration: none; }
+  .especial-capas img, .sem-capa { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: clamp(0.6rem, 1.2vw, 1rem); }
+  .sem-capa { display: grid; place-items: center; background: var(--vivo); color: var(--sobre-vivo); font-size: 3rem; font-weight: 800; }
+  .especial-legenda { display: grid; gap: 0.2rem; font-size: 0.9375rem; font-weight: 700; line-height: 1.25; }
+  .especial-legenda > span:first-of-type { font-weight: 400; color: var(--suave); font-variant-numeric: tabular-nums; }
+  .especial-capas a:hover .especial-legenda, .especial-capas a:focus-visible .especial-legenda { text-decoration: underline; text-underline-offset: 0.2em; }
+
+  /* Edições históricas. */
+  .historicas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: var(--e-4) clamp(1rem, 2vw, 1.75rem); margin-top: var(--e-4); }
+  .historica-data { display: flex; gap: var(--e-3); margin-top: var(--e-2); font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; font-variant-numeric: tabular-nums; }
+  .historica-nome { margin-top: 0.5rem; font-size: var(--t-4); font-weight: 800; line-height: 0.95; letter-spacing: -0.035em; text-transform: uppercase; text-wrap: balance; }
+  .historica-nome a { text-decoration: none; }
+  .historica-nome a:hover, .historica-nome a:focus-visible { text-decoration: underline; text-decoration-thickness: 0.06em; text-underline-offset: 0.1em; }
+  .historica-porque { max-width: 26em; margin-top: 0.75rem; font-size: 1.0625rem; line-height: 1.4; }
+
+  /* Histórico em lista (projetos de poucas edições). */
+  .edicoes { margin-top: var(--e-4); border-top: 2px solid var(--texto); }
+  .edicoes a { position: relative; display: grid; grid-template-columns: 9rem minmax(0, 1.4fr) minmax(0, 1fr); gap: 0.25rem var(--e-3); align-items: baseline; padding: var(--e-2) 0; border-bottom: 2px solid var(--texto); text-decoration: none; }
+  .edicao-data { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; font-variant-numeric: tabular-nums; }
+  .edicoes strong { font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; }
+  .edicoes a:hover strong, .edicoes a:focus-visible strong { text-decoration: underline; text-decoration-thickness: 0.08em; text-underline-offset: 0.12em; }
+
+  /* Histórico em conta por ano (projetos de muitas edições): uma coluna por ano, com a altura
+     proporcional ao número de edições. As colunas são objeto sólido (subtema vivo). */
+  .por-ano { display: flex; align-items: flex-end; gap: clamp(0.25rem, 0.8vw, 0.75rem); height: clamp(11rem, 22vw, 18rem); margin-top: var(--e-4); }
+  .por-ano li { flex: 1 1 0; min-width: 0; display: grid; grid-template-rows: 1fr auto; gap: 0.5rem; height: 100%; text-align: center; }
+  .por-ano strong { align-self: end; display: grid; align-items: start; justify-items: center; height: max(1.75rem, calc(var(--p) * 100%)); padding-top: 0.35rem; border-radius: 0.5rem 0.5rem 0 0; background: var(--vivo); color: var(--sobre-vivo); font-size: clamp(0.75rem, 1.2vw, 1.125rem); font-weight: 800; font-variant-numeric: tabular-nums; }
+  .por-ano span { font-size: clamp(0.5625rem, 0.95vw, 0.8125rem); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  @media (max-width: 820px) {
+    .especial { grid-template-columns: minmax(0, 1fr); }
+    .especial-capas { margin-inline: calc(var(--margem) * -1); padding-inline: var(--margem); scroll-padding-inline: var(--margem); }
+    .edicoes a { grid-template-columns: 1fr; }
+    /* No celular os anos não cabem lado a lado: a fila rola. */
+    .por-ano { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; margin-inline: calc(var(--margem) * -1); padding-inline: var(--margem); }
+    .por-ano li { flex: 0 0 2.5rem; }
+    .por-ano span { font-size: 0.6875rem; }
+  }
 </style>
