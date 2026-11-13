@@ -10,8 +10,8 @@
 // (por exemplo, uma WIG com IHR). "Pré carnaval" e "pré Halloween" não contam como o evento em si.
 import type { Evento } from './eventos';
 import { readFile } from 'node:fs/promises';
-import { temaPara, PALETAS_DE_PROJETO, type Tema } from './temas';
-import { temaDaImagem } from './paleta';
+import { temaPara, PALETAS_DE_PROJETO, TEMAS_DO_SITE, type Tema } from './temas';
+import { matizesDaImagem } from './paleta';
 
 const FILTROS: Record<string, RegExp> = {
   'i-hate-remix': /i hate remix|\bihr\b/i,
@@ -72,17 +72,45 @@ export function resumoDoProjeto(id: string, todos: { proximos: Evento[]; passado
   return { proximos, passados, desde: porAno[0]?.ano, porAno };
 }
 
-// Cores do projeto: saem da foto de capa, quando há uma; sem capa, um par da marca.
-// Projeto com paleta fechada (Tibum, Trio, Parada) usa sempre o primeiro tema dela, com ou
-// sem foto: é o que garante Tibum solar, Trio de carnaval e Parada nas cores da bandeira.
-const temas = new Map<string, Promise<Tema>>();
-export function temaDoProjeto(id: string, capa?: string): Promise<Tema> {
+// Cores do projeto. Devolve uma lista: a página e o cartaz do projeto sorteiam um tema dela a
+// cada visita, para o site continuar multicolorido. O primeiro da lista é o que vale sem script.
+//
+// - Projeto com paleta fechada (Tibum, Trio, Parada): a paleta inteira, com ou sem foto.
+// - Projeto com foto de capa: os temas do site que combinam com os tons vivos da foto. Foto de
+//   poucas cores rende um tema só; foto colorida rende até três. Assim toda cor que aparece
+//   num projeto é uma cor do site, e nenhuma destoa.
+// - Sem foto: um tema do site, sempre o mesmo para o mesmo projeto.
+function matiz(hex: string): { h: number; s: number } {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255);
+  const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min;
+  if (d === 0) return { h: 0, s: 0 };
+  const h = max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+  return { h: (h * 60 + 360) % 360, s: d / (1 - Math.abs(max + min - 1) || 1) };
+}
+const afastamento = (a: number, b: number) => Math.min(Math.abs(a - b), 360 - Math.abs(a - b));
+// Quão perto um tema do site está de um tom: vale o fundo, quando ele tem cor, ou o destaque
+// (com uma pequena desvantagem, para o fundo ganhar em caso de empate).
+function proximidade(tema: Tema, tom: number): number {
+  const f = matiz(tema.fundo), d = matiz(tema.destaque);
+  return Math.min(f.s >= 0.3 ? afastamento(f.h, tom) : 999, afastamento(d.h, tom) + 20);
+}
+
+const temas = new Map<string, Promise<Tema[]>>();
+export function temasDoProjeto(id: string, capa?: string): Promise<Tema[]> {
   if (!temas.has(id)) {
     temas.set(id, (async () => {
       const paleta = PALETAS_DE_PROJETO[id];
-      if (paleta) return paleta[0];
-      if (!capa?.startsWith('/')) return temaPara(id);
-      try { return await temaDaImagem(await readFile(`public${capa}`)); } catch { return temaPara(id); }
+      if (paleta) return paleta;
+      if (!capa?.startsWith('/')) return [temaPara(id)];
+      try {
+        const tons = await matizesDaImagem(await readFile(`public${capa}`));
+        const escolhidos: Tema[] = [];
+        for (const tom of tons) {
+          const melhor = TEMAS_DO_SITE.filter((t) => !escolhidos.includes(t)).sort((a, b) => proximidade(a, tom) - proximidade(b, tom))[0];
+          if (melhor && proximidade(melhor, tom) <= 50) escolhidos.push(melhor);
+        }
+        return escolhidos.length > 0 ? escolhidos : [temaPara(id)];
+      } catch { return [temaPara(id)]; }
     })());
   }
   return temas.get(id)!;

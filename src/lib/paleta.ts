@@ -80,6 +80,41 @@ export async function temaDaImagem(imagem: Buffer): Promise<Tema> {
   return { fundo: hex(fundo), texto: hex(texto), destaque: hex(destaque) };
 }
 
+// Matizes vivos de uma foto: até três tons (em graus, 0 a 360) que aparecem com força.
+// Foto de poucas cores devolve um só, ou nenhum; foto colorida devolve mais de um. Serve para
+// escolher, entre os temas do site, os que combinam com a foto (ver lib/projetos.ts).
+export async function matizesDaImagem(imagem: Buffer): Promise<number[]> {
+  const { data } = await sharp(imagem).resize(64, 64, { fit: 'cover' }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+  const faixas = Array.from({ length: 12 }, () => ({ peso: 0, x: 0, y: 0 }));
+  let vivos = 0;
+  for (let i = 0; i < data.length; i += 3) {
+    const r = data[i] / 255, g = data[i + 1] / 255, b = data[i + 2] / 255;
+    const max = Math.max(r, g, b), min = Math.min(r, g, b), d = max - min, l = (max + min) / 2;
+    if (d === 0) continue;
+    const sat = d / (1 - Math.abs(2 * l - 1));
+    // Só conta cor viva de verdade: nem quase preto, nem quase branco, nem acinzentada.
+    if (sat < 0.6 || l < 0.22 || l > 0.8) continue;
+    const h = ((max === r ? ((g - b) / d) % 6 : max === g ? (b - r) / d + 2 : (r - g) / d + 4) * 60 + 360) % 360;
+    const f = faixas[Math.floor(h / 30) % 12];
+    const peso = sat * sat;
+    f.peso += peso; f.x += Math.cos((h * Math.PI) / 180) * peso; f.y += Math.sin((h * Math.PI) / 180) * peso;
+    vivos++;
+  }
+  // Menos de 2% da foto com cor viva: não há matiz que a represente.
+  if (vivos < (data.length / 3) * 0.02) return [];
+  const total = faixas.reduce((s, f) => s + f.peso, 0);
+  const picos: number[] = [];
+  const usadas = new Set<number>();
+  for (const { f, i } of faixas.map((f, i) => ({ f, i })).sort((a, b) => b.f.peso - a.f.peso)) {
+    if (picos.length === 3 || f.peso / total < 0.08) break;
+    // Faixa vizinha de um pico já escolhido é o mesmo tom, e não outro.
+    if (usadas.has((i + 11) % 12) || usadas.has((i + 1) % 12)) continue;
+    usadas.add(i);
+    picos.push(((Math.atan2(f.y, f.x) * 180) / Math.PI + 360) % 360);
+  }
+  return picos;
+}
+
 // Malha de cores para o cartão compacto: uma cor por canto da capa (em cima à
 // esquerda, em cima à direita, embaixo à esquerda, embaixo à direita), na mesma
 // posição em que aparece na arte. O fundo do cartão vira um degradê entre elas,

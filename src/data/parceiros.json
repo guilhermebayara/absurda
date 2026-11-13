@@ -7,7 +7,12 @@
     "texto": "É por lá que saem os ingressos de todas as festas. (marcação)",
     "url": "https://shotgun.live/en/venues/festaabsurda",
     "destino": "Ver ingressos",
-    "registros": []
+    "registros": [
+      {
+        "ano": "2022",
+        "onde": "Parada da @bsurda (apoio)"
+      }
+    ]
   },
   {
     "id": "xeque-mate",
@@ -19,6 +24,10 @@
       {
         "ano": "2019",
         "onde": "Halloween 10 anos"
+      },
+      {
+        "ano": "2022",
+        "onde": "Parada da @bsurda (apoio)"
       }
     ]
   },
@@ -131,6 +140,36 @@
       {
         "ano": "2022",
         "onde": "Carnaval"
+      }
+    ]
+  },
+  {
+    "id": "localiza",
+    "nome": "Localiza",
+    "registros": [
+      {
+        "ano": "2022",
+        "onde": "Parada da @bsurda (patrocínio)"
+      }
+    ]
+  },
+  {
+    "id": "find-tattoo",
+    "nome": "Find Tattoo",
+    "registros": [
+      {
+        "ano": "2022",
+        "onde": "Parada da @bsurda (apoio)"
+      }
+    ]
+  },
+  {
+    "id": "orbitais",
+    "nome": "Orbitais",
+    "registros": [
+      {
+        "ano": "2022",
+        "onde": "Parada da @bsurda (apoio)"
       }
     ]
   }

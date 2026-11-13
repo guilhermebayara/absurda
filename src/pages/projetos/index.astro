@@ -7,19 +7,20 @@
 // O mural bebe da mesa da Equipe: não é uma grade certinha. No desktop cada cartaz tem lugar e
 // tamanho próprios (a @bsurda é o maior, o Halloween o segundo, Trio e Tibum são retratos), as
 // colunas terminam em alturas diferentes e cada cartaz fica levemente torto. A informação
-// dentro do cartaz, essa sim, segue sempre a mesma ordem: nome, resumo (só nos grandes) e ficha.
+// dentro do cartaz é sempre a mesma: nome e ficha. O resumo fica para a página do projeto.
 //
 // Cartaz com foto: a foto ocupa o cartaz inteiro e o texto fica numa placa embaixo, na cor do
 // projeto, meio transparente e com a foto desfocada atrás. A placa tem margem e canto próprios,
 // para o texto nunca encostar no canto arredondado do cartaz.
 // Adormecidos e independentes ficam embaixo, em cartazes vazados (só contorno).
-// A página usa um tema fixo, que nenhum projeto usa, para nenhum cartaz sumir no fundo.
+// As cores rodam: a página sorteia um tema do site, como as outras, e cada cartaz sorteia um
+// dos temas do seu projeto, evitando a cor da página e a de um cartaz já sorteado.
 import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 import Botao from '../../components/Botao.astro';
 import { getEventos, partesDaData } from '../../lib/eventos';
-import { resumoDoProjeto, proximoTrio, temaDoProjeto } from '../../lib/projetos';
-import { TEMAS_DO_SITE, type Tema } from '../../lib/temas';
+import { resumoDoProjeto, proximoTrio, temasDoProjeto } from '../../lib/projetos';
+import { atributo, type Tema } from '../../lib/temas';
 
 const eventos = await getEventos();
 const projetos = (await getCollection('projetos'))
@@ -28,19 +29,18 @@ const projetos = (await getCollection('projetos'))
 const vivos = projetos.filter((p) => p.data.situacao === 'ativo' || p.data.situacao === 'em-elaboracao');
 const adormecidos = projetos.filter((p) => p.data.situacao === 'arquivo');
 const independentes = projetos.filter((p) => p.data.situacao === 'independente');
-// As cores de cada cartaz saem da foto de capa do projeto; sem capa, um par da marca.
-const temas: Record<string, Tema> = {};
-for (const p of projetos) temas[p.id] = await temaDoProjeto(p.id, p.data.capa);
-const usados = new Set(projetos.map((p) => temas[p.id].fundo));
-const temaDaPagina = TEMAS_DO_SITE.find((t) => !usados.has(t.fundo)) ?? TEMAS_DO_SITE[0];
-const cores = (id: string) => { const t = temas[id]; return `--f:${t.fundo};--t:${t.texto};--d:${t.destaque}`; };
+// Temas de cada projeto (da foto de capa ou da paleta dele). O cartaz abre no primeiro, e o
+// script do fim da página sorteia um da lista a cada visita.
+const temas: Record<string, Tema[]> = {};
+for (const p of projetos) temas[p.id] = await temasDoProjeto(p.id, p.data.capa);
+const cores = (id: string) => { const t = temas[id][0]; return `--f:${t.fundo};--t:${t.texto};--d:${t.destaque}`; };
 const quando = (iso: string) => { const d = partesDaData(iso); return `${d.semana.slice(0, 3)}, ${d.dia} ${d.mes}`; };
 const periodo = (r: { porAno: { ano: string }[] }) => {
   const a = r.porAno.map((x) => x.ano);
   return a.length === 0 ? '' : a[0] === a[a.length - 1] ? a[0] : `${a[0]} a ${a[a.length - 1]}`;
 };
 ---
-<Base titulo="Projetos" tema={temaDaPagina}>
+<Base titulo="Projetos">
   <header class="abre abre-cima">
     <h1 class="t-gigante ecoa ecoa-cima" data-eco="Projetos">Projetos</h1>
     <p class="t-apoio">Texto de marcação: uma frase sobre tudo o que a @bsurda faz além da festa.</p>
@@ -52,7 +52,7 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
         const desde = p.data.desde ?? p.r.desde;
         const proxima = p.r.proximos[0]?.data ?? (p.id === 'bloco' ? proximoTrio() : undefined);
         return (
-          <li class:list={['cartaz', { 'cartaz-foto': p.data.capa, 'cartaz-arcoiris': p.data.arcoiris }]} style={`${cores(p.id)};--i:${i}`} data-anima="surge">
+          <li class:list={['cartaz', { 'cartaz-foto': p.data.capa, 'cartaz-arcoiris': p.data.arcoiris }]} style={`${cores(p.id)};--i:${i}`} data-cores={temas[p.id].map(atributo).join(';')} data-anima="surge">
             <a href={`/projetos/${p.id}`}>
               {p.data.capa && <img class="cartaz-imagem" src={p.data.capa} alt="" loading="lazy" />}
               {(p.data.situacao === 'em-elaboracao' || proxima) && (
@@ -61,7 +61,6 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
               {!p.data.capa && <i class="cartaz-barra" aria-hidden="true"></i>}
               <div class="cartaz-placa">
                 <h2 class="cartaz-nome">{p.data.nome}</h2>
-                <p class="cartaz-resumo">{p.data.resumo}</p>
                 <p class="cartaz-ficha">
                   {desde && <span>Desde {desde}</span>}
                   {p.id !== 'absurda' && p.r.passados.length > 0 && <span>{p.r.passados.length} {p.r.passados.length === 1 ? 'edição' : 'edições'}</span>}
@@ -83,7 +82,6 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
             <p class="cartaz-aviso">{p.data.situacao === 'arquivo' ? 'Adormecido' : 'Hoje independente'}</p>
             <div class="cartaz-placa">
               <h3 class="cartaz-nome">{p.data.nome}</h3>
-              <p class="cartaz-resumo">{p.data.resumo}</p>
               <p class="cartaz-ficha"><span>{p.data.situacao === 'arquivo' ? periodo(p.r) : p.r.desde ? `Desde ${p.r.desde}` : ''}</span></p>
             </div>
           </a>
@@ -92,6 +90,27 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
     </ul>
   </section>
 </Base>
+
+<script is:inline>
+  // Cada cartaz sorteia um dos temas do seu projeto (data-cores). Fica de fora o fundo que a
+  // página está usando, para o cartaz não sumir, e o de um cartaz já sorteado, quando há opção.
+  (function () {
+    var pagina = getComputedStyle(document.documentElement).getPropertyValue('--fundo').trim().toLowerCase();
+    var usados = [pagina];
+    document.querySelectorAll('.cartaz[data-cores]').forEach(function (cartaz) {
+      var opcoes = cartaz.dataset.cores.split(';').filter(Boolean);
+      var livres = opcoes.filter(function (o) { return usados.indexOf(o.split('|')[0].toLowerCase()) === -1; });
+      var lista = livres.length > 0 ? livres : opcoes;
+      var t = lista[Math.floor(Math.random() * lista.length)].split('|');
+      // Projeto de um tema só que calhou de ser o da página: ganha um contorno para não sumir.
+      if (t[0].toLowerCase() === pagina) cartaz.classList.add('cartaz-contorno');
+      usados.push(t[0].toLowerCase());
+      cartaz.style.setProperty('--f', t[0]);
+      cartaz.style.setProperty('--t', t[1]);
+      cartaz.style.setProperty('--d', t[2]);
+    });
+  })();
+</script>
 
 <style>
   .abre .t-apoio { margin-top: var(--e-2); }
@@ -103,6 +122,7 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
      distância do conteúdo até a borda; a placa de texto usa os dois para ficar concêntrica. */
   .cartaz { --canto: clamp(0.85rem, 1.5vw, 1.35rem); --folga: clamp(0.5rem, 0.8vw, 0.75rem); container-type: inline-size; min-width: 0; rotate: var(--giro, 0deg); translate: 0 var(--sobe, 0); transition: rotate 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), translate 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
   .cartaz a { position: relative; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; padding: var(--folga); border-radius: var(--canto); background: var(--f); color: var(--t); text-decoration: none; overflow: hidden; }
+  .cartaz-contorno a { box-shadow: inset 0 0 0 2px var(--t); }
   .cartaz-imagem { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
   /* Placa de texto. Sem foto, é transparente e o cartaz inteiro é a cor do projeto. Com foto,
@@ -111,8 +131,6 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
   .cartaz-foto .cartaz-placa { background: color-mix(in srgb, var(--f) 80%, transparent); -webkit-backdrop-filter: blur(14px) saturate(1.2); backdrop-filter: blur(14px) saturate(1.2); }
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .cartaz-foto .cartaz-placa { background: color-mix(in srgb, var(--f) 94%, transparent); } }
   .cartaz-nome { font-size: clamp(1.375rem, 13cqw, 5.5rem); font-weight: 800; line-height: 0.88; letter-spacing: -0.045em; text-transform: uppercase; text-wrap: balance; }
-  /* O resumo só aparece nos cartazes grandes: nos pequenos, o espaço é da foto. */
-  .cartaz-resumo { display: none; max-width: 30em; font-size: 1rem; line-height: 1.3; }
   .cartaz-ficha { display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; padding-top: 0.55rem; border-top: 2px solid currentColor; font-size: 0.6875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; font-variant-numeric: tabular-nums; }
   .cartaz-ficha:empty { display: none; }
 
@@ -133,8 +151,7 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
 
   /* Celular: duas colunas, com os dois primeiros de ponta a ponta, e os cartazes quase retos. */
   .mural-vivo .cartaz:nth-child(1) { grid-column: 1 / -1; min-height: 23rem; }
-  .mural-vivo .cartaz:nth-child(2) { grid-column: 1 / -1; min-height: 16rem; }
-  .mural-vivo .cartaz:nth-child(-n+2) .cartaz-resumo { display: block; }
+  .mural-vivo .cartaz:nth-child(2) { grid-column: 1 / -1; min-height: 19rem; }
   .mural-vivo .cartaz:nth-child(1) .cartaz-nome { font-size: clamp(2.5rem, 17cqw, 7rem); }
   .mural-vivo .cartaz:nth-child(4n+1) { --giro: -0.5deg; }
   .mural-vivo .cartaz:nth-child(4n+2) { --giro: 0.4deg; }
@@ -157,18 +174,15 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
     .mural-vivo { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: clamp(3.6rem, 5.4vw, 5.6rem); grid-auto-flow: dense; }
     .mural-vivo .cartaz { grid-row: span 3; min-height: 0; }
     .mural-vivo .cartaz:nth-child(1) { grid-column: 1 / 3; grid-row: 1 / 7; min-height: 0; --giro: -0.7deg; }
-    .mural-vivo .cartaz:nth-child(2) { grid-column: 3 / 5; grid-row: 1 / 4; min-height: 0; --giro: 0.8deg; --sobe: 0.6rem; }
-    .mural-vivo .cartaz:nth-child(3) { grid-column: 3; grid-row: 4 / 9; --giro: -1.1deg; }
-    .mural-vivo .cartaz:nth-child(4) { grid-column: 4; grid-row: 4 / 8; --giro: 0.9deg; --sobe: 0.5rem; }
+    .mural-vivo .cartaz:nth-child(2) { grid-column: 3 / 5; grid-row: 1 / 5; min-height: 0; --giro: 0.8deg; --sobe: 0.6rem; }
+    .mural-vivo .cartaz:nth-child(3) { grid-column: 3; grid-row: 5 / 10; --giro: -1.1deg; }
+    .mural-vivo .cartaz:nth-child(4) { grid-column: 4; grid-row: 5 / 9; --giro: 0.9deg; --sobe: 0.5rem; }
     .mural-vivo .cartaz:nth-child(5) { grid-column: 1; grid-row: 7 / 11; --giro: 1deg; }
     .mural-vivo .cartaz:nth-child(6) { grid-column: 2; grid-row: 7 / 12; --giro: -0.8deg; --sobe: 0.4rem; }
-    .mural-vivo .cartaz:nth-child(7) { grid-column: 4; grid-row: 8 / 11; --giro: -0.9deg; }
-    .mural-vivo .cartaz:nth-child(8) { grid-column: 3; grid-row: 9 / 12; --giro: 0.7deg; --sobe: 0.3rem; }
+    .mural-vivo .cartaz:nth-child(7) { grid-column: 4; grid-row: 9 / 12; --giro: -0.9deg; }
+    .mural-vivo .cartaz:nth-child(8) { grid-column: 3; grid-row: 10 / 13; --giro: 0.7deg; --sobe: 0.3rem; }
     .mural-vivo .cartaz:nth-child(1) .cartaz-nome { font-size: clamp(2.5rem, 18cqw, 10rem); }
-    /* No cartaz largo a placa ocupa só a esquerda, e a foto aparece ao lado. */
-    .mural-vivo .cartaz:nth-child(2) .cartaz-placa { max-width: 58%; }
-    .mural-vivo .cartaz:nth-child(2) .cartaz-nome { font-size: clamp(1.75rem, 8.5cqw, 5.5rem); }
-    .mural-vivo .cartaz:nth-child(1) .cartaz-resumo { font-size: 1.125rem; }
+    .mural-vivo .cartaz:nth-child(2) .cartaz-nome { font-size: clamp(1.75rem, 10cqw, 6rem); }
     .mural-vazado { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   }
 </style>

@@ -22,7 +22,7 @@ import CartaoEvento from '../../components/CartaoEvento.astro';
 import { getCollection, getEntries, render } from 'astro:content';
 import { atributo } from '../../lib/temas';
 import { getEventos } from '../../lib/eventos';
-import { resumoDoProjeto, daEspecial, ehPrima, proximoTrio, temaDoProjeto } from '../../lib/projetos';
+import { resumoDoProjeto, daEspecial, ehPrima, proximoTrio, temasDoProjeto } from '../../lib/projetos';
 import { partesDaData } from '../../lib/eventos';
 
 export async function getStaticPaths() {
@@ -36,9 +36,9 @@ const { projeto, seguinte } = Astro.props;
 const { Content } = await render(projeto);
 const pessoas = await getEntries(projeto.data.pessoas);
 const rotulos = { ativo: '', 'em-elaboracao': 'Em elaboração', arquivo: 'Projeto adormecido', independente: 'Hoje independente' };
-// As cores saem da foto de capa do projeto; sem capa, um par da marca.
-const tema = await temaDoProjeto(projeto.id, projeto.data.capa);
-const temaSeguinte = await temaDoProjeto(seguinte.id, seguinte.data.capa);
+// Temas do projeto (da foto de capa ou da paleta dele). A página sorteia um a cada visita.
+const temas = await temasDoProjeto(projeto.id, projeto.data.capa);
+const temaSeguinte = (await temasDoProjeto(seguinte.id, seguinte.data.capa))[0];
 const capa = projeto.data.capa;
 
 const eventos = await getEventos();
@@ -85,9 +85,8 @@ const primas = projeto.data.primas ? eventos.passados.filter((e) => ehPrima(proj
 const saidaDoTrio = projeto.id === 'bloco' && r.proximos.length === 0 ? partesDaData(proximoTrio()) : null;
 const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null;
 ---
-<Base titulo={projeto.data.nome} descricao={projeto.data.resumo} tema={tema} imagem={projeto.data.capa}>
-  <header class:list={['abre', 'abre-cima', { 'abre-foto': capa }]} data-tema={atributo(tema)}>
-    <a class="voltar" href="/projetos">Todos os projetos</a>
+<Base titulo={projeto.data.nome} descricao={projeto.data.resumo} temas={temas} imagem={projeto.data.capa}>
+  <header class:list={['abre', 'abre-cima', { 'abre-foto': capa }]} data-tema="sorteio" data-reserva={atributo(temas[0])}>
     <div class="abre-cartao">
       {capa && <img class="abre-imagem" src={capa} alt="" />}
       <div class="abre-texto">

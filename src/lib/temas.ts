@@ -60,16 +60,19 @@ export const TEMAS_DE_POSICAO: Tema[] = [
   { fundo: '#161012', texto: '#fff1e6', destaque: '#ff4338' }, // preto com vermelho
 ];
 
-// Paletas fechadas de projeto (pedido do Gui). O ideal é a cor do projeto sair da foto de capa,
-// mas três projetos têm um clima que a foto nem sempre entrega, e por isso só usam os temas
-// daqui. Vale o primeiro tema de cada paleta; os outros ficam prontos para troca.
-// Como na paleta de posicionamento, nenhum tema junta amarelo com verde ou com azul.
+// Paletas fechadas de projeto (pedido do Gui). A cor de um projeto sai da foto de capa, mas
+// três projetos têm um clima que a foto nem sempre entrega, e por isso só usam os temas daqui.
+// A página e o cartaz do projeto sorteiam um tema da paleta a cada visita.
+// Seguem a lógica de tons do site (fundo profundo, pastel ou vivo, com um destaque que o
+// enfrenta): nenhuma cor aqui deve destoar do resto. A regra de não juntar amarelo com verde ou
+// azul vale só para o trecho de posicionamento; aqui essas combinações podem aparecer.
 //
 // Tibum: água, sol, piscina. Sempre solar, nunca página escura.
 export const TEMAS_DO_TIBUM: Tema[] = [
-  { fundo: '#8fe3f5', texto: '#0d2a4a', destaque: '#c81e55' }, // piscina com rosa
-  { fundo: '#ffd84a', texto: '#4a0f2e', destaque: '#c8300e' }, // sol com vermelho
-  { fundo: '#ff9f45', texto: '#3a0a2a', destaque: '#7a1fa2' }, // fim de tarde com roxo
+  { fundo: '#bfe6ff', texto: '#10245c', destaque: '#d1002c' }, // piscina com boia
+  { fundo: '#ffe14a', texto: '#10245c', destaque: '#0a6fb8' }, // sol com piscina
+  { fundo: '#ffb24a', texto: '#3a0a2a', destaque: '#7a1fa2' }, // fim de tarde
+  { fundo: '#ffc4dd', texto: '#10245c', destaque: '#0a6fb8' }, // boia rosa com piscina
 ];
 // Trio: carnaval de rua, de dia.
 export const TEMAS_DO_TRIO: Tema[] = [
@@ -77,16 +80,22 @@ export const TEMAS_DO_TRIO: Tema[] = [
   { fundo: '#ffcc2f', texto: '#4b0f5c', destaque: '#d1006f' }, // amarelo com magenta
   { fundo: '#6d28e0', texto: '#fff4e0', destaque: '#ffd23f' }, // roxo com amarelo
   { fundo: '#ff9a5c', texto: '#2b0638', destaque: '#5b12c9' }, // laranja com roxo
+  { fundo: '#7be8c8', texto: '#2a1050', destaque: '#c81e8a' }, // verde-água com uva
 ];
 // Parada: orgulho LGBTQIA+. Uma cor da bandeira por vez, e não o arco-íris inteiro; o
-// arco-íris entra só como detalhe (campo "arcoiris" do projeto).
+// arco-íris entra só como detalhe (campo "arcoiris" do projeto). Os tons vêm das listras das
+// marcas da Parada (a de 2022 traz as cores da bandeira do progresso, com azul e rosa trans,
+// preto e marrom), passados para a lógica de tons do site.
 export const TEMAS_DA_PARADA: Tema[] = [
-  { fundo: '#ffe600', texto: '#4a1466', destaque: '#c40d12' }, // amarelo da bandeira
-  { fundo: '#d40d12', texto: '#fff6ea', destaque: '#ffc21a' }, // vermelho da bandeira
-  { fundo: '#ff8c1a', texto: '#3a0a3f', destaque: '#732982' }, // laranja da bandeira
-  { fundo: '#0a7a3b', texto: '#fff6ea', destaque: '#ffb3de' }, // verde da bandeira
-  { fundo: '#24408e', texto: '#fff6ea', destaque: '#ff9a3d' }, // azul da bandeira
-  { fundo: '#732982', texto: '#fff6ea', destaque: '#ffed00' }, // roxo da bandeira
+  { fundo: '#9be0fa', texto: '#1a1147', destaque: '#d1006f' }, // azul trans com magenta
+  { fundo: '#f7b3c8', texto: '#3a0a3f', destaque: '#5b12c9' }, // rosa trans com roxo
+  { fundo: '#f6c544', texto: '#3a0a3f', destaque: '#c40d5e' }, // amarelo com magenta
+  { fundo: '#7be8c8', texto: '#2a1050', destaque: '#c81e55' }, // verde-água com rosa
+  { fundo: '#ff9a7a', texto: '#3a0a2a', destaque: '#5b12c9' }, // coral com roxo
+  { fundo: '#3d1480', texto: '#f6e9ff', destaque: '#f6c544' }, // roxo com amarelo
+  { fundo: '#123a7a', texto: '#fcf6e4', destaque: '#ff8a66' }, // azul com coral
+  { fundo: '#8a0f45', texto: '#ffe9f1', destaque: '#ffc94d' }, // magenta com amarelo
+  { fundo: '#2b1a08', texto: '#ffe9c9', destaque: '#f4317f' }, // marrom com rosa
 ];
 export const PALETAS_DE_PROJETO: Record<string, Tema[]> = { tibum: TEMAS_DO_TIBUM, bloco: TEMAS_DO_TRIO, parada: TEMAS_DA_PARADA };
 

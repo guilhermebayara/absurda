@@ -12,15 +12,18 @@ interface Props {
   descricao?: string;
   // Tema inicial da página. Sem ele, a página sorteia um par da marca a cada visita.
   tema?: Tema;
+  // Lista fechada de temas da página (projetos): o sorteio de cada visita acontece só entre
+  // eles, em vez de entre todos os temas do site. O primeiro vale enquanto o script não roda.
+  temas?: Tema[];
   // Imagem que aparece quando o link da página é compartilhado (caminho do site ou endereço completo).
   imagem?: string;
   // Página que não deve aparecer em buscadores (a de erro, por exemplo).
   semIndice?: boolean;
 }
-const { titulo, descricao = SITE.descricao, tema, imagem, semIndice = false } = Astro.props;
+const { titulo, descricao = SITE.descricao, tema, temas, imagem, semIndice = false } = Astro.props;
 const tituloPagina = titulo ? `${titulo} | ${SITE.nome}` : `${SITE.nome}, ${SITE.lema.toLowerCase()}`;
-const inicial = tema ?? TEMAS_DO_SITE[0];
-const sorteio = TEMAS_DO_SITE.map(atributo);
+const inicial = tema ?? temas?.[0] ?? TEMAS_DO_SITE[0];
+const sorteio = (temas?.length ? temas : TEMAS_DO_SITE).map(atributo);
 const caminho = Astro.url.pathname;
 // Endereço oficial da página, sem barra no fim (a Home fica só com o domínio).
 const canonico = new URL(caminho.replace(/(?:\/index)?(?:\.html)?\/?$/, '') || '/', Astro.site).href;
@@ -130,6 +133,8 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
         var anterior = null;
         try { anterior = sessionStorage.getItem('ultimo-tema'); } catch (e) {}
         var opcoes = sorteio.filter(function (t) { return t !== anterior; });
+        // Lista de um tema só (projeto com foto de poucas cores): ele vale mesmo repetido.
+        if (opcoes.length === 0) opcoes = sorteio;
         var escolhido = opcoes[Math.floor(Math.random() * opcoes.length)];
         try { sessionStorage.setItem('ultimo-tema', escolhido); } catch (e) {}
         raiz.dataset.temaSorteado = escolhido;
