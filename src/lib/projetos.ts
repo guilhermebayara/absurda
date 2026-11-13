@@ -11,7 +11,7 @@
 import type { Evento } from './eventos';
 import { readFile } from 'node:fs/promises';
 import { temaPara, temasDoSitePara, PALETAS_DE_PROJETO, type Tema } from './temas';
-import { matizesDaImagem } from './paleta';
+import { temaDaImagem, matizesDaImagem } from './paleta';
 
 const FILTROS: Record<string, RegExp> = {
   'i-hate-remix': /i hate remix|\bihr\b/i,
@@ -75,10 +75,11 @@ export function resumoDoProjeto(id: string, todos: { proximos: Evento[]; passado
 // Cores do projeto. Devolve uma lista: a página e o cartaz do projeto sorteiam um tema dela a
 // cada visita, para o site continuar multicolorido. O primeiro da lista é o que vale sem script.
 //
-// - Projeto com paleta fechada (Tibum, Trio, Parada): a paleta inteira, com ou sem foto.
-// - Projeto com foto de capa: os temas do site que combinam com os tons vivos da foto. Foto de
-//   poucas cores rende um tema só; foto colorida rende até três. Assim toda cor que aparece
-//   num projeto é uma cor do site, e nenhuma destoa.
+// - Projeto com paleta fechada (Tibum, Trio, Parada): a paleta inteira, com ou sem foto. Os
+//   três fogem à regra da foto pelo caráter de cada um (decisão do Gui).
+// - Projeto com foto de capa: igual às páginas de pessoa. Primeiro as cores tiradas da própria
+//   foto; depois, os temas do site que combinam com os tons vivos dela. Foto de poucas cores
+//   rende menos opções. Por isso a foto principal de um projeto é escolhida pensando na cor.
 // - Sem foto: um tema do site, sempre o mesmo para o mesmo projeto.
 const temas = new Map<string, Promise<Tema[]>>();
 export function temasDoProjeto(id: string, capa?: string): Promise<Tema[]> {
@@ -88,8 +89,8 @@ export function temasDoProjeto(id: string, capa?: string): Promise<Tema[]> {
       if (paleta) return paleta;
       if (!capa?.startsWith('/')) return [temaPara(id)];
       try {
-        const escolhidos = temasDoSitePara(await matizesDaImagem(await readFile(`public${capa}`)));
-        return escolhidos.length > 0 ? escolhidos : [temaPara(id)];
+        const imagem = await readFile(`public${capa}`);
+        return [await temaDaImagem(imagem), ...temasDoSitePara(await matizesDaImagem(imagem))];
       } catch { return [temaPara(id)]; }
     })());
   }

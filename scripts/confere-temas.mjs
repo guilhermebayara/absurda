@@ -49,13 +49,15 @@ const cor = (c) => { const m = String(c).match(/^rgba?\(([^)]+)\)/); return m ? 
 
 // Temas das páginas de pessoa, quando existe um build.
 const dePessoa = [];
-if (existsSync('dist/equipe')) {
-  for (const arq of readdirSync('dist/equipe').filter((a) => a.endsWith('.html'))) {
+// Páginas de projeto com foto também levam as cores da foto: entram na mesma conferência.
+for (const pasta of ['equipe', 'projetos']) {
+  if (!existsSync('dist/' + pasta)) continue;
+  for (const arq of readdirSync('dist/' + pasta).filter((a) => a.endsWith('.html'))) {
     // A página de pessoa sorteia um tema entre os da lista data-temas: todos precisam passar.
-    const lista = readFileSync('dist/equipe/' + arq, 'utf8').match(/data-temas="([^"]+)"/)?.[1].split(';') ?? [];
+    const lista = readFileSync('dist/' + pasta + '/' + arq, 'utf8').match(/data-temas="([^"]+)"/)?.[1].split(';') ?? [];
     lista.forEach((t, i) => {
       const m = t.match(/^(#[0-9a-fA-F]{3,6})\|(#[0-9a-fA-F]{3,6})\|(#[0-9a-fA-F]{3,6})$/);
-      if (m) dePessoa.push({ fundo: m[1], texto: m[2], destaque: m[3], nome: `página /equipe/${arq.replace('.html', '')} (tema ${i + 1})` });
+      if (m) dePessoa.push({ fundo: m[1], texto: m[2], destaque: m[3], nome: `página /${pasta}/${arq.replace('.html', '')} (tema ${i + 1})` });
     });
   }
 }
@@ -80,7 +82,7 @@ for (const t of [...temas, ...dePessoa]) {
 }
 
 if (problemas.length === 0) {
-  console.log(`Cores em ordem: ${temas.length} temas${dePessoa.length ? ` e ${dePessoa.length} temas de páginas de pessoa` : ''} com texto legível, destaque visível e subtema vivo com leitura.`);
+  console.log(`Cores em ordem: ${temas.length} temas${dePessoa.length ? ` e ${dePessoa.length} temas de páginas de pessoa e de projeto` : ''} com texto legível, destaque visível e subtema vivo com leitura.`);
   process.exit(0);
 }
 console.log(`${problemas.length} problema(s) de contraste (temas de src/lib/temas.ts${dePessoa.length ? ' e páginas de pessoa' : ''}):`);

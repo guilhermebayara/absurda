@@ -86,7 +86,7 @@ const saidaDoTrio = projeto.id === 'bloco' && r.proximos.length === 0 ? partesDa
 const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null;
 ---
 <Base titulo={projeto.data.nome} descricao={projeto.data.resumo} temas={temas} imagem={projeto.data.capa}>
-  <header class:list={['abre', 'abre-cima', { 'abre-foto': capa }]} data-tema="sorteio" data-reserva={atributo(temas[0])}>
+  <header class:list={['abre', 'abre-cima', { 'abre-foto': capa }]} data-tema="sorteio" data-reserva={atributo(temas[0])} data-temas={temas.map(atributo).join(';')}>
     <div class="abre-cartao">
       {capa && <img class="abre-imagem" src={capa} alt="" style={projeto.data.foco ? `object-position:${projeto.data.foco}` : undefined} />}
       <div class="abre-texto">
