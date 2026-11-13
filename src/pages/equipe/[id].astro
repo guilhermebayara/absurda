@@ -41,7 +41,7 @@ const tema = await temaDaPessoa(pessoa.id, pessoa.data.foto);
       {pessoa.data.links.length > 0 && (
         <section aria-labelledby="t-outros">
           <h2 id="t-outros" class="titulo-secao">Outros projetos</h2>
-          <ul>{pessoa.data.links.map((l) => <li><a class="link" href={l.url} target="_blank" rel="noopener">{l.rotulo}</a></li>)}</ul>
+          <ul>{pessoa.data.links.map((l) => <li><a class="link" href={l.url} target="_blank" rel="noopener">{l.rotulo}<span class="so-leitor"> (abre em outra aba)</span></a></li>)}</ul>
         </section>
       )}
 
