@@ -22,7 +22,10 @@ const pessoas = defineCollection({
     // Final do código do crachá, quando as iniciais da função não servem (o Gui é PD, e não DP).
     sigla: z.string().optional(),
     instagram: z.string().optional(),
-    links: z.array(z.object({ rotulo: z.string(), url: z.string() })).default([]),
+    // Outros projetos da pessoa. "papel" é o que ela faz ali (DJ, produtora, elenco), quando ajuda.
+    links: z.array(z.object({ rotulo: z.string(), url: z.string(), papel: z.string().optional() })).default([]),
+    // Outras redes e endereços da pessoa (Twitter, SoundCloud, Linktree, loja): ficam ao lado do Instagram.
+    redes: z.array(z.object({ rotulo: z.string(), url: z.string() })).default([]),
   }),
 });
 
