@@ -29,7 +29,9 @@
   "nome": "@bsurda Santa",
   "data": "2013-03-15T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157632907315539",
-  "local": "Granfinos"
+  "local": "Granfinos",
+  "capa": "/capas/santa-2013.jpg",
+  "capaPequena": "/capas/santa-2013-p.jpg"
  },
  {
   "id": "flickr-72157632716412679",
@@ -288,7 +290,9 @@
   "id": "flickr-72157627265915327",
   "nome": "@bsurda vol. 18: Follow-me",
   "data": "2011-08-20T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627265915327"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627265915327",
+  "capa": "/capas/vol-18.jpg",
+  "capaPequena": "/capas/vol-18-p.jpg"
  },
  {
   "id": "flickr-72157627298281202",
@@ -340,7 +344,9 @@
   "nome": "@bsurda vol. 15: Eu Sou Ryca, 9 anos de Up e.music",
   "data": "2011-05-28T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626746605046",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/vol-15.jpg",
+  "capaPequena": "/capas/vol-15-p.jpg"
  },
  {
   "id": "flickr-72157626730479274",
@@ -356,7 +362,9 @@
   "nome": "Equipe @bsurda na Batalha de iPods",
   "data": "2011-05-06T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626573033463",
-  "local": "Dduck"
+  "local": "Dduck",
+  "capa": "/capas/batalha-de-ipods.jpg",
+  "capaPequena": "/capas/batalha-de-ipods-p.jpg"
  },
  {
   "id": "flickr-72157626307075963",
@@ -369,7 +377,9 @@
   "nome": "@bsurda Mobile",
   "data": "2011-04-08T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626598293826",
-  "local": "On Board"
+  "local": "On Board",
+  "capa": "/capas/mobile-on-board.jpg",
+  "capaPequena": "/capas/mobile-on-board-p.jpg"
  },
  {
   "id": "flickr-72157626269819508",
@@ -392,14 +402,18 @@
   "nome": "@bsurda vol. 10: Preto ou Branco",
   "data": "2011-01-29T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626260962954",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/vol-10.jpg",
+  "capaPequena": "/capas/vol-10-p.jpg"
  },
  {
   "id": "flickr-72157626135993237",
   "nome": "@bsurda Mobile: As Donas",
   "data": "2010-12-23T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626135993237",
-  "local": "Loja As Donas"
+  "local": "Loja As Donas",
+  "capa": "/capas/mobile-as-donas.jpg",
+  "capaPequena": "/capas/mobile-as-donas-p.jpg"
  },
  {
   "id": "flickr-72157625683287144",

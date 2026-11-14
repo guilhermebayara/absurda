@@ -59,3 +59,19 @@ Vol. 18 Follow-me (20/08/11, a data de entrada do Lugh), VIIISH! S03E05 (17/03/1
 Gui), vol. 19, os I Hate Remix de set e nov 2011 e de jan 2012, Bazinga! de dez 2011, Trans K-Pop,
 Secreta, Velcro 1 e 2, Satanás #2 e #3, Skins Party, K25, PostiT, Bazinga de 1 ano e de Brasília,
 Junkiebox, PFVR 1 e 2, Baile de Máscaras, Santa, ALEX, YOLO de 2013.
+
+## Escalações que só estão nos flyers (lidas das artes, 14 nov 2026)
+
+- 18/09/10, vol. 5 Brinks: ed., Barbara Deister, Felipe Nery, Lu Hell, Shoke-se, Dr. Jeff, Victor Pires
+- 29/01/11, vol. 10 Preto ou Branco: ed., Thiago Richard, Victor Prado (RJ), Jhoon, Shun, Barbara Deister
+- 08/04/11, Mobile no On Board (pista 2, "Connect SP"): DJ Ed
+- 28/05/11, vol. 15 Eu Sou Ryca: Barbara Deister, Ed, Franco, Rodrigo Leon, Leco, @eusouryca
+- 20/08/11, vol. 18 Follow-me (todo em arrobas do Twitter): @xuxaverde, @hebecamargo, @deh_v e @djed,
+  @meuamigolugh (b-day), @marckit0 e @vouirdevoce, @emilagres (b-day) e @fffffranco, @thomazito_ e
+  @MarlonBeckham. É a data de entrada do Lugh.
+
+## Capas tiradas dos álbuns
+
+Aplicadas em 14 nov 2026: vol. 10, vol. 15, vol. 18, Mobile As Donas, Mobile On Board, Batalha de
+iPods e Santa. Regra do Gui para os álbuns grandes: o flyer costuma estar nas primeiras ou nas
+últimas fotos, nunca no meio. Faltam 44 álbuns.
