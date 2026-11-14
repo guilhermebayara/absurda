@@ -222,3 +222,17 @@ da Parada de 2022, que só constam na programação da página do projeto.
 - Pasta `4_Projetos/1_ABSURDA` (uma pasta por ano, de 2013 a 2026) está conectada e o Gui liberou
   consulta sempre que preciso. A subpasta "@bsurda" continua fora, e pastas administrativas
   (Orçamentos, declarações) também.
+
+## 2022 pela pasta do Drive (14 nov 2026)
+
+O Gui organizou `1_ABSURDA/2022` por data. A peça de referência é a capa do evento (`capa-evento`),
+que traz nome, data e local. Entraram 12 eventos na Agenda, escritos à mão, 10 com capa:
+26/02 Carnaval (Ofélia), 28/02 Sula de Carnaval, 01/03 Carnaval (Casa Sapucaí), 06/05 Pijama,
+14/05 Autêntica com Mc Carol e Mac Júlia, 28/05 I Hate Remix 10 anos, 23/07 Wonka Junin@,
+06/09 I Hate Remix feat. WIG Especial Rock in Rio (Odeon Hub), 30/09 Latina, 22/10 13 anos com
+Potyguara (Autêntica), 03/12 Prom Baile de Máscara, 16/12 Indie Pop (Odeon Hub).
+
+Pendências: capa do IHR 10 anos (a que está na pasta é de outra edição, "Gis Mais 18/4");
+capa da Wonka ficou de fora (rosto de criança, cena de filme); local da Sula de Carnaval; Virada
+(arte sem data); pastas MOC, Premio, yolo e Anda sem capa; 12/02 aparece na Agenda como
+"@bsurda Especial Beyoncé" e a capa diz "I Hate Remix Especial Beyoncé".

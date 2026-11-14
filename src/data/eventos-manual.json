@@ -370,5 +370,124 @@
     "origem": "manual",
     "soDia": true,
     "atividade": true
+  },
+  {
+    "id": "carnaval-ofelia-2022-02",
+    "nome": "Carnaval @bsurda 2022",
+    "data": "2022-02-26T16:00:00-03:00",
+    "local": "Ofélia",
+    "url": "",
+    "origem": "manual",
+    "capa": "/capas/carnaval-ofelia-2022-02.jpg",
+    "capaPequena": "/capas/carnaval-ofelia-2022-02-p.jpg"
+  },
+  {
+    "id": "sula-de-carnaval-2022-02",
+    "nome": "Sula de Carnaval",
+    "data": "2022-02-28T12:30:00-03:00",
+    "url": "",
+    "origem": "manual",
+    "capa": "/capas/sula-de-carnaval-2022-02.jpg",
+    "capaPequena": "/capas/sula-de-carnaval-2022-02-p.jpg"
+  },
+  {
+    "id": "carnaval-sapucai-2022-03",
+    "nome": "Carnaval @bsurda 2022",
+    "data": "2022-03-01T20:00:00-03:00",
+    "local": "Casa Sapucaí",
+    "url": "",
+    "origem": "manual",
+    "capa": "/capas/carnaval-sapucai-2022-03.jpg",
+    "capaPequena": "/capas/carnaval-sapucai-2022-03-p.jpg"
+  },
+  {
+    "id": "pijama-2022-05",
+    "nome": "@bsurda Pijama",
+    "data": "2022-05-06T22:00:00-03:00",
+    "local": "Casa Sapucaí",
+    "url": "",
+    "origem": "manual",
+    "soDia": true,
+    "capa": "/capas/pijama-2022-05.jpg",
+    "capaPequena": "/capas/pijama-2022-05-p.jpg"
+  },
+  {
+    "id": "autentica-2022-05",
+    "nome": "@bsurda na Autêntica, com shows de Mc Carol e Mac Júlia",
+    "data": "2022-05-14T22:00:00-03:00",
+    "local": "Autêntica",
+    "url": "",
+    "origem": "manual",
+    "soDia": true,
+    "capa": "/capas/autentica-2022-05.jpg",
+    "capaPequena": "/capas/autentica-2022-05-p.jpg"
+  },
+  {
+    "id": "ihr-10-anos-2022-05",
+    "nome": "I Hate Remix 10 anos",
+    "data": "2022-05-28T22:00:00-03:00",
+    "local": "Casa Sapucaí",
+    "url": "",
+    "origem": "manual",
+    "soDia": true
+  },
+  {
+    "id": "wonka-junina-2022-07",
+    "nome": "Wonka Junin@",
+    "data": "2022-07-23T20:00:00-03:00",
+    "local": "Casa Sapucaí",
+    "url": "",
+    "origem": "manual"
+  },
+  {
+    "id": "ihr-rock-in-rio-2022-09",
+    "nome": "I Hate Remix feat. WIG: Especial Rock in Rio",
+    "data": "2022-09-06T22:00:00-03:00",
+    "local": "Odeon Hub",
+    "url": "",
+    "origem": "manual",
+    "capa": "/capas/ihr-rock-in-rio-2022-09.jpg",
+    "capaPequena": "/capas/ihr-rock-in-rio-2022-09-p.jpg"
+  },
+  {
+    "id": "latina-2022-09",
+    "nome": "@bsurda Latina",
+    "data": "2022-09-30T20:00:00-03:00",
+    "local": "Casa Sapucaí",
+    "url": "",
+    "origem": "manual",
+    "capa": "/capas/latina-2022-09.jpg",
+    "capaPequena": "/capas/latina-2022-09-p.jpg"
+  },
+  {
+    "id": "13-anos-2022-10",
+    "nome": "@bsurda 13 anos, com Potyguara",
+    "data": "2022-10-22T22:00:00-03:00",
+    "local": "Autêntica",
+    "url": "",
+    "origem": "manual",
+    "capa": "/capas/13-anos-2022-10.jpg",
+    "capaPequena": "/capas/13-anos-2022-10-p.jpg"
+  },
+  {
+    "id": "prom-2022-12",
+    "nome": "Prom: Baile de Máscara",
+    "data": "2022-12-03T22:00:00-03:00",
+    "local": "Casa Sapucaí",
+    "url": "",
+    "origem": "manual",
+    "soDia": true,
+    "capa": "/capas/prom-2022-12.jpg",
+    "capaPequena": "/capas/prom-2022-12-p.jpg"
+  },
+  {
+    "id": "indie-pop-2022-12",
+    "nome": "Indie Pop",
+    "data": "2022-12-16T22:00:00-03:00",
+    "local": "Odeon Hub",
+    "url": "",
+    "origem": "manual",
+    "capa": "/capas/indie-pop-2022-12.jpg",
+    "capaPequena": "/capas/indie-pop-2022-12-p.jpg"
   }
 ]
