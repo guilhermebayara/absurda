@@ -29,7 +29,7 @@ O que isso sugere, a confirmar com o Gui e o Ed:
 - Em fev 2020 a Nath aparecia como convidada, fora da crew. Entrada dela na equipe é depois.
 - Léo (Leo Gonçalves) também como convidado nessa data.
 - Lugh assinava a foto como "Alex Lugh".
-- Parceiros de 2020 que não estão em `src/data/parceiros.json`: conferir se entram.
+- Apoio e parcerias de 2020 entraram em `src/data/parceiros.json` (Gui, 13 nov 2026).
 
 ### Charlotte
 
@@ -74,5 +74,5 @@ Fernando Silva: <https://www.ufmg.br/espacodoconhecimento/blog-espaco/montacao-e
 ## Perguntas que ficam para o Gui e o Ed
 
 - Anos de entrada e saída de cada pessoa (a tabela acima ajuda, mas não substitui).
-- Fantini e Daniel Vilaça: convidados avulsos ou já fizeram parte?
+- Fantini e Daniel Vilaça: convidados, nunca foram da equipe (Gui, 13 nov 2026).
 - "Alex Lugh" é o nome que o Lugh quer nos créditos antigos?
