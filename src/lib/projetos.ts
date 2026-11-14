@@ -30,7 +30,9 @@ const semPrevia = (nome: string) => nome.replace(/pr[ée][ -]?(carnaval|hallowee
 
 export function ehDoProjeto(id: string, evento: Evento): boolean {
   const nome = semPrevia(evento.nome);
-  if (id === 'absurda') return !Object.values(FILTROS).some((f) => f.test(nome));
+  if (id === 'absurda') return !evento.atividade && !Object.values(FILTROS).some((f) => f.test(nome));
+  // Parada: além do nome, vale quem está marcado como parte da programação de uma edição.
+  if (id === 'parada' && evento.parada) return true;
   return FILTROS[id]?.test(nome) ?? false;
 }
 

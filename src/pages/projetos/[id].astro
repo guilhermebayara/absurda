@@ -230,7 +230,9 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
                   <li><p><span class="edicao-data">{i.quando}</span><strong>{i.nome}</strong><span>{i.local ?? ''}</span></p></li>
                 ))}
                 {a.eventos.map((e) => (
-                  <li><a href={e.url} target="_blank" rel="noopener"><span class="edicao-data">{dia(e.data).slice(0, 6)}</span><strong>{e.nome}</strong><span>{e.local ?? ''}<span class="so-leitor"> (abre em outra aba)</span></span></a></li>
+                  e.url
+                    ? <li><a href={e.url} target="_blank" rel="noopener"><span class="edicao-data">{dia(e.data).slice(0, 6)}</span><strong>{e.nome}</strong><span>{e.local ?? ''}<span class="so-leitor"> (abre em outra aba)</span></span></a></li>
+                    : <li><p><span class="edicao-data">{dia(e.data).slice(0, 6)}</span><strong>{e.nome}</strong><span>{e.local ?? ''}</span></p></li>
                 ))}
               </ul>
             </div>

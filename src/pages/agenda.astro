@@ -99,7 +99,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
                           <a class="linha" href={e.url} target="_blank" rel="noopener" data-espia={e.capa ?? ''}>
                             <span class="linha-data">{d.dia} {d.mes}</span>
                             <span class="linha-nome">{e.nome}</span>
-                            <span class="linha-local"><span>{e.local ?? ''}</span>{e.album && <span class="linha-fotos">Fotos no Flickr</span>}</span>
+                            <span class="linha-local"><span>{e.local ?? ''}</span>{e.album && <span class="linha-fotos">Fotos no Flickr</span>}{e.parada && <span class="linha-fotos">{e.parada}ª Parada</span>}</span>
                             {e.capaPequena && <img class="linha-mini" src={e.capaPequena} alt="" loading="lazy" />}
                             <span class="so-leitor"> (abre em outra aba)</span>
                           </a>
@@ -108,7 +108,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
                           <div class="linha" data-espia={e.capa ?? ''}>
                             <span class="linha-data">{d.dia} {d.mes}</span>
                             <span class="linha-nome">{e.nome}</span>
-                            <span class="linha-local">{e.local ?? ''}</span>
+                            <span class="linha-local"><span>{e.local ?? ''}</span>{e.parada && <span class="linha-fotos">{e.parada}ª Parada</span>}</span>
                             {e.capaPequena && <img class="linha-mini" src={e.capaPequena} alt="" loading="lazy" />}
                           </div>
                         )}

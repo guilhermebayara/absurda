@@ -1,0 +1,75 @@
+{
+  "_": "Eventos que fizeram parte da programação de cada Parada da @bsurda. Até 2023 a Parada era só um conjunto de eventos; o evento próprio começa em 2025 (Gui). A lista é escrita à mão: o id é o do evento na Agenda. Em 2024 não houve Parada da @bsurda.",
+  "edicoes": [
+    {
+      "numero": 1,
+      "ano": "2020",
+      "eventos": [
+        "sympla-876958",
+        "sympla-892608"
+      ]
+    },
+    {
+      "numero": 2,
+      "ano": "2021",
+      "eventos": [
+        "sympla-1237992",
+        "sympla-1238011"
+      ]
+    },
+    {
+      "numero": 3,
+      "ano": "2022",
+      "eventos": [
+        "parada-2022-01",
+        "parada-2022-02",
+        "parada-2022-03",
+        "parada-2022-04",
+        "parada-2022-05",
+        "parada-2022-06",
+        "parada-2022-07",
+        "parada-2022-08",
+        "parada-2022-09",
+        "parada-2022-10",
+        "parada-2022-11",
+        "shotgun-302287",
+        "parada-2022-12",
+        "parada-2022-13",
+        "parada-2022-14"
+      ]
+    },
+    {
+      "numero": 4,
+      "ano": "2023",
+      "eventos": [
+        "sympla-2016075",
+        "sympla-2016142"
+      ]
+    },
+    {
+      "numero": 5,
+      "ano": "2025",
+      "eventos": [
+        "sympla-3035921",
+        "sympla-3035929",
+        "sympla-2959783",
+        "sympla-3008990"
+      ]
+    },
+    {
+      "numero": 6,
+      "ano": "2026",
+      "eventos": [
+        "parada-2026-pocket",
+        "shotgun-546832",
+        "shotgun-541870",
+        "shotgun-567803",
+        "shotgun-543226",
+        "shotgun-558945",
+        "shotgun-563607",
+        "shotgun-563612",
+        "shotgun-560392"
+      ]
+    }
+  ]
+}

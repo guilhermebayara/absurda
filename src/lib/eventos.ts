@@ -3,6 +3,7 @@ import locais from '../data/locais.json';
 import historico from '../data/sympla-historico.json';
 import flickr from '../data/flickr-historico.json';
 import arquivo from '../data/arquivo.json';
+import parada from '../data/parada.json';
 import { TEMAS_DO_SITE, temaPara, type Tema } from './temas';
 import { temaDaImagem, malhaDaImagem, type Malha } from './paleta';
 import { readFile } from 'node:fs/promises';
@@ -29,6 +30,11 @@ export interface Evento {
   malha?: Malha;
   // O link leva a um álbum de fotos (e não à página de ingressos).
   album?: 'flickr';
+  // Fez parte da programação de uma Parada da @bsurda: o número da edição (src/data/parada.json).
+  parada?: number;
+  // Conversa, oficina ou festa de parceiro dentro de uma programação: aparece na Agenda e na
+  // página da Parada, mas não conta como edição da @bsurda.
+  atividade?: boolean;
   // Só o dia é conhecido; a hora é um palpite e não deve ser usada para comparar.
   soDia?: boolean;
   // Ainda depende de uma plataforma (veio dela agora, ou da cópia estática do histórico do
@@ -473,6 +479,9 @@ async function fonteManual(): Promise<Evento[]> {
   );
 }
 
+// Evento -> número da edição da Parada de que fez parte.
+const daParada = new Map<string, number>(parada.edicoes.flatMap((ed) => ed.eventos.map((id) => [id, ed.numero] as [string, number])));
+
 let guardado: Promise<{ proximos: Evento[]; passados: Evento[] }> | null = null;
 
 // Busca uma vez só por geração do site, mesmo que várias páginas peçam.
@@ -495,6 +504,8 @@ export function getEventos() {
     const unicos = semRepetidos(todos.filter((e) => !/\badiad[oa]\b/i.test(e.nome) && !FORA_DA_AGENDA.includes(e.id))).map((e) => (!e.local && naQuarentena(e) ? { ...e, local: 'Online' } : e))
       // A troca de nome vem depois de tirar os repetidos, que comparam o nome original.
       .map((e) => (NOMES_CORRIGIDOS[e.id] ? { ...e, nome: NOMES_CORRIGIDOS[e.id] } : e))
+      // Marca quem fez parte da programação de uma Parada da @bsurda.
+      .map((e) => (daParada.has(e.id) ? { ...e, parada: daParada.get(e.id) } : e))
       .sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
     estado.repetidosRemovidos = todos.length - unicos.length;
     estado.arquivo = { guardados: guardados.length, passadosAindaSoNaPlataforma: unicos.filter((e) => e.nomeBruto && jaAcabou(e)).length };

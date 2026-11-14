@@ -56,6 +56,12 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
   acontece, continua em destaque e com o link de ingressos. A regra mora em `jaAcabou`, em
   `src/lib/eventos.ts`: vale a hora de término da plataforma e, sem ela, oito horas depois do
   começo. Qualquer lugar novo que separe próximos de passados usa essa função.
+- **Parada da @bsurda é guarda-chuva (do Gui):** até 2023 a Parada foi só um conjunto de eventos;
+  o evento próprio começa em 2025, e mesmo assim outros eventos entram na programação. Cada
+  evento aparece na Agenda como evento normal e ganha a etiqueta "Nª Parada". Quem fez parte de
+  cada edição está escrito à mão em `src/data/parada.json` (id do evento na Agenda). Conversa,
+  oficina ou festa de parceiro leva `atividade: true` no evento, para não contar como edição da
+  @bsurda. Em 2024 não houve Parada da @bsurda.
 - Eventos que não devem voltar (por exemplo, festas que não aconteceram) ficam na lista
   `FORA_DA_AGENDA` em `src/lib/eventos.ts`, para o robô não trazer de volta.
 

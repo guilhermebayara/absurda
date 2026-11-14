@@ -207,3 +207,18 @@ desse ano. No site hoje: Especial Beyoncé (12/02), Carnaval (25/02), Premium (0
 na Church (10, 17 e 24/03), Tibum (23/04), Hold My Hand (25/06), IHR Renaissance (30/07),
 Halloween 13 anos (22/10) e IHR Bey, Taylor, Gaga, Riri (18/11). Faltam, entre outros, os eventos
 da Parada de 2022, que só constam na programação da página do projeto.
+
+## Parada como guarda-chuva (14 nov 2026)
+
+- Regra do Gui: os eventos individuais constam na Agenda e são sinalizados como parte da
+  programação da Parada. Implementado com `src/data/parada.json` e a etiqueta "Nª Parada".
+- 2022 (3ª): os 14 itens da programação viraram eventos da Agenda, sem link; o 15º é a @bsurda
+  Hold My Hand (25/06), que já estava lá.
+- 2026 (6ª): programação lida das artes de `1_ABSURDA/2026/Parada @bsurda/Programaçao Festas`.
+  O trio na parada da cidade não aconteceu (Gui) e ficou de fora. A Parada passou de 14/06 para
+  28/06. O Pocket de 06/06 no Murê entrou como evento sem link.
+- Dúvidas na planilha (aba Geral): Beyoncé Ato II e Pocket em 2026, Podmadres em 2025, festas de
+  junho de 2023, e se falta algo de 2020 e 2021.
+- Pasta `4_Projetos/1_ABSURDA` (uma pasta por ano, de 2013 a 2026) está conectada e o Gui liberou
+  consulta sempre que preciso. A subpasta "@bsurda" continua fora, e pastas administrativas
+  (Orçamentos, declarações) também.
