@@ -1,6 +1,8 @@
 ---
 nome: "Charlotte"
-funcao: "DJ residente"
+funcao: "Drag queen e DJ residente"
+desde: 2019
+entrou: "2019-06-08"
 foto: "/equipe/charlotte.jpg"
 grupo: residentes
 situacao: atual

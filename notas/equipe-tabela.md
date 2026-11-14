@@ -237,3 +237,10 @@ Respostas do Gui (14/11): a capa do IHR 10 anos é `capa-evento-ihr (31)).png`, 
 da @bsurda; 12/02 é I Hate Remix Especial Beyoncé (nome corrigido em `NOMES_CORRIGIDOS`, sem mexer
 no arquivo); 14/05 chama "@bsurda com Mc Carol e Mac Júlia"; a Virada foi em 04/09, na Praça da
 Estação. MOC, Premio, yolo e Anda ficam de fora por ora.
+
+## Charlotte (14 nov 2026)
+
+Do Gui: a entrada dela vale a primeira vez em que aparece, 8 jun 2019 (WIG Broadway). Como ele, foi
+mudando de papel de forma orgânica. Função no site: "Drag queen e DJ residente". Com isso todos os
+crachás têm data; a fila fica Ed, Barbara, Gabriel, Keoma, Fab, André Victor, Lugh, Gui, Ayumi, Vil,
+Charlotte, Grabs, Nath. `CRACHAS_FECHADOS` segue desligado até o Ed decidir sobre o Jakson.
