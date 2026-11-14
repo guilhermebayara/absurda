@@ -130,3 +130,23 @@ Ainda faltam: entrada da Charlotte como DJ e a decisão do Ed sobre o Jakson.
 A lista completa do que o Gui e o Ed devem está na planilha "Pendências do site", na pasta
 10_site do Drive: https://docs.google.com/spreadsheets/d/15XPYmQWlDneOEIyNcfHNN9dJeaGLGsiHr3qzPryf9aM/edit
 Eles preenchem a coluna "Resposta"; a sessão lê e aplica quando avisarem.
+
+## O que os álbuns do Flickr acrescentam (2009 a 2012)
+
+Lista completa em `notas/escalacoes/flickr.md`. As datas de entrada que o Gui passou batem com
+a primeira aparição de cada um:
+
+| Pessoa | Primeira aparição no Flickr | Última | Bate com |
+|---|---|---|---|
+| Barbara Deister | 15/05/10 (vol. 2) | 16/07/11 (vol. 17, já pela CATchme Party) | entrada 15/05/10 |
+| Gabriel Cadete | 15/05/10 (vol. 2) | 15/10/11 (vol. 20, como "Gabriel KDT") | entrada 15/05/10 e saída 15/10/11 |
+| Keoma | 19/03/11 (vol. 13 Bazinga!!) | segue | entrada 19/03/11 |
+| Fab | 06/05/11 (Batalha de iPods, como Fábio Resende) | segue | entrada 06/05/11 |
+| André Victor | 18/06/11 (vol. 16, aniversário dele); flyers desde 19/05/11 | 13/07/12 | entrada 18/06/11 |
+| Lugh | 21/04/12 (NEON) | segue | entrada 20/08/11 é o vol. 18, álbum sem escalação |
+| Ayumi | 01/09/12 ("Lugh & Ayumi") | | começo adotado: 01/09/12 |
+
+Nomes que se repetem nas festas de 2010 a 2012 e não estão na Equipe (para o Gui e o Ed dizerem
+se algum foi da casa): Rafael Sandim (seis festas, de mar a jul 2011), Thiago Richard (de jan
+2011 a jun 2012), Dr. Jeff / Jimmy e Jeff (de set 2010 a abr 2011), Binho, Sebah e Shum, Louis,
+henrik++, "Vic" (ed. & Vic, out 2010).

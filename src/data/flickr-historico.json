@@ -11,14 +11,18 @@
   "nome": "@bsurda YOLO com Bonde do Rolê e Banda Uó",
   "data": "2013-04-27T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157633417919370",
-  "local": "Mercado das Borboletas"
+  "local": "Mercado das Borboletas",
+  "capa": "/capas/yolo-2013.jpg",
+  "capaPequena": "/capas/yolo-2013.jpg"
  },
  {
   "id": "flickr-72157633279124833",
   "nome": "ALEX",
   "data": "2013-04-13T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157633279124833",
-  "local": "Emme Lounge"
+  "local": "Emme Lounge",
+  "capa": "/capas/alex-2013.jpg",
+  "capaPequena": "/capas/alex-2013.jpg"
  },
  {
   "id": "flickr-72157632907315539",

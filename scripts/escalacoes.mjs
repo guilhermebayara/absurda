@@ -97,7 +97,8 @@ if (contas.length) {
     for (const e of unicos.filter((x) => x.imagem && String(x.data) < '2013-07')) {
       try {
         const r = await fetch(e.imagem);
-        if (!r.ok) continue;
+        // Evento sem arte devolve uma página no lugar da imagem: só guarda o que for imagem.
+        if (!r.ok || !(r.headers.get('content-type') ?? '').startsWith('image/')) continue;
         const tipo = (r.headers.get('content-type') ?? '').includes('png') ? 'png' : 'jpg';
         await writeFile(`${PASTA}/capas/${e.id}.${tipo}`, Buffer.from(await r.arrayBuffer()));
         capas++;
