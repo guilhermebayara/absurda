@@ -8,8 +8,8 @@ programacao:
   - { ano: "2025", numero: "5", itens: [] }
   - { ano: "2023", numero: "4", itens: [] }
   - { ano: "2022", numero: "3", arte: "/projetos/parada-2022.jpg", itens: [] }
-  - { ano: "2021", numero: "2", itens: [] }
-  - { ano: "2020", numero: "1", itens: [] }
+  - { ano: "2021", numero: "2", arte: "/projetos/parada-2021.jpg", itens: [] }
+  - { ano: "2020", numero: "1", arte: "/projetos/parada-2020.jpg", itens: [] }
 ordem: 4
 historico: anual-sub
 arcoiris: true
