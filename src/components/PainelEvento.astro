@@ -5,7 +5,7 @@
 // O desenho se adapta ao formato da capa: deitada (16:9) ou em pé (3:4).
 // A página troca para as cores do evento quando o bloco chega ao meio da tela.
 import type { Evento } from '../lib/eventos';
-import { partesDaData } from '../lib/eventos';
+import { partesDaData, fimDe } from '../lib/eventos';
 import { atributo } from '../lib/temas';
 import Botao from './Botao.astro';
 import Arroba from './marca/Arroba.astro';
@@ -15,6 +15,11 @@ const d = partesDaData(evento.data);
 const emPe = (evento.proporcao ?? 1.78) < 1;
 // Nomes longos usam um corpo menor para não tomar o bloco inteiro.
 const tamanho = evento.nome.length <= 16 ? 'curto' : evento.nome.length <= 34 ? 'medio' : 'longo';
+// Selo do destaque: "Próximo evento" até a festa começar e "Acontecendo agora" enquanto ela
+// dura (pedido do Gui). O site é gerado poucas vezes por dia, então quem troca o texto na hora
+// certa é o script do fim deste arquivo, com o começo e o fim gravados no próprio selo.
+const comeco = new Date(evento.data).getTime();
+const termino = fimDe(evento);
 const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sympla', manual: 'Ingressos' };
 ---
 <article class:list={['ev-area', { 'ev-destaque': destaque }]} data-tema={atributo(evento.tema)}>
@@ -25,7 +30,7 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
 
     <div class="ev-texto" data-anima="surge">
       <div class="ev-bloco">
-        {destaque && <p class="ev-selo"><Arroba />Próximo evento</p>}
+        {destaque && <p class="ev-selo" data-comeco={comeco} data-termino={termino}><Arroba /><span>{Date.now() >= comeco ? 'Acontecendo agora' : 'Próximo evento'}</span></p>}
         <h3 class={`ev-nome ev-nome-${tamanho}`}>{evento.nome}</h3>
         <p class="ev-quando"><span class="so-leitor">Data: </span>{d.semana.slice(0, 3)}, {d.dia} {d.mes}, {d.hora}</p>
         {evento.local && (
@@ -47,6 +52,25 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
   </div>
 </article>
 
+<script is:inline>
+  // Troca o selo do destaque conforme a hora: antes da festa, durante e depois dela.
+  (function () {
+    function acerta() {
+      document.querySelectorAll('.ev-selo[data-comeco]').forEach(function (selo) {
+        var agora = Date.now();
+        var texto = selo.querySelector('span');
+        if (!texto) return;
+        // Festa acabou e o site ainda não foi gerado de novo: o selo some.
+        selo.hidden = agora > Number(selo.dataset.termino);
+        texto.textContent = agora >= Number(selo.dataset.comeco) ? 'Acontecendo agora' : 'Próximo evento';
+      });
+    }
+    acerta();
+    setInterval(acerta, 60000);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) acerta(); });
+  })();
+</script>
+
 <style>
   .ev-area { padding: clamp(1rem, 2.5vw, 2.25rem) var(--margem); }
   .ev { position: relative; display: grid; align-items: center; gap: clamp(1.5rem, 4vw, 4rem); padding: clamp(1.5rem, 4vw, 4rem); border-radius: clamp(1.25rem, 3vw, 2.5rem); color: var(--fundo); isolation: isolate; }
@@ -62,6 +86,7 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
      e a chamada no pé, alinhada à base da capa. */
   .ev-texto { align-self: stretch; display: flex; flex-direction: column; justify-content: space-between; gap: var(--e-4); min-width: 0; }
   .ev-selo { display: flex; align-items: center; gap: 0.6em; margin-bottom: var(--e-2); font-size: var(--t-rotulo); font-weight: 800; text-transform: uppercase; letter-spacing: 0.14em; line-height: 1; }
+  .ev-selo[hidden] { display: none; }
   .ev-selo :global(svg) { flex: none; width: 1.5em; height: auto; }
 
   .ev-nome { margin-left: -0.045em; font-weight: 800; line-height: 0.88; letter-spacing: -0.045em; text-transform: uppercase; text-wrap: balance; overflow-wrap: anywhere; }
