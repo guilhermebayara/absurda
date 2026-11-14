@@ -244,3 +244,6 @@ Do Gui: a entrada dela vale a primeira vez em que aparece, 8 jun 2019 (WIG Broad
 mudando de papel de forma orgânica. Função no site: "Drag queen e DJ residente". Com isso todos os
 crachás têm data; a fila fica Ed, Barbara, Gabriel, Keoma, Fab, André Victor, Lugh, Gui, Ayumi, Vil,
 Charlotte, Grabs, Nath. `CRACHAS_FECHADOS` segue desligado até o Ed decidir sobre o Jakson.
+
+Numeração dos crachás ligada em 14 nov 2026, a pedido do Gui (pode ser atualizada se entrar alguém).
+Instagram do Ed, Gui (mais Twitter e site), Keoma, André Victor, Ayumi e Vil aplicados da planilha.

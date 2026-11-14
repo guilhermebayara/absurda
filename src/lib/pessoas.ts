@@ -35,7 +35,9 @@ export async function temasDaPessoa(id: string, foto?: string): Promise<Tema[]> 
 // Enquanto faltar data de alguém, os números ficam guardados e o crachá mostra XXX: um número
 // publicado cedo mudaria quando a pessoa que falta entrasse na fila. Quando o Gui e o Ed
 // fecharem as datas, basta trocar CRACHAS_FECHADOS para true.
-export const CRACHAS_FECHADOS = false;
+// Ligado em 14 nov 2026, a pedido do Gui. Se entrar alguém antigo depois, os números de quem vem
+// atrás na fila mudam, e ele sabe disso.
+export const CRACHAS_FECHADOS = true;
 
 interface DadosDaPessoa { nome: string; grupo: string; ordem: number; desde?: number; ate?: number; entrou?: string; saiu?: string; numero?: number }
 
