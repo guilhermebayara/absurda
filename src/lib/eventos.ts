@@ -35,6 +35,9 @@ export interface Evento {
   // Conversa, oficina ou festa de parceiro dentro de uma programação: aparece na Agenda e na
   // página da Parada, mas não conta como edição da @bsurda.
   atividade?: boolean;
+  // Linha única que resume as lives de uma Parada Virtual (regra do Gui: na Agenda, festa tem
+  // sempre a sua linha e as lives viram uma linha só; a programação completa fica no projeto).
+  lives?: boolean;
   // Só o dia é conhecido; a hora é um palpite e não deve ser usada para comparar.
   soDia?: boolean;
   // Ainda depende de uma plataforma (veio dela agora, ou da cópia estática do histórico do
@@ -451,13 +454,16 @@ function semRepetidos(lista: Evento[]) {
     const repetido = ficam.some(
       (f) =>
         f.id === e.id ||
-        (e.url !== '' && chave(f.url) === chave(e.url)) ||
+        // Item de programação da Parada escrito à mão nunca substitui nem é substituído por outro
+        // evento do mesmo dia: numa Parada há vários eventos por dia, e todos ficam.
+        (f.id.startsWith('parada-') || e.id.startsWith('parada-') ? false :
+        ((e.url !== '' && chave(f.url) === chave(e.url)) ||
         // Plataformas diferentes, começando com menos de uma hora e meia de diferença
         (f.origem !== e.origem && Math.abs(hora(f) - hora(e)) <= 90 * 60 * 1000) ||
         // Um dos dois só tem o dia (álbum de fotos): basta ser no mesmo dia
         (f.origem !== e.origem && (f.soDia || e.soDia) && dia(f) === dia(e)) ||
         // Mesma plataforma, mesmo nome e mesmo dia (dois lotes de ingresso da mesma noite)
-        (f.origem === e.origem && f.nome.toLowerCase() === e.nome.toLowerCase() && dia(f) === dia(e)),
+        (f.origem === e.origem && f.nome.toLowerCase() === e.nome.toLowerCase() && dia(f) === dia(e)))),
     );
     if (!repetido) ficam.push(e);
   }

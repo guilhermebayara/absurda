@@ -99,10 +99,14 @@ Renda destinada: Transvest.
 - **Programação paralela:** 12 a 20/06 curso Neolinguagem e linguagem neutra, com Coletivo Trans
   Não-binárie. 26 e 27/06 oficina Check-up drag, com Stella Campy e Aquarela.
 
-## O que entrou no site
+## O que entrou no site (regra do Gui, 14 nov 2026)
 
-- 2020: marcados como 1ª Parada os eventos que já estavam na Agenda e aparecem nas artes: festas (Sympla),
-  @bsurda 27/06, Shippo 03/07, Festa do Pijama 10/07, +18 de 21/07 e a festa de 14/08.
-- 2021: os dois eventos do Sympla (festas de 18 e 25, oficinas).
-- As lives, conversas e shows NÃO entraram como eventos: são cerca de 95 itens e mudariam a Agenda e a
-  contagem de eventos. Decisão do Gui (pergunta na planilha, aba Geral).
+- Agenda: festa tem sempre a sua linha. As lives viram uma linha por edição ("43 lives, de 20 de junho a
+  13 de agosto" e "44 lives, de 17 a 26 de junho"). Em anos presenciais, cada conversa ou oficina tem linha.
+- Página do projeto: programação completa das duas edições, depois dos eventos da Agenda.
+- Festas novas na Agenda: Fissura (25/06/20), Se Flopar Nunca Existiu (26/06/20), Quarentena Fest
+  (28/06/20), Avulsa com Muito Orgulho (19/06/21), todas fora da conta de edições da @bsurda, e
+  @bsurda Be Proud (25/06/21).
+- Achado: os itens de 2022 escritos à mão com "só o dia" tiravam da Agenda outro evento do mesmo dia. A
+  @bsurda Hold My Hand (25/06/22) ficou fora da Agenda entre os commits 8b68df4 e este. Corrigido em
+  `semRepetidos`. Vale virar conferência: todo evento do arquivo tem de aparecer na Agenda montada.

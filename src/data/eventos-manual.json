@@ -289,5 +289,76 @@
     "origem": "manual",
     "capa": "/capas/parada-2026-pocket.jpg",
     "capaPequena": "/capas/parada-2026-pocket-p.jpg"
+  },
+  {
+    "id": "parada-2020-lives",
+    "nome": "1ª Parada Virtual: 43 lives, de 20 de junho a 13 de agosto",
+    "data": "2020-06-20T16:00:00-03:00",
+    "local": "Online",
+    "url": "",
+    "origem": "manual",
+    "soDia": true,
+    "atividade": true,
+    "lives": true
+  },
+  {
+    "id": "parada-2020-fissura",
+    "nome": "Fissura",
+    "data": "2020-06-25T21:00:00-03:00",
+    "local": "Online",
+    "url": "",
+    "origem": "manual",
+    "soDia": true,
+    "atividade": true
+  },
+  {
+    "id": "parada-2020-flopar",
+    "nome": "Se Flopar Nunca Existiu",
+    "data": "2020-06-26T21:00:00-03:00",
+    "local": "Online",
+    "url": "",
+    "origem": "manual",
+    "soDia": true,
+    "atividade": true
+  },
+  {
+    "id": "parada-2020-quarentena-fest",
+    "nome": "Quarentena Fest",
+    "data": "2020-06-28T13:00:00-03:00",
+    "local": "Online",
+    "url": "",
+    "origem": "manual",
+    "soDia": true,
+    "atividade": true
+  },
+  {
+    "id": "parada-2021-lives",
+    "nome": "2ª Parada Virtual: 44 lives, de 17 a 26 de junho",
+    "data": "2021-06-17T19:00:00-03:00",
+    "local": "Online",
+    "url": "",
+    "origem": "manual",
+    "soDia": true,
+    "atividade": true,
+    "lives": true
+  },
+  {
+    "id": "parada-2021-avulsa",
+    "nome": "Avulsa com Muito Orgulho",
+    "data": "2021-06-19T18:00:00-03:00",
+    "local": "Online",
+    "url": "",
+    "origem": "manual",
+    "soDia": true,
+    "atividade": true
+  },
+  {
+    "id": "parada-2021-be-proud",
+    "nome": "@bsurda Be Proud",
+    "data": "2021-06-25T21:00:00-03:00",
+    "local": "Online",
+    "url": "",
+    "origem": "manual",
+    "soDia": true
   }
 ]

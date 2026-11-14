@@ -78,7 +78,9 @@ const anosSub = [...new Set([...anos.map((a) => a.ano), ...programacao.map((g) =
   const daAgenda = anos.find((a) => a.ano === ano);
   const extra = programacao.find((g) => g.ano === ano);
   const comCapa = daAgenda?.eventos.find((e) => e.capaPequena || e.capa);
-  return { ano, eventos: daAgenda?.eventos ?? [], itens: extra?.itens ?? [], numero: extra?.numero ?? daAgenda?.numero, arte: extra?.arte ?? comCapa?.capaPequena ?? comCapa?.capa };
+  // A linha que resume as lives fica só na Agenda: aqui a programação completa já diz tudo.
+  const itens = extra?.itens ?? [];
+  return { ano, eventos: (daAgenda?.eventos ?? []).filter((e) => !(e.lives && itens.length > 0)), itens, numero: extra?.numero ?? daAgenda?.numero, arte: extra?.arte ?? comCapa?.capaPequena ?? comCapa?.capa };
 });
 const tituloHistorico = projeto.data.tituloHistorico ?? 'Histórico';
 const primas = projeto.data.primas ? eventos.passados.filter((e) => ehPrima(projeto.data.primas!.filtro, e)) : [];
@@ -226,13 +228,14 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
                 {a.arte && <img class="ano-arte" src={a.arte} alt="" loading="lazy" />}
               </div>
               <ul class="ano-eventos">
-                {a.itens.map((i) => (
-                  <li><p><span class="edicao-data">{i.quando}</span><strong>{i.nome}</strong><span>{i.local ?? ''}</span></p></li>
-                ))}
                 {a.eventos.map((e) => (
                   e.url
                     ? <li><a href={e.url} target="_blank" rel="noopener"><span class="edicao-data">{dia(e.data).slice(0, 6)}</span><strong>{e.nome}</strong><span>{e.local ?? ''}<span class="so-leitor"> (abre em outra aba)</span></span></a></li>
                     : <li><p><span class="edicao-data">{dia(e.data).slice(0, 6)}</span><strong>{e.nome}</strong><span>{e.local ?? ''}</span></p></li>
+                ))}
+                {a.itens.length > 0 && a.eventos.length > 0 && <li class="ano-rotulo">Programação completa</li>}
+                {a.itens.map((i) => (
+                  <li class="ano-item"><p><span class="edicao-data">{i.quando}</span><strong>{i.nome}</strong><span>{i.local ?? ''}</span></p></li>
                 ))}
               </ul>
             </div>
@@ -418,6 +421,9 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
   .ano-cabeca { display: grid; gap: var(--e-2); align-content: start; }
   .ano-arte { width: min(100%, 11rem); aspect-ratio: 4 / 5; object-fit: cover; border-radius: clamp(0.6rem, 1.2vw, 1rem); }
   .ano-eventos { align-content: start; }
+  /* Programação completa de uma edição: mesma lista, em corpo menor, depois dos eventos da Agenda. */
+  .ano-rotulo { margin-top: var(--e-2); padding-top: var(--e-2); border-top: 1px solid currentColor; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  .ano-eventos .ano-item strong { font-size: var(--t-2, 1rem); line-height: 1.2; letter-spacing: 0; text-transform: none; font-weight: 700; }
   .ano-eventos a, .ano-eventos p { position: relative; display: grid; grid-template-columns: 6.5rem minmax(0, 1.4fr) minmax(0, 1fr); gap: 0.25rem var(--e-3); align-items: baseline; text-decoration: none; }
   .ano-eventos strong { font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; }
   .ano-eventos a:hover strong, .ano-eventos a:focus-visible strong { text-decoration: underline; text-decoration-thickness: 0.08em; text-underline-offset: 0.12em; }

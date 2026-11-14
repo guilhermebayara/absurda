@@ -62,6 +62,11 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
   cada edição está escrito à mão em `src/data/parada.json` (id do evento na Agenda). Conversa,
   oficina ou festa de parceiro leva `atividade: true` no evento, para não contar como edição da
   @bsurda. Em 2024 não houve Parada da @bsurda.
+  Na Agenda (do Gui): festa tem sempre a sua linha; conversa e oficina presenciais também, uma
+  linha cada; as lives das Paradas Virtuais (2020 e 2021) viram uma linha só por edição, dizendo
+  quantas foram e de quando a quando (`lives: true`). A programação completa fica na página do
+  projeto, no campo `programacao` de `src/content/projetos/parada.md`. Evento escrito à mão com id
+  `parada-...` nunca substitui outro evento do mesmo dia (ver `semRepetidos`).
 - Eventos que não devem voltar (por exemplo, festas que não aconteceram) ficam na lista
   `FORA_DA_AGENDA` em `src/lib/eventos.ts`, para o robô não trazer de volta.
 
