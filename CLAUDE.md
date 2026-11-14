@@ -115,6 +115,16 @@ nunca na cor da página, senão parece vazado. Além da superfície invertida (`
 três e garante leitura (4,5:1). Use esse par quando precisar de duas cores de objeto no mesmo
 bloco, como produção e cabine nos crachás da Equipe.
 
+**Páginas de pessoa (do Gui):** o topo é padrão (crachá, nome, função, ano, bio e links); dali para
+baixo cada pessoa escolhe os blocos, pelo documento "Sua página no site da @bsurda", e o layout é
+acertado caso a caso com o Gui.
+- Foto do crachá: quem está na festa hoje usa sempre foto tirada num evento da @bsurda. Quem já
+  fez parte segue a ordem: foto na @bsurda; foto em ambiente de festa; escolha livre.
+- Número do crachá: sai sempre da conta de `src/lib/pessoas.ts`. A pessoa não escolhe nem edita.
+- Cores: a prioridade é puxar as cores das fotos da pessoa. Ela pode dizer até duas cores pelo nome
+  ("azul", "verde floresta"); o tom é sempre escolhido por nós, para encaixar no site, e nós
+  decidimos se as duas entram no mesmo tema ou se viram temas à parte.
+
 ## Sessões de QA
 
 Vale para sessões abertas só para conferir o site. As regras acima continuam valendo
