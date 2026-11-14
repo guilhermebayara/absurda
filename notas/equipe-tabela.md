@@ -69,12 +69,27 @@ Convidados confirmados pelo Gui: Fantini e Daniel Vilaça.
 - Léo (Leo Gonçalves): só uma aparição, como convidado, no Carnaval de fev 2020.
 - "Door: Manuza Leão" no iFuncking (ago 2014).
 
-## Perguntas para fechar os crachás
+## Respostas do Gui (14 nov 2026)
 
-1. Keoma em 2022: esteve fora ou só não foi listado?
-2. Cleu e Jakson foram residentes? Se sim, entram em "Já fizeram parte".
-3. Vil: saída em 2023 confere?
-4. André Victor: saiu no fim de 2012?
-5. Lugh e Ayumi como DJs: começaram antes de 2012?
-6. Fab: entrou em 2012 mesmo, ou antes?
-7. Ano de entrada de Grabs (2020, pelas listas) e de Charlotte (2019, pelas listas).
+1. Keoma passou períodos fora de BH. As ausências nas listas não contam: é contínuo desde 2011.
+2. Cleu não entra no site. Jakson depende de decisão do Ed.
+3. Vil saiu em 2023: confere.
+4. André Victor saiu no fim de 2012: confere. Entrada a confirmar.
+5. Lugh e Ayumi já eram DJs antes de 2012. Data a confirmar.
+6. Fab entrou antes de 2012. Data a confirmar.
+7. Grabs entrou logo antes da pandemia (2020). Charlotte como DJ é a mais recente de todos,
+   com data a confirmar: ela aparece nas listas desde 2019 porque performa como drag, então o
+   nome nos lines não serve de indicativo.
+
+Aplicado nos crachás: Grabs desde 2020, Vil 2017 a 2023 (a entrada
+em 2017 vem das listas, falta o Gui confirmar), André Victor até 2012.
+
+## Ainda em aberto
+
+- Ano de entrada de André Victor, Lugh, Ayumi e Fab (todos antes de set 2012).
+- Ano de entrada da Charlotte como DJ (depois de 2020: ela é a mais recente da equipe atual).
+- Ano de saída de Fab e de Lugh. Pelas listas: Fab até 2016; Lugh até 2016 como DJ e até
+  2020 como fotógrafo.
+- Ayumi: até quando foi DJ (pelas listas, 2013).
+- Jakson: decisão do Ed.
+- Números dos crachás.

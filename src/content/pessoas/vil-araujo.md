@@ -4,6 +4,8 @@ funcao: "DJ"
 grupo: residentes
 situacao: anterior
 ordem: 52
+ate: 2023
+desde: 2017
 foto: "/equipe/vil-araujo.jpg"
 ---
 

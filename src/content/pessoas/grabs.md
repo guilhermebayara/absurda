@@ -4,6 +4,7 @@ funcao: "DJ residente"
 grupo: residentes
 situacao: atual
 ordem: 3
+desde: 2020
 foto: "/equipe/grabs.jpg"
 instagram: "https://www.instagram.com/djgrabs/"
 links:

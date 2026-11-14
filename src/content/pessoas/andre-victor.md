@@ -4,6 +4,7 @@ funcao: "DJ"
 grupo: residentes
 situacao: anterior
 ordem: 51
+ate: 2012
 foto: "/equipe/andre-victor.jpg"
 ---
 
