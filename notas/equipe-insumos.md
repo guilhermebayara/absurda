@@ -88,3 +88,10 @@ Fernando Silva: <https://www.ufmg.br/espacodoconhecimento/blog-espaco/montacao-e
 - Só há certeza da ordem entre quem está hoje. Os que já fizeram parte entram no meio, e
   a ordem deles vai ser estimada (a memória falha, e há mais nomes do que os que estão no
   site). A tabela pessoa x ano tirada do Sympla deve ajudar a estimar.
+
+## Tabela pessoa x ano (14 nov 2026)
+
+- Pronta em `notas/equipe-tabela.md`, como rascunho para o Gui e o Ed corrigirem.
+- Fonte: `notas/escalacoes/` (descrições do Sympla e artistas do Shotgun), copiadas pela API
+  das contas com `scripts/escalacoes.mjs`, que roda no GitHub (`escalacoes.yml`). A leitura
+  das páginas do Sympla pelo navegador não foi usada: o site não permite leitura automática.
