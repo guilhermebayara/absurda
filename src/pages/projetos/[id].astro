@@ -7,8 +7,9 @@
 //    capa, a abertura vira um cartão com a foto e o texto por cima dela.
 // 2. Próxima data: os eventos marcados daquele projeto, vindos da Agenda.
 // 3. O texto do projeto (o corpo do arquivo em src/content/projetos).
-// 4. Edições especiais (campo "especiais"): séries que não viraram projeto. Hoje, só a @bsurda.
-// 5. Edições históricas (campo "historicas"): as que marcaram, com uma linha dizendo por quê.
+// 4. Edições históricas (campo "historicas"): as que marcaram, com uma linha dizendo por quê.
+// 5. Edições especiais (campo "especiais"): séries que não viraram projeto. Hoje, só a @bsurda.
+//    (As históricas vêm antes das especiais: pedido do Gui.)
 // 6. Histórico: projeto de poucas edições mostra todas; projeto de muitas mostra a conta por
 //    ano e manda para a Agenda. A @bsurda não repete a Agenda aqui.
 // 7. Quem faz e o próximo projeto.
@@ -129,6 +130,22 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
     {projeto.data.fora && <p><Botao href={projeto.data.fora.url} externo>{projeto.data.fora.rotulo}</Botao></p>}
   </div>
 
+  {historicas.length > 0 && (
+    <section class="bloco" aria-labelledby="t-historicas">
+      <h2 id="t-historicas" class="t-secao" data-anima="sobe">Edições históricas</h2>
+      <ul class="historicas">
+        {historicas.map((h, i) => (
+          <li data-anima="surge" style={`--i:${i}`}>
+            <a class="historica-capa" href={h.e.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><Capa src={h.e.capa} inteira proporcao="16 / 9" /></a>
+            <p class="historica-data">{dia(h.e.data)}{h.e.local && <span>{h.e.local}</span>}</p>
+            <h3 class="historica-nome"><a href={h.e.url} target="_blank" rel="noopener">{h.e.nome}<span class="so-leitor"> (abre em outra aba)</span></a></h3>
+            <p class="historica-porque">{h.porque}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
   {especiais.length > 0 && (
     <section class="bloco" aria-labelledby="t-especiais">
       <h2 id="t-especiais" class="t-secao" data-anima="sobe">Edições especiais</h2>
@@ -145,30 +162,22 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
               <ul class="especial-capas">
                 {s.edicoes.map((e) => (
                   <li>
-                    <a href={e.url} target="_blank" rel="noopener">
-                      {e.capaPequena || e.capa ? <img src={e.capaPequena ?? e.capa} alt="" loading="lazy" /> : <span class="sem-capa" aria-hidden="true">@</span>}
-                      <span class="especial-legenda">{e.nome}<span>{dia(e.data)}</span><span class="so-leitor"> (abre em outra aba)</span></span>
-                    </a>
+                    {/* Edição sem link (sem álbum nem página de ingresso): só a capa e o nome. */}
+                    {e.url ? (
+                      <a href={e.url} target="_blank" rel="noopener">
+                        {e.capaPequena || e.capa ? <img src={e.capaPequena ?? e.capa} alt="" loading="lazy" /> : <span class="sem-capa" aria-hidden="true">@</span>}
+                        <span class="especial-legenda">{e.nome}<span>{dia(e.data)}</span><span class="so-leitor"> (abre em outra aba)</span></span>
+                      </a>
+                    ) : (
+                      <div class="especial-sem-link">
+                        {e.capaPequena || e.capa ? <img src={e.capaPequena ?? e.capa} alt="" loading="lazy" /> : <span class="sem-capa" aria-hidden="true">@</span>}
+                        <span class="especial-legenda">{e.nome}<span>{dia(e.data)}</span></span>
+                      </div>
+                    )}
                   </li>
                 ))}
               </ul>
             )}
-          </li>
-        ))}
-      </ul>
-    </section>
-  )}
-
-  {historicas.length > 0 && (
-    <section class="bloco" aria-labelledby="t-historicas">
-      <h2 id="t-historicas" class="t-secao" data-anima="sobe">Edições históricas</h2>
-      <ul class="historicas">
-        {historicas.map((h, i) => (
-          <li data-anima="surge" style={`--i:${i}`}>
-            <a class="historica-capa" href={h.e.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true"><Capa src={h.e.capa} inteira proporcao="16 / 9" /></a>
-            <p class="historica-data">{dia(h.e.data)}{h.e.local && <span>{h.e.local}</span>}</p>
-            <h3 class="historica-nome"><a href={h.e.url} target="_blank" rel="noopener">{h.e.nome}<span class="so-leitor"> (abre em outra aba)</span></a></h3>
-            <p class="historica-porque">{h.porque}</p>
           </li>
         ))}
       </ul>
@@ -349,7 +358,7 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
   .especial-capas { min-width: 0; display: flex; gap: clamp(0.75rem, 1.4vw, 1.25rem); overflow-x: auto; overflow-y: hidden; scrollbar-width: none; scroll-snap-type: x proximity; }
   .especial-capas::-webkit-scrollbar { display: none; }
   .especial-capas li { flex: 0 0 clamp(9.5rem, 15vw, 13rem); scroll-snap-align: start; }
-  .especial-capas a { position: relative; display: grid; gap: 0.6rem; text-decoration: none; }
+  .especial-capas a, .especial-sem-link { position: relative; display: grid; gap: 0.6rem; text-decoration: none; }
   .especial-capas img, .sem-capa { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: clamp(0.6rem, 1.2vw, 1rem); }
   .sem-capa { display: grid; place-items: center; background: var(--vivo); color: var(--sobre-vivo); font-size: 3rem; font-weight: 800; }
   .especial-legenda { display: grid; gap: 0.2rem; font-size: 0.9375rem; font-weight: 700; line-height: 1.25; }

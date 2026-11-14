@@ -163,3 +163,10 @@ Formato ainda a definir. Foram poucas, e hoje ele só faz sets especiais.
 - Último set: numa edição de Madonna no Mira, depois da Celebration in Rio.
 - Nas descrições do Sympla ele só aparece como designer (de 2016 a 2020). A lista completa
   de sets depende da memória dele ou das artes.
+
+- @meuamigolugh era o Twitter do Lugh na época (Gui, 14 nov 2026): o flyer do vol. 18 confirma a
+  entrada dele em 20/08/2011.
+- O histórico de sets do Gui vai ser preenchido por ele na planilha "Pendências do site", aba
+  "Sets do Gui".
+- MPB (Música Póóóóp de Bixa): foi uma recorrência na Casa Sapucaí. Se é projeto ou edição
+  especial, decide o Ed (linha na aba Edições). Por ora fica em edições especiais.

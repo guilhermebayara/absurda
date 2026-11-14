@@ -131,5 +131,15 @@
     "origem": "manual",
     "capa": "/capas/trio-2016.jpg",
     "capaPequena": "/capas/trio-2016-p.jpg"
+  },
+  {
+    "id": "do-amor-2013-06",
+    "nome": "@bsurda do Amor com Tiê",
+    "data": "2013-06-12T22:00:00-03:00",
+    "local": "Granfinos",
+    "url": "",
+    "origem": "manual",
+    "capa": "/capas/do-amor-2013-06.jpg",
+    "capaPequena": "/capas/do-amor-2013-06-p.jpg"
   }
 ]
