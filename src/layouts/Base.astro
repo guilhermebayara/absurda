@@ -764,14 +764,8 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
     .rodape { padding-bottom: 2rem; margin-bottom: 0.75rem; border-radius: clamp(1.5rem, 4vw, 3.5rem); }
     .rodape-marca { margin-bottom: 0; }
   }
-  /* No toque, cada link das listas do rodapé é um alvo de 44px de altura (antes, 20px). O texto
-     não muda de tamanho: cresce a área em volta, e as linhas se afastam para os alvos não se
-     encostarem. A margem negativa da lista mantém o primeiro e o último item onde estavam. */
-  @media (pointer: coarse) {
-    .rodape-lado ul { margin-block: -0.6rem; }
-    .rodape-lado li { margin-bottom: 0; }
-    .rodape-lado li a { display: inline-block; padding-block: 0.6rem; background-position: 0 calc(100% - 0.75rem); }
-  }
+  /* Listas do rodapé ficam justas também no toque (decisão do Gui): o alvo de 44px afastava as
+     linhas a ponto de parecer erro. Não aumentar de novo sem ele pedir. */
   @media (prefers-reduced-motion: reduce) { .rodape-nav a, .rodape-nav a::before, .rodape-lado li a { transition: none; } }
 
   /* Cabeçalho das páginas internas */
