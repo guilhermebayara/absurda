@@ -118,6 +118,11 @@ bloco, como produção e cabine nos crachás da Equipe.
 **Páginas de pessoa (do Gui):** o topo é padrão (crachá, nome, função, ano, bio e links); dali para
 baixo cada pessoa escolhe os blocos, pelo documento "Sua página no site da @bsurda", e o layout é
 acertado caso a caso com o Gui.
+- A parte padrão é uma ficha que fala a língua do crachá (escolha do Gui entre três desenhos):
+  linha de fato com período e número, bio, e até três linhas de rótulo e valor com filete:
+  "Redes" (perfis da pessoa), "Na @bsurda" (projetos da festa) e "Fora daqui" (projetos dela). Todo
+  link é texto, do mesmo peso; sem ícone de rede e sem botão para rede. O código do crachá fecha
+  a ficha. O único botão é "Toda a equipe".
 - Foto do crachá: quem está na festa hoje usa sempre foto tirada num evento da @bsurda. Quem já
   fez parte segue a ordem: foto na @bsurda; foto em ambiente de festa; escolha livre.
 - Número do crachá: sai sempre da conta de `src/lib/pessoas.ts`. A pessoa não escolhe nem edita.

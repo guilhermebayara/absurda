@@ -21,6 +21,15 @@ const projetos = (await getCollection('projetos')).filter((pr) => pr.data.pessoa
 // Os temas vêm da foto da pessoa (ou do site, sem foto). A página sorteia um a cada visita.
 // data-temas leva a lista inteira para a conferência de contraste (scripts/confere-temas.mjs).
 const temas = await temasDaPessoa(pessoa.id, pessoa.data.foto);
+// A ficha: o conteúdo fala a língua do crachá (rótulo, valor, filete), sem virar outro objeto.
+// Todas as redes têm o mesmo peso; o Instagram só vem primeiro.
+const num = numero ? String(numero).padStart(3, '0') : 'XXX';
+const redes = [...(pessoa.data.instagram ? [{ rotulo: 'Instagram', url: pessoa.data.instagram }] : []), ...pessoa.data.redes];
+const semAcento = (t: string) => t.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+const sigla = pessoa.data.sigla ?? semAcento(f).split(/\s+/).filter((p) => p.length > 1).map((p) => (p === p.toUpperCase() ? p : p[0].toUpperCase())).join('');
+// O mesmo código do verso do crachá (ver Cracha.astro).
+const codigo = ['@B', num, semAcento(pessoa.data.nome.split(' ')[0]).toUpperCase().slice(0, 4), pessoa.data.desde ?? 'XXXX', sigla].join('-');
+const periodo = alumni ? `Na @bsurda de ${pessoa.data.desde ?? 'XXXX'} a ${pessoa.data.ate ?? 'XXXX'}` : `Na @bsurda desde ${pessoa.data.desde ?? 'XXXX'}`;
 ---
 <Base titulo={pessoa.data.nome} temas={temas} imagem={pessoa.data.foto}>
   <div class="pessoa" data-tema="sorteio" data-reserva={atributo(temas[0])} data-temas={temas.map(atributo).join(';')}>
@@ -38,26 +47,21 @@ const temas = await temasDaPessoa(pessoa.id, pessoa.data.foto);
     <div class="pessoa-texto">
       <p class="etiqueta">{pessoa.data.situacao === 'atual' ? pessoa.data.funcao : `Fez parte da @bsurda como ${funcaoNaFrase}`}</p>
       <h1 class="t-grande">{pessoa.data.nome}</h1>
-      <p class="so-leitor">{pessoa.id === 'ed-luiz' && 'Fundador. '}{alumni ? `Na @bsurda de ${pessoa.data.desde ?? 'ano a confirmar'} a ${pessoa.data.ate ?? 'ano a confirmar'}.` : `Na @bsurda desde ${pessoa.data.desde ?? 'data a confirmar'}.`}</p>
+      {/* O que o verso do crachá diz, em texto: período e número. */}
+      <p class="pessoa-fato">{pessoa.id === 'ed-luiz' && <span class="so-leitor">Fundador. </span>}{periodo}<span class="pessoa-barra" aria-hidden="true">\</span><span class="so-leitor">. </span>Crachá nº {num}</p>
       <div class="prosa"><Content /></div>
-      {pessoa.data.instagram && <p><Botao href={pessoa.data.instagram} externo>Instagram</Botao></p>}
-      {pessoa.data.redes.length > 0 && (
-        <ul class="pessoa-redes">{pessoa.data.redes.map((l) => <li><a class="link" href={l.url} target="_blank" rel="noopener">{l.rotulo}<span class="so-leitor"> (abre em outra aba)</span></a></li>)}</ul>
-      )}
 
-      {pessoa.data.links.length > 0 && (
-        <section aria-labelledby="t-outros">
-          <h2 id="t-outros" class="titulo-secao">Outros projetos</h2>
-          <ul>{pessoa.data.links.map((l) => <li><a class="link" href={l.url} target="_blank" rel="noopener">{l.rotulo}<span class="so-leitor"> (abre em outra aba)</span></a>{l.papel && <span class="pessoa-papel">{l.papel}</span>}</li>)}</ul>
-        </section>
+      {/* Parte padrão de toda página de pessoa (escolha do Gui, nov 2026): até três linhas de
+          rótulo e valor. Redes são perfis da pessoa; "Na @bsurda" são os projetos da festa;
+          "Fora daqui" são os projetos dela. A separação vem do rótulo, sem componente para cada coisa. */}
+      {(redes.length > 0 || projetos.length > 0 || pessoa.data.links.length > 0) && (
+        <dl class="ficha">
+          {redes.length > 0 && <div><dt>Redes</dt><dd><ul class="ficha-lado">{redes.map((l) => <li><a href={l.url} target="_blank" rel="noopener">{l.rotulo}<span class="ficha-seta" aria-hidden="true">↗</span><span class="so-leitor"> (abre em outra aba)</span></a></li>)}</ul></dd></div>}
+          {projetos.length > 0 && <div><dt>Na @bsurda</dt><dd><ul class="ficha-lado">{projetos.map((pr) => <li><a href={`/projetos/${pr.id}`}>{pr.data.nome}</a></li>)}</ul></dd></div>}
+          {pessoa.data.links.length > 0 && <div><dt>Fora daqui</dt><dd><ul class="ficha-pilha">{pessoa.data.links.map((l) => <li><a href={l.url} target="_blank" rel="noopener">{l.rotulo}<span class="ficha-seta" aria-hidden="true">↗</span><span class="so-leitor"> (abre em outra aba)</span></a>{l.papel && <span class="pessoa-papel">{l.papel}</span>}</li>)}</ul></dd></div>}
+        </dl>
       )}
-
-      {projetos.length > 0 && (
-        <section aria-labelledby="t-na">
-          <h2 id="t-na" class="titulo-secao">Na @bsurda</h2>
-          <ul>{projetos.map((pr) => <li><a class="t-medio" href={`/projetos/${pr.id}`}>{pr.data.nome}</a></li>)}</ul>
-        </section>
-      )}
+      <p class="ficha-codigo" aria-hidden="true">{codigo}</p>
 
       {/* O caminho de volta fica no fim, onde a leitura termina. No topo ele competia com os crachás. */}
       <p class="pessoa-volta"><Botao href="/equipe" tipo="linha">Toda a equipe</Botao></p>
@@ -88,12 +92,24 @@ const temas = await temasDaPessoa(pessoa.id, pessoa.data.foto);
     .pessoa-verso:hover { z-index: 2; transform: rotate(1deg) translateY(-0.4rem); }
   }
   .pessoa-texto > * + * { margin-top: 1.25rem; }
-  .pessoa-texto section { margin-top: clamp(2.5rem, 5vw, 4rem); }
-  .pessoa-texto .titulo-secao { margin-bottom: 0.75rem; }
-  .pessoa-redes { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; }
-  .pessoa-papel { margin-left: 0.6em; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--suave); }
+  .pessoa-fato { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; }
+  .pessoa-barra { display: inline-block; margin: 0 0.45em; font-weight: 800; color: var(--destaque); }
+  /* A linha "rótulo / valor" com filete vem do "Acesso / Total" do crachá. */
+  .pessoa-texto .ficha { margin-top: clamp(2rem, 4vw, 3rem); max-width: 44rem; }
+  .ficha > div { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 0.25rem 1.5rem; align-items: baseline; padding: 0.95rem 0 1.05rem; border-top: 2px solid currentColor; }
+  .ficha > div:last-child { border-bottom: 2px solid currentColor; }
+  .ficha dt { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; }
+  .ficha dd { margin: 0; font-size: clamp(1.0625rem, 1.5vw, 1.3125rem); font-weight: 700; line-height: 1.25; }
+  .ficha a { text-underline-offset: 0.18em; text-decoration-thickness: 0.08em; }
+  .ficha-lado { display: flex; flex-wrap: wrap; gap: 0.35rem 1.5rem; }
+  .ficha-pilha { display: grid; gap: 0.45rem; }
+  .ficha-seta { display: inline-block; margin-left: 0.3em; font-size: 0.8em; font-weight: 500; }
+  .pessoa-papel { margin-left: 0.7em; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: var(--suave); white-space: nowrap; }
+  /* O código do crachá assina o fim da parte padrão. Abaixo dele começa a parte de cada pessoa. */
+  .pessoa-texto .ficha-codigo { margin-top: 0.7rem; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--suave); }
   @media (max-width: 720px) {
     .pessoa { grid-template-columns: minmax(0, 1fr); }
+    .ficha > div { grid-template-columns: minmax(0, 1fr); }
     /* No celular não cabem lado a lado em tamanho legível: ficam em escada, a frente em cima à
        esquerda e o verso descendo à direita, por baixo dela. */
     .pessoa-crachas { --l: min(13.5rem, 60vw); width: 100%; height: calc(var(--l) * 1.4 * 1.78); }
