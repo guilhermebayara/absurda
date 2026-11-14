@@ -38,7 +38,9 @@
   "nome": "Baile de Máscaras",
   "data": "2013-02-02T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157632716412679",
-  "local": "Casa @bsurda"
+  "local": "Casa @bsurda",
+  "capa": "/capas/baile-de-mascaras-2013-02.jpg",
+  "capaPequena": "/capas/baile-de-mascaras-2013-02-p.jpg"
  },
  {
   "id": "flickr-72157632214424025",
@@ -52,28 +54,36 @@
   "nome": "@bsurda apresenta: PFVR",
   "data": "2012-09-29T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157631623354799",
-  "local": "Quina Galeria"
+  "local": "Quina Galeria",
+  "capa": "/capas/pfvr-2012-09.jpg",
+  "capaPequena": "/capas/pfvr-2012-09-p.jpg"
  },
  {
   "id": "flickr-72157631438991098",
   "nome": "@bsurda apresenta Bonde do Rolê",
   "data": "2012-09-01T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157631438991098",
-  "local": "Granfinos"
+  "local": "Granfinos",
+  "capa": "/capas/bonde-do-role-2012-09.jpg",
+  "capaPequena": "/capas/bonde-do-role-2012-09-p.jpg"
  },
  {
   "id": "flickr-72157630991787948",
   "nome": "É Você Satanás? #4",
   "data": "2012-07-13T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157630991787948",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/e-voce-satanas-4-2012-07.jpg",
+  "capaPequena": "/capas/e-voce-satanas-4-2012-07-p.jpg"
  },
  {
   "id": "flickr-72157630231531206",
   "nome": "Ressaca @bsurda",
   "data": "2012-06-22T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157630231531206",
-  "local": "On Board"
+  "local": "On Board",
+  "capa": "/capas/ressaca-2012-06.jpg",
+  "capaPequena": "/capas/ressaca-2012-06-p.jpg"
  },
  {
   "id": "flickr-72157630099114934",
@@ -89,49 +99,63 @@
   "nome": "@bsurda PostiT",
   "data": "2012-06-02T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629893060358",
-  "local": "Mercado das Borboletas"
+  "local": "Mercado das Borboletas",
+  "capa": "/capas/postit-2012-06.jpg",
+  "capaPequena": "/capas/postit-2012-06-p.jpg"
  },
  {
   "id": "flickr-72157629884239848",
   "nome": "@bsurda Vish! #2",
   "data": "2012-05-18T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629884239848",
-  "local": "On Board Club"
+  "local": "On Board Club",
+  "capa": "/capas/vish-2-2012-05.jpg",
+  "capaPequena": "/capas/vish-2-2012-05-p.jpg"
  },
  {
   "id": "flickr-72157629861905094",
   "nome": "@bsurda K25",
   "data": "2012-05-12T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629861905094",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/k25-2012-05.jpg",
+  "capaPequena": "/capas/k25-2012-05-p.jpg"
  },
  {
   "id": "flickr-72157629927980127",
   "nome": "Skins Party",
   "data": "2012-05-04T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629927980127",
-  "local": "Mary in Hell"
+  "local": "Mary in Hell",
+  "capa": "/capas/skins-party-2012-05.jpg",
+  "capaPequena": "/capas/skins-party-2012-05-p.jpg"
  },
  {
   "id": "flickr-72157629850643985",
   "nome": "@bsurdo Neon",
   "data": "2012-04-21T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629850643985",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/neon-2012-04.jpg",
+  "capaPequena": "/capas/neon-2012-04-p.jpg"
  },
  {
   "id": "flickr-72157629823459801",
   "nome": "@bsurda Aqui pra Você! com Deize Tigrona",
   "data": "2012-04-13T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629823459801",
-  "local": "Mary in Hell"
+  "local": "Mary in Hell",
+  "capa": "/capas/aqui-pra-voce-com-deize-tigrona-2012-04.jpg",
+  "capaPequena": "/capas/aqui-pra-voce-com-deize-tigrona-2012-04-p.jpg"
  },
  {
   "id": "flickr-72157629363839418",
   "nome": "Velcro #2",
   "data": "2012-04-07T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629363839418",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/velcro-2-2012-04.jpg",
+  "capaPequena": "/capas/velcro-2-2012-04-p.jpg"
  },
  {
   "id": "flickr-72157629291898254",
@@ -156,48 +180,62 @@
   "nome": "@bsurda S03E05: Viiish!",
   "data": "2012-03-17T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629629017381",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/s03e05-viiish-2012-03.jpg",
+  "capaPequena": "/capas/s03e05-viiish-2012-03-p.jpg"
  },
  {
   "id": "flickr-72157629264302668",
   "nome": "É Você Satanás? #3",
   "data": "2012-03-09T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629264302668",
-  "local": "Mary in Hell"
+  "local": "Mary in Hell",
+  "capa": "/capas/e-voce-satanas-3-2012-03.jpg",
+  "capaPequena": "/capas/e-voce-satanas-3-2012-03-p.jpg"
  },
  {
   "id": "flickr-72157629519625721",
   "nome": "Velcro",
   "data": "2012-03-03T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629519625721",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/velcro-2012-03.jpg",
+  "capaPequena": "/capas/velcro-2012-03-p.jpg"
  },
  {
   "id": "flickr-72157629107315848",
   "nome": "Junkiebox com Crew @bsurda",
   "data": "2012-02-24T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629107315848",
-  "local": "A Lôca, São Paulo"
+  "local": "A Lôca, São Paulo",
+  "capa": "/capas/junkiebox-com-crew-2012-02.jpg",
+  "capaPequena": "/capas/junkiebox-com-crew-2012-02-p.jpg"
  },
  {
   "id": "flickr-72157629226139661",
   "nome": "Carnaval @bsurda 2012",
   "data": "2012-02-18T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629226139661"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629226139661",
+  "capa": "/capas/carnaval-2012-2012-02.jpg",
+  "capaPequena": "/capas/carnaval-2012-2012-02-p.jpg"
  },
  {
   "id": "flickr-72157629352325817",
   "nome": "É Você Satanás? #2",
   "data": "2012-02-10T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629352325817",
-  "local": "Mary in Hell"
+  "local": "Mary in Hell",
+  "capa": "/capas/e-voce-satanas-2-2012-02.jpg",
+  "capaPequena": "/capas/e-voce-satanas-2-2012-02-p.jpg"
  },
  {
   "id": "flickr-72157629226019681",
   "nome": "@bsurda Secreta",
   "data": "2012-02-09T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629226019681",
-  "local": "Velvet Club"
+  "local": "Velvet Club",
+  "capa": "/capas/secreta-2012-02.jpg",
+  "capaPequena": "/capas/secreta-2012-02-p.jpg"
  },
  {
   "id": "flickr-72157629134517565",
@@ -210,27 +248,35 @@
   "nome": "BR!NK5 eike @bsurda",
   "data": "2012-01-21T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157629005434463",
-  "local": "San Sebastian, Salvador"
+  "local": "San Sebastian, Salvador",
+  "capa": "/capas/br-nk5-eike-2012-01.jpg",
+  "capaPequena": "/capas/br-nk5-eike-2012-01-p.jpg"
  },
  {
   "id": "flickr-72157628924621507",
   "nome": "@bsurda Trans K-Pop",
   "data": "2012-01-20T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157628924621507",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/trans-k-pop-2012-01.jpg",
+  "capaPequena": "/capas/trans-k-pop-2012-01-p.jpg"
  },
  {
   "id": "flickr-72157628818414361",
   "nome": "Inferno: É Você Satanás?",
   "data": "2012-01-13T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157628818414361",
-  "local": "Mary in Hell"
+  "local": "Mary in Hell",
+  "capa": "/capas/inferno-e-voce-satanas-2012-01.jpg",
+  "capaPequena": "/capas/inferno-e-voce-satanas-2012-01-p.jpg"
  },
  {
   "id": "flickr-72157628375414243",
   "nome": "@bsurda Melhores de 2011",
   "data": "2011-12-17T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157628375414243"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157628375414243",
+  "capa": "/capas/melhores-de-2011-2011-12.jpg",
+  "capaPequena": "/capas/melhores-de-2011-2011-12-p.jpg"
  },
  {
   "id": "flickr-72157628183487895",
@@ -245,13 +291,17 @@
   "id": "flickr-72157628045022634",
   "nome": "@bsurda vol. 22, 2 anos: Season Finale",
   "data": "2011-11-11T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157628045022634"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157628045022634",
+  "capa": "/capas/vol-22-2-anos-season-finale-2011-11.jpg",
+  "capaPequena": "/capas/vol-22-2-anos-season-finale-2011-11-p.jpg"
  },
  {
   "id": "flickr-72157628015407994",
   "nome": "I Hate Remix",
   "data": "2011-11-01T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157628015407994"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157628015407994",
+  "capa": "/capas/i-hate-remix-2011-11.jpg",
+  "capaPequena": "/capas/i-hate-remix-2011-11-p.jpg"
  },
  {
   "id": "flickr-72157628015226382",
@@ -266,25 +316,33 @@
   "id": "flickr-72157627740695781",
   "nome": "@bsurda vol. 20: Tcha Tcha Party",
   "data": "2011-10-15T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627740695781"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627740695781",
+  "capa": "/capas/vol-20-tcha-tcha-party-2011-10.jpg",
+  "capaPequena": "/capas/vol-20-tcha-tcha-party-2011-10-p.jpg"
  },
  {
   "id": "flickr-72157627827580622",
   "nome": "I Hate Remix",
   "data": "2011-10-11T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627827580622"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627827580622",
+  "capa": "/capas/i-hate-remix-2011-10.jpg",
+  "capaPequena": "/capas/i-hate-remix-2011-10-p.jpg"
  },
  {
   "id": "flickr-72157627689990768",
   "nome": "@bsurda vol. 19: Rock in Rio",
   "data": "2011-09-17T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627689990768"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627689990768",
+  "capa": "/capas/vol-19-rock-in-rio-2011-09.jpg",
+  "capaPequena": "/capas/vol-19-rock-in-rio-2011-09-p.jpg"
  },
  {
   "id": "flickr-72157627523102302",
   "nome": "I Hate Remix",
   "data": "2011-09-06T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627523102302"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627523102302",
+  "capa": "/capas/i-hate-remix-2011-09.jpg",
+  "capaPequena": "/capas/i-hate-remix-2011-09-p.jpg"
  },
  {
   "id": "flickr-72157627265915327",
@@ -299,7 +357,9 @@
   "nome": "Acampamento de Férias @bsurda",
   "data": "2011-07-29T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627298281202",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/acampamento-de-ferias-2011-07.jpg",
+  "capaPequena": "/capas/acampamento-de-ferias-2011-07-p.jpg"
  },
  {
   "id": "flickr-72157627280663872",
@@ -312,32 +372,42 @@
   "id": "flickr-72157627174091376",
   "nome": "@bsurda vol. 17: Sapabonde",
   "data": "2011-07-16T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627174091376"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627174091376",
+  "capa": "/capas/vol-17-sapabonde-2011-07.jpg",
+  "capaPequena": "/capas/vol-17-sapabonde-2011-07-p.jpg"
  },
  {
   "id": "flickr-72157627001435387",
   "nome": "Super Hero Party",
   "data": "2011-07-01T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627001435387",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/super-hero-party-2011-07.jpg",
+  "capaPequena": "/capas/super-hero-party-2011-07-p.jpg"
  },
  {
   "id": "flickr-72157626929622979",
   "nome": "Super Hero Walk 2011",
   "data": "2011-07-01T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626929622979"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626929622979",
+  "capa": "/capas/super-hero-walk-2011-2011-07.jpg",
+  "capaPequena": "/capas/super-hero-walk-2011-2011-07-p.jpg"
  },
  {
   "id": "flickr-72157627034915860",
   "nome": "@bsurda Friends",
   "data": "2011-06-23T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627034915860"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157627034915860",
+  "capa": "/capas/friends-2011-06.jpg",
+  "capaPequena": "/capas/friends-2011-06-p.jpg"
  },
  {
   "id": "flickr-72157626791183069",
   "nome": "@bsurda vol. 16: Trans",
   "data": "2011-06-18T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626791183069"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626791183069",
+  "capa": "/capas/vol-16-trans-2011-06.jpg",
+  "capaPequena": "/capas/vol-16-trans-2011-06-p.jpg"
  },
  {
   "id": "flickr-72157626746605046",
@@ -370,7 +440,9 @@
   "id": "flickr-72157626307075963",
   "nome": "@bsurda vol. 14: Bilabilândia",
   "data": "2011-04-23T22:00:00-03:00",
-  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626307075963"
+  "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626307075963",
+  "capa": "/capas/vol-14-bilabilandia-2011-04.jpg",
+  "capaPequena": "/capas/vol-14-bilabilandia-2011-04-p.jpg"
  },
  {
   "id": "flickr-72157626598293826",
@@ -395,7 +467,9 @@
   "nome": "Carnaval @bsurda 2011",
   "data": "2011-03-05T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626136111807",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/carnaval-2011-2011-03.jpg",
+  "capaPequena": "/capas/carnaval-2011-2011-03-p.jpg"
  },
  {
   "id": "flickr-72157626260962954",
@@ -434,7 +508,9 @@
   "nome": "@bsurda vol. 6",
   "data": "2010-10-16T22:00:00-03:00",
   "url": "https://www.flickr.com/photos/absurdaparty/albums/72157626246718558",
-  "local": "Up e.music"
+  "local": "Up e.music",
+  "capa": "/capas/vol-6-2010-10.jpg",
+  "capaPequena": "/capas/vol-6-2010-10-p.jpg"
  },
  {
   "id": "flickr-72157626131647907",

@@ -72,6 +72,10 @@ Junkiebox, PFVR 1 e 2, Baile de Máscaras, Santa, ALEX, YOLO de 2013.
 
 ## Capas tiradas dos álbuns
 
-Aplicadas em 14 nov 2026: vol. 10, vol. 15, vol. 18, Mobile As Donas, Mobile On Board, Batalha de
-iPods e Santa. Regra do Gui para os álbuns grandes: o flyer costuma estar nas primeiras ou nas
-últimas fotos, nunca no meio. Faltam 44 álbuns.
+Em 14 nov 2026, em duas levas: 45 álbuns ganharam a arte original como capa (as primeiras ou as
+últimas fotos de cada álbum, como o Gui indicou). Continuam sem arte, porque o álbum não traz
+flyer no começo nem no fim: PFVR #2 (25/05/13), 3 anos com Banda Uó (08/12/12), I Hate Remix de
+27/01/12, 72dpi (23/07/11), 1 ano (18/12/10) e Sucks: True Blood (12/11/10).
+
+Os flyers aplicados trazem escalações que ainda não foram transcritas (só as da primeira leva
+estão acima). Vale ler quando for fechar o histórico de sets e a tabela da equipe.
