@@ -46,7 +46,7 @@ async function sympla(token) {
         if (r.ok) detalhe = (await r.json()).data?.detail;
       } catch { /* fica sem descrição */ }
     }
-    saida.push({ id: `sympla-${e.reference_id ?? e.id}`, nome: e.name, data: e.start_date, texto: texto(detalhe) });
+    saida.push({ id: `sympla-${e.reference_id ?? e.id}`, nome: e.name, data: e.start_date, imagem: e.image || undefined, texto: texto(detalhe) });
   }
   return saida;
 }
@@ -90,6 +90,20 @@ if (contas.length) {
     const vistos = new Set();
     const unicos = listas.filter((e) => !vistos.has(e.id) && vistos.add(e.id)).sort((a, b) => String(a.data).localeCompare(String(b.data)));
     await writeFile(`${PASTA}/sympla.json`, `${JSON.stringify(unicos, null, 1)}\n`);
+    // Capas das festas de 2012 e do começo de 2013: no site elas aparecem pelo álbum do Flickr,
+    // que não tem a arte. A arte está no Sympla; fica guardada aqui para ser ligada ao álbum.
+    await mkdir(`${PASTA}/capas`, { recursive: true });
+    let capas = 0;
+    for (const e of unicos.filter((x) => x.imagem && String(x.data) < '2013-07')) {
+      try {
+        const r = await fetch(e.imagem);
+        if (!r.ok) continue;
+        const tipo = (r.headers.get('content-type') ?? '').includes('png') ? 'png' : 'jpg';
+        await writeFile(`${PASTA}/capas/${e.id}.${tipo}`, Buffer.from(await r.arrayBuffer()));
+        capas++;
+      } catch { /* sem capa */ }
+    }
+    resumo.capasAntigas = capas;
     resumo.sympla = { eventos: unicos.length, comTexto: unicos.filter((e) => e.texto).length };
   } catch (erro) { resumo.sympla = { erro: erro.message }; }
 } else resumo.sympla = { erro: 'sem chave' };
