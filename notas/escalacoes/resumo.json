@@ -1,5 +1,5 @@
 {
- "geradoEm": "2026-11-14T13:32:14.782Z",
+ "geradoEm": "2026-11-14T13:45:38.588Z",
  "capasAntigas": 2,
  "sympla": {
   "eventos": 225,
@@ -8,5 +8,6 @@
  "shotgun": {
   "eventos": 49,
   "campos": 26
- }
+ },
+ "flickrCandidatas": 23
 }
