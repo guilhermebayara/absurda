@@ -52,6 +52,10 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
   `.github/workflows/alarme-arquivo.yml` confere cada push na `main` contra o estado
   anterior e falha, com aviso por e-mail, se o histórico mudou sem a marca. Se o alarme
   tocar, restaure o arquivo a partir do commit anterior antes de qualquer outra coisa.
+- **Quando um evento vira passado (do Gui):** no FIM da festa, não no começo. Enquanto ela
+  acontece, continua em destaque e com o link de ingressos. A regra mora em `jaAcabou`, em
+  `src/lib/eventos.ts`: vale a hora de término da plataforma e, sem ela, oito horas depois do
+  começo. Qualquer lugar novo que separe próximos de passados usa essa função.
 - Eventos que não devem voltar (por exemplo, festas que não aconteceram) ficam na lista
   `FORA_DA_AGENDA` em `src/lib/eventos.ts`, para o robô não trazer de volta.
 

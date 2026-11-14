@@ -13,6 +13,8 @@ export interface Evento {
   id: string;
   nome: string;
   data: string; // ISO 8601
+  // Hora em que o evento termina, quando a plataforma informa (ISO 8601).
+  fim?: string;
   local?: string;
   capa?: string;
   // Versão pequena da capa, usada desfocada como fundo do bloco do evento.
@@ -37,6 +39,20 @@ export interface Evento {
   arquivado?: boolean;
 }
 
+// ---------- Próximo ou passado ----------
+// O corte é o FIM do evento, não o começo (pedido do Gui): enquanto a festa está acontecendo
+// ela continua em destaque, com o link de ingressos, e só depois vai para o histórico e para o
+// arquivo. Vale a hora de término que a plataforma informar; sem ela (ou se vier sem sentido),
+// conta-se uma noite de festa a partir do começo.
+const NOITE_DE_FESTA = 8 * 3600 * 1000;
+const TERMINO_MAXIMO = 3 * 24 * 3600 * 1000;
+export function fimDe(e: { data: string; fim?: string }) {
+  const comeco = new Date(e.data).getTime();
+  const informado = e.fim ? new Date(e.fim).getTime() : NaN;
+  return informado > comeco && informado - comeco <= TERMINO_MAXIMO ? informado : comeco + NOITE_DE_FESTA;
+}
+export const jaAcabou = (e: { data: string; fim?: string }, agora = Date.now()) => fimDe(e) < agora;
+
 // Resumo do que aconteceu na busca, publicado em /estado.json para conferência.
 // Nunca inclui o token nem endereços com o token.
 export const estado: Record<string, unknown> = {};
@@ -50,6 +66,7 @@ interface EventoShotgun {
   id: number;
   name: string;
   startTime: string;
+  endTime?: string | null;
   url: string;
   coverUrl?: string | null;
   coverThumbnailUrl?: string | null;
@@ -142,13 +159,15 @@ async function fonteShotgun(): Promise<Evento[]> {
       [...validos(futuros), ...validos(passados)].map(async (e): Promise<Evento> => {
         const id = `shotgun-${e.id}`;
         const capa = e.coverUrl ?? e.coverThumbnailUrl ?? undefined;
-        const futuro = new Date(e.startTime).getTime() >= agora;
+        const fim = e.endTime ?? undefined;
+        const futuro = !jaAcabou({ data: e.startTime, fim }, agora);
         // Só os próximos têm cor e proporção lidas da capa; para os passados não faz diferença.
         const lido = futuro ? await lerCapa(capa, id) : { tema: temaPara(id) };
         return {
           id,
           nome: limparNome(e.name),
           data: e.startTime,
+          fim,
           local: localDe(e),
           capa: capa ? naLargura(capa, futuro ? 1280 : 600) : undefined,
           capaPequena: capa ? naLargura(capa, 240) : undefined,
@@ -182,6 +201,8 @@ async function fonteShotgun(): Promise<Evento[]> {
           }
         }),
       ),
+      // Quantos vieram com hora de término, para conferir se o corte usa o fim informado.
+      comHoraDeFim: [...futuros, ...passados].filter((e) => e.endTime).length,
       comSegundaImagemDiferente: [...futuros, ...passados].filter((e) => e.coverThumbnailUrl && e.coverUrl && e.coverThumbnailUrl !== e.coverUrl).length,
       maisAntigo: passados.at(-1)?.startTime?.slice(0, 10) ?? null,
     };
@@ -203,6 +224,7 @@ interface EventoSympla {
   reference_id?: number;
   name: string;
   start_date: string;
+  end_date?: string | null;
   url: string;
   image?: string | null;
   private_event?: number;
@@ -332,10 +354,11 @@ async function contaSympla(token: string, chave: string): Promise<Evento[]> {
           // O número de referência é o mesmo que aparece no endereço público do evento.
           const id = `sympla-${e.reference_id ?? e.id}`;
           const capa = e.image || undefined;
-          const futuro = new Date(data).getTime() >= agora;
+          const fim = (e.end_date && dataSympla(e.end_date)) || undefined;
+          const futuro = !jaAcabou({ data, fim }, agora);
           const lido = futuro ? await lerCapa(capa, id) : { tema: temaPara(id) };
           const casa = e.address?.name?.trim() || [e.address?.address, e.address?.address_num].filter(Boolean).join(', ') || e.address?.city;
-          return { id, nome: limparNome(e.name), data, local: casa || undefined, capa, capaPequena: capa, proporcao: lido.proporcao, url: e.url, origem: 'sympla', nomeBruto: e.name, tema: lido.tema, malha: lido.malha };
+          return { id, nome: limparNome(e.name), data, fim, local: casa || undefined, capa, capaPequena: capa, proporcao: lido.proporcao, url: e.url, origem: 'sympla', nomeBruto: e.name, tema: lido.tema, malha: lido.malha };
         }),
       )
     ).filter((e): e is Evento => e !== null);
@@ -343,8 +366,9 @@ async function contaSympla(token: string, chave: string): Promise<Evento[]> {
       ligado: true,
       recebidos: brutos.length,
       exibidos: eventos.length,
-      futuros: eventos.filter((e) => new Date(e.data).getTime() >= agora).length,
+      futuros: eventos.filter((e) => !jaAcabou(e, agora)).length,
       comCapa: eventos.filter((e) => e.capa).length,
+      comHoraDeFim: eventos.filter((e) => e.fim).length,
       // Como a data chega, para conferir o fuso.
       exemploDeData: brutos[0]?.start_date ?? null,
       datasTiradasDoNome: ajustadas,
@@ -440,7 +464,7 @@ async function fonteManual(): Promise<Evento[]> {
   return Promise.all(
     (manuais as Array<Omit<Evento, 'tema'>>).map(async (e, i): Promise<Evento> => {
       // Evento futuro com capa: cores e proporção saem da capa, como nos automáticos.
-      if (e.capa && new Date(e.data).getTime() >= agora) {
+      if (e.capa && !jaAcabou(e, agora)) {
         const lido = await lerCapa(e.capaPequena ?? e.capa, e.id);
         return { ...e, proporcao: e.proporcao ?? lido.proporcao, tema: lido.tema, malha: lido.malha };
       }
@@ -458,7 +482,9 @@ export function getEventos() {
     // Os eventos de marcação só aparecem enquanto nenhuma plataforma devolve eventos de verdade.
     // O que já está no arquivo vem antes do que as plataformas mandam agora: para um
     // evento passado, vale a cópia guardada.
-    const reais = [...guardados, ...shotgun, ...sympla, ...antigos];
+    // Exceção: evento que foi para o arquivo mas ainda não acabou (arquivado quando o corte
+    // era o começo da festa). Enquanto durar, vale a versão da plataforma, com as cores da capa.
+    const reais = [...guardados.filter((e) => jaAcabou(e)), ...shotgun, ...sympla, ...antigos, ...guardados.filter((e) => !jaAcabou(e))];
     const marcacao = manual.filter((e) => e.id.startsWith('m'));
     // Os cadastrados à mão vêm primeiro: quando o mesmo evento também chega por uma
     // plataforma (como o Halloween de 2025, criado no Sympla e vendido em outro site),
@@ -471,14 +497,14 @@ export function getEventos() {
       .map((e) => (NOMES_CORRIGIDOS[e.id] ? { ...e, nome: NOMES_CORRIGIDOS[e.id] } : e))
       .sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
     estado.repetidosRemovidos = todos.length - unicos.length;
-    estado.arquivo = { guardados: guardados.length, passadosAindaSoNaPlataforma: unicos.filter((e) => e.nomeBruto && new Date(e.data).getTime() < Date.now()).length };
+    estado.arquivo = { guardados: guardados.length, passadosAindaSoNaPlataforma: unicos.filter((e) => e.nomeBruto && jaAcabou(e)).length };
     const agoraMs = Date.now();
     const agora = new Date().toISOString();
     estado.geradoEm = agora;
-    estado.total = { proximos: unicos.filter((e) => new Date(e.data).getTime() >= agoraMs).length, passados: unicos.filter((e) => new Date(e.data).getTime() < agoraMs).length };
+    estado.total = { proximos: unicos.filter((e) => !jaAcabou(e, agoraMs)).length, passados: unicos.filter((e) => jaAcabou(e, agoraMs)).length };
     return {
-      proximos: unicos.filter((e) => new Date(e.data).getTime() >= agoraMs),
-      passados: unicos.filter((e) => new Date(e.data).getTime() < agoraMs).reverse(),
+      proximos: unicos.filter((e) => !jaAcabou(e, agoraMs)),
+      passados: unicos.filter((e) => jaAcabou(e, agoraMs)).reverse(),
     };
   })();
   return guardado;
