@@ -18,10 +18,10 @@ programacao:
       - { quando: "18 jun", nome: "O que o entretenimento capixaba está fazendo no momento pandêmico?, com Fabricio Noronha, Bekoo das Pretas, Lara Toledo e Samantha Brooks", local: "Instagram" }
       - { quando: "18 jun", nome: "O crescimento de DJs LGBTs no cenário eletrônico underground capixaba, com Paolla B, Sobrinho, Lith Paiva e Green Grass", local: "Instagram" }
       - { quando: "18 jun", nome: "O apoio do movimento LGBTQIA+ em meio à política capixaba, com Karla Coser, Camila Valladão, Deborah Sabára e Samantha Brooks", local: "Instagram" }
-      - { quando: "18 jun", nome: "Festa de abertura Be Proud, com Omoloko, CAX + Lenna e Czvr, Paolla B, Nath Leles, Green Grass e Sobrinho", local: "Zoom" }
+      - { quando: "18 jun", nome: "Festa de Abertura, com Omoloko, CAX + Lenna e Czvr, Paolla B, Nath Leles, Green Grass e Sobrinho", local: "Zoom" }
       - { quando: "19 jun", nome: "Oficina Escrita criativa, com Lucas Valadares", local: "Google Meet" }
       - { quando: "19 jun", nome: "Oficina Passinhos de funk, com João Victor", local: "Instagram" }
-      - { quando: "19 jun", nome: "Festa Avulsa com Muito Orgulho, com Apsu, Bru.sco, Mary An, Metamorfo e Xoxottini, Aimée Dezon, Dada Scáthach e Lilith", local: "Zoom" }
+      - { quando: "19 jun", nome: "Avulsa com Muito Orgulho, festa parceira, com Apsu, Bru.sco, Mary An, Metamorfo e Xoxottini, Aimée Dezon, Dada Scáthach e Lilith", local: "Zoom" }
       - { quando: "19 jun", nome: "Leilão de obras de arte, com Núbia Maria e Karina Mageste", local: "Instagram" }
       - { quando: "20 jun", nome: "40 anos de AIDS, com Raul Nunnes e Emer Conatus", local: "Instagram" }
       - { quando: "20 jun", nome: "Estilistas que se destacam no cenário capixaba, com Jadson, Victor Pugliesse, Hebert Portilla e Robson Holowatty", local: "Instagram" }
@@ -88,13 +88,13 @@ programacao:
       - { quando: "25 jun", nome: "Debate Arte drag, caminhos possíveis, com Thelores Drag, Isabelle Gee, Charlotte Delfina, Bella Lapierre e Ruth Venceremos, mediação de Charlotte", local: "YouTube" }
       - { quando: "25 jun", nome: "Bate-papo Prevenção combinada, com Emily Prado e Ed Luiz", local: "Instagram" }
       - { quando: "25 jun", nome: "Show: Marshelz e Alê Fonttana", local: "Instagram" }
-      - { quando: "25 jun", nome: "Festa Fissura", local: "Zoom" }
+      - { quando: "25 jun", nome: "Fissura, festa parceira", local: "Zoom" }
       - { quando: "25 jun", nome: "@bsurda +18, com Juhlia Santos", local: "Zoom" }
       - { quando: "26 jun", nome: "Bate-papo Dicas de séries e filmes LGBTs, com Henrique Cordoval", local: "Instagram" }
       - { quando: "26 jun", nome: "Bate-papo Orgulho de ser LGBTQI+, com Samuel Silva (Seja Cor)", local: "Instagram" }
       - { quando: "26 jun", nome: "Bate-papo Movimento artístico LGBT marginal, com Pedra Costa, Vulcânica Pokaropa e Juhlia Santos", local: "Instagram" }
       - { quando: "26 jun", nome: "Show: Anjxs, Ashley Granaj e Jezz", local: "Instagram" }
-      - { quando: "26 jun", nome: "Festa Se Flopar Nunca Existiu", local: "Zoom" }
+      - { quando: "26 jun", nome: "Se Flopar Nunca Existiu, festa parceira", local: "Zoom" }
       - { quando: "27 jun", nome: "Bate-papo Eu tenho orgulho, com Edenil Junior", local: "Instagram" }
       - { quando: "27 jun", nome: "Queerentena ao vivo, com Bella La Pierre e Rafael Ventura", local: "Instagram" }
       - { quando: "27 jun", nome: "Show: Loo Pez feat. Nik Hot e Raséc", local: "Instagram" }

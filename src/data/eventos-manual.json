@@ -303,7 +303,7 @@
   },
   {
     "id": "parada-2020-fissura",
-    "nome": "Fissura",
+    "nome": "Fissura (festa parceira)",
     "data": "2020-06-25T21:00:00-03:00",
     "local": "Online",
     "url": "",
@@ -313,7 +313,7 @@
   },
   {
     "id": "parada-2020-flopar",
-    "nome": "Se Flopar Nunca Existiu",
+    "nome": "Se Flopar Nunca Existiu (festa parceira)",
     "data": "2020-06-26T21:00:00-03:00",
     "local": "Online",
     "url": "",
@@ -344,7 +344,7 @@
   },
   {
     "id": "parada-2021-avulsa",
-    "nome": "Avulsa com Muito Orgulho",
+    "nome": "Avulsa com Muito Orgulho (festa parceira)",
     "data": "2021-06-19T18:00:00-03:00",
     "local": "Online",
     "url": "",
@@ -360,5 +360,15 @@
     "url": "",
     "origem": "manual",
     "soDia": true
+  },
+  {
+    "id": "parada-2021-abertura",
+    "nome": "Festa de Abertura da 2ª Parada Virtual",
+    "data": "2021-06-18T21:00:00-03:00",
+    "local": "Online",
+    "url": "",
+    "origem": "manual",
+    "soDia": true,
+    "atividade": true
   }
 ]

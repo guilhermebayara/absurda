@@ -59,7 +59,8 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
 - **Parada da @bsurda é guarda-chuva (do Gui):** até 2023 a Parada foi só um conjunto de eventos;
   o evento próprio começa em 2025, e mesmo assim outros eventos entram na programação. Cada
   evento aparece na Agenda como evento normal e ganha a etiqueta "Nª Parada". Quem fez parte de
-  cada edição está escrito à mão em `src/data/parada.json` (id do evento na Agenda). Conversa,
+  cada edição está escrito à mão em `src/data/parada.json` (id do evento na Agenda). Em 2020 vale
+  a janela inteira: tudo o que aconteceu de 20/06 a 14/08 é Parada. Conversa,
   oficina ou festa de parceiro leva `atividade: true` no evento, para não contar como edição da
   @bsurda. Em 2024 não houve Parada da @bsurda.
   Na Agenda (do Gui): festa tem sempre a sua linha; conversa e oficina presenciais também, uma
@@ -75,17 +76,21 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
 1. `git fetch origin main` e traga a `main` para a branch.
 2. `npm run build` sem erro.
 3. `npm run confere:arquivo` passando.
-4. `npm run confere:links`, `npm run confere:temas` e `npm run confere:calmo` passando (ver
+4. `npm run confere:links`, `npm run confere:agenda`, `npm run confere:temas` e
+   `npm run confere:calmo` passando (ver
    "Conferências do site").
 5. Só então `main`. A publicação na Cloudflare sai sozinha a cada push.
 
 ## Conferências do site
 
-Além da guarda do histórico, três conferências rodam na máquina e, sozinhas, no GitHub a cada
-push fora da `main` (`.github/workflows/confere-site.yml`). As três rodam depois do build:
+Além da guarda do histórico, quatro conferências rodam na máquina e, sozinhas, no GitHub a cada
+push fora da `main` (`.github/workflows/confere-site.yml`). As quatro rodam depois do build:
 
 - `npm run confere:links`: falha se algum link interno, âncora ou imagem do próprio site
   apontar para algo que não existe. Link externo não entra.
+- `npm run confere:agenda`: falha se algum evento do arquivo não aparecer na Agenda montada. O
+  arquivo pode estar inteiro e o evento sumir na montagem (foi o que aconteceu com um evento de
+  2022, engolido por outro do mesmo dia). Ficam de fora só os de `FORA_DA_AGENDA` e os adiados.
 - `npm run confere:temas`: falha se um tema de `src/lib/temas.ts`, ou o tema de uma página de
   pessoa, sair da regra de contraste. Olha também as cores que a página calcula (subtema vivo,
   `--destaque-texto`, `--suave`, `--enfeite`), executando o próprio trecho de `Base.astro` que

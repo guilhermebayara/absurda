@@ -11,6 +11,7 @@
     "confere:arquivo": "node scripts/confere-arquivo.mjs",
     "confere:links": "node scripts/confere-links.mjs",
     "confere:temas": "node scripts/confere-temas.mjs",
+    "confere:agenda": "node scripts/confere-agenda.mjs",
     "confere:calmo": "node scripts/confere-calmo.mjs"
   },
   "dependencies": {
