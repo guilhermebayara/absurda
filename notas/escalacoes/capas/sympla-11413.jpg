@@ -1,0 +1,25 @@
+<html>
+    <head><meta charset="utf-8">
+        <title>Conteúdo restrito - Sympla</title>
+        <link rel="icon" href="https://waiting-room.svc.sympla.com.br/favicon.ico">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&amp;display=swap">
+        <style>
+            body {
+              font-family: "Open+Sans", sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <section style="text-align:center;">
+            <img src="https://www.sympla.com.br/images/logo-sympla-color.svg" style="width: 150px; padding-top:25px">
+            <p style="padding-top: 85px; margin: 0px; font-size: 65px;"><b>403</b></p>
+            <p style="padding-top: 10px; margin: 0px; font-size: 25px; color: rgb(76, 87, 108)">
+                <b>Este é um conteúdo restrito</b>
+            </p>
+            <p style="padding-top: 10px; margin: 0px; font-size: 20px;">
+                Entre em contato com os administradores
+            </p>
+            <img src="https://images.sympla.com.br/629140b7b20c9.gif" style="padding-top: 45px; width: 250px;"/>
+        </section>
+    <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a5a65ae5ef00fbda',t:'MTc5NDY2Mjg2MQ=='};var l=window.parent.location,o;try{o=new URL(l.origin).origin}catch(e){try{o=new URL(new URL(l.href).origin).origin}catch(e){o=''}}var u='/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a5a65ae5ef00fbda',a=document.createElement('script');a.src=o?new URL(u,o).href:u;document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
