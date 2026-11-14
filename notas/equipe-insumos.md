@@ -26,7 +26,8 @@ Exemplo lido: **Carnaval @bsurda 21 e 22/2 at Dduck** (21 e 22 fev 2020)
 
 O que isso sugere, a confirmar com o Gui e o Ed:
 
-- Em fev 2020 a Nath aparecia como convidada, fora da crew. Entrada dela na equipe é depois.
+- Em fev 2020 a Nath aparecia como convidada, fora da crew. Confirmado pelo Gui: ela entrou em
+  2020, na pandemia.
 - Léo (Leo Gonçalves) também como convidado nessa data.
 - Lugh assinava a foto como "Alex Lugh".
 - Apoio e parcerias de 2020 entraram em `src/data/parceiros.json` (Gui, 13 nov 2026).
@@ -76,3 +77,14 @@ Fernando Silva: <https://www.ufmg.br/espacodoconhecimento/blog-espaco/montacao-e
 - Anos de entrada e saída de cada pessoa (a tabela acima ajuda, mas não substitui).
 - Fantini e Daniel Vilaça: convidados, nunca foram da equipe (Gui, 13 nov 2026).
 - "Alex Lugh" é o nome que o Lugh quer nos créditos antigos?
+
+## Anos de entrada confirmados (Gui, 13 nov 2026)
+
+- Ed: 2009. Gui: 2013. Keoma: 2011. Nath: 2020 (na pandemia).
+- Falta: Grabs, Charlotte e todos os que já fizeram parte.
+
+## Ordem dos crachás
+
+- Só há certeza da ordem entre quem está hoje. Os que já fizeram parte entram no meio, e
+  a ordem deles vai ser estimada (a memória falha, e há mais nomes do que os que estão no
+  site). A tabela pessoa x ano tirada do Sympla deve ajudar a estimar.

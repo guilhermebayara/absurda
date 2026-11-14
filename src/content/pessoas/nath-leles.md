@@ -4,6 +4,7 @@ funcao: "DJ residente"
 grupo: residentes
 situacao: atual
 ordem: 5
+desde: 2020
 foto: "/equipe/nath-leles.jpg"
 instagram: "https://www.instagram.com/nathleles/"
 redes:
