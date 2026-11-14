@@ -4,6 +4,7 @@ funcao: "DJ residente"
 grupo: residentes
 situacao: atual
 ordem: 4
+desde: 2011
 foto: "/equipe/keoma.jpg"
 ---
 
