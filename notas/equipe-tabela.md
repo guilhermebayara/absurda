@@ -150,3 +150,16 @@ Nomes que se repetem nas festas de 2010 a 2012 e não estão na Equipe (para o G
 se algum foi da casa): Rafael Sandim (seis festas, de mar a jul 2011), Thiago Richard (de jan
 2011 a jun 2012), Dr. Jeff / Jimmy e Jeff (de set 2010 a abr 2011), Binho, Sebah e Shum, Louis,
 henrik++, "Vic" (ed. & Vic, out 2010).
+
+## Página do Gui: histórico de sets (ideia para depois)
+
+O Gui quer, em algum ponto da página dele, um histórico de todas as festas em que tocou.
+Formato ainda a definir. Foram poucas, e hoje ele só faz sets especiais.
+
+- No começo ele aparecia nos line-ups como **@bechama**, o personagem dele no Twitter.
+- Estreia: 17/03/2012, @bsurda S03E05 Viiish! (o álbum não traz escalação).
+- Como @bechama nas descrições do Flickr: Ressaca @bsurda (22/06/2012, On Board) e É Você
+  Satanás #4 (13/07/2012, Up e.music).
+- Último set: numa edição de Madonna no Mira, depois da Celebration in Rio.
+- Nas descrições do Sympla ele só aparece como designer (de 2016 a 2020). A lista completa
+  de sets depende da memória dele ou das artes.
