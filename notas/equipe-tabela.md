@@ -198,3 +198,12 @@ Formato ainda a definir. Foram poucas, e hoje ele só faz sets especiais.
 2023 para cá (visto nas páginas da @bsurda, do Mira, do Major Lock e do LAB). Evento anterior a
 2023 criado na conta de uma casa não aparece em lugar nenhum público: só por link direto, arte
 ou memória. No arquivo, os 60 eventos compartilhados são todos de 2023 em diante.
+
+**Decisão do Gui (14 nov 2026):** a aba "Contas de terceiros" saiu da planilha. O que faltar do
+Sympla será buscado depois pelo painel da conta, com o Ed ou o Gui fazendo o login.
+
+**2022 é o ano com mais lacunas:** a Agenda tem 11 eventos, e o Drive tem muitas pastas de festas
+desse ano. No site hoje: Especial Beyoncé (12/02), Carnaval (25/02), Premium (03/03), três @UGE
+na Church (10, 17 e 24/03), Tibum (23/04), Hold My Hand (25/06), IHR Renaissance (30/07),
+Halloween 13 anos (22/10) e IHR Bey, Taylor, Gaga, Riri (18/11). Faltam, entre outros, os eventos
+da Parada de 2022, que só constam na programação da página do projeto.
