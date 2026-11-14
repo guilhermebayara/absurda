@@ -176,7 +176,7 @@ Formato ainda a definir. Foram poucas, e hoje ele só faz sets especiais.
 
 - Mira! Centro Cultural (sympla.com.br/produtor/mirabeaga): varrido em 14 nov 2026 pelo navegador,
   aba "Encerrados". 300 eventos, de fev 2023 a jul 2025. Os 20 que são da @bsurda já estavam no
-  arquivo, porque aparecem também na conta da @bsurda. Nada a acrescentar. Em aberto: as festas
-  SMMR da conta do Mira são nossas?
+  arquivo, porque aparecem também na conta da @bsurda. Nada a acrescentar. As festas SMMR da
+  conta do Mira não são nossas: são projetos de outras pessoas, com tema parecido (Gui).
 - Outros produtores: o Gui e o Ed colam os links na aba "Contas de terceiros" da planilha
   "Pendências do site"; a sessão varre e confere com a Agenda.
