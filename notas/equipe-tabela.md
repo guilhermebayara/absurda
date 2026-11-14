@@ -160,7 +160,8 @@ Formato ainda a definir. Foram poucas, e hoje ele só faz sets especiais.
 - Estreia: 17/03/2012, @bsurda S03E05 Viiish! (o álbum não traz escalação).
 - Como @bechama nas descrições do Flickr: Ressaca @bsurda (22/06/2012, On Board) e É Você
   Satanás #4 (13/07/2012, Up e.music).
-- Último set: numa edição de Madonna no Mira, depois da Celebration in Rio.
+- Último set: I Hate Remix Madonna, 10/06/2023, no Mira (não foi a edição Celebration). Já está
+  na Agenda (sympla-1971717).
 - Nas descrições do Sympla ele só aparece como designer (de 2016 a 2020). A lista completa
   de sets depende da memória dele ou das artes.
 
@@ -170,3 +171,12 @@ Formato ainda a definir. Foram poucas, e hoje ele só faz sets especiais.
   "Sets do Gui".
 - MPB (Música Póóóóp de Bixa): foi uma recorrência na Casa Sapucaí. Se é projeto ou edição
   especial, decide o Ed (linha na aba Edições). Por ora fica em edições especiais.
+
+## Eventos nossos em contas de terceiros
+
+- Mira! Centro Cultural (sympla.com.br/produtor/mirabeaga): varrido em 14 nov 2026 pelo navegador,
+  aba "Encerrados". 300 eventos, de fev 2023 a jul 2025. Os 20 que são da @bsurda já estavam no
+  arquivo, porque aparecem também na conta da @bsurda. Nada a acrescentar. Em aberto: as festas
+  SMMR da conta do Mira são nossas?
+- Outros produtores: o Gui e o Ed colam os links na aba "Contas de terceiros" da planilha
+  "Pendências do site"; a sessão varre e confere com a Agenda.
