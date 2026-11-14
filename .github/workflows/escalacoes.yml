@@ -1,0 +1,49 @@
+# Copia para notas/escalacoes/ a descrição de cada evento no Sympla e no Shotgun, pela API
+# das próprias contas. É material de trabalho para a tabela de quem tocou em que ano (ver
+# notas/equipe-insumos.md); nada disso aparece no site.
+#
+# Roda só quando alguém pede (botão "Run workflow") ou quando o próprio script muda.
+# Usa os mesmos segredos do fluxo da agenda. Nenhuma chave vai para arquivo ou registro.
+name: Escalações dos eventos
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/escalacoes.mjs
+      - .github/workflows/escalacoes.yml
+
+permissions: {}
+
+jobs:
+  copiar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Lê as descrições dos eventos
+        env:
+          SHOTGUN_TOKEN: ${{ secrets.SHOTGUN_TOKEN }}
+          SHOTGUN_ORGANIZER_ID: ${{ secrets.SHOTGUN_ORGANIZER_ID }}
+          SYMPLA_TOKEN: ${{ secrets.SYMPLA_TOKEN }}
+          SYMPLA_TOKEN_3: ${{ secrets.SYMPLA_TOKEN_3 }}
+        run: node scripts/escalacoes.mjs
+      - name: Guarda as notas no repositório
+        run: |
+          git config user.name "arquivo-da-agenda"
+          git config user.email "arquivo-da-agenda@users.noreply.github.com"
+          git add notas/escalacoes
+          if git diff --cached --quiet; then
+            echo "Nada novo para guardar."
+          else
+            git commit -m "Notas: escalações dos eventos, lidas das plataformas"
+            git pull --rebase origin main
+            git push origin main
+          fi
