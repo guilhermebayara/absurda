@@ -3,7 +3,8 @@ nome: "Ayumi"
 funcao: "DJ"
 grupo: residentes
 situacao: anterior
-ordem: 54
+ordem: 55
+ate: 2013
 foto: "/equipe/ayumi.jpg"
 ---
 

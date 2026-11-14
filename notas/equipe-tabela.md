@@ -93,3 +93,28 @@ em 2017 vem das listas, falta o Gui confirmar), André Victor até 2012.
 - Ayumi: até quando foi DJ (pelas listas, 2013).
 - Jakson: decisão do Ed.
 - Números dos crachás.
+
+## Datas completas (Gui, 14 nov 2026)
+
+Guardadas nos arquivos das pessoas (`entrou` e `saiu`), para ordenar os crachás de quem
+entrou no mesmo ano. Desempate de mesmo dia: alfabético ou quem ficou mais, a decidir quando
+todas as datas estiverem fechadas.
+
+| Pessoa | Entrou | Saiu |
+|---|---|---|
+| Barbara Deister | 15 mai 2010 | 17 dez 2011 |
+| Gabriel Cadete | 15 mai 2010 | 15 out 2011 |
+| Keoma | 19 mar 2011 | |
+| Fab | 6 mai 2011 | 2016 |
+| André Victor | 18 jun 2011 | 2012 |
+| Lugh | 20 ago 2011 | 2016 (como DJ) |
+| Ayumi | a confirmar | 2013 |
+
+**Gui:** entrou na produção em 2013, aos poucos, entre o aniversário de 3 anos (dez 2012) e o
+de 4 (dez 2013). Estreia como DJ em 17 mar 2012. Depois de entrar para a produção, sets
+esporádicos; o último foi numa edição de Madonna no Mira, depois da Celebration in Rio. No
+crachá continua 2013. Em aberto: para a ordem dos crachás vale a estreia como DJ (2012) ou a
+entrada na produção (2013)?
+
+Ainda faltam: entrada da Ayumi, entrada da Charlotte como DJ, dia de entrada de Vil, Grabs e
+Nath, decisão do Ed sobre o Jakson.

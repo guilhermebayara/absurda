@@ -3,7 +3,10 @@ nome: "FAB"
 funcao: "DJ"
 grupo: residentes
 situacao: anterior
-ordem: 50
+ordem: 52
+desde: 2011
+ate: 2016
+entrou: "2011-05-06"
 foto: "/equipe/fab.jpg"
 instagram: "https://www.instagram.com/fabioresendefab/"
 links:

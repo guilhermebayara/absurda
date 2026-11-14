@@ -5,6 +5,7 @@ grupo: residentes
 situacao: atual
 ordem: 4
 desde: 2011
+entrou: "2011-03-19"
 foto: "/equipe/keoma.jpg"
 ---
 

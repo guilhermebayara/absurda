@@ -3,7 +3,7 @@ nome: "Vil Araújo"
 funcao: "DJ"
 grupo: residentes
 situacao: anterior
-ordem: 52
+ordem: 56
 ate: 2023
 desde: 2017
 foto: "/equipe/vil-araujo.jpg"

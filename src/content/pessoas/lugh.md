@@ -6,7 +6,10 @@ links:
     url: "https://www.instagram.com/estilingue/"
 grupo: residentes
 situacao: anterior
-ordem: 53
+ordem: 54
+desde: 2011
+ate: 2016
+entrou: "2011-08-20"
 foto: "/equipe/lugh.jpg"
 ---
 

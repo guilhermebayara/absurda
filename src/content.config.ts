@@ -17,6 +17,11 @@ const pessoas = defineCollection({
     desde: z.number().optional(),
     // Para quem já saiu: o ano de saída. O crachá mostra o intervalo (desde–ate); sem os anos, XXXX–XXXX.
     ate: z.number().optional(),
+    // Datas completas de entrada e de saída (AAAA-MM-DD), quando o Gui e o Ed souberem. Não aparecem
+    // no site: servem para ordenar os crachás de quem entrou no mesmo ano. Desempate de quem entrou
+    // no mesmo dia fica para quando todas as datas estiverem fechadas (alfabético ou quem ficou mais).
+    entrou: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+    saiu: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
     // Número do crachá, na ordem de entrada na festa (Gui e Ed definem). Sem ele, fica a marcação XXX.
     numero: z.number().optional(),
     // Final do código do crachá, quando as iniciais da função não servem (o Gui é PD, e não DP).

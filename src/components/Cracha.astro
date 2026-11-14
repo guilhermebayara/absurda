@@ -72,7 +72,7 @@ const Tag = href ? 'a' : 'div';
         <span class:list={['cracha-desde', { 'cracha-intervalo': alumni }]}>
           <span class="cracha-desde-rotulo">{alumni ? 'Período' : 'Desde'}</span>
           <strong>{alumni ? `${desde ?? 'XXXX'}–${ate ?? 'XXXX'}` : (desde ?? 'XXXX')}</strong>
-          <span class="cracha-anos">{anos ?? 'X'} anos de @bsurda</span>
+          <span class="cracha-anos">{anos ?? 'X'} {anos === 1 ? 'ano' : 'anos'} de @bsurda</span>
         </span>
         <span class="cracha-registro">
           <span><span>Crachá nº</span><strong>{num}</strong></span>

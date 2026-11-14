@@ -65,7 +65,7 @@ const trio: Array<{ ano: string; numero: string; texto: string; foto: string; fo
 // ter fila nem ego. Quem é ou já foi da equipe (residentes de hoje e de outras fases) aparece
 // na cor de destaque, espalhado pela lista. Vem das programações que achei e dos nomes que o
 // Gui passou. A completar: com certeza falta gente.
-const equipe = ['André Victor', 'Charlotte', 'Ed Luiz', 'FAB', 'Grabs', 'Gui Bayara', 'Keoma', 'Nath Leles', 'Vil Araújo'];
+const equipe = ['André Victor', 'Barbara Deister', 'Charlotte', 'Ed Luiz', 'FAB', 'Gabriel Cadete', 'Grabs', 'Gui Bayara', 'Keoma', 'Nath Leles', 'Vil Araújo'];
 // Marca entre parênteses depois do nome, no mesmo peso, como em line-up (nome da festa ou da
 // cidade junto do nome da pessoa): a marca com que um estilista desfilou, quando ela não leva o nome dele. Quem desfilou com marca homônima fica só com o nome.
 const marcas: Record<string, string> = { 'Célio Dias': 'LED' };
@@ -76,7 +76,7 @@ const cena = [
   'Leona Souki', 'Alana Fox', 'Polaris', 'Toda Deseo', 'Well Mendes', 'Hallessia', 'Luna Oliveira', 'Amber Ives', 'Bettie', 'Malona', 'Anastacia', 'Leafar', 'Pietra', 'Mafra', 'Jakson', 'Melques', 'Fantalzzy', 'Isabelle Gee',
   'Gustavo Drummond', 'Ravel', 'Rodrigo Leon', 'Rafa Mártir', 'Francis Glam Glam', 'Sandra Lee', 'Camila Too Much', 'Desirée Dandelion', 'Monique Capuccine', 'Stacy Ginger', 'Jhulia Santos', 'Mac Júlia', 'Amerikana', 'Benjamin',
   // Dos line-ups das cinco primeiras edições (2009 e 2010), lidos nas artes originais.
-  'Tuhlio', 'Caio Vita', 'Louis', 'Nabuco', 'Vii_ih', 'Barbara Deister', 'Gabriel Cadete', 'Leonardo Pedone', 'Cristianosm', 'Binho', 'Sebah', 'Shum', 'Felipe Nery', 'Lu Hell', 'Shoke-se', 'Dr. Jeff',
+  'Tuhlio', 'Caio Vita', 'Louis', 'Nabuco', 'Vii_ih', 'Leonardo Pedone', 'Cristianosm', 'Binho', 'Sebah', 'Shum', 'Felipe Nery', 'Lu Hell', 'Shoke-se', 'Dr. Jeff',
   'Davi Cintori',
   // Dos line-ups das edições Bazinga! em BH (2011 e 2012), lidos nas artes originais.
   // Regra do Gui para as edições em outras cidades (São Paulo, Maringá, Brasília): os DJs locais
@@ -85,6 +85,9 @@ const cena = [
   'Crew S&M Party', 'Neide', 'Marllon', 'Rafael Sandim', 'Fernandinha', 'Tabata', 'Veri', 'Raphael Ribeiro', 'Marcilio', 'Bruno Robert', 'Patthy Wellisch',
   // Da apresentação comercial de 2024 (Figma): artistas locais citadas e convidadas do Halloween.
   'Wandera Jones', 'Penelope Fontana', 'Kabulom',
+  // Atrações de BH que o Gui passou de memória (nov 2026). As duplas entram nome a nome, como o resto
+  // da lista. Já estavam aqui: Neide, Veri, Rodrigo Leon, Caio Vita e Bruno Robert.
+  'Cherem', 'Esther', 'Roxxer', 'Kkau', 'Vii_ctor', 'Roquer Horror', 'Laranja', 'Valmique', 'Júnior Waldorf', 'Caroleta', 'Bo', 'SaravahRosa', 'Bizafra', 'Vitor Sobrinho', 'Gobbi', 'Iuri Zennone', 'Lorena Lee', 'Gustavo Bezzi', 'Elisa Angottu', 'Gustavo Gontijo', 'Artur Davi',
   // Estilistas que desfilaram na festa. Entram na mesma lista: a cena já mistura drags, DJs, cantores e ballroom.
   'Israel Frazoni', 'Célio Dias', 'Guilherme Pires',
 ].sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' })).map((nome) => ({ nome, daEquipe: equipe.includes(nome), marca: marcas[nome] }));
