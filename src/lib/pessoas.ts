@@ -23,3 +23,40 @@ export async function temasDaPessoa(id: string, foto?: string): Promise<Tema[]> 
   const fixos = [temaPara(id), temaPara(`${id}-2`), temaPara(`${id}-3`)];
   return fixos.filter((t, i) => fixos.indexOf(t) === i);
 }
+
+// ---------- Número do crachá ----------
+// O número sai sozinho, pela ordem de entrada na festa (pedido do Gui): ninguém digita.
+// Conta quem tem crachá (sócios e DJs, de hoje e de outras fases). A ordem:
+//   1. data de entrada: `entrou` (data completa) ou, sem ela, o ano em `desde`;
+//   2. mesmo ano sem data completa de um dos dois: vale `ordem` (o Gui disse quem veio antes);
+//   3. mesmo dia: quem ficou mais tempo e, persistindo o empate, ordem alfabética.
+// Um `numero` escrito à mão no arquivo da pessoa continua valendo por cima da conta.
+//
+// Enquanto faltar data de alguém, os números ficam guardados e o crachá mostra XXX: um número
+// publicado cedo mudaria quando a pessoa que falta entrasse na fila. Quando o Gui e o Ed
+// fecharem as datas, basta trocar CRACHAS_FECHADOS para true.
+export const CRACHAS_FECHADOS = false;
+
+interface DadosDaPessoa { nome: string; grupo: string; ordem: number; desde?: number; ate?: number; entrou?: string; saiu?: string; numero?: number }
+
+export function numerosDosCrachas(pessoas: Array<{ id: string; data: DadosDaPessoa }>) {
+  const comCracha = pessoas.filter((p) => p.data.grupo === 'socios' || p.data.grupo === 'residentes');
+  const semData = comCracha.filter((p) => !p.data.entrou && !p.data.desde).map((p) => p.data.nome);
+  const ano = (p: DadosDaPessoa) => (p.entrou ? Number(p.entrou.slice(0, 4)) : p.desde ?? 9999);
+  const tempo = (p: DadosDaPessoa) => (p.saiu ? new Date(p.saiu).getTime() : p.ate ? new Date(`${p.ate}-12-31`).getTime() : Date.now());
+  const fila = [...comCracha].sort((a, b) => {
+    const [x, y] = [a.data, b.data];
+    if (ano(x) !== ano(y)) return ano(x) - ano(y);
+    if (x.entrou && y.entrou && x.entrou !== y.entrou) return x.entrou.localeCompare(y.entrou);
+    if (!(x.entrou && y.entrou)) return x.ordem - y.ordem;
+    return tempo(y) - tempo(x) || x.nome.localeCompare(y.nome, 'pt-BR');
+  });
+  const numeros = new Map(fila.map((p, i) => [p.id, p.data.numero ?? i + 1]));
+  return { numeros, fila: fila.map((p) => p.data.nome), semData, prontos: semData.length === 0 };
+}
+
+// O número que o crachá mostra: só depois de fechado.
+export function numeroDoCracha(id: string, pessoas: Array<{ id: string; data: DadosDaPessoa }>) {
+  const dado = pessoas.find((p) => p.id === id)?.data.numero;
+  return dado ?? (CRACHAS_FECHADOS ? numerosDosCrachas(pessoas).numeros.get(id) : undefined);
+}

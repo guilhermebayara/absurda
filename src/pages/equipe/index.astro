@@ -19,6 +19,7 @@ import Botao from '../../components/Botao.astro';
 import Cracha from '../../components/Cracha.astro';
 import Arroba from '../../components/marca/Arroba.astro';
 import { getCollection } from 'astro:content';
+import { numeroDoCracha } from '../../lib/pessoas';
 
 const pessoas = (await getCollection('pessoas')).sort((a, b) => a.data.ordem - b.data.ordem);
 const atuais = pessoas.filter((p) => p.data.situacao === 'atual');
@@ -56,7 +57,7 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
       <ul class="crachas">
         {atuais.map((p, i) => (
           <li class:list={{ ed: p.id === 'ed-luiz' }} data-anima="surge" style={`--i:${i}`}>
-            <Cracha nome={p.data.nome} funcao={p.data.funcao} grupo={p.data.grupo} foto={p.data.foto} desde={p.data.desde} numero={p.data.numero} sigla={p.data.sigla}
+            <Cracha nome={p.data.nome} funcao={p.data.funcao} grupo={p.data.grupo} foto={p.data.foto} desde={p.data.desde} numero={numeroDoCracha(p.id, pessoas)} sigla={p.data.sigla}
               href={`/equipe/${p.id}`} fundador={p.id === 'ed-luiz'} verso />
           </li>
         ))}

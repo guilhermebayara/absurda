@@ -112,9 +112,21 @@ todas as datas estiverem fechadas.
 
 **Gui:** entrou na produção em 2013, aos poucos, entre o aniversário de 3 anos (dez 2012) e o
 de 4 (dez 2013). Estreia como DJ em 17 mar 2012. Depois de entrar para a produção, sets
-esporádicos; o último foi numa edição de Madonna no Mira, depois da Celebration in Rio. No
-crachá continua 2013. Em aberto: para a ordem dos crachás vale a estreia como DJ (2012) ou a
-entrada na produção (2013)?
+esporádicos; o último foi numa edição de Madonna no Mira, depois da Celebration in Rio. Decisão
+do Gui: vale a estreia como DJ. Crachá desde 2012, entrada em 17 mar 2012 (ser residente de fato
+deixou de ser o critério, e a passagem de tocar para produzir foi natural).
 
-Ainda faltam: entrada da Ayumi, entrada da Charlotte como DJ, dia de entrada de Vil, Grabs e
-Nath, decisão do Ed sobre o Jakson.
+Ordem sem precisar de dia (Gui): Vil foi o único a entrar em 2017; em 2020, Grabs entrou antes
+da Nath. Grafias da cena: valem as antigas (Caio Vita, Bruno Robert); "Elisa Angottu" é como
+estava no flyer.
+
+Ayumi: vale como começo o que as listas mostram (1 set 2012).
+
+Número do crachá: sai sozinho pela ordem de entrada (`numerosDosCrachas`, em `src/lib/pessoas.ts`).
+Fica escondido (XXX) até fechar tudo; aí basta ligar `CRACHAS_FECHADOS`. Fila de hoje: Ed,
+Barbara, Gabriel, Keoma, Fab, André Victor, Lugh, Gui, Ayumi, Vil, Grabs, Nath, Charlotte.
+
+Ainda faltam: entrada da Charlotte como DJ e a decisão do Ed sobre o Jakson.
+A lista completa do que o Gui e o Ed devem está na planilha "Pendências do site", na pasta
+10_site do Drive: https://docs.google.com/spreadsheets/d/15XPYmQWlDneOEIyNcfHNN9dJeaGLGsiHr3qzPryf9aM/edit
+Eles preenchem a coluna "Resposta"; a sessão lê e aplica quando avisarem.

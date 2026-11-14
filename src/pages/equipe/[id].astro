@@ -4,7 +4,7 @@ import Cracha from '../../components/Cracha.astro';
 import { getCollection, render } from 'astro:content';
 import Botao from '../../components/Botao.astro';
 import { atributo } from '../../lib/temas';
-import { temasDaPessoa } from '../../lib/pessoas';
+import { temasDaPessoa, numeroDoCracha } from '../../lib/pessoas';
 
 export async function getStaticPaths() {
   const pessoas = await getCollection('pessoas');
@@ -16,6 +16,7 @@ const alumni = pessoa.data.situacao === 'anterior';
 // "Fotógrafo e DJ" vira "fotógrafo e DJ" no meio da frase; "DJ residente" continua como está.
 const f = pessoa.data.funcao;
 const funcaoNaFrase = /^[A-ZÀ-Ú][a-zà-ú]/.test(f) ? f[0].toLowerCase() + f.slice(1) : f;
+const numero = numeroDoCracha(pessoa.id, await getCollection('pessoas'));
 const projetos = (await getCollection('projetos')).filter((pr) => pr.data.pessoas.some((ref) => ref.id === pessoa.id));
 // Os temas vêm da foto da pessoa (ou do site, sem foto). A página sorteia um a cada visita.
 // data-temas leva a lista inteira para a conferência de contraste (scripts/confere-temas.mjs).
@@ -26,12 +27,12 @@ const temas = await temasDaPessoa(pessoa.id, pessoa.data.foto);
     <div class="pessoa-crachas">
       <div class="pessoa-verso" aria-hidden="true">
         {/* Sem a condição de fundador no verso (escolha do Gui): nesta página o selo da frente está sempre à vista. */}
-        <Cracha lado="verso" nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} desde={pessoa.data.desde} ate={pessoa.data.ate} alumni={alumni} numero={pessoa.data.numero} sigla={pessoa.data.sigla} />
+        <Cracha lado="verso" nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} desde={pessoa.data.desde} ate={pessoa.data.ate} alumni={alumni} numero={numero} sigla={pessoa.data.sigla} />
       </div>
       {/* O crachá repete o nome e a função que o texto ao lado já diz: para leitor de tela ele é
           enfeite, como o verso. O que só ele mostra (selo do fundador) vai na frase só para leitor. */}
       <div class="pessoa-frente" aria-hidden="true">
-        <Cracha nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} foto={pessoa.data.foto} desde={pessoa.data.desde} ate={pessoa.data.ate} alumni={alumni} numero={pessoa.data.numero} sigla={pessoa.data.sigla} fundador={pessoa.id === 'ed-luiz'} />
+        <Cracha nome={pessoa.data.nome} funcao={pessoa.data.funcao} grupo={pessoa.data.grupo} foto={pessoa.data.foto} desde={pessoa.data.desde} ate={pessoa.data.ate} alumni={alumni} numero={numero} sigla={pessoa.data.sigla} fundador={pessoa.id === 'ed-luiz'} />
       </div>
     </div>
     <div class="pessoa-texto">
