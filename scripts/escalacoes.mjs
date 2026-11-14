@@ -119,5 +119,26 @@ if (organizador && chave) {
   } catch (erro) { resumo.shotgun = { erro: erro.message.replace(/key=[^&\s]+/g, 'key=***') }; }
 } else resumo.shotgun = { erro: 'sem chave' };
 
+// Artes das festas antigas: candidatas escolhidas nos álbuns do Flickr (as fotos do começo e do
+// fim de cada álbum, onde o flyer costuma estar). A lista fica em flickr-candidatas.json, por
+// álbum; aqui só se baixa o que ainda não foi baixado, para alguém olhar e escolher a capa.
+try {
+  const { readFile, access } = await import('node:fs/promises');
+  const candidatas = JSON.parse(await readFile(`${PASTA}/flickr-candidatas.json`, 'utf8'));
+  await mkdir(`${PASTA}/flickr-candidatas`, { recursive: true });
+  let baixadas = 0;
+  for (const [album, fotos] of Object.entries(candidatas)) {
+    for (const [i, caminho] of fotos.entries()) {
+      const destino = `${PASTA}/flickr-candidatas/${album}-${i + 1}.jpg`;
+      try { await access(destino); continue; } catch { /* ainda não baixada */ }
+      const r = await fetch(`https://live.staticflickr.com/${caminho}`);
+      if (!r.ok || !(r.headers.get('content-type') ?? '').startsWith('image/')) continue;
+      await writeFile(destino, Buffer.from(await r.arrayBuffer()));
+      baixadas++;
+    }
+  }
+  resumo.flickrCandidatas = baixadas;
+} catch (erro) { resumo.flickrCandidatas = { erro: erro.message }; }
+
 await writeFile(`${PASTA}/resumo.json`, `${JSON.stringify({ geradoEm: new Date().toISOString(), ...resumo }, null, 1)}\n`);
 console.log(JSON.stringify(resumo));

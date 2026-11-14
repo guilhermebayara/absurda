@@ -12,6 +12,7 @@ on:
     branches: [main]
     paths:
       - scripts/escalacoes.mjs
+      - notas/escalacoes/flickr-candidatas.json
       - .github/workflows/escalacoes.yml
 
 permissions: {}
