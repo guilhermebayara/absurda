@@ -1,0 +1,1227 @@
+{
+ "campos": [
+  "addressVisibility",
+  "artists",
+  "cancelledAt",
+  "coverThumbnailUrl",
+  "coverUrl",
+  "deals",
+  "description",
+  "endTime",
+  "genres",
+  "geolocation",
+  "id",
+  "isFestival",
+  "launchedAt",
+  "leftTicketsCount",
+  "name",
+  "organizer",
+  "publishedAt",
+  "role",
+  "slug",
+  "startTime",
+  "timezone",
+  "trailerUrl",
+  "typeOfPlace",
+  "updatedAt",
+  "url",
+  "visibility"
+ ],
+ "eventos": [
+  {
+   "id": "shotgun-598691",
+   "nome": "IHR BRITNEY 13/11 - 22H",
+   "data": "2026-11-14T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    }
+   ],
+   "textos": {
+    "description": "IHR BRITNEY 13/11 - 22H\nMIRA\n25 anos do álbum BRITNEY\nAquele especial pra encerrar o ano.\n______\nEVENTO PARA MAIORES DE 18 ANOS."
+   }
+  },
+  {
+   "id": "shotgun-598559",
+   "nome": "@BSURDA PROM BAILE DE PERUCAS 05/12",
+   "data": "2026-12-06T01:30:00.000Z",
+   "artistas": [],
+   "textos": {
+    "description": "@BSURDA PROM BAILE DE PERUCAS 05/12\nnossa formatura\nnosso baile\ndessa vez baile de perucas\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de DEZEMBRO, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-616756",
+   "nome": "@BSURDA MAYHEM, BRAT, CONFESSIONS II, RENAISSANCE  - 12/12",
+   "data": "2026-12-13T01:00:00.000Z",
+   "artistas": [],
+   "textos": {
+    "description": "@BSURDA MAYHEM, BRAT, CONFESSIONS II, RENAISSANCE - 12/12 - 22H\nOs melhore lançamentos dos últimos anos.\n______\nEVENTO PARA MAIORES DE 18 ANOS."
+   }
+  },
+  {
+   "id": "shotgun-618926",
+   "nome": "ENSAIOS DA @BSURDA 15/01 - 22H",
+   "data": "2027-01-16T01:00:00.000Z",
+   "artistas": [],
+   "textos": {
+    "description": "ENSAIOS DA @BSURDA 15/01 - 22H\nEdição especial aquecimento pro Ensaios da Anitta.\nPrimeira @bsurda do ano.\n_________________\n•⁠ ⁠Aniversariantes de janeiro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)\nA gente se vê na pista! ⭐️"
+   }
+  },
+  {
+   "id": "shotgun-585235",
+   "nome": "@BSURDA ARTPOP 13 ANOS 07/11 - 22H",
+   "data": "2026-11-08T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 295182,
+     "name": "Grabs",
+     "slug": "djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "url": "https://shotgun.live/artists/djgrabs"
+    },
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    }
+   ],
+   "textos": {
+    "description": "@BSURDA ARTPOP 13 ANOS 07/11 - 22H\nEdição Especial ARTPOP\nMas também todas as eras.\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de novembro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-517539",
+   "nome": "HALLOWEEN @BSURDA XVII ANOS - 24/10",
+   "data": "2026-10-25T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 295182,
+     "name": "Grabs",
+     "slug": "djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "url": "https://shotgun.live/artists/djgrabs"
+    },
+    {
+     "id": 1349585,
+     "name": "Deejay Keoma",
+     "slug": "djkeoma",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "url": "https://shotgun.live/artists/djkeoma"
+    },
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    },
+    {
+     "id": 101631,
+     "name": "S4TAN",
+     "slug": "s4tan",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-101631-avatar-1793700772071",
+     "url": "https://shotgun.live/artists/s4tan"
+    },
+    {
+     "id": 990778,
+     "name": "Charlotte Drag",
+     "slug": "charlotte-drag",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "url": "https://shotgun.live/artists/charlotte-drag"
+    },
+    {
+     "id": 114374,
+     "name": "Frimes",
+     "slug": "frimesss",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-114374-avatar-1793701452823",
+     "url": "https://shotgun.live/artists/frimesss"
+    }
+   ],
+   "textos": {
+    "description": "HALLOWEEN @BSURDA 17 ANOS - 24/10\nBELO HORIZONTE, MG\nHá 17 anos existe um lugar onde os monstros se encontram, as fantasias ganham vida e a liberdade se acende. Construímos, ao longo de quase duas décadas, o maior Halloween LGBT de Belo Horizonte.\nUm encontro que virou tradição para milhares de pessoas de Beagá (e pessoas de fora também).\nEm 2026 a história continua. Um local inédito, maior e 100% coberto.\n_______\nEVENTO PARA MAIORES DE 18 ANOS"
+   }
+  },
+  {
+   "id": "shotgun-577757",
+   "nome": "@BSURDA LOST IN LUST - PV7 03/10 - 22H",
+   "data": "2026-10-04T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    }
+   ],
+   "textos": {
+    "description": "@BSURDA LOST IN LUST\n03/10 - 22H30\nLANÇAMENTO DO PV7\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de outubro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-588275",
+   "nome": "@BSURDA ROCK IN RIO + MILEY 19/09",
+   "data": "2026-09-20T01:00:00.000Z",
+   "artistas": [],
+   "textos": {
+    "description": "@BSURDA ROCK IN RIO 19/09 - 22H\nEdição especial ROCK IN RIO\nHalsey, Zara Larsson, Demi Lovato, Lola Young, Black Eyed Peas, Ne-Yo, J Balvin, Maroon 5, Calvin Harris, Pedro Sampaio, Marina Sena, Gloria Groove...\nKaty Perry e Anitta vale também pensando no RIR Lisboa\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de SETEMBRO, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-588296",
+   "nome": "@BSURDA KPOP + IHR UK 12/09 - 21H",
+   "data": "2026-09-13T00:00:00.000Z",
+   "artistas": [
+    {
+     "id": 140983,
+     "name": "Lázara dos Anjos",
+     "slug": "dosanjoslazara",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/dosanjoslazara",
+     "url": "https://shotgun.live/artists/dosanjoslazara"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    }
+   ],
+   "textos": {
+    "description": "@BSURDA KPOP + IHR UK\n12/09 - 21H\nKPOP + UK\n________________\n•⁠ ⁠Aniversariantes de SETEMBRO, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-572261",
+   "nome": "CLUB BEY 05/09 - 22H",
+   "data": "2026-09-06T01:00:00.000Z",
+   "artistas": [],
+   "textos": {}
+  },
+  {
+   "id": "shotgun-557265",
+   "nome": "IHR TAYLOR SWIFT 20 ANOS 22/08 - 22H",
+   "data": "2026-08-23T01:00:00.000Z",
+   "artistas": [],
+   "textos": {
+    "description": "IHR TAYLOR SWIFT 20 ANOS\n22/08 - 22H\nDEPUTAMADRE\nEdição especial 20 anos de TAYLOR SWIFT\nTodas as eras.\n________________\n•⁠ ⁠Aniversariantes de agosto, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-573453",
+   "nome": "@BSURDA MADONNA CONFESSIONS 21/08 - 22H",
+   "data": "2026-08-22T01:00:00.000Z",
+   "artistas": [],
+   "textos": {
+    "description": "@BSURDA MADONNA CELABRATION 21/08 - 22H\nEdição\nMadonna CELABRATION\nVamos comemorar o aniversário da rainha.\nDepois de confessar, vamos celebrar.\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de agosto, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-547861",
+   "nome": "I HATE REMIX - ARIANA GRANDE PETAL 01/08 - 22H",
+   "data": "2026-08-02T01:00:00.000Z",
+   "artistas": [],
+   "textos": {
+    "description": "I HATE REMIX - ARIANA GRANDE PETAL 01/08 - 22H\nMIRA\nEdição especial de lançamento do Petal\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de agosto, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos (após a compra), desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-560392",
+   "nome": "@BSURDA FASHION, MUSIC, FILM 24/07 - 22H",
+   "data": "2026-07-25T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 747757,
+     "name": "QARMA",
+     "slug": "karmuxa",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-747757-avatar-1786971424787",
+     "url": "https://shotgun.live/artists/karmuxa"
+    },
+    {
+     "id": 716535,
+     "name": "Nico",
+     "slug": "sos-nick",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-716535-avatar-1770651798247",
+     "url": "https://shotgun.live/artists/sos-nick"
+    },
+    {
+     "id": 1088422,
+     "name": "SAM",
+     "slug": "sam-xdj",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/sam_xdj",
+     "url": "https://shotgun.live/artists/sam-xdj"
+    }
+   ],
+   "textos": {
+    "description": "@BSURDA FASHION, MUSIC, FILM\n24/07 - 22H\nalt pop - hyperpop - pop - kpop - edm\n________________\n•⁠ ⁠Aniversariantes de julho, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-563612",
+   "nome": "AFTER @BSURDA 19/07 19H30",
+   "data": "2026-07-19T22:30:00.000Z",
+   "artistas": [
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    },
+    {
+     "id": 1349585,
+     "name": "Deejay Keoma",
+     "slug": "djkeoma",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "url": "https://shotgun.live/artists/djkeoma"
+    },
+    {
+     "id": 295182,
+     "name": "Grabs",
+     "slug": "djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "url": "https://shotgun.live/artists/djgrabs"
+    }
+   ],
+   "textos": {
+    "description": "6ª PARADA DA @BSURDA e SHOTGUN\napresenta\n@BSURDA AFTER\n19/07 19H30\nEdição especial\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de julho, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos (após a compra), desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-563607",
+   "nome": "@BSURDA PRIDE 18/07 22H",
+   "data": "2026-07-19T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 1349585,
+     "name": "Deejay Keoma",
+     "slug": "djkeoma",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "url": "https://shotgun.live/artists/djkeoma"
+    },
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    },
+    {
+     "id": 295182,
+     "name": "Grabs",
+     "slug": "djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "url": "https://shotgun.live/artists/djgrabs"
+    },
+    {
+     "id": 110861,
+     "name": "RIANRIOT",
+     "slug": "rianriottt",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/rianriottt",
+     "url": "https://shotgun.live/artists/rianriottt"
+    }
+   ],
+   "textos": {
+    "description": "6ª PARADA DA @BSURDA e SHOTGUN\napresenta\n@BSURDA PRIDE\n18/07 22H\nEdição especial\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de julho, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos (após a compra), desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-558945",
+   "nome": "WIG Brunch convida Dacota Monteiro - edição Classic Divas",
+   "data": "2026-07-11T13:00:00.000Z",
+   "artistas": [
+    {
+     "id": 990778,
+     "name": "Charlotte Drag",
+     "slug": "charlotte-drag",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "url": "https://shotgun.live/artists/charlotte-drag"
+    },
+    {
+     "id": 1032372,
+     "name": "DaCota Monteiro",
+     "slug": "dacota-monteiro",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1032372-avatar-1793707595807",
+     "url": "https://shotgun.live/artists/dacota-monteiro"
+    }
+   ],
+   "textos": {
+    "description": "@BSURDA, WIG EVENTS E QUINTEIRO apresentam\nWIG Brunch especial Classic Divas com Dacota Monteiro (SP)\nJá pensou em um brunch delicioso, recheado de quitutes mineiros, com shows drags incríveis? Pois agora essa é uma realidade! Pela primeira vez em Belo Horizonte, o WIG Brunch propõe uma experiência divertida e descontraída comandada pela drag Charlotte, em um quintal super agradável ao ar livre.\nTipos de ingresso para WIG Brunch:\nQUINTAL - Mesa fechada para 4 pessoas (não inclui pratos de brunch)\nQUINTAL - Ingresso Individual simples (não inclui pratos de brunch)\nSUPERIOR - Mesa fechada para 4 pessoas (não inclui pratos de brunch)\nSUPERIOR - Ingresso Individual simples (não inclui pratos de brunch)\n* As pessoas que comprarem ingressos individuais serão alocadas em mesas compartilhadas ou em mesas fechadas previamente informadas à nossa equipe.\nSetores:\nQuintal - visão direta do palco e dos shows, direto das mesas\nSuperior - Visão parcial dos shows (obstruções estruturais)**\nTodos os ingressos incluem:\nEntrada\nEspetáculo com as WIGirls (Aria Dreamz, Charlotte, Mira MiuMiu e Nickary Ayker), além da nossa convidada Dacota Monteiro e a new face Stevie Hitchcock\n____________________________________________________________________________\nInformação:\nData e hora: 26 de outubro, das 10h às 15h\nDuração: 5h\nLocal: Quinteiro Bar (Rua Salinas 1008 - Floresta - BH/MG)\nIdade: Classificação Livre (crianças menores de 5 anos não pagam)\nHaverão opções extras de cardápio disponíveis no dia do evento, incluindo opções veganas e vegetarianas.\nHorários:\nAbertura da Casa às 10h\nShows a partir das 12h\nEncerramento às 15h"
+   }
+  },
+  {
+   "id": "shotgun-543226",
+   "nome": "@BSURDA MADONNA CONFESSIONS II 04/07 - 22H LAB",
+   "data": "2026-07-05T01:01:00.000Z",
+   "artistas": [],
+   "textos": {
+    "description": "@BSURDA MADONNA CONFESSIONS II 04/07 - 22H00\nLAB BH\nEdição\nMadonna CONFESSIONS II\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de julho, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-567803",
+   "nome": "AFTER PARADA DA @BSURDA 28/06 21H",
+   "data": "2026-06-29T00:00:00.000Z",
+   "artistas": [],
+   "textos": {}
+  },
+  {
+   "id": "shotgun-541870",
+   "nome": "6 Parada da @bsurda 28/06 - 14h",
+   "data": "2026-06-28T17:00:00.000Z",
+   "artistas": [],
+   "textos": {}
+  },
+  {
+   "id": "shotgun-564986",
+   "nome": "@BSURDA BEYONCÉ ATO II - 14/06 17H",
+   "data": "2026-06-14T20:00:00.000Z",
+   "artistas": [
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 295182,
+     "name": "Grabs",
+     "slug": "djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "url": "https://shotgun.live/artists/djgrabs"
+    },
+    {
+     "id": 990778,
+     "name": "Charlotte Drag",
+     "slug": "charlotte-drag",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "url": "https://shotgun.live/artists/charlotte-drag"
+    }
+   ],
+   "textos": {
+    "description": "@BSURDA BEYONCE ATO II\nVai rolar sim.\nE já domingo dia 14, as 17h, na Casa Sapucaí.\nFESTA PARA MAIORES DE 18 ANOS."
+   }
+  },
+  {
+   "id": "shotgun-546832",
+   "nome": "@BSURDA BEYONCÉ THE ERAS 12/06 22H",
+   "data": "2026-06-13T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 295182,
+     "name": "Grabs",
+     "slug": "djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "url": "https://shotgun.live/artists/djgrabs"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    },
+    {
+     "id": 1349585,
+     "name": "Deejay Keoma",
+     "slug": "djkeoma",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "url": "https://shotgun.live/artists/djkeoma"
+    },
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    },
+    {
+     "id": 990778,
+     "name": "Charlotte Drag",
+     "slug": "charlotte-drag",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "url": "https://shotgun.live/artists/charlotte-drag"
+    }
+   ],
+   "textos": {
+    "description": "6ª PARADA DA @BSURDA\napresenta\n@BSURDA BEYONCÉ THE ERAS\n12/06, 22H00\nEdição especial\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de junho, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos (após a compra), desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-534157",
+   "nome": "@bsurda Summer Eletrohits 23/05",
+   "data": "2026-05-24T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 561826,
+     "name": "JUJUBITAJU",
+     "slug": "user-335209594",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/user_335209594",
+     "url": "https://shotgun.live/artists/user-335209594"
+    },
+    {
+     "id": 295182,
+     "name": "Grabs",
+     "slug": "djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "url": "https://shotgun.live/artists/djgrabs"
+    },
+    {
+     "id": 1349585,
+     "name": "Deejay Keoma",
+     "slug": "djkeoma",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "url": "https://shotgun.live/artists/djkeoma"
+    }
+   ],
+   "textos": {
+    "description": "@bsurda Summer Eletrohits\n23/05, 22h\n________________\n•⁠ ⁠Aniversariantes de maio, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-531533",
+   "nome": "I HATE REMIX UK 09/05 23h00",
+   "data": "2026-05-10T02:00:00.000Z",
+   "artistas": [
+    {
+     "id": 558721,
+     "name": "Mombs",
+     "slug": "luis-solani",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/luis_solani",
+     "url": "https://shotgun.live/artists/luis-solani"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 990778,
+     "name": "Charlotte Drag",
+     "slug": "charlotte-drag",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "url": "https://shotgun.live/artists/charlotte-drag"
+    }
+   ],
+   "textos": {
+    "description": "I HATE REMIX UK\n09/05, 22h30\nEdição especial\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de maio, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos (após a compra), desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-528332",
+   "nome": "@BSURDA GAGA THE ERAS 04/04 - 22H30",
+   "data": "2026-04-05T01:30:00.000Z",
+   "artistas": [
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 1349585,
+     "name": "Deejay Keoma",
+     "slug": "djkeoma",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "url": "https://shotgun.live/artists/djkeoma"
+    },
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    },
+    {
+     "id": 295182,
+     "name": "Grabs",
+     "slug": "djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "url": "https://shotgun.live/artists/djgrabs"
+    }
+   ],
+   "textos": {
+    "description": "@BSURDA GAGA THE ERAS 04/04 - 22H30\nEdição Lady Gaga\n01 ano de Mayhem\n01 ano de Gagacabana\ne aniversário da mamãe\nQuem foi nas edições ano passado, sabe que é histórico.\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de abril, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-519642",
+   "nome": "@BSURDA LOLLA 13/3 - 22H",
+   "data": "2026-03-14T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    },
+    {
+     "id": 82499,
+     "name": "Toni †",
+     "slug": "tonicrz",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-82499-avatar-1754527974027",
+     "url": "https://shotgun.live/artists/tonicrz"
+    },
+    {
+     "id": 1349585,
+     "name": "Deejay Keoma",
+     "slug": "djkeoma",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "url": "https://shotgun.live/artists/djkeoma"
+    }
+   ],
+   "textos": {
+    "description": "I HATE REMIX LOLLA\n13\\3, 22h00\nEdição especial Lollapaloza\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de MARÇO, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-509265",
+   "nome": "I HATE REMIX RIHANNA 7/3 22H",
+   "data": "2026-03-08T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 295182,
+     "name": "Grabs",
+     "slug": "djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "url": "https://shotgun.live/artists/djgrabs"
+    },
+    {
+     "id": 1349585,
+     "name": "Deejay Keoma",
+     "slug": "djkeoma",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "url": "https://shotgun.live/artists/djkeoma"
+    }
+   ],
+   "textos": {
+    "description": "I HATE REMIX RIHANNA\n07/03, 22h\n10 anos de Anti\ne mais uma carreira toda\n________________\n•⁠ ⁠Aniversariantes de MARÇO, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-516285",
+   "nome": "MIRA CONVIDA: Mania e @bsurda 27/02 - 22h",
+   "data": "2026-02-28T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    },
+    {
+     "id": 224108,
+     "name": "Madison",
+     "slug": "user-604649501",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/user_604649501",
+     "url": "https://shotgun.live/artists/user-604649501"
+    },
+    {
+     "id": 106514,
+     "name": "JAUM",
+     "slug": "djjaum",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djjaum",
+     "url": "https://shotgun.live/artists/djjaum"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    }
+   ],
+   "textos": {
+    "description": "MIRA CONVIDA: Showcase Mania e @bsurda | 27/02 | 22h00\nDuas festas, duas propostas diferentes, uma só pista!\nEste é a MIRA CONVIDA! A ideia é simples: Conectar e sentir na mesma pista a energia do encontro das festas que a gente mais ama receber por aqui!\nPra 3ª edição, um encontro épico!\nMania e @bsurda\nGarantia de pista fervendo com duas das festas mais incríveis das cidade dividindo as pickups!\nEsteja pronto pra dançar muito ao som de Brasilidades e pop e outras cositas más, acompanhado de bar de cocktails, cerveja gelada, vinho, pizza e vista 360° da nossa amada BH.\n• QUEM TOCA?\nMania\n@bsurda\n• RODADA DUPLA de Gin Tônica até as 23h.\n• ANIVERSARIANTES do mês tem entrada OFF. Basta enviar uma mensagem no Instagram. Para os convidados, solicite por DM no nosso perfil do Instagram o acesso ao link com 10% de desconto no lote de couvert vigente no momento da compra.\n• VANTAGENS DE GARANTIR O COUVERT ANTECIPADO:\n- Mais barato que na portaria.\n- Garante a entrada em qualquer horário. Vem tranquilo, no seu tempo, sem risco de ficar de fora da festa!\n- Se a $ estiver mais curta, o valor pode ser parcelado ;)\n• Temos total acessibilidade e banheiro adaptado PCD.\n• Caso se sinta desrespeitada ou desrespeitado, avise imediatamente a algum colaborador da casa. Não toleramos NENHUM tipo de preconceito.\n• EVENTO PARA MAIORES DE 18 ANOS. Indispensável a apresentação de documento oficial com foto, ou CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.\nA gente se vê na pista!!"
+   }
+  },
+  {
+   "id": "shotgun-499115",
+   "nome": "@BSURDA CARNAVAL 14/02 - 22H",
+   "data": "2026-02-15T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    },
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    },
+    {
+     "id": 295182,
+     "name": "Grabs",
+     "slug": "djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "url": "https://shotgun.live/artists/djgrabs"
+    },
+    {
+     "id": 1349585,
+     "name": "Deejay Keoma",
+     "slug": "djkeoma",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "url": "https://shotgun.live/artists/djkeoma"
+    }
+   ],
+   "textos": {
+    "description": "@BSURDA CARNAVAL 14/02\n17/01, 22h30\nEdição especial\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de fevereiro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-518798",
+   "nome": "@FTER - 08/02 - 20H",
+   "data": "2026-02-08T23:00:00.000Z",
+   "artistas": [],
+   "textos": {
+    "description": "@FTER - 08/02\nAFTER @BSURDA\n_________________\n•⁠ ⁠Aniversariantes de fevereiro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)\nA gente se vê na pista! ⭐️"
+   }
+  },
+  {
+   "id": "shotgun-508587",
+   "nome": "ENSAIOS DA @BSURDA 06/02 - 22H",
+   "data": "2026-02-07T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    }
+   ],
+   "textos": {
+    "description": "ENSAIOS DA @BSURDA 06/02 - 22H\nEdição especial aquecimento pro Ensaios da Anitta.\n_________________\n•⁠ ⁠Aniversariantes de fevereiro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)\nA gente se vê na pista! ⭐️"
+   }
+  },
+  {
+   "id": "shotgun-510378",
+   "nome": "WIG Party convida KEIONA (FR) - 31/janeiro",
+   "data": "2026-02-01T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 990778,
+     "name": "Charlotte Drag",
+     "slug": "charlotte-drag",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "url": "https://shotgun.live/artists/charlotte-drag"
+    },
+    {
+     "id": 256708,
+     "name": "Keiona___",
+     "slug": "kevynn-morell",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-256708-avatar-1793704798502",
+     "url": "https://shotgun.live/artists/kevynn-morell"
+    }
+   ],
+   "textos": {
+    "description": "Avisa que ela tá chegando: KEIONA!\nDireto de Paris para BH, a winner da 2ª temporada do Drag Race France, vem trazendo performances chocantes e música nova! Dona de um currículo estrondoso, a Icon da House of Revlon de Paris, além de performer, é também cantora e modelo, e já foi jurada do Drag Race Brasil, Semifinalista do reality Legendary, sem falar na referência para a cena ballroom mundial. Preciso dizer algo mais?\nAlém dela, teremos Carambola Barracuda, Charlotte, Joanna Mescladi, Gana e Lanny, representando a cena local. E ai, preparadas?"
+   }
+  },
+  {
+   "id": "shotgun-498466",
+   "nome": "@BSURDA 400 SUMMER ELETROHITS 17/01",
+   "data": "2026-01-18T01:30:00.000Z",
+   "artistas": [
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    },
+    {
+     "id": 156589,
+     "name": "bauretz",
+     "slug": "bauretz",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-156589-avatar-1793702594182",
+     "url": "https://shotgun.live/artists/bauretz"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    }
+   ],
+   "textos": {
+    "description": "@BSURDA 400 SUMMER ELETROHITS\n17/01, 22h30\nEdição especial\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de janeiro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-477524",
+   "nome": "@BSURDA",
+   "data": "2025-12-21T01:00:00.000Z",
+   "artistas": [],
+   "textos": {
+    "description": "@bsurda edição 400\n13/10, 22h\nMELHORES DE 2025\n________________\n•⁠ ⁠Aniversariantes de dezembro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-496680",
+   "nome": "IHR BRITNEY E MADONNA 20/12 - 15H",
+   "data": "2025-12-20T18:00:00.000Z",
+   "artistas": [],
+   "textos": {
+    "description": "I HATE REMIX Club apresenta:\nIHR BRITNEY E MADONNA\n20/12, 15H00 no Mira\nMais uma vez a última I Hate Remix do ano trás um especial Britney.\nDessa ela não vem sozinha, Madonna vem junto pra deixar nosso sunset mais lindo.\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de dezembro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-481400",
+   "nome": "@BSURDA PROM MAYHEM - 06/12",
+   "data": "2025-12-07T01:30:00.000Z",
+   "artistas": [
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    },
+    {
+     "id": 295182,
+     "name": "Grabs",
+     "slug": "djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "url": "https://shotgun.live/artists/djgrabs"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    }
+   ],
+   "textos": {
+    "description": "@BSURDA PROM MAYHEM - 06/12\n22h30\nBaile de Máscara\nEdição especial\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de dezembro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-489061",
+   "nome": "IHR COISAS NATURAIS 29/11 14H",
+   "data": "2025-11-29T17:00:00.000Z",
+   "artistas": [],
+   "textos": {
+    "description": "IHR COISAS NATURAIS\nMARINA SENA E AMIGAS\nDuda Beat, Carol Biazin, Duquesa, Gloria Groove, Liniker, Luiz Sonza\nVibes tardizinha\nFAN PARTY\n______________\n•⁠ ⁠Aniversariantes de novembro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-474433",
+   "nome": "IHR ARIANA GRANDE 14/11 22H",
+   "data": "2025-11-15T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    }
+   ],
+   "textos": {
+    "description": "I HATE REMIX club\napresenta\nIHR ARIANA GRANDE e FRIENDS\nEdição especial\nCrew @bsurda\nEd Luiz\nNath Leles\nKeoma\nJoanna Mescladi\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de novembro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-474432",
+   "nome": "I HATE REMIX UK + Região Metropolitana 08/11 - 22H",
+   "data": "2025-11-09T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    }
+   ],
+   "textos": {
+    "description": "I HATE REMIX Club apresenta\nI HATE REMIX UK + Região Metropolitana\n08/11, 22H, Lab\nEspecial artistas do Reino Unido + Região Metropolitana\nCHARLI XX, DUA LIPA, PINKPANTHERESS, ROSE GRAY, JADE, ONE DIRECTION\nJESSIE J, ZARA LARSON, LILY ALLEN, LITTLE MIX, SPICE GIRLS, FKA TWIGS\nMARINA, RITA ORA, ADELE, LORDE E +\n____________________________\n•⁠ ⁠Aniversariantes de novembro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-481403",
+   "nome": "WIG Party - HALLOWIG - 1/novembro",
+   "data": "2025-11-02T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 86017,
+     "name": "Amerikana",
+     "slug": "iago-fernandes-32447310",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-86017-avatar-1793700136238",
+     "url": "https://shotgun.live/artists/iago-fernandes-32447310"
+    },
+    {
+     "id": 990778,
+     "name": "Charlotte Drag",
+     "slug": "charlotte-drag",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "url": "https://shotgun.live/artists/charlotte-drag"
+    },
+    {
+     "id": 167419,
+     "name": "Cava, Le Fleur",
+     "slug": "cavalefleur",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-167419-avatar-1788220641329",
+     "url": "https://shotgun.live/artists/cavalefleur"
+    },
+    {
+     "id": 1619895,
+     "name": "Jomesc",
+     "slug": "joannamescladi",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/joannamescladi",
+     "url": "https://shotgun.live/artists/joannamescladi"
+    }
+   ],
+   "textos": {
+    "description": "WIG PARTY - HALLOWIG | 1/novembro | 22h\nA WIG Party, festa de onde nasceu a WIG Events, vem com mais uma edição CHOCUNT, com um line poderoso inteiramente drag, que vão comandar a pista de dança, com muito pop, hyperpop, house e lógico, o bom funk!\nLINEUP\nDJs\nAmerikana . Cava LeFleur . Charlotte . Mira MiuMiu\nPerformances\nJaddy Stone . Joanna Mescladi\n• Caso se sinta desrespeitada ou desrespeitado, avise imediatamente a algum colaborador da casa. Não toleramos NENHUM tipo de preconceito.\n• EVENTO PARA MAIORES DE 18 ANOS. Indispensável a apresentação de documento oficial com foto, ou CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.\nA gente se vê na pista!!"
+   }
+  },
+  {
+   "id": "shotgun-476272",
+   "nome": "@bsurda IT’S NOT THAT DEEP 24/10 - 22h",
+   "data": "2025-10-25T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    }
+   ],
+   "textos": {
+    "description": "I HATE REMIX club\napresenta\n@bsurda IT’S NOT THAT DEEP\nEdição especial Demi Lovato e Friends\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de outubro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-467741",
+   "nome": "IHR The Life of a Showgirl 04/10 21H",
+   "data": "2025-10-05T00:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    }
+   ],
+   "textos": {
+    "description": "I HATE REMIX Club apresenta\nThe Life of a Showgirl\n04/10, Casa Sapucaí, 21h\nVAMOS OUVIR O SHOWGIRL JUNTAS?❤️‍🔥\nQuem mais tá muito ansioso?!!\nVem com a gente e vamos ouvir o álbum juntinhos.\nVamos ouvir o álbum completo (como foi criado) e outros hits da Taylor e também outras artistas.\n+ flash tatto\n+ copo\n+ jogos\n+ sorteios (pra quem compra antecipado)\n+ duas pistas\n____________________________\n•⁠ ⁠Aniversariantes de outubro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-468294",
+   "nome": "@bsurda Summer Eletrohits 20/09",
+   "data": "2025-09-21T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 295182,
+     "name": "Grabs",
+     "slug": "djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "url": "https://shotgun.live/artists/djgrabs"
+    },
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    }
+   ],
+   "textos": {
+    "description": "@bsurda Summer Eletrohits\n20/09, 22h\n________________\n•⁠ ⁠Aniversariantes de setembro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-464316",
+   "nome": "IHR REPUTATION 6/9 22H",
+   "data": "2025-09-07T01:00:00.000Z",
+   "artistas": [
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    }
+   ],
+   "textos": {
+    "description": "I HATE REMIX club\napresenta\nIHR REPUTATION\nEdição especial\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de setembro, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-458135",
+   "nome": "@bsurda Summer Eletrohits 16/08 22H30",
+   "data": "2025-08-17T01:30:00.000Z",
+   "artistas": [
+    {
+     "id": 295182,
+     "name": "Grabs",
+     "slug": "djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "url": "https://shotgun.live/artists/djgrabs"
+    },
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    }
+   ],
+   "textos": {
+    "description": "@bsurda apresenta:\nedição Summer Eletrohits\nSummer Eletrohits\nEuro Dance\nJovem Pan anos 2000\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de agosto, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-448731",
+   "nome": "CLUB MAYHEM 19/07 22H30",
+   "data": "2025-07-20T01:30:00.000Z",
+   "artistas": [
+    {
+     "id": 1016585,
+     "name": "absurda",
+     "slug": "absurda",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "url": "https://shotgun.live/artists/absurda"
+    },
+    {
+     "id": 295182,
+     "name": "Grabs",
+     "slug": "djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "url": "https://shotgun.live/artists/djgrabs"
+    },
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    }
+   ],
+   "textos": {
+    "description": "@bsurda apresenta:\nCLUB MAYHEM\n19/07 - 22h30\nBH celebra o mês do orgulho LGBT.\nE na programação da 5ª Parada @bsurda.\nNada mais que justo uma edição especial do Mayhem.\nCrew @bsurda\n+ convidades\n_________________\n•⁠ ⁠Aniversariantes de julho, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-371059",
+   "nome": "I HATE REMIX CHROMATICA BALL 29/5 19H",
+   "data": "2024-05-29T22:00:00.000Z",
+   "artistas": [],
+   "textos": {
+    "description": "I HATE REMIX CHROMATICA BALL\n29/5 (vespera de feriado), 19H\nMASCATE FLORESTA\nEspecial Chromatica Ball\nVamos fazer exibição do show\n+ DJs\n+ Performance\n_____________________________________________________\n•⁠ ⁠Aniversariantes de maio, só mandar mensagem no Instagram da @bsurda\n•⁠ ⁠Mais informações e outras condições via Whatsapp: 31 99303‑5873‬\n•⁠ ⁠Cancelamentos serão aceitos no prazo de 7 dias corridos, desde que tenha 48 horas antes do início do evento\n. Evento para maiores de 18 anos.\n(Aceitamos qualquer documento oficial com foto, ou então CNH digital e E-Título com foto. Documentos digitalizados ou fotos de documentos não são aceitos.)"
+   }
+  },
+  {
+   "id": "shotgun-332230",
+   "nome": "@bsurda apresenta Bichanice #2",
+   "data": "2023-07-29T22:00:00.000Z",
+   "artistas": [],
+   "textos": {
+    "description": "@bsurda apresenta\nBichanice #2\nA segunda edição do nosso Bichanice será dia 29 de julho, no Mascate do Floresta.\nEssa edição começa as 19h.\n100% samba e pagode\nDo jeito que a gente gosta\nSó vem e convide todes.\n- Grabs\n- Nath Leles\n- Ed Luiz\nConvidam\n- Kingdom\nLembrando que o Mascate é a casa do Xeque Mate.\nAniversariantes de julho, só mandar mensagem no Instagram da @bsurda\nEvento para maiores de 18 anos."
+   }
+  },
+  {
+   "id": "shotgun-302287",
+   "nome": "@bsurda Hold My Hand 25/06 21H ",
+   "data": "2022-06-26T01:00:12.000Z",
+   "artistas": [
+    {
+     "id": 84551,
+     "name": "Vil Araujo",
+     "slug": "vilaraujodj",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/Vil_Araujo",
+     "url": "https://shotgun.live/artists/vilaraujodj"
+    },
+    {
+     "id": 84552,
+     "name": "Dj Nath Leles",
+     "slug": "nath-leles",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "url": "https://shotgun.live/artists/nath-leles"
+    }
+   ],
+   "textos": {
+    "description": "@bsurda Hold My Hand\nEspecial Lady Gaga\n25/6, 22h\nPrime Hall\nCrew @bsurda\nEd Luiz\nNath Leles\nGrabs\nVil Araújo\n+ convidados surpresas\n__________________\nAniversariantes de junho entram off, só enviar mensagem no Instagram da @bsurda"
+   }
+  }
+ ]
+}
