@@ -388,7 +388,8 @@
     "url": "",
     "origem": "manual",
     "capa": "/capas/sula-de-carnaval-2022-02.jpg",
-    "capaPequena": "/capas/sula-de-carnaval-2022-02-p.jpg"
+    "capaPequena": "/capas/sula-de-carnaval-2022-02-p.jpg",
+    "local": "Sula"
   },
   {
     "id": "carnaval-sapucai-2022-03",
@@ -413,7 +414,7 @@
   },
   {
     "id": "autentica-2022-05",
-    "nome": "@bsurda na Autêntica, com shows de Mc Carol e Mac Júlia",
+    "nome": "@bsurda com Mc Carol e Mac Júlia",
     "data": "2022-05-14T22:00:00-03:00",
     "local": "Autêntica",
     "url": "",
@@ -425,11 +426,12 @@
   {
     "id": "ihr-10-anos-2022-05",
     "nome": "I Hate Remix 10 anos",
-    "data": "2022-05-28T22:00:00-03:00",
+    "data": "2022-05-28T20:00:00-03:00",
     "local": "Casa Sapucaí",
     "url": "",
     "origem": "manual",
-    "soDia": true
+    "capa": "/capas/ihr-10-anos-2022-05.jpg",
+    "capaPequena": "/capas/ihr-10-anos-2022-05-p.jpg"
   },
   {
     "id": "wonka-junina-2022-07",
@@ -437,7 +439,9 @@
     "data": "2022-07-23T20:00:00-03:00",
     "local": "Casa Sapucaí",
     "url": "",
-    "origem": "manual"
+    "origem": "manual",
+    "capa": "/capas/wonka-junina-2022-07.jpg",
+    "capaPequena": "/capas/wonka-junina-2022-07-p.jpg"
   },
   {
     "id": "ihr-rock-in-rio-2022-09",
@@ -489,5 +493,15 @@
     "origem": "manual",
     "capa": "/capas/indie-pop-2022-12.jpg",
     "capaPequena": "/capas/indie-pop-2022-12-p.jpg"
+  },
+  {
+    "id": "virada-2022-09",
+    "nome": "@bsurda na Virada Cultural",
+    "data": "2022-09-04T06:50:00-03:00",
+    "local": "Praça da Estação",
+    "url": "",
+    "origem": "manual",
+    "capa": "/capas/virada-2022-09.jpg",
+    "capaPequena": "/capas/virada-2022-09-p.jpg"
   }
 ]

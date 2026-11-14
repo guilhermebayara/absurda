@@ -264,6 +264,8 @@ const FORA_DA_AGENDA = [
 // data, a hora ou a casa, ou um erro de digitação. A agenda já mostra data e casa ao lado.
 // O arquivo (src/data/arquivo.json) continua com o nome original; a troca é só na exibição.
 const NOMES_CORRIGIDOS: Record<string, string> = {
+  // A capa diz I Hate Remix; o Sympla foi criado como "@bsurda Especial Beyoncé" (Gui, nov 2026).
+  'sympla-1460342': 'I Hate Remix Especial Beyoncé',
   'sympla-3035929': 'OFICINA VOGUE 5ª PARADA DA @BSURDA',
   'sympla-3035921': 'OFICINA DRAG 5ª PARADA DA @BSURDA',
   'sympla-2030418': 'CHRONUS - o espetáculo Drag (Temporada em São Paulo)',

@@ -232,7 +232,8 @@ que traz nome, data e local. Entraram 12 eventos na Agenda, escritos à mão, 10
 06/09 I Hate Remix feat. WIG Especial Rock in Rio (Odeon Hub), 30/09 Latina, 22/10 13 anos com
 Potyguara (Autêntica), 03/12 Prom Baile de Máscara, 16/12 Indie Pop (Odeon Hub).
 
-Pendências: capa do IHR 10 anos (a que está na pasta é de outra edição, "Gis Mais 18/4");
-capa da Wonka ficou de fora (rosto de criança, cena de filme); local da Sula de Carnaval; Virada
-(arte sem data); pastas MOC, Premio, yolo e Anda sem capa; 12/02 aparece na Agenda como
-"@bsurda Especial Beyoncé" e a capa diz "I Hate Remix Especial Beyoncé".
+Respostas do Gui (14/11): a capa do IHR 10 anos é `capa-evento-ihr (31)).png`, na pasta
+"I Hate Remix" (a pasta "IHR" não serve); a capa da Wonka pode entrar; Sula é o local e a festa é
+da @bsurda; 12/02 é I Hate Remix Especial Beyoncé (nome corrigido em `NOMES_CORRIGIDOS`, sem mexer
+no arquivo); 14/05 chama "@bsurda com Mc Carol e Mac Júlia"; a Virada foi em 04/09, na Praça da
+Estação. MOC, Premio, yolo e Anda ficam de fora por ora.
