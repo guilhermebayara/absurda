@@ -20,6 +20,7 @@ import Cracha from '../../components/Cracha.astro';
 import Arroba from '../../components/marca/Arroba.astro';
 import { getCollection } from 'astro:content';
 import { numeroDoCracha } from '../../lib/pessoas';
+import { foraDaCabine } from '../../lib/equipe';
 
 const pessoas = (await getCollection('pessoas')).sort((a, b) => a.data.ordem - b.data.ordem);
 const atuais = pessoas.filter((p) => p.data.situacao === 'atual');
@@ -30,19 +31,6 @@ const atuais = pessoas.filter((p) => p.data.situacao === 'atual');
 // os números estiverem definidos; a da equipe atual não depende disso.
 const anteriores = pessoas.filter((p) => p.data.situacao === 'anterior');
 
-// Fora da cabine. "url" é opcional: perfil, site, o que fizer sentido para cada um.
-// Com "url", informe também "destino", o nome curto que aparece na ponta da pulseira
-// ("Instagram", "Site").
-// "grupo" decide a cor da pulseira: quem trabalha com a mesma coisa usa a mesma cor, ainda que a
-// área escrita na estampa seja diferente (foto, foto e vídeo).
-const foraDaCabine: { area: string; grupo: string; nome: string; url?: string; destino?: string }[] = [
-  { area: 'Foto e vídeo', grupo: 'imagem', nome: 'Estilingue', url: 'https://www.instagram.com/estilingue/', destino: 'Instagram' },
-  { area: 'Foto', grupo: 'imagem', nome: 'Felipe Cesar', url: 'https://www.instagram.com/felipecesard_/', destino: 'Instagram' },
-  { area: 'Foto', grupo: 'imagem', nome: 'Yury Oliveira', url: 'https://www.instagram.com/hey.yury/', destino: 'Instagram' },
-  { area: 'Bar', grupo: 'bar', nome: 'Jaci', url: 'https://linktr.ee/jacigestaodebares', destino: 'Linktree' },
-  { area: 'Som e luz', grupo: 'som', nome: 'Léo' },
-  { area: 'Cenografia', grupo: 'cenografia', nome: 'Ayumi', url: 'https://www.instagram.com/_ayuready/', destino: 'Instagram' },
-];
 const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
 ---
 <Base titulo="Equipe">
