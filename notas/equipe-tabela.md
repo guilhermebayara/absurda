@@ -180,3 +180,21 @@ Formato ainda a definir. Foram poucas, e hoje ele só faz sets especiais.
   conta do Mira não são nossas: são projetos de outras pessoas, com tema parecido (Gui).
 - Outros produtores: o Gui e o Ed colam os links na aba "Contas de terceiros" da planilha
   "Pendências do site"; a sessão varre e confere com a Agenda.
+
+### Conferência da Agenda com o Sympla (14 nov 2026)
+
+1. **API da conta x Agenda.** A API devolve só os eventos criados pela conta (225). Treze não
+   estão no arquivo, todos explicados: cinco de 2012 e 2013 aparecem pelo álbum do Flickr; três
+   estão em `FORA_DA_AGENDA`; Tibum Verão adiado; @bsurda em Casa #2 duplicada; Halloween de 16
+   anos entra por `sympla-historico.json`; IHR Lady Gaga de 2021 (a confirmar se aconteceu);
+   @bsurda Summer Eletrohits de 19/07/2025 no LAB (a confirmar com o Gui: no site, nessa data, há
+   Club Mayhem, do Shotgun).
+2. **Página pública da @bsurda x Agenda.** A aba Encerrados mostra 100 eventos, de 12 jan 2023
+   para cá, incluindo os criados por outras casas e compartilhados. Todos os 100 estão no site.
+3. **Casas.** Major Lock (470 eventos) e LAB (545) varridos: nada a acrescentar. Casa Sapucaí
+   esconde os encerrados.
+
+**Limite do Sympla:** a página pública de qualquer produtor só mostra encerrados de janeiro de
+2023 para cá (visto nas páginas da @bsurda, do Mira, do Major Lock e do LAB). Evento anterior a
+2023 criado na conta de uma casa não aparece em lugar nenhum público: só por link direto, arte
+ou memória. No arquivo, os 60 eventos compartilhados são todos de 2023 em diante.
