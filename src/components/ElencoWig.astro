@@ -1,0 +1,40 @@
+---
+// Elenco da WIG na página do projeto: um crachá da WIG por pessoa. Só a Charlotte tem página no
+// site; as outras levam ao Instagram de cada uma (decisão do Gui). Dados em src/data/wig.json.
+import CrachaWig from './CrachaWig.astro';
+import wig from '../data/wig.json';
+const drags = wig.elenco.filter((p) => p.grupo === 'drags');
+const producao = wig.elenco.filter((p) => p.grupo === 'producao');
+---
+<section class="secao elenco" aria-labelledby="t-elenco">
+  <h2 id="t-elenco" class="titulo-secao">WIGurls</h2>
+  <ul class="elenco-grade">
+    {drags.map((p) => (
+      <li><CrachaWig id={p.id} nome={p.nome} epiteto={p.epiteto} foto={p.foto} href={p.pagina ?? p.instagram} externo={!p.pagina} selo={p.selo} /></li>
+    ))}
+  </ul>
+  <h3 class="elenco-sub">Produção</h3>
+  <ul class="elenco-grade">
+    {producao.map((p) => (
+      <li><CrachaWig id={p.id} nome={p.nome} foto={p.foto} href={p.instagram} externo rotulo="Produção" /></li>
+    ))}
+  </ul>
+  <p class="elenco-credito">Fotos do casting: {wig.creditos.foto}. Retoques: {wig.creditos.retoques}.</p>
+</section>
+
+<style>
+  .elenco-grade { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2.4vw, 2.25rem); }
+  .elenco-grade li:nth-child(odd) { transform: rotate(-1.2deg); }
+  .elenco-grade li:nth-child(even) { transform: rotate(1deg); }
+  .elenco-sub { margin: clamp(2.5rem, 6vw, 4.5rem) 0 var(--e-2); font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  .elenco-credito { margin-top: clamp(1.5rem, 3vw, 2.5rem); font-size: 0.8125rem; color: var(--suave); }
+  @media (max-width: 1000px) { .elenco-grade { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  /* No celular o crachá perde a foto se ficar pequeno demais: a grade vira uma fileira que se
+     arrasta de lado, com cada crachá quase na largura da tela. Sangra até as bordas. */
+  @media (max-width: 720px) {
+    .elenco-grade { display: flex; gap: 0.9rem; margin: 0 calc(-1 * var(--margem)); padding: 0.6rem var(--margem) 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--margem); scrollbar-width: none; }
+    .elenco-grade::-webkit-scrollbar { display: none; }
+    .elenco-grade li { flex: 0 0 70%; scroll-snap-align: start; }
+    .elenco-grade li:only-child { flex-basis: 70%; }
+  }
+</style>

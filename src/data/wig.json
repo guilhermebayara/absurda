@@ -1,0 +1,82 @@
+{
+  "_": "Elenco da WIG. Nome, epíteto e foto vêm dos posts oficiais de apresentação do casting (fotos de @jonas__dias, retoques de @iagorci). Só a Charlotte tem página no site; as demais levam ao Instagram.",
+  "creditos": {
+    "foto": "@jonas__dias",
+    "retoques": "@iagorci"
+  },
+  "elenco": [
+    {
+      "id": "charlotte",
+      "nome": "Charlotte",
+      "epiteto": "patroa",
+      "instagram": "https://www.instagram.com/charlottedrag/",
+      "foto": "/projetos/wig/charlotte.jpg",
+      "grupo": "drags",
+      "pagina": "/equipe/charlotte",
+      "selo": "Patroa"
+    },
+    {
+      "id": "aria-dreamz",
+      "nome": "Aria Dreamz",
+      "epiteto": "diva latina",
+      "instagram": "https://www.instagram.com/ariadreamz/",
+      "foto": "/projetos/wig/aria-dreamz.jpg",
+      "grupo": "drags"
+    },
+    {
+      "id": "carambola",
+      "nome": "Carambola",
+      "epiteto": "drag fruta",
+      "instagram": "https://www.instagram.com/eucarambola/",
+      "foto": "/projetos/wig/carambola.jpg",
+      "grupo": "drags"
+    },
+    {
+      "id": "jaddy-stone",
+      "nome": "Jaddy Stone",
+      "epiteto": "titia",
+      "instagram": "https://www.instagram.com/jaddystone/",
+      "foto": "/projetos/wig/jaddy-stone.jpg",
+      "grupo": "drags"
+    },
+    {
+      "id": "joanna-mescladi",
+      "nome": "Joanna Mescladi",
+      "epiteto": "diva circense",
+      "instagram": "https://www.instagram.com/joannazinha/",
+      "foto": "/projetos/wig/joanna-mescladi.jpg",
+      "grupo": "drags"
+    },
+    {
+      "id": "mannu-mallibu",
+      "nome": "Mannu Mallibu",
+      "epiteto": "cronicamente online",
+      "instagram": "https://www.instagram.com/mannumallibu/",
+      "foto": "/projetos/wig/mannu-mallibu.jpg",
+      "grupo": "drags"
+    },
+    {
+      "id": "mira-miumiu",
+      "nome": "Mira MiuMiu",
+      "epiteto": "megera mais amável",
+      "instagram": "https://www.instagram.com/somentemira/",
+      "foto": "/projetos/wig/mira-miumiu.jpg",
+      "grupo": "drags"
+    },
+    {
+      "id": "nickary-ayker",
+      "nome": "Nickary Ayker",
+      "epiteto": "furacão",
+      "instagram": "https://www.instagram.com/nickary.aycker/",
+      "foto": "/projetos/wig/nickary-ayker.jpg",
+      "grupo": "drags"
+    },
+    {
+      "id": "rafael-pessoa",
+      "nome": "Rafael Pessoa",
+      "instagram": "https://www.instagram.com/rafaelpessoa_/",
+      "foto": "/projetos/wig/rafael-pessoa.jpg",
+      "grupo": "producao"
+    }
+  ]
+}

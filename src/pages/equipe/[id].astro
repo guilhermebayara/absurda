@@ -5,6 +5,8 @@ import { getCollection, render } from 'astro:content';
 import Botao from '../../components/Botao.astro';
 import { atributo } from '../../lib/temas';
 import { temasDaPessoa, numeroDoCracha } from '../../lib/pessoas';
+import CrachaWig from '../../components/CrachaWig.astro';
+import wig from '../../data/wig.json';
 
 export async function getStaticPaths() {
   const pessoas = await getCollection('pessoas');
@@ -21,6 +23,9 @@ const projetos = (await getCollection('projetos')).filter((pr) => pr.data.pessoa
 // Os temas vêm da foto da pessoa (ou do site, sem foto). A página sorteia um a cada visita.
 // data-temas leva a lista inteira para a conferência de contraste (scripts/confere-temas.mjs).
 const temas = await temasDaPessoa(pessoa.id, pessoa.data.foto);
+// Quem está no elenco da WIG e tem página aqui ganha o crachá da WIG em destaque, abaixo da
+// ficha. O crachá principal continua sendo o da @bsurda (pedido do Gui).
+const naWig = wig.elenco.find((p) => p.pagina === `/equipe/${pessoa.id}`);
 // A ficha: o conteúdo fala a língua do crachá (rótulo, valor, filete), sem virar outro objeto.
 // Todas as redes têm o mesmo peso; o Instagram só vem primeiro.
 const num = numero ? String(numero).padStart(3, '0') : 'XXX';
@@ -66,6 +71,16 @@ const periodo = alumni ? `Na @bsurda de ${pessoa.data.desde ?? 'XXXX'} a ${pesso
       {/* O caminho de volta fica no fim, onde a leitura termina. No topo ele competia com os crachás. */}
       <p class="pessoa-volta"><Botao href="/equipe" tipo="linha">Toda a equipe</Botao></p>
     </div>
+    {naWig && (
+      <aside class="pessoa-wig" aria-labelledby="t-wig">
+        <div class="pessoa-wig-cracha"><CrachaWig id={naWig.id} nome={naWig.nome} epiteto={naWig.epiteto} foto={naWig.foto} href="/projetos/wig" selo={naWig.selo} /></div>
+        <div class="pessoa-wig-texto">
+          <p class="etiqueta">Também de crachá na WIG</p>
+          <h2 id="t-wig" class="t-medio">{naWig.selo ?? 'WIGurl'} da WIG events</h2>
+          <p><Botao href="/projetos/wig" tipo="linha">Conhecer a WIG</Botao></p>
+        </div>
+      </aside>
+    )}
   </div>
 </Base>
 
@@ -92,6 +107,10 @@ const periodo = alumni ? `Na @bsurda de ${pessoa.data.desde ?? 'XXXX'} a ${pesso
     .pessoa-verso:hover { z-index: 2; transform: rotate(1deg) translateY(-0.4rem); }
   }
   .pessoa-texto > * + * { margin-top: 1.25rem; }
+  /* Crachá da WIG em destaque: começa a parte da página que é de cada pessoa. */
+  .pessoa-wig { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); align-items: center; margin-top: clamp(1rem, 3vw, 2.5rem); padding-top: clamp(2.5rem, 6vw, 5rem); border-top: 2px solid currentColor; }
+  .pessoa-wig-cracha { transform: rotate(-3deg); }
+  .pessoa-wig-texto > * + * { margin-top: 1rem; }
   .pessoa-fato { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; }
   .pessoa-barra { display: inline-block; margin: 0 0.45em; font-weight: 800; color: var(--destaque); }
   /* A linha "rótulo / valor" com filete vem do "Acesso / Total" do crachá. */
@@ -110,6 +129,8 @@ const periodo = alumni ? `Na @bsurda de ${pessoa.data.desde ?? 'XXXX'} a ${pesso
   @media (max-width: 720px) {
     .pessoa { grid-template-columns: minmax(0, 1fr); }
     .ficha > div { grid-template-columns: minmax(0, 1fr); }
+    .pessoa-wig { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+    .pessoa-wig-cracha { width: 72%; }
     /* No celular não cabem lado a lado em tamanho legível: ficam em escada, a frente em cima à
        esquerda e o verso descendo à direita, por baixo dela. */
     .pessoa-crachas { --l: min(13.5rem, 60vw); width: 100%; height: calc(var(--l) * 1.4 * 1.78); }

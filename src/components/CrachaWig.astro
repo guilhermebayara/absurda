@@ -1,0 +1,72 @@
+---
+// Crachá da WIG: conversa com o crachá da @bsurda (mesma proporção, mesmo furo, mesma forma de
+// redimensionar), mas é pensado na marca da WIG. O nome vem na letra da marca, já em curvas
+// (src/data/wig-letras.json), o "w" assina o topo e a faísca separa o rodapé. Não tem verso, ano
+// nem número: o elenco da WIG não entra na conta dos crachás da @bsurda (decisão do Gui).
+// Sólido como todo crachá: usa a superfície invertida do tema (texto no fundo, fundo no texto).
+import WigW from './marca/WigW.astro';
+import letras from '../data/wig-letras.json';
+
+interface Props {
+  id: string;
+  nome: string;
+  epiteto?: string;
+  foto: string;
+  href?: string;
+  externo?: boolean;
+  rotulo?: string;
+  selo?: string;
+  class?: string;
+}
+const { id, nome, epiteto, foto, href, externo = false, rotulo = 'WIGurl', selo, class: classe } = Astro.props;
+const letra = (letras as Record<string, { d: string; w: number; h: number } | string>)[id];
+const curva = typeof letra === 'object' ? letra : undefined;
+const linhas = nome.split(' ').length;
+const Marca = href ? 'a' : 'span';
+const FAISCA = "M9.126 23.02C6.55266 24.95 3.52899 26.9443 0.0549927 29.003C3.40033 30.933 6.29533 32.7986 8.74 34.6C11.3133 36.4013 13.6293 38.3313 15.688 40.3899C17.7467 42.4486 19.6123 44.7003 21.285 47.1449C23.0863 49.7183 24.952 52.6776 26.882 56.0229C28.9407 52.5489 30.935 49.4609 32.865 46.7589C34.795 44.1856 36.8537 41.8053 39.041 39.6179C41.2283 37.4306 43.6087 35.372 46.182 33.442C48.884 31.512 51.972 29.5176 55.446 27.459C52.1007 25.529 49.1413 23.6633 46.568 21.862C44.1233 20.0606 41.8717 18.1306 39.813 16.072C37.7543 14.0133 35.8243 11.6973 34.023 9.12397C32.3503 6.67931 30.549 3.7843 28.619 0.438965C26.5603 3.91296 24.566 6.93663 22.636 9.50996C20.706 12.212 18.6473 14.6566 16.46 16.844C14.2727 19.0313 11.828 21.09 9.126 23.02Z";
+---
+<Marca class:list={['cw', classe]} href={href} target={externo ? '_blank' : undefined} rel={externo ? 'noopener' : undefined}>
+  <span class="cw-face">
+    <span class="cw-furo" aria-hidden="true"></span>
+    <span class="cw-topo"><WigW class="cw-marca" /><span>{rotulo}</span></span>
+    <span class="cw-retrato"><img src={foto} alt="" loading="lazy" decoding="async" /></span>
+    {selo && <span class="cw-selo" aria-hidden="true"><svg viewBox="0 0 56 57" fill="currentColor"><path d={FAISCA} /></svg><strong>{selo}</strong></span>}
+    <span class="cw-texto">
+      {curva
+        ? <svg class:list={['cw-nome', { 'cw-nome-uma': linhas === 1 }]} viewBox={`0 0 ${curva.w} ${curva.h}`} fill="currentColor" role="img" aria-label={nome} style={`aspect-ratio:${curva.w}/${curva.h}`}><path d={curva.d} /></svg>
+        : <strong class="cw-nome-texto">{nome}</strong>}
+      {selo && <span class="so-leitor">. {selo}</span>}
+      {epiteto && <span class="cw-epiteto"><span class="so-leitor">, </span>« {epiteto} »</span>}
+    </span>
+    <span class="cw-pe" aria-hidden="true"><span>WIG events</span><svg viewBox="0 0 56 57" fill="currentColor"><path d={FAISCA} /></svg><strong>{rotulo === 'WIGurl' ? 'Casting' : 'Bastidor'}</strong></span>
+    {externo && <span class="so-leitor"> (Instagram, abre em outra aba)</span>}
+  </span>
+</Marca>
+
+<style>
+  .cw { --c-fundo: var(--texto); --c-texto: var(--fundo); display: block; aspect-ratio: 5 / 7; color: var(--c-texto); text-decoration: none; }
+  .cw-face { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr auto auto; height: 100%; padding: 0.9rem 0.9rem 1rem; border-radius: clamp(1rem, 1.8vw, 1.5rem); background: var(--c-fundo); }
+  .cw-furo { justify-self: center; width: 2.75rem; height: 0.6rem; border-radius: 1rem; background: var(--fundo); }
+  .cw-topo { display: flex; align-items: center; justify-content: space-between; margin-top: 0.8rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  .cw-topo :global(.cw-marca) { height: 1.35rem; width: auto; }
+  /* A foto do casting já traz a inicial gigante da marca atrás da drag: a janela é maior que a do
+     crachá da @bsurda para ela aparecer. */
+  .cw-retrato { position: relative; display: block; overflow: hidden; min-height: 0; margin-top: 0.7rem; border-radius: clamp(0.6rem, 1vw, 0.9rem); background: color-mix(in srgb, var(--c-texto) 12%, var(--c-fundo)); }
+  .cw-retrato img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; display: block; }
+  .cw-texto { display: grid; gap: 0.4rem; justify-items: start; margin-top: 0.8rem; }
+  .cw-nome { display: block; height: 3.5rem; width: auto; max-width: 100%; }
+  .cw-nome-uma { height: 1.9rem; }
+  .cw-nome-texto { font-size: 1.5rem; font-weight: 800; line-height: 0.95; }
+  .cw-epiteto { font-size: 0.875rem; line-height: 1.2; }
+  .cw-pe { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-top: 0.8rem; padding-top: 0.65rem; border-top: 2px solid var(--c-texto); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.16em; white-space: nowrap; }
+  .cw-pe span { font-weight: 500; }
+  .cw-pe strong { font-weight: 800; }
+  .cw-pe svg { width: 0.7rem; height: 0.7rem; flex: none; }
+  /* Selo da patroa: o adesivo redondo do fundador, na versão da WIG, só no da Charlotte. */
+  .cw-selo { position: absolute; top: 4.4rem; right: -0.8rem; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 0.2rem; width: 5.25rem; aspect-ratio: 1; border-radius: 50%; background: var(--c-texto); color: var(--c-fundo); transform: rotate(9deg); }
+  .cw-selo svg { width: 0.9rem; height: 0.9rem; }
+  .cw-selo strong { font-size: 0.8125rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+  a.cw { transition: transform 0.25s ease; }
+  @media (hover: hover) and (pointer: fine) { a.cw:hover { transform: translateY(-0.35rem) rotate(-1deg); } }
+  @media (prefers-reduced-motion: reduce) { a.cw { transition: none; } a.cw:hover { transform: none; } }
+</style>

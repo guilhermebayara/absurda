@@ -130,6 +130,13 @@ acertado caso a caso com o Gui.
   ("azul", "verde floresta"); o tom é sempre escolhido por nós, para encaixar no site, e nós
   decidimos se as duas entram no mesmo tema ou se viram temas à parte.
 
+**WIG (do Gui):** a página do projeto usa a paleta fechada `TEMAS_DA_WIG` e, no lugar do "Quem
+faz", mostra o elenco em crachás da WIG (`CrachaWig.astro`, dados em `src/data/wig.json`): mesma
+proporção e mesmo furo do crachá da @bsurda, com o "w" e a letra da marca, sem verso, ano nem número.
+Só a Charlotte tem página no site (o crachá dela leva o selo "Patroa" e aparece também na página
+dela, abaixo da ficha); os outros levam ao Instagram de cada pessoa. O nome na letra da marca entra
+como curva (`src/data/wig-letras.json`); o arquivo da fonte não entra no site.
+
 ## Sessões de QA
 
 Vale para sessões abertas só para conferir o site. As regras acima continuam valendo

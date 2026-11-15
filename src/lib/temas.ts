@@ -97,7 +97,17 @@ export const TEMAS_DA_PARADA: Tema[] = [
   { fundo: '#8a0f45', texto: '#ffe9f1', destaque: '#ffc94d' }, // magenta com amarelo
   { fundo: '#2b1a08', texto: '#ffe9c9', destaque: '#f4317f' }, // marrom com rosa
 ];
-export const PALETAS_DE_PROJETO: Record<string, Tema[]> = { tibum: TEMAS_DO_TIBUM, bloco: TEMAS_DO_TRIO, parada: TEMAS_DA_PARADA };
+// WIG: a paleta da marca (pasta de marca do Gui). Vermelho Wig, Rosa Lace e Laranja Penteado,
+// sobre preto de cortina ou claro de camarim. Sempre com vermelho por perto.
+export const TEMAS_DA_WIG: Tema[] = [
+  { fundo: '#140a0b', texto: '#fff5f8', destaque: '#e8322c' }, // preto de cortina com vermelho
+  { fundo: '#b81b1b', texto: '#fff5f8', destaque: '#ffbad8' }, // Vermelho Wig com Rosa Lace
+  { fundo: '#ffbad8', texto: '#5a0d0d', destaque: '#b81b1b' }, // Rosa Lace com vermelho
+  { fundo: '#fbf1ed', texto: '#4a0c0c', destaque: '#e65122' }, // claro de camarim com Laranja Penteado
+  { fundo: '#8b1414', texto: '#fff5f8', destaque: '#f28b5c' }, // vermelho escuro com laranja
+];
+
+export const PALETAS_DE_PROJETO: Record<string, Tema[]> = { tibum: TEMAS_DO_TIBUM, bloco: TEMAS_DO_TRIO, parada: TEMAS_DA_PARADA, wig: TEMAS_DA_WIG };
 
 // Escolhe sempre o mesmo tema para o mesmo identificador,
 // para a cor de um projeto ou pessoa não mudar a cada publicação.
