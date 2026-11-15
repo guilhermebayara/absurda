@@ -149,7 +149,18 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
 (Money, PFVR), que ficam em cartazes vazados. Furdunço da Bôta e Boat da Bôta não são da WIG
 (a Charlotte produz, mas é projeto à parte) e não entram.
 
-## Sessões de QA
+## Pasta do site no Drive (do Gui)
+
+Tudo o que entra no site (fotos, textos, capas) chega pela pasta `10_site` do Drive do Gui
+(`Mercurio/1_Institucional/2_Absurda/10_site`), que segue o menu: `0_Caixa de entrada`, `1_Home`,
+`2_Agenda` (capas antigas por ano), `3_Projetos/<id>`, `4_Sobre`, `5_Equipe/<id>`, `6_Parcerias`. Em
+Projetos e Equipe o nome da subpasta é o id da página no site (`3_Projetos/halloween`,
+`5_Equipe/ed-luiz`); projeto ou pessoa nova ganha pasta com o mesmo id. O documento "00 Leia-me" na
+raiz explica as regras para quem sobe arquivos (nome com data, assunto e crédito; `_top` para a
+preferida). Ao lado fica a planilha "Pendências do site". Documentos que pedem material a alguém
+(como o da WIG para o Rafa) são Google Docs dentro da pasta da página.
+
+
 
 Vale para sessões abertas só para conferir o site. As regras acima continuam valendo
 inteiras; esta seção diz o que muda quando o trabalho é QA.

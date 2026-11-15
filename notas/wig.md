@@ -125,7 +125,7 @@ Parceria: @estudio.cadin
 
 Cada post tem uma segunda imagem com uma bio curta e a lista "Atuação" de cada drag (hostess,
 mestre de cerimônias, performer, DJ e assim por diante). As imagens estão em
-`10_site/Projetos/wig/Drags/<nome>/` e não foram transcritas aqui.
+`10_site/3_Projetos/wig/Drags/<nome>/` e não foram transcritas aqui.
 
 ## Eventos só da WIG (15 nov 2026)
 
