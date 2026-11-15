@@ -3,6 +3,7 @@ nome: "Wig"
 resumo: "Nasceu na @bsurda e hoje é da Charlotte. Muitas edições ainda são coprodução nossa."
 tituloHistorico: "Edições com a @bsurda"
 capa: "/projetos/wig.jpg"
+foco: "50% 27%"
 situacao: independente
 ordem: 11
 pessoas: [charlotte]
