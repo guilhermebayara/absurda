@@ -141,7 +141,7 @@ Instagram de cada pessoa. O elenco vem antes das edições com a @bsurda, com um
 como curva (`src/data/wig-letras.json`); o arquivo da fonte não entra no site. Tudo dentro do
 crachá da WIG é medido pela largura dele (cqw), para ele redimensionar inteiro sem quebrar.
 Os eventos que são só da WIG (brunchs, Tela Tuck, Arraiá das Piranhas) aparecem só
-na página do projeto, na seção "Só da WIG", e nunca na Agenda; ficam em `src/data/wig-eventos.json`,
+na página do projeto, na seção "O que a WIG faz" (um bloco por projeto, com as datas dentro), e nunca na Agenda; ficam em `src/data/wig-eventos.json`,
 escritos à mão. Coprodução com a @bsurda entra na Agenda como qualquer evento. Furdunço da Bôta e Boat da Bôta não são da WIG
 (a Charlotte produz, mas é projeto à parte) e não entram.
 

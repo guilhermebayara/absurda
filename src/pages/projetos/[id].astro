@@ -137,6 +137,8 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
   {/* A WIG mostra quem a faz, em crachás da WIG, antes das edições com a @bsurda e no lugar do
       "Quem faz" dos outros projetos (pedido do Gui). */}
   {projeto.id === 'wig' && <ElencoWig />}
+  {/* Os projetos da WIG, com as datas de cada um. Os eventos só dela não entram na Agenda (pedido do Gui). */}
+  {projeto.id === 'wig' && <EventosWig />}
 
   {historicas.length > 0 && (
     <section class="bloco" aria-labelledby="t-historicas">
@@ -311,9 +313,6 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
       </ul>
     </section>
   )}
-
-  {/* Os eventos que são só da WIG ficam aqui e não entram na Agenda (pedido do Gui). */}
-  {projeto.id === 'wig' && <EventosWig />}
 
   <a class="seguinte" href={`/projetos/${seguinte.id}`} data-tema={atributo(temaSeguinte)}>
     <span class="etiqueta">Próximo projeto</span>

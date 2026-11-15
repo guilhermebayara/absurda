@@ -141,3 +141,10 @@ WIG no Sympla, provavelmente por compartilhamento de conta; a Charlotte produz l
 projetos separados. Ficaram 32 eventos em três séries. O CHRONUS teve mais espetáculos antes de São
 Paulo; o Gui confirma depois. Ideia do Gui: a página da WIG falar dos projetos principais (CHRONUS,
 Brunch, watch parties).
+
+Branch `teste-wig-projetos` (15 nov 2026): a lista virou a seção "O que a WIG faz", logo depois do
+elenco, com um bloco por projeto (WIG Brunch, Tela Tuck, CHRONUS, Arraiá das Piranhas). Os textos são
+rascunho meu, tirados das descrições dos eventos no Sympla da WIG; a Charlotte e o Gui ajustam. Sem
+fotos por enquanto (o Gui disse que virão). Do CHRONUS a descrição de São Paulo fala em duas
+temporadas em BH e uma apresentação na Virada Cultural antes de São Paulo; só temos as datas de
+05/11/2021 (Teatro da Cidade) e 04 a 06/08/2023 (Galpão do Folias).

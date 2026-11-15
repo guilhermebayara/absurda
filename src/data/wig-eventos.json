@@ -1,18 +1,29 @@
 {
- "_": "Eventos que são só da WIG (a @bsurda às vezes apoia, mas não produz). Aparecem só na página do projeto, nunca na Agenda (decisão do Gui). Vêm das contas da própria WIG: sympla.com.br/produtor/wigevents e shotgun.live/en/venues/wig-events, lidas em 15 nov 2026. O Sympla só mostra de 2023 para cá. Os que são coprodução com a @bsurda já estão na Agenda e ficam de fora daqui. Para atualizar, acrescente linhas à mão. Furdunço da Bôta e Boat da Bôta apareciam na conta da WIG no Sympla, mas são de outra produção da Charlotte e ficam de fora (Gui, 15 nov 2026).",
+ "_": "Eventos que são só da WIG (a @bsurda às vezes apoia, mas não produz). Aparecem só na página do projeto, nunca na Agenda (decisão do Gui). Vêm das contas da própria WIG: sympla.com.br/produtor/wigevents e shotgun.live/en/venues/wig-events, lidas em 15 nov 2026. O Sympla só mostra de 2023 para cá. Os que são coprodução com a @bsurda já estão na Agenda e ficam de fora daqui. Para atualizar, acrescente linhas à mão. Furdunço da Bôta e Boat da Bôta apareciam na conta da WIG no Sympla, mas são de outra produção da Charlotte e ficam de fora (Gui, 15 nov 2026). Os textos de cada projeto são rascunho, escritos a partir das descrições dos eventos da própria WIG, para a Charlotte e o Gui ajustarem. O CHRONUS é coprodução e também está na Agenda; as datas aqui são só as que já conhecemos (faltam as temporadas de BH e a Virada Cultural, que o Gui confirma).",
  "series": [
   {
    "id": "brunch",
-   "nome": "WIG Brunch"
+   "nome": "WIG Brunch",
+   "texto": "Brunch com quitutes mineiros e shows de drag num quintal ao ar livre, comandado pela Charlotte. A cada edição, uma convidada de fora divide o palco com as drags da casa."
   },
   {
    "id": "tela",
    "nome": "Tela Tuck",
-   "nota": "Sessões para assistir junto: Drag Race Brasil e Corrida das Blogueiras."
+   "texto": "A watch party da WIG. A cada episódio de Drag Race Brasil ou do Corrida das Blogueiras, uma drag da casa apresenta, comenta e toca, quase sempre com convidada.",
+   "palavra": "sessões"
+  },
+  {
+   "id": "chronus",
+   "nome": "CHRONUS",
+   "palavra": "temporadas",
+   "coproducao": true,
+   "texto": "O espetáculo drag da WIG, no molde das turnês das drags de RuPaul’s Drag Race. A cientista Charlotte tenta corrigir as falhas da história e acaba trazendo drags de outras décadas para o presente, em números de dublagem, dança, comédia, audiovisual e circo.",
+   "nota": "Feito com a @bsurda. Passou por Belo Horizonte, pela Virada Cultural e por São Paulo."
   },
   {
    "id": "arraia",
-   "nome": "Arraiá das Piranhas"
+   "nome": "Arraiá das Piranhas",
+   "texto": "A festa de São João da WIG no quintal do Quinteiro, com comida típica, quentão, brincadeiras e drag queens."
   }
  ],
  "eventos": [
@@ -239,6 +250,21 @@
    "data": "2026-07-12",
    "local": "O Quinteiro Bar",
    "url": "https://www.sympla.com.br/evento/arraia-das-piranhas-3a-edicao/3481468"
+  },
+  {
+   "serie": "chronus",
+   "nome": "CHRONUS, o espetáculo drag",
+   "data": "2021-11-05",
+   "local": "Teatro da Cidade, Belo Horizonte",
+   "url": ""
+  },
+  {
+   "serie": "chronus",
+   "nome": "CHRONUS, temporada em São Paulo",
+   "data": "2023-08-04",
+   "ate": "2023-08-06",
+   "local": "Galpão do Folias, São Paulo",
+   "url": "https://www.sympla.com.br/evento/chronus-o-espetaculo-drag-temporada-em-sao-paulo/2030418"
   }
  ]
 }
