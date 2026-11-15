@@ -11,8 +11,8 @@ incentivo de 2024 não é mencionado (a captação não aconteceu); número que 
 
 - Deck institucional de 2024 (Figma, u2ZQ0ws2HGpKbMyvA3mSqo)
 - Deck do Halloween de 2024 (Figma, DxR0aDqagn2iBzrFSXKb1W)
-- `10_site/6_Parcerias/apresentacoes-diversas/apresentacao-absurda-v2.pdf` (setembro de 2016)
-- `10_site/6_Parcerias/apresentacoes-para-marcas/apresentacao-sympla.pdf` (dezembro de 2019)
+- `10_site/6_Parcerias/apresentacoes/diversas/apresentacao-absurda-v2.pdf` (setembro de 2016)
+- `10_site/6_Parcerias/apresentacoes/para-marcas/apresentacao-sympla.pdf` (dezembro de 2019)
 
 ## Quem vem
 

@@ -152,15 +152,29 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
 ## Pasta do site no Drive (do Gui)
 
 Tudo o que entra no site (fotos, textos, capas) chega pela pasta `10_site` do Drive do Gui
-(`Mercurio/1_Institucional/2_Absurda/10_site`), que segue o menu: `0_Caixa de entrada`, `1_Home`,
-`2_Agenda` (capas antigas por ano), `3_Projetos/<id>`, `4_Sobre`, `5_Equipe/<id>`, `6_Parcerias`. Em
-Projetos e Equipe o nome da subpasta é o id da página no site (`3_Projetos/halloween`,
-`5_Equipe/ed-luiz`); projeto ou pessoa nova ganha pasta com o mesmo id. O documento "00 Leia-me" na
-raiz explica as regras para quem sobe arquivos (nome com data, assunto e crédito; `_top` para a
-preferida). Ao lado fica a planilha "Pendências do site". Documentos que pedem material a alguém
-(como o da WIG para o Rafa) são Google Docs dentro da pasta da página.
+(`Mercurio/1_Institucional/2_Absurda/10_site`). É lá que outras pessoas sobem arquivos, agora e na
+manutenção. Segue o menu do site:
 
+- `0_Caixa de entrada`: o que a pessoa não sabe onde vai.
+- `1_Home`: `fotos`, `videos`.
+- `2_Agenda/<ano>`: uma pasta por ano, de 2009 em diante (criar a do ano novo todo janeiro).
+- `3_Projetos/<id>`: o nome é o id da página. Sempre `0-capa`, `1-fotos`, `2-textos`, `3-edicoes`.
+  As edições especiais e históricas da festa ficam em `absurda/3-edicoes`. A WIG tem estrutura
+  própria (por projeto dela). Projeto novo: copiar `_modelo-projeto-novo`.
+- `4_Sobre`: `marcos`, `lugares-improvaveis`, `trio`, `posicionamento`, `casas`.
+- `5_Equipe/<id>`: `0-cracha`, `1-fotos` e o documento da página. Pessoa nova: `_modelo-pessoa-nova`.
+- `6_Parcerias`: `marcas/<marca>` (com `logo` e `fotos`; uma por marca de `parceiros.json`),
+  `apresentacoes`, `numeros-e-publico`. Marca nova: `_modelo-marca-nova`.
+- `7_Geral`: `marca-absurda`, `imagem-de-compartilhamento`, `contato`.
+- `9_Substituidos`: o que saiu do site. Nada se apaga.
 
+Quando o site ganhar projeto, pessoa, marca ou seção nova, crie a pasta correspondente com o mesmo
+id. O documento "00 Leia-me" na raiz explica as regras para quem sobe arquivos (nome com data,
+assunto e crédito; `_top` para a preferida) e precisa acompanhar qualquer mudança de estrutura. Ao
+lado fica a planilha "Pendências do site". Documentos que pedem material a alguém (como o da WIG
+para o Rafa) são Google Docs dentro da pasta da página.
+
+## Sessões de QA
 
 Vale para sessões abertas só para conferir o site. As regras acima continuam valendo
 inteiras; esta seção diz o que muda quando o trabalho é QA.
