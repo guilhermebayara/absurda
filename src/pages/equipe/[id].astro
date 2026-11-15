@@ -73,7 +73,7 @@ const periodo = alumni ? `Na @bsurda de ${pessoa.data.desde ?? 'XXXX'} a ${pesso
     </div>
     {naWig && (
       <aside class="pessoa-wig" aria-labelledby="t-wig">
-        <div class="pessoa-wig-cracha"><CrachaWig id={naWig.id} nome={naWig.nome} epiteto={naWig.epiteto} foto={naWig.foto} href="/projetos/wig" selo={naWig.selo} /></div>
+        <div class="pessoa-wig-cracha"><CrachaWig id={naWig.id} nome={naWig.nome} epiteto={naWig.epiteto} funcao={naWig.funcao} foto={naWig.foto} href="/projetos/wig" papel={naWig.papel as 'casting' | 'bastidores' | 'direcao'} selo={naWig.selo} /></div>
         <div class="pessoa-wig-texto">
           <p class="etiqueta">Também de crachá na WIG</p>
           <h2 id="t-wig" class="t-medio">{naWig.selo ?? 'WIGurl'} da WIG events</h2>

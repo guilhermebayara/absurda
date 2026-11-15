@@ -8,12 +8,13 @@
     {
       "id": "charlotte",
       "nome": "Charlotte",
-      "epiteto": "patroa",
       "instagram": "https://www.instagram.com/charlottedrag/",
       "foto": "/projetos/wig/charlotte.jpg",
       "grupo": "drags",
       "pagina": "/equipe/charlotte",
-      "selo": "Patroa"
+      "selo": "Patroa",
+      "papel": "direcao",
+      "funcao": "Drag e produtora"
     },
     {
       "id": "aria-dreamz",
@@ -21,7 +22,8 @@
       "epiteto": "diva latina",
       "instagram": "https://www.instagram.com/ariadreamz/",
       "foto": "/projetos/wig/aria-dreamz.jpg",
-      "grupo": "drags"
+      "grupo": "drags",
+      "papel": "casting"
     },
     {
       "id": "carambola",
@@ -29,7 +31,8 @@
       "epiteto": "drag fruta",
       "instagram": "https://www.instagram.com/eucarambola/",
       "foto": "/projetos/wig/carambola.jpg",
-      "grupo": "drags"
+      "grupo": "drags",
+      "papel": "casting"
     },
     {
       "id": "jaddy-stone",
@@ -37,7 +40,8 @@
       "epiteto": "titia",
       "instagram": "https://www.instagram.com/jaddystone/",
       "foto": "/projetos/wig/jaddy-stone.jpg",
-      "grupo": "drags"
+      "grupo": "drags",
+      "papel": "casting"
     },
     {
       "id": "joanna-mescladi",
@@ -45,7 +49,8 @@
       "epiteto": "diva circense",
       "instagram": "https://www.instagram.com/joannazinha/",
       "foto": "/projetos/wig/joanna-mescladi.jpg",
-      "grupo": "drags"
+      "grupo": "drags",
+      "papel": "casting"
     },
     {
       "id": "mannu-mallibu",
@@ -53,7 +58,8 @@
       "epiteto": "cronicamente online",
       "instagram": "https://www.instagram.com/mannumallibu/",
       "foto": "/projetos/wig/mannu-mallibu.jpg",
-      "grupo": "drags"
+      "grupo": "drags",
+      "papel": "casting"
     },
     {
       "id": "mira-miumiu",
@@ -61,7 +67,8 @@
       "epiteto": "megera mais amável",
       "instagram": "https://www.instagram.com/somentemira/",
       "foto": "/projetos/wig/mira-miumiu.jpg",
-      "grupo": "drags"
+      "grupo": "drags",
+      "papel": "casting"
     },
     {
       "id": "nickary-ayker",
@@ -69,14 +76,16 @@
       "epiteto": "furacão",
       "instagram": "https://www.instagram.com/nickary.aycker/",
       "foto": "/projetos/wig/nickary-ayker.jpg",
-      "grupo": "drags"
+      "grupo": "drags",
+      "papel": "casting"
     },
     {
       "id": "rafael-pessoa",
       "nome": "Rafael Pessoa",
       "instagram": "https://www.instagram.com/rafaelpessoa_/",
       "foto": "/projetos/wig/rafael-pessoa.jpg",
-      "grupo": "producao"
+      "grupo": "producao",
+      "papel": "bastidores"
     }
   ]
 }

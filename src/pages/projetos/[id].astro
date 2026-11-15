@@ -133,6 +133,10 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
     {projeto.data.fora && <p><Botao href={projeto.data.fora.url} externo>{projeto.data.fora.rotulo}</Botao></p>}
   </div>
 
+  {/* A WIG mostra quem a faz, em crachás da WIG, antes das edições com a @bsurda e no lugar do
+      "Quem faz" dos outros projetos (pedido do Gui). */}
+  {projeto.id === 'wig' && <ElencoWig />}
+
   {historicas.length > 0 && (
     <section class="bloco" aria-labelledby="t-historicas">
       <h2 id="t-historicas" class="t-secao" data-anima="sobe">Edições históricas</h2>
@@ -295,9 +299,6 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
       <p class="bloco-fim"><Botao href="/agenda">Abrir a Agenda</Botao></p>
     </section>
   )}
-
-  {/* A WIG tem elenco próprio, com crachás da WIG, no lugar do "Quem faz". */}
-  {projeto.id === 'wig' && <ElencoWig />}
 
   {projeto.id !== 'wig' && pessoas.length > 0 && (
     <section class="secao" aria-labelledby="t-quem">

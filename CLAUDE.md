@@ -133,8 +133,11 @@ acertado caso a caso com o Gui.
 **WIG (do Gui):** a página do projeto usa a paleta fechada `TEMAS_DA_WIG` e, no lugar do "Quem
 faz", mostra o elenco em crachás da WIG (`CrachaWig.astro`, dados em `src/data/wig.json`): mesma
 proporção e mesmo furo do crachá da @bsurda, com o "w" e a letra da marca, sem verso, ano nem número.
-Só a Charlotte tem página no site (o crachá dela leva o selo "Patroa" e aparece também na página
-dela, abaixo da ficha); os outros levam ao Instagram de cada pessoa. O nome na letra da marca entra
+O material muda com o papel, como na @bsurda: casting na superfície invertida, bastidores na cor
+viva, direção em dourado (só a Charlotte, que também leva o selo "Patroa"). Todos do mesmo tamanho
+e com o nome em uma linha; a Charlotte se destaca pelo material e pelo lugar na composição. Só ela
+tem página no site (o crachá da WIG aparece lá também, abaixo da ficha); os outros levam ao
+Instagram de cada pessoa. O elenco vem antes das edições com a @bsurda, com um título só. O nome na letra da marca entra
 como curva (`src/data/wig-letras.json`); o arquivo da fonte não entra no site.
 
 ## Sessões de QA

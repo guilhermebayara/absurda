@@ -1,40 +1,90 @@
 ---
-// Elenco da WIG na página do projeto: um crachá da WIG por pessoa. Só a Charlotte tem página no
-// site; as outras levam ao Instagram de cada uma (decisão do Gui). Dados em src/data/wig.json.
+// Quem faz a WIG, na página do projeto: um crachá da WIG por pessoa, todos do mesmo tamanho.
+// Só a Charlotte tem página no site; as outras levam ao Instagram de cada uma (decisão do Gui).
+// O papel de cada pessoa está no próprio crachá, por isso a seção tem um título só.
+// Dados em src/data/wig.json.
 import CrachaWig from './CrachaWig.astro';
 import wig from '../data/wig.json';
-const drags = wig.elenco.filter((p) => p.grupo === 'drags');
-const producao = wig.elenco.filter((p) => p.grupo === 'producao');
 ---
 <section class="secao elenco" aria-labelledby="t-elenco">
-  <h2 id="t-elenco" class="titulo-secao">WIGurls</h2>
+  <h2 id="t-elenco" class="titulo-secao" data-anima="sobe">Quem faz a WIG</h2>
   <ul class="elenco-grade">
-    {drags.map((p) => (
-      <li><CrachaWig id={p.id} nome={p.nome} epiteto={p.epiteto} foto={p.foto} href={p.pagina ?? p.instagram} externo={!p.pagina} selo={p.selo} /></li>
-    ))}
-  </ul>
-  <h3 class="elenco-sub">Produção</h3>
-  <ul class="elenco-grade">
-    {producao.map((p) => (
-      <li><CrachaWig id={p.id} nome={p.nome} foto={p.foto} href={p.instagram} externo rotulo="Produção" /></li>
+    {wig.elenco.map((p, i) => (
+      <li class:list={{ patroa: p.papel === 'direcao' }} data-anima="surge" style={`--i:${i}`}>
+        <CrachaWig id={p.id} nome={p.nome} epiteto={p.epiteto} funcao={p.funcao} foto={p.foto} href={p.pagina ?? p.instagram} externo={!p.pagina} papel={p.papel as 'casting' | 'bastidores' | 'direcao'} selo={p.selo} />
+      </li>
     ))}
   </ul>
   <p class="elenco-credito">Fotos do casting: {wig.creditos.foto}. Retoques: {wig.creditos.retoques}.</p>
 </section>
 
 <style>
-  .elenco-grade { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 2.4vw, 2.25rem); }
-  .elenco-grade li:nth-child(odd) { transform: rotate(-1.2deg); }
-  .elenco-grade li:nth-child(even) { transform: rotate(1deg); }
-  .elenco-sub { margin: clamp(2.5rem, 6vw, 4.5rem) 0 var(--e-2); font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
-  .elenco-credito { margin-top: clamp(1.5rem, 3vw, 2.5rem); font-size: 0.8125rem; color: var(--suave); }
-  @media (max-width: 1000px) { .elenco-grade { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-  /* No celular o crachá perde a foto se ficar pequeno demais: a grade vira uma fileira que se
-     arrasta de lado, com cada crachá quase na largura da tela. Sangra até as bordas. */
-  @media (max-width: 720px) {
-    .elenco-grade { display: flex; gap: 0.9rem; margin: 0 calc(-1 * var(--margem)); padding: 0.6rem var(--margem) 1rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--margem); scrollbar-width: none; }
-    .elenco-grade::-webkit-scrollbar { display: none; }
-    .elenco-grade li { flex: 0 0 70%; scroll-snap-align: start; }
-    .elenco-grade li:only-child { flex-basis: 70%; }
+  /* Tela média: grade simples de três colunas. A composição solta vem na tela larga, a fileira
+     de arrastar no celular. A inclinação fica no crachá, e não no item da lista, porque o item
+     já usa transform na animação de entrada (mesma regra da Equipe). */
+  .elenco-grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(1rem, 2.4vw, 2.25rem); }
+  .elenco-grade li { position: relative; }
+  .elenco-grade li > :global(.cw) { transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .elenco-grade li:nth-child(odd) > :global(.cw) { transform: rotate(-2.4deg); }
+  .elenco-grade li:nth-child(even) > :global(.cw) { transform: rotate(1.8deg); }
+  .elenco-grade li:nth-child(3n) > :global(.cw) { transform: rotate(3.2deg); }
+  .elenco-grade li.patroa > :global(.cw) { transform: rotate(-1.2deg); }
+  .elenco-grade li > :global(.cw:hover), .elenco-grade li > :global(.cw:focus-visible) { transform: rotate(0deg) translateY(-0.35rem); }
+  .elenco-grade li:hover, .elenco-grade li:focus-within { z-index: 5; }
+  .elenco-credito { margin-top: clamp(2rem, 4vw, 3.5rem); font-size: 0.8125rem; color: var(--suave); }
+
+  /* Tela larga: cinco em cima, quatro embaixo, desencontrados como tijolo e cada um numa altura,
+     como crachás largados depois do show. A patroa vai para o meio da fileira de cima, um degrau
+     acima das outras e por cima das vizinhas: mesmo tamanho, lugar de chefe. */
+  @media (min-width: 1001px) {
+    .elenco-grade { grid-template-columns: repeat(10, minmax(0, 1fr)); gap: clamp(2rem, 4vw, 3.5rem) clamp(0.75rem, 1.6vw, 1.5rem); padding-top: 2.5rem; }
+    .elenco-grade li { grid-column: span 2; }
+    .elenco-grade li:nth-child(2), .elenco-grade li:nth-child(3) { order: -1; }
+    .elenco-grade li:nth-child(6) { grid-column: 2 / span 2; }
+    .elenco-grade li:nth-child(2) { margin-top: 1.5rem; }
+    .elenco-grade li:nth-child(3) { margin-top: 3.25rem; }
+    .elenco-grade li.patroa { margin-top: -2.5rem; z-index: 2; }
+    .elenco-grade li.patroa > :global(.cw) { box-shadow: 0 1.25rem 2.5rem -1.25rem color-mix(in srgb, #000 55%, transparent); border-radius: clamp(1rem, 1.8vw, 1.5rem); }
+    .elenco-grade li:nth-child(4) { margin-top: 2.75rem; }
+    .elenco-grade li:nth-child(5) { margin-top: 0.5rem; }
+    .elenco-grade li:nth-child(7) { margin-top: 1.75rem; }
+    .elenco-grade li:nth-child(8) { margin-top: -0.75rem; }
+    .elenco-grade li:nth-child(9) { margin-top: 2.25rem; }
   }
+
+  /* Deriva com a rolagem, como na mesa da Equipe: nada entra nem sai, cada crachá escorrega e
+     gira um pouco no seu ritmo. Usa translate e rotate para não brigar com a inclinação, a
+     entrada e o hover, que usam transform. */
+  @keyframes deriva-wig {
+    from { translate: var(--tx0, 0) var(--ty0, 0); rotate: var(--g0, 0deg); }
+    to { translate: var(--tx1, 0) var(--ty1, 0); rotate: var(--g1, 0deg); }
+  }
+  @media (min-width: 1001px) and (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .elenco-grade li { animation: deriva-wig linear both; }
+      /* Regra separada de propósito: junto do atalho "animation", a linha do tempo é zerada. */
+      .elenco-grade li { animation-timeline: view(); animation-range: cover 0% cover 100%; }
+      /* A entrada corre no tempo, a deriva na rolagem: as duas convivem. */
+      .elenco-grade li[data-anima].visto { animation: entra-surge 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99) calc(var(--i, 0) * 70ms) backwards, deriva-wig linear both; animation-timeline: auto, view(); animation-range: normal, cover 0% cover 100%; }
+      .elenco-grade li.patroa { --ty0: 0.8rem; --ty1: -0.8rem; --g0: 0.5deg; --g1: -0.5deg; }
+      .elenco-grade li:nth-child(2) { --ty0: 2.8rem; --ty1: -2.6rem; --g0: -1.6deg; --g1: 1.4deg; }
+      .elenco-grade li:nth-child(3) { --ty0: -1.4rem; --ty1: 1.8rem; --tx0: -0.5rem; --tx1: 0.5rem; --g0: 1.2deg; --g1: -1.8deg; }
+      .elenco-grade li:nth-child(4) { --ty0: 3.2rem; --ty1: -2.8rem; --g0: 1.8deg; --g1: -1deg; }
+      .elenco-grade li:nth-child(5) { --ty0: 1.6rem; --ty1: -2.2rem; --tx0: 0.6rem; --tx1: -0.6rem; --g0: -1.4deg; --g1: 2deg; }
+      .elenco-grade li:nth-child(6) { --ty0: -1.8rem; --ty1: 2rem; --g0: 1.6deg; --g1: -1.2deg; }
+      .elenco-grade li:nth-child(7) { --ty0: 2.4rem; --ty1: -2.4rem; --tx0: -0.6rem; --tx1: 0.4rem; --g0: -1deg; --g1: 1.6deg; }
+      .elenco-grade li:nth-child(8) { --ty0: -1rem; --ty1: 1.4rem; --g0: 2deg; --g1: -1.4deg; }
+      .elenco-grade li:nth-child(9) { --ty0: 3rem; --ty1: -3rem; --tx0: 0.5rem; --tx1: -0.5rem; --g0: -1.8deg; --g1: 1.2deg; }
+    }
+  }
+
+  /* No celular o crachá perde a foto se ficar pequeno demais: a grade vira uma fileira que se
+     arrasta de lado, com a patroa na frente. Mesmas travas da fileira da Equipe (overflow-y
+     escondido para a ponta torta não prender o dedo no iPhone). */
+  @media (max-width: 720px) {
+    .elenco-grade { display: flex; gap: 0.9rem; margin: 0 calc(-1 * var(--margem)); padding: 0.75rem var(--margem) 2rem; overflow-x: auto; overflow-y: hidden; touch-action: pan-x pan-y; scroll-snap-type: x mandatory; scroll-padding-inline: var(--margem); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .elenco-grade::-webkit-scrollbar { display: none; }
+    .elenco-grade li { flex: 0 0 min(72%, 17rem); scroll-snap-align: start; }
+  }
+  @media (prefers-reduced-motion: reduce) { .elenco-grade li > :global(.cw) { transition: none; } }
 </style>
