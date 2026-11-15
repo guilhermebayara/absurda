@@ -126,3 +126,12 @@ Parceria: @estudio.cadin
 Cada post tem uma segunda imagem com uma bio curta e a lista "Atuação" de cada drag (hostess,
 mestre de cerimônias, performer, DJ e assim por diante). As imagens estão em
 `10_site/Projetos/wig/Drags/<nome>/` e não foram transcritas aqui.
+
+## Eventos só da WIG (15 nov 2026)
+
+Lidos das contas da WIG: sympla.com.br/produtor/wigevents (33 encerrados, de ago 2023 a jul 2026; o
+Sympla não mostra antes de 2023) e shotgun.live/en/venues/wig-events (3 passados e 1 próximo, de
+out e nov 2026). Dois dos 33 já estavam na Agenda como coprodução (Exibição Final de RPDR 16, em
+19/04/2024, e CHRONUS em São Paulo, em ago 2023) e ficaram de fora da lista. Sobraram 34, em quatro
+séries: WIG Brunch (11), Tela Tuck (18), Arraiá das Piranhas (3) e Baile da Bôta (2).
+Próximos eventos da WIG no site dependem de a Charlotte liberar o acesso do Shotgun dela (Gui vai ver).

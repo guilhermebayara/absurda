@@ -1,0 +1,67 @@
+---
+// Eventos que são só da WIG, na página do projeto. Não entram na Agenda do site: são da WIG, e a
+// @bsurda no máximo apoia (decisão do Gui). Agrupados por série, da mais recente para a mais antiga.
+// Dados em src/data/wig-eventos.json, escritos à mão a partir das contas da WIG.
+import wig from '../data/wig-eventos.json';
+const MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+const dia = (d: string) => `${d.slice(8, 10)} ${MESES[Number(d.slice(5, 7)) - 1]} ${d.slice(0, 4)}`;
+const series = wig.series
+  .map((s) => {
+    const eventos = wig.eventos.filter((e) => e.serie === s.id).sort((a, b) => b.data.localeCompare(a.data));
+    const anos = [...new Set(eventos.map((e) => e.data.slice(0, 4)))].sort();
+    return { ...s, eventos, periodo: anos.length > 1 ? `${anos[0]} a ${anos[anos.length - 1]}` : anos[0] };
+  })
+  .filter((s) => s.eventos.length > 0)
+  .sort((a, b) => b.eventos[0].data.localeCompare(a.eventos[0].data));
+const total = series.reduce((n, s) => n + s.eventos.length, 0);
+---
+<section class="secao so-wig" aria-labelledby="t-so-wig">
+  <h2 id="t-so-wig" class="titulo-secao" data-anima="sobe">Só da WIG</h2>
+  <p class="so-wig-texto t-apoio" data-anima="surge">{total} eventos que a WIG fez por conta própria desde 2023. Em alguns a @bsurda entra como apoio.</p>
+  <div class="so-wig-series">
+    {series.map((s, i) => (
+      <details class="serie" open={i === 0} data-anima="surge">
+        <summary>
+          <strong>{s.nome}</strong>
+          <span class="serie-dados"><span>{s.eventos.length} {s.eventos.length === 1 ? 'edição' : 'edições'}</span><span>{s.periodo}</span></span>
+          <span class="serie-sinal" aria-hidden="true"></span>
+        </summary>
+        {s.nota && <p class="serie-nota">{s.nota}</p>}
+        <ul>
+          {s.eventos.map((e) => (
+            <li><a href={e.url} target="_blank" rel="noopener"><span class="serie-data">{dia(e.data)}</span><span class="serie-nome">{e.nome}</span><span class="serie-local">{e.local}</span><span class="so-leitor"> (abre em outra aba)</span></a></li>
+          ))}
+        </ul>
+      </details>
+    ))}
+  </div>
+</section>
+
+<style>
+  .so-wig-texto { max-width: 34em; }
+  .so-wig-series { margin-top: var(--e-3); border-top: 2px solid var(--texto); }
+  .serie { border-bottom: 2px solid var(--texto); }
+  .serie summary { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 0.5rem var(--e-3); align-items: baseline; padding: var(--e-2) 0; cursor: pointer; list-style: none; }
+  .serie summary::-webkit-details-marker { display: none; }
+  .serie summary strong { font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; }
+  .serie summary:hover strong, .serie summary:focus-visible strong { text-decoration: underline; text-decoration-thickness: 0.08em; text-underline-offset: 0.12em; }
+  .serie-dados { display: flex; gap: 1.5rem; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  /* Sinal de abrir e fechar: um mais que vira menos. */
+  .serie-sinal { position: relative; width: 0.9rem; height: 0.9rem; align-self: center; }
+  .serie-sinal::before, .serie-sinal::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; background: currentColor; }
+  .serie-sinal::after { transform: rotate(90deg); }
+  .serie[open] .serie-sinal::after { transform: none; }
+  .serie-nota { margin: 0 0 var(--e-1, 0.5rem); max-width: 40em; color: var(--suave); }
+  .serie ul { padding-bottom: var(--e-2); }
+  .serie li a { display: grid; grid-template-columns: 7.5rem minmax(0, 1.6fr) minmax(0, 1fr); gap: 0.15rem var(--e-3); align-items: baseline; padding: 0.55rem 0; border-top: 1px solid var(--linha); text-decoration: none; }
+  .serie-data { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; font-variant-numeric: tabular-nums; }
+  .serie-nome { font-weight: 700; line-height: 1.25; }
+  .serie-local { font-size: 0.875rem; color: var(--suave); }
+  .serie li a:hover .serie-nome, .serie li a:focus-visible .serie-nome { text-decoration: underline; text-underline-offset: 0.16em; }
+  @media (max-width: 720px) {
+    .serie summary { grid-template-columns: minmax(0, 1fr) auto; }
+    .serie-dados { grid-column: 1; grid-row: 2; gap: 1rem; }
+    .serie-sinal { grid-column: 2; grid-row: 1; }
+    .serie li a { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

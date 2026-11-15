@@ -23,6 +23,7 @@ import CartaoEvento from '../../components/CartaoEvento.astro';
 import { getCollection, getEntries, render } from 'astro:content';
 import { atributo } from '../../lib/temas';
 import ElencoWig from '../../components/ElencoWig.astro';
+import EventosWig from '../../components/EventosWig.astro';
 import { getEventos } from '../../lib/eventos';
 import { resumoDoProjeto, daEspecial, ehPrima, proximoTrio, temasDoProjeto } from '../../lib/projetos';
 import { partesDaData } from '../../lib/eventos';
@@ -310,6 +311,9 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
       </ul>
     </section>
   )}
+
+  {/* Os eventos que são só da WIG ficam aqui e não entram na Agenda (pedido do Gui). */}
+  {projeto.id === 'wig' && <EventosWig />}
 
   <a class="seguinte" href={`/projetos/${seguinte.id}`} data-tema={atributo(temaSeguinte)}>
     <span class="etiqueta">Próximo projeto</span>

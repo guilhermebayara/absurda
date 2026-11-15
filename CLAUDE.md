@@ -140,6 +140,9 @@ tem página no site (o crachá da WIG aparece lá também, abaixo da ficha); os 
 Instagram de cada pessoa. O elenco vem antes das edições com a @bsurda, com um título só. O nome na letra da marca entra
 como curva (`src/data/wig-letras.json`); o arquivo da fonte não entra no site. Tudo dentro do
 crachá da WIG é medido pela largura dele (cqw), para ele redimensionar inteiro sem quebrar.
+Os eventos que são só da WIG (brunchs, Tela Tuck, Arraiá das Piranhas, Baile da Bôta) aparecem só
+na página do projeto, na seção "Só da WIG", e nunca na Agenda; ficam em `src/data/wig-eventos.json`,
+escritos à mão. Coprodução com a @bsurda entra na Agenda como qualquer evento.
 
 ## Sessões de QA
 

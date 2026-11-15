@@ -1,0 +1,262 @@
+{
+ "_": "Eventos que são só da WIG (a @bsurda às vezes apoia, mas não produz). Aparecem só na página do projeto, nunca na Agenda (decisão do Gui). Vêm das contas da própria WIG: sympla.com.br/produtor/wigevents e shotgun.live/en/venues/wig-events, lidas em 15 nov 2026. O Sympla só mostra de 2023 para cá. Os que são coprodução com a @bsurda já estão na Agenda e ficam de fora daqui. Para atualizar, acrescente linhas à mão.",
+ "series": [
+  {
+   "id": "brunch",
+   "nome": "WIG Brunch"
+  },
+  {
+   "id": "tela",
+   "nome": "Tela Tuck",
+   "nota": "Sessões para assistir junto: Drag Race Brasil e Corrida das Blogueiras."
+  },
+  {
+   "id": "arraia",
+   "nome": "Arraiá das Piranhas"
+  },
+  {
+   "id": "bota",
+   "nome": "Baile da Bôta"
+  }
+ ],
+ "eventos": [
+  {
+   "serie": "brunch",
+   "nome": "WIG Brunch",
+   "data": "2023-09-23",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/wig-brunch-belo-horizonte/2150498"
+  },
+  {
+   "serie": "brunch",
+   "nome": "WIG Brunch, 2ª edição",
+   "data": "2024-01-20",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/wig-brunch-2a-edicao-belo-horizonte/2273359"
+  },
+  {
+   "serie": "brunch",
+   "nome": "WIG Brunch convida Ravena Creole (RJ) e Márcia Pantera (SP)",
+   "data": "2024-05-25",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-ravena-creole-rj-e-marcia-pantera-sp/2428814"
+  },
+  {
+   "serie": "brunch",
+   "nome": "WIG Brunch convida Miranda Lebrão (RJ), 4ª edição",
+   "data": "2024-07-20",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-miranda-lebrao-rj-4a-edicao-bh/2525198"
+  },
+  {
+   "serie": "brunch",
+   "nome": "WIG Brunch convida Shannon Skarlett (RJ), 5ª edição",
+   "data": "2024-09-14",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-shannon-skarlett-rj-5a-edicao-bh/2612027"
+  },
+  {
+   "serie": "brunch",
+   "nome": "WIG Brunch especial de Natal, 6ª edição",
+   "data": "2024-12-07",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/wig-brunch-especial-de-natal-6a-edicao-bh/2741099"
+  },
+  {
+   "serie": "brunch",
+   "nome": "WIG Brunch convida Mellody Queen (BH)",
+   "data": "2025-03-15",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-mellody-queen-bh/2831988"
+  },
+  {
+   "serie": "brunch",
+   "nome": "WIG Brunch convida Organzza (RJ)",
+   "data": "2025-04-26",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-organzza-rj/2880409"
+  },
+  {
+   "serie": "brunch",
+   "nome": "WIG Brunch convida Betina Polaroid (RJ)",
+   "data": "2025-06-14",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-betina-polaroid-rj/2964344"
+  },
+  {
+   "serie": "brunch",
+   "nome": "WIG Brunch convida Poseidon (PE)",
+   "data": "2025-10-26",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-poseidon-pe/3133423"
+  },
+  {
+   "serie": "brunch",
+   "nome": "WIG Brunch convida Natasha Princess (SP)",
+   "data": "2026-04-18",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-natasha-princess-sp/3350435"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck: Drag Race Brasil (S2), estreia",
+   "data": "2025-07-10",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2/3024414"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 2",
+   "data": "2025-07-17",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-2/3032781"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 3",
+   "data": "2025-07-24",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-3/3045655"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 4",
+   "data": "2025-07-31",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-4/3054271"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 5",
+   "data": "2025-08-07",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-5/3057822"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 6",
+   "data": "2025-08-14",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-6/3066857"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 7",
+   "data": "2025-08-21",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-7/3075163"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 8",
+   "data": "2025-08-28",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-8/3089464"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 9",
+   "data": "2025-09-04",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-9/3101831"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck convida Festa de Assistir: final de Drag Race Brasil (S2)",
+   "data": "2025-09-11",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-convida-festa-de-assistir-final-drag-race-brasil-s2/3109979"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck: estreia do Corrida das Blogueiras 7",
+   "data": "2025-10-28",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-estreia-do-corrida-das-blogueiras-7/3187317"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck convida Manillê: Corrida das Blogueiras 7",
+   "data": "2025-11-11",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-convida-manille-corrida-das-blogueiras-7/3206838"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck convida Kitty Kawakubo: Corrida das Blogueiras 7",
+   "data": "2025-11-18",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-convida-kitty-kawakubo-corrida-das-blogueiras-7/3216504"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck convida Mady Beeong: Corrida das Blogueiras 7",
+   "data": "2025-11-25",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-convida-mady-beeong-corrida-das-blogueiras-7/3223839"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck: Corrida das Blogueiras 7",
+   "data": "2025-12-02",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/tela-tuck-corrida-das-blogueiras-7/3237446"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck: CDB8, episódio de estreia",
+   "data": "2026-10-27",
+   "local": "O Quinteiro Bar",
+   "url": "https://shotgun.live/en/events/tela-tuck-cdb-8-episodio-de-estreia"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck convida Jordann Vicente: CDB8, episódio 2",
+   "data": "2026-11-03",
+   "local": "O Quinteiro Bar",
+   "url": "https://shotgun.live/en/events/tela-tuck-cdb-8-episodio-2"
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck convida Breia e Rhany: CDB8, episódio 3",
+   "data": "2026-11-10",
+   "local": "O Quinteiro Bar",
+   "url": "https://shotgun.live/en/events/tela-tuck-cdb-8-episodio-3"
+  },
+  {
+   "serie": "arraia",
+   "nome": "Arraiá das Piranhas",
+   "data": "2024-06-16",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/arraia-das-piranhas/2483080"
+  },
+  {
+   "serie": "arraia",
+   "nome": "Arraiá das Piranhas, 2ª edição",
+   "data": "2025-06-08",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/arraia-das-piranhas-2a-edicao/2972490"
+  },
+  {
+   "serie": "arraia",
+   "nome": "Arraiá das Piranhas, 3ª edição",
+   "data": "2026-07-12",
+   "local": "O Quinteiro Bar",
+   "url": "https://www.sympla.com.br/evento/arraia-das-piranhas-3a-edicao/3481468"
+  },
+  {
+   "serie": "bota",
+   "nome": "Furdunço da Bôta: Piscininha, amor!",
+   "data": "2025-04-19",
+   "local": "Eventos Pampulha",
+   "url": "https://www.sympla.com.br/evento/furdunco-da-bota-piscininha-amor/2913410"
+  },
+  {
+   "serie": "bota",
+   "nome": "Boat da Bôta (RJ): edição Gagacabana",
+   "data": "2025-05-04",
+   "local": "Marina da Glória, Rio de Janeiro",
+   "url": "https://www.sympla.com.br/evento/boat-da-bota-rj-edicao-gagacabana/2860797"
+  }
+ ]
+}
