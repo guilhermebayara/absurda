@@ -7,7 +7,7 @@ Guardado em 15 nov 2026, a pedido do Gui, para uso futuro (texto do projeto, pá
 - Charlotte é drag e produtora, a "patroa" da WIG. É descrita muitas vezes como idealizadora porque,
   quando assumiu a WIG, reacendeu o projeto e repensou o formato.
 - Elenco de drags: Aria Dreamz, Carambola, Jaddy Stone, Joanna Mescladi, Mannu Mallibu, Mira MiuMiu,
-  Nickary Ayker (grafias da arte oficial, confirmadas pelo Gui).
+  Nickary Aycker (grafias da arte oficial, confirmadas pelo Gui).
 - Produção: Rafael Pessoa (instagram.com/rafaelpessoa_). No crachá, "Bastidores".
 - Balé: a confirmar com a Charlotte. Pode ganhar crachá também.
 - Marca: pasta `1_Institucional/5_WIG` no Drive. Paleta em "5_Manual (pendente)". Letra dos nomes:
@@ -110,7 +110,7 @@ Look: acervo / @pietraleblanc
 Cabelo: @somentemira
 Parceria: @estudio.cadin
 
-### Nickary Ayker
+### Nickary Aycker
 
 E pra fechar os posts do nosso casting, vem ela: o « furacão » @nickary.aycker! 🪭
 A Rainha do Bate Cabelo em BH, com uma trajetória tão bonita, vai te encantar com tanto carisma e afeto!
@@ -148,3 +148,5 @@ rascunho meu, tirados das descrições dos eventos no Sympla da WIG; a Charlotte
 fotos por enquanto (o Gui disse que virão). Do CHRONUS a descrição de São Paulo fala em duas
 temporadas em BH e uma apresentação na Virada Cultural antes de São Paulo; só temos as datas de
 05/11/2021 (Teatro da Cidade) e 04 a 06/08/2023 (Galpão do Folias).
+
+Correção do Gui (15 nov 2026): a grafia certa é Nickary Aycker, com C (ele tinha escrito errado). Crachá, curva do nome e foto renomeados.
