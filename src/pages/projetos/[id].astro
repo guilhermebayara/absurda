@@ -25,10 +25,9 @@ import { atributo } from '../../lib/temas';
 import ElencoWig from '../../components/ElencoWig.astro';
 import EventosWig from '../../components/EventosWig.astro';
 import { getEventos } from '../../lib/eventos';
-import { resumoDoProjeto, daEspecial, ehPrima, proximoTrio, temasDoProjeto } from '../../lib/projetos';
+import { resumoDoProjeto, edicoesDoProjeto, daEspecial, ehPrima, proximoTrio, temasDoProjeto } from '../../lib/projetos';
 import { partesDaData } from '../../lib/eventos';
 import { eventosArredondados } from '../../lib/historia';
-import wigEventos from '../../data/wig-eventos.json';
 
 export async function getStaticPaths() {
   const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
@@ -49,12 +48,9 @@ const capa = projeto.data.capa;
 const eventos = await getEventos();
 const r = resumoDoProjeto(projeto.id, eventos);
 const ehFesta = projeto.id === 'absurda';
-// Conta da ficha (do Gui). A festa mostra o mesmo número arredondado do Sobre ("+400"). A WIG soma
-// as edições com a @bsurda (que estão na Agenda) e os eventos só dela, que ficam fora da Agenda;
-// o que é coprodução já está na Agenda e não entra duas vezes.
-const seriesSoDaWig = new Set(wigEventos.series.filter((s) => !('coproducao' in s && s.coproducao)).map((s) => s.id));
-const soDaWig = projeto.id === 'wig' ? wigEventos.eventos.filter((e) => seriesSoDaWig.has(e.serie)).length : 0;
-const edicoes = r.passados.length + soDaWig;
+// Conta da ficha (do Gui). A festa mostra o mesmo número arredondado do Sobre ("+400"); a WIG soma
+// os eventos só dela (ver edicoesDoProjeto).
+const edicoes = edicoesDoProjeto(projeto.id, r);
 const desde = projeto.data.desde ?? r.desde;
 const ate = r.porAno.length > 0 ? r.porAno[r.porAno.length - 1].ano : undefined;
 const parado = projeto.data.situacao === 'arquivo';

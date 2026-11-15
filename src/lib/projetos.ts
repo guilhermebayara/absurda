@@ -12,6 +12,7 @@ import type { Evento } from './eventos';
 import { readFile } from 'node:fs/promises';
 import { temaPara, temasDoSitePara, PALETAS_DE_PROJETO, type Tema } from './temas';
 import { temaDaImagem, matizesDaImagem } from './paleta';
+import wigEventos from '../data/wig-eventos.json';
 
 const FILTROS: Record<string, RegExp> = {
   'i-hate-remix': /i hate remix|\bihr\b/i,
@@ -62,6 +63,16 @@ export function proximoTrio(agora = new Date()): string {
     const saida = new Date(Date.UTC(dia.getUTCFullYear(), dia.getUTCMonth(), dia.getUTCDate(), 17));
     if (saida.getTime() >= agora.getTime()) return saida.toISOString();
   }
+}
+
+// Eventos que são só da WIG e ficam fora da Agenda (src/data/wig-eventos.json). O que é coprodução
+// já está na Agenda e não entra, para não contar duas vezes.
+const seriesSoDaWig = new Set(wigEventos.series.filter((s) => !('coproducao' in s && s.coproducao)).map((s) => s.id));
+const eventosSoDaWig = wigEventos.eventos.filter((e) => seriesSoDaWig.has(e.serie)).length;
+// Quantas edições a ficha do projeto mostra (do Gui): na WIG, as edições com a @bsurda mais os
+// eventos só dela.
+export function edicoesDoProjeto(id: string, r: { passados: unknown[] }): number {
+  return r.passados.length + (id === 'wig' ? eventosSoDaWig : 0);
 }
 
 export interface Resumo { proximos: Evento[]; passados: Evento[]; desde?: string; porAno: { ano: string; n: number }[] }

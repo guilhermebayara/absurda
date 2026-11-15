@@ -144,7 +144,9 @@ Os eventos que são só da WIG (brunchs, Tela Tuck, Arraiá das Piranhas) aparec
 na página do projeto, na seção "O que a WIG faz" (um bloco por projeto, com as datas dentro), e nunca na Agenda; ficam em `src/data/wig-eventos.json`,
 escritos à mão. Coprodução com a @bsurda entra na Agenda como qualquer evento. A conta de edições da ficha da WIG soma as duas coisas:
 as edições com a @bsurda e os eventos só dela. No projeto @bsurda a ficha mostra o mesmo número
-arredondado do Sobre ("+400", `eventosArredondados` em `src/lib/historia.ts`). Furdunço da Bôta e Boat da Bôta não são da WIG
+arredondado do Sobre ("+400", `eventosArredondados` em `src/lib/historia.ts`). Na página Projetos a WIG tem seção própria ("Também é da casa"), com cartaz sólido e foto como os
+projetos vivos: ela só mudou de tutela e segue muito próxima, então nunca aparece junto dos adormecidos
+(Money, PFVR), que ficam em cartazes vazados. Furdunço da Bôta e Boat da Bôta não são da WIG
 (a Charlotte produz, mas é projeto à parte) e não entram.
 
 ## Sessões de QA
