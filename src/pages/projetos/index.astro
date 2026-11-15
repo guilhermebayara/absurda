@@ -19,6 +19,7 @@ import Base from '../../layouts/Base.astro';
 import { getCollection } from 'astro:content';
 import Botao from '../../components/Botao.astro';
 import { getEventos, partesDaData } from '../../lib/eventos';
+import { eventosArredondados } from '../../lib/historia';
 import { resumoDoProjeto, proximoTrio, temasDoProjeto } from '../../lib/projetos';
 import { atributo, type Tema } from '../../lib/temas';
 
@@ -63,6 +64,7 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
                 <h2 class="cartaz-nome">{p.data.nome}</h2>
                 <p class="cartaz-ficha">
                   {desde && <span>Desde {desde}</span>}
+                  {p.id === 'absurda' && <span>+{eventosArredondados} eventos</span>}
                   {p.id !== 'absurda' && p.r.passados.length > 0 && <span>{p.r.passados.length} {p.r.passados.length === 1 ? 'edição' : 'edições'}</span>}
                 </p>
               </div>

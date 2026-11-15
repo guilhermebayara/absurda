@@ -27,6 +27,8 @@ import EventosWig from '../../components/EventosWig.astro';
 import { getEventos } from '../../lib/eventos';
 import { resumoDoProjeto, daEspecial, ehPrima, proximoTrio, temasDoProjeto } from '../../lib/projetos';
 import { partesDaData } from '../../lib/eventos';
+import { eventosArredondados } from '../../lib/historia';
+import wigEventos from '../../data/wig-eventos.json';
 
 export async function getStaticPaths() {
   const projetos = (await getCollection('projetos')).sort((a, b) => a.data.ordem - b.data.ordem);
@@ -47,6 +49,12 @@ const capa = projeto.data.capa;
 const eventos = await getEventos();
 const r = resumoDoProjeto(projeto.id, eventos);
 const ehFesta = projeto.id === 'absurda';
+// Conta da ficha (do Gui). A festa mostra o mesmo número arredondado do Sobre ("+400"). A WIG soma
+// as edições com a @bsurda (que estão na Agenda) e os eventos só dela, que ficam fora da Agenda;
+// o que é coprodução já está na Agenda e não entra duas vezes.
+const seriesSoDaWig = new Set(wigEventos.series.filter((s) => !('coproducao' in s && s.coproducao)).map((s) => s.id));
+const soDaWig = projeto.id === 'wig' ? wigEventos.eventos.filter((e) => seriesSoDaWig.has(e.serie)).length : 0;
+const edicoes = r.passados.length + soDaWig;
 const desde = projeto.data.desde ?? r.desde;
 const ate = r.porAno.length > 0 ? r.porAno[r.porAno.length - 1].ano : undefined;
 const parado = projeto.data.situacao === 'arquivo';
@@ -103,7 +111,8 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
         <dl class="ficha">
           {desde && !parado && <div><dt>Desde</dt><dd>{desde}</dd></div>}
           {desde && parado && <div><dt>Período</dt><dd>{desde === ate || !ate ? desde : `${desde} a ${ate}`}</dd></div>}
-          {!ehFesta && r.passados.length > 0 && <div><dt>Edições</dt><dd>{r.passados.length}</dd></div>}
+          {ehFesta && <div><dt>Eventos</dt><dd>+{eventosArredondados}</dd></div>}
+          {!ehFesta && edicoes > 0 && <div><dt>Edições</dt><dd>{edicoes}</dd></div>}
         </dl>
       </div>
     </div>
