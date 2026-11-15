@@ -50,33 +50,36 @@ const FAISCA = "M9.126 23.02C6.55266 24.95 3.52899 26.9443 0.0549927 29.003C3.40
 </Marca>
 
 <style>
-  .cw { --c-fundo: var(--texto); --c-texto: var(--fundo); --c-pintura: var(--c-fundo); display: block; aspect-ratio: 5 / 7; color: var(--c-texto); text-decoration: none; }
+  /* Tudo dentro do crachá é medido pela largura dele (cqw): margens, letras, furo, selo. Assim o
+     crachá encolhe e cresce inteiro, como um objeto, e nada quebra quando a tela muda (pedido do
+     Gui). A referência é um crachá de 17rem de largura: 1rem de lá vale 5,88cqw aqui. */
+  .cw { --c-fundo: var(--texto); --c-texto: var(--fundo); --c-pintura: var(--c-fundo); container-type: inline-size; display: block; aspect-ratio: 5 / 7; color: var(--c-texto); text-decoration: none; }
   .cw-bastidores { --c-fundo: var(--vivo); --c-texto: var(--sobre-vivo); }
   /* Direção: folha dourada, a única que não segue o tema. O amarelo vem do manual de cores da WIG;
      o degradê imita o brilho do material, como num crachá laminado. */
   .cw-direcao { --c-fundo: #f0c132; --c-texto: #4a0c0c; --c-pintura: linear-gradient(128deg, #c89f23 0%, #fde68a 24%, #fbca2c 46%, #e2b12a 62%, #fde68a 80%, #c89f23 100%); }
-  .cw-face { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr auto auto; height: 100%; padding: 0.9rem 0.9rem 1rem; border-radius: clamp(1rem, 1.8vw, 1.5rem); background: var(--c-pintura); }
-  .cw-furo { justify-self: center; width: 2.75rem; height: 0.6rem; border-radius: 1rem; background: var(--fundo); }
-  .cw-topo { display: flex; align-items: center; justify-content: space-between; margin-top: 0.8rem; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
-  .cw-topo :global(.cw-marca) { height: 1.35rem; width: auto; }
+  .cw-face { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr auto auto; height: 100%; padding: 5.3cqw 5.3cqw 5.9cqw; border-radius: 7.4cqw; background: var(--c-pintura); }
+  .cw-furo { justify-self: center; width: 16cqw; height: 3.5cqw; border-radius: 6cqw; background: var(--fundo); }
+  .cw-topo { display: flex; align-items: center; justify-content: space-between; margin-top: 4.7cqw; font-size: 4.4cqw; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  .cw-topo :global(.cw-marca) { height: 8cqw; width: auto; }
   /* A foto do casting já traz a inicial gigante da marca atrás da drag: a janela é maior que a do
      crachá da @bsurda para ela aparecer. */
-  .cw-retrato { position: relative; display: block; overflow: hidden; min-height: 0; margin-top: 0.7rem; border-radius: clamp(0.6rem, 1vw, 0.9rem); background: color-mix(in srgb, var(--c-texto) 12%, var(--c-fundo)); }
+  .cw-retrato { position: relative; display: block; overflow: hidden; min-height: 0; margin-top: 4.1cqw; border-radius: 4.4cqw; background: color-mix(in srgb, var(--c-texto) 12%, var(--c-fundo)); }
   .cw-retrato img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; display: block; }
-  .cw-texto { display: grid; gap: 0.4rem; justify-items: start; margin-top: 0.8rem; }
+  .cw-texto { display: grid; gap: 2.4cqw; justify-items: start; margin-top: 4.7cqw; }
   /* Uma linha para todos, para a foto ter a mesma altura em todos os crachás. Nome comprido
      encolhe para caber na largura. */
-  .cw-nome { display: block; width: 100%; height: 1.75rem; }
-  .cw-nome-texto { font-size: 1.5rem; font-weight: 800; line-height: 0.95; }
-  .cw-epiteto { font-size: 0.875rem; line-height: 1.2; }
-  .cw-pe { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-top: 0.8rem; padding-top: 0.65rem; border-top: 2px solid var(--c-texto); font-size: 0.6875rem; text-transform: uppercase; letter-spacing: 0.16em; white-space: nowrap; }
+  .cw-nome { display: block; width: 100%; height: 10.3cqw; }
+  .cw-nome-texto { font-size: 8.8cqw; font-weight: 800; line-height: 0.95; }
+  .cw-epiteto { font-size: 5.15cqw; line-height: 1.2; white-space: nowrap; }
+  .cw-pe { display: flex; justify-content: space-between; align-items: center; gap: 2.5cqw; margin-top: 4.7cqw; padding-top: 3.8cqw; border-top: 0.75cqw solid var(--c-texto); font-size: 4.05cqw; text-transform: uppercase; letter-spacing: 0.16em; white-space: nowrap; }
   .cw-pe span { font-weight: 500; }
   .cw-pe strong { font-weight: 800; }
-  .cw-pe svg { width: 0.7rem; height: 0.7rem; flex: none; }
+  .cw-pe svg { width: 4.1cqw; height: 4.1cqw; flex: none; }
   /* Selo da patroa: o adesivo redondo do fundador, na versão da WIG, só no da Charlotte. */
-  .cw-selo { position: absolute; top: 4.4rem; right: -0.8rem; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 0.2rem; width: 5.25rem; aspect-ratio: 1; border-radius: 50%; background: var(--c-texto); color: var(--c-fundo); transform: rotate(9deg); }
-  .cw-selo svg { width: 0.9rem; height: 0.9rem; }
-  .cw-selo strong { font-size: 0.8125rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
+  .cw-selo { position: absolute; top: 26cqw; right: -4.7cqw; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 1.2cqw; width: 31cqw; aspect-ratio: 1; border-radius: 50%; background: var(--c-texto); color: var(--c-fundo); transform: rotate(9deg); }
+  .cw-selo svg { width: 5.3cqw; height: 5.3cqw; }
+  .cw-selo strong { font-size: 4.8cqw; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
   a.cw { transition: transform 0.25s ease; }
   @media (hover: hover) and (pointer: fine) { a.cw:hover { transform: translateY(-0.35rem) rotate(-1deg); } }
   @media (prefers-reduced-motion: reduce) { a.cw { transition: none; } a.cw:hover { transform: none; } }

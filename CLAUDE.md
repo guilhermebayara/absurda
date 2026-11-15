@@ -138,7 +138,8 @@ viva, direção em dourado (só a Charlotte, que também leva o selo "Patroa"). 
 e com o nome em uma linha; a Charlotte se destaca pelo material e pelo lugar na composição. Só ela
 tem página no site (o crachá da WIG aparece lá também, abaixo da ficha); os outros levam ao
 Instagram de cada pessoa. O elenco vem antes das edições com a @bsurda, com um título só. O nome na letra da marca entra
-como curva (`src/data/wig-letras.json`); o arquivo da fonte não entra no site.
+como curva (`src/data/wig-letras.json`); o arquivo da fonte não entra no site. Tudo dentro do
+crachá da WIG é medido pela largura dele (cqw), para ele redimensionar inteiro sem quebrar.
 
 ## Sessões de QA
 

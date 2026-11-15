@@ -15,6 +15,10 @@ Guardado em 15 nov 2026, a pedido do Gui, para uso futuro (texto do projeto, pá
   figma.com/deck/2F2LfV6OpwYaZoDQDWgl4v
 - Nos posts, os nomes têm arabescos e faíscas. No site ficam na forma básica da letra (decisão do Gui).
 
+- O nome Charlotte vem do doce charlotte, da época em que ela fez intercâmbio em Paris. Nas palavras
+  dela: "porque gostosa é boa de comer". Por isso o epíteto dela no crachá é « drag sobremesa ».
+  "Patroa" fica só no selo.
+
 ## Posts oficiais de apresentação do casting (legendas)
 
 ### Aria Dreamz
