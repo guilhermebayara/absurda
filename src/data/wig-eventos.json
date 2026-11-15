@@ -1,5 +1,5 @@
 {
- "_": "Eventos que são só da WIG (a @bsurda às vezes apoia, mas não produz). Aparecem só na página do projeto, nunca na Agenda (decisão do Gui). Vêm das contas da própria WIG: sympla.com.br/produtor/wigevents e shotgun.live/en/venues/wig-events, lidas em 15 nov 2026. O Sympla só mostra de 2023 para cá. Os que são coprodução com a @bsurda já estão na Agenda e ficam de fora daqui. Para atualizar, acrescente linhas à mão.",
+ "_": "Eventos que são só da WIG (a @bsurda às vezes apoia, mas não produz). Aparecem só na página do projeto, nunca na Agenda (decisão do Gui). Vêm das contas da própria WIG: sympla.com.br/produtor/wigevents e shotgun.live/en/venues/wig-events, lidas em 15 nov 2026. O Sympla só mostra de 2023 para cá. Os que são coprodução com a @bsurda já estão na Agenda e ficam de fora daqui. Para atualizar, acrescente linhas à mão. Furdunço da Bôta e Boat da Bôta apareciam na conta da WIG no Sympla, mas são de outra produção da Charlotte e ficam de fora (Gui, 15 nov 2026).",
  "series": [
   {
    "id": "brunch",
@@ -13,10 +13,6 @@
   {
    "id": "arraia",
    "nome": "Arraiá das Piranhas"
-  },
-  {
-   "id": "bota",
-   "nome": "Baile da Bôta"
   }
  ],
  "eventos": [
@@ -243,20 +239,6 @@
    "data": "2026-07-12",
    "local": "O Quinteiro Bar",
    "url": "https://www.sympla.com.br/evento/arraia-das-piranhas-3a-edicao/3481468"
-  },
-  {
-   "serie": "bota",
-   "nome": "Furdunço da Bôta: Piscininha, amor!",
-   "data": "2025-04-19",
-   "local": "Eventos Pampulha",
-   "url": "https://www.sympla.com.br/evento/furdunco-da-bota-piscininha-amor/2913410"
-  },
-  {
-   "serie": "bota",
-   "nome": "Boat da Bôta (RJ): edição Gagacabana",
-   "data": "2025-05-04",
-   "local": "Marina da Glória, Rio de Janeiro",
-   "url": "https://www.sympla.com.br/evento/boat-da-bota-rj-edicao-gagacabana/2860797"
   }
  ]
 }

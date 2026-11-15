@@ -135,3 +135,9 @@ out e nov 2026). Dois dos 33 já estavam na Agenda como coprodução (Exibição
 19/04/2024, e CHRONUS em São Paulo, em ago 2023) e ficaram de fora da lista. Sobraram 34, em quatro
 séries: WIG Brunch (11), Tela Tuck (18), Arraiá das Piranhas (3) e Baile da Bôta (2).
 Próximos eventos da WIG no site dependem de a Charlotte liberar o acesso do Shotgun dela (Gui vai ver).
+
+Correção do Gui (15 nov 2026): Furdunço da Bôta e Boat da Bôta saíram da lista. Estavam na conta da
+WIG no Sympla, provavelmente por compartilhamento de conta; a Charlotte produz lá também, mas são
+projetos separados. Ficaram 32 eventos em três séries. O CHRONUS teve mais espetáculos antes de São
+Paulo; o Gui confirma depois. Ideia do Gui: a página da WIG falar dos projetos principais (CHRONUS,
+Brunch, watch parties).
