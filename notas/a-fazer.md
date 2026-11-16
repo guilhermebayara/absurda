@@ -36,9 +36,9 @@ resposta chegar lá, o item vira trabalho:
 
 Fora da planilha:
 
-- **Listas T/NB, PCD e aniversariantes: em teste.** Página `/listas`, com atalho na Agenda e no
-  Contato, na branch `teste-listas`. O Gui escolhe o lugar (página própria ou dentro do Contato) e
-  aprova os textos; aí sobe para a `main`.
+- **Listas T/NB, PCD e aniversariantes: em teste.** Seção "Listas" dentro da Agenda, logo depois de
+  "Vem aí" (decisão do Gui: são só regras), na branch `teste-listas`. Sobe para a `main` quando o Gui
+  aprovar o desenho.
 - **Página do Gui: parte de baixo.** Depende do documento piloto "Sua página no site da @bsurda: Gui
   Bayara" preenchido. Montar numa branch de teste primeiro.
 - **Branch de teste para apagar no GitHub:** `teste-wig-projetos` (já está na `main`). Pela conversa
