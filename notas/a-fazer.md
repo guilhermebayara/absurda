@@ -20,13 +20,6 @@ Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `no
   aniversariantes do mês, que entram com mensagem no Instagram. Lugar a propor ao Gui (Contato ou
   página própria); mostrar numa branch de teste antes. Não pôr link de formulário fixo: o formulário
   muda por festa, então o texto aponta para o Instagram.
-- **Parcerias: sete marcas novas.** Weave (concurso de fantasias do Halloween 2026), Itapoã Hotel
-  (hotel oficial do Halloween 2026), Metha Energia (oficinas da Parada 2026), Cerveja Praya (IHR Coisas
-  Naturais, 29/11/2025), Universal Music (IHR Ariana), Império Madonna (Confessions II) e Zang Tattoo
-  (Halloween 2026). Entram todas em `parceiros.json`; o Gui revisa depois. As pastas já existem em
-  `10_site/6_Parcerias/marcas/<id>` (ids: `weave`, `itapoa-hotel`, `metha-energia`, `cerveja-praya`,
-  `universal-music`, `imperio-madonna`, `zang-tattoo`). Sem logo ainda: seguir como as outras marcas
-  sem logo.
 - **Textos aprovados pelo Gui (16/11): aplicar direto.** Na planilha, o Gui deu "ok" nas propostas
   destes itens, e o texto da coluna Observação ("Proposta…") é o que vai ao ar:
   - Aba Projetos (coluna Texto = "ok"): @bsurda, Trio da @bsurda, Parada da @bsurda, I Hate Remix,

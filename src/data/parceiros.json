@@ -200,5 +200,83 @@
         "onde": "Parada da @bsurda (apoio)"
       }
     ]
+  },
+  {
+    "id": "weave",
+    "nome": "Weave",
+    "registros": [
+      {
+        "ano": "2026",
+        "onde": "Halloween 17 anos (concurso de fantasias)"
+      }
+    ]
+  },
+  {
+    "id": "itapoa-hotel",
+    "nome": "Itapoã Hotel",
+    "registros": [
+      {
+        "ano": "2026",
+        "onde": "Halloween 17 anos (hotel oficial)"
+      }
+    ]
+  },
+  {
+    "id": "metha-energia",
+    "nome": "Metha Energia",
+    "registros": [
+      {
+        "ano": "2026",
+        "onde": "Parada da @bsurda (oficinas)"
+      }
+    ]
+  },
+  {
+    "id": "cerveja-praya",
+    "nome": "Cerveja Praya",
+    "registros": [
+      {
+        "ano": "2025",
+        "onde": "I Hate Remix Coisas Naturais"
+      }
+    ]
+  },
+  {
+    "id": "universal-music",
+    "nome": "Universal Music",
+    "registros": [
+      {
+        "ano": "2026",
+        "onde": "I Hate Remix Ariana Grande (a confirmar)"
+      }
+    ]
+  },
+  {
+    "id": "imperio-madonna",
+    "nome": "Império Madonna",
+    "registros": [
+      {
+        "ano": "2026",
+        "onde": "Madonna Confessions II"
+      }
+    ]
+  },
+  {
+    "id": "zang-tattoo",
+    "nome": "Zang Tattoo",
+    "registros": [
+      {
+        "ano": "2023",
+        "onde": "I Hate Remix Taylor Swift (flash tattoo)"
+      },
+      {
+        "ano": "2023",
+        "onde": "Halloween 14 anos (flash tattoo)"
+      },
+      {
+        "ano": "2026",
+        "onde": "Halloween 17 anos"
+      }
+    ]
   }
 ]

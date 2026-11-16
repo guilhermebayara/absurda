@@ -85,3 +85,7 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   (`notas/equipe-tabela.md`.)
 - `2026-11-16`: o Gui aprovou na planilha os textos propostos de oito projetos e oito edições; a lista
   está em `notas/a-fazer.md`. (Planilha "Pendências do site".)
+- `2026-11-16`: a Universal Music entra em Parcerias ligada à IHR Ariana Grande de 2026 (Petal), com
+  "(a confirmar)": houve duas IHR da Ariana no período lido (14/11/2025 e 01/08/2026) e a nota não
+  dizia qual. A Zang Tattoo ganhou também os registros de 2023 que estão nas descrições do Sympla.
+  Feito pelo Claude Code. (`src/data/parceiros.json`.)
