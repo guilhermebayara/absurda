@@ -39,7 +39,17 @@ Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `no
   `10_site/6_Parcerias/marcas/<id>` (ids: `weave`, `itapoa-hotel`, `metha-energia`, `cerveja-praya`,
   `universal-music`, `imperio-madonna`, `zang-tattoo`). Sem logo ainda: seguir como as outras marcas
   sem logo.
-- **Textos do site no tom da @bsurda.** Reescrever resumos e textos dos projetos, frases de apoio da
+- **Textos aprovados pelo Gui (16/11): aplicar direto.** Na planilha, o Gui deu "ok" nas propostas
+  destes itens, e o texto da coluna Observação ("Proposta…") é o que vai ao ar:
+  - Aba Projetos (coluna Texto = "ok"): @bsurda, Trio da @bsurda, Parada da @bsurda, I Hate Remix,
+    Tibum, Amorzinho, Money e PFVR. Vão para `src/content/projetos/<id>.md`.
+  - Aba Edições (coluna Resposta = "ok"): YOLO, Prom, @bsurda #100, Edição 200, Halloween de 10 anos,
+    Inferninho da @bsurda, Melhores do ano e Baile das Amigas. Vão para as edições especiais e
+    históricas em `src/content/projetos/absurda.md`.
+  Ler a planilha na hora de aplicar (o Gui pode ter mexido). Halloween, WIG, @bsurda Premium e Velcro
+  ainda não foram aprovados: ficam como estão. Por ser texto aprovado, pode seguir a rotina normal
+  até a `main`.
+- **Textos do site no tom da @bsurda (o resto).** Reescrever resumos e textos dos projetos, frases de apoio da
   Home e do Sobre e textos das edições seguindo `notas/tom.md`. Fazer numa branch de teste e mostrar
   ao Gui antes de levar para a `main`: ele aprova cada texto. Onde houver proposta aprovada na
   planilha (colunas "Proposta:" nas abas Projetos e Edições), usar a dela.
@@ -58,8 +68,7 @@ resposta chegar lá, o item vira trabalho:
 - **WIG: links oficiais na página.** Instagram (instagram.com/wigevents), loja de merch
   (umapenca.com/wigevents) e Shotgun (shotgun.live/en/venues/wig-events), como links de texto.
 - **WIG: nome do projeto no site.** Hoje é "Wig"; a grafia da marca é "WIG events".
-- **Agenda: dois eventos do Sympla a confirmar.** Summer Eletrohits de 19/07/2025 no Lab
-  (`sympla-2975375`, ao lado do Club Mayhem da mesma noite no Mira) e IHR Lady Gaga (2021).
+- **Agenda: IHR Lady Gaga (2021), do Sympla.** Confirmar se é da @bsurda e se aconteceu.
 - **Agenda de 2022: pastas que ficaram de fora.** MOC, Prêmio, YOLO e Anda.
 - **Equipe: selo "Lista em construção (a confirmar)".** Sai quando o Gui der a lista por fechada.
 

@@ -80,3 +80,8 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   revisa e tira se for o caso. (`notas/a-fazer.md`.)
 - `2026-11-16`: e-mail e demais formas de contato no site ficam pausados até o Gui decidir quais
   oferecer. (`notas/a-fazer.md`.)
+- `2026-11-16`: o @bsurda Summer Eletrohits de 19/07/2025 no Lab (`sympla-2975375`) não aconteceu:
+  naquela noite foi só o Club Mayhem, no Mira. Fica fora da Agenda (ele já não entra no arquivo).
+  (`notas/equipe-tabela.md`.)
+- `2026-11-16`: o Gui aprovou na planilha os textos propostos de oito projetos e oito edições; a lista
+  está em `notas/a-fazer.md`. (Planilha "Pendências do site".)

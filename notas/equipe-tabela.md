@@ -187,8 +187,7 @@ Formato ainda a definir. Foram poucas, e hoje ele só faz sets especiais.
    estão no arquivo, todos explicados: cinco de 2012 e 2013 aparecem pelo álbum do Flickr; três
    estão em `FORA_DA_AGENDA`; Tibum Verão adiado; @bsurda em Casa #2 duplicada; Halloween de 16
    anos entra por `sympla-historico.json`; IHR Lady Gaga de 2021 (a confirmar se aconteceu);
-   @bsurda Summer Eletrohits de 19/07/2025 no LAB (a confirmar com o Gui: no site, nessa data, há
-   Club Mayhem, do Shotgun).
+   @bsurda Summer Eletrohits de 19/07/2025 no LAB (não aconteceu: foi só o Club Mayhem, Gui, 16/11).
 2. **Página pública da @bsurda x Agenda.** A aba Encerrados mostra 100 eventos, de 12 jan 2023
    para cá, incluindo os criados por outras casas e compartilhados. Todos os 100 estão no site.
 3. **Casas.** Major Lock (470 eventos) e LAB (545) varridos: nada a acrescentar. Casa Sapucaí
