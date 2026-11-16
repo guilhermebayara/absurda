@@ -14,9 +14,6 @@ Como usar:
 
 Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
 
-- **Sobre: dois marcos novos em `src/data/marcos.json`.** A edição 400 (17/01/2026, no Mira, especial
-  Summer Eletrohits #7) e a Lady Gaga notando a @bsurda em 2025 (repost dela e vídeo da festa no site
-  oficial). Textos no tom de `notas/tom.md`.
 - **Projeto @bsurda: edição 400 nas históricas.** Proposta de texto na planilha, aba Edições, linha 21.
   Capa: a do evento `@BSURDA 400 SUMMER ELETROHITS 17/01` no arquivo.
 - **Site: listas T/NB, PCD e aniversariantes.** O Gui quer as regras no site. Base: post "Diversidade
