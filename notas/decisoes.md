@@ -89,3 +89,9 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   "(a confirmar)": houve duas IHR da Ariana no período lido (14/11/2025 e 01/08/2026) e a nota não
   dizia qual. A Zang Tattoo ganhou também os registros de 2023 que estão nas descrições do Sympla.
   Feito pelo Claude Code. (`src/data/parceiros.json`.)
+- `2026-11-16`: o Gui aprovou toda a reescrita dos textos no tom da @bsurda (branch `teste-tom`):
+  resumos dos projetos, texto do Halloween, edições sem texto e frases de apoio. Bazinga!, É Você
+  Satanás?, Viiish! e Mobile seguem sem texto, por falta de fatos. (Os próprios arquivos.)
+- `2026-11-16`: as regras das listas T/NB e PCD e do convite dos aniversariantes ficam dentro da
+  Agenda, e não numa página própria: são só regras, e a Agenda é o caminho de quem vai à festa.
+  Pedido do Gui. (`src/pages/agenda.astro`.)

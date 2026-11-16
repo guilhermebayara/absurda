@@ -39,9 +39,6 @@ Fora da planilha:
 - **Listas T/NB, PCD e aniversariantes: em teste.** Página `/listas`, com atalho na Agenda e no
   Contato, na branch `teste-listas`. O Gui escolhe o lugar (página própria ou dentro do Contato) e
   aprova os textos; aí sobe para a `main`.
-- **Textos no tom da @bsurda: em teste.** Branch `teste-tom`; o antes e depois de cada linha está em
-  `notas/textos-em-teste.md` (na branch). Sobe só o que o Gui aprovar. Bazinga!, É Você Satanás?,
-  Viiish! e Mobile seguem sem texto, por falta de fatos.
 - **Página do Gui: parte de baixo.** Depende do documento piloto "Sua página no site da @bsurda: Gui
   Bayara" preenchido. Montar numa branch de teste primeiro.
 - **Branch de teste para apagar no GitHub:** `teste-wig-projetos` (já está na `main`). Pela conversa
