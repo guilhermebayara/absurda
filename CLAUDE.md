@@ -76,15 +76,15 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
 1. `git fetch origin main` e traga a `main` para a branch.
 2. `npm run build` sem erro.
 3. `npm run confere:arquivo` passando.
-4. `npm run confere:links`, `npm run confere:agenda`, `npm run confere:temas` e
-   `npm run confere:calmo` passando (ver
+4. `npm run confere:links`, `npm run confere:agenda`, `npm run confere:temas`,
+   `npm run confere:calmo` e `npm run confere:parede` passando (ver
    "Conferências do site").
 5. Só então `main`. A publicação na Cloudflare sai sozinha a cada push.
 
 ## Conferências do site
 
-Além da guarda do histórico, quatro conferências rodam na máquina e, sozinhas, no GitHub a cada
-push fora da `main` (`.github/workflows/confere-site.yml`). As quatro rodam depois do build:
+Além da guarda do histórico, cinco conferências rodam na máquina e, sozinhas, no GitHub a cada
+push fora da `main` (`.github/workflows/confere-site.yml`). As cinco rodam depois do build:
 
 - `npm run confere:links`: falha se algum link interno, âncora ou imagem do próprio site
   apontar para algo que não existe. Link externo não entra.
@@ -99,6 +99,10 @@ push fora da `main` (`.github/workflows/confere-site.yml`). As quatro rodam depo
   desktop, e falha se uma entrada ou um eco ficar escondido ou se algo se mexer sozinho. Usa o
   Playwright (na primeira vez numa máquina: `npx playwright install chromium`). O que nasce
   escondido de propósito entra na lista `DE_PROPOSITO` do script.
+- `npm run confere:parede`: abre a Home em várias telas de celular e desktop e falha se alguma
+  fileira da parede de palavras não cobrir a tela inteira. No celular cada fileira tem dois grupos
+  e não três (com três, o Safari do iPhone ficava sem memória e as palavras piscavam todas
+  juntas), então cada grupo precisa ser mais largo que a tela. Também usa o Playwright.
 
 **Regra de contraste (do Gui):** texto que se lê precisa de contraste de leitura (4,5:1).
 Enfeite pode ousar e abrir mão disso, desde que continue visível (3:1): a barra inclinada, o
@@ -254,7 +258,9 @@ regras de branch desta seção.
   `troca-viva`). Ligada desde o início, o Safari às vezes parava no meio do caminho entre
   dois temas, com cores ilegíveis.
 - **Letreiros no Safari:** cada grupo animado precisa ser curto (até uns dez nomes), ou o
-  Safari deixa de desenhar.
+  Safari deixa de desenhar. E camada animada que nunca aparece na tela também gasta memória:
+  quando ela falta, o Safari do iPhone apaga as camadas e redesenha, e tudo pisca junto (foi o
+  caso da parede da Home, que no celular passou a ter dois grupos por fileira, e não três).
 - **Tokens e chaves** nunca entram no código nem em conversa: só nos segredos da Cloudflare
   e do GitHub.
 - **Trecho de posicionamento do Sobre:** usa a paleta fechada `TEMAS_DE_POSICAO` em

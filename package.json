@@ -12,7 +12,8 @@
     "confere:links": "node scripts/confere-links.mjs",
     "confere:temas": "node scripts/confere-temas.mjs",
     "confere:agenda": "node scripts/confere-agenda.mjs",
-    "confere:calmo": "node scripts/confere-calmo.mjs"
+    "confere:calmo": "node scripts/confere-calmo.mjs",
+    "confere:parede": "node scripts/confere-parede.mjs"
   },
   "dependencies": {
     "@fontsource-variable/urbanist": "^5.3.0",
