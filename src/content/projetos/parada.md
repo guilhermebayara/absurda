@@ -1,6 +1,6 @@
 ---
 nome: "Parada da @bsurda"
-resumo: "Nasceu na pandemia, em formato digital, e hoje tem eventos presenciais."
+resumo: "Nasceu virtual na pandemia e hoje ocupa BH na época do Orgulho."
 situacao: ativo
 capa: "/sobre/improvaveis/funarte.jpg"
 programacao:
