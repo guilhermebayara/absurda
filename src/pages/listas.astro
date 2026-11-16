@@ -1,0 +1,91 @@
+---
+// Página Listas: as regras da lista T/NB, da lista PCD e do convite dos aniversariantes do mês
+// (pedido do Gui, 16 nov 2026). Base: o post "Diversidade importa" e os fechos das legendas do
+// Instagram ("Listas T/NB e PCD, só mandar mensagem").
+//
+// O formulário da lista T/NB muda a cada festa, então nenhum link de formulário fica fixo aqui:
+// o texto manda para o post da festa no Instagram, e o botão abre a conversa com a @bsurda.
+//
+// PROPOSTA EM BRANCH DE TESTE: o Gui decide o lugar (página própria, como aqui, ou dentro do
+// Contato) e aprova os textos antes de ir para a main.
+import Base from '../layouts/Base.astro';
+import Botao from '../components/Botao.astro';
+import { SITE } from '../config';
+
+// Abre a conversa com a @bsurda no Instagram (o endereço curto ig.me/m/ leva direto à mensagem).
+const conversa = SITE.redes.instagram.replace(/^https:\/\/(www\.)?instagram\.com\//, 'https://ig.me/m/');
+
+const listas = [
+  {
+    id: 'lista-tnb',
+    para: 'Pessoas trans, travestis e não bináries',
+    nome: 'Lista T/NB',
+    textos: [
+      'Cada festa tem a sua lista, com inscrição por formulário. O link sai no Instagram, no post da festa.',
+      'As vagas vão por ordem de chegada e o ingresso chega por e-mail. Quem acompanha a lista é a Valentina Vianna.',
+      'Pessoa cis não se inscreve, tá? A lista é pra quem ela foi feita.',
+    ],
+  },
+  {
+    id: 'lista-pcd',
+    para: 'Pessoas com deficiência',
+    nome: 'Lista PCD',
+    textos: [
+      'Tem lista PCD em todas as festas. Só mandar mensagem pra gente no Instagram antes da noite.',
+    ],
+  },
+  {
+    id: 'aniversariantes',
+    para: 'Quem faz aniversário no mês',
+    nome: 'Aniversariantes',
+    textos: [
+      'Fez aniversário no mês da festa? Você entra na lista. Só mandar mensagem no Instagram (e parabéns!).',
+    ],
+  },
+];
+---
+<Base titulo="Listas" descricao="Como funcionam a lista T/NB, a lista PCD e o convite dos aniversariantes do mês nas festas da @bsurda.">
+  <header class="abre abre-cima">
+    <h1 class="t-gigante ecoa ecoa-cima" data-eco="Listas">Listas</h1>
+    <p class="t-apoio">Na @bsurda tem lista pra quem precisa e convite pra quem está de aniversário. Funciona assim.</p>
+  </header>
+
+  <section class="listas" aria-label="Listas e convites">
+    <ul class="listas-grade">
+      {listas.map((l, i) => (
+        <li id={l.id} class:list={['lista', { 'lista-b': i % 2 === 1 }]} data-anima="surge" style={`--i:${i}`}>
+          <p class="lista-para">{l.para}</p>
+          <h2 class="lista-nome">{l.nome}</h2>
+          <div class="lista-texto">{l.textos.map((t) => <p>{t}</p>)}</div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="bloco" aria-labelledby="t-mensagem">
+    <h2 id="t-mensagem" class="t-secao" data-anima="sobe">Só mandar mensagem</h2>
+    <p class="t-apoio bloco-texto" data-anima="surge">As regras podem mudar um cadinho de uma festa pra outra. Na dúvida, vale o post da festa no Instagram, ou é só chamar a gente lá.</p>
+    <p class="bloco-botao" data-anima="surge"><Botao href={conversa} externo>Mandar mensagem no Instagram</Botao></p>
+  </section>
+</Base>
+
+<style>
+  .abre .t-apoio { margin-top: var(--e-2); }
+  /* Título de seção, igual ao do Sobre, da Equipe e de Parcerias. */
+  .t-secao { font-size: clamp(2.75rem, 9.5vw, 8.75rem); font-weight: 800; line-height: 1; letter-spacing: -0.045em; text-transform: uppercase; text-wrap: balance; }
+
+  /* Cada lista num bloco sólido, alternando as duas superfícies do tema (vivo e invertida),
+     como as marcas de Parcerias. */
+  .listas { padding: var(--e-3) var(--margem) var(--e-6); }
+  .listas-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr)); gap: clamp(1rem, 2vw, 1.75rem); }
+  .lista { --l-fundo: var(--vivo); --l-texto: var(--sobre-vivo); display: grid; grid-template-rows: auto auto 1fr; gap: var(--e-2); min-height: clamp(18rem, 34vw, 30rem); padding: clamp(1.25rem, 2.6vw, 2.5rem); border-radius: var(--raio-cartao, 1.5rem); background: var(--l-fundo); color: var(--l-texto); scroll-margin-top: var(--e-4); container-type: inline-size; }
+  .lista-b { --l-fundo: var(--texto); --l-texto: var(--fundo); }
+  .lista-para { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  /* Medido pela largura do cartão (cqw), para "Aniversariantes" caber inteira em qualquer tela. */
+  .lista-nome { font-size: 10.5cqw; font-weight: 800; line-height: 0.88; letter-spacing: -0.045em; text-transform: uppercase; text-wrap: balance; }
+  .lista-texto { align-self: end; display: grid; gap: 0.75em; max-width: 28em; padding-top: 0.9rem; border-top: 2px solid var(--l-texto); font-size: 1.0625rem; line-height: 1.4; }
+
+  .bloco { padding: var(--e-4) var(--margem) var(--e-6); }
+  .bloco-texto { max-width: 30em; margin-top: var(--e-2); }
+  .bloco-botao { margin-top: var(--e-3); }
+</style>

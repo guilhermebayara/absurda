@@ -45,6 +45,8 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
         </div>
       )
       : <p class="t-apoio">As próximas aparecem aqui assim que os ingressos abrirem. Enquanto isso, acompanhe pelo <a href={SITE.redes.instagram}>Instagram</a>.</p>}
+    {/* Teste (teste-listas): atalho para as regras das listas, perto de onde se compra ingresso. */}
+    <p class="t-apoio proximos-listas" data-anima="surge">Lista T/NB, lista PCD e convite de aniversariante: <a href="/listas">veja como funciona</a>.</p>
   </section>
 
   <div data-tema="sorteio" data-reserva={atributo(TEMAS_DO_SITE[0])}>
@@ -232,6 +234,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
 
 <style>
   .abre .t-apoio { margin-top: var(--e-3); }
+  .proximos-listas { max-width: 34em; margin-top: var(--e-4); }
 
   .proximos { padding: var(--e-4) var(--margem) var(--e-5); }
   .proximos-grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--e-3); }

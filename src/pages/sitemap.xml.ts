@@ -3,7 +3,7 @@
 import type { APIContext } from 'astro';
 import { getCollection } from 'astro:content';
 
-const fixas = ['/', '/agenda', '/projetos', '/sobre', '/equipe', '/parcerias', '/contato'];
+const fixas = ['/', '/agenda', '/projetos', '/sobre', '/equipe', '/parcerias', '/contato', '/listas'];
 
 export async function GET({ site }: APIContext) {
   const projetos = (await getCollection('projetos')).map((p) => `/projetos/${p.id}`);
