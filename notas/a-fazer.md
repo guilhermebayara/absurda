@@ -14,9 +14,6 @@ Como usar:
 
 Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
 
-- **Agenda: @bsurda na Rua, 10/01/2026.** Festa de graça na Rua Sapucaí (Xangô e Lupita), pré-carnaval,
-  com doações para o trio. Line: Ed Luiz, Grabs, Nath Leles, Keoma, Charlotte. Entra como evento
-  escrito à mão (sem link de ingresso). O robô não traz, porque não teve ingresso.
 - **Agenda: nome da primeira Amorzinho.** `shotgun-560392` (24/07/2026) está no Shotgun como
   "@BSURDA FASHION, MUSIC, FILM". Foi o lançamento da Amorzinho, no dia do disco da Charli: o nome no
   Shotgun ficou desatualizado. Corrigir por `NOMES_CORRIGIDOS` em `src/lib/eventos.ts`, sem mexer no

@@ -503,5 +503,14 @@
     "origem": "manual",
     "capa": "/capas/virada-2022-09.jpg",
     "capaPequena": "/capas/virada-2022-09-p.jpg"
+  },
+  {
+    "id": "rua-2026-01",
+    "nome": "@bsurda na Rua",
+    "data": "2026-01-10T16:00:00-03:00",
+    "local": "Rua Sapucaí",
+    "url": "",
+    "origem": "manual",
+    "soDia": true
   }
 ]
