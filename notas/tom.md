@@ -30,6 +30,28 @@ O site pode ser um pouco mais arrumado que uma legenda, mas não pode soar como 
 - **Afeto sem melodrama.** O post de 17 anos fala de desejo de festejar e de olhar pra trás, sem
   exagero. Momentos de história (Sobre, aniversários) podem ter esse calor.
 
+## Trechos reais (Instagram, nov 2025 a nov 2026)
+
+Lidos na varredura de 16 nov 2026. Servem de régua de voz, não para copiar no site.
+
+- Convite com graça: "Venha garantir seu diploma, ele não serve pra nada, mas rende foto." (Prom
+  Mayhem, dez 2025)
+- Mineirês e intimidade: "E insistiu muito, nuuuuu." / "Foi 'não vai dar' que virou 'deu sim',
+  bicha!!" (edição 400)
+- Aviso que vira piada: "Depois depois… eu to avisando." / "Xixi no banheiro (a rua agradece)."
+- Aparte entre parênteses: "(e noites mal dormidas)", "(só pra avisar mesmo)", "(corre tá?!)".
+- Apresentação de gente com carinho e uma pitada: "A megera da @wigevents Mira Miumiu, vai ser
+  nossa hostess. Cuidado ao entrar!"
+- Rua e cuidado, direto: "Se alguém precisar de ajuda, ajude e se você precisar, peça ajuda."
+- Posição sem discurso de release: "Porque resistir também é reinventar caminhos." / "O orgulho
+  continua. E a @bsurda também."
+- Fechos fixos: "Aniversariantes de <mês>, só mandar mensagem." e "Listas T/NB e PCD, só mandar
+  mensagem." (bom modelo de texto de serviço: curto e acolhedor).
+
+Dois registros convivem. O dia a dia é leve e brincalhão; os marcos (17 anos, 400 edições, Parada
+sem patrocínio) ficam mais firmes e afetivos. Lançamento de festa nova pode ter voz própria: o da
+Amorzinho é todo em minúscula, frase curta e um ponto por linha.
+
 ## O que evitar
 
 - Tom de verbete ou de release: "O projeto consiste em", "Realizado desde", "Trata-se de".
