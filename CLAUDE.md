@@ -279,3 +279,6 @@ regras de branch desta seção.
 - **Trecho de posicionamento do Sobre:** usa a paleta fechada `TEMAS_DE_POSICAO` em
   `src/lib/temas.ts`. As regras de cor estão comentadas lá.
 - Os produtores dizem **"Trio da @bsurda"**, nunca "bloco".
+- **Tom dos textos (do Gui):** texto corrido do site segue `notas/tom.md`, tirado das legendas do
+  Instagram e das descrições antigas dos eventos: perto, animado, com humor de pista, sem tom de
+  verbete. Fichas, datas, créditos e rótulos continuam secos.

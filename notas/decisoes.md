@@ -65,3 +65,6 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
 - `2026-11-16`: a planilha "Pendências do site" guarda só o que o Gui e o Ed precisam responder, e as
   perguntas soltas da conversa (WIG, Agenda, Equipe) entram na aba Geral. Os caminhos da planilha
   apontam para a estrutura nova da pasta `10_site`. (`notas/a-fazer.md`.)
+- `2026-11-16`: os textos do site ficam menos secos e mais descontraídos, no tom das legendas do
+  Instagram, que é o canal principal da @bsurda hoje. Guia em `notas/tom.md`. Pedido do Gui.
+  (CLAUDE.md, "Cuidados".)

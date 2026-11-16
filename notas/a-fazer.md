@@ -12,7 +12,10 @@ Como usar:
 
 ## Pronto para fazer
 
-Nada no momento.
+- **Textos do site no tom da @bsurda.** Reescrever resumos e textos dos projetos, frases de apoio da
+  Home e do Sobre e textos das edições seguindo `notas/tom.md`. Fazer numa branch de teste e mostrar
+  ao Gui antes de levar para a `main`: ele aprova cada texto. Onde houver proposta aprovada na
+  planilha (colunas "Proposta:" nas abas Projetos e Edições), usar a dela.
 
 ## Esperando o Gui
 
