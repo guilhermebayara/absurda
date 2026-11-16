@@ -23,6 +23,7 @@ especiais:
 historicas:
   - { evento: "sympla-17940", porque: "A edição de número 100. (marcação)" }
   - { evento: "sympla-273251", porque: "A edição de número 200. (marcação)" }
+  - { evento: "shotgun-498466", porque: "A 400ª, no Mira, em 17/01/2026, com o especial Summer Eletrohits #7. Foi \"não vai dar\" que virou \"deu sim\", e ainda ajudou a botar o trio na rua." }
 pessoas: [ed-luiz, gui-bayara, grabs, keoma, nath-leles, charlotte]
 ---
 

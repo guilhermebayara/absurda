@@ -14,8 +14,6 @@ Como usar:
 
 Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
 
-- **Projeto @bsurda: edição 400 nas históricas.** Proposta de texto na planilha, aba Edições, linha 21.
-  Capa: a do evento `@BSURDA 400 SUMMER ELETROHITS 17/01` no arquivo.
 - **Site: listas T/NB, PCD e aniversariantes.** O Gui quer as regras no site. Base: post "Diversidade
   importa" (lista T para pessoas trans, travestis e não bináries, por formulário, acompanhada pela
   Valentina Vianna; pessoa cis não se inscreve; ordem de chegada; ingresso por e-mail), lista PCD e
