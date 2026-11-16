@@ -24,8 +24,10 @@ código, os comentários e as mensagens de commit também.
   pessoas. A documentação é commitada por lá direto na `design` e na `main`, pela rotina normal.
 - **Explorar conceitos:** a conversa pode abrir branches `teste-<assunto>` para testar ideias de
   layout ou de código. Não leva código para a `design` nem para a `main`, a menos que o Gui peça.
-- Ao fechar um assunto, a conversa deixa em `notas/` o que foi decidido e o que falta implementar,
-  para a sessão do Claude Code partir dali.
+- **Decisões e lista de trabalho:** toda decisão nova entra em `notas/decisoes.md` (data, o quê, por
+  quê e onde a regra mora; só se acrescenta). O que falta construir fica em `notas/a-fazer.md`.
+  **Toda sessão do Claude Code lê os dois antes de começar.** Ao terminar um item, apague-o do
+  `a-fazer.md` no mesmo commit e, se houve decisão, registre-a em `decisoes.md`.
 
 ## Antes de começar qualquer rodada: igualar a agenda
 
