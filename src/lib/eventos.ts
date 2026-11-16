@@ -505,11 +505,13 @@ export function getEventos() {
     // Exceção: evento que foi para o arquivo mas ainda não acabou (arquivado quando o corte
     // era o começo da festa). Enquanto durar, vale a versão da plataforma, com as cores da capa.
     const reais = [...guardados.filter((e) => jaAcabou(e)), ...shotgun, ...sympla, ...antigos, ...guardados.filter((e) => !jaAcabou(e))];
-    const marcacao = manual.filter((e) => e.id.startsWith('m'));
+    // Os de marcação têm id m1, m2...; outros manuais também podem começar com "m" (manual-...).
+    const ehMarcacao = (e: Evento) => /^m\d+$/.test(e.id);
+    const marcacao = manual.filter(ehMarcacao);
     // Os cadastrados à mão vêm primeiro: quando o mesmo evento também chega por uma
     // plataforma (como o Halloween de 2025, criado no Sympla e vendido em outro site),
     // vale a versão manual.
-    const todos = [...manual.filter((e) => !e.id.startsWith('m')), ...albuns, ...reais, ...(reais.length === 0 ? marcacao : [])];
+    const todos = [...manual.filter((e) => !ehMarcacao(e)), ...albuns, ...reais, ...(reais.length === 0 ? marcacao : [])];
     // Tira repetidos (mesmo evento vindo de duas fontes) e ordena por data.
     // Eventos anunciados como adiados ficam fora: a data nova aparece como outro evento.
     const unicos = semRepetidos(todos.filter((e) => !/\badiad[oa]\b/i.test(e.nome) && !FORA_DA_AGENDA.includes(e.id))).map((e) => (!e.local && naQuarentena(e) ? { ...e, local: 'Online' } : e))

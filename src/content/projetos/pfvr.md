@@ -1,6 +1,6 @@
 ---
 nome: "PFVR"
-resumo: "Música, arte e moda, com feiras e desfiles. Projeto adormecido."
+resumo: "A @bsurda de sábado à tarde, com desfile no meio da pista. Hoje adormecida."
 situacao: arquivo
 ordem: 10
 ---

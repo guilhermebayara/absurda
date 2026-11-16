@@ -1,6 +1,6 @@
 ---
 nome: "Money"
-resumo: "Hip hop e R&B. Projeto adormecido."
+resumo: "Hip hop e R&B pra quebrar até o chão. Hoje adormecida."
 situacao: arquivo
 ordem: 9
 ---

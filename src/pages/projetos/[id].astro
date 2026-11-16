@@ -129,7 +129,7 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
     <section class="bloco" aria-labelledby="t-proxima">
       <h2 id="t-proxima" class="titulo-secao" data-anima="sobe">Próxima data</h2>
       <p class="saida" data-anima="surge">{saidaDoTrio.semana.slice(0, 3)}, {saidaDoTrio.dia} {saidaDoTrio.mes} {anoDaSaida}</p>
-      <p class="t-apoio bloco-texto" data-anima="surge">O Trio sai sempre no domingo antes do domingo de carnaval.</p>
+      <p class="t-apoio bloco-texto" data-anima="surge">O Trio sai sempre no domingo antes do domingo de carnaval. Pode anotar.</p>
     </section>
   )}
 
@@ -164,7 +164,7 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
   {especiais.length > 0 && (
     <section class="bloco" aria-labelledby="t-especiais">
       <h2 id="t-especiais" class="t-secao" data-anima="sobe">Edições especiais</h2>
-      <p class="t-apoio bloco-texto" data-anima="surge">Não viraram projeto, mas viraram nome. (marcação)</p>
+      <p class="t-apoio bloco-texto" data-anima="surge">Não viraram projeto, mas viraram nome (e saudade).</p>
       <ul class="especiais">
         {especiais.map((s) => (
           <li class="especial" data-anima="surge">
@@ -303,7 +303,7 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
   {ehFesta && (
     <section class="bloco" aria-labelledby="t-historico">
       <h2 id="t-historico" class="t-secao" data-anima="sobe">Histórico</h2>
-      <p class="t-apoio bloco-texto" data-anima="surge">Todas as edições, desde a primeira, estão na Agenda.</p>
+      <p class="t-apoio bloco-texto" data-anima="surge">Todas as edições, desde a primeira, estão na Agenda. Bora relembrar?</p>
       <p class="bloco-fim"><Botao href="/agenda">Abrir a Agenda</Botao></p>
     </section>
   )}

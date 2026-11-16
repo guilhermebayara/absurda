@@ -1,6 +1,6 @@
 ---
 nome: "Ações sociais"
-resumo: "Texto de marcação."
+resumo: "Quando a pista vira mutirão: arrecadação pra grupos como o Lá da Favelinha e o Transvest."
 situacao: ativo
 ordem: 8
 ---

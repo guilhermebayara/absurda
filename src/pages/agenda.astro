@@ -14,6 +14,22 @@ import marcos from '../data/marcos.json';
 
 const { proximos, passados } = await getEventos();
 const temaInicial = proximos[0]?.tema ?? TEMAS_DO_SITE[0];
+
+// Abre a conversa com a @bsurda no Instagram (o endereço curto ig.me/m/ leva direto à mensagem).
+const conversa = SITE.redes.instagram.replace(/^https:\/\/(www\.)?instagram\.com\//, 'https://ig.me/m/');
+const listas = [
+  {
+    para: 'Pessoas trans, travestis e não bináries',
+    nome: 'Lista T/NB',
+    textos: [
+      'Cada festa tem a sua lista, com inscrição por formulário. O link sai no Instagram, no post da festa.',
+      'As vagas vão por ordem de chegada e o ingresso chega por e-mail. Quem acompanha a lista é a Valentina Vianna.',
+      'Pessoa cis não se inscreve, tá? A lista é pra quem ela foi feita.',
+    ],
+  },
+  { para: 'Pessoas com deficiência', nome: 'Lista PCD', textos: ['Tem lista PCD em todas as festas. Só mandar mensagem pra gente no Instagram antes da noite.'] },
+  { para: 'Quem faz aniversário no mês', nome: 'Aniversariantes', textos: ['Fez aniversário no mês da festa? Você entra na lista. Só mandar mensagem no Instagram (e parabéns!).'] },
+];
 // Agrupa os passados por ano.
 const anos = new Map<number, typeof passados>();
 for (const e of passados) {
@@ -44,9 +60,24 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
           {proximos.map((e) => <CartaoEvento evento={e} />)}
         </div>
       )
-      : <p class="t-apoio">As próximas aparecem aqui assim que os ingressos abrirem. Enquanto isso, acompanhe pelo <a href={SITE.redes.instagram}>Instagram</a>.</p>}
-    {/* Teste (teste-listas): atalho para as regras das listas, perto de onde se compra ingresso. */}
-    <p class="t-apoio proximos-listas" data-anima="surge">Lista T/NB, lista PCD e convite de aniversariante: <a href="/listas">veja como funciona</a>.</p>
+      : <p class="t-apoio">As próximas aparecem aqui assim que os ingressos abrirem. Até lá, a gente se fala pelo <a href={SITE.redes.instagram}>Instagram</a>.</p>}
+  </section>
+
+  {/* Listas e convites (pedido do Gui): são só regras, então moram aqui, no caminho de quem vai à
+      festa, e não numa página própria. O formulário da lista T/NB muda a cada festa: nenhum link de
+      formulário fica fixo, o texto manda para o post da festa no Instagram. */}
+  <section class="listas" id="listas" aria-labelledby="t-listas">
+    <h2 id="t-listas" class="titulo-secao" data-anima="sobe">Listas</h2>
+    <p class="t-apoio listas-apoio" data-anima="surge">Tem lista pra quem precisa e convite pra quem está de aniversário. Na dúvida, vale o post da festa no Instagram, ou é só <a href={conversa} target="_blank" rel="noopener">mandar mensagem<span class="so-leitor"> (abre em outra aba)</span></a>.</p>
+    <ul class="listas-grade">
+      {listas.map((l, i) => (
+        <li class:list={['lista', { 'lista-b': i % 2 === 1 }]} data-anima="surge" style={`--i:${i}`}>
+          <p class="lista-para">{l.para}</p>
+          <h3 class="lista-nome">{l.nome}</h3>
+          <div class="lista-texto">{l.textos.map((t) => <p>{t}</p>)}</div>
+        </li>
+      ))}
+    </ul>
   </section>
 
   <div data-tema="sorteio" data-reserva={atributo(TEMAS_DO_SITE[0])}>
@@ -56,7 +87,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
       <header class="arquivo-abre">
         <h2 id="t-passados" class="t-gigante ecoa" data-eco="Já rolou" data-anima="eco">Já rolou</h2>
         <div class="arquivo-fotos">
-          <p class="t-apoio">As fotos das edições recentes ficam no Pixieset, separadas por festa. As de 2009 a 2013 estão no Flickr: cada festa dessa época leva direto ao álbum.</p>
+          <p class="t-apoio">Foi? Então tá lá. As fotos das edições recentes ficam no Pixieset, separadinhas por festa. As de 2009 a 2013 moram no Flickr: cada festa dessa época leva direto ao álbum.</p>
           <Botao href={SITE.fotos} externo tipo="linha">Fotos no Pixieset</Botao>
         </div>
       </header>
@@ -234,7 +265,16 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
 
 <style>
   .abre .t-apoio { margin-top: var(--e-3); }
-  .proximos-listas { max-width: 34em; margin-top: var(--e-4); }
+  /* Listas: cartões sólidos, alternando as duas superfícies do tema (vivo e invertida), como as
+     marcas de Parcerias. O nome é medido pela largura do cartão (cqw), para "Aniversariantes" caber. */
+  .listas { padding: var(--e-4) var(--margem) var(--e-5); scroll-margin-top: var(--e-4); }
+  .listas-apoio { max-width: 34em; margin-top: var(--e-2); }
+  .listas-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: var(--e-3); margin-top: var(--e-4); }
+  .lista { --l-fundo: var(--vivo); --l-texto: var(--sobre-vivo); display: grid; grid-template-rows: auto auto 1fr; gap: var(--e-2); padding: clamp(1.25rem, 2.4vw, 2rem); border-radius: var(--raio-cartao, 1.5rem); background: var(--l-fundo); color: var(--l-texto); container-type: inline-size; }
+  .lista-b { --l-fundo: var(--texto); --l-texto: var(--fundo); }
+  .lista-para { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  .lista-nome { font-size: 10.5cqw; font-weight: 800; line-height: 0.88; letter-spacing: -0.045em; text-transform: uppercase; }
+  .lista-texto { align-self: end; display: grid; gap: 0.75em; margin-top: var(--e-2); padding-top: 0.9rem; border-top: 2px solid var(--l-texto); font-size: 1.0625rem; line-height: 1.4; }
 
   .proximos { padding: var(--e-4) var(--margem) var(--e-5); }
   .proximos-grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--e-3); }

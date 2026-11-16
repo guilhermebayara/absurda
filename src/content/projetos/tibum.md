@@ -1,6 +1,6 @@
 ---
 nome: "Tibum"
-resumo: "As festas diurnas na piscina. Esporádicas desde sempre."
+resumo: "A @bsurda de dia, na piscina. Aparece quando o sol pede."
 situacao: ativo
 capa: "/sobre/improvaveis/piscina.jpg"
 ordem: 6
