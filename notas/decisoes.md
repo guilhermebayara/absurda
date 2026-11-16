@@ -55,7 +55,13 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
 - `2026-11-15`: pedidos de material a outras pessoas são Google Docs dentro da pasta da página, porque
   quem é de fora não consegue preencher um documento do Claude. O da página do Gui segue no Claude.
   (CLAUDE.md, "Pasta do site no Drive".)
+- `2026-11-16`: a parede de palavras da Home tem dois grupos por fileira no celular, e não três, e
+  ganhou a conferência `confere:parede`. Com três, o Safari do iPhone ficava sem memória e as palavras
+  piscavam juntas. Feito pelo Claude Code. (CLAUDE.md, "Conferências do site" e "Cuidados".)
 - `2026-11-16`: o código do site passa a ser feito pelo Claude Code. A conversa do projeto no claude.ai
   fica com discussão, documentação, Drive e branches de teste. (CLAUDE.md, "Quem faz o quê".)
 - `2026-11-16`: decisões passam a ser registradas neste arquivo, e o que falta construir em
   `notas/a-fazer.md`, para nada depender da memória de uma conversa. (CLAUDE.md, "Quem faz o quê".)
+- `2026-11-16`: a planilha "Pendências do site" guarda só o que o Gui e o Ed precisam responder, e as
+  perguntas soltas da conversa (WIG, Agenda, Equipe) entram na aba Geral. Os caminhos da planilha
+  apontam para a estrutura nova da pasta `10_site`. (`notas/a-fazer.md`.)

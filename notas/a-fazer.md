@@ -12,26 +12,29 @@ Como usar:
 
 ## Pronto para fazer
 
-- **WIG: resumo do projeto contradiz a relação real.** O resumo diz "Muitas edições ainda são
-  coprodução nossa", e o Gui disse que coprodução é rara (`notas/decisoes.md`, 2026-11-15). Propor
-  outro texto ao Gui antes de trocar; proposta da conversa: "Nasceu na @bsurda e hoje é da Charlotte.
-  Segue colada: as drags da WIG são presença constante no nosso palco." Vale também rever o título da
-  seção "Edições com a @bsurda". (`src/content/projetos/wig.md`.)
+Nada no momento.
 
 ## Esperando o Gui
 
+Estas perguntas estão na planilha "Pendências do site", aba Geral, linhas 12 a 18. Quando a
+resposta chegar lá, o item vira trabalho:
+
+- **WIG: resumo do projeto.** O texto atual contradiz o que o Gui disse sobre as coproduções; há uma
+  proposta na planilha. Trocar em `src/content/projetos/wig.md` e rever o título da seção "Edições com
+  a @bsurda".
 - **WIG: links oficiais na página.** Instagram (instagram.com/wigevents), loja de merch
-  (umapenca.com/wigevents) e Shotgun (shotgun.live/en/venues/wig-events), como links de texto. O Gui
-  ainda não disse se entram.
-- **WIG: nome do projeto no site.** Hoje é "Wig"; o Gui disse que a grafia é "WIG events". Falta saber
-  se troca o nome da página e se o "e" é minúsculo (no Sympla e no crachá está "WIG Events").
-- **Página do Gui: parte de baixo.** Depende do documento piloto "Sua página no site da @bsurda: Gui
-  Bayara" preenchido. Montar numa branch de teste primeiro.
-- **Equipe: selo "Lista em construção (a confirmar)".** Sai quando o Gui der a lista por fechada.
+  (umapenca.com/wigevents) e Shotgun (shotgun.live/en/venues/wig-events), como links de texto.
+- **WIG: nome do projeto no site.** Hoje é "Wig"; a grafia da marca é "WIG events".
 - **Agenda: dois eventos do Sympla a confirmar.** Summer Eletrohits (19/07/2025) e IHR Lady Gaga (2021).
 - **Agenda de 2022: pastas que ficaram de fora.** MOC, Prêmio, YOLO e Anda.
-- **Branches de teste para apagar no GitHub:** `teste-perfil` e `teste-wig-projetos`. Por aqui o GitHub
-  recusa a exclusão; o Gui apaga pela página de branches.
+- **Equipe: selo "Lista em construção (a confirmar)".** Sai quando o Gui der a lista por fechada.
+
+Fora da planilha:
+
+- **Página do Gui: parte de baixo.** Depende do documento piloto "Sua página no site da @bsurda: Gui
+  Bayara" preenchido. Montar numa branch de teste primeiro.
+- **Branch de teste para apagar no GitHub:** `teste-wig-projetos` (já está na `main`). Pela conversa
+  o GitHub recusa a exclusão; o Gui ou o Claude Code apagam.
 
 ## Esperando outras pessoas
 
