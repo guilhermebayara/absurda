@@ -14,16 +14,7 @@ Como usar:
 
 Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
 
-- **Site: listas T/NB, PCD e aniversariantes.** O Gui quer as regras no site. Base: post "Diversidade
-  importa" (lista T para pessoas trans, travestis e não bináries, por formulário, acompanhada pela
-  Valentina Vianna; pessoa cis não se inscreve; ordem de chegada; ingresso por e-mail), lista PCD e
-  aniversariantes do mês, que entram com mensagem no Instagram. Lugar a propor ao Gui (Contato ou
-  página própria); mostrar numa branch de teste antes. Não pôr link de formulário fixo: o formulário
-  muda por festa, então o texto aponta para o Instagram.
-- **Textos do site no tom da @bsurda (o resto).** Reescrever resumos e textos dos projetos, frases de apoio da
-  Home e do Sobre e textos das edições seguindo `notas/tom.md`. Fazer numa branch de teste e mostrar
-  ao Gui antes de levar para a `main`: ele aprova cada texto. Onde houver proposta aprovada na
-  planilha (colunas "Proposta:" nas abas Projetos e Edições), usar a dela.
+(Nada no momento: os dois itens que sobraram estão em teste, em "Esperando o Gui".)
 
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
@@ -45,6 +36,12 @@ resposta chegar lá, o item vira trabalho:
 
 Fora da planilha:
 
+- **Listas T/NB, PCD e aniversariantes: em teste.** Página `/listas`, com atalho na Agenda e no
+  Contato, na branch `teste-listas`. O Gui escolhe o lugar (página própria ou dentro do Contato) e
+  aprova os textos; aí sobe para a `main`.
+- **Textos no tom da @bsurda: em teste.** Branch `teste-tom`; o antes e depois de cada linha está em
+  `notas/textos-em-teste.md` (na branch). Sobe só o que o Gui aprovar. Bazinga!, É Você Satanás?,
+  Viiish! e Mobile seguem sem texto, por falta de fatos.
 - **Página do Gui: parte de baixo.** Depende do documento piloto "Sua página no site da @bsurda: Gui
   Bayara" preenchido. Montar numa branch de teste primeiro.
 - **Branch de teste para apagar no GitHub:** `teste-wig-projetos` (já está na `main`). Pela conversa
