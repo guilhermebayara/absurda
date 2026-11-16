@@ -266,6 +266,9 @@ const FORA_DA_AGENDA = [
 const NOMES_CORRIGIDOS: Record<string, string> = {
   // A capa diz I Hate Remix; o Sympla foi criado como "@bsurda Especial Beyoncé" (Gui, nov 2026).
   'sympla-1460342': 'I Hate Remix Especial Beyoncé',
+  // Lançamento da Amorzinho, no dia do disco da Charli. No Shotgun ficou o nome antigo,
+  // "@bsurda Fashion, Music, Film" (Gui, 16 nov 2026). O nome liga o evento ao projeto.
+  'shotgun-560392': 'AMORZINHO',
   'sympla-3035929': 'OFICINA VOGUE 5ª PARADA DA @BSURDA',
   'sympla-3035921': 'OFICINA DRAG 5ª PARADA DA @BSURDA',
   'sympla-2030418': 'CHRONUS - o espetáculo Drag (Temporada em São Paulo)',

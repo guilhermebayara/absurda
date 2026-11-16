@@ -14,10 +14,6 @@ Como usar:
 
 Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
 
-- **Agenda: nome da primeira Amorzinho.** `shotgun-560392` (24/07/2026) está no Shotgun como
-  "@BSURDA FASHION, MUSIC, FILM". Foi o lançamento da Amorzinho, no dia do disco da Charli: o nome no
-  Shotgun ficou desatualizado. Corrigir por `NOMES_CORRIGIDOS` em `src/lib/eventos.ts`, sem mexer no
-  `arquivo.json`. Ligar o evento ao projeto Amorzinho, se o projeto tiver lista de edições.
 - **Sobre: dois marcos novos em `src/data/marcos.json`.** A edição 400 (17/01/2026, no Mira, especial
   Summer Eletrohits #7) e a Lady Gaga notando a @bsurda em 2025 (repost dela e vídeo da festa no site
   oficial). Textos no tom de `notas/tom.md`.
