@@ -12,10 +12,40 @@ Como usar:
 
 ## Pronto para fazer
 
+Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
+
+- **Agenda: @bsurda na Rua, 10/01/2026.** Festa de graça na Rua Sapucaí (Xangô e Lupita), pré-carnaval,
+  com doações para o trio. Line: Ed Luiz, Grabs, Nath Leles, Keoma, Charlotte. Entra como evento
+  escrito à mão (sem link de ingresso). O robô não traz, porque não teve ingresso.
+- **Agenda: nome da primeira Amorzinho.** `shotgun-560392` (24/07/2026) está no Shotgun como
+  "@BSURDA FASHION, MUSIC, FILM". Foi o lançamento da Amorzinho, no dia do disco da Charli: o nome no
+  Shotgun ficou desatualizado. Corrigir por `NOMES_CORRIGIDOS` em `src/lib/eventos.ts`, sem mexer no
+  `arquivo.json`. Ligar o evento ao projeto Amorzinho, se o projeto tiver lista de edições.
+- **Sobre: dois marcos novos em `src/data/marcos.json`.** A edição 400 (17/01/2026, no Mira, especial
+  Summer Eletrohits #7) e a Lady Gaga notando a @bsurda em 2025 (repost dela e vídeo da festa no site
+  oficial). Textos no tom de `notas/tom.md`.
+- **Projeto @bsurda: edição 400 nas históricas.** Proposta de texto na planilha, aba Edições, linha 21.
+  Capa: a do evento `@BSURDA 400 SUMMER ELETROHITS 17/01` no arquivo.
+- **Site: listas T/NB, PCD e aniversariantes.** O Gui quer as regras no site. Base: post "Diversidade
+  importa" (lista T para pessoas trans, travestis e não bináries, por formulário, acompanhada pela
+  Valentina Vianna; pessoa cis não se inscreve; ordem de chegada; ingresso por e-mail), lista PCD e
+  aniversariantes do mês, que entram com mensagem no Instagram. Lugar a propor ao Gui (Contato ou
+  página própria); mostrar numa branch de teste antes. Não pôr link de formulário fixo: o formulário
+  muda por festa, então o texto aponta para o Instagram.
+- **Parcerias: sete marcas novas.** Weave (concurso de fantasias do Halloween 2026), Itapoã Hotel
+  (hotel oficial do Halloween 2026), Metha Energia (oficinas da Parada 2026), Cerveja Praya (IHR Coisas
+  Naturais, 29/11/2025), Universal Music (IHR Ariana), Império Madonna (Confessions II) e Zang Tattoo
+  (Halloween 2026). Entram todas em `parceiros.json`; o Gui revisa depois. As pastas já existem em
+  `10_site/6_Parcerias/marcas/<id>` (ids: `weave`, `itapoa-hotel`, `metha-energia`, `cerveja-praya`,
+  `universal-music`, `imperio-madonna`, `zang-tattoo`). Sem logo ainda: seguir como as outras marcas
+  sem logo.
 - **Textos do site no tom da @bsurda.** Reescrever resumos e textos dos projetos, frases de apoio da
   Home e do Sobre e textos das edições seguindo `notas/tom.md`. Fazer numa branch de teste e mostrar
   ao Gui antes de levar para a `main`: ele aprova cada texto. Onde houver proposta aprovada na
   planilha (colunas "Proposta:" nas abas Projetos e Edições), usar a dela.
+
+Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
+oferece. Não acrescentar e-mail nem o pix do trio ao site.
 
 ## Esperando o Gui
 
@@ -28,7 +58,8 @@ resposta chegar lá, o item vira trabalho:
 - **WIG: links oficiais na página.** Instagram (instagram.com/wigevents), loja de merch
   (umapenca.com/wigevents) e Shotgun (shotgun.live/en/venues/wig-events), como links de texto.
 - **WIG: nome do projeto no site.** Hoje é "Wig"; a grafia da marca é "WIG events".
-- **Agenda: dois eventos do Sympla a confirmar.** Summer Eletrohits (19/07/2025) e IHR Lady Gaga (2021).
+- **Agenda: dois eventos do Sympla a confirmar.** Summer Eletrohits de 19/07/2025 no Lab
+  (`sympla-2975375`, ao lado do Club Mayhem da mesma noite no Mira) e IHR Lady Gaga (2021).
 - **Agenda de 2022: pastas que ficaram de fora.** MOC, Prêmio, YOLO e Anda.
 - **Equipe: selo "Lista em construção (a confirmar)".** Sai quando o Gui der a lista por fechada.
 

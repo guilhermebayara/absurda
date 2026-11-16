@@ -68,3 +68,15 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
 - `2026-11-16`: os textos do site ficam menos secos e mais descontraídos, no tom das legendas do
   Instagram, que é o canal principal da @bsurda hoje. Guia em `notas/tom.md`. Pedido do Gui.
   (CLAUDE.md, "Cuidados".)
+- `2026-11-16`: a primeira edição da @bsurda foi na quinta-feira, 12 nov 2009, no Velvet Club. O "11"
+  do texto antigo do Sympla está errado. (`src/data/marcos.json`.)
+- `2026-11-16`: a festa de 24/07/2026 é a primeira Amorzinho; o nome "Fashion, Music, Film" no Shotgun
+  ficou desatualizado. Corrige-se por `NOMES_CORRIGIDOS`, sem editar o arquivo. (`src/lib/eventos.ts`.)
+- `2026-11-16`: festa de graça sem ingresso, como a @bsurda na Rua de 10/01/2026, também entra na
+  Agenda, escrita à mão. (`notas/a-fazer.md`.)
+- `2026-11-16`: o site explica as listas T/NB e PCD e o convite dos aniversariantes, com as regras do
+  post "Diversidade importa". (`notas/a-fazer.md`.)
+- `2026-11-16`: em Parcerias, marca que apareceu como apoio ou patrocínio entra por padrão; o Gui
+  revisa e tira se for o caso. (`notas/a-fazer.md`.)
+- `2026-11-16`: e-mail e demais formas de contato no site ficam pausados até o Gui decidir quais
+  oferecer. (`notas/a-fazer.md`.)
