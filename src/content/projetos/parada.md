@@ -121,4 +121,4 @@ historico: anual-sub
 arcoiris: true
 ---
 
-Texto de marcação sobre Parada da @bsurda.
+Nasceu virtual em 2020, quando a pandemia fechou as pistas, e foi pra rua depois. Em 2025 ocupou a Funarte. Em 2026, sem patrocínio pra repetir, virou uma programação de junho e julho com sete festas, brunch e oficinas, e a Parada no 28 de junho, Dia do Orgulho, no Espaço Sapucaí. O orgulho continua. E a @bsurda também.

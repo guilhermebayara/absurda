@@ -6,4 +6,4 @@ capa: "/sobre/improvaveis/piscina.jpg"
 ordem: 6
 ---
 
-Texto de marcação sobre o Tibum.
+A primeira caiu em 8 de fevereiro de 2014: piscina, catuaba e 300 pessoas abrindo o ano "toda molhadinha". Desde então a Tibum aparece quando o calor pede, sempre de dia. Menos carão, mais chinelo.

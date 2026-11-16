@@ -7,7 +7,7 @@ foco: "36% 100%"
 ordem: 2
 historico: anual
 historicas:
-  - { evento: "sympla-563012", porque: "Os 10 anos, no Mineirão. (marcação)" }
+  - { evento: "sympla-563012", porque: "Dez anos de @bsurda comemorados no Mineirão, no Halloween de 25/10/2019. O tema era \"surreal\", e foi." }
 ---
 
 Texto de marcação sobre o Halloween da @bsurda.

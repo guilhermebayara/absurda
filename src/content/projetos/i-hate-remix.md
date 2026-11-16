@@ -10,4 +10,4 @@ historicas:
   - { evento: "shotgun-543226", porque: "Confessions II, na Lab. (marcação)" }
 ---
 
-Texto de marcação sobre I Hate Remix Club.
+Nasceu em 2011 com uma ideia simples: pop sem remix e sem mashup, todo natureba, do jeitinho que saiu do estúdio, pra pista cantar o refrão como se estivesse em casa. Com o tempo vieram os especiais de cantora, de álbum e de era, de Britney a Beyoncé.

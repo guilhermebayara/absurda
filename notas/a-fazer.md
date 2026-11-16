@@ -20,16 +20,6 @@ Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `no
   aniversariantes do mês, que entram com mensagem no Instagram. Lugar a propor ao Gui (Contato ou
   página própria); mostrar numa branch de teste antes. Não pôr link de formulário fixo: o formulário
   muda por festa, então o texto aponta para o Instagram.
-- **Textos aprovados pelo Gui (16/11): aplicar direto.** Na planilha, o Gui deu "ok" nas propostas
-  destes itens, e o texto da coluna Observação ("Proposta…") é o que vai ao ar:
-  - Aba Projetos (coluna Texto = "ok"): @bsurda, Trio da @bsurda, Parada da @bsurda, I Hate Remix,
-    Tibum, Amorzinho, Money e PFVR. Vão para `src/content/projetos/<id>.md`.
-  - Aba Edições (coluna Resposta = "ok"): YOLO, Prom, @bsurda #100, Edição 200, Halloween de 10 anos,
-    Inferninho da @bsurda, Melhores do ano e Baile das Amigas. Vão para as edições especiais e
-    históricas em `src/content/projetos/absurda.md`.
-  Ler a planilha na hora de aplicar (o Gui pode ter mexido). Halloween, WIG, @bsurda Premium e Velcro
-  ainda não foram aprovados: ficam como estão. Por ser texto aprovado, pode seguir a rotina normal
-  até a `main`.
 - **Textos do site no tom da @bsurda (o resto).** Reescrever resumos e textos dos projetos, frases de apoio da
   Home e do Sobre e textos das edições seguindo `notas/tom.md`. Fazer numa branch de teste e mostrar
   ao Gui antes de levar para a `main`: ele aprova cada texto. Onde houver proposta aprovada na
