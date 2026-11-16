@@ -16,6 +16,17 @@ código, os comentários e as mensagens de commit também.
   os tokens: a agenda aparece só com o histórico arquivado, sem os eventos ao vivo.
 - `main` é **produção**. Só recebe o que já passou pela homologação.
 
+## Quem faz o quê (do Gui, desde 16 nov 2026)
+
+- **Código do site:** feito majoritariamente pelo Claude Code.
+- **Conversa no claude.ai (projeto "Carreira"):** discussão, ideias, estrutura, documentação do
+  repositório (`CLAUDE.md`, `notas/`), Drive, planilha de pendências e documentos para outras
+  pessoas. A documentação é commitada por lá direto na `design` e na `main`, pela rotina normal.
+- **Explorar conceitos:** a conversa pode abrir branches `teste-<assunto>` para testar ideias de
+  layout ou de código. Não leva código para a `design` nem para a `main`, a menos que o Gui peça.
+- Ao fechar um assunto, a conversa deixa em `notas/` o que foi decidido e o que falta implementar,
+  para a sessão do Claude Code partir dali.
+
 ## Antes de começar qualquer rodada: igualar a agenda
 
 O histórico de eventos passados é escrito na `main` por um robô (ver abaixo). Uma branch
