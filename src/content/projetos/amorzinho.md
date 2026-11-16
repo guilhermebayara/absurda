@@ -1,6 +1,6 @@
 ---
 nome: "Amorzinho"
-resumo: "Hyperpop. Nova e em elaboração."
+resumo: "A caçula da casa, no hyperpop."
 situacao: em-elaboracao
 ordem: 7
 ---
