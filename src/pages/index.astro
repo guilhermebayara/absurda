@@ -304,7 +304,12 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   /* Cada fileira são três grupos iguais andando juntos: quando um sai, o outro já entrou */
   .parede-trilho { display: flex; width: max-content; }
   /* A duração de cada fileira vem escrita no próprio grupo (animation-duration), em segundos. */
-  .parede-grupo { flex: none; display: flex; animation: parede-corre 34s linear infinite; }
+  /* Safari do iPhone (palavras piscando todas juntas): cada grupo animado é uma camada própria
+     desde o início (will-change), e não só quando a animação pega, e cada fileira também tem a
+     sua. Assim as capas que atravessam a parede não fazem o Safari criar e desfazer camadas a
+     cada passo da rolagem. */
+  .parede-fileira { will-change: transform; }
+  .parede-grupo { flex: none; display: flex; animation: parede-corre 34s linear infinite; will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
   .parede-trilho.contra .parede-grupo { animation-direction: reverse; }
   .parede-grupo span { display: flex; align-items: center; font-size: clamp(2.75rem, 9.2vw, 9.5rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.045em; text-transform: uppercase; white-space: nowrap; }
   /* Presa na tela, a parede se mede pela altura: sete fileiras enchem a tela */
@@ -317,11 +322,14 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   .parede-grupo span.vazada { color: transparent; -webkit-text-stroke: 0.022em var(--texto); }
   /* Entre as palavras, a barra inclinada do logo */
   .parede-grupo i { flex: none; width: 0.13em; height: 0.66em; margin: 0 0.3em; background: var(--texto); opacity: 0.45; transform: skewX(26.5deg); }
-  @keyframes parede-corre { to { transform: translateX(-100%); } }
+  @keyframes parede-corre { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-100%, 0, 0); } }
+  /* No celular dois grupos bastam: cada um é mais largo que a tela, e o terceiro, que nunca
+     aparece, só gastava memória do Safari (quando ela falta, ele apaga as camadas e redesenha). */
+  @media (max-width: 720px) { .parede-grupo:nth-child(3) { display: none; } }
   .parede-foto { --w: clamp(11rem, 25vw, 24rem); position: absolute; top: var(--topo); left: calc((100% - var(--w)) * var(--lado)); width: var(--w); aspect-ratio: 16 / 9; object-fit: cover; border-radius: clamp(0.6rem, 1.2vw, 1rem); box-shadow: 0 1.5rem 3rem -1.25rem rgb(0 0 0 / 0.55); rotate: var(--giro); pointer-events: none; will-change: translate; }
   .historia.viva .parede-foto { top: 0; translate: 0 110vh; }
   @media (max-width: 720px) { .parede-foto { --w: 52vw; } }
-  @media (prefers-reduced-motion: reduce) { .parede-grupo { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .parede-grupo { animation: none; will-change: auto; } .parede-fileira { will-change: auto; } }
   /* Janela da rua: a foto é mais alta que a moldura e desliza devagar com a rolagem */
   .rua { position: relative; display: block; margin: var(--e-5) var(--margem) 0; height: clamp(20rem, 80svh, 54rem); overflow: hidden; border-radius: clamp(1rem, 2.5vw, 2.25rem); color: #fff; text-decoration: none; }
   .rua img { position: absolute; left: 0; top: -8%; width: 100%; height: 116%; max-width: none; object-fit: cover; transform: translateY(var(--desvio, 0%)) scale(1.001); transition: scale 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform; }
