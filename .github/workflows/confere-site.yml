@@ -1,7 +1,8 @@
 # Conferências do site: a cada push fora da main, gera o site e confere os links internos
 # (scripts/confere-links.mjs), o contraste dos temas, com o subtema vivo
 # (scripts/confere-temas.mjs), a Agenda completa (scripts/confere-agenda.mjs) e o movimento
-# reduzido (scripts/confere-calmo.mjs) e a parede de palavras da Home (scripts/confere-parede.mjs).
+# reduzido (scripts/confere-calmo.mjs), a parede de palavras da Home (scripts/confere-parede.mjs)
+# e as barras presas no topo, na rolagem e no toque (scripts/confere-barra.mjs).
 # O build aqui roda sem as chaves das plataformas: a agenda sai só com o histórico arquivado,
 # o que basta para conferir links, cores e movimento. Ver CLAUDE.md, "Achado vira conferência".
 name: Confere o site
@@ -40,3 +41,8 @@ jobs:
         run: npm run confere:calmo
       - name: Parede de palavras da Home (nenhuma fileira abre buraco)
         run: npm run confere:parede
+      # O WebKit é da mesma geração do Safari do iPhone e é quem mostra o pulo da barra no toque.
+      - name: Navegador para a conferência das barras presas
+        run: npx playwright install --with-deps webkit
+      - name: Barras presas no topo (rolagem e toque num ano)
+        run: npm run confere:barra

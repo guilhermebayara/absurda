@@ -334,6 +334,9 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
           const olho = new ResizeObserver(medir);
           olho.observe(trilho);
           olho.observe(barra);
+          // Quem muda a altura do trecho de uma vez (um ano da Agenda abrindo) pede a medida na
+          // hora, pelo aviso 'trilho:medir', sem esperar o quadro seguinte.
+          trilho.addEventListener('trilho:medir', medir);
           medir();
         });
       }
@@ -701,22 +704,31 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
   /* Barras presas no topo, no toque. O trecho (data-trilho) é a linha do tempo; a barra
      (data-barra) desce na mesma medida em que o trecho sobe, do instante em que o trecho
      encosta no topo da tela até o fim dele. A linha do tempo fica em regra separada da animação de propósito:
-     juntas, o compactador de CSS funde as duas e o navegador descarta a declaração. */
+     juntas, o compactador de CSS funde as duas e o navegador descarta a declaração.
+     O trajeto começa quando o topo do trecho encosta no alto da tela (contain 0%) e dura
+     exatamente o que a barra anda (--alt menos --barra, medidas pelo script). O trecho e o
+     percurso saem da mesma medida, então a barra fica no alto mesmo no quadro em que a altura do
+     trecho muda. Não troque o fim por "exit": aí quem conta o fim é o navegador, com a altura da
+     tela na conta, e o percurso é do script; quando um ano da Agenda abria, os dois discordavam
+     por alguns quadros e a barra pulava no Safari do iPhone (scripts/confere-barra.mjs confere).
+     Vale para trecho mais alto que a tela, que é o caso das duas barras. */
   html.pino-novo [data-trilho] { view-timeline: --trilho block; }
   html.pino-novo [data-barra='sempre'] { position: relative; top: auto; animation: barra-presa linear both; }
-  html.pino-novo [data-trilho] > [data-barra='sempre'] { animation-timeline: --trilho; animation-range: contain 0% exit calc(100% - var(--barra, 0px)); }
+  html.pino-novo [data-trilho] > [data-barra='sempre'] { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + var(--alt, 0px) - var(--barra, 0px)); }
   /* Enquanto a barra está presa, uma cobertura na cor da página sobe dela até acima da tela.
      No iPhone a página continua visível atrás do relógio, e sem isso o texto que passa por
-     cima da barra aparecia ali. A cobertura surge quando a barra encosta no topo. */
+     cima da barra aparecia ali. A cobertura surge de uma vez (em 1px) quando a barra encosta no
+     topo: nesse instante ela está inteira acima da tela. Surgindo aos poucos, o conteúdo aparecia
+     acima da barra. */
   html.pino-novo [data-barra='sempre']::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 8rem; background: var(--fundo); pointer-events: none; animation: barra-cobre linear both; }
-  html.pino-novo [data-trilho] > [data-barra='sempre']::before { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + 3rem); }
+  html.pino-novo [data-trilho] > [data-barra='sempre']::before { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + 1px); }
   @keyframes barra-cobre { from { opacity: 0; } to { opacity: 1; } }
   /* "estreita": a mesma barra presa, só no desenho de celular (o ano dos Marcos, no Sobre). */
   @media (max-width: 820px) {
     html.pino-novo [data-barra='estreita'] { position: relative; top: auto; animation: barra-presa linear both; }
-    html.pino-novo [data-trilho] > [data-barra='estreita'] { animation-timeline: --trilho; animation-range: contain 0% exit calc(100% - var(--barra, 0px)); }
+    html.pino-novo [data-trilho] > [data-barra='estreita'] { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + var(--alt, 0px) - var(--barra, 0px)); }
     html.pino-novo [data-barra='estreita']::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 8rem; background: var(--fundo); pointer-events: none; animation: barra-cobre linear both; }
-    html.pino-novo [data-trilho] > [data-barra='estreita']::before { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + 3rem); }
+    html.pino-novo [data-trilho] > [data-barra='estreita']::before { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + 1px); }
   }
   @keyframes barra-presa { to { transform: translateY(calc(var(--alt, 0px) - var(--barra, 0px))); } }
 

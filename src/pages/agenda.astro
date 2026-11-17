@@ -189,11 +189,23 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   const calmo = window.matchMedia('(prefers-reduced-motion: reduce)');
   const curva = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
   const emCurso = new WeakMap<HTMLElement, Animation>();
+  // Em aparelho de toque a barra do atalho anda por animação ligada à rolagem (ver "Barras
+  // presas" em Base.astro), e o ano abre e fecha de uma vez: a altura do trecho muda uma vez só,
+  // e só o conteúdo entra, de leve. Com a altura animada, o trecho crescia a cada quadro e, no
+  // Safari do iPhone, a barra pulava e o conteúdo piscava (Gui, 17 nov 2026).
+  const toque = document.documentElement.classList.contains('pino-novo');
+  const trilho = document.querySelector<HTMLElement>('[data-trilho]');
   const alternar = (bloco: HTMLDetailsElement, abrir: boolean) => {
     const corpo = bloco.querySelector<HTMLElement>('.ano-corpo');
     if (!corpo || calmo.matches) { bloco.open = abrir; return; }
     const anterior = emCurso.get(corpo);
     if (anterior) { anterior.onfinish = null; anterior.oncancel = null; anterior.cancel(); }
+    if (toque) {
+      bloco.open = abrir;
+      trilho?.dispatchEvent(new Event('trilho:medir'));
+      if (abrir) emCurso.set(corpo, corpo.animate([{ opacity: 0, transform: 'translateY(-0.6rem)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: curva }));
+      return;
+    }
     bloco.classList.toggle('fechando', !abrir);
     if (abrir) bloco.open = true;
     const altura = corpo.offsetHeight;
@@ -224,19 +236,30 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   // e, ao tocar num ano, quem acabava marcado era o seguinte (o tocado ainda estava abrindo).
   let marcado = '';
   let travaAte = 0;
+  // Traz o ano marcado para o meio da fila, rolando só a fila (nunca a página).
+  const centralizar = (suave: boolean) => {
+    const a = atalhos.find((x) => x.hasAttribute('aria-current'));
+    if (!a || !fila) return;
+    const ra = a.getBoundingClientRect();
+    const rf = fila.getBoundingClientRect();
+    fila.scrollTo({ left: fila.scrollLeft + ra.left - rf.left - (rf.width - ra.width) / 2, behavior: suave ? 'smooth' : 'auto' });
+  };
+  // A fila continua arrastável: ela só se ajeita quando o ano marcado muda, e nunca com o dedo
+  // em cima dela.
+  let dedoNaFila = false;
+  if (fila) {
+    fila.addEventListener('touchstart', () => { dedoNaFila = true; }, { passive: true });
+    for (const fim of ['touchend', 'touchcancel']) fila.addEventListener(fim, () => { dedoNaFila = false; }, { passive: true });
+  }
   const pintar = (id: string) => {
     if (id === marcado) return;
     marcado = id;
     for (const a of atalhos) {
-      const atual = `ano-${a.dataset.ano}` === id;
-      if (atual) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
-      // Traz o ano marcado para o meio da fila, rolando só a fila (nunca a página).
-      if (atual && fila) {
-        const ra = a.getBoundingClientRect();
-        const rf = fila.getBoundingClientRect();
-        fila.scrollTo({ left: fila.scrollLeft + ra.left - rf.left - (rf.width - ra.width) / 2, behavior: calmo.matches ? 'auto' : 'smooth' });
-      }
+      if (`ano-${a.dataset.ano}` === id) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
     }
+    // A fila vai ao ano marcado na hora, deslizando (escolha do Gui no iPhone: esperar a rolagem
+    // parar deixava o ano marcado fora de vista).
+    if (!dedoNaFila) centralizar(!calmo.matches);
   };
   const medir = () => {
     if (performance.now() < travaAte) return;
@@ -248,7 +271,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
     a.addEventListener('click', () => {
       const bloco = document.getElementById(`ano-${a.dataset.ano}`) as HTMLDetailsElement | null;
       if (!bloco) return;
-      if (!bloco.open) alternar(bloco, true);
+      if (!bloco.open || bloco.classList.contains('fechando')) alternar(bloco, true);
       // O ano tocado fica marcado na hora; a medição volta quando ele termina de abrir.
       pintar(bloco.id);
       travaAte = performance.now() + 600;
@@ -294,6 +317,9 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .anos-nav a::before { content: ''; position: absolute; left: 0.2em; top: 50%; width: 0.36em; height: 1.45em; margin-top: -0.725em; background: var(--destaque); transform: skewX(26.5deg) scaleY(0); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
   .anos-nav a[aria-current] { color: var(--destaque-texto); }
   .anos-nav a[aria-current]::before { transform: skewX(26.5deg) scaleY(1); }
+  /* No toque o ano marcado acende sem transição: a barra anda com a rolagem, e foi com esse
+     desenho que o Gui conferiu no iPhone. */
+  :global(html.pino-novo) .anos-nav a, :global(html.pino-novo) .anos-nav a::before { transition: none; }
   /* Hover só em aparelho com cursor: no toque ele fica preso no último ano tocado, e dois
      anos apareciam marcados ao mesmo tempo. */
   @media (hover: hover) {

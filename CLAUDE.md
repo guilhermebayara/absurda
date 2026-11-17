@@ -100,15 +100,15 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
 2. `npm run build` sem erro.
 3. `npm run confere:arquivo` passando.
 4. `npm run confere:links`, `npm run confere:agenda`, `npm run confere:temas`,
-   `npm run confere:calmo` e `npm run confere:parede` passando (ver
+   `npm run confere:calmo`, `npm run confere:parede` e `npm run confere:barra` passando (ver
    "Conferências do site").
 5. Código: só com o ok do Gui na prévia da `design`. Então `main`, por fast-forward da `design`.
    A publicação na Cloudflare sai sozinha a cada push.
 
 ## Conferências do site
 
-Além da guarda do histórico, cinco conferências rodam na máquina e, sozinhas, no GitHub a cada
-push fora da `main` (`.github/workflows/confere-site.yml`). As cinco rodam depois do build:
+Além da guarda do histórico, seis conferências rodam na máquina e, sozinhas, no GitHub a cada
+push fora da `main` (`.github/workflows/confere-site.yml`). As seis rodam depois do build:
 
 - `npm run confere:links`: falha se algum link interno, âncora ou imagem do próprio site
   apontar para algo que não existe. Link externo não entra.
@@ -127,6 +127,13 @@ push fora da `main` (`.github/workflows/confere-site.yml`). As cinco rodam depoi
   fileira da parede de palavras não cobrir a tela inteira. No celular cada fileira tem dois grupos
   e não três (com três, o Safari do iPhone ficava sem memória e as palavras piscavam todas
   juntas), então cada grupo precisa ser mais largo que a tela. Também usa o Playwright.
+- `npm run confere:barra`: abre as páginas com barra presa no topo (atalho de anos da Agenda, ano
+  dos Marcos no Sobre) num iPhone emulado, no Chromium e no WebKit, e mede a barra a cada quadro.
+  Falha se a barra sair do alto da tela na rolagem ou ao tocar num ano do atalho, se o trajeto
+  dela usar a altura da tela, se algo animar por tempo dentro dela enquanto a página rola, se a
+  fila de anos deixar de ser arrastável, se o toque não levar ao ano ou se houver `sticky` ou
+  `fixed` no toque. Precisa também do WebKit (`npx playwright install --with-deps webkit`), que é quem mostra
+  o pulo do toque. A barra de endereço do Safari e a rolagem com inércia só se conferem no iPhone.
 
 **Regra de contraste (do Gui):** texto que se lê precisa de contraste de leitura (4,5:1).
 Enfeite pode ousar e abrir mão disso, desde que continue visível (3:1): a barra inclinada, o
@@ -268,6 +275,12 @@ regras de branch desta seção.
   ano dos Marcos no Sobre). Enquanto presa, a barra ganha uma cobertura na cor da página por
   cima, para o texto não aparecer acima dela, atrás do relógio. As prévias que seguem o cursor
   somem no toque. Ao criar algo preso novo, siga um desses modelos e confira no iPhone.
+- **Barra presa não pode pular (do Gui, conferido no iPhone):** o trajeto da barra e o trecho por
+  onde ela anda saem da mesma medida (`--alt` menos `--barra`, com `animation-range` de `contain` a
+  `contain`), sem a altura da tela na conta. E nada dentro do trecho muda de altura com animação
+  no toque: os anos da Agenda abrem e fecham de uma vez, só o conteúdo entra de leve. Com a altura
+  animada, a barra pulava e o conteúdo piscava. A fila de anos vai ao ano marcado na hora,
+  deslizando, e nunca com o dedo em cima dela. `npm run confere:barra` guarda a regra.
 - **Cartões no celular:** no iPhone a página aparece atrás do relógio e da barra de endereço,
   então uma cena parada de tela inteira parece um retângulo cortado. A saída (do Gui) é a do
   rodapé: no celular, rodapé, menu e Trio são cartões, com `--raio-cartao` e `--folga-cartao`

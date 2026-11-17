@@ -136,3 +136,12 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   rolagem. Acontece no código da `main`: o Gui conferiu na `design` com os componentes e numa
   prévia com o código da `main` puro, e as duas pulam igual. Vira trabalho de uma sessão
   dedicada. (`notas/briefs/atalho-agenda.md`; `notas/a-fazer.md`.)
+- `2026-11-17`: o atalho de anos da Agenda deixa de pular no iPhone. Depois de duas rodadas de
+  variantes conferidas pelo Gui no aparelho (branch `tst-barra-agenda`), fica assim: o trajeto das
+  barras presas é contado do topo do trecho, sem a altura da tela; no toque, o ano abre e fecha de
+  uma vez, sem animar a altura (com ela a barra pulava e o conteúdo piscava); a fila de anos vai ao
+  ano marcado na hora, deslizando (esperar a rolagem parar deixava o ano fora de vista). Medir o
+  trajeto uma vez só e saltar ao ano por script não ajudaram e ficaram de fora. A causa do toque
+  aparece no WebKit do Playwright, e a regra virou a conferência `confere:barra`. Feito pelo Claude
+  Code. (CLAUDE.md, "Conferências do site" e "Cuidados"; `src/layouts/Base.astro`;
+  `src/pages/agenda.astro`.)
