@@ -42,6 +42,48 @@ ativação no trio, DJ set da @bsurda em evento da marca, festa fechada para a m
 
 Nada sobre Amstel e Xeque Mate nessas apresentações. Devem estar no material do Ed.
 
+## Apresentações de 2025 e 2026 (lidas em 16/11/2026)
+
+Na pasta `10_site/6_Parcerias/apresentacoes/para-marcas`: "@BSURDA 2026 + XEQUE MATE" (Carnaval
+2026), "Parada @busrda 2025 AMSTEL" e a proposta da Xeque Mate para o Carnaval 2026. Valores, cotas,
+bonificação e nomes de contato comercial ficam fora do site.
+
+O que pode ir para a página:
+
+- **Origem:** fundada em 2009 em pequenas boates, sem pretensão de durar; o Ed "quis fazer a festa que
+  eu gostaria de ir". Cresceu de forma orgânica, foi para espaços maiores e para outros estados.
+- **Artistas que já passaram:** Pabllo Vittar (os primeiros shows dela em BH foram na @bsurda), Karol
+  Conká, Gloria Groove, Jão, Banda Uó, Tiê, Alyssa Edwards, Coco Montrese, Latrice Royale, Kaya Conky.
+  Artistas locais que começaram ou cresceram na festa: Charlotte, Mira Miu Miu, Jaddy Stone, Joanna
+  Mescladi, Monalisa Leblanc, Wandera Jones, Penelope Fontana, Amerikana, Mellody Queen.
+- **Por onde passou:** Mineirão, A Autêntica, Mercado Novo, Virada Cultural de BH, Parada do Orgulho
+  LGBTQIAPN+ de BH; fora de BH, São Paulo, Salvador, Brasília, São Luís e Maringá (a apresentação diz
+  "PA"; deve ser PR, a confirmar).
+- **Marcos:** em 2018, a primeira festa LGBTQIAPN+ no Mineirão.
+- **Números de público (a confirmar se vão a público, planilha Parcerias linha 20):** 75 mil pessoas
+  no pré-carnaval de 2023; 30 mil no trio de 2025; a Parada 2025 esperava 2 mil pessoas, 80 nas
+  oficinas e mais de 100 mil alcançadas nas redes.
+- **Divergência:** a apresentação de 2026 fala em "8 anos de carnaval" e diz que em 2024 não teve
+  trio; o Instagram de 2026 fala em "10 anos de trio" (planilha Parcerias linha 21).
+- **O que uma marca recebe, por tipo de entrega (sem valores):** venda exclusiva da bebida, luminoso
+  e ativação no espaço, logo nas peças e no cardápio, post em collab, stories durante a festa, fotos
+  profissionais, marca nos créditos e no aftermovie, backdrop e bandeiras no palco, bares e copos com
+  a marca, apresentação das performances assinada pela marca, vídeo com drag.
+- **Casos:** Amstel Vibes na 5ª Parada (Funarte, 27/07/2025) e no Halloween de 16 anos (18/10/2025);
+  Xeque Mate nos ensaios e no Carnaval @bsurda (06 e 14/02/2026).
+
+## Shotgun Pride 2026
+
+A Shotgun foi edital, não só plataforma. O Shotgun Pride 2026 foi o programa de patrocínio cultural
+da Shotgun para coletivos, festas e iniciativas LGBTQIAPN+ independentes de BH, SP e Rio, com
+seleção por curadoria (até três projetos por cidade). Inscrições de 12 a 17/05/2026, resultado em
+25/05/2026. A @bsurda foi selecionada, e o apoio patrocinou a 6ª Parada e as oficinas.
+
+- Post de lançamento: instagram.com/p/DYQIgKGETg3 (@shotgun.br, 12/05/2026).
+- Regulamento: drive.google.com/file/d/1SMP0OeWrL5rVi3ROrkzWTtsoncNVK6YN (publicado pela Shotgun,
+  datado de 11/05/2026).
+- Valor do apoio e contrapartidas do contrato não vão para o site.
+
 ## Divergências entre fontes (não resolvidas)
 
 - Trio de 2016: o site diz 12 mil; o PDF de 2016 diz cerca de 11 mil. O lugar é o mesmo: a rua

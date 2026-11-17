@@ -99,3 +99,12 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   em página preta) ganha um véu da própria cor do texto e um filete fino; a página não muda de tom.
   Em cartão claro entra só o filete, para não tirar leitura. A conta roda no navegador, porque o
   fundo muda com o sorteio e a rolagem. Pedido do Gui. (`src/components/CartaoEvento.astro`.)
+- `2026-11-16`: a IHR Lady Gaga de 2021 do Sympla não aconteceu: o evento ficou aberto só para manter
+  os ingressos vendidos na pandemia, porque cancelar cancelaria os ingressos. Fica fora da Agenda.
+  (`src/lib/eventos.ts`, `SYMPLA_FORA`.)
+- `2026-11-16`: o projeto se escreve "WIG events" em todo o site, e o resumo dele passa a ser o
+  proposto na planilha. (`notas/a-fazer.md`.)
+- `2026-11-16`: a lista da Equipe está fechada (sai o selo "em construção"), e quem entrou no mesmo
+  dia segue a ordem alfabética. (`notas/a-fazer.md`.)
+- `2026-11-16`: a Shotgun aparece em Parcerias também como patrocinadora: a @bsurda foi selecionada
+  no Shotgun Pride 2026. (`notas/parcerias-material.md`.)
