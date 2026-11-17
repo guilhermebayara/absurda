@@ -35,7 +35,10 @@ const DIST = 'dist';
 // pelo endereço (?barra=N). Todas as candidatas precisam passar. A 0 é o desenho da main, o
 // controle: ela tem de mostrar o pulo no WebKit, senão a conferência perdeu a mão. Quando uma
 // variante virar o desenho do site, troque por VARIANTES = [null] e CONTROLE = null.
-const VARIANTES = [1, 2, 3, 4];
+const VARIANTES = [1, 2, 3, 4, 5, 6];
+// Na 5 e na 6 a fila de anos acompanha a rolagem de propósito (é o que o Gui está comparando):
+// nelas não vale a regra de a fila ficar parada enquanto a página rola.
+const FILA_ACOMPANHA = [5, 6];
 const CONTROLE = 0;
 // Folga da medida, em pixels: arredondamento de subpixel.
 const FOLGA = 1.5;
@@ -148,7 +151,7 @@ const depoisDoToque = (id) => {
 
 // Devolve os problemas de uma sequência de quadros. "rolando" liga as conferências que só valem
 // enquanto a página rola (nada se mexendo dentro da barra).
-const ler = (quadros, { rolando }) => {
+const ler = (quadros, { rolando, filaLivre = false }) => {
   const problemas = [];
   for (const fase of ['antes', 'depois']) {
     const q = quadros.filter((x) => x.fase === fase);
@@ -170,7 +173,7 @@ const ler = (quadros, { rolando }) => {
       if (q[i].fila !== q[i - 1].fila) filaAndou++;
     }
     if (mexe.size) problemas.push(`anima por tempo dentro da barra enquanto a página rola: ${[...mexe].join(', ')}`);
-    if (filaAndou) problemas.push(`a fila da barra rolou sozinha em ${filaAndou} quadro(s) enquanto a página rolava`);
+    if (filaAndou && !filaLivre) problemas.push(`a fila da barra rolou sozinha em ${filaAndou} quadro(s) enquanto a página rolava`);
   }
   return problemas;
 };
@@ -225,7 +228,7 @@ const conferir = async (navegador, motor, rota, variante) => {
         for (let i = 0; i < 20; i++) { await pagina.evaluate(() => scrollBy(0, -45)); await pagina.waitForTimeout(24); }
       }
       await pagina.waitForTimeout(500);
-    }, { rolando: true }));
+    }, { rolando: true, filaLivre: FILA_ACOMPANHA.includes(variante) }));
     if (Math.abs((await pagina.evaluate(() => scrollY)) - partida) < 400) problemas.push('rolagem: a página não rolou, e a conferência não mediu nada');
 
     // Altura da tela mudando com a barra presa, como quando a barra de endereço encolhe e volta.

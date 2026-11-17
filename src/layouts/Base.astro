@@ -63,9 +63,10 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
           raiz.classList.add(window.CSS && CSS.supports('animation-timeline: view()') ? 'pino-novo' : 'toque');
         }
         // TESTE DA BARRA (branch tst-barra-agenda): variantes das barras presas, escolhidas pelo
-        // endereço (?barra=1, 2...). Elas se somam: a 3 leva a 1 e a 2 junto. Sem o parâmetro vale
+        // endereço (?barra=1, 2...). Elas se somam: a 3 leva a 1 e a 2 junto. A 5 e a 6 (segunda rodada)
+        // partem da 3 e mudam só o jeito de a fila de anos acompanhar a rolagem. Sem o parâmetro vale
         // a 0, que é o desenho da main. Sai daqui quando o Gui escolher uma no iPhone.
-        var bt = Math.max(0, Math.min(4, parseInt(new URLSearchParams(location.search).get('barra'), 10) || 0));
+        var bt = Math.max(0, Math.min(6, parseInt(new URLSearchParams(location.search).get('barra'), 10) || 0));
         raiz.dataset.barraTeste = String(bt);
         for (var bi = 1; bi <= bt; bi++) raiz.classList.add('bt-' + bi);
         // Cor de enfeite: o destaque usado sobre uma superfície da cor do texto (faixa,
@@ -359,6 +360,8 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
           '1 + trajeto medido uma vez só ao abrir o ano',
           '2 + ano abre de uma vez, sem animar a altura',
           '3 + salto até o ano feito por script',
+          '3 + a fila de anos acompanha a rolagem na hora, de uma vez',
+          '3 + a fila de anos acompanha a rolagem na hora, deslizando',
         ];
         const aviso = document.createElement('aside');
         aviso.className = 'aviso-barra';

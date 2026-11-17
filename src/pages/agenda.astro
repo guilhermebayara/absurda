@@ -277,7 +277,11 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
     for (const a of atalhos) {
       if (`ano-${a.dataset.ano}` === id) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
     }
-    if (variante >= 1) agendarCentro(); else centralizar(!calmo.matches);
+    // Segunda rodada (do Gui: na 3 o ano marcado saía de vista e a fila só ia depois). A 5 leva a
+    // fila ao ano na hora em que ele muda, de uma vez; a 6, deslizando. Nunca com o dedo na fila.
+    if (variante >= 5) { if (!dedoNaFila) centralizar(variante >= 6 && !calmo.matches); }
+    else if (variante >= 1) agendarCentro();
+    else centralizar(!calmo.matches);
   };
   const medir = () => {
     if (performance.now() < travaAte) return;
@@ -292,7 +296,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
       if (!bloco.open || bloco.classList.contains('fechando')) alternar(bloco, true);
       // Variante 4: o salto até o ano é feito aqui, logo depois de abrir, e não pelo link. O
       // endereço ganha o #ano do mesmo jeito, sem criar uma entrada nova no histórico.
-      if (variante >= 4) {
+      if (variante === 4) {
         e.preventDefault();
         bloco.scrollIntoView({ block: 'start', behavior: 'instant' });
         history.replaceState(null, '', `#${bloco.id}`);
