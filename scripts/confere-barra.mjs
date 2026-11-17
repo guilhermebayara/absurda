@@ -14,7 +14,8 @@
 // - na rolagem, a barra presa sair do alto da tela, ou a cobertura acima dela não estiver inteira;
 // - o trajeto da barra usar a altura da tela (ela muda no iPhone quando a barra de endereço
 //   encolhe ou volta), ou a barra sair do lugar quando a altura da tela muda;
-// - algo dentro da barra animar por tempo, ou a fila rolar sozinha, enquanto a página rola;
+// - algo dentro da barra animar por tempo enquanto a página rola (a fila de anos indo até o ano
+//   marcado é do desenho, conferido pelo Gui no iPhone, e não entra);
 // - no toque num ano do atalho, a barra sair do alto da tela em qualquer quadro até o ano terminar
 //   de abrir, ou o toque não levar ao ano (aberto, no alto da tela e marcado no atalho);
 // - a fila de anos deixar de ser arrastável com o dedo;
@@ -31,15 +32,6 @@ import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { extname, join, normalize, relative, sep } from 'node:path';
 
 const DIST = 'dist';
-// TESTE DA BARRA (branch tst-barra-agenda): enquanto o Gui escolhe no iPhone, as variantes vêm
-// pelo endereço (?barra=N). Todas as candidatas precisam passar. A 0 é o desenho da main, o
-// controle: ela tem de mostrar o pulo no WebKit, senão a conferência perdeu a mão. Quando uma
-// variante virar o desenho do site, troque por VARIANTES = [null] e CONTROLE = null.
-const VARIANTES = [1, 2, 3, 4, 5, 6];
-// Na 5 e na 6 a fila de anos acompanha a rolagem de propósito (é o que o Gui está comparando):
-// nelas não vale a regra de a fila ficar parada enquanto a página rola.
-const FILA_ACOMPANHA = [5, 6];
-const CONTROLE = 0;
 // Folga da medida, em pixels: arredondamento de subpixel.
 const FOLGA = 1.5;
 // Animações por tempo que podem rodar dentro da barra durante a rolagem, conferidas no aparelho.
@@ -151,7 +143,7 @@ const depoisDoToque = (id) => {
 
 // Devolve os problemas de uma sequência de quadros. "rolando" liga as conferências que só valem
 // enquanto a página rola (nada se mexendo dentro da barra).
-const ler = (quadros, { rolando, filaLivre = false }) => {
+const ler = (quadros, { rolando }) => {
   const problemas = [];
   for (const fase of ['antes', 'depois']) {
     const q = quadros.filter((x) => x.fase === fase);
@@ -166,14 +158,11 @@ const ler = (quadros, { rolando, filaLivre = false }) => {
   if (rolando) {
     const q = quadros.filter((x) => x.fase === 'antes');
     const mexe = new Set();
-    let filaAndou = 0;
     for (let i = 1; i < q.length; i++) {
       if (q[i].y === q[i - 1].y) continue;
       for (const a of q[i].anima ?? []) mexe.add(a);
-      if (q[i].fila !== q[i - 1].fila) filaAndou++;
     }
     if (mexe.size) problemas.push(`anima por tempo dentro da barra enquanto a página rola: ${[...mexe].join(', ')}`);
-    if (filaAndou && !filaLivre) problemas.push(`a fila da barra rolou sozinha em ${filaAndou} quadro(s) enquanto a página rolava`);
   }
   return problemas;
 };
@@ -186,9 +175,9 @@ const arrastar = async (cdp, pagina, de, dx, dy, passos = 14) => {
   await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
 };
 
-// ---- Um navegador, uma página, uma variante ----
+// ---- Um navegador, uma página ----
 
-const conferir = async (navegador, motor, rota, variante) => {
+const conferir = async (navegador, motor, rota) => {
   const problemas = [];
   const anota = (onde, lista) => { for (const p of lista) problemas.push(`${onde}: ${p}`); };
   const contexto = await navegador.newContext(APARELHO);
@@ -201,7 +190,7 @@ const conferir = async (navegador, motor, rota, variante) => {
     return ler(await pagina.evaluate(desligar), opcoes);
   };
   try {
-    await pagina.goto(BASE + rota + (variante === null ? '' : `?barra=${variante}`), { waitUntil: 'load' });
+    await pagina.goto(BASE + rota, { waitUntil: 'load' });
     await pagina.evaluate(() => document.fonts.ready);
     await pagina.waitForTimeout(700);
     const e = await pagina.evaluate(estado);
@@ -228,7 +217,7 @@ const conferir = async (navegador, motor, rota, variante) => {
         for (let i = 0; i < 20; i++) { await pagina.evaluate(() => scrollBy(0, -45)); await pagina.waitForTimeout(24); }
       }
       await pagina.waitForTimeout(500);
-    }, { rolando: true, filaLivre: FILA_ACOMPANHA.includes(variante) }));
+    }, { rolando: true }));
     if (Math.abs((await pagina.evaluate(() => scrollY)) - partida) < 400) problemas.push('rolagem: a página não rolou, e a conferência não mediu nada');
 
     // Altura da tela mudando com a barra presa, como quando a barra de endereço encolhe e volta.
@@ -288,7 +277,6 @@ const conferir = async (navegador, motor, rota, variante) => {
 // ---- A rodada ----
 
 const achados = [];
-const avisos = [];
 let rodadas = 0;
 const motores = [];
 for (const motor of ['chromium', 'webkit']) {
@@ -299,20 +287,9 @@ for (const motor of ['chromium', 'webkit']) {
 try {
   for (const [motor, navegador] of motores) {
     for (const rota of paginas) {
-      for (const variante of VARIANTES) {
-        const nome = `${rota}${variante === null ? '' : `?barra=${variante}`} no ${motor}`;
-        const problemas = await conferir(navegador, motor, rota, variante);
-        rodadas++;
-        if (problemas.length) achados.push(`${nome}:\n  - ${problemas.join('\n  - ')}`);
-      }
-      // O controle: o desenho antigo precisa mostrar o pulo do toque no WebKit.
-      if (CONTROLE !== null && motor === 'webkit') {
-        const problemas = await conferir(navegador, motor, rota, CONTROLE);
-        const temToque = problemas.some((p) => p.startsWith('toque'));
-        const pulou = problemas.some((p) => p.startsWith('toque') && p.includes('saiu do alto da tela'));
-        if (problemas.length) avisos.push(`Controle (${rota}?barra=${CONTROLE} no ${motor}, o desenho da main), como esperado:\n  - ${problemas.join('\n  - ')}`);
-        if (rota === '/agenda' && !pulou) achados.push(`O controle (${rota}?barra=${CONTROLE} no ${motor}) não mostrou o pulo do toque${temToque ? '' : ' (nenhum problema no toque)'}. A conferência deixou de enxergar o defeito: confira a medição antes de confiar nela.`);
-      }
+      const problemas = await conferir(navegador, motor, rota);
+      rodadas++;
+      if (problemas.length) achados.push(`${rota} no ${motor}:\n  - ${problemas.join('\n  - ')}`);
     }
   }
 } finally {
@@ -320,9 +297,8 @@ try {
   servidor.close();
 }
 
-if (avisos.length) console.log(avisos.join('\n') + '\n');
 if (achados.length) {
   console.log(`A barra presa não passou:\n${achados.join('\n')}`);
   process.exit(1);
 }
-console.log(`Barras presas em ordem: ${paginas.join(', ')} em ${motores.map(([m]) => m).join(' e ')}${VARIANTES[0] === null ? '' : `, variantes ${VARIANTES.join(', ')}`} (${rodadas} rodadas de rolagem${paginas.includes('/agenda') ? ' e toque' : ''}).`);
+console.log(`Barras presas em ordem: ${paginas.join(', ')} em ${motores.map(([m]) => m).join(' e ')} (${rodadas} rodadas de rolagem${paginas.includes('/agenda') ? ' e toque' : ''}).`);

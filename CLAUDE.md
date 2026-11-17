@@ -130,9 +130,9 @@ push fora da `main` (`.github/workflows/confere-site.yml`). As seis rodam depois
 - `npm run confere:barra`: abre as páginas com barra presa no topo (atalho de anos da Agenda, ano
   dos Marcos no Sobre) num iPhone emulado, no Chromium e no WebKit, e mede a barra a cada quadro.
   Falha se a barra sair do alto da tela na rolagem ou ao tocar num ano do atalho, se o trajeto
-  dela usar a altura da tela, se algo se mexer dentro dela enquanto a página rola, se a fila de
-  anos deixar de ser arrastável, se o toque não levar ao ano ou se houver `sticky` ou `fixed` no
-  toque. Precisa também do WebKit (`npx playwright install --with-deps webkit`), que é quem mostra
+  dela usar a altura da tela, se algo animar por tempo dentro dela enquanto a página rola, se a
+  fila de anos deixar de ser arrastável, se o toque não levar ao ano ou se houver `sticky` ou
+  `fixed` no toque. Precisa também do WebKit (`npx playwright install --with-deps webkit`), que é quem mostra
   o pulo do toque. A barra de endereço do Safari e a rolagem com inércia só se conferem no iPhone.
 
 **Regra de contraste (do Gui):** texto que se lê precisa de contraste de leitura (4,5:1).
@@ -275,6 +275,12 @@ regras de branch desta seção.
   ano dos Marcos no Sobre). Enquanto presa, a barra ganha uma cobertura na cor da página por
   cima, para o texto não aparecer acima dela, atrás do relógio. As prévias que seguem o cursor
   somem no toque. Ao criar algo preso novo, siga um desses modelos e confira no iPhone.
+- **Barra presa não pode pular (do Gui, conferido no iPhone):** o trajeto da barra e o trecho por
+  onde ela anda saem da mesma medida (`--alt` menos `--barra`, com `animation-range` de `contain` a
+  `contain`), sem a altura da tela na conta. E nada dentro do trecho muda de altura com animação
+  no toque: os anos da Agenda abrem e fecham de uma vez, só o conteúdo entra de leve. Com a altura
+  animada, a barra pulava e o conteúdo piscava. A fila de anos vai ao ano marcado na hora,
+  deslizando, e nunca com o dedo em cima dela. `npm run confere:barra` guarda a regra.
 - **Cartões no celular:** no iPhone a página aparece atrás do relógio e da barra de endereço,
   então uma cena parada de tela inteira parece um retângulo cortado. A saída (do Gui) é a do
   rodapé: no celular, rodapé, menu e Trio são cartões, com `--raio-cartao` e `--folga-cartao`

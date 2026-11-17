@@ -62,13 +62,6 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
         if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) {
           raiz.classList.add(window.CSS && CSS.supports('animation-timeline: view()') ? 'pino-novo' : 'toque');
         }
-        // TESTE DA BARRA (branch tst-barra-agenda): variantes das barras presas, escolhidas pelo
-        // endereço (?barra=1, 2...). Elas se somam: a 3 leva a 1 e a 2 junto. A 5 e a 6 (segunda rodada)
-        // partem da 3 e mudam só o jeito de a fila de anos acompanhar a rolagem. Sem o parâmetro vale
-        // a 0, que é o desenho da main. Sai daqui quando o Gui escolher uma no iPhone.
-        var bt = Math.max(0, Math.min(6, parseInt(new URLSearchParams(location.search).get('barra'), 10) || 0));
-        raiz.dataset.barraTeste = String(bt);
-        for (var bi = 1; bi <= bt; bi++) raiz.classList.add('bt-' + bi);
         // Cor de enfeite: o destaque usado sobre uma superfície da cor do texto (faixa,
         // menu, rodapé). Enfeite não precisa de contraste de leitura, mas também não pode
         // sumir: se o destaque fica perto demais da superfície, mantém o matiz e a
@@ -338,41 +331,14 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
             trilho.style.setProperty('--alt', `${trilho.offsetHeight}px`);
             trilho.style.setProperty('--barra', `${barra.offsetHeight}px`);
           };
-          // TESTE DA BARRA, variante 2 em diante: quem muda a altura do trecho com animação (os
-          // anos da Agenda) mede uma vez só, antes, pelo aviso 'trilho:medir', e segura a medição
-          // (data-trilho-pausa) até a animação acabar. Assim o trajeto da barra não muda a cada quadro.
-          const olho = new ResizeObserver(() => { if (!trilho.hasAttribute('data-trilho-pausa')) medir(); });
+          const olho = new ResizeObserver(medir);
           olho.observe(trilho);
           olho.observe(barra);
+          // Quem muda a altura do trecho de uma vez (um ano da Agenda abrindo) pede a medida na
+          // hora, pelo aviso 'trilho:medir', sem esperar o quadro seguinte.
           trilho.addEventListener('trilho:medir', medir);
           medir();
         });
-      }
-
-      // TESTE DA BARRA: aviso no alto da página, dizendo qual variante está ligada. Fica no fluxo
-      // da página (nada preso). Sai junto com as variantes.
-      const principal = document.querySelector('main');
-      if (principal && document.querySelector('[data-trilho]')) {
-        const ligada = Number(raiz.dataset.barraTeste ?? 0);
-        const nomes = [
-          'como está na main',
-          'correções da rolagem',
-          '1 + trajeto medido uma vez só ao abrir o ano',
-          '2 + ano abre de uma vez, sem animar a altura',
-          '3 + salto até o ano feito por script',
-          '3 + a fila de anos acompanha a rolagem na hora, de uma vez',
-          '3 + a fila de anos acompanha a rolagem na hora, deslizando',
-        ];
-        const aviso = document.createElement('aside');
-        aviso.className = 'aviso-barra';
-        aviso.setAttribute('aria-label', 'Teste da barra');
-        const toque = raiz.classList.contains('pino-novo');
-        aviso.innerHTML = `<p><strong>Teste da barra: variante ${ligada} ligada</strong> (${nomes[ligada]}).${toque ? '' : ' Este aparelho não é de toque: aqui a barra é sticky e as variantes não mudam nada.'}</p><p>${nomes.map((_, i) => `<a href="${location.pathname}?barra=${i}"${i === ligada ? ' aria-current="true"' : ''}>${i}</a>`).join('')}</p>`;
-        principal.prepend(aviso);
-        // Uma cópia logo acima do trecho da barra, para trocar de variante sem voltar ao alto.
-        const copia = aviso.cloneNode(true) as HTMLElement;
-        copia.classList.add('aviso-barra-perto');
-        document.querySelector('[data-trilho]')?.before(copia);
       }
 
       // Menu do celular.
@@ -738,46 +704,33 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
   /* Barras presas no topo, no toque. O trecho (data-trilho) é a linha do tempo; a barra
      (data-barra) desce na mesma medida em que o trecho sobe, do instante em que o trecho
      encosta no topo da tela até o fim dele. A linha do tempo fica em regra separada da animação de propósito:
-     juntas, o compactador de CSS funde as duas e o navegador descarta a declaração. */
+     juntas, o compactador de CSS funde as duas e o navegador descarta a declaração.
+     O trajeto começa quando o topo do trecho encosta no alto da tela (contain 0%) e dura
+     exatamente o que a barra anda (--alt menos --barra, medidas pelo script). O trecho e o
+     percurso saem da mesma medida, então a barra fica no alto mesmo no quadro em que a altura do
+     trecho muda. Não troque o fim por "exit": aí quem conta o fim é o navegador, com a altura da
+     tela na conta, e o percurso é do script; quando um ano da Agenda abria, os dois discordavam
+     por alguns quadros e a barra pulava no Safari do iPhone (scripts/confere-barra.mjs confere).
+     Vale para trecho mais alto que a tela, que é o caso das duas barras. */
   html.pino-novo [data-trilho] { view-timeline: --trilho block; }
   html.pino-novo [data-barra='sempre'] { position: relative; top: auto; animation: barra-presa linear both; }
-  html.pino-novo [data-trilho] > [data-barra='sempre'] { animation-timeline: --trilho; animation-range: contain 0% exit calc(100% - var(--barra, 0px)); }
+  html.pino-novo [data-trilho] > [data-barra='sempre'] { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + var(--alt, 0px) - var(--barra, 0px)); }
   /* Enquanto a barra está presa, uma cobertura na cor da página sobe dela até acima da tela.
      No iPhone a página continua visível atrás do relógio, e sem isso o texto que passa por
-     cima da barra aparecia ali. A cobertura surge quando a barra encosta no topo. */
+     cima da barra aparecia ali. A cobertura surge de uma vez (em 1px) quando a barra encosta no
+     topo: nesse instante ela está inteira acima da tela. Surgindo aos poucos, o conteúdo aparecia
+     acima da barra. */
   html.pino-novo [data-barra='sempre']::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 8rem; background: var(--fundo); pointer-events: none; animation: barra-cobre linear both; }
-  html.pino-novo [data-trilho] > [data-barra='sempre']::before { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + 3rem); }
+  html.pino-novo [data-trilho] > [data-barra='sempre']::before { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + 1px); }
   @keyframes barra-cobre { from { opacity: 0; } to { opacity: 1; } }
   /* "estreita": a mesma barra presa, só no desenho de celular (o ano dos Marcos, no Sobre). */
   @media (max-width: 820px) {
     html.pino-novo [data-barra='estreita'] { position: relative; top: auto; animation: barra-presa linear both; }
-    html.pino-novo [data-trilho] > [data-barra='estreita'] { animation-timeline: --trilho; animation-range: contain 0% exit calc(100% - var(--barra, 0px)); }
+    html.pino-novo [data-trilho] > [data-barra='estreita'] { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + var(--alt, 0px) - var(--barra, 0px)); }
     html.pino-novo [data-barra='estreita']::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 8rem; background: var(--fundo); pointer-events: none; animation: barra-cobre linear both; }
-    html.pino-novo [data-trilho] > [data-barra='estreita']::before { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + 3rem); }
+    html.pino-novo [data-trilho] > [data-barra='estreita']::before { animation-timeline: --trilho; animation-range: contain 0% contain calc(0% + 1px); }
   }
   @keyframes barra-presa { to { transform: translateY(calc(var(--alt, 0px) - var(--barra, 0px))); } }
-
-  /* TESTE DA BARRA, variante 1 em diante (correções da rolagem, já vistas pelo Gui no iPhone).
-     - Trajeto: começa quando o topo do trecho encosta no alto da tela (contain 0%) e dura
-       exatamente o que a barra anda (--alt menos --barra). O trecho e o percurso saem da mesma
-       medida, então a barra fica sempre no alto, mesmo no quadro em que a altura do trecho muda.
-       No desenho antigo o fim do trecho era contado pelo navegador (exit) e o percurso pelo
-       script: quando um ano abria, os dois discordavam por alguns quadros e a barra pulava.
-       Vale para trecho mais alto que a tela, que é o caso das duas barras.
-     - Cobertura: surge de uma vez (1px), e não aos poucos em 3rem, para o conteúdo não aparecer
-       acima da barra. Nesse instante ela está inteira acima da tela. */
-  html.pino-novo.bt-1 [data-trilho] > [data-barra='sempre'] { animation-range: contain 0% contain calc(0% + var(--alt, 0px) - var(--barra, 0px)); }
-  html.pino-novo.bt-1 [data-trilho] > [data-barra='sempre']::before { animation-range: contain 0% contain calc(0% + 1px); }
-  @media (max-width: 820px) {
-    html.pino-novo.bt-1 [data-trilho] > [data-barra='estreita'] { animation-range: contain 0% contain calc(0% + var(--alt, 0px) - var(--barra, 0px)); }
-    html.pino-novo.bt-1 [data-trilho] > [data-barra='estreita']::before { animation-range: contain 0% contain calc(0% + 1px); }
-  }
-  /* TESTE DA BARRA: o aviso da variante ligada. No fluxo da página, sem nada preso. */
-  .aviso-barra { margin: var(--e-2) var(--margem) 0; padding: 0.75rem 1rem; border: 2px dashed var(--texto); border-radius: 0.75rem; font-size: 0.9375rem; line-height: 1.35; }
-  .aviso-barra-perto { margin: 0 0 var(--e-3); }
-  .aviso-barra p + p { display: flex; gap: 0.5rem; margin-top: 0.6rem; }
-  .aviso-barra a { display: grid; place-items: center; min-width: 2.75rem; min-height: 2.75rem; border: 2px solid var(--texto); border-radius: 0.5rem; font-weight: 800; text-decoration: none; }
-  .aviso-barra a[aria-current] { background: var(--texto); color: var(--fundo); }
 
   /* Rodapé grande */
   .rodape { position: relative; --lw: min(100vw - 2 * var(--margem), 165svh); margin-top: clamp(2rem, 5vw, 4rem); padding: clamp(2rem, min(4.5vw, 6svh), 4rem) var(--margem) 0; border-radius: clamp(1.5rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 3.5rem) 0 0; background: var(--texto); color: var(--fundo); overflow: hidden; transition: none; }

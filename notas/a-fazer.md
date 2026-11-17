@@ -14,19 +14,6 @@ Como usar:
 
 Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
 
-- **Agenda: o atalho de anos pula no iPhone** ao tocar num ano, e às vezes na rolagem. Sessão
-  dedicada, com o brief `notas/briefs/atalho-agenda.md`. Achado do Gui em 17 nov 2026.
-  Em andamento na branch `tst-barra-agenda` (Claude Code, 17 nov 2026): o pulo do toque foi
-  reproduzido no WebKit e há quatro variantes que se somam, escolhidas pelo endereço
-  (`/agenda?barra=1` a `4`; a `0` é a `main`), com aviso no alto da página.
-  Primeira rodada no iPhone (Gui, 17 nov 2026): a 0 pula; a 1 não pula, mas o conteúdo às vezes
-  pisca ao abrir um ano; a 2 mistura pulo e piscada em alguns anos; a 3 não pula nem pisca, e
-  sobra só a demora da fila de anos (o ano marcado sai de vista e a fila só vai depois que a
-  rolagem para); a 4 teve pulos menores na rolagem. Segunda rodada, partindo da 3: a `5` leva a
-  fila ao ano na hora, de uma vez, e a `6` na hora, deslizando. Esperando o Gui conferir no iPhone. Depois da escolha: tirar as variantes e o aviso (marcados com "TESTE DA BARRA" em
-  `Base.astro`, `agenda.astro` e `scripts/confere-barra.mjs`), deixar só o desenho escolhido,
-  registrar a regra em `CLAUDE.md` ("Banda do Safari") e em `notas/decisoes.md`, e levar à `design`.
-
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
 
