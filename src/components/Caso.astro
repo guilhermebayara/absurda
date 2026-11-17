@@ -1,0 +1,21 @@
+---
+// Caso de parceria, em Parcerias: a foto da ativação, a marca, onde e quando, e uma linha do que
+// foi feito. Enquanto a foto não chega, um bloco sólido guarda o lugar com o nome do evento, nas
+// duas superfícies do tema (viva e invertida, alternadas como as marcas).
+interface Props { marca: string; onde: string; ano: string; evento: string; texto: string; invertida?: boolean; i?: number }
+const { marca, onde, ano, evento, texto, invertida = false, i = 0 } = Astro.props;
+---
+<li class="caso" data-anima="surge" style={`--i:${i}`}>
+  <div class:list={['caso-foto', { 'caso-foto-b': invertida }]}><span>{evento}</span></div>
+  <h3 class="caso-marca">{marca}</h3>
+  <p class="caso-onde">{onde}, {ano}</p>
+  <p class="caso-texto">{texto}</p>
+</li>
+
+<style>
+  .caso-foto { display: grid; place-items: center; aspect-ratio: 4 / 3; border-radius: var(--raio-cartao, 1.5rem); background: var(--vivo); color: var(--sobre-vivo); font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  .caso-foto-b { background: var(--texto); color: var(--fundo); }
+  .caso-marca { margin-top: var(--e-2); font-size: var(--t-4); font-weight: 800; line-height: 0.95; letter-spacing: -0.035em; text-transform: uppercase; }
+  .caso-onde { margin-top: 0.4rem; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  .caso-texto { max-width: 26em; margin-top: 0.75rem; font-size: 1.0625rem; line-height: 1.4; }
+</style>

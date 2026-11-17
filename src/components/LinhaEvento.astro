@@ -1,0 +1,61 @@
+---
+// Linha de evento do arquivo da Agenda: data, nome e local, numa lista densa (ul.linhas).
+// Com link, a linha leva à página do evento (ou ao álbum, nas festas antigas) e, com cursor, a
+// capa aparece acompanhando o mouse (data-espia, lido pelo script da Agenda). Sem link, como os
+// trios de carnaval mais antigos, a linha é só registro. No celular não existe hover: a capa vira
+// miniatura ao lado.
+import type { Evento } from '../lib/eventos';
+import { partesDaData } from '../lib/eventos';
+interface Props { evento: Evento }
+const { evento: e } = Astro.props;
+const d = partesDaData(e.data);
+---
+<li>
+  {/* Sem link (como os trios de carnaval mais antigos), a linha é só registro */}
+  <Fragment>
+    {e.url
+      ? (
+        <a class="linha" href={e.url} target="_blank" rel="noopener" data-espia={e.capa ?? ''}>
+          <span class="linha-data">{d.dia} {d.mes}</span>
+          <span class="linha-nome">{e.nome}</span>
+          <span class="linha-local"><span>{e.local ?? ''}</span>{e.album && <span class="linha-fotos">Fotos no Flickr</span>}{e.parada && <span class="linha-fotos">{e.parada}ª Parada</span>}</span>
+          {e.capaPequena && <img class="linha-mini" src={e.capaPequena} alt="" loading="lazy" />}
+          <span class="so-leitor"> (abre em outra aba)</span>
+        </a>
+      )
+      : (
+        <div class="linha" data-espia={e.capa ?? ''}>
+          <span class="linha-data">{d.dia} {d.mes}</span>
+          <span class="linha-nome">{e.nome}</span>
+          <span class="linha-local"><span>{e.local ?? ''}</span>{e.parada && <span class="linha-fotos">{e.parada}ª Parada</span>}</span>
+          {e.capaPequena && <img class="linha-mini" src={e.capaPequena} alt="" loading="lazy" />}
+        </div>
+      )}
+  </Fragment>
+</li>
+
+<style>
+  /* Uma linha por data. A capa passa por trás dos nomes. */
+  li { border-top: 1px solid var(--linha); }
+  .linha { position: relative; z-index: 2; display: grid; grid-template-columns: 6.5rem minmax(0, 1.6fr) minmax(0, 1fr); gap: var(--e-3); align-items: baseline; padding: 0.7rem 0; text-decoration: none; transition: padding 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.2s; }
+  a.linha:hover, a.linha:focus-visible { padding-left: 0.9rem; color: var(--destaque-texto); }
+  .linha-data { font-size: 0.9375rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+  .linha-nome { font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; }
+  .linha-local { font-size: 0.9375rem; color: var(--suave); }
+  .linha:hover .linha-local { color: inherit; }
+  /* Local e etiqueta em colunas próprias: os dois começam sempre no mesmo ponto, linha após linha. */
+  .linha-local { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--e-2); align-items: baseline; }
+  /* Etiqueta: a marca das festas antigas cujo link leva ao álbum de fotos, e a da Parada. */
+  .linha-fotos { display: inline-block; padding: 0.15em 0.6em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+  .linha-mini { display: none; }
+  @media (max-width: 720px) {
+    /* No celular não existe hover: a capa vira miniatura ao lado */
+    .linha { grid-template-columns: 4.75rem minmax(0, 1fr); grid-template-areas: 'mini data' 'mini nome' 'mini local'; gap: 0.15rem 0.9rem; align-items: start; }
+    .linha-mini { display: block; grid-area: mini; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0.4rem; margin-top: 0.2rem; }
+    .linha-data { grid-area: data; font-size: 0.8125rem; }
+    .linha-nome { grid-area: nome; }
+    .linha-local { grid-area: local; font-size: 0.8125rem; grid-template-columns: auto auto; justify-content: start; column-gap: 0.8em; }
+    .linha-local > span:first-child:empty { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .linha { transition: none; } }
+</style>
