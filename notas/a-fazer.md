@@ -14,13 +14,6 @@ Como usar:
 
 Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
 
-- **WIG: resumo, nome e links (respostas do Gui na aba Geral, 16/11).**
-  - Resumo novo em `src/content/projetos/wig.md`: "Nasceu na @bsurda e hoje é da Charlotte. Segue
-    colada: as drags da WIG são presença constante no nosso palco." Rever junto o título da seção
-    "Edições com a @bsurda".
-  - Nome: "WIG events" em todo o site (projeto, crachás, textos), no lugar de "Wig" e "WIG Events".
-  - Links de texto na página: Instagram (instagram.com/wigevents), loja (umapenca.com/wigevents) e
-    Shotgun (shotgun.live/en/venues/wig-events).
 - **Equipe: tirar o selo "Lista em construção (a confirmar)".** O Gui deu a lista por fechada.
   Desempate de quem entrou no mesmo dia: alfabético (vale hoje para Barbara e Gabriel). Conferir que
   a ordem já sai assim.

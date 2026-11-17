@@ -309,7 +309,9 @@ const NOMES_CORRIGIDOS: Record<string, string> = {
 const ONLINE_DE = new Date('2020-05-29T00:00:00-03:00').getTime();
 const ONLINE_ATE = new Date('2021-09-18T00:00:00-03:00').getTime();
 const naQuarentena = (e: Evento) => { const t = new Date(e.data).getTime(); return t >= ONLINE_DE && t < ONLINE_ATE; };
-const SYMPLA_FORA = ['784522']; // I Hate Remix Lady Gaga, 6/2/2021: adiado pela quarentena
+// I Hate Remix Lady Gaga, 6/2/2021: não aconteceu. Ficou aberto no Sympla só para manter os
+// ingressos vendidos na pandemia, porque cancelar cancelaria os ingressos (Gui, 16 nov 2026).
+const SYMPLA_FORA = ['784522'];
 // Eventos em que a data cadastrada está certa e a do nome não (erro de digitação).
 const DATA_CADASTRADA_VALE = [/aquece @ code bar/i];
 
