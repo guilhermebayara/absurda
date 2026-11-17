@@ -128,3 +128,10 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   homologação (`design`, que mantém o nome por causa dos tokens da Cloudflare) e teste
   (`tst-<assunto>`), como no bayara.design e no site da família. Código só vai à `main` depois da
   conferência do Gui na `design`; documentação pode ir direto. (CLAUDE.md, "Branches e publicação".)
+- `2026-11-17`: a página do sistema (`/camarim`) fica engavetada até o site estabilizar no ar.
+  Motivo: na etapa 1 (peças viram componentes, branch `teste-componentes`), o atalho de anos da
+  Agenda passou a pular no iPhone. A `main` não pula no iPhone (conferido pelo Gui). A causa exata
+  não foi isolada: o código da barra presa era o mesmo nas duas, e o Chromium e o WebKit de teste
+  não reproduziram a diferença. Nada da `teste-componentes` vai para a `design` nem para a `main`,
+  nem as correções da barra feitas lá. Numa retomada, a página mostra só os temas e os componentes
+  que já existem, sem refatorar as páginas. Decisão do Gui. (`notas/briefs/camarim.md`.)

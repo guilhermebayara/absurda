@@ -1,5 +1,18 @@
 # Brief: a página do sistema (`/camarim`)
 
+> **Engavetado em 17/11/2026 (decisão do Gui), até o site estabilizar no ar.** Não comece sem o Gui
+> pedir.
+>
+> **O que a etapa 1 ensinou.** As peças viraram oito componentes na branch `teste-componentes`, com
+> HTML idêntico e fotos idênticas em 390 e 1440 px, e mesmo assim o atalho de anos da Agenda passou
+> a pular no iPhone. A `main` não pula. A causa exata não foi isolada: o código da barra presa era o
+> mesmo nas duas, e nem o Chromium nem o WebKit de teste mostraram a diferença. Ou seja: fotos e
+> conferências iguais não garantem o comportamento no Safari do iPhone.
+>
+> **Numa retomada:** a página mostra só os temas e os componentes que já existem em
+> `src/components/`, sem refatorar as páginas. A etapa 1 abaixo fica só como registro; não refaça.
+> Toda mudança que toque a Agenda ou uma barra presa é conferida no iPhone antes de seguir.
+
 Pedido do Gui em 16/11/2026, para sessões do Claude Code, em duas etapas. Leia antes `CLAUDE.md`,
 `notas/decisoes.md` e `notas/a-fazer.md`. Referências: a página de sistema do site da família
 (`guilhermebayara/bayaranascimento`, `/conceito/sistema`, e a seção "Sistema (fase 2)" do
