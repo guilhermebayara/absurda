@@ -17,8 +17,13 @@ const m = evento.malha;
 const cores = m
   ? `--c0:${m.cores[0]};--c1:${m.cores[1]};--c2:${m.cores[2]};--c3:${m.cores[3]};--tinta:${m.texto}`
   : `--c0:${evento.tema.texto};--c1:${evento.tema.texto};--c2:${evento.tema.texto};--c3:${evento.tema.texto};--tinta:${evento.tema.fundo}`;
+// Cor média do cartão, para o script abaixo comparar com o fundo da página.
+const canais = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const fontes = m ? m.cores : [evento.tema.texto];
+const media = fontes.map(canais).reduce((s, c) => s.map((v, i) => v + c[i] / fontes.length), [0, 0, 0]);
+const corMedia = '#' + media.map((v) => Math.round(v).toString(16).padStart(2, '0')).join('');
 ---
-<article class="cartao" style={cores} data-anima="surge">
+<article class="cartao" style={cores} data-media={corMedia} data-tinta={m ? m.texto : evento.tema.fundo} data-anima="surge">
   <a class="cartao-capa" href={evento.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
     {evento.capa
       ? <img src={evento.capa} alt="" loading="lazy" style={evento.proporcao ? `aspect-ratio:${evento.proporcao}` : undefined} />
@@ -49,6 +54,13 @@ const cores = m
       radial-gradient(ellipse 85% 70% at calc(100% + var(--px) * 14%) calc(100% + var(--py) * 14%), var(--c3), transparent 100%),
       color-mix(in oklab, color-mix(in oklab, var(--c0), var(--c3)), color-mix(in oklab, var(--c1), var(--c2)));
     transition: translate 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s; }
+  /* Cartão que quase some no fundo da página (capa preta numa página preta, por exemplo): ganha um
+     véu da própria cor do texto, que vem da capa, e um filete fino. A página não muda de tom; quem
+     se destaca é o cartão. Em cartão escuro o véu clareia; em cartão claro só entra o filete, para
+     não tirar leitura do texto escuro. A marca data-junto é posta pelo script abaixo. */
+  .cartao { isolation: isolate; }
+  .cartao[data-junto]::before { content: ''; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1.5px color-mix(in oklab, var(--tinta) 22%, transparent); }
+  .cartao[data-junto='escuro']::before { background: color-mix(in oklab, var(--tinta) 9%, transparent); }
   .cartao:hover { translate: 0 -0.35rem; box-shadow: 0 1.75rem 3rem -1.5rem rgb(0 0 0 / 0.5); }
 
   /* A capa inclina com o cursor, como a do destaque */
@@ -69,3 +81,35 @@ const cores = m
   .cartao :global(.cartao-botao) { --botao-fundo: var(--tinta); --botao-destaque: var(--tinta); margin-top: auto; align-self: flex-start; }
   @media (prefers-reduced-motion: reduce) { .cartao, .cartao-capa img { transition: none; } .cartao:hover { translate: none; } }
 </style>
+
+<script>
+  // Separação entre cartão e página. O fundo da página muda com o sorteio de temas e com a rolagem
+  // (ver Base.astro), então a conta é refeita a cada troca de --fundo.
+  const lum = (h: string) => {
+    const x = h.trim().match(/^#?([0-9a-f]{6})$/i);
+    const r = h.match(/rgba?\(\s*(\d+)[\s,]+(\d+)[\s,]+(\d+)/);
+    const rgb = x ? [16, 8, 0].map((d) => (parseInt(x[1], 16) >> d) & 255) : r ? [r[1], r[2], r[3]].map(Number) : null;
+    if (!rgb) return null;
+    const f = (v: number) => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; };
+    return 0.2126 * f(rgb[0]) + 0.7152 * f(rgb[1]) + 0.0722 * f(rgb[2]);
+  };
+  const raiz = document.documentElement;
+  let ultimo = '';
+  const separar = () => {
+    // Vale o valor pedido (no style do <html>), e não o do meio da transição de 0,7s.
+    const fundo = raiz.style.getPropertyValue('--fundo').trim() || getComputedStyle(raiz).getPropertyValue('--fundo').trim();
+    if (fundo === ultimo) return;
+    ultimo = fundo;
+    const lf = lum(fundo);
+    document.querySelectorAll<HTMLElement>('.cartao[data-media]').forEach((cartao) => {
+      const lc = lum(cartao.dataset.media ?? '');
+      if (lf === null || lc === null) return;
+      const [a, b] = [lf, lc].sort((x, y) => y - x);
+      // Abaixo de 1,35:1 os dois se confundem.
+      if ((a + 0.05) / (b + 0.05) >= 1.35) { delete cartao.dataset.junto; return; }
+      cartao.dataset.junto = (lum(cartao.dataset.tinta ?? '') ?? 0) > 0.5 ? 'escuro' : 'claro';
+    });
+  };
+  separar();
+  new MutationObserver(separar).observe(raiz, { attributes: true, attributeFilter: ['style'] });
+</script>

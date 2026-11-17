@@ -95,3 +95,7 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
 - `2026-11-16`: as regras das listas T/NB e PCD e do convite dos aniversariantes ficam dentro da
   Agenda, e não numa página própria: são só regras, e a Agenda é o caminho de quem vai à festa.
   Pedido do Gui. (`src/pages/agenda.astro`.)
+- `2026-11-17`: cartão de evento que quase some no fundo da página (abaixo de 1,35:1, como capa preta
+  em página preta) ganha um véu da própria cor do texto e um filete fino; a página não muda de tom.
+  Em cartão claro entra só o filete, para não tirar leitura. A conta roda no navegador, porque o
+  fundo muda com o sorteio e a rolagem. Pedido do Gui. (`src/components/CartaoEvento.astro`.)
