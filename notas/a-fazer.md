@@ -14,7 +14,8 @@ Como usar:
 
 Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
 
-(Nada no momento.)
+- **Agenda: o atalho de anos pula no iPhone** ao tocar num ano, e às vezes na rolagem. Sessão
+  dedicada, com o brief `notas/briefs/atalho-agenda.md`. Achado do Gui em 17 nov 2026.
 
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.

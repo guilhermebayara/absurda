@@ -3,15 +3,12 @@
 > **Engavetado em 17/11/2026 (decisão do Gui), até o site estabilizar no ar.** Não comece sem o Gui
 > pedir.
 >
-> **O que a etapa 1 ensinou.** As peças viraram oito componentes na branch `teste-componentes`, com
-> HTML idêntico e fotos idênticas em 390 e 1440 px, e mesmo assim o atalho de anos da Agenda passou
-> a pular no iPhone. A `main` não pula. A causa exata não foi isolada: o código da barra presa era o
-> mesmo nas duas, e nem o Chromium nem o WebKit de teste mostraram a diferença. Ou seja: fotos e
-> conferências iguais não garantem o comportamento no Safari do iPhone.
->
-> **Numa retomada:** a página mostra só os temas e os componentes que já existem em
-> `src/components/`, sem refatorar as páginas. A etapa 1 abaixo fica só como registro; não refaça.
-> Toda mudança que toque a Agenda ou uma barra presa é conferida no iPhone antes de seguir.
+> A etapa 1 chegou a ser feita (branch `teste-componentes`): oito componentes (`Cartaz`,
+> `CartaoLista`, `LinhaEvento`, `CartaoMarca`, `Caso`, `Pulseira`, `FichaPessoa`, `ListaEdicoes`) e o
+> `.t-secao` no `Base.astro`, com HTML e fotos iguais aos da `main` em 390 e 1440 px. No iPhone, ela
+> se comportou como a `main`: o pulo do atalho de anos da Agenda que apareceu nos testes é da
+> `main` (ver `notas/briefs/atalho-agenda.md`), não dos componentes. A branch pode ter sido apagada;
+> numa retomada, refaça a etapa 1 a partir da `main` daquele momento, seguindo este brief.
 
 Pedido do Gui em 16/11/2026, para sessões do Claude Code, em duas etapas. Leia antes `CLAUDE.md`,
 `notas/decisoes.md` e `notas/a-fazer.md`. Referências: a página de sistema do site da família
