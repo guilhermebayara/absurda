@@ -284,7 +284,8 @@ regras de branch desta seção.
 - **Cartões no celular:** no iPhone a página aparece atrás do relógio e da barra de endereço,
   então uma cena parada de tela inteira parece um retângulo cortado. A saída (do Gui) é a do
   rodapé: no celular, rodapé, menu e Trio são cartões, com `--raio-cartao` e `--folga-cartao`
-  (em `Base.astro`). O Trio tem folga dos quatro lados. Cena nova parada no celular segue o
+  (em `Base.astro`). O Trio tem folga dos quatro lados. O menu é reto em cima, unido ao alto da
+  tela, e só arredonda embaixo; ao abrir, nenhum botão dele recebe o foco sozinho. Cena nova parada no celular segue o
   mesmo desenho.
 - **Troca de tema no iPhone:** a troca suave só liga depois que a página abriu (classe
   `troca-viva`). Ligada desde o início, o Safari às vezes parava no meio do caminho entre

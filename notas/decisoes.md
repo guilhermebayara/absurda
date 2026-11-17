@@ -145,3 +145,7 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   aparece no WebKit do Playwright, e a regra virou a conferência `confere:barra`. Feito pelo Claude
   Code. (CLAUDE.md, "Conferências do site" e "Cuidados"; `src/layouts/Base.astro`;
   `src/pages/agenda.astro`.)
+- `2026-11-17`: o menu do celular fica reto em cima, unido ao alto da tela, e só arredonda
+  embaixo; ao abrir, o foco vai para o próprio menu, e o "Fechar" não aparece mais com a moldura
+  de foco. Pedido do Gui, ao conferir a `design` no iPhone. Feito pelo Claude Code. (CLAUDE.md,
+  "Cuidados"; `src/layouts/Base.astro`.)

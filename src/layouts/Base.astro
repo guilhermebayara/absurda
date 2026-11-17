@@ -177,10 +177,10 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
     </header>
 
     <!-- Menu do celular: abre em tela cheia -->
-    <dialog class="menu" id="menu-celular" aria-label="Menu">
+    <dialog class="menu" id="menu-celular" aria-label="Menu" tabindex="-1">
       <div class="menu-topo">
         <a class="topo-marca" href="/" aria-label="@bsurda, página inicial"><Arroba /></a>
-        <button class="menu-fecha" type="button" autofocus>Fechar<span aria-hidden="true"></span><span aria-hidden="true"></span></button>
+        <button class="menu-fecha" type="button">Fechar<span aria-hidden="true"></span><span aria-hidden="true"></span></button>
       </div>
       <nav aria-label="Principal">
         <ul>
@@ -343,7 +343,9 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
 
       // Menu do celular.
       const menu = document.querySelector<HTMLDialogElement>('#menu-celular');
-      document.querySelector('.menu-abre')?.addEventListener('click', () => menu?.showModal());
+      // Ao abrir, o foco fica no próprio menu, e não num botão: senão o "Fechar" (ou a marca) abria
+      // com a moldura de foco acesa (pedido do Gui). O Tab segue dali para o primeiro item.
+      document.querySelector('.menu-abre')?.addEventListener('click', () => { menu?.showModal(); menu?.focus(); });
       document.querySelector('.menu-fecha')?.addEventListener('click', () => menu?.close());
       menu?.addEventListener('click', (e) => { if (e.target === menu) menu.close(); });
 
@@ -663,11 +665,11 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
   .menu-fora { display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; padding-top: 1.25rem; border-top: 1.5px solid color-mix(in srgb, var(--fundo) 30%, transparent); }
   .menu-fora a { font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; text-decoration: none; }
   @media (prefers-reduced-motion: reduce) { .menu[open] nav a { animation: none; } }
-  /* No celular o menu é um cartão, como o rodapé: cantos arredondados e a cor da página em
-     volta. No iPhone, a área do relógio fica na cor da página enquanto o menu está aberto;
-     com os cantos, o menu parece pousado sobre ela em vez de cortado por uma faixa. */
+  .menu:focus, .menu:focus-visible { outline: none; }
+  /* No celular o menu é um cartão, como o rodapé: a cor da página aparece embaixo, com os cantos
+     de baixo arredondados. Em cima ele fica reto, unido ao alto da tela (pedido do Gui). */
   @media (max-width: 860px) {
-    .menu { height: calc(100% - var(--folga-cartao)); border-radius: var(--raio-cartao); }
+    .menu { height: calc(100% - var(--folga-cartao)); border-radius: 0 0 var(--raio-cartao) var(--raio-cartao); }
     .menu::backdrop { background: var(--fundo); }
   }
 
