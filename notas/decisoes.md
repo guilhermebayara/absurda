@@ -117,3 +117,6 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
 - `2026-11-16`: auditoria de tom do site inteiro. O que ficou fora do tom virou proposta na aba "Textos
   (tom)" da planilha; o bloco de posições do Sobre fica no registro firme, como pede o guia para os
   marcos. Fichas, rótulos e listas de evento não entram na auditoria. (`notas/tom.md`.)
+- `2026-11-17`: o Gui aprovou as 17 linhas da aba "Textos (tom)", inclusive MPB e Confessions II
+  revistas, e reescreveu a frase do Google: "Maior festa pop LGBTQIA+ de MG. Sem frescuras, desde
+  2009." Aplicadas como estão na coluna C. (`src/config.ts` e os arquivos de cada texto.)

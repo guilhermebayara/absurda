@@ -4,12 +4,12 @@
   {
    "id": "brunch",
    "nome": "WIG Brunch",
-   "texto": "Brunch com quitutes mineiros e shows de drag num quintal ao ar livre, comandado pela Charlotte. A cada edição, uma convidada de fora divide o palco com as drags da casa."
+   "texto": "Quitute mineiro, quintal ao ar livre e show de drag, com a Charlotte no comando. A cada edição vem uma convidada de fora dividir o palco com as meninas da casa."
   },
   {
    "id": "tela",
    "nome": "Tela Tuck",
-   "texto": "A watch party da WIG. A cada episódio de Drag Race Brasil ou do Corrida das Blogueiras, uma drag da casa apresenta, comenta e toca, quase sempre com convidada.",
+   "texto": "A watch party da WIG: episódio de Drag Race Brasil ou da Corrida das Blogueiras no telão, com uma drag da casa apresentando, comentando e tocando, quase sempre com convidada.",
    "palavra": "sessões"
   },
   {
@@ -17,13 +17,13 @@
    "nome": "CHRONUS",
    "palavra": "temporadas",
    "coproducao": true,
-   "texto": "O espetáculo drag da WIG, no molde das turnês das drags de RuPaul’s Drag Race. A cientista Charlotte tenta corrigir as falhas da história e acaba trazendo drags de outras décadas para o presente, em números de dublagem, dança, comédia, audiovisual e circo.",
+   "texto": "O espetáculo drag da WIG, inspirado nas turnês de Drag Race. A cientista Charlotte tenta consertar a história e, sem querer, traz drags de outras décadas pro presente, com dublagem, dança, comédia, vídeo e até circo.",
    "nota": "Feito com a @bsurda. Passou por Belo Horizonte, pela Virada Cultural e por São Paulo."
   },
   {
    "id": "arraia",
    "nome": "Arraiá das Piranhas",
-   "texto": "A festa de São João da WIG no quintal do Quinteiro, com comida típica, quentão, brincadeiras e drag queens."
+   "texto": "O São João da WIG, no quintal do Quinteiro: quentão, comida típica, brincadeira e muita drag."
   }
  ],
  "eventos": [

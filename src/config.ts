@@ -2,7 +2,7 @@
 export const SITE = {
   nome: '@bsurda',
   lema: 'Sem frescuras',
-  descricao: 'Texto de marcação: uma frase sobre a @bsurda.',
+  descricao: 'Maior festa pop LGBTQIA+ de MG. Sem frescuras, desde 2009.',
   email: 'contato@exemplo.com', // e-mail de marcação
   fotos: 'https://festaabsurda.pixieset.com/',
   ingressos: 'https://shotgun.live/en/venues/festaabsurda',

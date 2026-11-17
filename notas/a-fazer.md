@@ -14,15 +14,7 @@ Como usar:
 
 Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
 
-- **Textos no tom (auditoria de 16/11): aplicar as linhas com "ok".** Aba "Textos (tom)" da
-  planilha. O Gui aprovou 15 das 17 (a frase do Google ele mesmo reescreveu: "Maior festa pop
-  LGBTQIA+ de MG. Sem frescuras, desde 2009."). Aplicar exatamente a coluna C das linhas com "ok" na
-  coluna D, lendo a planilha na hora. MPB (linha 3) e Confessions II (linha 5) foram revistas e
-  esperam um novo ok: só entram depois dele.
-- **Pequenos acertos da revisão da planilha (16/11).**
-  - Sets do Gui: a aba ganhou a IHR especial Rock in Rio (06/07/2017, Studio Bar). Entra na lista
-    da página do Gui quando ela for montada.
-  - Primas do Trio: o Gui aprovou o texto como está. Nada a mudar.
+(Nada no momento.)
 
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
@@ -37,6 +29,8 @@ resposta chegar lá, o item vira trabalho:
   fotos dos casos, logos e o texto do "Vamos conversar" (junto com o e-mail, pausado).
 - **Página do Gui: parte de baixo.** Depende do documento piloto "Sua página no site da @bsurda: Gui
   Bayara" preenchido. Montar numa branch de teste primeiro.
+  A lista de sets sai da aba "Sets do Gui" da planilha, que já tem a IHR especial Rock in Rio
+  (06/07/2017, Studio Bar).
 - **Branch de teste para apagar no GitHub:** `teste-wig-projetos` (já está na `main`). Pela conversa
   o GitHub recusa a exclusão; o Gui ou o Claude Code apagam.
 
