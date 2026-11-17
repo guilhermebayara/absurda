@@ -41,7 +41,7 @@ Algumas peças já são componentes em `src/components/` (`Botao`, `Cracha`, `Cr
 
 ## Etapa 2: a página
 
-Em cima dos componentes da etapa 1, numa branch `teste-camarim`.
+Em cima dos componentes da etapa 1, numa branch `tst-camarim`.
 
 - **Tokens.** Cada tema de `src/lib/temas.ts` com nome, cores e as cores que a página calcula
   (`--destaque-texto`, `--suave`, `--enfeite`, `--vivo`, `--sobre-vivo`, `--vivo-detalhe`), lado a lado,

@@ -5,24 +5,34 @@ código, os comentários e as mensagens de commit também.
 
 ## Branches e publicação
 
-**Fase atual (site ainda não divulgado):** pode-se publicar direto na `main`. `main` e
-`design` andam iguais.
+Desde 16 nov 2026 (decisão do Gui) vale o modelo de produção, homologação e teste, o mesmo do
+bayara.design e do site da família:
 
-**Depois que o site for a público, a regra muda:**
+| Branch | Papel | Agenda ao vivo |
+| --- | --- | --- |
+| `main` | **Produção** (festaabsurda.com). Só recebe o que já passou pela homologação, com o ok do Gui. | Sim |
+| `design` | **Homologação.** Todo trabalho de código chega aqui antes de ir ao ar, e o Gui confere na prévia dela. | Sim |
+| `tst-<assunto>` | **Teste:** um experimento ou uma comparação de layout, com prévia própria. | Não |
 
-- `design` é a **homologação**. É a única branch, além da `main`, com os tokens do Shotgun
-  e do Sympla configurados na Cloudflare. Toda mudança passa por ela antes de ir ao ar.
-- **Branches novas** servem para testes específicos e para comparar layouts. Elas não têm
-  os tokens: a agenda aparece só com o histórico arquivado, sem os eventos ao vivo.
-- `main` é **produção**. Só recebe o que já passou pela homologação.
+- `design` mantém esse nome: é a única branch, além da `main`, com os tokens do Shotgun e do
+  Sympla configurados na Cloudflare. As branches de teste não têm os tokens, então a agenda delas
+  mostra só o histórico arquivado.
+- Uma `tst-<assunto>` nasce da `main` atualizada (ou da `design` já igualada), vai para a `design`
+  quando o Gui aprovar a ideia e é apagada depois, ou é descartada. Branches abertas antes desta
+  regra com o prefixo `teste-` seguem com o nome que têm até acabarem.
+- Caminho de uma mudança de código: `tst-<assunto>` (quando for experimento) → `design` →
+  conferência do Gui na prévia da `design` → `main` por fast-forward da `design`. Nunca force um push.
+- **Mudança só de documentação ou de regras de trabalho** (`CLAUDE.md`, `notas/`) pode ir direto
+  para a `main`, para toda sessão nova já encontrar. Depois, traga a `main` para a `design`.
+- O robô do histórico continua escrevendo direto na `main` (ver "Histórico de eventos").
 
 ## Quem faz o quê (do Gui, desde 16 nov 2026)
 
 - **Código do site:** feito majoritariamente pelo Claude Code.
 - **Conversa no claude.ai (projeto "Carreira"):** discussão, ideias, estrutura, documentação do
   repositório (`CLAUDE.md`, `notas/`), Drive, planilha de pendências e documentos para outras
-  pessoas. A documentação é commitada por lá direto na `design` e na `main`, pela rotina normal.
-- **Explorar conceitos:** a conversa pode abrir branches `teste-<assunto>` para testar ideias de
+  pessoas. A documentação é commitada por lá direto na `main` e trazida para a `design`.
+- **Explorar conceitos:** a conversa pode abrir branches `tst-<assunto>` para testar ideias de
   layout ou de código. Não leva código para a `design` nem para a `main`, a menos que o Gui peça.
 - **Decisões e lista de trabalho:** toda decisão nova entra em `notas/decisoes.md` (data, o quê, por
   quê e onde a regra mora; só se acrescenta). O que falta construir fica em `notas/a-fazer.md`.
@@ -37,7 +47,7 @@ que fica parada perde os eventos que passaram nesse tempo. Por isso, **antes de 
 
 ```
 git fetch origin main
-git checkout design && git merge origin/main      # ou: git checkout -b teste-x origin/main
+git checkout design && git merge origin/main      # ou: git checkout -b tst-x origin/main
 ```
 
 Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
@@ -92,7 +102,8 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
 4. `npm run confere:links`, `npm run confere:agenda`, `npm run confere:temas`,
    `npm run confere:calmo` e `npm run confere:parede` passando (ver
    "Conferências do site").
-5. Só então `main`. A publicação na Cloudflare sai sozinha a cada push.
+5. Código: só com o ok do Gui na prévia da `design`. Então `main`, por fast-forward da `design`.
+   A publicação na Cloudflare sai sozinha a cada push.
 
 ## Conferências do site
 
@@ -198,16 +209,11 @@ inteiras; esta seção diz o que muda quando o trabalho é QA.
 
 ### Onde a sessão trabalha
 
-**Fase atual (site ainda não divulgado):** correção pequena e segura entra direto, pela
-mesma rotina de sempre: commit na `design`, depois `main` e `design` publicadas juntas por
-fast-forward. Mensagem de commit começa com `QA:`. Correção grande ou arriscada vai para
-uma branch `qa-<assunto>`, nascida da `main` atualizada, e espera o Gui.
+Correção vai para a `design` (homologação), com mensagem de commit começando com `QA:`. Correção
+grande ou arriscada vai para uma branch `qa-<assunto>`, nascida da `main` atualizada. A sessão de QA
+**nunca commita nem publica na `main`**: a `design` vai para a `main` com a aprovação do Gui.
 
-**Depois que o site for a público:** correção vai para a `design` (homologação). Correção
-grande ou arriscada vai para uma branch `qa-<assunto>`. A sessão de QA **nunca commita nem
-publica na `main` sem a aprovação do Gui**.
-
-Em qualquer fase: outra sessão pode estar publicando ao mesmo tempo. Traga a `main` de
+Outra sessão pode estar publicando ao mesmo tempo. Traga a `main` de
 novo antes de cada push e nunca force um push. Se o push for recusado, traga a `main`,
 confira de novo e repita.
 

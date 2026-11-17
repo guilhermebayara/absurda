@@ -124,3 +124,7 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   sem link, sem conteúdo privado) e montada com os mesmos componentes do site, como a do site da
   família e a `/boneca` do portfólio. Primeiro as peças viram componentes, sem mudança visual.
   Pedido do Gui. (`notas/briefs/camarim.md`.)
+- `2026-11-16`: fim da fase de publicar direto na `main`. Passa a valer produção (`main`),
+  homologação (`design`, que mantém o nome por causa dos tokens da Cloudflare) e teste
+  (`tst-<assunto>`), como no bayara.design e no site da família. Código só vai à `main` depois da
+  conferência do Gui na `design`; documentação pode ir direto. (CLAUDE.md, "Branches e publicação".)
