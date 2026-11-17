@@ -120,3 +120,7 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
 - `2026-11-17`: o Gui aprovou as 17 linhas da aba "Textos (tom)", inclusive MPB e Confessions II
   revistas, e reescreveu a frase do Google: "Maior festa pop LGBTQIA+ de MG. Sem frescuras, desde
   2009." Aplicadas como estão na coluna C. (`src/config.ts` e os arquivos de cada texto.)
+- `2026-11-16`: o sistema visual do site vai ter página própria em `/camarim`, escondida (sem índice,
+  sem link, sem conteúdo privado) e montada com os mesmos componentes do site, como a do site da
+  família e a `/boneca` do portfólio. Primeiro as peças viram componentes, sem mudança visual.
+  Pedido do Gui. (`notas/briefs/camarim.md`.)
