@@ -29,7 +29,8 @@ Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `no
   `notas/parcerias-material.md`, seção "Apresentações de 2025 e 2026"). Usar só o que pode ser
   público: nunca valor, cota, bonificação, preço ou nome de contato comercial. Textos dos casos e das
   linhas de Shotgun e Xeque Mate: propostas na aba Parcerias (linhas 11 a 14); aplicar as que tiverem
-  "ok". Números de público só depois da resposta da linha 20.
+  "ok". Números de público liberados pelo Gui (75 mil em 2023, 30 mil em 2025, Parada 2025). Carnaval:
+  "10 anos", contando desde o primeiro trio. Maringá é PR.
 
 
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
@@ -41,7 +42,6 @@ Estas perguntas estão na planilha "Pendências do site". Quando a
 resposta chegar lá, o item vira trabalho:
 
 - **Agenda de 2022: pastas que ficaram de fora.** MOC, Prêmio, YOLO e Anda.
-- **Parcerias: números de público e anos de carnaval.** Aba Parcerias, linhas 20 e 21.
 
 Fora da planilha:
 

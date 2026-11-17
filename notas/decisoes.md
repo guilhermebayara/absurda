@@ -108,3 +108,5 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   dia segue a ordem alfabética. (`notas/a-fazer.md`.)
 - `2026-11-16`: a Shotgun aparece em Parcerias também como patrocinadora: a @bsurda foi selecionada
   no Shotgun Pride 2026. (`notas/parcerias-material.md`.)
+- `2026-11-16`: os números de público das apresentações podem ir ao site, e o carnaval conta "10 anos"
+  desde o primeiro trio. (`notas/parcerias-material.md`.)

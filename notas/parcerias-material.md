@@ -57,14 +57,14 @@ O que pode ir para a página:
   Artistas locais que começaram ou cresceram na festa: Charlotte, Mira Miu Miu, Jaddy Stone, Joanna
   Mescladi, Monalisa Leblanc, Wandera Jones, Penelope Fontana, Amerikana, Mellody Queen.
 - **Por onde passou:** Mineirão, A Autêntica, Mercado Novo, Virada Cultural de BH, Parada do Orgulho
-  LGBTQIAPN+ de BH; fora de BH, São Paulo, Salvador, Brasília, São Luís e Maringá (a apresentação diz
-  "PA"; deve ser PR, a confirmar).
+  LGBTQIAPN+ de BH; fora de BH, São Paulo, Salvador, Brasília, São Luís e Maringá (PR; a apresentação diz
+  "PA" por engano).
 - **Marcos:** em 2018, a primeira festa LGBTQIAPN+ no Mineirão.
-- **Números de público (a confirmar se vão a público, planilha Parcerias linha 20):** 75 mil pessoas
+- **Números de público (liberados pelo Gui em 16/11):** 75 mil pessoas
   no pré-carnaval de 2023; 30 mil no trio de 2025; a Parada 2025 esperava 2 mil pessoas, 80 nas
   oficinas e mais de 100 mil alcançadas nas redes.
-- **Divergência:** a apresentação de 2026 fala em "8 anos de carnaval" e diz que em 2024 não teve
-  trio; o Instagram de 2026 fala em "10 anos de trio" (planilha Parcerias linha 21).
+- **Anos de carnaval:** vale "10 anos", contando desde o primeiro (Gui, 16/11). A apresentação de 2026
+  dizia "8 anos" e que em 2024 não teve trio.
 - **O que uma marca recebe, por tipo de entrega (sem valores):** venda exclusiva da bebida, luminoso
   e ativação no espaço, logo nas peças e no cardápio, post em collab, stories durante a festa, fotos
   profissionais, marca nos créditos e no aftermovie, backdrop e bandeiras no palco, bares e copos com
