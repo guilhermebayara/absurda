@@ -29,7 +29,7 @@ export async function temasDaPessoa(id: string, foto?: string): Promise<Tema[]> 
 // Conta quem tem crachá (sócios e DJs, de hoje e de outras fases). A ordem:
 //   1. data de entrada: `entrou` (data completa) ou, sem ela, o ano em `desde`;
 //   2. mesmo ano sem data completa de um dos dois: vale `ordem` (o Gui disse quem veio antes);
-//   3. mesmo dia: quem ficou mais tempo e, persistindo o empate, ordem alfabética.
+//   3. mesmo dia: ordem alfabética (Gui, 16 nov 2026; hoje vale para Barbara e Gabriel).
 // Um `numero` escrito à mão no arquivo da pessoa continua valendo por cima da conta.
 //
 // Enquanto faltar data de alguém, os números ficam guardados e o crachá mostra XXX: um número
@@ -45,13 +45,12 @@ export function numerosDosCrachas(pessoas: Array<{ id: string; data: DadosDaPess
   const comCracha = pessoas.filter((p) => p.data.grupo === 'socios' || p.data.grupo === 'residentes');
   const semData = comCracha.filter((p) => !p.data.entrou && !p.data.desde).map((p) => p.data.nome);
   const ano = (p: DadosDaPessoa) => (p.entrou ? Number(p.entrou.slice(0, 4)) : p.desde ?? 9999);
-  const tempo = (p: DadosDaPessoa) => (p.saiu ? new Date(p.saiu).getTime() : p.ate ? new Date(`${p.ate}-12-31`).getTime() : Date.now());
   const fila = [...comCracha].sort((a, b) => {
     const [x, y] = [a.data, b.data];
     if (ano(x) !== ano(y)) return ano(x) - ano(y);
     if (x.entrou && y.entrou && x.entrou !== y.entrou) return x.entrou.localeCompare(y.entrou);
     if (!(x.entrou && y.entrou)) return x.ordem - y.ordem;
-    return tempo(y) - tempo(x) || x.nome.localeCompare(y.nome, 'pt-BR');
+    return x.nome.localeCompare(y.nome, 'pt-BR');
   });
   const numeros = new Map(fila.map((p, i) => [p.id, p.data.numero ?? i + 1]));
   return { numeros, fila: fila.map((p) => p.data.nome), semData, prontos: semData.length === 0 };

@@ -60,7 +60,6 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
       <p class="nomes" data-anima="surge">
         {anteriores.map((p) => <a href={`/equipe/${p.id}`}>{p.data.nome}{p.data.foto && <img class="previa" src={p.data.foto} alt="" loading="lazy" />}</a>)}
       </p>
-      <p class="t-pequeno passado-nota">Lista em construção. (a confirmar)</p>
       <p class="passado-botao" data-anima="surge"><Botao href="/sobre#t-palco" tipo="linha">A cena que já tocou com a gente</Botao></p>
     </section>
   )}
@@ -173,7 +172,6 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
   /* Foto de quem já passou, só com cursor: aparece acima do nome, levemente torta. */
   .previa { position: absolute; left: 1em; bottom: 100%; z-index: 2; width: clamp(9rem, 14vw, 13rem); aspect-ratio: 4 / 5; object-fit: cover; border-radius: 1rem; opacity: 0; transform: rotate(-3deg) translateY(0.5rem); pointer-events: none; transition: opacity 0.2s, transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
   @media (hover: hover) { .nomes a:hover .previa, .nomes a:focus-visible .previa { opacity: 1; transform: rotate(-3deg) translateY(-0.4rem); } }
-  .passado-nota { margin-top: var(--e-2); }
 
   /* 3. Fora da cabine: pulseiras de acesso. A ponta destacável diz a área; o corpo, o nome. */
   .fora { padding: var(--e-4) var(--margem) var(--e-6); }

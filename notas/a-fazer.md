@@ -14,9 +14,6 @@ Como usar:
 
 Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
 
-- **Equipe: tirar o selo "Lista em construção (a confirmar)".** O Gui deu a lista por fechada.
-  Desempate de quem entrou no mesmo dia: alfabético (vale hoje para Barbara e Gabriel). Conferir que
-  a ordem já sai assim.
 - **Parcerias: tirar a página da marcação com as apresentações.** Os PDFs estão em
   `10_site/6_Parcerias/apresentacoes/para-marcas` (no Drive do Gui; o material já foi lido e está em
   `notas/parcerias-material.md`, seção "Apresentações de 2025 e 2026"). Usar só o que pode ser
