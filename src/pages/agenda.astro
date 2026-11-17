@@ -7,8 +7,6 @@ import Base from '../layouts/Base.astro';
 import CartaoEvento from '../components/CartaoEvento.astro';
 import Faixa from '../components/Faixa.astro';
 import Botao from '../components/Botao.astro';
-import CartaoLista from '../components/CartaoLista.astro';
-import LinhaEvento from '../components/LinhaEvento.astro';
 import { SITE } from '../config';
 import { getEventos, partesDaData } from '../lib/eventos';
 import { atributo, TEMAS_DO_SITE } from '../lib/temas';
@@ -72,7 +70,13 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
     <h2 id="t-listas" class="titulo-secao" data-anima="sobe">Listas</h2>
     <p class="t-apoio listas-apoio" data-anima="surge">Tem lista pra quem precisa e convite pra quem está de aniversário. Na dúvida, vale o post da festa no Instagram, ou é só <a href={conversa} target="_blank" rel="noopener">mandar mensagem<span class="so-leitor"> (abre em outra aba)</span></a>.</p>
     <ul class="listas-grade">
-      {listas.map((l, i) => <CartaoLista para={l.para} nome={l.nome} textos={l.textos} invertida={i % 2 === 1} i={i} />)}
+      {listas.map((l, i) => (
+        <li class:list={['lista', { 'lista-b': i % 2 === 1 }]} data-anima="surge" style={`--i:${i}`}>
+          <p class="lista-para">{l.para}</p>
+          <h3 class="lista-nome">{l.nome}</h3>
+          <div class="lista-texto">{l.textos.map((t) => <p>{t}</p>)}</div>
+        </li>
+      ))}
     </ul>
   </section>
 
@@ -117,7 +121,34 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
             ))}
             {eventos.length === 0 && <p class="sem-arquivo">As festas deste ano ainda não estão no arquivo.</p>}
             <ul class="linhas">
-              {eventos.map((e) => <LinhaEvento evento={e} />)}
+              {eventos.map((e) => {
+                const d = partesDaData(e.data);
+                return (
+                  <li>
+                    {/* Sem link (como os trios de carnaval mais antigos), a linha é só registro */}
+                    <Fragment>
+                      {e.url
+                        ? (
+                          <a class="linha" href={e.url} target="_blank" rel="noopener" data-espia={e.capa ?? ''}>
+                            <span class="linha-data">{d.dia} {d.mes}</span>
+                            <span class="linha-nome">{e.nome}</span>
+                            <span class="linha-local"><span>{e.local ?? ''}</span>{e.album && <span class="linha-fotos">Fotos no Flickr</span>}{e.parada && <span class="linha-fotos">{e.parada}ª Parada</span>}</span>
+                            {e.capaPequena && <img class="linha-mini" src={e.capaPequena} alt="" loading="lazy" />}
+                            <span class="so-leitor"> (abre em outra aba)</span>
+                          </a>
+                        )
+                        : (
+                          <div class="linha" data-espia={e.capa ?? ''}>
+                            <span class="linha-data">{d.dia} {d.mes}</span>
+                            <span class="linha-nome">{e.nome}</span>
+                            <span class="linha-local"><span>{e.local ?? ''}</span>{e.parada && <span class="linha-fotos">{e.parada}ª Parada</span>}</span>
+                            {e.capaPequena && <img class="linha-mini" src={e.capaPequena} alt="" loading="lazy" />}
+                          </div>
+                        )}
+                    </Fragment>
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </details>
@@ -234,10 +265,16 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
 
 <style>
   .abre .t-apoio { margin-top: var(--e-3); }
-  /* Listas: cartões sólidos (CartaoLista.astro), alternando as duas superfícies do tema. */
+  /* Listas: cartões sólidos, alternando as duas superfícies do tema (vivo e invertida), como as
+     marcas de Parcerias. O nome é medido pela largura do cartão (cqw), para "Aniversariantes" caber. */
   .listas { padding: var(--e-4) var(--margem) var(--e-5); scroll-margin-top: var(--e-4); }
   .listas-apoio { max-width: 34em; margin-top: var(--e-2); }
   .listas-grade { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: var(--e-3); margin-top: var(--e-4); }
+  .lista { --l-fundo: var(--vivo); --l-texto: var(--sobre-vivo); display: grid; grid-template-rows: auto auto 1fr; gap: var(--e-2); padding: clamp(1.25rem, 2.4vw, 2rem); border-radius: var(--raio-cartao, 1.5rem); background: var(--l-fundo); color: var(--l-texto); container-type: inline-size; }
+  .lista-b { --l-fundo: var(--texto); --l-texto: var(--fundo); }
+  .lista-para { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  .lista-nome { font-size: 10.5cqw; font-weight: 800; line-height: 0.88; letter-spacing: -0.045em; text-transform: uppercase; }
+  .lista-texto { align-self: end; display: grid; gap: 0.75em; margin-top: var(--e-2); padding-top: 0.9rem; border-top: 2px solid var(--l-texto); font-size: 1.0625rem; line-height: 1.4; }
 
   .proximos { padding: var(--e-4) var(--margem) var(--e-5); }
   .proximos-grade { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--e-3); }
@@ -302,13 +339,35 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
 
   .sem-arquivo { color: var(--suave); font-size: var(--t-apoio); }
 
-  /* Lista de eventos: uma linha por data (LinhaEvento.astro). */
+  /* Lista de eventos: uma linha por data. A capa passa por trás dos nomes. */
+  .linhas li { border-top: 1px solid var(--linha); }
+  .linhas .linha { position: relative; z-index: 2; display: grid; grid-template-columns: 6.5rem minmax(0, 1.6fr) minmax(0, 1fr); gap: var(--e-3); align-items: baseline; padding: 0.7rem 0; text-decoration: none; transition: padding 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.2s; }
+  .linhas a.linha:hover, .linhas a.linha:focus-visible { padding-left: 0.9rem; color: var(--destaque-texto); }
+  .linha-data { font-size: 0.9375rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+  .linha-nome { font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; }
+  .linha-local { font-size: 0.9375rem; color: var(--suave); }
+  .linhas .linha:hover .linha-local { color: inherit; }
+  /* Marca das festas antigas cujo link leva ao álbum de fotos */
+  /* Local e etiqueta em colunas próprias: os dois começam sempre no mesmo ponto, linha após linha. */
+  .linha-local { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--e-2); align-items: baseline; }
+  .linha-fotos { display: inline-block; padding: 0.15em 0.6em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+  .linha-mini { display: none; }
+  @media (max-width: 720px) {
+    /* No celular não existe hover: a capa vira miniatura ao lado */
+    .linhas .linha { grid-template-columns: 4.75rem minmax(0, 1fr); grid-template-areas: 'mini data' 'mini nome' 'mini local'; gap: 0.15rem 0.9rem; align-items: start; }
+    .linha-mini { display: block; grid-area: mini; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0.4rem; margin-top: 0.2rem; }
+    .linha-data { grid-area: data; font-size: 0.8125rem; }
+    .linha-nome { grid-area: nome; }
+    .linha-local { grid-area: local; font-size: 0.8125rem; grid-template-columns: auto auto; justify-content: start; column-gap: 0.8em; }
+    .linha-local > span:first-child:empty { display: none; }
+  }
+
   .arquivo-fim { margin-top: var(--e-5); text-align: right; }
 
   .espia-capa { position: fixed; left: 0; top: 0; z-index: 1; width: clamp(15rem, 24vw, 24rem); aspect-ratio: 16 / 9; overflow: hidden; border-radius: clamp(0.6rem, 1.2vw, 1rem); background: var(--texto); box-shadow: 0 1.5rem 3rem -1.25rem rgb(0 0 0 / 0.55); pointer-events: none; opacity: 0; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(0.85); transition: opacity 0.2s, transform 0.18s ease-out; }
   .espia-capa.visivel { opacity: 1; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(1); }
   .espia-capa img { width: 100%; height: 100%; object-fit: cover; }
-  @media (prefers-reduced-motion: reduce) { .anos-nav a::before, .ano-arco, .ano-mais-v, .espia-capa { transition: none; } }
+  @media (prefers-reduced-motion: reduce) { .anos-nav a::before, .ano-arco, .ano-mais-v, .linhas .linha, .espia-capa { transition: none; } }
   /* Em tela de toque a prévia que segue o cursor nunca aparece, e um elemento fixo, mesmo
      invisível, faz o Safari do iPhone desenhar uma banda atrás das barras. Sai da página. */
   @media (hover: none) { .espia-capa { display: none; } }

@@ -6,7 +6,6 @@ import Botao from '../../components/Botao.astro';
 import { atributo } from '../../lib/temas';
 import { temasDaPessoa, numeroDoCracha } from '../../lib/pessoas';
 import CrachaWig from '../../components/CrachaWig.astro';
-import FichaPessoa from '../../components/FichaPessoa.astro';
 import wig from '../../data/wig.json';
 
 export async function getStaticPaths() {
@@ -59,8 +58,14 @@ const periodo = alumni ? `Na @bsurda de ${pessoa.data.desde ?? 'XXXX'} a ${pesso
 
       {/* Parte padrão de toda página de pessoa (escolha do Gui, nov 2026): até três linhas de
           rótulo e valor. Redes são perfis da pessoa; "Na @bsurda" são os projetos da festa;
-          "Fora daqui" são os projetos dela (FichaPessoa.astro). O código do crachá fecha a ficha. */}
-      <FichaPessoa redes={redes} projetos={projetos.map((pr) => ({ nome: pr.data.nome, href: `/projetos/${pr.id}` }))} links={pessoa.data.links} />
+          "Fora daqui" são os projetos dela. A separação vem do rótulo, sem componente para cada coisa. */}
+      {(redes.length > 0 || projetos.length > 0 || pessoa.data.links.length > 0) && (
+        <dl class="ficha">
+          {redes.length > 0 && <div><dt>Redes</dt><dd><ul class="ficha-lado">{redes.map((l) => <li><a href={l.url} target="_blank" rel="noopener">{l.rotulo}<span class="ficha-seta" aria-hidden="true">↗</span><span class="so-leitor"> (abre em outra aba)</span></a></li>)}</ul></dd></div>}
+          {projetos.length > 0 && <div><dt>Na @bsurda</dt><dd><ul class="ficha-lado">{projetos.map((pr) => <li><a href={`/projetos/${pr.id}`}>{pr.data.nome}</a></li>)}</ul></dd></div>}
+          {pessoa.data.links.length > 0 && <div><dt>Fora daqui</dt><dd><ul class="ficha-pilha">{pessoa.data.links.map((l) => <li><a href={l.url} target="_blank" rel="noopener">{l.rotulo}<span class="ficha-seta" aria-hidden="true">↗</span><span class="so-leitor"> (abre em outra aba)</span></a>{l.papel && <span class="pessoa-papel">{l.papel}</span>}</li>)}</ul></dd></div>}
+        </dl>
+      )}
       <p class="ficha-codigo" aria-hidden="true">{codigo}</p>
 
       {/* O caminho de volta fica no fim, onde a leitura termina. No topo ele competia com os crachás. */}
@@ -108,12 +113,22 @@ const periodo = alumni ? `Na @bsurda de ${pessoa.data.desde ?? 'XXXX'} a ${pesso
   .pessoa-wig-texto > * + * { margin-top: 1rem; }
   .pessoa-fato { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; }
   .pessoa-barra { display: inline-block; margin: 0 0.45em; font-weight: 800; color: var(--destaque); }
-  /* A ficha (FichaPessoa.astro): aqui só o lugar dela na coluna de texto. */
-  .pessoa-texto :global(.ficha) { margin-top: clamp(2rem, 4vw, 3rem); max-width: 44rem; }
+  /* A linha "rótulo / valor" com filete vem do "Acesso / Total" do crachá. */
+  .pessoa-texto .ficha { margin-top: clamp(2rem, 4vw, 3rem); max-width: 44rem; }
+  .ficha > div { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 0.25rem 1.5rem; align-items: baseline; padding: 0.95rem 0 1.05rem; border-top: 2px solid currentColor; }
+  .ficha > div:last-child { border-bottom: 2px solid currentColor; }
+  .ficha dt { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; }
+  .ficha dd { margin: 0; font-size: clamp(1.0625rem, 1.5vw, 1.3125rem); font-weight: 700; line-height: 1.25; }
+  .ficha a { text-underline-offset: 0.18em; text-decoration-thickness: 0.08em; }
+  .ficha-lado { display: flex; flex-wrap: wrap; gap: 0.35rem 1.5rem; }
+  .ficha-pilha { display: grid; gap: 0.45rem; }
+  .ficha-seta { display: inline-block; margin-left: 0.3em; font-size: 0.8em; font-weight: 500; }
+  .pessoa-papel { margin-left: 0.7em; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: var(--suave); white-space: nowrap; }
   /* O código do crachá assina o fim da parte padrão. Abaixo dele começa a parte de cada pessoa. */
   .pessoa-texto .ficha-codigo { margin-top: 0.7rem; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--suave); }
   @media (max-width: 720px) {
     .pessoa { grid-template-columns: minmax(0, 1fr); }
+    .ficha > div { grid-template-columns: minmax(0, 1fr); }
     .pessoa-wig { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
     .pessoa-wig-cracha { width: 72%; }
     /* No celular não cabem lado a lado em tamanho legível: ficam em escada, a frente em cima à

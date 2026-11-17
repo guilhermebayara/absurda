@@ -503,8 +503,8 @@ const premios = [
      4. subtítulo e rótulo de bloco (.titulo-secao, --t-4): Lugares improváveis, E pegou estrada, Reconhecimento.
      O título de seção fica um degrau acima do conteúdo que ele abre, para nunca empatar com ele.
      Exceção: quando a seção abre com um texto gigante próprio (a frase de Como começou, o ano
-     dos Marcos, a faixa do posicionamento), o título vira chamada pequena (.titulo-secao).
-     O .t-secao mora em Base.astro, porque Equipe, Parcerias e os projetos usam o mesmo. */
+     dos Marcos, a faixa do posicionamento), o título vira chamada pequena (.titulo-secao). */
+  .t-secao { font-size: clamp(2.75rem, 9.5vw, 8.75rem); font-weight: 800; line-height: 1; letter-spacing: -0.045em; text-transform: uppercase; text-wrap: balance; }
 
   /* ---------- Abertura ---------- */
   .sobre-abre .t-apoio { max-width: 30em; }
