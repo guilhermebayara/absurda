@@ -14,6 +14,11 @@ Como usar:
 
 Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
 
+- **Textos no tom (auditoria de 16/11): aplicar as linhas com "ok".** Aba "Textos (tom)" da
+  planilha. O Gui aprovou 15 das 17 (a frase do Google ele mesmo reescreveu: "Maior festa pop
+  LGBTQIA+ de MG. Sem frescuras, desde 2009."). Aplicar exatamente a coluna C das linhas com "ok" na
+  coluna D, lendo a planilha na hora. MPB (linha 3) e Confessions II (linha 5) foram revistas e
+  esperam um novo ok: só entram depois dele.
 - **Pequenos acertos da revisão da planilha (16/11).**
   - Sets do Gui: a aba ganhou a IHR especial Rock in Rio (06/07/2017, Studio Bar). Entra na lista
     da página do Gui quando ela for montada.
@@ -28,14 +33,6 @@ Estas perguntas estão na planilha "Pendências do site". Quando a
 resposta chegar lá, o item vira trabalho:
 
 - **Agenda de 2022: pastas que ficaram de fora.** MOC, Prêmio, YOLO e Anda.
-- **Textos fora do tom (auditoria de 16/11).** Aba "Textos (tom)" da planilha: 17 propostas, cada
-  uma com o texto de hoje e a reescrita (MPB, Premium, Confessions II, @bsurda do Amor, Velcro, Ações
-  sociais, homenagem da Câmara no Sobre, três de Parcerias, Contato, 404, quatro da WIG e a frase do
-  Google). Aplicar exatamente a coluna C das linhas com "ok" na coluna D, e ler a planilha na hora:
-  o Gui pode ter corrigido o texto ali mesmo.
-
-Fora da planilha:
-
 - **Parcerias: o que ainda falta da planilha.** Pessoas por edição, seguidores, perfil do público,
   fotos dos casos, logos e o texto do "Vamos conversar" (junto com o e-mail, pausado).
 - **Página do Gui: parte de baixo.** Depende do documento piloto "Sua página no site da @bsurda: Gui
