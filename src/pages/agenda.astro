@@ -189,13 +189,33 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   const calmo = window.matchMedia('(prefers-reduced-motion: reduce)');
   const curva = 'cubic-bezier(0.2, 0.8, 0.2, 1)';
   const emCurso = new WeakMap<HTMLElement, Animation>();
+  // TESTE DA BARRA (ver Base.astro): variante escolhida pelo endereço, só em aparelho de toque,
+  // onde a barra do atalho anda por animação ligada à rolagem.
+  const raiz = document.documentElement;
+  const variante = raiz.classList.contains('pino-novo') ? Number(raiz.dataset.barraTeste ?? 0) : 0;
+  const trilho = document.querySelector<HTMLElement>('[data-trilho]');
+  const medirTrilho = () => trilho?.dispatchEvent(new Event('trilho:medir'));
   const alternar = (bloco: HTMLDetailsElement, abrir: boolean) => {
     const corpo = bloco.querySelector<HTMLElement>('.ano-corpo');
     if (!corpo || calmo.matches) { bloco.open = abrir; return; }
     const anterior = emCurso.get(corpo);
     if (anterior) { anterior.onfinish = null; anterior.oncancel = null; anterior.cancel(); }
+    // Variante 3: no toque o ano abre e fecha de uma vez. A altura do trecho muda uma vez só, e
+    // só o conteúdo entra, de leve, sem mexer em altura nenhuma.
+    if (variante >= 3) {
+      bloco.classList.remove('fechando');
+      corpo.style.overflow = '';
+      bloco.open = abrir;
+      trilho?.removeAttribute('data-trilho-pausa');
+      medirTrilho();
+      if (abrir) emCurso.set(corpo, corpo.animate([{ opacity: 0, transform: 'translateY(-0.6rem)' }, { opacity: 1, transform: 'none' }], { duration: 300, easing: curva }));
+      return;
+    }
     bloco.classList.toggle('fechando', !abrir);
     if (abrir) bloco.open = true;
+    // Variante 2: o trajeto da barra é medido aqui, uma vez, com o ano já na altura final, e fica
+    // parado até a animação acabar (ao fechar, fica na altura de antes e é medido no fim).
+    if (variante >= 2 && trilho) { if (abrir) medirTrilho(); trilho.setAttribute('data-trilho-pausa', ''); }
     const altura = corpo.offsetHeight;
     const quadros = abrir
       ? [{ height: '0px', opacity: 0, transform: 'translateY(-0.6rem)' }, { height: `${altura}px`, opacity: 1, transform: 'none' }]
@@ -206,6 +226,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
     anima.onfinish = () => {
       corpo.style.overflow = '';
       if (!abrir) { bloco.open = false; bloco.classList.remove('fechando'); }
+      if (variante >= 2 && trilho) { trilho.removeAttribute('data-trilho-pausa'); medirTrilho(); }
     };
   };
   document.querySelectorAll<HTMLDetailsElement>('details.ano').forEach((bloco) => {
@@ -224,19 +245,39 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   // e, ao tocar num ano, quem acabava marcado era o seguinte (o tocado ainda estava abrindo).
   let marcado = '';
   let travaAte = 0;
+  // Traz o ano marcado para o meio da fila, rolando só a fila (nunca a página).
+  const centralizar = (suave: boolean) => {
+    const a = atalhos.find((x) => x.hasAttribute('aria-current'));
+    if (!a || !fila) return;
+    const ra = a.getBoundingClientRect();
+    const rf = fila.getBoundingClientRect();
+    fila.scrollTo({ left: fila.scrollLeft + ra.left - rf.left - (rf.width - ra.width) / 2, behavior: suave ? 'smooth' : 'auto' });
+  };
+  // Variante 1: no toque, nada se mexe dentro da barra enquanto a página rola. A fila só vai ao
+  // ano marcado 250 ms depois de a rolagem parar, de uma vez, e nunca com o dedo em cima dela
+  // (ela continua arrastável: só se ajeita quando o ano marcado muda).
+  let centroPendente = 0;
+  let dedoNaFila = false;
+  const agendarCentro = () => {
+    clearTimeout(centroPendente);
+    centroPendente = window.setTimeout(() => {
+      if (dedoNaFila) { agendarCentro(); return; }
+      centroPendente = 0;
+      centralizar(false);
+    }, 250);
+  };
+  if (variante >= 1 && fila) {
+    window.addEventListener('scroll', () => { if (centroPendente) agendarCentro(); }, { passive: true });
+    fila.addEventListener('touchstart', () => { dedoNaFila = true; }, { passive: true });
+    for (const fim of ['touchend', 'touchcancel']) fila.addEventListener(fim, () => { dedoNaFila = false; }, { passive: true });
+  }
   const pintar = (id: string) => {
     if (id === marcado) return;
     marcado = id;
     for (const a of atalhos) {
-      const atual = `ano-${a.dataset.ano}` === id;
-      if (atual) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
-      // Traz o ano marcado para o meio da fila, rolando só a fila (nunca a página).
-      if (atual && fila) {
-        const ra = a.getBoundingClientRect();
-        const rf = fila.getBoundingClientRect();
-        fila.scrollTo({ left: fila.scrollLeft + ra.left - rf.left - (rf.width - ra.width) / 2, behavior: calmo.matches ? 'auto' : 'smooth' });
-      }
+      if (`ano-${a.dataset.ano}` === id) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
     }
+    if (variante >= 1) agendarCentro(); else centralizar(!calmo.matches);
   };
   const medir = () => {
     if (performance.now() < travaAte) return;
@@ -245,10 +286,17 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
     if (bloco) pintar(bloco.id);
   };
   for (const a of atalhos) {
-    a.addEventListener('click', () => {
+    a.addEventListener('click', (e) => {
       const bloco = document.getElementById(`ano-${a.dataset.ano}`) as HTMLDetailsElement | null;
       if (!bloco) return;
-      if (!bloco.open) alternar(bloco, true);
+      if (!bloco.open || bloco.classList.contains('fechando')) alternar(bloco, true);
+      // Variante 4: o salto até o ano é feito aqui, logo depois de abrir, e não pelo link. O
+      // endereço ganha o #ano do mesmo jeito, sem criar uma entrada nova no histórico.
+      if (variante >= 4) {
+        e.preventDefault();
+        bloco.scrollIntoView({ block: 'start', behavior: 'instant' });
+        history.replaceState(null, '', `#${bloco.id}`);
+      }
       // O ano tocado fica marcado na hora; a medição volta quando ele termina de abrir.
       pintar(bloco.id);
       travaAte = performance.now() + 600;
@@ -294,6 +342,9 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
   .anos-nav a::before { content: ''; position: absolute; left: 0.2em; top: 50%; width: 0.36em; height: 1.45em; margin-top: -0.725em; background: var(--destaque); transform: skewX(26.5deg) scaleY(0); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
   .anos-nav a[aria-current] { color: var(--destaque-texto); }
   .anos-nav a[aria-current]::before { transform: skewX(26.5deg) scaleY(1); }
+  /* TESTE DA BARRA, variante 1: no toque o ano marcado acende sem transição, para nada se mexer
+     dentro da barra enquanto ela anda com a rolagem. */
+  :global(html.pino-novo.bt-1) .anos-nav a, :global(html.pino-novo.bt-1) .anos-nav a::before { transition: none; }
   /* Hover só em aparelho com cursor: no toque ele fica preso no último ano tocado, e dois
      anos apareciam marcados ao mesmo tempo. */
   @media (hover: hover) {
