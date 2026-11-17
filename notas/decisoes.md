@@ -128,3 +128,11 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   homologação (`design`, que mantém o nome por causa dos tokens da Cloudflare) e teste
   (`tst-<assunto>`), como no bayara.design e no site da família. Código só vai à `main` depois da
   conferência do Gui na `design`; documentação pode ir direto. (CLAUDE.md, "Branches e publicação".)
+- `2026-11-17`: a página do sistema (`/camarim`) fica engavetada até o site estabilizar no ar.
+  Decisão do Gui. A etapa 1 (peças viram componentes) foi feita e testada: HTML e fotos iguais aos
+  da `main` e, no iPhone, o mesmo comportamento da `main` (teste na `design`, depois revertido).
+  Nada dela fica na `design` nem na `main`. O brief fica guardado. (`notas/briefs/camarim.md`.)
+- `2026-11-17`: o atalho de anos da Agenda pula no iPhone ao tocar num ano, e às vezes na
+  rolagem. Acontece no código da `main`: o Gui conferiu na `design` com os componentes e numa
+  prévia com o código da `main` puro, e as duas pulam igual. Vira trabalho de uma sessão
+  dedicada. (`notas/briefs/atalho-agenda.md`; `notas/a-fazer.md`.)

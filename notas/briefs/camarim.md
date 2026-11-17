@@ -1,5 +1,15 @@
 # Brief: a página do sistema (`/camarim`)
 
+> **Engavetado em 17/11/2026 (decisão do Gui), até o site estabilizar no ar.** Não comece sem o Gui
+> pedir.
+>
+> A etapa 1 chegou a ser feita (branch `teste-componentes`): oito componentes (`Cartaz`,
+> `CartaoLista`, `LinhaEvento`, `CartaoMarca`, `Caso`, `Pulseira`, `FichaPessoa`, `ListaEdicoes`) e o
+> `.t-secao` no `Base.astro`, com HTML e fotos iguais aos da `main` em 390 e 1440 px. No iPhone, ela
+> se comportou como a `main`: o pulo do atalho de anos da Agenda que apareceu nos testes é da
+> `main` (ver `notas/briefs/atalho-agenda.md`), não dos componentes. A branch pode ter sido apagada;
+> numa retomada, refaça a etapa 1 a partir da `main` daquele momento, seguindo este brief.
+
 Pedido do Gui em 16/11/2026, para sessões do Claude Code, em duas etapas. Leia antes `CLAUDE.md`,
 `notas/decisoes.md` e `notas/a-fazer.md`. Referências: a página de sistema do site da família
 (`guilhermebayara/bayaranascimento`, `/conceito/sistema`, e a seção "Sistema (fase 2)" do
