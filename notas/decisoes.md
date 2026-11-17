@@ -110,3 +110,7 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   no Shotgun Pride 2026. (`notas/parcerias-material.md`.)
 - `2026-11-16`: os números de público das apresentações podem ir ao site, e o carnaval conta "10 anos"
   desde o primeiro trio. (`notas/parcerias-material.md`.)
+- `2026-11-17`: o Gui aprovou Parcerias fora da marcação (branch `teste-parcerias`): números de
+  público liberados, "Quem já passou" no lugar do perfil de público, formatos sem valor nem cota,
+  casos e textos de Shotgun e Xeque Mate com as propostas da planilha. Números que eram só
+  expectativa (Parada 2025) ficam fora. (`src/pages/parcerias.astro`, `src/data/parceiros.json`.)

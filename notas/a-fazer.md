@@ -14,7 +14,7 @@ Como usar:
 
 Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
 
-(Nada no momento: Parcerias está em teste, em "Esperando o Gui".)
+(Nada no momento.)
 
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
@@ -28,10 +28,7 @@ resposta chegar lá, o item vira trabalho:
 
 Fora da planilha:
 
-- **Parcerias fora da marcação: em teste.** Branch `teste-parcerias`, com o material das
-  apresentações. Os textos dos casos e de Shotgun e Xeque Mate são as propostas da aba Parcerias
-  (linhas 11 a 14), ainda sem "ok"; o resto ("Quem já passou", formatos) é texto novo. Sobe quando
-  o Gui aprovar. Continuam esperando a planilha: pessoas por edição, seguidores, perfil do público,
+- **Parcerias: o que ainda falta da planilha.** Pessoas por edição, seguidores, perfil do público,
   fotos dos casos, logos e o texto do "Vamos conversar" (junto com o e-mail, pausado).
 - **Página do Gui: parte de baixo.** Depende do documento piloto "Sua página no site da @bsurda: Gui
   Bayara" preenchido. Montar numa branch de teste primeiro.
