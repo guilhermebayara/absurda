@@ -4,13 +4,17 @@
     "nome": "Shotgun",
     "atual": true,
     "papel": "Ingressos",
-    "texto": "É por lá que saem os ingressos de todas as festas. (marcação)",
+    "texto": "Em 2026 a @bsurda foi selecionada no Shotgun Pride, o programa de patrocínio cultural da Shotgun para festas e coletivos LGBTQIAPN+ de BH, SP e Rio. O apoio patrocinou a 6ª Parada e as oficinas. E é por lá que saem os ingressos de todas as festas.",
     "url": "https://shotgun.live/en/venues/festaabsurda",
     "destino": "Ver ingressos",
     "registros": [
       {
         "ano": "2022",
         "onde": "Parada da @bsurda (apoio)"
+      },
+      {
+        "ano": "2026",
+        "onde": "Parada da @bsurda (Shotgun Pride)"
       }
     ]
   },
@@ -19,7 +23,7 @@
     "nome": "Xeque Mate",
     "atual": true,
     "papel": "Bebida",
-    "texto": "Texto de marcação: uma linha sobre a parceria com a Xeque Mate.",
+    "texto": "Bebida oficial da @bsurda: esteve no Carnaval 2026, apoiou a 6ª Parada e foi a bebida do Halloween de 17 anos.",
     "registros": [
       {
         "ano": "2019",
@@ -28,6 +32,18 @@
       {
         "ano": "2022",
         "onde": "Parada da @bsurda (apoio)"
+      },
+      {
+        "ano": "2026",
+        "onde": "Carnaval @bsurda"
+      },
+      {
+        "ano": "2026",
+        "onde": "Parada da @bsurda (apoio)"
+      },
+      {
+        "ano": "2026",
+        "onde": "Halloween 17 anos"
       }
     ]
   },

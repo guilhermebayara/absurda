@@ -5,7 +5,7 @@
 // aqui a festa se vende. A ordem dos blocos é a ordem do argumento (definida com o Gui):
 // 1. Com a gente agora: as marcas de hoje, em destaque. É o primeiro argumento.
 // 2. A @bsurda em números.
-// 3. Quem vem: o perfil do público.
+// 3. Quem já passou: palco, artistas da casa e lugares (das apresentações).
 // 4. Como uma marca entra: os formatos de parceria.
 // 5. Casos: poucas ativações, com foto e uma linha do que foi feito.
 // 6. Registro de parcerias: o histórico por ano, como prova de consistência. Só cresce.
@@ -14,8 +14,7 @@
 // Valores, cotas e contrapartidas negociadas não entram: a página é pública.
 // Número que envelhece (público, alcance) leva o ano ao lado.
 // Fornecedores de produção (foto, bar, som) ficam na página Equipe, em "Fora da cabine".
-// Tudo o que está marcado "(marcação)" ou "(a confirmar)" espera o conteúdo do Gui e do Ed,
-// que vem das apresentações já usadas com marcas.
+// O que ainda está marcado "(marcação)" ou "(a confirmar)" espera resposta do Gui e do Ed na planilha.
 import Base from '../layouts/Base.astro';
 import { SITE } from '../config';
 import { getCollection } from 'astro:content';
@@ -35,27 +34,31 @@ const registro = anos.map((ano) => {
   return { ano, marcas: nomes.map((nome) => ({ nome, eventos: doAno.filter((l) => l.nome === nome).map((l) => l.onde) })) };
 });
 
-// Marcações: saem quando chegar o conteúdo das apresentações.
+// Conteúdo das apresentações para marcas de 2025 e 2026 (notas/parcerias-material.md). Só o que
+// pode ser público: nada de valor, cota, bonificação ou contato comercial (regra do Gui).
+// Números de público liberados pelo Gui em 16 nov 2026. Carnaval conta desde o primeiro trio.
 const numerosDeMarca = [
-  { n: 'XXX', rotulo: 'pessoas por edição', nota: 'marcação' },
-  { n: 'XXX mil', rotulo: 'seguidores nas redes', nota: 'marcação' },
+  { n: '75 mil', rotulo: 'pessoas no Trio de 2023' },
+  { n: '30 mil', rotulo: 'pessoas no Trio de 2025' },
+  { n: '10', rotulo: 'anos de carnaval' },
 ];
-const publico = [
-  { rotulo: 'Idade', valor: 'XX a XX anos' },
-  { rotulo: 'De onde vem', valor: 'XX% de BH e região' },
-  { rotulo: 'Com que frequência', valor: 'XX festas por ano' },
-  { rotulo: 'Nas redes', valor: 'XX% acompanha a @bsurda' },
+const quem = [
+  { rotulo: 'No palco', texto: 'Pabllo Vittar, nos primeiros shows dela em BH. Karol Conká, Gloria Groove, Jão, Banda Uó, Tiê e Kaya Conky. E gente de fora: Alyssa Edwards, Coco Montrese e Latrice Royale.' },
+  { rotulo: 'Cresceram aqui', texto: 'Charlotte, Mira Miu Miu, Jaddy Stone, Joanna Mescladi, Monalisa Leblanc, Wandera Jones, Penelope Fontana, Amerikana e Mellody Queen começaram ou cresceram na nossa pista.' },
+  { rotulo: 'Por onde passou', texto: 'Mineirão, A Autêntica, Mercado Novo, Virada Cultural e Parada do Orgulho LGBTQIAPN+ de BH. Fora daqui: São Paulo, Salvador, Brasília, São Luís e Maringá (PR).' },
 ];
 const formatos = [
-  { nome: 'Edição patrocinada', texto: 'A marca assina uma festa inteira. (marcação)' },
-  { nome: 'Trio da @bsurda', texto: 'No carnaval de rua de BH. (marcação)' },
-  { nome: 'Parada da @bsurda', texto: 'Programação de formação e cultura LGBTQIA+. (marcação)' },
-  { nome: 'Ativação no espaço', texto: 'Bar, cenografia, brinde, experiência dentro da festa. (marcação)' },
-  { nome: 'Conteúdo', texto: 'Foto, vídeo e redes da @bsurda. (marcação)' },
+  { nome: 'Edição patrocinada', texto: 'A marca assina a noite: nome na festa, logo nas peças e no cardápio, marca nos créditos e no aftermovie.' },
+  { nome: 'Trio da @bsurda', texto: 'O pré-carnaval de BH com a gente, pra dezenas de milhares de pessoas: marca no trio e nos ensaios, e venda exclusiva da bebida nas festas de carnaval.' },
+  { nome: 'Parada da @bsurda', texto: 'A programação de orgulho da @bsurda, com festas e oficinas. A marca apoia a programação e aparece em cada evento dela.' },
+  { nome: 'Ativação no espaço', texto: 'Luminoso, bar e copos com a marca, backdrop e bandeiras no palco, e as performances apresentadas por ela.' },
+  { nome: 'Conteúdo', texto: 'Post em collab, stories durante a festa, fotos profissionais e vídeo com drag.' },
 ];
+// Propostas da planilha (aba Parcerias, linhas 11 e 12), ainda sem "ok". As fotos chegam depois;
+// até lá, o bloco sólido leva o nome do evento.
 const casos = [
-  { marca: 'Amstel', onde: 'Halloween 16 anos', ano: '2025', texto: 'Uma linha sobre o que foi feito. (marcação)' },
-  { marca: 'Xeque Mate', onde: 'Halloween 10 anos', ano: '2019', texto: 'Uma linha sobre o que foi feito. (marcação)' },
+  { marca: 'Amstel', onde: 'Parada da @bsurda e Halloween 16 anos', ano: '2025', evento: 'Amstel Vibes', texto: 'Amstel Vibes na 5ª Parada, na Funarte, e no Halloween de 16 anos: backdrop e bandeiras no palco, bares com a marca, copos personalizados e as performances apresentadas por "Amstel Vibes apresenta...".' },
+  { marca: 'Xeque Mate', onde: 'Carnaval @bsurda', ano: '2026', evento: 'Carnaval 2026', texto: 'Venda exclusiva nos ensaios e no Carnaval @bsurda (6 e 14/02), luminoso na festa, marca nas peças e no cardápio, post em collab e fotos profissionais.' },
 ];
 ---
 <Base titulo="Parcerias">
@@ -82,17 +85,16 @@ const casos = [
     <h2 id="t-numeros" class="t-secao" data-anima="sobe">A @bsurda em números</h2>
     <ul class="numeros" data-anima="surge">
       {numeros.map((n) => <li><strong>{n.mais ? '+' : ''}{n.n}</strong><span>{n.rotulo}{n.nota ? ` (${n.nota})` : ''}</span></li>)}
-      {numerosDeMarca.map((n) => <li><strong>{n.n}</strong><span>{n.rotulo} ({n.nota})</span></li>)}
+      {numerosDeMarca.map((n) => <li><strong>{n.n}</strong><span>{n.rotulo}</span></li>)}
     </ul>
   </section>
 
-  <section class="bloco" aria-labelledby="t-publico">
-    <h2 id="t-publico" class="t-secao" data-anima="sobe">Quem vem</h2>
-    <p class="t-apoio bloco-texto" data-anima="surge">Texto de marcação: quem é o público da @bsurda e o que ele procura na festa.</p>
-    <dl class="linhas" data-anima="surge">
-      {publico.map((d) => <div><dt>{d.rotulo}</dt><dd>{d.valor}</dd></div>)}
-    </dl>
-    <p class="t-pequeno bloco-nota">Dados de marcação.</p>
+  <section class="bloco" aria-labelledby="t-quem">
+    <h2 id="t-quem" class="t-secao" data-anima="sobe">Quem já passou</h2>
+    <p class="t-apoio bloco-texto" data-anima="surge">Começou em boate pequena, sem pretensão nenhuma de durar, e cresceu no boca a boca. No caminho, muita gente boa passou por aqui.</p>
+    <ul class="linhas linhas-grandes">
+      {quem.map((q) => <li data-anima="surge"><strong>{q.rotulo}</strong><span>{q.texto}</span></li>)}
+    </ul>
   </section>
 
   <section class="bloco" aria-labelledby="t-formatos">
@@ -107,7 +109,7 @@ const casos = [
     <ul class="casos">
       {casos.map((c, i) => (
         <li class="caso" data-anima="surge" style={`--i:${i}`}>
-          <div class:list={['caso-foto', { 'caso-foto-b': i % 2 === 1 }]}><span>Foto (marcação)</span></div>
+          <div class:list={['caso-foto', { 'caso-foto-b': i % 2 === 1 }]}><span>{c.evento}</span></div>
           <h3 class="caso-marca">{c.marca}</h3>
           <p class="caso-onde">{c.onde}, {c.ano}</p>
           <p class="caso-texto">{c.texto}</p>
