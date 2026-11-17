@@ -14,7 +14,10 @@ Como usar:
 
 Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
 
-(Nada no momento.)
+- **Pequenos acertos da revisão da planilha (16/11).**
+  - Sets do Gui: a aba ganhou a IHR especial Rock in Rio (06/07/2017, Studio Bar). Entra na lista
+    da página do Gui quando ela for montada.
+  - Primas do Trio: o Gui aprovou o texto como está. Nada a mudar.
 
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
@@ -25,6 +28,11 @@ Estas perguntas estão na planilha "Pendências do site". Quando a
 resposta chegar lá, o item vira trabalho:
 
 - **Agenda de 2022: pastas que ficaram de fora.** MOC, Prêmio, YOLO e Anda.
+- **Textos fora do tom (auditoria de 16/11).** Aba "Textos (tom)" da planilha: 17 propostas, cada
+  uma com o texto de hoje e a reescrita (MPB, Premium, Confessions II, @bsurda do Amor, Velcro, Ações
+  sociais, homenagem da Câmara no Sobre, três de Parcerias, Contato, 404, quatro da WIG e a frase do
+  Google). Aplicar exatamente a coluna C das linhas com "ok" na coluna D, e ler a planilha na hora:
+  o Gui pode ter corrigido o texto ali mesmo.
 
 Fora da planilha:
 

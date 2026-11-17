@@ -114,3 +114,6 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   público liberados, "Quem já passou" no lugar do perfil de público, formatos sem valor nem cota,
   casos e textos de Shotgun e Xeque Mate com as propostas da planilha. Números que eram só
   expectativa (Parada 2025) ficam fora. (`src/pages/parcerias.astro`, `src/data/parceiros.json`.)
+- `2026-11-16`: auditoria de tom do site inteiro. O que ficou fora do tom virou proposta na aba "Textos
+  (tom)" da planilha; o bloco de posições do Sobre fica no registro firme, como pede o guia para os
+  marcos. Fichas, rótulos e listas de evento não entram na auditoria. (`notas/tom.md`.)
