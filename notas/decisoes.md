@@ -176,3 +176,8 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   demais. Fita zebrada ou símbolo de interdição foram descartados por isso. A saída é uma tarja preta
   com cara de fita isolante (preta sempre, grossa, pouca inclinação, pontas levemente cortadas),
   sem cor nem padrão. Regra mora no CSS de `src/pages/sobre.astro` (`.nomes s`).
+
+- **2026-11-18, fita da Sharon Needles: cor de fita de verdade (Gui).** Ajuste da decisão anterior: como
+  virou fita isolante, o preto não precisa ser absoluto. A fita usa grafite escuro, com sinais de mal
+  colada (torta, pontas rasgadas, ruga, ponta dobrada). Continua discreta. Regra no CSS de
+  `src/pages/sobre.astro` (`.nomes s`).
