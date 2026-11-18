@@ -157,3 +157,10 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   próxima cobrir o texto dela. Desktop sem mudança. A regra virou a conferência `confere:pilha`.
   Feito pelo Claude Code. (CLAUDE.md, "Conferências do site" e "Cuidados"; `src/pages/sobre.astro`;
   `scripts/confere-pilha.mjs`.)
+- `2026-11-18`: a lista de atrações do Sobre passa a ter uma planilha como base de edição e revisão
+  ("Atrações do site", em `10_site/4_Sobre`), para o Ed revisar sem mexer em código. O site não lê a
+  planilha ao vivo: um script copia a aba "Para o site" para `src/data/atracoes.json` na `design`, e o
+  Gui confere na prévia antes de ir à `main`. Só linhas com Status "ok" vão ao site; quem ficou de
+  fora de propósito fica na aba "Fora", com o motivo. A equipe segue entrando sozinha pela página
+  Equipe. Por quê: editar JSON é arriscado para quem não mexe em código, e ligar o build ao Google
+  poria uma edição acidental no ar sem homologação. (`notas/briefs/atracoes.md`.)
