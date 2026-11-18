@@ -29,8 +29,8 @@ resposta chegar lá, o item vira trabalho:
   Bayara" preenchido. Montar numa branch de teste primeiro.
   A lista de sets sai da aba "Sets do Gui" da planilha, que já tem a IHR especial Rock in Rio
   (06/07/2017, Studio Bar).
-- **Branch de teste para apagar no GitHub:** `teste-wig-projetos` (já está na `main`). Pela conversa
-  o GitHub recusa a exclusão; o Gui ou o Claude Code apagam.
+- **Branches de teste para apagar no GitHub:** `teste-wig-projetos` (já está na `main`) e `tst-trio`
+  (já está na `design`). Pela conversa e pelo Claude Code o GitHub recusa a exclusão; o Gui apaga.
 
 ## Esperando outras pessoas
 
