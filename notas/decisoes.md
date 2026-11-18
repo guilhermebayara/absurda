@@ -164,3 +164,10 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   fora de propósito fica na aba "Fora", com o motivo. A equipe segue entrando sozinha pela página
   Equipe. Por quê: editar JSON é arriscado para quem não mexe em código, e ligar o build ao Google
   poria uma edição acidental no ar sem homologação. (`notas/briefs/atracoes.md`.)
+
+- **2026-11-18, atrações do Sobre: marcações e ajustes de nomes (Gui).** A aba "Para o site" ganhou a
+  coluna "Marcação no site". "em memória" (Laranja, Elke Maravilha, Boss in Drama) aparece como
+  etiqueta ao lado do nome; "riscado" risca o nome. Sharon Needles volta, riscada, no fim de "Quem a
+  gente trouxe" (substitui o antigo "não deve aparecer"). Djalma Não Entende de Política e Vii_ctor
+  saem; Paige entra na cena. The Ladies segue fora. Regra mora em `scripts/atracoes.mjs` e é
+  conferida por `npm run confere:atracoes`.

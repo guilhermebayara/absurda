@@ -49,3 +49,5 @@ jobs:
         run: npm run confere:barra
       - name: Pilha do Trio no Sobre (cartões que assentam, no toque)
         run: npm run confere:pilha
+      - name: Atrações do Sobre (todo nome do JSON está na página)
+        run: npm run confere:atracoes

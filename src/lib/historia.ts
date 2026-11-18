@@ -1,6 +1,7 @@
 // Números e listas da história da @bsurda, usados na página Sobre e na Home.
 // Mudou aqui, muda nos dois lugares.
 import { getEventos } from './eventos';
+import atracoes from '../data/atracoes.json';
 
 export const idade = new Date().getFullYear() - 2009;
 
@@ -40,16 +41,7 @@ export const numeros = [
   { n: cidades.length + 1, rotulo: 'cidades' },
 ];
 
-// Quem a gente trouxe. "de" e "bandeira" marcam atração de fora do Brasil.
-export const palco = [
-  { nome: 'Pabllo Vittar' }, { nome: 'Jão' }, { nome: 'Gloria Groove' }, { nome: 'Karol Conká' }, { nome: 'Elke Maravilha' },
-  { nome: 'Gretchen' }, { nome: 'Banda Uó' }, { nome: 'Candy Mel' }, { nome: 'Mateus Carrilho' }, { nome: 'Bonde do Rolê' }, { nome: 'Deize Tigrona' }, { nome: 'Rico Dalasam' },
-  { nome: 'Jaloo' }, { nome: 'Potyguara Bardo' }, { nome: 'Tiê' }, { nome: 'Kaya Conky' }, { nome: 'Pepita' }, { nome: 'Aretuza Lovi' },
-  { nome: 'Penelopy Jean' }, { nome: 'Daniel Peixoto' }, { nome: 'Dornelles' }, { nome: 'S4Tan' }, { nome: 'Frimes' },
-  { nome: 'Copacabana Club' }, { nome: 'Pearls Negras' },
-  { nome: 'Manu Gavassi' }, { nome: 'MC Carol' }, { nome: 'Kika Boom' },
-  { nome: 'Matheus Morais' }, { nome: 'Yuri Frainer' }, { nome: 'Daft Pobre' }, { nome: 'Murilo Caldas' },
-  { nome: 'Jade Baraldo' }, { nome: 'Não Recomendados' }, { nome: 'Boss in Drama' }, { nome: 'Caio Caprioli' },
-  { nome: 'Alyssa Edwards', de: 'EUA', bandeira: '🇺🇸' }, { nome: 'Latrice Royale', de: 'EUA', bandeira: '🇺🇸' }, { nome: 'Jujubee', de: 'EUA', bandeira: '🇺🇸' },
-  { nome: 'Coco Montrese', de: 'EUA', bandeira: '🇺🇸' }, { nome: 'April Carrión', de: 'Porto Rico', bandeira: '🇵🇷' },
-];
+// Quem a gente trouxe, na ordem da coluna "Ordem" da planilha "Atrações do site". Vem de
+// src/data/atracoes.json (npm run atracoes; ver notas/briefs/atracoes.md). "de" e "bandeira" marcam
+// atração de fora do Brasil; "memoria" e "riscado" são as marcações da planilha.
+export const palco = atracoes.quemTrouxemos as Array<{ nome: string; de?: string; bandeira?: string; memoria?: boolean; riscado?: boolean }>;

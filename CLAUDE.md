@@ -100,16 +100,16 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
 2. `npm run build` sem erro.
 3. `npm run confere:arquivo` passando.
 4. `npm run confere:links`, `npm run confere:agenda`, `npm run confere:temas`,
-   `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra` e
-   `npm run confere:pilha` passando (ver
+   `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra`,
+   `npm run confere:pilha` e `npm run confere:atracoes` passando (ver
    "Conferências do site").
 5. Código: só com o ok do Gui na prévia da `design`. Então `main`, por fast-forward da `design`.
    A publicação na Cloudflare sai sozinha a cada push.
 
 ## Conferências do site
 
-Além da guarda do histórico, sete conferências rodam na máquina e, sozinhas, no GitHub a cada
-push fora da `main` (`.github/workflows/confere-site.yml`). As sete rodam depois do build:
+Além da guarda do histórico, oito conferências rodam na máquina e, sozinhas, no GitHub a cada
+push fora da `main` (`.github/workflows/confere-site.yml`). As oito rodam depois do build:
 
 - `npm run confere:links`: falha se algum link interno, âncora ou imagem do próprio site
   apontar para algo que não existe. Link externo não entra.
@@ -142,6 +142,9 @@ push fora da `main` (`.github/workflows/confere-site.yml`). As sete rodam depois
   ficar por cima, inteira abaixo do relógio e com o texto dentro, se as de baixo não forem
   simplificadas (sem texto, foto pequena), se houver polaroide visível fora da tela, se houver
   `sticky` ou `fixed`, ou se, com movimento reduzido, a pilha não virar lista simples.
+
+- `npm run confere:atracoes`: falha se algum nome de `src/data/atracoes.json` não aparecer na página
+  Sobre montada, ou se faltar a marca "riscado" ou "em memória" de quem a tem.
 
 **Regra de contraste (do Gui):** texto que se lê precisa de contraste de leitura (4,5:1).
 Enfeite pode ousar e abrir mão disso, desde que continue visível (3:1): a barra inclinada, o
@@ -191,6 +194,20 @@ arredondado do Sobre ("+400", `eventosArredondados` em `src/lib/historia.ts`). N
 projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maior que um cartaz vivo): ela só mudou de tutela e segue muito próxima, então nunca aparece junto dos adormecidos
 (Money, PFVR), que ficam em cartazes vazados. Furdunço da Bôta e Boat da Bôta não são da WIG
 (a Charlotte produz, mas é projeto à parte) e não entram.
+
+## Atrações do Sobre (do Gui, 18 nov 2026)
+
+"Quem a gente trouxe" e "E a cena de BH" saem de `src/data/atracoes.json`, gerado por `npm run
+atracoes` a partir da planilha "Atrações do site" (Drive, `10_site/4_Sobre`), aba "Para o site",
+que o Ed revisa. O site nunca lê a planilha ao vivo: o script copia na `design`, o Gui confere na
+prévia e só então vai à `main`.
+- `ATRACOES_CSV_URL` guarda o endereço da aba publicada como CSV; `npm run atracoes -- --arquivo x.csv`
+  lê um arquivo. Se uma validação falhar, nada é escrito. O resumo diz quem entrou e quem saiu.
+- Só linhas com Status "ok" chegam à aba "Para o site". A aba "Fora" é privada.
+- Colunas: Nome, Grupo, Ordem (só "Quem a gente trouxe"), Marca ou país, Marcação no site ("em
+  memória" ou "riscado"). Sharon Needles só entra riscada; The Ladies não entra.
+- A equipe entra na cena sozinha pela coleção `pessoas`; não vai na planilha.
+- Não ponha nome à mão em `sobre.astro` nem em `historia.ts`. Detalhe em `notas/briefs/atracoes.md`.
 
 ## Pasta do site no Drive (do Gui)
 
