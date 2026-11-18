@@ -717,9 +717,9 @@ const premios = [
   .legenda i { flex: none; width: 1em; height: 1em; border-radius: 50%; background: var(--destaque); }
   .nomes sup i { margin-right: 0.35em; font-style: normal; font-size: 1.25em; line-height: 0; vertical-align: -0.12em; }
   .nomes sup { margin: 0.2em 0 0 0.3em; padding: 0.2em 0.5em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; }
-  /* Riscado (Sharon Needles): uma barra preta grossa, levemente inclinada, como a barra do site cortando o nome. Preta sempre, em qualquer tema. */
+  /* Riscado (Sharon Needles): tarja preta com cara de fita isolante, não de risco. Preta sempre, em qualquer tema, grossa, pouca inclinação, pontas levemente cortadas e um brilho fosco. Discreta de propósito: sem cor nem padrão (decisão do Gui, 18 nov 2026). */
   .nomes s { position: relative; text-decoration: none; }
-  .nomes s::after { content: ''; position: absolute; left: -0.06em; right: -0.06em; top: 50%; height: 0.34em; margin-top: -0.17em; background: #000; transform: rotate(-4deg); }
+  .nomes s::after { content: ''; position: absolute; left: -0.08em; right: -0.08em; top: 50%; height: 0.34em; margin-top: -0.17em; background: linear-gradient(180deg, #26262a 0%, #0a0a0b 28%, #000 70%, #121214 100%); clip-path: polygon(0 8%, 1.5% 0, 98.5% 6%, 100% 0, 99% 92%, 100% 100%, 1% 94%, 0 100%); transform: rotate(-2deg); }
   /* Em memória: não usa o selo da bandeira. Texto solto, em itálico, com uma cruz na frente. */
   .nomes sup.memoria { padding: 0; border: 0; border-radius: 0; font-style: italic; font-weight: 600; letter-spacing: 0.02em; text-transform: lowercase; font-size: 1rem; }
   .nomes sup.memoria i { margin: 0 0.3em 0 0; font-size: 1.3em; font-weight: 700; font-style: normal; vertical-align: baseline; }
