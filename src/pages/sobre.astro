@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Capa from '../components/Capa.astro';
 import Botao from '../components/Botao.astro';
 import marcos from '../data/marcos.json';
+import atracoes from '../data/atracoes.json';
 import { TEMAS_DE_POSICAO, TEMAS_DO_SITE, atributo } from '../lib/temas';
 import { lineup, totalDeLugares, cidades, numeros, palco } from '../lib/historia';
 import { getCollection } from 'astro:content';
@@ -131,45 +132,25 @@ ${selLinha(k)}::after { animation-timeline: --mesa; animation-range: ${faixa}; }
   return css + '}\n';
 })();
 
-// Fora das listas por decisão do Gui: Sharon Needles (não deve aparecer) e The Ladies (por ora).
 // A cena de BH que já tocou, cantou e performou com a gente, em ordem alfabética para não
-// ter fila nem ego. Quem é ou já foi da equipe (ver a regra logo abaixo) aparece
-// na cor de destaque, espalhado pela lista. Vem das programações que achei e dos nomes que o
-// Gui passou. A completar: com certeza falta gente.
+// ter fila nem ego. Os nomes vêm de src/data/atracoes.json, gerado pela planilha "Atrações do
+// site" (npm run atracoes; ver notas/briefs/atracoes.md). Quem é ou já foi da equipe (ver a regra
+// logo abaixo) aparece na cor de destaque, espalhado pela lista.
 // Regra do Gui: todo mundo que tem crachá na página Equipe, de hoje ou de "Já fizeram parte",
 // consta nesta lista e é destacado. Por isso a lista da equipe sai sozinha de lá: pessoa nova
 // na Equipe entra aqui sem ninguém lembrar. Quem trabalha fora da cabine (as pulseiras) não
 // entra; a Ayumi entra porque, além da pulseira, tem crachá.
+// Marca entre parênteses depois do nome, no mesmo peso (coluna "Marca ou país" da planilha): a marca
+// com que um estilista desfilou, quando ela não leva o nome dele. "em memória" e "riscado" também
+// vêm da planilha (coluna "Marcação no site").
 const equipe = (await getCollection('pessoas')).map((p) => p.data.nome);
 const chave = (nome: string) => nome.toLocaleLowerCase('pt-BR');
-// Marca entre parênteses depois do nome, no mesmo peso, como em line-up (nome da festa ou da
-// cidade junto do nome da pessoa): a marca com que um estilista desfilou, quando ela não leva o nome dele. Quem desfilou com marca homônima fica só com o nome.
-const marcas: Record<string, string> = { 'Célio Dias': 'LED' };
-const cena = [
-  ...equipe,
-  'Dead Lover’s Twisted Heart', 'Bloco Baianas Ozadas', 'Palomita', 'Thiagão', 'Babi Ribeiro', 'Bella La Pierre', 'Dolly Piercing', 'Monalisa Leblanc',
-  'Omoloko', 'Barbara Egidio', 'Baile da Bôta', 'Jaddy Stone', 'Joanna Mescladi', 'Mannu Mallibu', 'Mellody Queen', 'Mira MiuMiu', 'Nickary Aycker', 'Giovana Heliodoro', 'Thiago Richard', 'Paolla B', 'Samantha Brooks', 'Rafah’el', 'Supololo', 'Glico', 'Djalma Não Entende de Política', 'Alfredo Francis', 'Lugh', 'Green Grass', 'Votú', 'Xoxottini', 'Diega', 'Rafa Ventura', 'Jimmy Andrade', 'Rasec', 'Marco Romani', 'Nalla', 'Aria Dreamz', 'Guta Leão', 'Gaia Voidd', 'Voga', 'Vormitx', 'Lázara', 'João Andrade', 'Clara Tannure', 'Flip', 'Kaike', 'Lourandes', 'Nanauê', 'Las Palozas', 'Madison', 'Gana', 'Ariella Santos', 'Aysla Pirv', 'Vovó da ZN', 'Jezz', 'Carambola',
-  'Leona Souki', 'Alana Fox', 'Polaris', 'Toda Deseo', 'Well Mendes', 'Hallessia', 'Luna Oliveira', 'Amber Ives', 'Bettie', 'Malona', 'Anastacia', 'Leafar', 'Pietra', 'Mafra', 'Jakson', 'Melques', 'Fantalzzy', 'Isabelle Gee',
-  'Gustavo Drummond', 'Ravel', 'Rodrigo Leon', 'Rafa Mártir', 'Francis Glam Glam', 'Sandra Lee', 'Camila Too Much', 'Desirée Dandelion', 'Monique Capuccine', 'Stacy Ginger', 'Jhulia Santos', 'Mac Júlia', 'Amerikana', 'Benjamin',
-  // Dos line-ups das cinco primeiras edições (2009 e 2010), lidos nas artes originais.
-  'Tuhlio', 'Caio Vita', 'Louis', 'Nabuco', 'Vii_ih', 'Leonardo Pedone', 'Cristianosm', 'Binho', 'Sebah', 'Shum', 'Felipe Nery', 'Lu Hell', 'Shoke-se', 'Dr. Jeff',
-  'Davi Cintori',
-  // Dos line-ups das edições Bazinga! em BH (2011 e 2012), lidos nas artes originais.
-  // Regra do Gui para as edições em outras cidades (São Paulo, Maringá, Brasília): os DJs locais
-  // de lá não entram em nenhuma lista. São poucas edições, e quase sempre eram DJs das
-  // produtoras que fizeram a ponte com a @bsurda. Quem foi de BH já está aqui.
-  'Crew S&M Party', 'Neide', 'Marllon', 'Rafael Sandim', 'Fernandinha', 'Tabata', 'Veri', 'Raphael Ribeiro', 'Marcilio', 'Bruno Robert', 'Patthy Wellisch',
-  // Da apresentação comercial de 2024 (Figma): artistas locais citadas e convidadas do Halloween.
-  'Wandera Jones', 'Penelope Fontana', 'Kabulom',
-  // Atrações de BH que o Gui passou de memória (nov 2026). As duplas entram nome a nome, como o resto
-  // da lista. Já estavam aqui: Neide, Veri, Rodrigo Leon, Caio Vita e Bruno Robert.
-  'Cherem', 'Esther', 'Roxxer', 'Kkau', 'Vii_ctor', 'Roquer Horror', 'Laranja', 'Valmique', 'Júnior Waldorf', 'Caroleta', 'Bo', 'SaravahRosa', 'Bizafra', 'Vitor Sobrinho', 'Gobbi', 'Iuri Zennone', 'Lorena Lee', 'Gustavo Bezzi', 'Elisa Angottu', 'Gustavo Gontijo', 'Artur Davi',
-  // Estilistas que desfilaram na festa. Entram na mesma lista: a cena já mistura drags, DJs, cantores e ballroom.
-  'Israel Frazoni', 'Célio Dias', 'Guilherme Pires',
-]
-  // Quem é da equipe e também estava escrito à mão mais abaixo entra uma vez só.
-  .filter((nome, i, lista) => lista.findIndex((n) => chave(n) === chave(nome)) === i)
-  .sort((a, b) => a.localeCompare(b, 'pt-BR', { sensitivity: 'base' })).map((nome) => ({ nome, daEquipe: equipe.some((n) => chave(n) === chave(nome)), marca: marcas[nome] }));
+type Nome = { nome: string; marca?: string; memoria?: boolean; riscado?: boolean };
+const cena = [...(atracoes.cena as Nome[]), ...equipe.map((nome): Nome => ({ nome }))]
+  // Quem é da equipe e também está na planilha entra uma vez só (vale a linha da planilha).
+  .filter((c, i, lista) => lista.findIndex((n) => chave(n.nome) === chave(c.nome)) === i)
+  .sort((a, b) => a.nome.localeCompare(b.nome, 'pt-BR', { sensitivity: 'base' }))
+  .map((c) => ({ ...c, daEquipe: equipe.some((n) => chave(n) === chave(c.nome)) }));
 
 // Posições tomadas. (Anos a confirmar.)
 const posicoes = [
@@ -336,13 +317,13 @@ const premios = [
   <section class="palco" aria-labelledby="t-palco" data-tema="sorteio" data-reserva={reserva}>
     <h2 id="t-palco" class="t-secao" data-anima="sobe">Quem a gente trouxe</h2>
     <p class="nomes">
-      {palco.map((a) => <span>{a.nome}{a.de && <sup><i aria-hidden="true">{a.bandeira}</i>{a.de}</sup>}</span>)}
+      {palco.map((a) => <span>{a.riscado ? <s>{a.nome}</s> : a.nome}{a.memoria && <sup class="memoria"><i aria-hidden="true">†</i>em memória</sup>}{a.de && <sup><i aria-hidden="true">{a.bandeira}</i>{a.de}</sup>}</span>)}
     </p>
     <h2 class="t-secao cena-titulo" data-anima="sobe">E a cena de BH, que é a base de tudo</h2>
     <p class="nomes nomes-cena">
       {cena.map((c) => {
         const pagina = paginas.get(c.nome.toLowerCase());
-        const texto = <>{c.nome}{c.marca && ` (${c.marca})`}</>;
+        const texto = <>{c.riscado ? <s>{c.nome}</s> : c.nome}{c.marca && ` (${c.marca})`}{c.memoria && <sup class="memoria"><i aria-hidden="true">†</i>em memória</sup>}</>;
         return <span class:list={{ residente: c.daEquipe }}>{pagina ? <a href={pagina}>{texto}</a> : texto}</span>;
       })}
     </p>
@@ -736,6 +717,12 @@ const premios = [
   .legenda i { flex: none; width: 1em; height: 1em; border-radius: 50%; background: var(--destaque); }
   .nomes sup i { margin-right: 0.35em; font-style: normal; font-size: 1.25em; line-height: 0; vertical-align: -0.12em; }
   .nomes sup { margin: 0.2em 0 0 0.3em; padding: 0.2em 0.5em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; }
+  /* Riscado (Sharon Needles): uma barra preta grossa, levemente inclinada, como a barra do site cortando o nome. Preta sempre, em qualquer tema. */
+  .nomes s { position: relative; text-decoration: none; }
+  .nomes s::after { content: ''; position: absolute; left: -0.06em; right: -0.06em; top: 50%; height: 0.17em; margin-top: -0.085em; background: #000; transform: rotate(-4deg); }
+  /* Em memória: não usa o selo da bandeira. Texto solto, em itálico, com uma cruz na frente. */
+  .nomes sup.memoria { padding: 0; border: 0; border-radius: 0; font-style: italic; font-weight: 600; letter-spacing: 0.02em; text-transform: lowercase; font-size: 1rem; }
+  .nomes sup.memoria i { margin: 0 0.3em 0 0; font-size: 1.3em; font-weight: 700; font-style: normal; vertical-align: baseline; }
   .cena-titulo { margin-top: var(--e-5); max-width: 14em; }
   .palco .t-pequeno { margin-top: var(--e-1); }
 
@@ -783,6 +770,7 @@ const premios = [
     /* No celular os nomes cedem tamanho para caberem dois ou três por linha, em vez de um. */
     .nomes { gap: 0.3em 0; font-size: 1.125rem; letter-spacing: -0.02em; }
     .nomes sup { margin-top: 0.05em; font-size: 0.625rem; }
+    .nomes sup.memoria { font-size: 0.8rem; }
     :global(.js) .trio-regra { top: calc(var(--e-3) + var(--t-4) + 0.4rem); right: auto; left: 0; padding-top: 0; text-align: left; font-size: 0.75rem; }
   }
   @media (prefers-reduced-motion: reduce) {

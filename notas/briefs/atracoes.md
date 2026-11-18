@@ -40,8 +40,9 @@ Abas:
    - nome vazio ou repetido (sem diferenciar maiúscula nem acento);
    - grupo desconhecido;
    - "Quem a gente trouxe" sem Ordem, ou com Ordem repetida;
-   - "Sharon Needles" ou "The Ladies" em qualquer grupo (regras firmes do Gui, hoje só em
-     comentário no `sobre.astro`; vire uma lista no script).
+   - "The Ladies" em qualquer grupo; "Sharon Needles" só com a marcação "riscado" (regras firmes
+     do Gui, listas no topo do script);
+   - marcação desconhecida (valem "em memória" e "riscado") e país sem bandeira.
    Nome da Equipe na planilha não é erro: a junção com a coleção `pessoas` já tira a repetição.
 4. **Resumo no fim da execução:** quantos nomes entraram e quantos saíram em relação ao JSON
    anterior, com os nomes. Nome que saiu merece aviso explícito.
@@ -75,3 +76,10 @@ Gui vê na prévia da `design` e leva para a `main` pelo caminho de sempre.
 
 As listas de endereços (`lineup`) e de cidades (`cidades`), também no `historia.ts`, podem seguir o
 mesmo modelo, em abas novas da mesma planilha. Fora do escopo agora.
+
+
+## Estado (18 nov 2026)
+
+Construído na `design`: `scripts/atracoes.mjs`, `src/data/atracoes.json`, o Sobre e `historia.ts`
+lendo o JSON e `npm run confere:atracoes`. A coluna "Marcação no site" da aba "Para o site" aceita
+"em memória" (etiqueta ao lado do nome) e "riscado" (nome riscado). Falta só o endereço publicado do CSV.

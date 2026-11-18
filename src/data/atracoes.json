@@ -1,0 +1,566 @@
+{
+  "quemTrouxemos": [
+    {
+      "nome": "Pabllo Vittar"
+    },
+    {
+      "nome": "Jão"
+    },
+    {
+      "nome": "Gloria Groove"
+    },
+    {
+      "nome": "Karol Conká"
+    },
+    {
+      "nome": "Elke Maravilha",
+      "memoria": true
+    },
+    {
+      "nome": "Gretchen"
+    },
+    {
+      "nome": "Banda Uó"
+    },
+    {
+      "nome": "Candy Mel"
+    },
+    {
+      "nome": "Mateus Carrilho"
+    },
+    {
+      "nome": "Bonde do Rolê"
+    },
+    {
+      "nome": "Deize Tigrona"
+    },
+    {
+      "nome": "Rico Dalasam"
+    },
+    {
+      "nome": "Jaloo"
+    },
+    {
+      "nome": "Potyguara Bardo"
+    },
+    {
+      "nome": "Tiê"
+    },
+    {
+      "nome": "Kaya Conky"
+    },
+    {
+      "nome": "Pepita"
+    },
+    {
+      "nome": "Aretuza Lovi"
+    },
+    {
+      "nome": "Penelopy Jean"
+    },
+    {
+      "nome": "Daniel Peixoto"
+    },
+    {
+      "nome": "Dornelles"
+    },
+    {
+      "nome": "S4Tan"
+    },
+    {
+      "nome": "Frimes"
+    },
+    {
+      "nome": "Copacabana Club"
+    },
+    {
+      "nome": "Pearls Negras"
+    },
+    {
+      "nome": "Manu Gavassi"
+    },
+    {
+      "nome": "MC Carol"
+    },
+    {
+      "nome": "Kika Boom"
+    },
+    {
+      "nome": "Matheus Morais"
+    },
+    {
+      "nome": "Yuri Frainer"
+    },
+    {
+      "nome": "Daft Pobre"
+    },
+    {
+      "nome": "Murilo Caldas"
+    },
+    {
+      "nome": "Jade Baraldo"
+    },
+    {
+      "nome": "Não Recomendados"
+    },
+    {
+      "nome": "Boss in Drama",
+      "memoria": true
+    },
+    {
+      "nome": "Caio Caprioli"
+    },
+    {
+      "nome": "Alyssa Edwards",
+      "de": "EUA",
+      "bandeira": "🇺🇸"
+    },
+    {
+      "nome": "Latrice Royale",
+      "de": "EUA",
+      "bandeira": "🇺🇸"
+    },
+    {
+      "nome": "Jujubee",
+      "de": "EUA",
+      "bandeira": "🇺🇸"
+    },
+    {
+      "nome": "Coco Montrese",
+      "de": "EUA",
+      "bandeira": "🇺🇸"
+    },
+    {
+      "nome": "April Carrión",
+      "de": "Porto Rico",
+      "bandeira": "🇵🇷"
+    },
+    {
+      "nome": "Sharon Needles",
+      "riscado": true,
+      "de": "EUA",
+      "bandeira": "🇺🇸"
+    }
+  ],
+  "cena": [
+    {
+      "nome": "Alana Fox"
+    },
+    {
+      "nome": "Alfredo Francis"
+    },
+    {
+      "nome": "Amber Ives"
+    },
+    {
+      "nome": "Amerikana"
+    },
+    {
+      "nome": "Anastacia"
+    },
+    {
+      "nome": "Aria Dreamz"
+    },
+    {
+      "nome": "Ariella Santos"
+    },
+    {
+      "nome": "Artur Davi"
+    },
+    {
+      "nome": "Aysla Pirv"
+    },
+    {
+      "nome": "Babi Ribeiro"
+    },
+    {
+      "nome": "Baile da Bôta"
+    },
+    {
+      "nome": "Barbara Egidio"
+    },
+    {
+      "nome": "Bella La Pierre"
+    },
+    {
+      "nome": "Benjamin"
+    },
+    {
+      "nome": "Bettie"
+    },
+    {
+      "nome": "Binho"
+    },
+    {
+      "nome": "Bizafra"
+    },
+    {
+      "nome": "Bloco Baianas Ozadas"
+    },
+    {
+      "nome": "Bo"
+    },
+    {
+      "nome": "Bruno Robert"
+    },
+    {
+      "nome": "Caio Vita"
+    },
+    {
+      "nome": "Camila Too Much"
+    },
+    {
+      "nome": "Carambola"
+    },
+    {
+      "nome": "Caroleta"
+    },
+    {
+      "nome": "Célio Dias",
+      "marca": "LED"
+    },
+    {
+      "nome": "Cherem"
+    },
+    {
+      "nome": "Clara Tannure"
+    },
+    {
+      "nome": "Crew S&M Party"
+    },
+    {
+      "nome": "Cristianosm"
+    },
+    {
+      "nome": "Davi Cintori"
+    },
+    {
+      "nome": "Dead Lover’s Twisted Heart"
+    },
+    {
+      "nome": "Desirée Dandelion"
+    },
+    {
+      "nome": "Diega"
+    },
+    {
+      "nome": "Dolly Piercing"
+    },
+    {
+      "nome": "Dr. Jeff"
+    },
+    {
+      "nome": "Elisa Angottu"
+    },
+    {
+      "nome": "Esther"
+    },
+    {
+      "nome": "Fantalzzy"
+    },
+    {
+      "nome": "Felipe Nery"
+    },
+    {
+      "nome": "Fernandinha"
+    },
+    {
+      "nome": "Flip"
+    },
+    {
+      "nome": "Francis Glam Glam"
+    },
+    {
+      "nome": "Gaia Voidd"
+    },
+    {
+      "nome": "Gana"
+    },
+    {
+      "nome": "Giovana Heliodoro"
+    },
+    {
+      "nome": "Glico"
+    },
+    {
+      "nome": "Gobbi"
+    },
+    {
+      "nome": "Green Grass"
+    },
+    {
+      "nome": "Guilherme Pires"
+    },
+    {
+      "nome": "Gustavo Bezzi"
+    },
+    {
+      "nome": "Gustavo Drummond"
+    },
+    {
+      "nome": "Gustavo Gontijo"
+    },
+    {
+      "nome": "Guta Leão"
+    },
+    {
+      "nome": "Hallessia"
+    },
+    {
+      "nome": "Isabelle Gee"
+    },
+    {
+      "nome": "Israel Frazoni"
+    },
+    {
+      "nome": "Iuri Zennone"
+    },
+    {
+      "nome": "Jaddy Stone"
+    },
+    {
+      "nome": "Jakson"
+    },
+    {
+      "nome": "Jezz"
+    },
+    {
+      "nome": "Jhulia Santos"
+    },
+    {
+      "nome": "Jimmy Andrade"
+    },
+    {
+      "nome": "Joanna Mescladi"
+    },
+    {
+      "nome": "João Andrade"
+    },
+    {
+      "nome": "Júnior Waldorf"
+    },
+    {
+      "nome": "Kabulom"
+    },
+    {
+      "nome": "Kaike"
+    },
+    {
+      "nome": "Kkau"
+    },
+    {
+      "nome": "Laranja",
+      "memoria": true
+    },
+    {
+      "nome": "Las Palozas"
+    },
+    {
+      "nome": "Lázara"
+    },
+    {
+      "nome": "Leafar"
+    },
+    {
+      "nome": "Leona Souki"
+    },
+    {
+      "nome": "Leonardo Pedone"
+    },
+    {
+      "nome": "Lorena Lee"
+    },
+    {
+      "nome": "Louis"
+    },
+    {
+      "nome": "Lourandes"
+    },
+    {
+      "nome": "Lu Hell"
+    },
+    {
+      "nome": "Luna Oliveira"
+    },
+    {
+      "nome": "Mac Júlia"
+    },
+    {
+      "nome": "Madison"
+    },
+    {
+      "nome": "Mafra"
+    },
+    {
+      "nome": "Malona"
+    },
+    {
+      "nome": "Mannu Mallibu"
+    },
+    {
+      "nome": "Marcilio"
+    },
+    {
+      "nome": "Marco Romani"
+    },
+    {
+      "nome": "Marllon"
+    },
+    {
+      "nome": "Mellody Queen"
+    },
+    {
+      "nome": "Melques"
+    },
+    {
+      "nome": "Mira MiuMiu"
+    },
+    {
+      "nome": "Monalisa Leblanc"
+    },
+    {
+      "nome": "Monique Capuccine"
+    },
+    {
+      "nome": "Nabuco"
+    },
+    {
+      "nome": "Nalla"
+    },
+    {
+      "nome": "Nanauê"
+    },
+    {
+      "nome": "Neide"
+    },
+    {
+      "nome": "Nickary Aycker"
+    },
+    {
+      "nome": "Omoloko"
+    },
+    {
+      "nome": "Paige"
+    },
+    {
+      "nome": "Palomita"
+    },
+    {
+      "nome": "Paolla B"
+    },
+    {
+      "nome": "Patthy Wellisch"
+    },
+    {
+      "nome": "Penelope Fontana"
+    },
+    {
+      "nome": "Pietra"
+    },
+    {
+      "nome": "Polaris"
+    },
+    {
+      "nome": "Rafa Mártir"
+    },
+    {
+      "nome": "Rafa Ventura"
+    },
+    {
+      "nome": "Rafael Sandim"
+    },
+    {
+      "nome": "Rafah’el"
+    },
+    {
+      "nome": "Raphael Ribeiro"
+    },
+    {
+      "nome": "Rasec"
+    },
+    {
+      "nome": "Ravel"
+    },
+    {
+      "nome": "Rodrigo Leon"
+    },
+    {
+      "nome": "Roquer Horror"
+    },
+    {
+      "nome": "Roxxer"
+    },
+    {
+      "nome": "Samantha Brooks"
+    },
+    {
+      "nome": "Sandra Lee"
+    },
+    {
+      "nome": "SaravahRosa"
+    },
+    {
+      "nome": "Sebah"
+    },
+    {
+      "nome": "Shoke-se"
+    },
+    {
+      "nome": "Shum"
+    },
+    {
+      "nome": "Stacy Ginger"
+    },
+    {
+      "nome": "Supololo"
+    },
+    {
+      "nome": "Tabata"
+    },
+    {
+      "nome": "Thiagão"
+    },
+    {
+      "nome": "Thiago Richard"
+    },
+    {
+      "nome": "Toda Deseo"
+    },
+    {
+      "nome": "Tuhlio"
+    },
+    {
+      "nome": "Valmique"
+    },
+    {
+      "nome": "Veri"
+    },
+    {
+      "nome": "Vii_ih"
+    },
+    {
+      "nome": "Vitor Sobrinho"
+    },
+    {
+      "nome": "Voga"
+    },
+    {
+      "nome": "Vormitx"
+    },
+    {
+      "nome": "Votú"
+    },
+    {
+      "nome": "Vovó da ZN"
+    },
+    {
+      "nome": "Wandera Jones"
+    },
+    {
+      "nome": "Well Mendes"
+    },
+    {
+      "nome": "Xoxottini"
+    }
+  ]
+}

@@ -14,12 +14,6 @@ Como usar:
 
 Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
 
-- **Atrações do Sobre vindas da planilha.** As listas "Quem a gente trouxe" e "E a cena de BH" passam
-  a sair de `src/data/atracoes.json`, gerado por `npm run atracoes` a partir da planilha "Atrações
-  do site" (Drive, `10_site/4_Sobre`), que o Ed revisa. Detalhe completo, validações e conferência
-  em `notas/briefs/atracoes.md`. Decidido pelo Gui em 18 nov 2026. Começar com um CSV exportado
-  (`--arquivo`); o endereço publicado depende do Gui (ver "Esperando o Gui").
-
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
 
@@ -30,7 +24,7 @@ resposta chegar lá, o item vira trabalho:
 
 - **Atrações: publicar a aba "Para o site" como CSV.** Na planilha "Atrações do site": Arquivo,
   Compartilhar, Publicar na Web, escolher só a aba "Para o site" e o formato CSV. Passar o endereço
-  ao Claude Code para entrar no script (`scripts/atracoes.mjs`). Só essa aba é publicada: Fonte,
+  ao Claude Code. Ele vai para a variável `ATRACOES_CSV_URL` (`npm run atracoes`). Até lá o JSON foi gerado de um CSV exportado. Só essa aba é publicada: Fonte,
   observação interna e a aba "Fora" ficam privadas.
 - **Agenda de 2022: pastas que ficaram de fora.** MOC, Prêmio, YOLO e Anda.
 - **Parcerias: o que ainda falta da planilha.** Pessoas por edição, seguidores, perfil do público,
