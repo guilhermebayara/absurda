@@ -2,7 +2,8 @@
 # (scripts/confere-links.mjs), o contraste dos temas, com o subtema vivo
 # (scripts/confere-temas.mjs), a Agenda completa (scripts/confere-agenda.mjs) e o movimento
 # reduzido (scripts/confere-calmo.mjs), a parede de palavras da Home (scripts/confere-parede.mjs)
-# e as barras presas no topo, na rolagem e no toque (scripts/confere-barra.mjs).
+# e as barras presas no topo, na rolagem e no toque (scripts/confere-barra.mjs), e a pilha do
+# Trio no Sobre (scripts/confere-pilha.mjs).
 # O build aqui roda sem as chaves das plataformas: a agenda sai só com o histórico arquivado,
 # o que basta para conferir links, cores e movimento. Ver CLAUDE.md, "Achado vira conferência".
 name: Confere o site
@@ -46,3 +47,5 @@ jobs:
         run: npx playwright install --with-deps webkit
       - name: Barras presas no topo (rolagem e toque num ano)
         run: npm run confere:barra
+      - name: Pilha do Trio no Sobre (cartões que assentam, no toque)
+        run: npm run confere:pilha

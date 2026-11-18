@@ -14,7 +14,8 @@
     "confere:agenda": "node scripts/confere-agenda.mjs",
     "confere:calmo": "node scripts/confere-calmo.mjs",
     "confere:parede": "node scripts/confere-parede.mjs",
-    "confere:barra": "node scripts/confere-barra.mjs"
+    "confere:barra": "node scripts/confere-barra.mjs",
+    "confere:pilha": "node scripts/confere-pilha.mjs"
   },
   "dependencies": {
     "@fontsource-variable/urbanist": "^5.3.0",
