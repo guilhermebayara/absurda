@@ -19,7 +19,7 @@ for (const [grupo, lista] of Object.entries(dados)) {
   }
 }
 const memorias = [...dados.quemTrouxemos, ...dados.cena].filter((a) => a.memoria).length;
-if (memorias && (html.match(/<sup[^>]*>em memória<\/sup>/g) ?? []).length < memorias) faltas.push(`Faltam marcas "em memória" na página (esperadas ${memorias}).`);
+if (memorias && (html.match(/<sup[^>]*>(?:<i[^>]*>†<\/i>)?em memória<\/sup>/g) ?? []).length < memorias) faltas.push(`Faltam marcas "em memória" na página (esperadas ${memorias}).`);
 
 if (faltas.length) { console.error('Atrações do Sobre fora de sincronia:\n- ' + faltas.join('\n- ')); process.exit(1); }
 console.log(`Atrações do Sobre: ${dados.quemTrouxemos.length + dados.cena.length} nomes conferidos na página.`);

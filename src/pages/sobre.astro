@@ -317,13 +317,13 @@ const premios = [
   <section class="palco" aria-labelledby="t-palco" data-tema="sorteio" data-reserva={reserva}>
     <h2 id="t-palco" class="t-secao" data-anima="sobe">Quem a gente trouxe</h2>
     <p class="nomes">
-      {palco.map((a) => <span>{a.riscado ? <s>{a.nome}</s> : a.nome}{a.memoria && <sup>em memória</sup>}{a.de && <sup><i aria-hidden="true">{a.bandeira}</i>{a.de}</sup>}</span>)}
+      {palco.map((a) => <span>{a.riscado ? <s>{a.nome}</s> : a.nome}{a.memoria && <sup class="memoria"><i aria-hidden="true">†</i>em memória</sup>}{a.de && <sup><i aria-hidden="true">{a.bandeira}</i>{a.de}</sup>}</span>)}
     </p>
     <h2 class="t-secao cena-titulo" data-anima="sobe">E a cena de BH, que é a base de tudo</h2>
     <p class="nomes nomes-cena">
       {cena.map((c) => {
         const pagina = paginas.get(c.nome.toLowerCase());
-        const texto = <>{c.riscado ? <s>{c.nome}</s> : c.nome}{c.marca && ` (${c.marca})`}{c.memoria && <sup>em memória</sup>}</>;
+        const texto = <>{c.riscado ? <s>{c.nome}</s> : c.nome}{c.marca && ` (${c.marca})`}{c.memoria && <sup class="memoria"><i aria-hidden="true">†</i>em memória</sup>}</>;
         return <span class:list={{ residente: c.daEquipe }}>{pagina ? <a href={pagina}>{texto}</a> : texto}</span>;
       })}
     </p>
@@ -717,6 +717,12 @@ const premios = [
   .legenda i { flex: none; width: 1em; height: 1em; border-radius: 50%; background: var(--destaque); }
   .nomes sup i { margin-right: 0.35em; font-style: normal; font-size: 1.25em; line-height: 0; vertical-align: -0.12em; }
   .nomes sup { margin: 0.2em 0 0 0.3em; padding: 0.2em 0.5em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; }
+  /* Riscado (Sharon Needles): uma barra preta grossa, levemente inclinada, como a barra do site cortando o nome. Preta sempre, em qualquer tema. */
+  .nomes s { position: relative; text-decoration: none; }
+  .nomes s::after { content: ''; position: absolute; left: -0.06em; right: -0.06em; top: 50%; height: 0.17em; margin-top: -0.085em; background: #000; transform: rotate(-4deg); }
+  /* Em memória: não usa o selo da bandeira. Texto solto, em itálico, com uma cruz na frente. */
+  .nomes sup.memoria { padding: 0; border: 0; border-radius: 0; font-style: italic; font-weight: 600; letter-spacing: 0.02em; text-transform: lowercase; font-size: 1rem; }
+  .nomes sup.memoria i { margin: 0 0.3em 0 0; font-size: 1.3em; font-weight: 700; font-style: normal; vertical-align: baseline; }
   .cena-titulo { margin-top: var(--e-5); max-width: 14em; }
   .palco .t-pequeno { margin-top: var(--e-1); }
 
@@ -764,6 +770,7 @@ const premios = [
     /* No celular os nomes cedem tamanho para caberem dois ou três por linha, em vez de um. */
     .nomes { gap: 0.3em 0; font-size: 1.125rem; letter-spacing: -0.02em; }
     .nomes sup { margin-top: 0.05em; font-size: 0.625rem; }
+    .nomes sup.memoria { font-size: 0.8rem; }
     :global(.js) .trio-regra { top: calc(var(--e-3) + var(--t-4) + 0.4rem); right: auto; left: 0; padding-top: 0; text-align: left; font-size: 0.75rem; }
   }
   @media (prefers-reduced-motion: reduce) {
