@@ -56,7 +56,7 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
         // Aparelho de toque (celular, tablet). No iPhone com iOS 26, o Safari desenha uma banda
         // sólida atrás das suas barras sempre que existe um elemento preso (sticky ou fixed)
         // encostado na borda da tela, mesmo invisível. Por isso, no toque, as cenas que param
-        // na tela inteira (parede da Home, fotos do Trio no Sobre) não usam sticky:
+        // (parede da Home, pilha do Trio no Sobre) não usam sticky:
         // - pino-novo: a cena fica parada por uma animação ligada à rolagem;
         // - toque: navegador sem essa animação; a cena simplesmente rola com a página.
         if (window.matchMedia('(hover: none) and (pointer: coarse)').matches) {

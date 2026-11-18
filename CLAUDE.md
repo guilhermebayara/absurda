@@ -100,15 +100,16 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
 2. `npm run build` sem erro.
 3. `npm run confere:arquivo` passando.
 4. `npm run confere:links`, `npm run confere:agenda`, `npm run confere:temas`,
-   `npm run confere:calmo`, `npm run confere:parede` e `npm run confere:barra` passando (ver
+   `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra` e
+   `npm run confere:pilha` passando (ver
    "Conferências do site").
 5. Código: só com o ok do Gui na prévia da `design`. Então `main`, por fast-forward da `design`.
    A publicação na Cloudflare sai sozinha a cada push.
 
 ## Conferências do site
 
-Além da guarda do histórico, seis conferências rodam na máquina e, sozinhas, no GitHub a cada
-push fora da `main` (`.github/workflows/confere-site.yml`). As seis rodam depois do build:
+Além da guarda do histórico, sete conferências rodam na máquina e, sozinhas, no GitHub a cada
+push fora da `main` (`.github/workflows/confere-site.yml`). As sete rodam depois do build:
 
 - `npm run confere:links`: falha se algum link interno, âncora ou imagem do próprio site
   apontar para algo que não existe. Link externo não entra.
@@ -134,6 +135,13 @@ push fora da `main` (`.github/workflows/confere-site.yml`). As seis rodam depois
   fila de anos deixar de ser arrastável, se o toque não levar ao ano ou se houver `sticky` ou
   `fixed` no toque. Precisa também do WebKit (`npx playwright install --with-deps webkit`), que é quem mostra
   o pulo do toque. A barra de endereço do Safari e a rolagem com inércia só se conferem no iPhone.
+- `npm run confere:pilha`: abre o Sobre num iPhone emulado (375 x 667, 375 x 812 e 393 x 852), no
+  Chromium e no WebKit, e rola pela pilha de polaroides do Trio. Falha se a pilha sair do lugar
+  enquanto as polaroides assentam ou não sair com a rolagem depois da última, se a polaroide que
+  sobe não acompanhar o dedo, se o trajeto mudar com a altura da tela, se a polaroide do ano não
+  ficar por cima, inteira abaixo do relógio e com o texto dentro, se as de baixo não forem
+  simplificadas (sem texto, foto pequena), se houver polaroide visível fora da tela, se houver
+  `sticky` ou `fixed`, ou se, com movimento reduzido, a pilha não virar lista simples.
 
 **Regra de contraste (do Gui):** texto que se lê precisa de contraste de leitura (4,5:1).
 Enfeite pode ousar e abrir mão disso, desde que continue visível (3:1): a barra inclinada, o
@@ -270,8 +278,8 @@ regras de branch desta seção.
   mesmo invisível. Uma barra `sticky` no topo basta para a banda aparecer embaixo também, e
   ela não some mais até recarregar. Não pode haver banda: em aparelho de toque, nenhum
   `sticky` ou `fixed`. O que precisa ficar parado usa animação ligada à rolagem (classe
-  `pino-novo`, posta pelo script de `Base.astro`): as cenas de tela inteira (parede da Home,
-  Trio no Sobre) e as barras do topo (`data-trilho` e `data-barra`: atalho de anos da Agenda,
+  `pino-novo`, posta pelo script de `Base.astro`): a cena de tela inteira da Home (parede), a
+  pilha do Trio no Sobre e as barras do topo (`data-trilho` e `data-barra`: atalho de anos da Agenda,
   ano dos Marcos no Sobre). Enquanto presa, a barra ganha uma cobertura na cor da página por
   cima, para o texto não aparecer acima dela, atrás do relógio. As prévias que seguem o cursor
   somem no toque. Ao criar algo preso novo, siga um desses modelos e confira no iPhone.
@@ -283,10 +291,19 @@ regras de branch desta seção.
   deslizando, e nunca com o dedo em cima dela. `npm run confere:barra` guarda a regra.
 - **Cartões no celular:** no iPhone a página aparece atrás do relógio e da barra de endereço,
   então uma cena parada de tela inteira parece um retângulo cortado. A saída (do Gui) é a do
-  rodapé: no celular, rodapé, menu e Trio são cartões, com `--raio-cartao` e `--folga-cartao`
-  (em `Base.astro`). O Trio tem folga dos quatro lados. O menu é reto em cima, unido ao alto da
+  rodapé: no celular, rodapé e menu são cartões, com `--raio-cartao` e `--folga-cartao`
+  (em `Base.astro`). O menu é reto em cima, unido ao alto da
   tela, e só arredonda embaixo; ao abrir, nenhum botão dele recebe o foco sozinho. Cena nova parada no celular segue o
   mesmo desenho.
+- **Trio no toque (do Gui):** a cena presa com barra de avanço parecia automática, como stories,
+  e as pessoas achavam que a rolagem tinha quebrado. No toque, cada ano é uma polaroide (foto
+  quadrada, margem larga embaixo com ano, número e texto, cores fixas de papel) que sobe junto com
+  o dedo e assenta sobre a anterior, com giro e deslocamento fixos por ano. As de baixo são
+  empurradas de leve, ficam menores e mais escuras, perdem o texto e trocam a foto pela versão
+  `-mini` (em `public/sobre/`; foto nova do Trio precisa da sua). O trajeto sai só de `--passo`
+  (altura da polaroide, folga e `--respiro`, a rolagem entre uma assentar e a próxima começar a
+  cobri-la). Desktop continua com a cena presa. Com movimento reduzido ou no `.toque`, lista
+  simples. `npm run confere:pilha` guarda a regra.
 - **Troca de tema no iPhone:** a troca suave só liga depois que a página abriu (classe
   `troca-viva`). Ligada desde o início, o Safari às vezes parava no meio do caminho entre
   dois temas, com cores ilegíveis.

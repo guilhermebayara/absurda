@@ -149,3 +149,11 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   embaixo; ao abrir, o foco vai para o próprio menu, e o "Fechar" não aparece mais com a moldura
   de foco. Pedido do Gui, ao conferir a `design` no iPhone. Feito pelo Claude Code. (CLAUDE.md,
   "Cuidados"; `src/layouts/Base.astro`.)
+- `2026-11-18`: no toque, o Trio do Sobre vira uma pilha de polaroides. A cena presa com barra de
+  avanço parecia automática, como stories, e as pessoas achavam que a rolagem tinha quebrado. O Gui
+  comparou três versões no iPhone (branch `tst-trio`): A, lista de cartões; B, a cena presa com uma
+  régua de anos no lugar da barra; C, cartões que sobem com o dedo e assentam numa pilha solta. Ficou
+  a C, com os cartões redesenhados como polaroides, e mais respiro entre uma polaroide assentar e a
+  próxima cobrir o texto dela. Desktop sem mudança. A regra virou a conferência `confere:pilha`.
+  Feito pelo Claude Code. (CLAUDE.md, "Conferências do site" e "Cuidados"; `src/pages/sobre.astro`;
+  `scripts/confere-pilha.mjs`.)

@@ -59,14 +59,11 @@ const trio: Array<{ ano: string; numero: string; texto: string; foto: string; fo
   // Foto em pé: "foco" diz que parte dela fica à vista quando a tela é mais larga que alta.
   { ano: '2026', numero: '10 anos', texto: '8 de fevereiro. Uma década de Trio da @bsurda, no mesmo caminho até a Afonso Pena.', foto: '/sobre/trio-2026.jpg', foco: '50% 88%' },
 ];
-// Prévia tst-trio, versão B: régua com todos os anos, do primeiro trio ao último. Ano sem trio
-// entra como traço curto, sem número.
-const anosComTrio = new Set(trio.map((t) => t.ano));
-// Prévia tst-trio, versão C: pilha de cartões. Cada ano assenta com rotação e deslocamento
+// No toque, o Trio é uma pilha de polaroides (escolha do Gui). Cada ano assenta com rotação e deslocamento
 // próprios, fixos (não sorteados), como fotos jogadas numa mesa. A pilha é toda escrita em
 // keyframes aqui, porque cada cartão tem o seu trajeto: entra subindo junto com o dedo, assenta, e
 // a cada cartão novo que chega é empurrado um pouquinho, fica um pouco menor e mais escuro.
-// Medida única: --passo (altura do cartão mais a folga). O trajeto dos cartões e o trecho de
+// Medida única: --passo (altura do cartão mais a folga e o respiro). O trajeto dos cartões e o trecho de
 // rolagem saem dela, e nunca da altura da tela.
 const pousoTrio = [
   { giro: -2.4, x: -0.35, y: 0.1 },
@@ -81,8 +78,8 @@ const pilhaCss = (() => {
   const n = trio.length;
   const ultimo = n - 1;
   const fundoMax = 4; // a partir daqui o cartão já está todo coberto e não muda mais
-  const sel = (k: number) => `html.trio-c.pino-novo .trio-mesa > .trio-quadros > .trio-quadro:nth-child(${k + 1})`;
-  const selLinha = (k: number) => `html.trio-c.pino-novo .trio .trio-mesa > .trio-quadros > .trio-quadro:nth-child(${k + 1})`;
+  const sel = (k: number) => `html.pino-novo .trio-mesa > .trio-quadros > .trio-quadro:nth-child(${k + 1})`;
+  const selLinha = (k: number) => `html.pino-novo .trio .trio-mesa > .trio-quadros > .trio-quadro:nth-child(${k + 1})`;
   const pose = (k: number, fundo: number) => {
     const p = pousoTrio[k % pousoTrio.length];
     const d = Math.min(fundo, fundoMax);
@@ -113,19 +110,19 @@ const pilhaCss = (() => {
       quadros.push([j - 0.3, `transform: ${pose(k, j - k - 1)}`]);
       quadros.push([j, `transform: ${pose(k, j - k)}`]);
     }
-    css += `@keyframes trio-c-${k} {
+    css += `@keyframes trio-pilha-${k} {
 ${quadros.map(([t, d]) => `  ${pc(t)} { ${d}; }`).join('\n')}
 }
 `;
     const escuros: Array<[number, string]> = [[Math.max(k, ini), '0']];
     for (let j = k + 1; j <= ultimo; j++) { escuros.push([j - 0.3, sombra(j - k - 1)]); escuros.push([j, sombra(j - k)]); }
-    css += `@keyframes trio-c-escuro-${k} {
+    css += `@keyframes trio-pilha-escuro-${k} {
 ${escuros.map(([t, o]) => `  ${pc(t)} { opacity: ${o}; }`).join('\n')}
 }
 `;
     const faixa = `contain calc(0% + var(--passo) * ${ini}) contain calc(0% + var(--passo) * ${fim})`;
-    css += `${sel(k)} { animation: trio-c-${k} linear both; }
-${sel(k)}::after { animation: trio-c-escuro-${k} linear both; }
+    css += `${sel(k)} { animation: trio-pilha-${k} linear both; }
+${sel(k)}::after { animation: trio-pilha-escuro-${k} linear both; }
 `;
     css += `${selLinha(k)} { animation-timeline: --mesa; animation-range: ${faixa}; }
 ${selLinha(k)}::after { animation-timeline: --mesa; animation-range: ${faixa}; }
@@ -133,7 +130,6 @@ ${selLinha(k)}::after { animation-timeline: --mesa; animation-range: ${faixa}; }
   }
   return css + '}\n';
 })();
-const reguaTrio = Array.from({ length: Number(trio.at(-1)!.ano) - Number(trio[0].ano) + 1 }, (_, k) => String(Number(trio[0].ano) + k));
 
 // Fora das listas por decisão do Gui: Sharon Needles (não deve aparecer) e The Ladies (por ora).
 // A cena de BH que já tocou, cantou e performou com a gente, em ordem alfabética para não
@@ -312,25 +308,8 @@ const premios = [
     </div>
   </section>
 
-  <!-- 6. A rua: o trio ano a ano. A foto fica presa e troca conforme a página rola. -->
-  <!-- Prévia tst-trio: versões do Trio para o toque, comparadas pelo Gui no iPhone.
-       ?trio=a: pilha de cartões com rolagem normal. ?trio=b: cena presa com régua de anos.
-       ?trio=c: cartões que sobem e assentam uns sobre os outros, numa pilha solta.
-       A escolha fica guardada na aba (sessionStorage) e ?trio=0 volta ao Trio de hoje.
-       Desktop não muda. Roda aqui, antes da seção, para a classe chegar antes da pintura. -->
-  <script is:inline>
-    (function () {
-      var raiz = document.documentElement;
-      if (!raiz.classList.contains('pino-novo') && !raiz.classList.contains('toque')) return;
-      var v = null;
-      try {
-        v = new URLSearchParams(location.search).get('trio');
-        if (v) sessionStorage.setItem('trio', v);
-        else v = sessionStorage.getItem('trio');
-      } catch (e) {}
-      if (v === 'a' || v === 'b' || v === 'c') raiz.classList.add('trio-' + v);
-    })();
-  </script>
+  <!-- 6. A rua: o trio ano a ano. No desktop a foto fica presa e troca conforme a página rola. -->
+  <!-- No toque, o Trio é uma pilha de polaroides; os keyframes de cada uma vêm do alto do arquivo. -->
   <style is:inline set:html={pilhaCss}></style>
   <section class="trio" aria-labelledby="t-trio" style={`--n:${trio.length}`}>
     <div class="trio-pino">
@@ -350,11 +329,6 @@ const premios = [
       </ol>
       </div>
       <p class="trio-regra">Sempre no último domingo antes do carnaval.</p>
-      <ol class="trio-regua" aria-hidden="true">
-        {reguaTrio.map((ano) => (
-          <li class:list={{ vazio: !anosComTrio.has(ano), aceso: ano === trio[0].ano }} data-ano={ano}>{anosComTrio.has(ano) ? ano : ''}</li>
-        ))}
-      </ol>
     </div>
   </section>
 
@@ -519,17 +493,16 @@ const premios = [
   const secaoTrio = document.querySelector<HTMLElement>('.trio');
   const quadros = [...document.querySelectorAll<HTMLElement>('.trio-quadro')];
   const listaTrio = document.querySelector<HTMLElement>('.trio-quadros');
-  const marcasTrio = [...document.querySelectorAll<HTMLElement>('.trio-regua li')];
-  // Prévia tst-trio, versões A e C: os cartões aparecem todos de uma vez (na C, quem os move é a
-  // animação ligada à rolagem, e não este script).
+  // No toque, as polaroides aparecem todas de uma vez (quem as move é a animação ligada à
+  // rolagem, e não este script).
   const raizTrio = document.documentElement.classList;
-  const trioEmCartoes = raizTrio.contains('trio-a') || raizTrio.contains('trio-c');
-  // Versão C com a pilha viva: os cartões que já estão por baixo perdem o texto e trocam a foto
+  const trioEmCartoes = raizTrio.contains('pino-novo') || raizTrio.contains('toque');
+  // Pilha viva: os cartões que já estão por baixo perdem o texto e trocam a foto
   // por uma pequena, para o Safari não segurar sete fotos grandes em camadas animadas. E o cartão
   // que ainda está abaixo da tela fica escondido (nada animado fora da tela). A altura da tela
   // entra só aqui, para esconder; o trajeto dos cartões não depende dela.
   const mesa = document.querySelector<HTMLElement>('.trio-mesa');
-  const pilhaViva = () => raizTrio.contains('trio-c') && raizTrio.contains('pino-novo') && !semMovimento.matches;
+  const pilhaViva = () => raizTrio.contains('pino-novo') && !semMovimento.matches;
   const fotosGrandes = quadros.map((q) => q.querySelector('img')?.getAttribute('src') ?? '');
   const porBaixo = quadros.map(() => false);
   const longe = quadros.map(() => false);
@@ -551,10 +524,6 @@ const premios = [
     });
   };
   if (trioEmCartoes) quadros.forEach((q) => q.classList.add('ativo'));
-  const acende = (i: number) => {
-    const ano = quadros[i]?.dataset.ano;
-    for (const m of marcasTrio) m.classList.toggle('aceso', m.dataset.ano === ano);
-  };
   let quadroAtual = 0;
   let naFila = 0;
   const rolar = () => {
@@ -579,10 +548,7 @@ const premios = [
         quadros[quadroAtual]?.classList.remove('ativo');
         quadros[i]?.classList.add('ativo');
         quadroAtual = i;
-        acende(i);
       }
-      // No bloco das fotos, e não na seção: mexer na seção a cada quadro refaz o estilo do bloco
-      // que a animação de rolagem segura no toque.
       (listaTrio ?? secaoTrio).style.setProperty('--avanco', p.toFixed(3));
     }
   };
@@ -825,106 +791,51 @@ const premios = [
     :global(.js) .trio-quadro img { transform: none; }
   }
 
-  /* Toque sem animação ligada à rolagem: o Trio não fica preso. As fotos viram uma sequência que rola, cada uma com o seu
-     ano e a sua legenda. Sem sticky, o Safari do iPhone não cria a banda na borda da tela. */
-  :global(.toque) .trio { height: auto; }
-  :global(.toque) .trio-pino { position: relative; top: auto; height: auto; overflow: visible; }
-  :global(.toque) .trio-quadros::after { content: none; }
-  :global(.toque) .trio-quadro { position: relative; inset: auto; height: 88svh; opacity: 1; overflow: hidden; }
-  :global(.toque) .trio-quadro + .trio-quadro { margin-top: 0.4rem; }
-  :global(.toque) .trio-quadro .trio-legenda > * { transform: none; opacity: 1; }
-  :global(.toque) .trio-quadro img { transform: none; }
+  /* ---------- Trio no toque: pilha de polaroides (escolha do Gui, 18 nov 2026) ---------- */
+  /* No toque o Trio não tem cena presa nem barra de avanço: a cena parada com a barra parecia
+     automática, como stories, e as pessoas achavam que a rolagem tinha quebrado. Cada ano é uma
+     polaroide: papel claro, margem fina em cima e dos lados, foto quadrada e a margem de baixo
+     larga, onde ficam ano, número e texto em tinta escura. Cores fixas, como as do Trio: é objeto
+     físico, não muda com o tema. Os textos são menores que os do desktop, para caber na margem.
+     Sem animação ligada à rolagem (.toque) ou com movimento reduzido, as polaroides ficam numa
+     lista simples, uma embaixo da outra. html:is(...) pesa mais que .js, que fica acima. */
+  :global(html:is(.pino-novo, .toque)) .trio { --margem-foto: 0.75rem; height: auto; margin: 0; padding: var(--e-5) var(--folga-cartao) 0; background: none; color: var(--texto); }
+  :global(html:is(.pino-novo, .toque)) .trio > .trio-pino { display: flex; flex-direction: column; position: relative; top: auto; height: auto; overflow: visible; }
+  :global(html:is(.pino-novo, .toque)) .trio-pino::before { content: none; }
+  :global(html:is(.pino-novo, .toque)) .trio-titulo, :global(html:is(.pino-novo, .toque)) .trio-regra { position: static; padding: 0 calc(var(--margem) - var(--folga-cartao)); }
+  :global(html:is(.pino-novo, .toque)) .trio-regra { order: 1; max-width: none; margin: var(--e-1) 0 var(--e-3); color: var(--suave); font-size: 0.75rem; text-align: left; }
+  :global(html:is(.pino-novo, .toque)) .trio-mesa { order: 2; }
+  :global(html:is(.pino-novo, .toque)) .trio-quadros { display: grid; gap: var(--folga-cartao); }
+  :global(html:is(.pino-novo, .toque)) .trio-quadros::after { content: none; }
+  :global(html:is(.pino-novo, .toque)) .trio-quadro { position: relative; inset: auto; height: auto; opacity: 1; overflow: hidden; border-radius: 0.3rem; background: #f3f0e8; color: #1c1619; outline: 1px solid rgb(0 0 0 / 0.12); outline-offset: -1px; transition: none; }
+  :global(html:is(.pino-novo, .toque)) .trio-quadro img { display: block; width: calc(100% - 2 * var(--margem-foto)); height: auto; margin: var(--margem-foto) var(--margem-foto) 0; aspect-ratio: 1; border-radius: 0.1rem; transform: none; }
+  :global(html:is(.pino-novo, .toque)) .trio-quadro .trio-legenda { position: static; padding: 0.85rem calc(var(--margem-foto) + 0.25rem) 1rem; background: none; }
+  :global(html:is(.pino-novo, .toque)) .trio-quadro .trio-legenda > * { transform: none; opacity: 1; transition: none; }
+  :global(html:is(.pino-novo, .toque)) .trio-ano { margin-bottom: 0.1em; color: #5f565b; font-size: 1.25rem; letter-spacing: -0.02em; }
+  :global(html:is(.pino-novo, .toque)) .trio-numero { font-size: min(12vw, 2.75rem); line-height: 0.9; letter-spacing: -0.05em; }
+  :global(html:is(.pino-novo, .toque)) .trio-texto { margin-top: 0.5rem; color: #2b2428; font-size: 0.9375rem; line-height: 1.35; }
 
-  /* Toque com animação ligada à rolagem (o caso do iPhone): as fotos continuam trocando com a
-     cena parada, mas quem segura a cena é essa animação, e não sticky. */
-  /* A cena é um cartão no meio da tela: cantos arredondados e a mesma folga dos quatro lados,
-     com a cor da página em volta. No iPhone a página aparece atrás do relógio e da barra de
-     endereço; sem os cantos, a cena parecia um retângulo cortado no meio da tela. */
-  /* Altura do cartão: fixa, a meio caminho entre a tela com as barras do Safari recolhidas (lvh)
-     e abertas (svh). Assim ele cabe inteiro acima da barra nos três estados do Safari e a
-     legenda não precisa se ajustar: fica sempre com a mesma margem de baixo. O que o cartão
-     perde de altura (--corte) sai também do fim da seção, para não sobrar um vão depois dele. */
-  :global(.pino-novo) .trio { --corte: calc((100lvh - 100svh) / 2); height: calc(var(--n) * 85svh + 100lvh); margin-bottom: calc(-1 * var(--corte)); padding: var(--folga-cartao); background: none; view-timeline: --trio block; }
-  :global(.pino-novo) .trio-pino { position: relative; top: auto; height: calc(100lvh - var(--corte) - 2 * var(--folga-cartao)); background: #0d0a0c; border-radius: var(--raio-cartao); clip-path: inset(0 round var(--raio-cartao)); animation: pino-trio linear both; }
-  /* Regra separada de propósito (ver a mesma nota na Home). */
-  :global(.pino-novo) .trio > .trio-pino { animation-timeline: --trio; animation-range: contain 0% contain 100%; }
-  :global(.pino-novo) .trio-legenda { padding-bottom: var(--e-4); }
-  /* Cada foto ocupa a cena inteira (antes parava na altura da tela com a barra aberta, e a
-     sombra da legenda ficava desalinhada do pé da imagem). */
-  :global(.pino-novo) .trio-quadro { height: auto; overflow: hidden; }
-  /* Camadas da cena, ditas com todas as letras. No Safari do iPhone, com a cena segurada pela
-     animação, a foto que entrava passava por cima do título e do escurecido do topo durante a
-     troca, e o texto piscava. Cada foto fica numa camada baixa; título, regra e escurecido
-     ganham camada própria por cima. */
-  :global(.pino-novo) .trio-quadro { z-index: 1; }
-  :global(.pino-novo) .trio-pino::before { transform: translateZ(0); }
-  :global(.pino-novo) .trio-titulo, :global(.pino-novo) .trio-regra { z-index: 4; transform: translateZ(0); }
-  :global(.pino-novo) .trio-quadros::after { z-index: 4; }
-  @keyframes pino-trio { to { transform: translateY(calc(var(--n) * 85svh)); } }
-
-  /* ---------- Prévia tst-trio (só no toque; o desktop não muda) ---------- */
-  /* A régua só existe na versão B. */
-  .trio-regua { display: none; }
-
-  /* Versão A (?trio=a): pilha de cartões com rolagem normal, um ano por cartão: foto, ano,
-     número e texto. Mesmo desenho de cartão do rodapé e do menu. Nada preso, nada de barra.
-     html.trio-a pesa mais que .pino-novo e .toque, que ficam acima. */
-  :global(html:is(.trio-a, .trio-c)) .trio { height: auto; margin: 0; padding: var(--e-5) var(--folga-cartao) 0; background: none; color: var(--texto); view-timeline: none; }
-  :global(html:is(.trio-a, .trio-c)) .trio > .trio-pino { display: flex; flex-direction: column; position: relative; top: auto; height: auto; overflow: visible; background: none; border-radius: 0; clip-path: none; animation: none; transform: none; }
-  :global(html:is(.trio-a, .trio-c)) .trio-pino::before { content: none; }
-  :global(html:is(.trio-a, .trio-c)) .trio-titulo, :global(html:is(.trio-a, .trio-c)) .trio-regra { position: static; z-index: auto; transform: none; padding: 0 calc(var(--margem) - var(--folga-cartao)); }
-  :global(html:is(.trio-a, .trio-c)) .trio-regra { order: 1; max-width: none; margin: var(--e-1) 0 var(--e-3); color: var(--suave); font-size: 0.75rem; text-align: left; }
-  :global(html:is(.trio-a, .trio-c)) .trio-mesa { order: 2; }
-  :global(html:is(.trio-a, .trio-c)) .trio-quadros { display: grid; gap: var(--folga-cartao); }
-  :global(html:is(.trio-a, .trio-c)) .trio-quadros::after { content: none; }
-  :global(html:is(.trio-a, .trio-c)) .trio-quadro { position: relative; inset: auto; z-index: auto; height: auto; opacity: 1; overflow: hidden; border-radius: var(--raio-cartao); background: #0d0a0c; color: #fff; transition: none; }
-  :global(html:is(.trio-a, .trio-c)) .trio-quadro + .trio-quadro { margin-top: 0; }
-  :global(html:is(.trio-a, .trio-c)) .trio-quadro img { display: block; height: auto; aspect-ratio: 4 / 5; transform: none; }
-  :global(html:is(.trio-a, .trio-c)) .trio-quadro .trio-legenda { position: static; padding: var(--e-3) calc(var(--margem) - var(--folga-cartao)) var(--e-4); background: none; }
-  :global(html:is(.trio-a, .trio-c)) .trio-quadro .trio-legenda > * { transform: none; opacity: 1; transition: none; }
-  :global(html:is(.trio-a, .trio-c)) .trio-numero { font-size: clamp(3.25rem, 15vw, 6rem); }
-
-  /* Versão C (?trio=c): os cartões são polaroides (pedido do Gui). Papel claro, margem fina em
-     cima e dos lados, foto quadrada e a margem de baixo larga, onde ficam ano, número e texto em
-     tinta escura. Cores fixas, como as do Trio: é objeto físico, não muda com o tema. Os textos são
-     menores que os do desktop, para caber na margem. Vale para a pilha e para o recuo dela. */
-  :global(html.trio-c) .trio { --margem-foto: 0.75rem; }
-  :global(html.trio-c) .trio-quadro { border-radius: 0.3rem; background: #f3f0e8; color: #1c1619; outline: 1px solid rgb(0 0 0 / 0.12); outline-offset: -1px; }
-  :global(html.trio-c) .trio-quadro img { width: calc(100% - 2 * var(--margem-foto)); margin: var(--margem-foto) var(--margem-foto) 0; aspect-ratio: 1; border-radius: 0.1rem; }
-  :global(html.trio-c) .trio-quadro .trio-legenda { padding: 0.85rem calc(var(--margem-foto) + 0.25rem) 1rem; }
-  :global(html.trio-c) .trio-ano { margin-bottom: 0.1em; color: #5f565b; font-size: 1.25rem; letter-spacing: -0.02em; }
-  :global(html.trio-c) .trio-numero { font-size: min(12vw, 2.75rem); line-height: 0.9; letter-spacing: -0.05em; }
-  :global(html.trio-c) .trio-texto { margin-top: 0.5rem; color: #2b2428; font-size: 0.9375rem; line-height: 1.35; }
-
-  /* Versão C (?trio=c): pilha solta. Sem movimento reduzido e com animação ligada à rolagem
-     (pino-novo), os cartões sobem e assentam uns sobre os outros; sem isso, fica a pilha simples da
-     versão A, acima. Nada é sticky nem fixed: a pilha fica parada por animação (pilha-presa) e cada
-     cartão anda pela sua (keyframes trio-c-N, escritos no alto do arquivo).
-     Medidas só de largura e de rem, nunca da altura da tela: o cartão tem altura fixa, e o passo é
-     essa altura mais a folga. No iPhone de 375 x 667 o cartão cabe inteiro abaixo do relógio. */
+  /* A pilha (com animação ligada à rolagem e sem movimento reduzido): cada polaroide sobe junto
+     com o dedo e assenta sobre a anterior. Nada é sticky nem fixed (banda do Safari): a pilha fica
+     parada por animação (pilha-presa) e cada polaroide anda pela sua (keyframes trio-pilha-N,
+     escritos no alto do arquivo). Depois da última, a pilha sai com a rolagem normal.
+     Medidas só de largura e de rem, nunca da altura da tela: a polaroide tem altura fixa e o
+     passo é essa altura mais a folga e o respiro. No iPhone de 375 x 667 ela cabe inteira abaixo
+     do relógio. O respiro é a rolagem que sobra entre uma polaroide assentar e a próxima começar a
+     cobri-la (pedido do Gui: sem ele, o texto de baixo sumia rápido demais). npm run
+     confere:pilha guarda estas regras. */
   @media (prefers-reduced-motion: no-preference) {
-    :global(html.trio-c.pino-novo) .trio { --larg-cartao: min(100vw - 2 * var(--folga-cartao), 28rem); --alt-cartao: calc(var(--larg-cartao) - var(--margem-foto) + 10.5rem); --topo-pilha: 3.25rem; }
-    :global(html.trio-c.pino-novo) .trio-mesa { --passo: calc(var(--alt-cartao) + var(--folga-cartao)); height: calc(var(--topo-pilha) + var(--alt-cartao) + (var(--n) - 1) * var(--passo)); padding-top: var(--topo-pilha); view-timeline: --mesa block; }
-    :global(html.trio-c.pino-novo) .trio-quadros { display: grid; gap: 0; width: var(--larg-cartao); height: var(--alt-cartao); margin-inline: auto; animation: pilha-presa linear both; }
-    :global(html.trio-c.pino-novo) .trio-mesa > .trio-quadros { animation-timeline: --mesa; animation-range: contain 0% contain calc(0% + (var(--n) - 1) * var(--passo)); }
-    :global(html.trio-c.pino-novo) .trio-quadro { grid-area: 1 / 1; height: var(--alt-cartao); transform-origin: 50% 0; }
-    :global(html.trio-c.pino-novo) .trio-quadro::after { content: ''; position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
-    :global(html.trio-c.pino-novo) .trio-quadro.por-baixo .trio-texto { visibility: hidden; }
-    :global(html.trio-c.pino-novo) .trio-quadro.longe { visibility: hidden; }
+    :global(html.pino-novo) .trio { --larg-cartao: min(100vw - 2 * var(--folga-cartao), 28rem); --alt-cartao: calc(var(--larg-cartao) - var(--margem-foto) + 10.5rem); --topo-pilha: 3.25rem; --respiro: 9rem; }
+    :global(html.pino-novo) .trio-mesa { --passo: calc(var(--alt-cartao) + var(--folga-cartao) + var(--respiro)); height: calc(var(--topo-pilha) + var(--alt-cartao) + (var(--n) - 1) * var(--passo)); padding-top: var(--topo-pilha); view-timeline: --mesa block; }
+    :global(html.pino-novo) .trio-quadros { display: grid; gap: 0; width: var(--larg-cartao); height: var(--alt-cartao); margin-inline: auto; animation: pilha-presa linear both; }
+    /* Regra separada de propósito (ver a mesma nota na Home). */
+    :global(html.pino-novo) .trio-mesa > .trio-quadros { animation-timeline: --mesa; animation-range: contain 0% contain calc(0% + (var(--n) - 1) * var(--passo)); }
+    :global(html.pino-novo) .trio-quadro { grid-area: 1 / 1; height: var(--alt-cartao); transform-origin: 50% 0; }
+    /* Quanto mais fundo na pilha, mais escuro: uma camada preta por cima, e não sombra (custo no Safari). */
+    :global(html.pino-novo) .trio-quadro::after { content: ''; position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+    :global(html.pino-novo) .trio-quadro.por-baixo .trio-texto { visibility: hidden; }
+    :global(html.pino-novo) .trio-quadro.longe { visibility: hidden; }
     @keyframes pilha-presa { to { transform: translateY(calc((var(--n) - 1) * var(--passo))); } }
   }
-
-  /* Versão B (?trio=b): a cena presa continua, e a barra de avanço vira uma régua com os anos.
-     O ano da foto na tela fica aceso; ano sem trio é um traço curto. */
-  :global(html.trio-b.pino-novo) .trio-quadros::after { content: none; }
-  :global(html.trio-b.pino-novo) .trio-legenda { padding-bottom: calc(var(--e-4) + 2.5rem); }
-  :global(html.trio-b.pino-novo) .trio-regua { position: absolute; z-index: 4; left: var(--margem); right: var(--margem); bottom: var(--e-3); display: flex; align-items: flex-end; transform: translateZ(0); }
-  :global(html.trio-b.pino-novo) .trio-regua li { flex: 1 1 0; display: flex; flex-direction: column-reverse; align-items: center; gap: 0.4rem; color: rgb(255 255 255 / 0.55); font-size: 0.625rem; font-weight: 700; line-height: 1; letter-spacing: 0.02em; font-variant-numeric: tabular-nums; transition: color 0.3s; }
-  :global(html.trio-b.pino-novo) .trio-regua li::after { content: ''; width: 0.22rem; height: 1rem; background: currentColor; transform: skewX(26.5deg); }
-  :global(html.trio-b.pino-novo) .trio-regua li.vazio { padding-bottom: calc(1em + 0.4rem); color: rgb(255 255 255 / 0.35); }
-  :global(html.trio-b.pino-novo) .trio-regua li.vazio::after { height: 0.45rem; }
-  :global(html.trio-b.pino-novo) .trio-regua li.aceso { color: #fff; }
-  :global(html.trio-b.pino-novo) .trio-regua li.aceso::after { height: 1.6rem; width: 0.3rem; }
-  @media (prefers-reduced-motion: reduce) { :global(html.trio-b.pino-novo) .trio-regua li { transition: none; } }
 
 </style>

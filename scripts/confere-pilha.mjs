@@ -1,6 +1,6 @@
-// Conferência da pilha do Trio no Sobre, no toque (versão C da prévia tst-trio).
+// Conferência da pilha do Trio no Sobre, no toque (escolha do Gui, 18 nov 2026).
 //
-// No toque, cada ano do Trio é um cartão que sobe acompanhando o dedo e assenta sobre o anterior,
+// No toque, cada ano do Trio é uma polaroide que sobe acompanhando o dedo e assenta sobre o anterior,
 // numa pilha solta. Nada é sticky nem fixed (banda do Safari no iPhone): a pilha fica parada por
 // animação ligada à rolagem, e cada cartão anda pela sua. Regras que esta conferência guarda:
 // - a pilha fica parada enquanto os cartões assentam e, depois do último, sai com a rolagem normal;
@@ -24,9 +24,7 @@ import { existsSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, normalize, sep } from 'node:path';
 
 const DIST = 'dist';
-// Enquanto a pilha é uma das versões da prévia, ela só liga com ?trio=c. Quando o Gui escolher a
-// pilha e o parâmetro sair, troque para '/sobre'.
-const ENDERECO = '/sobre?trio=c';
+const ENDERECO = '/sobre';
 const FOLGA = 2; // pixels: arredondamento de subpixel e rotação dos cartões
 const RELOGIO = 44; // altura da faixa do relógio no iPhone, em pixels
 const TELAS = [
@@ -97,7 +95,7 @@ const conferir = async (navegador, motor, tela) => {
     const mesa = document.querySelector('.trio-mesa');
     const presos = [...document.querySelectorAll('body *')].filter((el) => ['sticky', 'fixed'].includes(getComputedStyle(el).position)).map((el) => el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/)[0] : ''));
     return {
-      viva: raiz.contains('pino-novo') && raiz.contains('trio-c') && !!mesa,
+      viva: raiz.contains('pino-novo') && !!mesa,
       passo: mesa ? parseFloat(getComputedStyle(mesa).getPropertyValue('--passo')) : 0,
       topo: mesa ? mesa.getBoundingClientRect().top + scrollY : 0,
       n: document.querySelectorAll('.trio-mesa .trio-quadro').length,
@@ -105,7 +103,7 @@ const conferir = async (navegador, motor, tela) => {
     };
   });
   if (!base.viva || !(base.passo > 0)) {
-    problemas.push('a pilha não ligou (sem pino-novo, sem a classe trio-c ou sem --passo)');
+    problemas.push('a pilha não ligou (sem pino-novo, sem .trio-mesa ou sem --passo)');
     await contexto.close();
     return { problemas, marcas: null };
   }
