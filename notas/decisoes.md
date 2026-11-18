@@ -171,3 +171,8 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   gente trouxe" (substitui o antigo "não deve aparecer"). Djalma Não Entende de Política e Vii_ctor
   saem; Paige entra na cena. The Ladies segue fora. Regra mora em `scripts/atracoes.mjs` e é
   conferida por `npm run confere:atracoes`.
+
+- **2026-11-18, Sharon Needles riscada: discreta (Gui).** O risco do nome dela não pode chamar atenção
+  demais. Fita zebrada ou símbolo de interdição foram descartados por isso. A saída é uma tarja preta
+  com cara de fita isolante (preta sempre, grossa, pouca inclinação, pontas levemente cortadas),
+  sem cor nem padrão. Regra mora no CSS de `src/pages/sobre.astro` (`.nomes s`).
