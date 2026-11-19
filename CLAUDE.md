@@ -379,6 +379,9 @@ regras de branch desta seção.
   caso da parede da Home, que no celular passou a ter dois grupos por fileira, e não três).
 - **Tokens e chaves** nunca entram no código nem em conversa: só nos segredos da Cloudflare
   e do GitHub.
+- **Repositório público até o lançamento (Gui, 18 nov 2026):** tudo o que entra em commit, PR,
+  nota ou comentário fica visível para qualquer pessoa e fica no histórico. Nada de dado pessoal de
+  terceiros, número interno que não pode sair ou conversa privada nas notas.
 - **Trecho de posicionamento do Sobre:** usa a paleta fechada `TEMAS_DE_POSICAO` em
   `src/lib/temas.ts`. As regras de cor estão comentadas lá.
 - Os produtores dizem **"Trio da @bsurda"**, nunca "bloco".

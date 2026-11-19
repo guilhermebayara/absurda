@@ -198,3 +198,10 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   Mesmo critério do bayara.design. O brief do atalho de anos da Agenda saiu por isso: o item já foi
   feito e a regra mora em "Barra presa não pode pular". (`notas/a-fazer.md`.)
 
+- **2026-11-18, repositório público até o lançamento (Gui).** A cota de 2.000 minutos do GitHub
+  Actions chegou a 90% no mês, e em repositório público os minutos são de graça. O site ainda não
+  foi divulgado, então o repositório fica público durante a parte pesada do trabalho e volta a
+  ser privado depois do lançamento. Varredura feita antes: nenhum token, senha ou e-mail privado
+  no histórico. Os segredos ficam na Cloudflare e no GitHub, que não os mostra. Junto, os fluxos
+  ficam mais econômicos para quando voltar a ser privado. (`notas/a-fazer.md`.)
+
