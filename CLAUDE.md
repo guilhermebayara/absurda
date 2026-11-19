@@ -111,7 +111,8 @@ Branch de sessão, de teste e de QA nasce sempre da `design` já igualada.
 ## Levar para a `main`
 
 1. `git fetch origin main` e traga a `main` para a branch.
-2. `npm run build` sem erro.
+2. `npm run check` (tipos e diagnósticos do Astro) sem erro e `npm run build` sem erro. O GitHub
+   roda os dois a cada push fora da `main`.
 3. `npm run confere:arquivo` passando.
 4. `npm run confere:links`, `npm run confere:agenda`, `npm run confere:temas`,
    `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra`,
