@@ -61,9 +61,10 @@ const especiais = projeto.data.especiais.map((s) => {
   const anos = [...new Set(edicoes.map((e) => e.data.slice(0, 4)))];
   return { ...s, edicoes, periodo: anos.length === 0 ? '' : anos.length === 1 ? anos[0] : `${anos[0]} a ${anos[anos.length - 1]}` };
 });
-const historicas = projeto.data.historicas
-  .map((h) => ({ ...h, e: eventos.passados.find((e) => e.id === h.evento) }))
-  .filter((h) => h.e);
+const historicas = projeto.data.historicas.flatMap((h) => {
+  const e = eventos.passados.find((evento) => evento.id === h.evento);
+  return e ? [{ ...h, e }] : [];
+});
 // Histórico. Cada projeto pode pedir um desenho (campo "historico"); sem pedido, até doze
 // edições cabe a lista inteira e, acima disso, a conta por ano.
 const modo = projeto.data.historico;
@@ -89,7 +90,8 @@ const anosSub = [...new Set([...anos.map((a) => a.ano), ...programacao.map((g) =
   return { ano, eventos: (daAgenda?.eventos ?? []).filter((e) => !(e.lives && itens.length > 0)), itens, numero: extra?.numero ?? daAgenda?.numero, arte: extra?.arte ?? comCapa?.capaPequena ?? comCapa?.capa };
 });
 const tituloHistorico = projeto.data.tituloHistorico ?? 'Histórico';
-const primas = projeto.data.primas ? eventos.passados.filter((e) => ehPrima(projeto.data.primas!.filtro, e)) : [];
+const primasConfig = projeto.data.primas;
+const primas = primasConfig ? eventos.passados.filter((e) => ehPrima(primasConfig.filtro, e)) : [];
 // Trio sem data anunciada: a próxima saída sai da regra do calendário.
 const saidaDoTrio = projeto.id === 'bloco' && r.proximos.length === 0 ? partesDaData(proximoTrio()) : null;
 const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null;
@@ -288,8 +290,8 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
 
   {primas.length > 0 && (
     <section class="bloco" aria-labelledby="t-primas">
-      <h2 id="t-primas" class="t-secao" data-anima="sobe">{projeto.data.primas.titulo}</h2>
-      {projeto.data.primas.texto && <p class="t-apoio bloco-texto" data-anima="surge">{projeto.data.primas.texto}</p>}
+      <h2 id="t-primas" class="t-secao" data-anima="sobe">{primasConfig?.titulo}</h2>
+      {primasConfig?.texto && <p class="t-apoio bloco-texto" data-anima="surge">{primasConfig.texto}</p>}
       <ul class="edicoes">
         {primas.map((e) => (
           <li data-anima="surge">

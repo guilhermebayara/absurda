@@ -11,7 +11,7 @@ import wig from '../data/wig.json';
   <ul class="elenco-grade">
     {wig.elenco.map((p, i) => (
       <li class:list={{ patroa: p.papel === 'direcao' }} data-anima="surge" style={`--i:${i}`}>
-        <CrachaWig id={p.id} nome={p.nome} epiteto={p.epiteto} funcao={p.funcao} foto={p.foto} href={p.pagina ?? p.instagram} externo={!p.pagina} papel={p.papel as 'casting' | 'bastidores' | 'direcao'} selo={p.selo} />
+        <CrachaWig id={p.id} nome={p.nome} epiteto={p.epiteto} foto={p.foto} href={p.pagina ?? p.instagram} externo={!p.pagina} papel={p.papel as 'casting' | 'bastidores' | 'direcao'} selo={p.selo} />
       </li>
     ))}
   </ul>
