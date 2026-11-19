@@ -5,14 +5,30 @@ Ed podem dar (textos, fotos, datas) fica na planilha "Pendências do site", no D
 
 Como usar:
 
-- Cada item diz o que fazer, de onde veio e do que depende.
-- "Pronto para fazer" não espera ninguém. "Esperando" só anda quando a pessoa indicada responder.
-- Ao terminar um item, apague-o daqui no mesmo commit. Se o item envolveu uma decisão, registre-a em
-  `notas/decisoes.md`.
+- "A construir" é o que já foi decidido e ainda não existe, com detalhe para uma sessão construir sem
+  a conversa. A sessão só constrói os itens nomeados no prompt dela.
+- **Item pequeno fica inteiro aqui. Item grande ganha um brief à parte em `notas/briefs/`** (decisão
+  do Gui, 18 nov 2026), e aqui fica só um parágrafo curto apontando para ele. Item grande é o que
+  pede mais de uma sessão, conceito com parada ou muitas regras novas. Quando o item termina, as
+  regras vão para o `CLAUDE.md` e o brief é apagado no mesmo PR (fica no histórico do git). Brief de
+  item engavetado fica guardado.
+- "Esperando" só anda quando a pessoa indicada responder.
+- Ao terminar um item, a sessão o apaga daqui no mesmo PR e escreve a regra na seção do assunto no
+  `CLAUDE.md`. Se houve decisão, registra em `notas/decisoes.md`.
 
-## Pronto para fazer
+## A construir
 
-Respostas do Gui de 16 nov 2026. Os fatos e as fontes de cada item estão em `notas/instagram-2026.md`.
+- **Eventos futuros de exemplo nas prévias de teste.** Pedido do Gui em 18 nov 2026. As branches sem
+  os tokens do Shotgun e do Sympla mostram só o histórico, então não dá para conferir Home e Agenda
+  com evento futuro numa prévia de teste. Quando faltar o token do Shotgun e a branch não for a
+  `main` nem a homologação, o site entra com uns poucos eventos de exemplo, com datas contadas a
+  partir do dia do build (alguns próximos, um acontecendo agora, um com capa 3:4 e outro 16:9, um da
+  Sympla, um com nome longo). Os dados ficam num arquivo próprio em `src/data/`. Regras:
+  - nunca aparecem na `main` nem na homologação, mesmo se o token faltar lá (a branch vem da variável
+    de branch do build da Cloudflare; sem ela, nada de exemplo);
+  - nunca entram no arquivo do histórico (`scripts/arquivar.mjs` não os vê);
+  - uma conferência nova falha se o build da `main` tiver algum evento de exemplo;
+  - a página deixa claro que são de exemplo, sem atrapalhar o layout (por exemplo, no nome).
 
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
@@ -33,8 +49,6 @@ resposta chegar lá, o item vira trabalho:
   Bayara" preenchido. Montar numa branch de teste primeiro.
   A lista de sets sai da aba "Sets do Gui" da planilha, que já tem a IHR especial Rock in Rio
   (06/07/2017, Studio Bar).
-- **Branches de teste para apagar no GitHub:** `teste-wig-projetos` (já está na `main`) e `tst-trio`
-  (já está na `design`). Pela conversa e pelo Claude Code o GitHub recusa a exclusão; o Gui apaga.
 
 ## Esperando outras pessoas
 
@@ -45,6 +59,11 @@ resposta chegar lá, o item vira trabalho:
 - **WIG: próximos eventos na página.** Depende de a Charlotte liberar um acesso ao Shotgun dela.
 - **Agenda: sessão no painel do Sympla.** Com o Ed logado, para conferir eventos que a página pública
   não mostra.
+
+## Engavetado
+
+- **Página do sistema (`/camarim`).** Engavetada pelo Gui em 17 nov 2026, até o site estabilizar no
+  ar. Não comece sem ele pedir. Brief em `notas/briefs/camarim.md`.
 
 ## Manutenção recorrente
 

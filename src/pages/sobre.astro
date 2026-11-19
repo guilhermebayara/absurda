@@ -717,9 +717,26 @@ const premios = [
   .legenda i { flex: none; width: 1em; height: 1em; border-radius: 50%; background: var(--destaque); }
   .nomes sup i { margin-right: 0.35em; font-style: normal; font-size: 1.25em; line-height: 0; vertical-align: -0.12em; }
   .nomes sup { margin: 0.2em 0 0 0.3em; padding: 0.2em 0.5em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; }
-  /* Riscado (Sharon Needles): uma barra preta grossa, levemente inclinada, como a barra do site cortando o nome. Preta sempre, em qualquer tema. */
+  /* Riscado (Sharon Needles): um pedaço de fita isolante mal colado por cima do nome. Cor de fita de
+     verdade (grafite escuro, não preto absoluto), discreta de propósito: sem cor nem padrão (decisão do
+     Gui, 18 nov 2026). Sinais de mal colada: torta, pontas rasgadas, uma ruga que atravessa a fita, a
+     ponta direita dobrada sobre si mesma e um pouco descolada (sombra embaixo). */
   .nomes s { position: relative; text-decoration: none; }
-  .nomes s::after { content: ''; position: absolute; left: -0.06em; right: -0.06em; top: 50%; height: 0.17em; margin-top: -0.085em; background: #000; transform: rotate(-4deg); }
+  .nomes s::after { content: ''; position: absolute; left: -0.12em; right: -0.1em; top: 58%; height: 0.38em; margin-top: -0.2em;
+    background:
+      linear-gradient(97deg, transparent 0 33.2%, rgba(0,0,0,.55) 33.6%, rgba(255,255,255,.16) 34.4%, transparent 35.6%),
+      linear-gradient(84deg, transparent 0 68%, rgba(255,255,255,.1) 68.4%, rgba(0,0,0,.45) 69.2%, transparent 70%),
+      linear-gradient(90deg, transparent 0 88%, rgba(255,255,255,.07) 93%, rgba(255,255,255,.12) 100%),
+      linear-gradient(180deg, #3a3a3f 0%, #26262a 22%, #1f1f23 70%, #2b2b30 100%);
+    clip-path: polygon(0 18%, 2% 0, 3.5% 14%, 5% 2%, 88% 0, 97% 9%, 100% 34%, 99% 100%, 6% 97%, 4.5% 86%, 3% 100%, 1.5% 84%, 0 92%);
+    filter: drop-shadow(0 0.05em 0.04em rgba(0,0,0,.35));
+    transform: rotate(-2.6deg) skewX(-4deg); transform-origin: 30% 50%; }
+  /* A ponta dobrada: um triângulo de fita virado do avesso no canto de cima, à direita. */
+  .nomes s::before { content: ''; position: absolute; z-index: 1; right: -0.1em; top: 50%; width: 0.42em; height: 0.3em; margin-top: -0.21em;
+    background: linear-gradient(135deg, #47474d, #2c2c31 60%, #1c1c20);
+    clip-path: polygon(0 0, 100% 100%, 8% 100%);
+    filter: drop-shadow(-0.02em 0.04em 0.03em rgba(0,0,0,.5));
+    transform: rotate(-2.6deg); }
   /* Em memória: não usa o selo da bandeira. Texto solto, em itálico, com uma cruz na frente. */
   .nomes sup.memoria { padding: 0; border: 0; border-radius: 0; font-style: italic; font-weight: 600; letter-spacing: 0.02em; text-transform: lowercase; font-size: 1rem; }
   .nomes sup.memoria i { margin: 0 0.3em 0 0; font-size: 1.3em; font-weight: 700; font-style: normal; vertical-align: baseline; }

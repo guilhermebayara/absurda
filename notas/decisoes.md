@@ -181,3 +181,20 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   virou fita isolante, o preto não precisa ser absoluto. A fita usa grafite escuro, com sinais de mal
   colada (torta, pontas rasgadas, ruga, ponta dobrada). Continua discreta. Regra no CSS de
   `src/pages/sobre.astro` (`.nomes s`).
+
+- **2026-11-18, novo formato de trabalho (Gui), o mesmo do site de memórias da família.** A conversa é
+  a gestão (decisões, documentação, prompts, merge de PRs, branches); o código é feito em sessões do
+  Claude Code com letra no título, cada uma numa `tst-<assunto>` nascida da homologação, com PR sem
+  merge e relatório com a tabela "O quê | Onde ver". QA em `qa-AAAA-MM-DD`, também por PR.
+  Documentação vai direto para a homologação, não mais para a `main`. A lista do que falta construir
+  passa a ser "A construir", em `notas/a-fazer.md`. A homologação vai virar `homologa` (com os
+  tokens); até o Gui avisar, segue sendo a `design`. Por quê: decisões tomadas olhando a tela, uma
+  sessão por assunto e a produção recebendo só rodadas já conferidas. (CLAUDE.md, "Branches e
+  publicação", "Quem faz o quê" e "Sessões de código".)
+
+- **2026-11-18, briefs só para item grande (Gui).** Na lista "A construir", item pequeno fica inteiro
+  na própria lista; item grande (mais de uma sessão, conceito com parada ou muitas regras) ganha um
+  brief em `notas/briefs/`. Quando o item termina, as regras vão para o `CLAUDE.md` e o brief sai.
+  Mesmo critério do bayara.design. O brief do atalho de anos da Agenda saiu por isso: o item já foi
+  feito e a regra mora em "Barra presa não pode pular". (`notas/a-fazer.md`.)
+
