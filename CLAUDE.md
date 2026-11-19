@@ -147,11 +147,7 @@ olhar. Merge com squash pela API (`gh api -X PUT repos/guilhermebayara/absurda/p
 merge_method=squash`). PRs empilhados entram em ordem. Com conflito: trazer a `design` para a
 branch, juntar os dois lados, rodar build e conferências, fazer o push, esperar as conferências do
 GitHub e só então juntar. PR que entrou dentro de outro é fechado com um comentário dizendo em qual.
-Depois do merge, conferir se a prévia da `design` publicou e apagar as branches incorporadas. As
-sessões não conseguem apagar branch pelo git nem pela API: na página Branches do GitHub, no
-navegador embutido, um `fetch` com `method: 'DELETE'` para
-`/guilhermebayara/absurda/branches/<branch>` e o cabeçalho `GitHub-Verified-Fetch: true` apaga a
-branch. Branch que nunca foi incorporada só se apaga com pedido do Gui.
+Depois do merge, conferir se a prévia da `design` publicou. Quem apaga as branches incorporadas é o Gui: a conversa lista quais apagar e quando, e nem a sessão nem a conversa apagam branch. Branch que nunca foi incorporada só se apaga com pedido do Gui.
 
 ## Conferências do site
 
