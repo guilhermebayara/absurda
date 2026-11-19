@@ -717,9 +717,30 @@ const premios = [
   .legenda i { flex: none; width: 1em; height: 1em; border-radius: 50%; background: var(--destaque); }
   .nomes sup i { margin-right: 0.35em; font-style: normal; font-size: 1.25em; line-height: 0; vertical-align: -0.12em; }
   .nomes sup { margin: 0.2em 0 0 0.3em; padding: 0.2em 0.5em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; }
-  /* Riscado (Sharon Needles): uma barra preta grossa, levemente inclinada, como a barra do site cortando o nome. Preta sempre, em qualquer tema. */
+  /* Riscado (Sharon Needles): fita isolante colada com pressa por cima do nome. Cor de fita de verdade
+     (grafite escuro), discreta de propósito: sem cor nem padrão (decisões do Gui, 18 nov 2026).
+     São dois trechos da mesma fita: no meio ela grudou nela mesma, quem colou puxou de novo e seguiu
+     em outro ângulo. No encontro, a fita fica dobrada em camada dupla, amassada e mais estreita. As
+     pontas ficam rasgadas e tortas. */
   .nomes s { position: relative; text-decoration: none; }
-  .nomes s::after { content: ''; position: absolute; left: -0.06em; right: -0.06em; top: 50%; height: 0.17em; margin-top: -0.085em; background: #000; transform: rotate(-4deg); }
+  .nomes s::before, .nomes s::after { content: ''; position: absolute; top: 58%; height: 0.38em; margin-top: -0.19em; pointer-events: none; filter: drop-shadow(0 0.05em 0.04em rgba(0,0,0,.35)); }
+  /* Primeiro trecho: da esquerda até a dobra, descendo. */
+  .nomes s::after { left: -0.14em; width: 60%;
+    background:
+      linear-gradient(90deg, transparent 0 80%, rgba(255,255,255,.05) 86%, rgba(0,0,0,.4) 92%, rgba(255,255,255,.18) 95%, rgba(0,0,0,.5) 98%),
+      linear-gradient(101deg, transparent 0 38%, rgba(255,255,255,.12) 38.6%, rgba(0,0,0,.4) 39.6%, transparent 40.6%),
+      linear-gradient(180deg, #3a3a3f 0%, #26262a 22%, #1f1f23 70%, #2b2b30 100%);
+    clip-path: polygon(0 22%, 2.5% 0, 4% 16%, 6% 4%, 82% 0, 93% 14%, 100% 30%, 100% 74%, 92% 86%, 82% 100%, 7% 96%, 5% 84%, 3% 100%, 1.5% 82%, 0 94%);
+    transform: rotate(4deg); transform-origin: 0 50%; }
+  /* Segundo trecho: sai da dobra, por cima do primeiro, subindo, e a ponta final ficou levantada. */
+  .nomes s::before { z-index: 1; left: 50%; right: -0.2em;
+    background:
+      linear-gradient(90deg, rgba(0,0,0,.45) 0%, rgba(255,255,255,.2) 3%, rgba(0,0,0,.35) 6%, rgba(255,255,255,.08) 10%, transparent 16%),
+      linear-gradient(74deg, transparent 0 62%, rgba(255,255,255,.1) 62.6%, rgba(0,0,0,.4) 63.6%, transparent 64.6%),
+      linear-gradient(90deg, transparent 0 86%, rgba(255,255,255,.1) 100%),
+      linear-gradient(180deg, #3d3d42 0%, #28282c 22%, #202024 70%, #2c2c31 100%);
+    clip-path: polygon(0 12%, 6% 26%, 12% 6%, 90% 0, 94% 10%, 97% 0, 100% 20%, 98% 52%, 100% 78%, 96% 100%, 14% 94%, 7% 76%, 0 90%, 3% 54%);
+    transform: rotate(-5deg); transform-origin: 0 50%; }
   /* Em memória: não usa o selo da bandeira. Texto solto, em itálico, com uma cruz na frente. */
   .nomes sup.memoria { padding: 0; border: 0; border-radius: 0; font-style: italic; font-weight: 600; letter-spacing: 0.02em; text-transform: lowercase; font-size: 1rem; }
   .nomes sup.memoria i { margin: 0 0.3em 0 0; font-size: 1.3em; font-weight: 700; font-style: normal; vertical-align: baseline; }
