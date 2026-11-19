@@ -30,6 +30,12 @@ Como usar:
   - uma conferência nova falha se o build da `main` tiver algum evento de exemplo;
   - a página deixa claro que são de exemplo, sem atrapalhar o layout (por exemplo, no nome).
 
+- **WIG: página com as respostas do Rafa.** Decidido em 19 nov 2026. Elenco novo (Guta Leão com
+  adesivo "New Girl"; Ramon e Nalla como assistentes de backstage; frase do Rafa), sete projetos na
+  ordem do Rafa, datas completas do Brunch, do Tela Tuck e do CHRONUS, e apresentação em parágrafos.
+  O Gui quer a página o mais completa possível para a Charlotte ver; depois itera com ela. Brief em
+  `notas/briefs/wig-rafa.md`, fotos em `notas/briefs/wig-fotos/`.
+
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
 
@@ -38,10 +44,6 @@ oferece. Não acrescentar e-mail nem o pix do trio ao site.
 Estas perguntas estão na planilha "Pendências do site". Quando a
 resposta chegar lá, o item vira trabalho:
 
-- **Atrações: publicar a aba "Para o site" como CSV.** Na planilha "Atrações do site": Arquivo,
-  Compartilhar, Publicar na Web, escolher só a aba "Para o site" e o formato CSV. Passar o endereço
-  ao Claude Code. Ele vai para a variável `ATRACOES_CSV_URL` (`npm run atracoes`). Até lá o JSON foi gerado de um CSV exportado. Só essa aba é publicada: Fonte,
-  observação interna e a aba "Fora" ficam privadas.
 - **Agenda de 2022: pastas que ficaram de fora.** MOC, Prêmio, YOLO e Anda.
 - **Parcerias: o que ainda falta da planilha.** Pessoas por edição, seguidores, perfil do público,
   fotos dos casos, logos e o texto do "Vamos conversar" (junto com o e-mail, pausado).
@@ -52,8 +54,10 @@ resposta chegar lá, o item vira trabalho:
 
 ## Esperando outras pessoas
 
-- **WIG: material do Rafa.** Fotos de capa e dos projetos, datas das temporadas do CHRONUS em BH e da
-  Virada Cultural, textos da apresentação. Documento no Drive: `10_site/3_Projetos/wig/Página da WIG no
+- **WIG: o que falta do Rafa e da Charlotte.** O Rafa respondeu as partes 1, 2, 3 e quase toda a 5
+  (19 nov 2026). Faltam: fotos de capa e dos projetos, Arraiá das Piranhas (se entra, edições,
+  parceiros), edições com a @bsurda, eventos antes de 2023, e a leitura da Charlotte (crédito do
+  CHRONUS, "filha da patroa" para a Joanna, balé). Documento no Drive: `10_site/3_Projetos/wig/Página da WIG no
   site da @bsurda: o que precisamos de você`.
 - **WIG: crachás do balé.** Se a Charlotte quiser.
 - **WIG: próximos eventos na página.** Depende de a Charlotte liberar um acesso ao Shotgun dela.
