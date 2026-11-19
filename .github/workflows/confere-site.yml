@@ -27,6 +27,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      - name: Tipos e diagnósticos do Astro
+        run: npm run check
       - name: Gera o site
         run: npm run build
       # Depois do build, para incluir os temas das páginas de pessoa.
