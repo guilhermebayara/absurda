@@ -42,6 +42,12 @@ Como usar:
   build, quando a branch for `main` (ou a homologação), apaga `dist/exemplos/` e falha se o site
   montado tiver algum evento de exemplo. Sem mudar nada no painel da Cloudflare. Pacote pequeno.
 
+- **Capa dos exemplos só em 16:9 (Gui, 19 nov 2026, olhando a prévia da Sessão B).** Os eventos de
+  exemplo usam só capa 16:9; a de 3:4 sai (a imagem e o evento passam a 16:9). Defeito junto: a capa
+  3:4 distorcia o card. Confira os cards da Home e da Agenda com as capas reais que não são 16:9 (o
+  arquivo tem umas 8 em retrato e 6 quadradas): o card mantém a proporção dele e a capa é recortada,
+  nunca esticada. Se algum card real distorce, corrija e relate qual.
+
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
 
