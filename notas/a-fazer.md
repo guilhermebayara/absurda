@@ -18,26 +18,6 @@ Como usar:
 
 ## A construir
 
-- **Economizar minutos do GitHub Actions.** Pedido do Gui em 18 nov 2026. O repositório está
-  público até o lançamento (minutos de graça), mas volta a ser privado, e no privado o plano tem
-  2.000 minutos por mês: em novembro a conta chegou a 90% (somando o site da família). Deixe os
-  fluxos econômicos já agora, sem perder nenhuma conferência:
-  - `confere-site.yml` e `confere-arquivo.yml` rodam hoje em todo push de toda branch e de novo
-    no PR, então a mesma mudança roda duas vezes. Passam a rodar em `pull_request` para a `design`
-    e para a `main` e em `push` só na `design`.
-  - Push que só mexe em documentação (`notas/**`, `CLAUDE.md`, `README.md`) não roda as
-    conferências (`paths-ignore`). A conversa faz muitos commits só de documento na `design`.
-  - `concurrency` com `cancel-in-progress` por branch: push novo cancela a rodada antiga.
-  - Cache dos navegadores do Playwright (`~/.cache/ms-playwright`, com a versão do Playwright na
-    chave), para não baixar Chromium e WebKit a cada rodada.
-  - A guarda do histórico vira um passo do mesmo trabalho da conferência do site, em vez de um
-    trabalho à parte (cada trabalho conta no mínimo um minuto cheio).
-  - `timeout-minutes` em todo trabalho, para uma rodada travada não comer a cota.
-  - Não mexer em `atualiza-agenda.yml` nem em `alarme-arquivo.yml`: são curtos e guardam o
-    histórico.
-  No PR, diga quantos minutos uma rodada gastava antes e quanto gasta depois (aba Actions), e
-  atualize "Conferências do site" no `CLAUDE.md` com os gatilhos novos.
-
 - **Eventos futuros de exemplo nas prévias de teste.** Pedido do Gui em 18 nov 2026. As branches sem
   os tokens do Shotgun e do Sympla mostram só o histórico, então não dá para conferir Home e Agenda
   com evento futuro numa prévia de teste. Quando faltar o token do Shotgun e a branch não for a

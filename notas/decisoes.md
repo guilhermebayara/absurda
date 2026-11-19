@@ -205,3 +205,10 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   no histórico. Os segredos ficam na Cloudflare e no GitHub, que não os mostra. Junto, os fluxos
   ficam mais econômicos para quando voltar a ser privado. (`notas/a-fazer.md`.)
 
+
+- **2026-11-19, conferências do GitHub num trabalho só, em PR e na homologação (Gui, pedido de
+  18 nov).** A guarda do histórico virou o primeiro passo de `confere-site.yml` e o fluxo à parte
+  saiu. Roda no PR para a `design` ou a `main` e no push na `design`, nunca em mudança só de
+  documentação, com `concurrency`, cache dos navegadores do Playwright e `timeout-minutes`. Por quê:
+  cada mudança rodava duas vezes e cada fluxo cobrava no mínimo um minuto cheio; com o repositório
+  privado de novo, a cota de 2.000 minutos não fecha o mês. (CLAUDE.md, "Conferências do site".)

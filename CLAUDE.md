@@ -79,8 +79,8 @@ Branch de sessão, de teste e de QA nasce sempre da `design` já igualada.
   eventos novos que só existirem do outro lado.
 - A guarda `npm run confere:arquivo` compara o arquivo da cópia atual com o da `main` e
   falha se algum evento da `main` estiver faltando ou alterado, ou se uma capa tiver sido
-  apagada. Rode antes de levar qualquer coisa para a `main`. Ela também roda sozinha no
-  GitHub a cada push fora da `main`.
+  apagada. Rode antes de levar qualquer coisa para a `main`. No GitHub ela é o primeiro passo
+  das conferências do site (ver "Conferências do site", para quando rodam).
 - Mudança pedida de propósito: escreva a marca `[arquivo-editado]` na mensagem do commit,
   dizendo o que mudou e quem pediu. É a marca que as conferências do GitHub leem. Na
   máquina, `ARQUIVO_EDITADO=1 npm run confere:arquivo` faz o mesmo papel.
@@ -112,7 +112,7 @@ Branch de sessão, de teste e de QA nasce sempre da `design` já igualada.
 
 1. `git fetch origin main` e traga a `main` para a branch.
 2. `npm run check` (tipos e diagnósticos do Astro) sem erro e `npm run build` sem erro. O GitHub
-   roda os dois a cada push fora da `main`.
+   roda os dois no PR e na `design` (ver "Conferências do site").
 3. `npm run confere:arquivo` passando.
 4. `npm run confere:links`, `npm run confere:agenda`, `npm run confere:temas`,
    `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra`,
@@ -155,8 +155,20 @@ branch. Branch que nunca foi incorporada só se apaga com pedido do Gui.
 
 ## Conferências do site
 
-Além da guarda do histórico, oito conferências rodam na máquina e, sozinhas, no GitHub a cada
-push fora da `main` (`.github/workflows/confere-site.yml`). As oito rodam depois do build:
+Além da guarda do histórico, oito conferências rodam na máquina e, sozinhas, no GitHub. As oito
+rodam depois do build.
+
+**Quando rodam no GitHub (do Gui, 19 nov 2026, para economizar minutos):** tudo é um trabalho só,
+`.github/workflows/confere-site.yml`, com a guarda do histórico como primeiro passo, depois os
+tipos, o build e as oito. Roda no PR para a `design` ou para a `main` (a cada push na branch do
+PR) e no push na `design`. Não roda em push de `tst-...` ou `qa-...` sem PR aberto: a sessão confere
+na máquina antes do push, como sempre. Não roda quando a mudança é só de documentação
+(`notas/**`, `CLAUDE.md`, `README.md`). Push novo na mesma branch ou no mesmo PR cancela a rodada
+antiga. Os navegadores do Playwright ficam no cache, com a versão do Playwright na chave. Todo
+trabalho de fluxo tem `timeout-minutes`. A `main` continua com o próprio alarme
+(`alarme-arquivo.yml`), e `atualiza-agenda.yml` e `alarme-arquivo.yml` não entram nessa economia.
+Fluxo novo segue o mesmo modelo: um trabalho só, gatilho em PR e na homologação, `paths-ignore` de
+documentação, `concurrency` e `timeout-minutes`.
 
 - `npm run confere:links`: falha se algum link interno, âncora ou imagem do próprio site
   apontar para algo que não existe. Link externo não entra.
