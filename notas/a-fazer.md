@@ -18,8 +18,6 @@ Como usar:
 
 ## A construir
 
-(Nada a construir no momento.)
-
 - **WIG: página com as respostas do Rafa.** Decidido em 19 nov 2026. Elenco novo (Guta Leão com
   adesivo "New Girl"; Ramon e Nalla como assistentes de backstage; frase do Rafa), sete projetos na
   ordem do Rafa, datas completas do Brunch, do Tela Tuck e do CHRONUS, e apresentação em parágrafos.
