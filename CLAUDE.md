@@ -40,7 +40,7 @@ homologação: https://design-absurda.gbayara.workers.dev). A produção é http
 
 - **Conversa no claude.ai (projeto "Carreira") é a gestão.** O Gui discute, decide e vê resultados.
   A conversa coordena: registra decisões na documentação (commit direto na `design`), escreve os
-  prompts das sessões de código, junta os PRs e apaga as branches já incorporadas. Também cuida do
+  prompts das sessões de código e cuida dos PRs com conflito; o Gui junta os outros e apaga as branches. Também cuida do
   Drive, da planilha de pendências e de documentos para outras pessoas. Não escreve código do site.
 - **Código:** feito em sessões do Claude Code (ver "Sessões de código"). O Opus constrói. O Fable entra
   só em conceito visual, porque o limite dele é curto. Sessão grande só quando o Gui disser que há
@@ -142,9 +142,9 @@ Cada sessão do Claude Code recebe da conversa um prompt com uma letra no títul
   e o que não deu para conferir. Por último, a tabela "O quê | Onde ver", uma linha por assunto, com
   o endereço completo e clicável da prévia da branch (ver "Prévias").
 
-Depois da sessão, a conversa confere os PRs, registra as respostas do Gui e só junta depois que ele
-olhar. Merge com squash pela API (`gh api -X PUT repos/guilhermebayara/absurda/pulls/<n>/merge -f
-merge_method=squash`). PRs empilhados entram em ordem. Com conflito: trazer a `design` para a
+Depois da sessão, a conversa confere os PRs e registra as respostas do Gui. **Quem junta é o Gui
+(19 nov 2026):** PR sem conflito ele junta com squash e apaga a branch pelo botão do PR. PRs
+empilhados entram em ordem. A conversa só cuida do PR com conflito: trazer a `design` para a
 branch, juntar os dois lados, rodar build e conferências, fazer o push, esperar as conferências do
 GitHub e só então juntar. PR que entrou dentro de outro é fechado com um comentário dizendo em qual.
 Depois do merge, conferir se a prévia da `design` publicou. Quem apaga as branches incorporadas é o Gui: a conversa lista quais apagar e quando, e nem a sessão nem a conversa apagam branch. Branch que nunca foi incorporada só se apaga com pedido do Gui.

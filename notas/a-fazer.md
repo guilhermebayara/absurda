@@ -36,6 +36,12 @@ Como usar:
   O Gui quer a página o mais completa possível para a Charlotte ver; depois itera com ela. Brief em
   `notas/briefs/wig-rafa.md`, fotos em `notas/briefs/wig-fotos/`.
 
+- **Trava dos exemplos na `main`.** Decidido pelo Gui em 19 nov 2026, depois da Sessão B. Hoje o
+  código já deixa os exemplos de fora da `main`, mas a conferência só pega isso onde existe a
+  variável de branch, e as capas de `public/exemplos/` vão junto para a `main` sem uso. O próprio
+  build, quando a branch for `main` (ou a homologação), apaga `dist/exemplos/` e falha se o site
+  montado tiver algum evento de exemplo. Sem mudar nada no painel da Cloudflare. Pacote pequeno.
+
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
 
