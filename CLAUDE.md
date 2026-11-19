@@ -259,8 +259,11 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
 atracoes` a partir da planilha "Atrações do site" (Drive, `10_site/4_Sobre`), aba "Para o site",
 que o Ed revisa. O site nunca lê a planilha ao vivo: o script copia na `design`, o Gui confere na
 prévia e só então vai à `main`.
-- `ATRACOES_CSV_URL` guarda o endereço da aba publicada como CSV; `npm run atracoes -- --arquivo x.csv`
-  lê um arquivo. Se uma validação falhar, nada é escrito. O resumo diz quem entrou e quem saiu.
+- **Atualizar (do Gui, 19 nov 2026):** a aba não é publicada na web. Quando a planilha mudar, a
+  conversa lê a aba "Para o site" pelo Google conectado, exporta como CSV e roda `npm run atracoes --
+  --arquivo x.csv` numa `tst-atracoes-AAAA-MM-DD`, com PR para a `design`, como qualquer mudança. É
+  só dado: a conversa não mexe no código para isso. Se uma validação falhar, nada é escrito. O resumo
+  diz quem entrou e quem saiu. `ATRACOES_CSV_URL` continua aceito pelo script, mas não é usado.
 - Só linhas com Status "ok" chegam à aba "Para o site". A aba "Fora" é privada.
 - Colunas: Nome, Grupo, Ordem (só "Quem a gente trouxe"), Marca ou país, Marcação no site ("em
   memória" ou "riscado"). Sharon Needles só entra riscada; The Ladies não entra.

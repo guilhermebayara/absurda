@@ -218,3 +218,16 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   Cloudflare informar a branch do build (`WORKERS_CI_BRANCH` ou `CF_PAGES_BRANCH`), se ela não for
   `main`, `design` nem `homologa` e se faltar o token. Por quê: sem isso, Home e Agenda não se
   conferem com evento futuro numa prévia de teste. (CLAUDE.md, "Eventos de exemplo nas prévias".)
+
+- **2026-11-19, atrações sem link publicado (Gui).** A aba "Para o site" não vai ser publicada na
+  web. A conversa lê a planilha pelo Google conectado e gera o JSON numa branch de teste, com PR para
+  a `design`. Por quê: um passo a menos para o Gui e nenhum link público da planilha. Na leitura de
+  hoje, a planilha bate com o site (nenhum nome entrou nem saiu). (CLAUDE.md, "Atrações do Sobre".)
+
+- **2026-11-19, WIG com as respostas do Rafa (Gui).** A Guta Leão entra no casting com um adesivo
+  "New Girl" no crachá, no lugar da frase, até as fotos novas do elenco (2027), porque entrou agora e
+  a foto dela não é da sessão das outras. Ramon e Nalla entram como assistentes de backstage; o Rafa
+  ganha a frase "a tia das drags". WIG Party, WIGokê e Chá com Charlotte entram como projetos, na
+  ordem do Rafa, mesmo antes da Charlotte responder: o Gui quer que ela veja a página o mais completa
+  possível e itera depois. (`notas/briefs/wig-rafa.md`; ao terminar, CLAUDE.md, seção "WIG".)
+
