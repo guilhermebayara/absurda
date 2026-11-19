@@ -22,9 +22,8 @@ mudar, troque `design` por `homologa` neste arquivo, em `notas/` e nos fluxos de
 **Prévias:** cada branch tem a sua em `https://<branch>-absurda.gbayara.workers.dev` (a da
 homologação: https://design-absurda.gbayara.workers.dev). A produção é https://festaabsurda.com.
 
-- `design` mantém esse nome: é a única branch, além da `main`, com os tokens do Shotgun e do
-  Sympla configurados na Cloudflare. As branches de teste não têm os tokens, então a agenda delas
-  mostra só o histórico arquivado.
+- Só a `main` e a homologação têm os tokens do Shotgun e do Sympla configurados na Cloudflare. As
+  outras branches não têm, então a agenda delas mostra só o histórico arquivado.
 - Toda `tst-<assunto>` e toda `qa-...` nasce da `design` depois de trazer a `main` para ela (ver
   "Antes de começar qualquer rodada"). Assim a sessão encontra a documentação nova, que mora na
   `design`, e o que já foi juntado.
@@ -39,7 +38,6 @@ homologação: https://design-absurda.gbayara.workers.dev). A produção é http
 
 ## Quem faz o quê (do Gui, desde 16 nov 2026)
 
-- **Código do site:** feito majoritariamente pelo Claude Code.
 - **Conversa no claude.ai (projeto "Carreira") é a gestão.** O Gui discute, decide e vê resultados.
   A conversa coordena: registra decisões na documentação (commit direto na `design`), escreve os
   prompts das sessões de código, junta os PRs e apaga as branches já incorporadas. Também cuida do
@@ -62,10 +60,11 @@ que fica parada perde os eventos que passaram nesse tempo. Por isso, **antes de 
 
 ```
 git fetch origin main
-git checkout design && git merge origin/main      # ou: git checkout -b tst-x origin/main
+git checkout design && git merge origin/main
+git checkout -b tst-x                              # ou qa-AAAA-MM-DD
 ```
 
-Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
+Branch de sessão, de teste e de QA nasce sempre da `design` já igualada.
 
 ## Histórico de eventos: só acrescenta
 
