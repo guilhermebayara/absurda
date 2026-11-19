@@ -48,8 +48,8 @@ homologação: https://design-absurda.gbayara.workers.dev). A produção é http
   só em conceito visual, porque o limite dele é curto. Sessão grande só quando o Gui disser que há
   limite.
 - **A ponte é a documentação.** Tudo o que foi decidido e ainda não existe fica em "A construir", em
-  `notas/a-fazer.md`, com detalhe para uma sessão construir sem a conversa (ou um brief em
-  `notas/briefs/`). Toda decisão nova entra em `notas/decisoes.md` (data, o quê, por quê e onde a regra
+  `notas/a-fazer.md`, com detalhe para uma sessão construir sem a conversa. Item grande tem um brief à
+  parte em `notas/briefs/`; item pequeno fica inteiro na lista. Toda decisão nova entra em `notas/decisoes.md` (data, o quê, por quê e onde a regra
   mora; só se acrescenta). **Toda sessão do Claude Code lê os dois antes de começar.** Ao terminar um
   item, a sessão o tira de "A construir" no mesmo PR e escreve a regra na seção do assunto, aqui
   no CLAUDE.md.

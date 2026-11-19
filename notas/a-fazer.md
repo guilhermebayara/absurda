@@ -5,9 +5,13 @@ Ed podem dar (textos, fotos, datas) fica na planilha "Pendências do site", no D
 
 Como usar:
 
-- "A construir" é o que já foi decidido e ainda não existe. Cada item tem detalhe para uma sessão
-  construir sem a conversa, ou aponta um brief em `notas/briefs/`. A sessão só constrói os itens
-  nomeados no prompt dela.
+- "A construir" é o que já foi decidido e ainda não existe, com detalhe para uma sessão construir sem
+  a conversa. A sessão só constrói os itens nomeados no prompt dela.
+- **Item pequeno fica inteiro aqui. Item grande ganha um brief à parte em `notas/briefs/`** (decisão
+  do Gui, 18 nov 2026), e aqui fica só um parágrafo curto apontando para ele. Item grande é o que
+  pede mais de uma sessão, conceito com parada ou muitas regras novas. Quando o item termina, as
+  regras vão para o `CLAUDE.md` e o brief é apagado no mesmo PR (fica no histórico do git). Brief de
+  item engavetado fica guardado.
 - "Esperando" só anda quando a pessoa indicada responder.
 - Ao terminar um item, a sessão o apaga daqui no mesmo PR e escreve a regra na seção do assunto no
   `CLAUDE.md`. Se houve decisão, registra em `notas/decisoes.md`.

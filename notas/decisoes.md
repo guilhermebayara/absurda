@@ -192,3 +192,9 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   sessão por assunto e a produção recebendo só rodadas já conferidas. (CLAUDE.md, "Branches e
   publicação", "Quem faz o quê" e "Sessões de código".)
 
+- **2026-11-18, briefs só para item grande (Gui).** Na lista "A construir", item pequeno fica inteiro
+  na própria lista; item grande (mais de uma sessão, conceito com parada ou muitas regras) ganha um
+  brief em `notas/briefs/`. Quando o item termina, as regras vão para o `CLAUDE.md` e o brief sai.
+  Mesmo critério do bayara.design. O brief do atalho de anos da Agenda saiu por isso: o item já foi
+  feito e a regra mora em "Barra presa não pode pular". (`notas/a-fazer.md`.)
+
