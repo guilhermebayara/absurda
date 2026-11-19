@@ -67,6 +67,9 @@ resposta chegar lá, o item vira trabalho:
 
 ## Manutenção recorrente
 
+- **Depois do lançamento:** o Gui volta o repositório para privado (Settings, "Change
+  visibility"). Antes disso, confira se o item de economia de minutos já foi feito.
+
 - **Todo janeiro:** criar `10_site/2_Agenda/<ano novo>` no Drive.
 - **Sempre que o site ganhar projeto, pessoa, marca ou seção nova:** criar a pasta correspondente em
   `10_site` com o mesmo id e, se a estrutura mudar, atualizar o "00 Leia-me".

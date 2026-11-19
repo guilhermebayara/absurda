@@ -198,3 +198,17 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   Mesmo critério do bayara.design. O brief do atalho de anos da Agenda saiu por isso: o item já foi
   feito e a regra mora em "Barra presa não pode pular". (`notas/a-fazer.md`.)
 
+- **2026-11-18, repositório público até o lançamento (Gui).** A cota de 2.000 minutos do GitHub
+  Actions chegou a 90% no mês, e em repositório público os minutos são de graça. O site ainda não
+  foi divulgado, então o repositório fica público durante a parte pesada do trabalho e volta a
+  ser privado depois do lançamento. Varredura feita antes: nenhum token, senha ou e-mail privado
+  no histórico. Os segredos ficam na Cloudflare e no GitHub, que não os mostra. Junto, os fluxos
+  ficam mais econômicos para quando voltar a ser privado. (`notas/a-fazer.md`.)
+
+
+- **2026-11-19, conferências do GitHub num trabalho só, em PR e na homologação (Gui, pedido de
+  18 nov).** A guarda do histórico virou o primeiro passo de `confere-site.yml` e o fluxo à parte
+  saiu. Roda no PR para a `design` ou a `main` e no push na `design`, nunca em mudança só de
+  documentação, com `concurrency`, cache dos navegadores do Playwright e `timeout-minutes`. Por quê:
+  cada mudança rodava duas vezes e cada fluxo cobrava no mínimo um minuto cheio; com o repositório
+  privado de novo, a cota de 2.000 minutos não fecha o mês. (CLAUDE.md, "Conferências do site".)
