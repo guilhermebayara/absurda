@@ -10,34 +10,49 @@ bayara.design e do site da família:
 
 | Branch | Papel | Agenda ao vivo |
 | --- | --- | --- |
-| `main` | **Produção** (festaabsurda.com). Só recebe o que já passou pela homologação, com o ok do Gui. | Sim |
-| `design` | **Homologação.** Todo trabalho de código chega aqui antes de ir ao ar, e o Gui confere na prévia dela. | Sim |
-| `tst-<assunto>` | **Teste:** um experimento ou uma comparação de layout, com prévia própria. | Não |
+| `main` | **Produção** (festaabsurda.com). Recebe a homologação em rodadas, depois do QA, com o ok do Gui. | Sim |
+| `design` | **Homologação.** Todo trabalho chega aqui por PR antes de ir ao ar, e o Gui confere na prévia dela. A documentação vai direto para cá. | Sim |
+| `tst-<assunto>` | **Trabalho e teste:** a branch de cada sessão de código, ou um experimento, com prévia própria e PR para a `design`. | Não |
+| `qa-AAAA-MM-DD` | **QA:** a branch de uma sessão de QA, com PR para a `design`. | Não |
+
+**A homologação vai mudar de nome (Gui, 18 nov 2026):** o Gui vai criar a `homologa`, com os tokens,
+e aposentar a `design`. Até ele avisar que fez, a homologação continua sendo a `design`. Quando
+mudar, troque `design` por `homologa` neste arquivo, em `notas/` e nos fluxos de `.github/workflows/`.
+
+**Prévias:** cada branch tem a sua em `https://<branch>-absurda.gbayara.workers.dev` (a da
+homologação: https://design-absurda.gbayara.workers.dev). A produção é https://festaabsurda.com.
 
 - `design` mantém esse nome: é a única branch, além da `main`, com os tokens do Shotgun e do
   Sympla configurados na Cloudflare. As branches de teste não têm os tokens, então a agenda delas
   mostra só o histórico arquivado.
-- Uma `tst-<assunto>` nasce da `main` atualizada (ou da `design` já igualada), vai para a `design`
-  quando o Gui aprovar a ideia e é apagada depois, ou é descartada. Branches abertas antes desta
-  regra com o prefixo `teste-` seguem com o nome que têm até acabarem.
-- Caminho de uma mudança de código: `tst-<assunto>` (quando for experimento) → `design` →
-  conferência do Gui na prévia da `design` → `main` por fast-forward da `design`. Nunca force um push.
-- **Mudança só de documentação ou de regras de trabalho** (`CLAUDE.md`, `notas/`) pode ir direto
-  para a `main`, para toda sessão nova já encontrar. Depois, traga a `main` para a `design`.
+- Toda `tst-<assunto>` e toda `qa-...` nasce da `design` depois de trazer a `main` para ela (ver
+  "Antes de começar qualquer rodada"). Assim a sessão encontra a documentação nova, que mora na
+  `design`, e o que já foi juntado.
+- Caminho de uma mudança de código: `tst-<assunto>` → PR para a `design`, sem merge → o Gui olha a
+  prévia da branch → a conversa junta o PR com squash → QA → `main` por fast-forward da `design`, em
+  rodadas, com o ok do Gui. Nunca force um push.
+- **Mudança só de documentação ou de regras de trabalho** (`CLAUDE.md`, `notas/`) vai direto para a
+  `design`. Chega à `main` na rodada seguinte.
 - O robô do histórico continua escrevendo direto na `main` (ver "Histórico de eventos").
+- Hoje o site ainda não foi divulgado e poderia ir direto para a `main`, mas o Gui quer o fluxo de
+  homologação desde já.
 
 ## Quem faz o quê (do Gui, desde 16 nov 2026)
 
 - **Código do site:** feito majoritariamente pelo Claude Code.
-- **Conversa no claude.ai (projeto "Carreira"):** discussão, ideias, estrutura, documentação do
-  repositório (`CLAUDE.md`, `notas/`), Drive, planilha de pendências e documentos para outras
-  pessoas. A documentação é commitada por lá direto na `main` e trazida para a `design`.
-- **Explorar conceitos:** a conversa pode abrir branches `tst-<assunto>` para testar ideias de
-  layout ou de código. Não leva código para a `design` nem para a `main`, a menos que o Gui peça.
-- **Decisões e lista de trabalho:** toda decisão nova entra em `notas/decisoes.md` (data, o quê, por
-  quê e onde a regra mora; só se acrescenta). O que falta construir fica em `notas/a-fazer.md`.
-  **Toda sessão do Claude Code lê os dois antes de começar.** Ao terminar um item, apague-o do
-  `a-fazer.md` no mesmo commit e, se houve decisão, registre-a em `decisoes.md`.
+- **Conversa no claude.ai (projeto "Carreira") é a gestão.** O Gui discute, decide e vê resultados.
+  A conversa coordena: registra decisões na documentação (commit direto na `design`), escreve os
+  prompts das sessões de código, junta os PRs e apaga as branches já incorporadas. Também cuida do
+  Drive, da planilha de pendências e de documentos para outras pessoas. Não escreve código do site.
+- **Código:** feito em sessões do Claude Code (ver "Sessões de código"). O Opus constrói. O Fable entra
+  só em conceito visual, porque o limite dele é curto. Sessão grande só quando o Gui disser que há
+  limite.
+- **A ponte é a documentação.** Tudo o que foi decidido e ainda não existe fica em "A construir", em
+  `notas/a-fazer.md`, com detalhe para uma sessão construir sem a conversa (ou um brief em
+  `notas/briefs/`). Toda decisão nova entra em `notas/decisoes.md` (data, o quê, por quê e onde a regra
+  mora; só se acrescenta). **Toda sessão do Claude Code lê os dois antes de começar.** Ao terminar um
+  item, a sessão o tira de "A construir" no mesmo PR e escreve a regra na seção do assunto, aqui
+  no CLAUDE.md.
 
 ## Antes de começar qualquer rodada: igualar a agenda
 
@@ -103,8 +118,40 @@ Branch de teste nasce sempre da `main` atualizada (ou da `design` já igualada).
    `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra`,
    `npm run confere:pilha` e `npm run confere:atracoes` passando (ver
    "Conferências do site").
-5. Código: só com o ok do Gui na prévia da `design`. Então `main`, por fast-forward da `design`.
-   A publicação na Cloudflare sai sozinha a cada push.
+5. Só em rodadas, depois do QA, com o ok do Gui na prévia da `design`. Então `main`, por
+   fast-forward da `design`. A publicação na Cloudflare sai sozinha a cada push.
+
+## Sessões de código
+
+Cada sessão do Claude Code recebe da conversa um prompt com uma letra no título ("Sessão A:
+...", "Sessão B: ..."). Regras de toda sessão:
+
+- Ler este arquivo, `notas/decisoes.md` e `notas/a-fazer.md` antes de começar.
+- Trazer a `main` para a `design` e nascer dela, numa `tst-<assunto>`.
+- Construir só os itens de "A construir" nomeados no prompt.
+- Antes de cada push: `npm run build` e as conferências de "Levar para a `main`".
+- Abrir PR para a `design` e **não fazer o merge**. Quando os PRs forem empilhados (um nascido do
+  outro), dizer a ordem de juntar.
+- **Redesenho grande é conceito primeiro, com parada:** duas propostas numa branch de teste, e a
+  sessão espera a escolha do Gui antes de construir.
+- **Quando o prompt diz que o Gui não está** (dormindo ou fora), a sessão escolhe o caminho mais
+  simples dentro das regras e relata a alternativa.
+- Só a `main` e a homologação têm os tokens do Shotgun e do Sympla. Se algo só se confere com
+  evento futuro e a prévia da branch não mostra, a sessão diz isso na linha da tabela.
+- Terminar com o relatório: o que foi feito, os PRs (com a ordem), o que ficou para o Gui decidir
+  e o que não deu para conferir. Por último, a tabela "O quê | Onde ver", uma linha por assunto, com
+  o endereço completo e clicável da prévia da branch (ver "Prévias").
+
+Depois da sessão, a conversa confere os PRs, registra as respostas do Gui e só junta depois que ele
+olhar. Merge com squash pela API (`gh api -X PUT repos/guilhermebayara/absurda/pulls/<n>/merge -f
+merge_method=squash`). PRs empilhados entram em ordem. Com conflito: trazer a `design` para a
+branch, juntar os dois lados, rodar build e conferências, fazer o push, esperar as conferências do
+GitHub e só então juntar. PR que entrou dentro de outro é fechado com um comentário dizendo em qual.
+Depois do merge, conferir se a prévia da `design` publicou e apagar as branches incorporadas. As
+sessões não conseguem apagar branch pelo git nem pela API: na página Branches do GitHub, no
+navegador embutido, um `fetch` com `method: 'DELETE'` para
+`/guilhermebayara/absurda/branches/<branch>` e o cabeçalho `GitHub-Verified-Fetch: true` apaga a
+branch. Branch que nunca foi incorporada só se apaga com pedido do Gui.
 
 ## Conferências do site
 
@@ -241,9 +288,10 @@ inteiras; esta seção diz o que muda quando o trabalho é QA.
 
 ### Onde a sessão trabalha
 
-Correção vai para a `design` (homologação), com mensagem de commit começando com `QA:`. Correção
-grande ou arriscada vai para uma branch `qa-<assunto>`, nascida da `main` atualizada. A sessão de QA
-**nunca commita nem publica na `main`**: a `design` vai para a `main` com a aprovação do Gui.
+A sessão trabalha numa branch `qa-AAAA-MM-DD`, nascida da `design` depois de trazer a `main`, e
+abre PR para a `design` sem fazer o merge. Correção grande ou arriscada vai numa `qa-<assunto>`
+separada, com PR próprio. A sessão de QA **nunca commita nem publica na `design` nem na `main`**:
+a conversa junta o PR depois que o Gui olhar, e a `design` vai para a `main` com a aprovação dele.
 
 Outra sessão pode estar publicando ao mesmo tempo. Traga a `main` de
 novo antes de cada push e nunca force um push. Se o push for recusado, traga a `main`,
@@ -276,6 +324,7 @@ Toda sessão de QA termina com um relatório curto, nesta ordem:
 3. O que foi encontrado e ficou para o Gui decidir.
 4. O que não deu para conferir, e por quê (por exemplo, Safari no iPhone, que só se
    verifica no aparelho).
+5. A tabela "O quê | Onde ver" (ver "Sessões de código").
 
 ### Achado vira conferência
 

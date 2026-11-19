@@ -181,3 +181,14 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   virou fita isolante, o preto não precisa ser absoluto. A fita usa grafite escuro, com sinais de mal
   colada (torta, pontas rasgadas, ruga, ponta dobrada). Continua discreta. Regra no CSS de
   `src/pages/sobre.astro` (`.nomes s`).
+
+- **2026-11-18, novo formato de trabalho (Gui), o mesmo do site de memórias da família.** A conversa é
+  a gestão (decisões, documentação, prompts, merge de PRs, branches); o código é feito em sessões do
+  Claude Code com letra no título, cada uma numa `tst-<assunto>` nascida da homologação, com PR sem
+  merge e relatório com a tabela "O quê | Onde ver". QA em `qa-AAAA-MM-DD`, também por PR.
+  Documentação vai direto para a homologação, não mais para a `main`. A lista do que falta construir
+  passa a ser "A construir", em `notas/a-fazer.md`. A homologação vai virar `homologa` (com os
+  tokens); até o Gui avisar, segue sendo a `design`. Por quê: decisões tomadas olhando a tela, uma
+  sessão por assunto e a produção recebendo só rodadas já conferidas. (CLAUDE.md, "Branches e
+  publicação", "Quem faz o quê" e "Sessões de código".)
+
