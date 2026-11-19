@@ -6,7 +6,7 @@ import { getEventos } from '../lib/eventos';
 export async function GET() {
   const { passados } = await getEventos();
   const pendentes = passados
-    .filter((e) => e.nomeBruto && (e.origem === 'shotgun' || e.origem === 'sympla'))
+    .filter((e) => !e.exemplo && e.nomeBruto && (e.origem === 'shotgun' || e.origem === 'sympla'))
     .map((e) => ({ id: e.id, nome: e.nomeBruto, data: e.data, url: e.url, origem: e.origem, local: e.local, capa: e.capa }));
   return new Response(JSON.stringify(pendentes, null, 2), { headers: { 'Content-Type': 'application/json' } });
 }

@@ -213,6 +213,12 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   cada mudança rodava duas vezes e cada fluxo cobrava no mínimo um minuto cheio; com o repositório
   privado de novo, a cota de 2.000 minutos não fecha o mês. (CLAUDE.md, "Conferências do site".)
 
+- **2026-11-19, eventos de exemplo nas prévias de teste (Gui, pedido de 18 nov).** Branch de teste
+  sem o token do Shotgun mostra cinco eventos de exemplo, com "(exemplo)" no nome. Só entram se a
+  Cloudflare informar a branch do build (`WORKERS_CI_BRANCH` ou `CF_PAGES_BRANCH`), se ela não for
+  `main`, `design` nem `homologa` e se faltar o token. Por quê: sem isso, Home e Agenda não se
+  conferem com evento futuro numa prévia de teste. (CLAUDE.md, "Eventos de exemplo nas prévias".)
+
 - **2026-11-19, atrações sem link publicado (Gui).** A aba "Para o site" não vai ser publicada na
   web. A conversa lê a planilha pelo Google conectado e gera o JSON numa branch de teste, com PR para
   a `design`. Por quê: um passo a menos para o Gui e nenhum link público da planilha. Na leitura de

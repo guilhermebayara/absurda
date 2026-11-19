@@ -3,6 +3,7 @@ import locais from '../data/locais.json';
 import historico from '../data/sympla-historico.json';
 import flickr from '../data/flickr-historico.json';
 import arquivo from '../data/arquivo.json';
+import exemplos from '../data/eventos-exemplo.json';
 import parada from '../data/parada.json';
 import { TEMAS_DO_SITE, temaPara, type Tema } from './temas';
 import { temaDaImagem, malhaDaImagem, type Malha } from './paleta';
@@ -40,6 +41,8 @@ export interface Evento {
   lives?: boolean;
   // Só o dia é conhecido; a hora é um palpite e não deve ser usada para comparar.
   soDia?: boolean;
+  // Evento de exemplo das prévias de teste (src/data/eventos-exemplo.json). Nunca existe na main.
+  exemplo?: boolean;
   // Ainda depende de uma plataforma (veio dela agora, ou da cópia estática do histórico do
   // Sympla) e não está no arquivo do site. Guarda o nome como a plataforma mandou, para o
   // arquivo poder refazer a limpeza no futuro.
@@ -492,6 +495,42 @@ async function fonteManual(): Promise<Evento[]> {
   );
 }
 
+// ---------- Exemplos das prévias de teste ----------
+// As branches de teste não têm os tokens do Shotgun e do Sympla e, sem eles, a Agenda mostra só o
+// histórico. Para conferir Home e Agenda com evento futuro, a prévia ganha uns poucos eventos de
+// exemplo (src/data/eventos-exemplo.json), com datas contadas a partir do dia do build.
+// Só entram quando TODAS as condições valem: a Cloudflare informou a branch do build, ela não é a
+// produção nem a homologação e falta o token do Shotgun. Sem a variável de branch, nada de exemplo.
+// Cada exemplo tem um link próprio (com #id no fim), senão o semRepetidos tira todos menos um.
+// Não passam pelo arquivo do histórico (arquivo-pendente.json só lê eventos com `nomeBruto`).
+export const BRANCHES_SEM_EXEMPLO = ['main', 'design', 'homologa'];
+export const branchDoBuild = () => env('WORKERS_CI_BRANCH') || env('CF_PAGES_BRANCH') || undefined;
+export function usaExemplos() {
+  const branch = branchDoBuild();
+  if (!branch || BRANCHES_SEM_EXEMPLO.includes(branch)) return false;
+  return !env('SHOTGUN_TOKEN');
+}
+async function fonteExemplo(): Promise<Evento[]> {
+  if (!usaExemplos()) {
+    estado.exemplos = { ligado: false };
+    return [];
+  }
+  const agora = Date.now();
+  const HORA = 3600 * 1000;
+  type Modelo = { id: string; nome: string; comecaEmHoras: number; duracaoHoras: number; local: string; url: string; origem: 'shotgun' | 'sympla'; capa?: string };
+  const lista = await Promise.all(
+    (exemplos as Modelo[]).map(async (m, i): Promise<Evento> => {
+      const inicio = agora + m.comecaEmHoras * HORA;
+      const base = { id: m.id, nome: m.nome, data: new Date(inicio).toISOString(), fim: new Date(inicio + m.duracaoHoras * HORA).toISOString(), local: m.local, url: m.url, origem: m.origem, exemplo: true };
+      if (!m.capa) return { ...base, tema: TEMAS_DO_SITE[i % TEMAS_DO_SITE.length] };
+      const lido = await lerCapa(m.capa, m.id);
+      return { ...base, capa: m.capa, proporcao: lido.proporcao, tema: lido.tema, malha: lido.malha };
+    }),
+  );
+  estado.exemplos = { ligado: true, branch: branchDoBuild(), total: lista.length };
+  return lista;
+}
+
 // Evento -> número da edição da Parada de que fez parte.
 const daParada = new Map<string, number>(parada.edicoes.flatMap((ed) => ed.eventos.map((id) => [id, ed.numero] as [string, number])));
 
@@ -500,7 +539,7 @@ let guardado: Promise<{ proximos: Evento[]; passados: Evento[] }> | null = null;
 // Busca uma vez só por geração do site, mesmo que várias páginas peçam.
 export function getEventos() {
   guardado ??= (async () => {
-    const [shotgun, sympla, antigos, manual, albuns, guardados] = await Promise.all([fonteShotgun(), fonteSympla(), fonteHistorico(), fonteManual(), fonteFlickr(), fonteArquivo()]);
+    const [shotgun, sympla, antigos, manual, albuns, guardados, exemplo] = await Promise.all([fonteShotgun(), fonteSympla(), fonteHistorico(), fonteManual(), fonteFlickr(), fonteArquivo(), fonteExemplo()]);
     // Os eventos de marcação só aparecem enquanto nenhuma plataforma devolve eventos de verdade.
     // O que já está no arquivo vem antes do que as plataformas mandam agora: para um
     // evento passado, vale a cópia guardada.
@@ -513,7 +552,7 @@ export function getEventos() {
     // Os cadastrados à mão vêm primeiro: quando o mesmo evento também chega por uma
     // plataforma (como o Halloween de 2025, criado no Sympla e vendido em outro site),
     // vale a versão manual.
-    const todos = [...manual.filter((e) => !ehMarcacao(e)), ...albuns, ...reais, ...(reais.length === 0 ? marcacao : [])];
+    const todos = [...manual.filter((e) => !ehMarcacao(e)), ...albuns, ...reais, ...exemplo, ...(reais.length === 0 ? marcacao : [])];
     // Tira repetidos (mesmo evento vindo de duas fontes) e ordena por data.
     // Eventos anunciados como adiados ficam fora: a data nova aparece como outro evento.
     const unicos = semRepetidos(todos.filter((e) => !/\badiad[oa]\b/i.test(e.nome) && !FORA_DA_AGENDA.includes(e.id))).map((e) => (!e.local && naQuarentena(e) ? { ...e, local: 'Online' } : e))

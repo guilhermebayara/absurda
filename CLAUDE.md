@@ -116,7 +116,7 @@ Branch de sessão, de teste e de QA nasce sempre da `design` já igualada.
 3. `npm run confere:arquivo` passando.
 4. `npm run confere:links`, `npm run confere:agenda`, `npm run confere:temas`,
    `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra`,
-   `npm run confere:pilha` e `npm run confere:atracoes` passando (ver
+   `npm run confere:pilha`, `npm run confere:atracoes` e `npm run confere:exemplos` passando (ver
    "Conferências do site").
 5. Só em rodadas, depois do QA, com o ok do Gui na prévia da `design`. Então `main`, por
    fast-forward da `design`. A publicação na Cloudflare sai sozinha a cada push.
@@ -151,7 +151,7 @@ Depois do merge, conferir se a prévia da `design` publicou. Quem apaga as branc
 
 ## Conferências do site
 
-Além da guarda do histórico, oito conferências rodam na máquina e, sozinhas, no GitHub. As oito
+Além da guarda do histórico, nove conferências rodam na máquina e, sozinhas, no GitHub. As nove
 rodam depois do build.
 
 **Quando rodam no GitHub (do Gui, 19 nov 2026, para economizar minutos):** tudo é um trabalho só,
@@ -197,6 +197,9 @@ documentação, `concurrency` e `timeout-minutes`.
   ficar por cima, inteira abaixo do relógio e com o texto dentro, se as de baixo não forem
   simplificadas (sem texto, foto pequena), se houver polaroide visível fora da tela, se houver
   `sticky` ou `fixed`, ou se, com movimento reduzido, a pilha não virar lista simples.
+
+- `npm run confere:exemplos`: falha se a `main` ou a homologação tiverem evento de exemplo (ver
+  "Eventos de exemplo nas prévias de teste").
 
 - `npm run confere:atracoes`: falha se algum nome de `src/data/atracoes.json` não aparecer na página
   Sobre montada, ou se faltar a marca "riscado" ou "em memória" de quem a tem.
@@ -266,6 +269,25 @@ prévia e só então vai à `main`.
   memória" ou "riscado"). Sharon Needles só entra riscada; The Ladies não entra.
 - A equipe entra na cena sozinha pela coleção `pessoas`; não vai na planilha.
 - Não ponha nome à mão em `sobre.astro` nem em `historia.ts`. Detalhe em `notas/briefs/atracoes.md`.
+
+## Eventos de exemplo nas prévias de teste (do Gui, 18 nov 2026)
+
+Prévia de `tst-...` ou `qa-...` não tem o token do Shotgun e só mostra o histórico. Para conferir Home
+e Agenda com evento futuro, `src/lib/eventos.ts` (`fonteExemplo`) acrescenta os eventos de
+`src/data/eventos-exemplo.json`: dois próximos (capa 3:4 e capa 16:9), um acontecendo agora, um da
+Sympla e um de nome longo. As datas saem do dia do build (`comecaEmHoras` e `duracaoHoras`).
+- Só entram quando a Cloudflare informa a branch do build (`WORKERS_CI_BRANCH` ou `CF_PAGES_BRANCH`),
+  ela não é `main`, `design` nem `homologa` (lista `BRANCHES_SEM_EXEMPLO`) e falta o `SHOTGUN_TOKEN`.
+  Sem a variável de branch, nada de exemplo. Se a homologação mudar de nome, ponha o nome novo na lista.
+- O nome termina em "(exemplo)", para a página dizer que é de exemplo sem mexer no layout. Cada
+  exemplo tem link próprio (`#id`), senão `semRepetidos` tira todos menos um. As capas ficam em
+  `public/exemplos/`.
+- Não vão para o histórico: `arquivo-pendente.json` ignora `exemplo: true` e não têm `nomeBruto`.
+- `npm run confere:exemplos` falha se o build da `main`, da homologação (ou qualquer build com
+  `--producao`) tiver evento de exemplo, se o build não tiver variável de branch e mesmo assim tiver
+  exemplo, ou se o arquivo do histórico guardar um. Roda depois do build, também no GitHub.
+- Teste local: `WORKERS_CI_BRANCH=tst-x npm run build`. Item novo de exemplo: acrescente em
+  `src/data/eventos-exemplo.json`, sempre com "(exemplo)" no nome.
 
 ## Pasta do site no Drive (do Gui)
 
