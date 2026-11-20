@@ -18,6 +18,12 @@ Como usar:
 
 ## A construir
 
+- **Enxugar o GitHub Actions antes do repositório voltar a ser privado (depois de 10/12).** Decidido
+  pelo Gui em 20 nov 2026. No privado, o plano gratuito tem cota mensal de Actions (2.000 minutos) e
+  não protege branches. Princípio: a Cloudflare já faz o build de cada push com cota própria; o que
+  precisa travar a publicação roda no build dela, e o GitHub não repete. Detalhe em
+  `notas/briefs/actions.md`.
+
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
 

@@ -275,3 +275,11 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   botão criou na `main` um commit que a `design` não tinha (PR #10), e o GitHub passou a acusar
   conflito sem diferença de conteúdo. (CLAUDE.md, "Sessões de código".)
 
+- **2026-11-20, GitHub Actions enxuto (Gui).** Testes rápidos e guarda da produção vão para o build
+  da Cloudflare, que já bloqueia a publicação. Testes de navegador saem dos PRs e rodam por disparo
+  manual na `design`, pela conversa, antes de cada rodada para a `main`. O alarme do histórico fica.
+  O robô da agenda vira um trabalho só e cai para duas rodadas por dia (6h17 e 18h17). Por quê: o
+  repositório volta a ser privado depois de 10/12 e o plano gratuito tem cota de minutos; a
+  estimativa cai de 700 a 800 minutos por mês para 100 a 150. (`notas/briefs/actions.md`; ao
+  terminar, CLAUDE.md, "Conferências do site".)
+
