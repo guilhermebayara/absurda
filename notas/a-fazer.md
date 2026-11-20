@@ -41,6 +41,8 @@ resposta chegar lá, o item vira trabalho:
   parceiros), edições com a @bsurda, eventos antes de 2023, e a leitura da Charlotte (crédito do
   CHRONUS, "filha da patroa" para a Joanna, balé). Documento no Drive: `10_site/3_Projetos/wig/Página da WIG no
   site da @bsurda: o que precisamos de você`.
+- **WIG: fotos novas do elenco (2027).** Quando chegarem, tirar o adesivo "New Girl" da Guta (campo
+  `adesivo` em `src/data/wig.json`) e rever o crédito das fotos.
 - **WIG: crachás do balé.** Se a Charlotte quiser.
 - **WIG: próximos eventos na página.** Depende de a Charlotte liberar um acesso ao Shotgun dela.
 - **Agenda: sessão no painel do Sympla.** Com o Ed logado, para conferir eventos que a página pública

@@ -1,5 +1,5 @@
 {
-  "_": "Elenco da WIG. Nome, epíteto e foto vêm dos posts oficiais de apresentação do casting (fotos de @jonas__dias, retoques de @iagorci). Só a Charlotte tem página no site; as demais levam ao Instagram. Guta, Ramon e Nalla entraram depois, com fotos de outra fonte (`foraDaSessao`): o crédito da sessão não vale para elas. `adesivo` cola um adesivo no crachá (a Guta leva o \"New Girl\" até as fotos novas do elenco, em 2027). `funcao` é a linha de função abaixo do nome.",
+  "_": "Elenco da WIG. Nome, epíteto e foto vêm dos posts oficiais de apresentação do casting (fotos de @jonas__dias, retoques de @iagorci). Só a Charlotte tem página no site; as demais levam ao Instagram. Guta, Ramon e Nalla entraram depois, com fotos de outra fonte (`foraDaSessao`): o crédito da sessão não vale para elas. `adesivo` cola um adesivo no crachá (a Guta leva o \"New Girl\" no lugar da frase dela até as fotos novas do elenco, em 2027). `rotulo` troca o rótulo do topo do crachá (padrão do papel). A linha abaixo do nome é só a frase (`epiteto`) ou o adesivo.",
   "creditos": {
     "foto": "@jonas__dias",
     "retoques": "@iagorci"
@@ -101,23 +101,24 @@
     {
       "id": "ramon",
       "nome": "Ramon",
-      "funcao": "Assistente de backstage",
       "instagram": "https://www.instagram.com/ramon4lmeida/",
       "foto": "/projetos/wig/ramon.jpg",
       "grupo": "producao",
       "papel": "bastidores",
-      "foraDaSessao": true
+      "foraDaSessao": true,
+      "epiteto": "pé no palco",
+      "rotulo": "assist. produção"
     },
     {
       "id": "nalla",
       "nome": "Nalla",
       "epiteto": "dama de vermelho",
-      "funcao": "Assistente de backstage",
       "instagram": "https://www.instagram.com/mechamamdenalla/",
       "foto": "/projetos/wig/nalla.jpg",
       "grupo": "producao",
       "papel": "bastidores",
-      "foraDaSessao": true
+      "foraDaSessao": true,
+      "rotulo": "assist. produção"
     }
   ]
 }

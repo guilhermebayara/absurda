@@ -12,23 +12,24 @@ interface Props {
   nome: string;
   // Linha abaixo do nome: o epíteto do post de apresentação, entre aspas angulares, ou uma função.
   epiteto?: string;
-  funcao?: string;
   foto: string;
   href?: string;
   externo?: boolean;
   // Como na @bsurda, o material muda com o papel: casting (as WIGurls) vem na superfície invertida;
   // bastidores (produção) na cor viva do tema; direção (a patroa) é a única dourada.
   papel?: 'casting' | 'bastidores' | 'direcao';
+  // Rótulo do topo, quando não é o padrão do papel (ex.: "assist. produção").
+  rotulo?: string;
   selo?: string;
-  // Adesivo colado no canto da foto (ex.: "New Girl"), vindo de `adesivo` em src/data/wig.json.
+  // Adesivo no lugar da frase (ex.: "New Girl"), vindo de `adesivo` em src/data/wig.json.
   adesivo?: string;
   class?: string;
 }
-const { id, nome, epiteto, funcao, foto, href, externo = false, papel = 'casting', selo, adesivo, class: classe } = Astro.props;
+const { id, nome, epiteto, foto, href, externo = false, papel = 'casting', rotulo: rotuloDado, selo, adesivo, class: classe } = Astro.props;
 const letra = (letras as Record<string, { d: string; w: number; h: number } | string>)[id];
 const curva = typeof letra === 'object' ? letra : undefined;
-const rotulo = papel === 'bastidores' ? 'Produção' : 'WIGurl';
-const pe = { casting: 'Casting', bastidores: 'Bastidores', direcao: 'Direção' }[papel];
+const rotulo = rotuloDado ?? (papel === 'bastidores' ? 'Produção' : 'WIGurl');
+const pe = { casting: 'Casting', bastidores: 'Backstage', direcao: 'Direção' }[papel];
 const Marca = href ? 'a' : 'span';
 const FAISCA = "M9.126 23.02C6.55266 24.95 3.52899 26.9443 0.0549927 29.003C3.40033 30.933 6.29533 32.7986 8.74 34.6C11.3133 36.4013 13.6293 38.3313 15.688 40.3899C17.7467 42.4486 19.6123 44.7003 21.285 47.1449C23.0863 49.7183 24.952 52.6776 26.882 56.0229C28.9407 52.5489 30.935 49.4609 32.865 46.7589C34.795 44.1856 36.8537 41.8053 39.041 39.6179C41.2283 37.4306 43.6087 35.372 46.182 33.442C48.884 31.512 51.972 29.5176 55.446 27.459C52.1007 25.529 49.1413 23.6633 46.568 21.862C44.1233 20.0606 41.8717 18.1306 39.813 16.072C37.7543 14.0133 35.8243 11.6973 34.023 9.12397C32.3503 6.67931 30.549 3.7843 28.619 0.438965C26.5603 3.91296 24.566 6.93663 22.636 9.50996C20.706 12.212 18.6473 14.6566 16.46 16.844C14.2727 19.0313 11.828 21.09 9.126 23.02Z";
 ---
@@ -36,7 +37,7 @@ const FAISCA = "M9.126 23.02C6.55266 24.95 3.52899 26.9443 0.0549927 29.003C3.40
   <span class="cw-face">
     <span class="cw-furo" aria-hidden="true"></span>
     <span class="cw-topo"><WigW class="cw-marca" /><span>{rotulo}</span></span>
-    <span class="cw-retrato"><img src={foto} alt="" loading="lazy" decoding="async" />{adesivo && <span class="cw-adesivo" aria-hidden="true"><svg viewBox="0 0 56 57" fill="currentColor"><path d={FAISCA} /></svg>{adesivo}</span>}</span>
+    <span class="cw-retrato"><img src={foto} alt="" loading="lazy" decoding="async" /></span>
     {selo && <span class="cw-selo" aria-hidden="true"><svg viewBox="0 0 56 57" fill="currentColor"><path d={FAISCA} /></svg><strong>{selo}</strong></span>}
     <span class="cw-texto">
       {curva
@@ -44,8 +45,11 @@ const FAISCA = "M9.126 23.02C6.55266 24.95 3.52899 26.9443 0.0549927 29.003C3.40
         : <strong class="cw-nome-texto">{nome}</strong>}
       {selo && <span class="so-leitor">. {selo}</span>}
       {adesivo && <span class="so-leitor">. {adesivo}</span>}
-      {epiteto && <span class="cw-epiteto"><span class="so-leitor">, </span>« {epiteto} »</span>}
-      {funcao && <span class="cw-epiteto"><span class="so-leitor">, </span>{funcao}</span>}
+      <span class="cw-linha">
+        {adesivo
+          ? <span class="cw-adesivo" aria-hidden="true"><svg viewBox="0 0 56 57" fill="currentColor"><path d={FAISCA} /></svg>{adesivo}</span>
+          : epiteto && <span class="cw-epiteto"><span class="so-leitor">, </span>« {epiteto} »</span>}
+      </span>
     </span>
     <span class="cw-pe" aria-hidden="true"><span>WIG events</span><svg viewBox="0 0 56 57" fill="currentColor"><path d={FAISCA} /></svg><strong>{pe}</strong></span>
     {externo && <span class="so-leitor"> (Instagram, abre em outra aba)</span>}
@@ -73,7 +77,7 @@ const FAISCA = "M9.126 23.02C6.55266 24.95 3.52899 26.9443 0.0549927 29.003C3.40
   /* Uma linha para todos, para a foto ter a mesma altura em todos os crachás. Nome comprido
      encolhe para caber na largura. */
   .cw-nome { display: block; width: 100%; height: 10.3cqw; }
-  .cw-nome-texto { font-size: 8.8cqw; font-weight: 800; line-height: 0.95; }
+  .cw-nome-texto { display: block; font-size: 8.8cqw; font-weight: 800; height: 10.3cqw; line-height: 10.3cqw; }
   .cw-epiteto { font-size: 5.15cqw; line-height: 1.2; white-space: nowrap; }
   .cw-pe { display: flex; justify-content: space-between; align-items: center; gap: 2.5cqw; margin-top: 4.7cqw; padding-top: 3.8cqw; border-top: 0.75cqw solid var(--c-texto); font-size: 4.05cqw; text-transform: uppercase; letter-spacing: 0.16em; white-space: nowrap; }
   .cw-pe span { font-weight: 500; }
@@ -83,12 +87,14 @@ const FAISCA = "M9.126 23.02C6.55266 24.95 3.52899 26.9443 0.0549927 29.003C3.40
   .cw-selo { position: absolute; top: 26cqw; right: -4.7cqw; z-index: 2; display: grid; place-content: center; justify-items: center; gap: 1.2cqw; width: 31cqw; aspect-ratio: 1; border-radius: 50%; background: var(--c-texto); color: var(--c-fundo); transform: rotate(9deg); }
   .cw-selo svg { width: 5.3cqw; height: 5.3cqw; }
   .cw-selo strong { font-size: 4.8cqw; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
-  /* Adesivo: objeto físico, sólido e meio torto, colado no canto da foto. Usa o par vivo do tema
+  /* A linha abaixo do nome tem altura fixa e é sempre a mesma: frase, adesivo ou vazia. Assim a foto
+     tem a mesma altura em todos os crachás (pedido do Gui). */
+  .cw-linha { display: flex; align-items: center; height: 7cqw; }
+  /* Adesivo: objeto físico, sólido e meio torto, colado no lugar da frase. Usa o par vivo do tema
      (--vivo com --sobre-vivo, que o script de Base.astro garante em 4,5:1) e uma borda da cor do
-     papel do crachá, como adesivo recortado. Fica dentro da janela da foto, no canto de baixo, longe
-     do rosto. Tudo em cqw, como o resto do crachá. */
-  .cw-adesivo { position: absolute; right: 3.2cqw; bottom: 3.6cqw; z-index: 2; display: inline-flex; align-items: center; gap: 1.6cqw; padding: 2.1cqw 3.6cqw 2.1cqw 3cqw; border: 1cqw solid var(--c-texto); border-radius: 3.2cqw; background: var(--vivo); color: var(--sobre-vivo); font-size: 4.6cqw; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; white-space: nowrap; transform: rotate(-7deg); transform-origin: 100% 100%; box-shadow: 0.6cqw 1cqw 1.6cqw -0.4cqw rgb(0 0 0 / 0.45); }
-  .cw-adesivo svg { width: 4.4cqw; height: 4.4cqw; flex: none; }
+     papel do crachá, como adesivo recortado. Tudo em cqw, como o resto do crachá. */
+  .cw-adesivo { display: inline-flex; align-items: center; gap: 1.4cqw; padding: 0.9cqw 2.6cqw 0.9cqw 2.2cqw; border: 0.8cqw solid var(--c-texto); border-radius: 2.4cqw; background: var(--vivo); color: var(--sobre-vivo); font-size: 4.2cqw; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; white-space: nowrap; transform: rotate(-4deg); transform-origin: 0 50%; box-shadow: 0.5cqw 0.8cqw 1.4cqw -0.4cqw rgb(0 0 0 / 0.45); }
+  .cw-adesivo svg { width: 3.8cqw; height: 3.8cqw; flex: none; }
   a.cw { transition: transform 0.25s ease; }
   @media (hover: hover) and (pointer: fine) { a.cw:hover { transform: translateY(-0.35rem) rotate(-1deg); } }
   @media (prefers-reduced-motion: reduce) { a.cw { transition: none; } a.cw:hover { transform: none; } }

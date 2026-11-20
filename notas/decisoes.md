@@ -244,3 +244,12 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
 - **2026-11-19, endereço das prévias (Gui).** Prévia de branch é `https://<branch>.festaabsurda.com`
   (homologação: https://design.festaabsurda.com), e não o endereço `workers.dev`. Vale para todos os
   projetos do Gui: branch como subdomínio do domínio principal. (CLAUDE.md, "Branches e publicação".)
+
+- **2026-11-20, WIG: ajustes do Gui na prévia (sessão C, rodada 2).** Datas, eventos e o recorte das
+  capas em retrato no card 16:9 aprovados como estão (o recorte pode cortar texto da arte, e o Gui
+  aceitou). Ramon ganha a frase "pé no palco". Rótulos: o rodapé dos bastidores passa a "Backstage";
+  no topo, o Rafa continua "Produção" e Ramon e Nalla viram "assist. produção"; a linha de função
+  "Assistente de backstage" sai. Foto com a mesma altura em todos os crachás (a linha abaixo do nome
+  tem altura fixa). O adesivo "New Girl" da Guta fica no lugar da frase dela, e a foto dela é a nova.
+  (CLAUDE.md, seção "WIG" e "Cartão de evento não cresce com a capa".)
+

@@ -255,15 +255,24 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
 (a Charlotte produz, mas é projeto à parte) e não entram.
 
 **WIG, respostas do Rafa (do Gui, 19 nov 2026):**
-- **Elenco** em `src/data/wig.json`: dez drags e produtores mais Ramon e Nalla, nos bastidores como
-  "Assistente de backstage" (campo `funcao`, a linha de função abaixo do nome). Bastidores seguem a
-  cor viva. Grafias: "Mallibu" com dois L, "Aria" sem acento.
-- **Adesivo (`adesivo` no JSON):** a Guta Leão leva o "New Girl" colado no canto da foto, no lugar da
-  frase, até as fotos novas do elenco (2027); quando elas chegarem, tire o campo. O adesivo é objeto:
-  sólido (`--vivo` com `--sobre-vivo`), meio torto, borda da cor do papel, medido em cqw.
+- **Elenco** em `src/data/wig.json`: dez drags e produtores mais Ramon e Nalla, assistentes nos
+  bastidores. Grafias: "Mallibu" com dois L, "Aria" sem acento.
+- **Rótulos (Gui, 20 nov 2026):** o rodapé do crachá dos bastidores diz "Backstage", e não "Bastidores"
+  (o campo `papel` continua `bastidores`). No topo, o Rafa segue "Produção"; Ramon e Nalla levam
+  "assist. produção" (campo `rotulo`, que troca o padrão do papel). Não existe mais linha de função
+  abaixo do nome.
+- **Frases:** Rafael "a tia das drags", Ramon "pé no palco", Nalla "dama de vermelho".
+- **Foto com a mesma altura (Gui, 20 nov 2026):** a linha abaixo do nome (`.cw-linha`) tem altura fixa e
+  guarda a frase, o adesivo ou nada. Com isso a foto tem a mesma altura em todos os crachás. Linha nova
+  no crachá entra dentro dessa altura, nunca acrescenta uma.
+- **Adesivo (`adesivo` no JSON):** a Guta Leão leva o "New Girl" no lugar da frase dela (a linha
+  abaixo do nome), até as fotos novas do elenco (2027); quando elas chegarem, tire o campo. O adesivo é
+  objeto: sólido (`--vivo` com `--sobre-vivo`), meio torto, borda da cor do papel, medido em cqw. A foto
+  atual da Guta já é a nova, no mesmo recorte das outras.
 - **Crédito das fotos:** "Fotos do casting de 2025" vale só para a sessão. Quem tem
   `foraDaSessao: true` (Guta, Ramon e Nalla) tem foto de outra fonte, e a linha de crédito diz isso. Nome
-  novo no elenco precisa da curva em `wig-letras.json` (sem ela, o nome sai em fonte simples).
+  novo no elenco precisa da curva em `wig-letras.json` (sem ela, o nome sai em fonte simples; Guta, Ramon
+  e Nalla já têm).
 - **Ordem dos projetos** (do Rafa): WIG Brunch, WIG Party, Tela Tuck, CHRONUS, Chá com Charlotte,
   Arraiá das Piranhas, WIGokê. Projeto sem data (Chá, WIGokê) sai só com o texto; sem `local` ou `url`, a linha
   da data sai sem eles. Campos `convidadas`, `elenco`, `newFace`, `dj` e `obs` ficam no dado, sem layout.
@@ -423,7 +432,7 @@ regras de branch desta seção.
   (Home e Agenda) mantém sempre a capa em 16:9, com `object-fit: cover`. Capa em retrato ou quadrada
   é recortada no centro, nunca esticada, e o cartão não muda de altura. Conferido com as 73 capas reais
   do arquivo que não são 16:9 (retrato de 0,40 a 0,89 e quadradas): nenhuma distorce. O recorte pode
-  cortar texto da arte. O destaque grande da Home (`PainelEvento.astro`) continua com o desenho em pé
+  cortar texto da arte, e o Gui aceitou esse recorte (20 nov 2026). O destaque grande da Home (`PainelEvento.astro`) continua com o desenho em pé
   para capa em retrato, de propósito.
 - **Cartões no celular:** no iPhone a página aparece atrás do relógio e da barra de endereço,
   então uma cena parada de tela inteira parece um retângulo cortado. A saída (do Gui) é a do
