@@ -19,8 +19,9 @@ bayara.design e do site da família:
 e aposentar a `design`. Até ele avisar que fez, a homologação continua sendo a `design`. Quando
 mudar, troque `design` por `homologa` neste arquivo, em `notas/` e nos fluxos de `.github/workflows/`.
 
-**Prévias:** cada branch tem a sua em `https://<branch>-absurda.gbayara.workers.dev` (a da
-homologação: https://design-absurda.gbayara.workers.dev). A produção é https://festaabsurda.com.
+**Prévias (do Gui, 19 nov 2026):** cada branch tem a sua em `https://<branch>.festaabsurda.com`
+(a da homologação: https://design.festaabsurda.com). A produção é https://festaabsurda.com. Em
+relatório, tabela e prompt use sempre esse endereço, nunca o `workers.dev`.
 
 - Só a `main` e a homologação têm os tokens do Shotgun e do Sympla configurados na Cloudflare. As
   outras branches não têm, então a agenda delas mostra só o histórico arquivado.
@@ -40,7 +41,7 @@ homologação: https://design-absurda.gbayara.workers.dev). A produção é http
 
 - **Conversa no claude.ai (projeto "Carreira") é a gestão.** O Gui discute, decide e vê resultados.
   A conversa coordena: registra decisões na documentação (commit direto na `design`), escreve os
-  prompts das sessões de código, junta os PRs e apaga as branches já incorporadas. Também cuida do
+  prompts das sessões de código e cuida dos PRs com conflito; o Gui junta os outros e apaga as branches. Também cuida do
   Drive, da planilha de pendências e de documentos para outras pessoas. Não escreve código do site.
 - **Código:** feito em sessões do Claude Code (ver "Sessões de código"). O Opus constrói. O Fable entra
   só em conceito visual, porque o limite dele é curto. Sessão grande só quando o Gui disser que há
@@ -116,7 +117,7 @@ Branch de sessão, de teste e de QA nasce sempre da `design` já igualada.
 3. `npm run confere:arquivo` passando.
 4. `npm run confere:links`, `npm run confere:agenda`, `npm run confere:temas`,
    `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra`,
-   `npm run confere:pilha` e `npm run confere:atracoes` passando (ver
+   `npm run confere:pilha`, `npm run confere:atracoes` e `npm run confere:exemplos` passando (ver
    "Conferências do site").
 5. Só em rodadas, depois do QA, com o ok do Gui na prévia da `design`. Então `main`, por
    fast-forward da `design`. A publicação na Cloudflare sai sozinha a cada push.
@@ -142,16 +143,16 @@ Cada sessão do Claude Code recebe da conversa um prompt com uma letra no títul
   e o que não deu para conferir. Por último, a tabela "O quê | Onde ver", uma linha por assunto, com
   o endereço completo e clicável da prévia da branch (ver "Prévias").
 
-Depois da sessão, a conversa confere os PRs, registra as respostas do Gui e só junta depois que ele
-olhar. Merge com squash pela API (`gh api -X PUT repos/guilhermebayara/absurda/pulls/<n>/merge -f
-merge_method=squash`). PRs empilhados entram em ordem. Com conflito: trazer a `design` para a
+Depois da sessão, a conversa confere os PRs e registra as respostas do Gui. **Quem junta é o Gui
+(19 nov 2026):** PR sem conflito ele junta com squash e apaga a branch pelo botão do PR. PRs
+empilhados entram em ordem. A conversa só cuida do PR com conflito: trazer a `design` para a
 branch, juntar os dois lados, rodar build e conferências, fazer o push, esperar as conferências do
 GitHub e só então juntar. PR que entrou dentro de outro é fechado com um comentário dizendo em qual.
 Depois do merge, conferir se a prévia da `design` publicou. Quem apaga as branches incorporadas é o Gui: a conversa lista quais apagar e quando, e nem a sessão nem a conversa apagam branch. Branch que nunca foi incorporada só se apaga com pedido do Gui.
 
 ## Conferências do site
 
-Além da guarda do histórico, oito conferências rodam na máquina e, sozinhas, no GitHub. As oito
+Além da guarda do histórico, nove conferências rodam na máquina e, sozinhas, no GitHub. As nove
 rodam depois do build.
 
 **Quando rodam no GitHub (do Gui, 19 nov 2026, para economizar minutos):** tudo é um trabalho só,
@@ -197,6 +198,9 @@ documentação, `concurrency` e `timeout-minutes`.
   ficar por cima, inteira abaixo do relógio e com o texto dentro, se as de baixo não forem
   simplificadas (sem texto, foto pequena), se houver polaroide visível fora da tela, se houver
   `sticky` ou `fixed`, ou se, com movimento reduzido, a pilha não virar lista simples.
+
+- `npm run confere:exemplos`: falha se a `main` ou a homologação tiverem evento de exemplo (ver
+  "Eventos de exemplo nas prévias de teste").
 
 - `npm run confere:atracoes`: falha se algum nome de `src/data/atracoes.json` não aparecer na página
   Sobre montada, ou se faltar a marca "riscado" ou "em memória" de quem a tem.
@@ -250,19 +254,81 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
 (Money, PFVR), que ficam em cartazes vazados. Furdunço da Bôta e Boat da Bôta não são da WIG
 (a Charlotte produz, mas é projeto à parte) e não entram.
 
+**WIG, respostas do Rafa (do Gui, 19 nov 2026):**
+- **Elenco** em `src/data/wig.json`: dez drags e produtores mais Ramon e Nalla, assistentes nos
+  bastidores. Grafias: "Mallibu" com dois L, "Aria" sem acento.
+- **Rótulos (Gui, 20 nov 2026):** o rodapé do crachá dos bastidores diz "Backstage", e não "Bastidores"
+  (o campo `papel` continua `bastidores`). No topo, o Rafa segue "Produção"; Ramon e Nalla levam
+  "assist. produção" (campo `rotulo`, que troca o padrão do papel). Não existe mais linha de função
+  abaixo do nome.
+- **Frases:** Rafael "a tia das drags", Ramon "pé no palco", Nalla "dama de vermelho".
+- **Foto com a mesma altura (Gui, 20 nov 2026):** a linha abaixo do nome (`.cw-linha`) tem altura fixa e
+  guarda a frase, o adesivo ou nada. Com isso a foto tem a mesma altura em todos os crachás. Linha nova
+  no crachá entra dentro dessa altura, nunca acrescenta uma.
+- **Adesivo (`adesivo` no JSON):** a Guta Leão leva o "New Girl" no lugar da frase dela (a linha
+  abaixo do nome), até as fotos novas do elenco (2027); quando elas chegarem, tire o campo. O adesivo é
+  objeto: sólido (`--vivo` com `--sobre-vivo`), meio torto, borda da cor do papel, medido em cqw. A foto
+  atual da Guta já é a nova, no mesmo recorte das outras.
+- **Crédito das fotos (Gui, 20 nov 2026):** a página da WIG não mostra crédito de foto por enquanto. Os
+  dados continuam em `src/data/wig.json` (`creditos` vale só para as fotos do casting de 2025; quem tem
+  `foraDaSessao: true`, como Guta, Ramon e Nalla, tem foto de outra fonte e fica sem crédito). O formato
+  de mini tag, no site todo, é o item de "A construir" em `notas/a-fazer.md`. Nome novo no elenco
+  precisa da curva em `wig-letras.json` (sem ela, o nome sai em fonte simples; Guta, Ramon e Nalla já têm).
+- **Ordem dos projetos** (do Rafa): WIG Brunch, WIG Party, Tela Tuck, CHRONUS, Chá com Charlotte,
+  Arraiá das Piranhas, WIGokê. Projeto sem data (Chá, WIGokê) sai só com o texto; sem `local` ou `url`, a linha
+  da data sai sem eles. Campos `convidadas`, `elenco`, `newFace`, `dj` e `obs` ficam no dado, sem layout.
+- **Coprodução na Agenda não se repete:** o Brunch de 11/07/2026 (Dacota Monteiro) está na Agenda e
+  entra só na conta (`naAgenda` da série). A WIG Party aponta para a lista de edições da própria página.
+- **Futuro:** evento marcado para depois (corte de `jaAcabou`, noite do último dia) aparece na lista com
+  "(em breve)" e não entra na conta das sessões nem na ficha de edições.
+- **Apresentação:** três parágrafos no corpo de `src/content/projetos/wig.md`, sem linha do tempo; o
+  `resumo` curto continua para o topo, a página Projetos e a descrição. Os textos são rascunho até a
+  Charlotte e o Gui aprovarem.
+
+
 ## Atrações do Sobre (do Gui, 18 nov 2026)
 
 "Quem a gente trouxe" e "E a cena de BH" saem de `src/data/atracoes.json`, gerado por `npm run
 atracoes` a partir da planilha "Atrações do site" (Drive, `10_site/4_Sobre`), aba "Para o site",
 que o Ed revisa. O site nunca lê a planilha ao vivo: o script copia na `design`, o Gui confere na
 prévia e só então vai à `main`.
-- `ATRACOES_CSV_URL` guarda o endereço da aba publicada como CSV; `npm run atracoes -- --arquivo x.csv`
-  lê um arquivo. Se uma validação falhar, nada é escrito. O resumo diz quem entrou e quem saiu.
+- **Atualizar (do Gui, 19 nov 2026):** a aba não é publicada na web. Quando a planilha mudar, a
+  conversa lê a aba "Para o site" pelo Google conectado, exporta como CSV e roda `npm run atracoes --
+  --arquivo x.csv` numa `tst-atracoes-AAAA-MM-DD`, com PR para a `design`, como qualquer mudança. É
+  só dado: a conversa não mexe no código para isso. Se uma validação falhar, nada é escrito. O resumo
+  diz quem entrou e quem saiu. `ATRACOES_CSV_URL` continua aceito pelo script, mas não é usado.
 - Só linhas com Status "ok" chegam à aba "Para o site". A aba "Fora" é privada.
 - Colunas: Nome, Grupo, Ordem (só "Quem a gente trouxe"), Marca ou país, Marcação no site ("em
   memória" ou "riscado"). Sharon Needles só entra riscada; The Ladies não entra.
 - A equipe entra na cena sozinha pela coleção `pessoas`; não vai na planilha.
 - Não ponha nome à mão em `sobre.astro` nem em `historia.ts`. Detalhe em `notas/briefs/atracoes.md`.
+
+## Eventos de exemplo nas prévias de teste (do Gui, 18 nov 2026)
+
+Prévia de `tst-...` ou `qa-...` não tem o token do Shotgun e só mostra o histórico. Para conferir Home
+e Agenda com evento futuro, `src/lib/eventos.ts` (`fonteExemplo`) acrescenta os eventos de
+`src/data/eventos-exemplo.json`: dois próximos (um azul e um rosa), um acontecendo agora, um da
+Sympla e um de nome longo. As datas saem do dia do build (`comecaEmHoras` e `duracaoHoras`).
+- Só entram quando a Cloudflare informa a branch do build (`WORKERS_CI_BRANCH` ou `CF_PAGES_BRANCH`),
+  ela não é `main`, `design` nem `homologa` (lista `BRANCHES_SEM_EXEMPLO`) e falta o `SHOTGUN_TOKEN`.
+  Sem a variável de branch, nada de exemplo. Se a homologação mudar de nome, ponha o nome novo na lista.
+- O nome termina em "(exemplo)", para a página dizer que é de exemplo sem mexer no layout. Cada
+  exemplo tem link próprio (`#id`), senão `semRepetidos` tira todos menos um. As capas ficam em
+  `public/exemplos/`.
+- Não vão para o histórico: `arquivo-pendente.json` ignora `exemplo: true` e não têm `nomeBruto`.
+- `npm run confere:exemplos` falha se o build da `main`, da homologação (ou qualquer build com
+  `--producao`) tiver evento de exemplo, se o build não tiver variável de branch e mesmo assim tiver
+  exemplo, ou se o arquivo do histórico guardar um. Roda depois do build, também no GitHub.
+- **Capa dos exemplos só em 16:9 (Gui, 19 nov 2026):** todas as capas de `public/exemplos/` são 16:9
+  (1280 x 720). Capa em pé não entra mais: ela fazia o cartão crescer e parecer distorcido.
+- **Trava no próprio build (Gui, 19 nov 2026):** `npm run build` termina com `scripts/trava-exemplos.mjs`.
+  Na `main`, na homologação ou sem a variável de branch, o script apaga `dist/exemplos/` (as capas vão
+  junto no build e não têm uso ali) e falha se o site montado tiver algum evento de exemplo (id, "(exemplo)"
+  ou `/exemplos/`). Só a prévia de uma branch de teste mantém os exemplos. Nada muda no painel da
+  Cloudflare, porque o build já é o comando de lá. A lista de branches é a mesma de
+  `BRANCHES_SEM_EXEMPLO`: se a homologação mudar de nome, troque nos dois lugares.
+- Teste local: `WORKERS_CI_BRANCH=tst-x npm run build`. Item novo de exemplo: acrescente em
+  `src/data/eventos-exemplo.json`, sempre com "(exemplo)" no nome.
 
 ## Pasta do site no Drive (do Gui)
 
@@ -363,6 +429,12 @@ regras de branch desta seção.
   no toque: os anos da Agenda abrem e fecham de uma vez, só o conteúdo entra de leve. Com a altura
   animada, a barra pulava e o conteúdo piscava. A fila de anos vai ao ano marcado na hora,
   deslizando, e nunca com o dedo em cima dela. `npm run confere:barra` guarda a regra.
+- **Cartão de evento não cresce com a capa (Gui, 19 nov 2026):** o cartão de `CartaoEvento.astro`
+  (Home e Agenda) mantém sempre a capa em 16:9, com `object-fit: cover`. Capa em retrato ou quadrada
+  é recortada no centro, nunca esticada, e o cartão não muda de altura. Conferido com as 73 capas reais
+  do arquivo que não são 16:9 (retrato de 0,40 a 0,89 e quadradas): nenhuma distorce. O recorte pode
+  cortar texto da arte, e o Gui aceitou esse recorte (20 nov 2026). O destaque grande da Home (`PainelEvento.astro`) continua com o desenho em pé
+  para capa em retrato, de propósito.
 - **Cartões no celular:** no iPhone a página aparece atrás do relógio e da barra de endereço,
   então uma cena parada de tela inteira parece um retângulo cortado. A saída (do Gui) é a do
   rodapé: no celular, rodapé e menu são cartões, com `--raio-cartao` e `--folga-cartao`

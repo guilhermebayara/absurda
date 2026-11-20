@@ -1,0 +1,51 @@
+[
+  {
+    "id": "exemplo-proximo-rosa",
+    "nome": "Festa de exemplo com capa 16:9 rosa (exemplo)",
+    "comecaEmHoras": 52,
+    "duracaoHoras": 7,
+    "local": "Local de exemplo",
+    "url": "https://shotgun.live/en/venues/festaabsurda#exemplo-proximo-rosa",
+    "origem": "shotgun",
+    "capa": "/exemplos/capa-16x9-rosa.jpg"
+  },
+  {
+    "id": "exemplo-proximo-16x9",
+    "nome": "Festa de exemplo com capa 16:9 azul (exemplo)",
+    "comecaEmHoras": 150,
+    "duracaoHoras": 7,
+    "local": "Local de exemplo",
+    "url": "https://shotgun.live/en/venues/festaabsurda#exemplo-proximo-16x9",
+    "origem": "shotgun",
+    "capa": "/exemplos/capa-16x9.jpg"
+  },
+  {
+    "id": "exemplo-agora",
+    "nome": "Festa de exemplo acontecendo agora (exemplo)",
+    "comecaEmHoras": -2,
+    "duracaoHoras": 7,
+    "local": "Local de exemplo",
+    "url": "https://shotgun.live/en/venues/festaabsurda#exemplo-agora",
+    "origem": "shotgun",
+    "capa": "/exemplos/capa-16x9.jpg"
+  },
+  {
+    "id": "exemplo-sympla",
+    "nome": "Festa de exemplo da Sympla (exemplo)",
+    "comecaEmHoras": 320,
+    "duracaoHoras": 6,
+    "local": "Local de exemplo",
+    "url": "https://www.sympla.com.br/#exemplo-sympla",
+    "origem": "sympla"
+  },
+  {
+    "id": "exemplo-nome-longo",
+    "nome": "Festa de exemplo com um nome bem comprido para ver como a linha, o cartão e a Home se comportam quando o texto não cabe (exemplo)",
+    "comecaEmHoras": 480,
+    "duracaoHoras": 8,
+    "local": "Local de exemplo com nome também comprido",
+    "url": "https://shotgun.live/en/venues/festaabsurda#exemplo-nome-longo",
+    "origem": "shotgun",
+    "capa": "/exemplos/capa-16x9-rosa.jpg"
+  }
+]

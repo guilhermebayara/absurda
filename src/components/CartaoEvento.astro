@@ -1,6 +1,7 @@
 ---
 // Evento em versão compacta, para os que vêm depois do destaque na Home.
-// As cores saem da capa do próprio evento e a capa aparece inteira.
+// As cores saem da capa do próprio evento. O cartão mantém sempre a proporção dele (16:9): capa em
+// retrato ou quadrada é recortada no centro (object-fit: cover), nunca esticada, e o cartão não cresce.
 import type { Evento } from '../lib/eventos';
 import { partesDaData } from '../lib/eventos';
 import Botao from './Botao.astro';
@@ -26,7 +27,7 @@ const corMedia = '#' + media.map((v) => Math.round(v).toString(16).padStart(2, '
 <article class="cartao" style={cores} data-media={corMedia} data-tinta={m ? m.texto : evento.tema.fundo} data-anima="surge">
   <a class="cartao-capa" href={evento.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
     {evento.capa
-      ? <img src={evento.capa} alt="" loading="lazy" style={evento.proporcao ? `aspect-ratio:${evento.proporcao}` : undefined} />
+      ? <img src={evento.capa} alt="" loading="lazy" />
       : <span class="cartao-sem-capa"><Arroba /></span>}
   </a>
   <div class="cartao-texto">
@@ -65,7 +66,7 @@ const corMedia = '#' + media.map((v) => Math.round(v).toString(16).padStart(2, '
 
   /* A capa inclina com o cursor, como a do destaque */
   .cartao-capa { display: block; }
-  .cartao-capa img { width: 100%; height: auto; border-radius: clamp(0.6rem, 1.2vw, 1rem); box-shadow: 0 1.25rem 2.5rem -1.25rem rgb(0 0 0 / 0.55); transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .cartao-capa img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; height: auto; border-radius: clamp(0.6rem, 1.2vw, 1rem); box-shadow: 0 1.25rem 2.5rem -1.25rem rgb(0 0 0 / 0.55); transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
   .cartao-sem-capa { display: grid; place-items: center; aspect-ratio: 16 / 9; border-radius: clamp(0.6rem, 1.2vw, 1rem); background: var(--tinta); color: var(--c0); }
   .cartao-sem-capa :global(svg) { width: 22%; }
 

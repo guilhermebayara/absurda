@@ -18,17 +18,12 @@ Como usar:
 
 ## A construir
 
-- **Eventos futuros de exemplo nas prévias de teste.** Pedido do Gui em 18 nov 2026. As branches sem
-  os tokens do Shotgun e do Sympla mostram só o histórico, então não dá para conferir Home e Agenda
-  com evento futuro numa prévia de teste. Quando faltar o token do Shotgun e a branch não for a
-  `main` nem a homologação, o site entra com uns poucos eventos de exemplo, com datas contadas a
-  partir do dia do build (alguns próximos, um acontecendo agora, um com capa 3:4 e outro 16:9, um da
-  Sympla, um com nome longo). Os dados ficam num arquivo próprio em `src/data/`. Regras:
-  - nunca aparecem na `main` nem na homologação, mesmo se o token faltar lá (a branch vem da variável
-    de branch do build da Cloudflare; sem ela, nada de exemplo);
-  - nunca entram no arquivo do histórico (`scripts/arquivar.mjs` não os vê);
-  - uma conferência nova falha se o build da `main` tiver algum evento de exemplo;
-  - a página deixa claro que são de exemplo, sem atrapalhar o layout (por exemplo, no nome).
+- **Crédito de foto como mini tag, no site todo.** Decidido pelo Gui em 19 nov 2026, para reduzir
+  elemento de interface. Foto com crédito ganha, sobre ela, um símbolo pequeno que se expande e mostra
+  o crédito (no hover; no toque, ao tocar no símbolo). Foto sem crédito não leva nada. Começa pelos
+  crachás da WIG (o crédito do casting está no `wig.json`; Guta, Ramon, Nalla e Rafa não têm) e depois
+  vale para as outras fotos do site que tiverem crédito. Antes de construir, a sessão levanta onde há
+  foto com crédito no site e traz a lista no relatório.
 
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
@@ -38,10 +33,6 @@ oferece. Não acrescentar e-mail nem o pix do trio ao site.
 Estas perguntas estão na planilha "Pendências do site". Quando a
 resposta chegar lá, o item vira trabalho:
 
-- **Atrações: publicar a aba "Para o site" como CSV.** Na planilha "Atrações do site": Arquivo,
-  Compartilhar, Publicar na Web, escolher só a aba "Para o site" e o formato CSV. Passar o endereço
-  ao Claude Code. Ele vai para a variável `ATRACOES_CSV_URL` (`npm run atracoes`). Até lá o JSON foi gerado de um CSV exportado. Só essa aba é publicada: Fonte,
-  observação interna e a aba "Fora" ficam privadas.
 - **Agenda de 2022: pastas que ficaram de fora.** MOC, Prêmio, YOLO e Anda.
 - **Parcerias: o que ainda falta da planilha.** Pessoas por edição, seguidores, perfil do público,
   fotos dos casos, logos e o texto do "Vamos conversar" (junto com o e-mail, pausado).
@@ -52,9 +43,13 @@ resposta chegar lá, o item vira trabalho:
 
 ## Esperando outras pessoas
 
-- **WIG: material do Rafa.** Fotos de capa e dos projetos, datas das temporadas do CHRONUS em BH e da
-  Virada Cultural, textos da apresentação. Documento no Drive: `10_site/3_Projetos/wig/Página da WIG no
+- **WIG: o que falta do Rafa e da Charlotte.** O Rafa respondeu as partes 1, 2, 3 e quase toda a 5
+  (19 nov 2026). Faltam: fotos de capa e dos projetos, Arraiá das Piranhas (se entra, edições,
+  parceiros), edições com a @bsurda, eventos antes de 2023, e a leitura da Charlotte (crédito do
+  CHRONUS, "filha da patroa" para a Joanna, balé). Documento no Drive: `10_site/3_Projetos/wig/Página da WIG no
   site da @bsurda: o que precisamos de você`.
+- **WIG: fotos novas do elenco (2027).** Quando chegarem, tirar o adesivo "New Girl" da Guta (campo
+  `adesivo` em `src/data/wig.json`) e rever o crédito das fotos.
 - **WIG: crachás do balé.** Se a Charlotte quiser.
 - **WIG: próximos eventos na página.** Depende de a Charlotte liberar um acesso ao Shotgun dela.
 - **Agenda: sessão no painel do Sympla.** Com o Ed logado, para conferir eventos que a página pública

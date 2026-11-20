@@ -212,3 +212,49 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   documentação, com `concurrency`, cache dos navegadores do Playwright e `timeout-minutes`. Por quê:
   cada mudança rodava duas vezes e cada fluxo cobrava no mínimo um minuto cheio; com o repositório
   privado de novo, a cota de 2.000 minutos não fecha o mês. (CLAUDE.md, "Conferências do site".)
+
+- **2026-11-19, eventos de exemplo nas prévias de teste (Gui, pedido de 18 nov).** Branch de teste
+  sem o token do Shotgun mostra cinco eventos de exemplo, com "(exemplo)" no nome. Só entram se a
+  Cloudflare informar a branch do build (`WORKERS_CI_BRANCH` ou `CF_PAGES_BRANCH`), se ela não for
+  `main`, `design` nem `homologa` e se faltar o token. Por quê: sem isso, Home e Agenda não se
+  conferem com evento futuro numa prévia de teste. (CLAUDE.md, "Eventos de exemplo nas prévias".)
+
+- **2026-11-19, atrações sem link publicado (Gui).** A aba "Para o site" não vai ser publicada na
+  web. A conversa lê a planilha pelo Google conectado e gera o JSON numa branch de teste, com PR para
+  a `design`. Por quê: um passo a menos para o Gui e nenhum link público da planilha. Na leitura de
+  hoje, a planilha bate com o site (nenhum nome entrou nem saiu). (CLAUDE.md, "Atrações do Sobre".)
+
+- **2026-11-19, WIG com as respostas do Rafa (Gui).** A Guta Leão entra no casting com um adesivo
+  "New Girl" no crachá, no lugar da frase, até as fotos novas do elenco (2027), porque entrou agora e
+  a foto dela não é da sessão das outras. Ramon e Nalla entram como assistentes de backstage; o Rafa
+  ganha a frase "a tia das drags". WIG Party, WIGokê e Chá com Charlotte entram como projetos, na
+  ordem do Rafa, mesmo antes da Charlotte responder: o Gui quer que ela veja a página o mais completa
+  possível e itera depois. (`notas/briefs/wig-rafa.md`; ao terminar, CLAUDE.md, seção "WIG".)
+
+- **2026-11-19, trava dos exemplos no build, capas de exemplo em 16:9 e cartão que não cresce (Gui).**
+  `npm run build` apaga `dist/exemplos/` e falha se houver exemplo na `main`, na homologação ou sem
+  variável de branch (`scripts/trava-exemplos.mjs`). Exemplos só com capa 16:9. O cartão de evento mantém
+  16:9 e recorta a capa. Por quê: a conferência só pegava o problema onde existia a variável de branch, e
+  a capa em pé deformava o cartão. (CLAUDE.md, "Eventos de exemplo" e "Cartão de evento não cresce".)
+
+- **2026-11-19, WIG: regras de montagem da página (sessão C).** O Brunch de 11/07/2026 está na Agenda e
+  só entra na conta (`naAgenda`); evento marcado para depois aparece "(em breve)" e não conta. Datas
+  novas sem local conhecido saem sem local. Detalhe em CLAUDE.md, seção "WIG".
+
+- **2026-11-19, endereço das prévias (Gui).** Prévia de branch é `https://<branch>.festaabsurda.com`
+  (homologação: https://design.festaabsurda.com), e não o endereço `workers.dev`. Vale para todos os
+  projetos do Gui: branch como subdomínio do domínio principal. (CLAUDE.md, "Branches e publicação".)
+
+- **2026-11-20, WIG: ajustes do Gui na prévia (sessão C, rodada 2).** Datas, eventos e o recorte das
+  capas em retrato no card 16:9 aprovados como estão (o recorte pode cortar texto da arte, e o Gui
+  aceitou). Ramon ganha a frase "pé no palco". Rótulos: o rodapé dos bastidores passa a "Backstage";
+  no topo, o Rafa continua "Produção" e Ramon e Nalla viram "assist. produção"; a linha de função
+  "Assistente de backstage" sai. Foto com a mesma altura em todos os crachás (a linha abaixo do nome
+  tem altura fixa). O adesivo "New Girl" da Guta fica no lugar da frase dela, e a foto dela é a nova.
+  (CLAUDE.md, seção "WIG" e "Cartão de evento não cresce com a capa".)
+
+- **2026-11-20, crédito das fotos da WIG sai da página (Gui).** A linha de crédito do elenco (e o aviso
+  das fotos de outra fonte) deixa de aparecer; os dados ficam no `wig.json`. O formato de mini tag
+  sobre a foto, no site todo, fica para uma sessão própria (item em "A construir"). (CLAUDE.md, seção
+  "WIG".)
+

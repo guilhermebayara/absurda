@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/trava-exemplos.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "confere:arquivo": "node scripts/confere-arquivo.mjs",
@@ -17,6 +17,7 @@
     "confere:barra": "node scripts/confere-barra.mjs",
     "confere:pilha": "node scripts/confere-pilha.mjs",
     "confere:atracoes": "node scripts/confere-atracoes.mjs",
+    "confere:exemplos": "node scripts/confere-exemplos.mjs",
     "atracoes": "node scripts/atracoes.mjs"
   },
   "dependencies": {
