@@ -270,3 +270,8 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   Playwright cair num cartão, a prévia aparece e se mexe sozinha, e isso não é defeito de entrada.
   (`scripts/confere-calmo.mjs`.)
 
+- **2026-11-20, rodada para a `main` pela conversa (Gui).** A passagem da `design` para a `main` é
+  fast-forward feito pela conversa, com o ok do Gui, e não pelo botão de PR do GitHub. Por quê: o
+  botão criou na `main` um commit que a `design` não tinha (PR #10), e o GitHub passou a acusar
+  conflito sem diferença de conteúdo. (CLAUDE.md, "Sessões de código".)
+

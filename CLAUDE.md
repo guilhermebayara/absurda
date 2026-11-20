@@ -144,7 +144,9 @@ Cada sessão do Claude Code recebe da conversa um prompt com uma letra no títul
   o endereço completo e clicável da prévia da branch (ver "Prévias").
 
 Depois da sessão, a conversa confere os PRs e registra as respostas do Gui. **Quem junta é o Gui
-(19 nov 2026):** PR sem conflito ele junta com squash e apaga a branch pelo botão do PR. PRs
+(19 nov 2026):** PR sem conflito para a `design` ele junta com squash e apaga a branch pelo botão do PR. A
+passagem da `design` para a `main` não usa o botão (ele cria um commit que a `design` não tem e trava
+o fast-forward): a conversa faz o fast-forward, só com o ok do Gui (20 nov 2026). PRs
 empilhados entram em ordem. A conversa só cuida do PR com conflito: trazer a `design` para a
 branch, juntar os dois lados, rodar build e conferências, fazer o push, esperar as conferências do
 GitHub e só então juntar. PR que entrou dentro de outro é fechado com um comentário dizendo em qual.
