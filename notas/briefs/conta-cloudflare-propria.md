@@ -17,10 +17,13 @@ Quem faz: o Gui, no painel da Cloudflare e no GitHub. Tokens e senhas só ele di
 1. **Inventário.** No painel da conta atual, anotar tudo que está ligado a `festaabsurda.com`: registros de DNS (exportar o arquivo de DNS), domínios personalizados do Worker, encaminhamento de e-mail, regras. Ver também onde o domínio está registrado.
 2. **Conta nova.** Criar a conta "absurda" no mesmo login.
 3. **Worker na conta nova.** Criar o Worker `absurda` ligado ao repositório `guilhermebayara/absurda`, com o mesmo comando de build da conta atual. Cadastrar de novo as variáveis e os segredos da `main` e da homologação. Conferir que o build passa no endereço `workers.dev` da conta nova.
-4. **Domínio.**
-   - Se o domínio estiver registrado na própria Cloudflare: usar a mudança de registro entre contas (as duas contas confirmam; o DNSSEC precisa estar desligado; o registro fica travado para transferência por 30 dias depois). A configuração da zona não vai junto: os registros de DNS são refeitos na conta nova.
-   - Se estiver em outro registrador: adicionar `festaabsurda.com` na conta nova, importar o arquivo de DNS exportado, conferir os registros e trocar os nameservers no registrador pelos que a conta nova indicar. Depois que a zona nova ficar ativa, remover a zona da conta antiga.
-   - Os certificados são emitidos de novo pela conta nova; pode levar alguns minutos.
+4. **Domínio.** O registro está no Squarespace e os nameservers apontam para a Cloudflare. O registro não muda; só a zona troca de conta.
+   - Antes: no Squarespace, ver se o DNSSEC está ligado. Se estiver, desligar e esperar o prazo que o Squarespace indicar, senão o domínio para de resolver na troca.
+   - Adicionar `festaabsurda.com` na conta nova. A zona entra como pendente, porque ainda está ativa na conta antiga.
+   - Importar o arquivo de DNS exportado no passo 1 e conferir registro por registro (os das prévias por branch, os de e-mail e os de verificação, se houver).
+   - No Squarespace, trocar os nameservers pelos dois que a conta nova indicar. Podem ser iguais ou diferentes dos atuais; vale o que a conta nova mostrar.
+   - Esperar a zona nova ficar ativa (costuma levar minutos, pode levar horas). Os certificados são emitidos de novo pela conta nova.
+   - Só então remover a zona da conta antiga.
 5. **Domínios do site.** Ligar `festaabsurda.com` e as prévias por branch ao Worker da conta nova.
 6. **Deploy Hook.** Criar um Deploy Hook novo na conta nova e atualizar o segredo `CLOUDFLARE_DEPLOY_HOOK` no GitHub.
 7. **Desligar o antigo.** Só depois de tudo conferido: apagar o Worker `absurda` da conta compartilhada.
