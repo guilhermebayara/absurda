@@ -231,6 +231,30 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   ordem do Rafa, mesmo antes da Charlotte responder: o Gui quer que ela veja a página o mais completa
   possível e itera depois. (`notas/briefs/wig-rafa.md`; ao terminar, CLAUDE.md, seção "WIG".)
 
+- **2026-11-19, trava dos exemplos no build, capas de exemplo em 16:9 e cartão que não cresce (Gui).**
+  `npm run build` apaga `dist/exemplos/` e falha se houver exemplo na `main`, na homologação ou sem
+  variável de branch (`scripts/trava-exemplos.mjs`). Exemplos só com capa 16:9. O cartão de evento mantém
+  16:9 e recorta a capa. Por quê: a conferência só pegava o problema onde existia a variável de branch, e
+  a capa em pé deformava o cartão. (CLAUDE.md, "Eventos de exemplo" e "Cartão de evento não cresce".)
+
+- **2026-11-19, WIG: regras de montagem da página (sessão C).** O Brunch de 11/07/2026 está na Agenda e
+  só entra na conta (`naAgenda`); evento marcado para depois aparece "(em breve)" e não conta. Datas
+  novas sem local conhecido saem sem local. Detalhe em CLAUDE.md, seção "WIG".
+
 - **2026-11-19, endereço das prévias (Gui).** Prévia de branch é `https://<branch>.festaabsurda.com`
   (homologação: https://design.festaabsurda.com), e não o endereço `workers.dev`. Vale para todos os
   projetos do Gui: branch como subdomínio do domínio principal. (CLAUDE.md, "Branches e publicação".)
+
+- **2026-11-20, WIG: ajustes do Gui na prévia (sessão C, rodada 2).** Datas, eventos e o recorte das
+  capas em retrato no card 16:9 aprovados como estão (o recorte pode cortar texto da arte, e o Gui
+  aceitou). Ramon ganha a frase "pé no palco". Rótulos: o rodapé dos bastidores passa a "Backstage";
+  no topo, o Rafa continua "Produção" e Ramon e Nalla viram "assist. produção"; a linha de função
+  "Assistente de backstage" sai. Foto com a mesma altura em todos os crachás (a linha abaixo do nome
+  tem altura fixa). O adesivo "New Girl" da Guta fica no lugar da frase dela, e a foto dela é a nova.
+  (CLAUDE.md, seção "WIG" e "Cartão de evento não cresce com a capa".)
+
+- **2026-11-20, crédito das fotos da WIG sai da página (Gui).** A linha de crédito do elenco (e o aviso
+  das fotos de outra fonte) deixa de aparecer; os dados ficam no `wig.json`. O formato de mini tag
+  sobre a foto, no site todo, fica para uma sessão própria (item em "A construir"). (CLAUDE.md, seção
+  "WIG".)
+

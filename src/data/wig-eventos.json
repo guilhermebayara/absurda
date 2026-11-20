@@ -1,10 +1,23 @@
 {
- "_": "Eventos que são só da WIG (a @bsurda às vezes apoia, mas não produz). Aparecem só na página do projeto, nunca na Agenda (decisão do Gui). Vêm das contas da própria WIG: sympla.com.br/produtor/wigevents e shotgun.live/en/venues/wig-events, lidas em 15 nov 2026. O Sympla só mostra de 2023 para cá. Os que são coprodução com a @bsurda já estão na Agenda e ficam de fora daqui. Para atualizar, acrescente linhas à mão. Furdunço da Bôta e Boat da Bôta apareciam na conta da WIG no Sympla, mas são de outra produção da Charlotte e ficam de fora (Gui, 15 nov 2026). Os textos de cada projeto são rascunho, escritos a partir das descrições dos eventos da própria WIG, para a Charlotte e o Gui ajustarem. O CHRONUS é coprodução e também está na Agenda; as datas aqui são só as que já conhecemos (faltam as temporadas de BH e a Virada Cultural, que o Gui confirma).",
+ "_": "Eventos que são só da WIG (a @bsurda às vezes apoia, mas não produz). Aparecem só na página do projeto, nunca na Agenda (decisão do Gui). Vêm das contas da própria WIG: sympla.com.br/produtor/wigevents e shotgun.live/en/venues/wig-events, lidas em 15 nov 2026. O Sympla só mostra de 2023 para cá. Os que são coprodução com a @bsurda já estão na Agenda e ficam de fora daqui. Para atualizar, acrescente linhas à mão. Furdunço da Bôta e Boat da Bôta apareciam na conta da WIG no Sympla, mas são de outra produção da Charlotte e ficam de fora (Gui, 15 nov 2026). Os textos de cada projeto são rascunho, escritos a partir das descrições dos eventos da própria WIG, para a Charlotte e o Gui ajustarem. O CHRONUS é coprodução: a estreia de 2021 e a temporada de São Paulo já estão na Agenda e ficam aqui só como datas da série. As outras datas (BH 2022, Virada Cultural, Baile Hallowmigas) vieram do Rafa em 19 nov 2026. Evento coproduzido que já está na Agenda não se repete aqui: a edição de 11/07/2026 do Brunch (Dacota Monteiro) está na Agenda e entra só na conta, em `naAgenda`. Campos opcionais de cada evento: `convidadas`, `elenco`, `newFace`, `dj`, `obs` (guardados no dado, sem layout). Sem `local` ou `url`, a linha sai sem eles.",
  "series": [
   {
    "id": "brunch",
    "nome": "WIG Brunch",
-   "texto": "Quitute mineiro, quintal ao ar livre e show de drag, com a Charlotte no comando. A cada edição vem uma convidada de fora dividir o palco com as meninas da casa."
+   "texto": "Quitute mineiro, quintal ao ar livre e show de drag, com a Charlotte no comando. A cada edição vem uma convidada de fora dividir o palco com as meninas da casa.",
+   "naAgenda": 1,
+   "nota": "A edição de 11 de julho de 2026, com Dacota Monteiro, está na Agenda."
+  },
+  {
+   "id": "party",
+   "nome": "WIG Party",
+   "coproducao": true,
+   "link": {
+    "rotulo": "Ver as edições com a @bsurda",
+    "href": "#t-historico"
+   },
+   "texto": "Festa feita por drag de ponta a ponta: quem comanda a pista é artista drag, e o som vai de pop e hyperpop a house e funk. Nasceu em 2016 como festa da @bsurda e segue sendo feita junto com a gente.",
+   "nota": "As edições feitas com a @bsurda estão na Agenda e na lista logo abaixo."
   },
   {
    "id": "tela",
@@ -18,12 +31,22 @@
    "palavra": "temporadas",
    "coproducao": true,
    "texto": "O espetáculo drag da WIG, inspirado nas turnês de Drag Race. A cientista Charlotte tenta consertar a história e, sem querer, traz drags de outras décadas pro presente, com dublagem, dança, comédia, vídeo e até circo.",
-   "nota": "Feito com a @bsurda. Passou por Belo Horizonte, pela Virada Cultural e por São Paulo."
+   "nota": "Feito com a @bsurda. Passou por Belo Horizonte, pela Virada Cultural e por São Paulo, e fechou a primeira fase. Uma segunda temporada é projeto pra frente."
+  },
+  {
+   "id": "cha",
+   "nome": "Chá com Charlotte",
+   "texto": "Um programa com cheirinho de casa de vó. A cada episódio, uma convidada conta a história de uma receita que marcou a vida dela, e a conversa vai pra onde o cheiro levar."
   },
   {
    "id": "arraia",
    "nome": "Arraiá das Piranhas",
    "texto": "O São João da WIG, no quintal do Quinteiro: quentão, comida típica, brincadeira e muita drag."
+  },
+  {
+   "id": "wigoke",
+   "nome": "WIGokê",
+   "texto": "O karaokê da WIG, apresentado pela Charlotte. Aqui a pessoa solta a voz e ainda se entrega a uma performance completa, com direito a peruca."
   }
  ],
  "eventos": [
@@ -32,203 +55,515 @@
    "nome": "WIG Brunch",
    "data": "2023-09-23",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/wig-brunch-belo-horizonte/2150498"
+   "url": "https://www.sympla.com.br/evento/wig-brunch-belo-horizonte/2150498",
+   "elenco": [
+    "Jaddy Stone",
+    "Mannu Mallibu",
+    "Mira MiuMiu",
+    "Nickary Aycker"
+   ]
   },
   {
    "serie": "brunch",
    "nome": "WIG Brunch, 2ª edição",
    "data": "2024-01-20",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/wig-brunch-2a-edicao-belo-horizonte/2273359"
+   "url": "https://www.sympla.com.br/evento/wig-brunch-2a-edicao-belo-horizonte/2273359",
+   "convidadas": [
+    "Aimée Lumière"
+   ],
+   "elenco": [
+    "Joanna Mescladi",
+    "Leona Souki",
+    "Monalisa LeBlanc"
+   ]
   },
   {
    "serie": "brunch",
    "nome": "WIG Brunch convida Ravena Creole (RJ) e Márcia Pantera (SP)",
    "data": "2024-05-25",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-ravena-creole-rj-e-marcia-pantera-sp/2428814"
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-ravena-creole-rj-e-marcia-pantera-sp/2428814",
+   "convidadas": [
+    "Ravena Creole",
+    "Márcia Pantera"
+   ],
+   "elenco": [
+    "Mannu Mallibu",
+    "Mira MiuMiu",
+    "Nickary Aycker"
+   ]
   },
   {
    "serie": "brunch",
    "nome": "WIG Brunch convida Miranda Lebrão (RJ), 4ª edição",
    "data": "2024-07-20",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-miranda-lebrao-rj-4a-edicao-bh/2525198"
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-miranda-lebrao-rj-4a-edicao-bh/2525198",
+   "convidadas": [
+    "Miranda Lebrão"
+   ],
+   "elenco": [
+    "Jaddy Stone",
+    "Joanna Mescladi",
+    "Monalisa LeBlanc"
+   ]
   },
   {
    "serie": "brunch",
    "nome": "WIG Brunch convida Shannon Skarlett (RJ), 5ª edição",
    "data": "2024-09-14",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-shannon-skarlett-rj-5a-edicao-bh/2612027"
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-shannon-skarlett-rj-5a-edicao-bh/2612027",
+   "convidadas": [
+    "Shannon Skarllet",
+    "Nayla Brizard"
+   ],
+   "newFace": "Ana Ty",
+   "elenco": [
+    "Mira MiuMiu",
+    "Nickary Aycker"
+   ]
   },
   {
    "serie": "brunch",
    "nome": "WIG Brunch especial de Natal, 6ª edição",
    "data": "2024-12-07",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/wig-brunch-especial-de-natal-6a-edicao-bh/2741099"
+   "url": "https://www.sympla.com.br/evento/wig-brunch-especial-de-natal-6a-edicao-bh/2741099",
+   "elenco": [
+    "Jaddy Stone",
+    "Joanna Mescladi",
+    "Leona Souki",
+    "Mannu Mallibu",
+    "Mira MiuMiu",
+    "Nickary Aycker"
+   ],
+   "obs": "Último brunch da Leona Souki. Edição de Natal."
   },
   {
    "serie": "brunch",
    "nome": "WIG Brunch convida Mellody Queen (BH)",
    "data": "2025-03-15",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-mellody-queen-bh/2831988"
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-mellody-queen-bh/2831988",
+   "convidadas": [
+    "Mellody Queen"
+   ],
+   "elenco": [
+    "Aria Dreamz",
+    "Joanna Mescladi",
+    "Mannu Mallibu",
+    "Nickary Aycker"
+   ],
+   "obs": "Estreia da Aria Dreamz."
   },
   {
    "serie": "brunch",
    "nome": "WIG Brunch convida Organzza (RJ)",
    "data": "2025-04-26",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-organzza-rj/2880409"
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-organzza-rj/2880409",
+   "convidadas": [
+    "Organzza"
+   ],
+   "elenco": [
+    "Carambola",
+    "Jaddy Stone",
+    "Mira MiuMiu"
+   ],
+   "obs": "Estreia da Carambola."
   },
   {
    "serie": "brunch",
    "nome": "WIG Brunch convida Betina Polaroid (RJ)",
    "data": "2025-06-14",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-betina-polaroid-rj/2964344"
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-betina-polaroid-rj/2964344",
+   "convidadas": [
+    "Betina Polaroid"
+   ],
+   "newFace": "Lian Queer",
+   "elenco": [
+    "Joanna Mescladi",
+    "Mannu Mallibu"
+   ]
+  },
+  {
+   "serie": "brunch",
+   "nome": "WIG Brunch convida Desiree Beck",
+   "data": "2025-08-09",
+   "convidadas": [
+    "Desiree Beck"
+   ],
+   "newFace": "Junxciel",
+   "elenco": [
+    "Aria Dreamz",
+    "Jaddy Stone"
+   ]
   },
   {
    "serie": "brunch",
    "nome": "WIG Brunch convida Poseidon (PE)",
    "data": "2025-10-26",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-poseidon-pe/3133423"
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-poseidon-pe/3133423",
+   "convidadas": [
+    "Poseidon"
+   ],
+   "newFace": "Guta Leão",
+   "elenco": [
+    "Carambola",
+    "Mira MiuMiu"
+   ]
   },
   {
    "serie": "brunch",
    "nome": "WIG Brunch convida Natasha Princess (SP)",
    "data": "2026-04-18",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-natasha-princess-sp/3350435"
+   "url": "https://www.sympla.com.br/evento/wig-brunch-convida-natasha-princess-sp/3350435",
+   "convidadas": [
+    "Natasha Princess"
+   ],
+   "newFace": "Camponeusa",
+   "elenco": [
+    "Jaddy Stone",
+    "Joanna Mescladi",
+    "Mannu Mallibu"
+   ]
+  },
+  {
+   "serie": "brunch",
+   "nome": "WIG Brunch convida Adora Black",
+   "data": "2026-09-05",
+   "convidadas": [
+    "Adora Black"
+   ],
+   "newFace": "Meigay Lallibob",
+   "elenco": [
+    "Carambola",
+    "Joanna Mescladi",
+    "Mannu Mallibu"
+   ]
+  },
+  {
+   "serie": "brunch",
+   "nome": "WIG Brunch convida Frimes",
+   "data": "2026-10-24",
+   "convidadas": [
+    "Frimes"
+   ],
+   "newFace": "Lillia Azul",
+   "elenco": [
+    "Jaddy Stone",
+    "Joanna Mescladi",
+    "Nickary Aycker"
+   ]
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck: Drag Race Brasil (S2), estreia",
    "data": "2025-07-10",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2/3024414"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2/3024414",
+   "elenco": [
+    "Charlotte",
+    "Carambola"
+   ],
+   "dj": "DJ Ed"
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 2",
    "data": "2025-07-17",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-2/3032781"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-2/3032781",
+   "elenco": [
+    "Charlotte",
+    "Mannu Mallibu"
+   ],
+   "dj": "DJ Ed"
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 3",
    "data": "2025-07-24",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-3/3045655"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-3/3045655",
+   "elenco": [
+    "Jaddy Stone",
+    "Joanna Mescladi"
+   ],
+   "dj": "DJ Joanna"
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 4",
    "data": "2025-07-31",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-4/3054271"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-4/3054271",
+   "elenco": [
+    "Charlotte",
+    "Mellody Queen"
+   ],
+   "dj": "DJ Charlotte"
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 5",
    "data": "2025-08-07",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-5/3057822"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-5/3057822",
+   "elenco": [
+    "Charlotte",
+    "Bhelchi"
+   ],
+   "dj": "DJ Charlotte"
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 6",
    "data": "2025-08-14",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-6/3066857"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-6/3066857",
+   "elenco": [
+    "Charlotte",
+    "Mercedez Vulcão"
+   ],
+   "dj": "DJ Charlotte"
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 7",
    "data": "2025-08-21",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-7/3075163"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-7/3075163",
+   "elenco": [
+    "Charlotte",
+    "Ruby Nox"
+   ],
+   "dj": "DJ Charlotte"
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 8",
    "data": "2025-08-28",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-8/3089464"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-8/3089464",
+   "elenco": [
+    "Charlotte",
+    "Chanel"
+   ],
+   "dj": "DJ Charlotte"
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck: Drag Race Brasil (S2), episódio 9",
    "data": "2025-09-04",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-9/3101831"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-exibicao-drag-race-brasil-s2-episodio-9/3101831",
+   "elenco": [
+    "Charlotte",
+    "Mira MiuMiu"
+   ],
+   "dj": "DJ Charlotte"
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck convida Festa de Assistir: final de Drag Race Brasil (S2)",
    "data": "2025-09-11",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-convida-festa-de-assistir-final-drag-race-brasil-s2/3109979"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-convida-festa-de-assistir-final-drag-race-brasil-s2/3109979",
+   "elenco": [
+    "Charlotte",
+    "Aria Dreamz",
+    "Joanna Mescladi",
+    "Safira",
+    "Voga"
+   ],
+   "dj": "DJ Charlotte"
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck: estreia do Corrida das Blogueiras 7",
    "data": "2025-10-28",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-estreia-do-corrida-das-blogueiras-7/3187317"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-estreia-do-corrida-das-blogueiras-7/3187317",
+   "elenco": [
+    "Joanna Mescladi",
+    "Aria Dreamz"
+   ]
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck convida Manillê: Corrida das Blogueiras 7",
    "data": "2025-11-11",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-convida-manille-corrida-das-blogueiras-7/3206838"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-convida-manille-corrida-das-blogueiras-7/3206838",
+   "elenco": [
+    "Joanna Mescladi",
+    "Manille"
+   ]
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck convida Kitty Kawakubo: Corrida das Blogueiras 7",
    "data": "2025-11-18",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-convida-kitty-kawakubo-corrida-das-blogueiras-7/3216504"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-convida-kitty-kawakubo-corrida-das-blogueiras-7/3216504",
+   "elenco": [
+    "Joanna Mescladi",
+    "Kitty Kawakubo"
+   ]
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck convida Mady Beeong: Corrida das Blogueiras 7",
    "data": "2025-11-25",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-convida-mady-beeong-corrida-das-blogueiras-7/3223839"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-convida-mady-beeong-corrida-das-blogueiras-7/3223839",
+   "elenco": [
+    "Joanna Mescladi",
+    "Mady Beeong"
+   ]
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck: Corrida das Blogueiras 7",
    "data": "2025-12-02",
    "local": "O Quinteiro Bar",
-   "url": "https://www.sympla.com.br/evento/tela-tuck-corrida-das-blogueiras-7/3237446"
+   "url": "https://www.sympla.com.br/evento/tela-tuck-corrida-das-blogueiras-7/3237446",
+   "elenco": [
+    "Joanna Mescladi"
+   ]
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck convida Vini Freire: Corrida das Blogueiras 7",
+   "data": "2025-12-09",
+   "elenco": [
+    "Joanna Mescladi",
+    "Vini Freire"
+   ]
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck convida Jordan: Corrida das Blogueiras 7",
+   "data": "2025-12-16",
+   "elenco": [
+    "Joanna Mescladi",
+    "Jordan"
+   ]
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck: final da Corrida das Blogueiras 7",
+   "data": "2026-01-13",
+   "elenco": [
+    "Joanna Mescladi",
+    "Charlotte",
+    "Lian Queer",
+    "Mannu Mallibu"
+   ]
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck: final do BBB26",
+   "data": "2026-04-21",
+   "elenco": [
+    "Charlotte",
+    "Joanna Mescladi"
+   ]
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck: CDB8, episódio de estreia",
    "data": "2026-10-27",
    "local": "O Quinteiro Bar",
-   "url": "https://shotgun.live/en/events/tela-tuck-cdb-8-episodio-de-estreia"
+   "url": "https://shotgun.live/en/events/tela-tuck-cdb-8-episodio-de-estreia",
+   "elenco": [
+    "Joanna Mescladi",
+    "Mannu Mallibu"
+   ]
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck convida Jordann Vicente: CDB8, episódio 2",
    "data": "2026-11-03",
    "local": "O Quinteiro Bar",
-   "url": "https://shotgun.live/en/events/tela-tuck-cdb-8-episodio-2"
+   "url": "https://shotgun.live/en/events/tela-tuck-cdb-8-episodio-2",
+   "elenco": [
+    "Joanna Mescladi",
+    "Jordan"
+   ]
   },
   {
    "serie": "tela",
    "nome": "Tela Tuck convida Breia e Rhany: CDB8, episódio 3",
    "data": "2026-11-10",
    "local": "O Quinteiro Bar",
-   "url": "https://shotgun.live/en/events/tela-tuck-cdb-8-episodio-3"
+   "url": "https://shotgun.live/en/events/tela-tuck-cdb-8-episodio-3",
+   "elenco": [
+    "Joanna Mescladi",
+    "Breia",
+    "Rhanyane"
+   ]
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck convida Madrinha: CDB8",
+   "data": "2026-11-17",
+   "elenco": [
+    "Joanna Mescladi",
+    "Madrinha"
+   ]
+  },
+  {
+   "serie": "tela",
+   "nome": "Tela Tuck convida Gabriel e Sarah Vika: CDB8",
+   "data": "2026-11-24",
+   "elenco": [
+    "Joanna Mescladi",
+    "Gabriel",
+    "Sarah Vika"
+   ]
+  },
+  {
+   "serie": "chronus",
+   "nome": "CHRONUS, o espetáculo drag",
+   "data": "2021-11-05",
+   "local": "Teatro da Cidade, Belo Horizonte",
+   "url": "",
+   "ate": "2021-11-06",
+   "obs": "1ª temporada."
+  },
+  {
+   "serie": "chronus",
+   "nome": "CHRONUS, 2ª temporada",
+   "data": "2022-06-03",
+   "local": "Galpão Cine Horto, Belo Horizonte",
+   "ate": "2022-06-04"
+  },
+  {
+   "serie": "chronus",
+   "nome": "CHRONUS na Virada Cultural",
+   "data": "2022-09-04",
+   "local": "Parque Municipal, Belo Horizonte"
+  },
+  {
+   "serie": "chronus",
+   "nome": "CHRONUS, temporada em São Paulo",
+   "data": "2023-08-04",
+   "ate": "2023-08-06",
+   "local": "Galpão do Folias, São Paulo",
+   "url": "https://www.sympla.com.br/evento/chronus-o-espetaculo-drag-temporada-em-sao-paulo/2030418"
+  },
+  {
+   "serie": "chronus",
+   "nome": "CHRONUS no Baile Hallowmigas (atração)",
+   "data": "2023-10-04",
+   "local": "São Paulo"
   },
   {
    "serie": "arraia",
@@ -250,21 +585,6 @@
    "data": "2026-07-12",
    "local": "O Quinteiro Bar",
    "url": "https://www.sympla.com.br/evento/arraia-das-piranhas-3a-edicao/3481468"
-  },
-  {
-   "serie": "chronus",
-   "nome": "CHRONUS, o espetáculo drag",
-   "data": "2021-11-05",
-   "local": "Teatro da Cidade, Belo Horizonte",
-   "url": ""
-  },
-  {
-   "serie": "chronus",
-   "nome": "CHRONUS, temporada em São Paulo",
-   "data": "2023-08-04",
-   "ate": "2023-08-06",
-   "local": "Galpão do Folias, São Paulo",
-   "url": "https://www.sympla.com.br/evento/chronus-o-espetaculo-drag-temporada-em-sao-paulo/2030418"
   }
  ]
 }

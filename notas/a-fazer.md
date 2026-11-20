@@ -18,23 +18,12 @@ Como usar:
 
 ## A construir
 
-- **WIG: página com as respostas do Rafa.** Decidido em 19 nov 2026. Elenco novo (Guta Leão com
-  adesivo "New Girl"; Ramon e Nalla como assistentes de backstage; frase do Rafa), sete projetos na
-  ordem do Rafa, datas completas do Brunch, do Tela Tuck e do CHRONUS, e apresentação em parágrafos.
-  O Gui quer a página o mais completa possível para a Charlotte ver; depois itera com ela. Brief em
-  `notas/briefs/wig-rafa.md`, fotos em `notas/briefs/wig-fotos/`.
-
-- **Trava dos exemplos na `main`.** Decidido pelo Gui em 19 nov 2026, depois da Sessão B. Hoje o
-  código já deixa os exemplos de fora da `main`, mas a conferência só pega isso onde existe a
-  variável de branch, e as capas de `public/exemplos/` vão junto para a `main` sem uso. O próprio
-  build, quando a branch for `main` (ou a homologação), apaga `dist/exemplos/` e falha se o site
-  montado tiver algum evento de exemplo. Sem mudar nada no painel da Cloudflare. Pacote pequeno.
-
-- **Capa dos exemplos só em 16:9 (Gui, 19 nov 2026, olhando a prévia da Sessão B).** Os eventos de
-  exemplo usam só capa 16:9; a de 3:4 sai (a imagem e o evento passam a 16:9). Defeito junto: a capa
-  3:4 distorcia o card. Confira os cards da Home e da Agenda com as capas reais que não são 16:9 (o
-  arquivo tem umas 8 em retrato e 6 quadradas): o card mantém a proporção dele e a capa é recortada,
-  nunca esticada. Se algum card real distorce, corrija e relate qual.
+- **Crédito de foto como mini tag, no site todo.** Decidido pelo Gui em 19 nov 2026, para reduzir
+  elemento de interface. Foto com crédito ganha, sobre ela, um símbolo pequeno que se expande e mostra
+  o crédito (no hover; no toque, ao tocar no símbolo). Foto sem crédito não leva nada. Começa pelos
+  crachás da WIG (o crédito do casting está no `wig.json`; Guta, Ramon, Nalla e Rafa não têm) e depois
+  vale para as outras fotos do site que tiverem crédito. Antes de construir, a sessão levanta onde há
+  foto com crédito no site e traz a lista no relatório.
 
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
@@ -59,6 +48,8 @@ resposta chegar lá, o item vira trabalho:
   parceiros), edições com a @bsurda, eventos antes de 2023, e a leitura da Charlotte (crédito do
   CHRONUS, "filha da patroa" para a Joanna, balé). Documento no Drive: `10_site/3_Projetos/wig/Página da WIG no
   site da @bsurda: o que precisamos de você`.
+- **WIG: fotos novas do elenco (2027).** Quando chegarem, tirar o adesivo "New Girl" da Guta (campo
+  `adesivo` em `src/data/wig.json`) e rever o crédito das fotos.
 - **WIG: crachás do balé.** Se a Charlotte quiser.
 - **WIG: próximos eventos na página.** Depende de a Charlotte liberar um acesso ao Shotgun dela.
 - **Agenda: sessão no painel do Sympla.** Com o Ed logado, para conferir eventos que a página pública
