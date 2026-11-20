@@ -253,6 +253,28 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
 (Money, PFVR), que ficam em cartazes vazados. Furdunço da Bôta e Boat da Bôta não são da WIG
 (a Charlotte produz, mas é projeto à parte) e não entram.
 
+**WIG, respostas do Rafa (do Gui, 19 nov 2026):**
+- **Elenco** em `src/data/wig.json`: dez drags e produtores mais Ramon e Nalla, nos bastidores como
+  "Assistente de backstage" (campo `funcao`, a linha de função abaixo do nome). Bastidores seguem a
+  cor viva. Grafias: "Mallibu" com dois L, "Aria" sem acento.
+- **Adesivo (`adesivo` no JSON):** a Guta Leão leva o "New Girl" colado no canto da foto, no lugar da
+  frase, até as fotos novas do elenco (2027); quando elas chegarem, tire o campo. O adesivo é objeto:
+  sólido (`--vivo` com `--sobre-vivo`), meio torto, borda da cor do papel, medido em cqw.
+- **Crédito das fotos:** "Fotos do casting de 2025" vale só para a sessão. Quem tem
+  `foraDaSessao: true` (Guta, Ramon e Nalla) tem foto de outra fonte, e a linha de crédito diz isso. Nome
+  novo no elenco precisa da curva em `wig-letras.json` (sem ela, o nome sai em fonte simples).
+- **Ordem dos projetos** (do Rafa): WIG Brunch, WIG Party, Tela Tuck, CHRONUS, Chá com Charlotte,
+  Arraiá das Piranhas, WIGokê. Projeto sem data (Chá, WIGokê) sai só com o texto; sem `local` ou `url`, a linha
+  da data sai sem eles. Campos `convidadas`, `elenco`, `newFace`, `dj` e `obs` ficam no dado, sem layout.
+- **Coprodução na Agenda não se repete:** o Brunch de 11/07/2026 (Dacota Monteiro) está na Agenda e
+  entra só na conta (`naAgenda` da série). A WIG Party aponta para a lista de edições da própria página.
+- **Futuro:** evento marcado para depois (corte de `jaAcabou`, noite do último dia) aparece na lista com
+  "(em breve)" e não entra na conta das sessões nem na ficha de edições.
+- **Apresentação:** três parágrafos no corpo de `src/content/projetos/wig.md`, sem linha do tempo; o
+  `resumo` curto continua para o topo, a página Projetos e a descrição. Os textos são rascunho até a
+  Charlotte e o Gui aprovarem.
+
+
 ## Atrações do Sobre (do Gui, 18 nov 2026)
 
 "Quem a gente trouxe" e "E a cena de BH" saem de `src/data/atracoes.json`, gerado por `npm run
@@ -274,7 +296,7 @@ prévia e só então vai à `main`.
 
 Prévia de `tst-...` ou `qa-...` não tem o token do Shotgun e só mostra o histórico. Para conferir Home
 e Agenda com evento futuro, `src/lib/eventos.ts` (`fonteExemplo`) acrescenta os eventos de
-`src/data/eventos-exemplo.json`: dois próximos (capa 3:4 e capa 16:9), um acontecendo agora, um da
+`src/data/eventos-exemplo.json`: dois próximos (um azul e um rosa), um acontecendo agora, um da
 Sympla e um de nome longo. As datas saem do dia do build (`comecaEmHoras` e `duracaoHoras`).
 - Só entram quando a Cloudflare informa a branch do build (`WORKERS_CI_BRANCH` ou `CF_PAGES_BRANCH`),
   ela não é `main`, `design` nem `homologa` (lista `BRANCHES_SEM_EXEMPLO`) e falta o `SHOTGUN_TOKEN`.
@@ -286,6 +308,14 @@ Sympla e um de nome longo. As datas saem do dia do build (`comecaEmHoras` e `dur
 - `npm run confere:exemplos` falha se o build da `main`, da homologação (ou qualquer build com
   `--producao`) tiver evento de exemplo, se o build não tiver variável de branch e mesmo assim tiver
   exemplo, ou se o arquivo do histórico guardar um. Roda depois do build, também no GitHub.
+- **Capa dos exemplos só em 16:9 (Gui, 19 nov 2026):** todas as capas de `public/exemplos/` são 16:9
+  (1280 x 720). Capa em pé não entra mais: ela fazia o cartão crescer e parecer distorcido.
+- **Trava no próprio build (Gui, 19 nov 2026):** `npm run build` termina com `scripts/trava-exemplos.mjs`.
+  Na `main`, na homologação ou sem a variável de branch, o script apaga `dist/exemplos/` (as capas vão
+  junto no build e não têm uso ali) e falha se o site montado tiver algum evento de exemplo (id, "(exemplo)"
+  ou `/exemplos/`). Só a prévia de uma branch de teste mantém os exemplos. Nada muda no painel da
+  Cloudflare, porque o build já é o comando de lá. A lista de branches é a mesma de
+  `BRANCHES_SEM_EXEMPLO`: se a homologação mudar de nome, troque nos dois lugares.
 - Teste local: `WORKERS_CI_BRANCH=tst-x npm run build`. Item novo de exemplo: acrescente em
   `src/data/eventos-exemplo.json`, sempre com "(exemplo)" no nome.
 
@@ -388,6 +418,12 @@ regras de branch desta seção.
   no toque: os anos da Agenda abrem e fecham de uma vez, só o conteúdo entra de leve. Com a altura
   animada, a barra pulava e o conteúdo piscava. A fila de anos vai ao ano marcado na hora,
   deslizando, e nunca com o dedo em cima dela. `npm run confere:barra` guarda a regra.
+- **Cartão de evento não cresce com a capa (Gui, 19 nov 2026):** o cartão de `CartaoEvento.astro`
+  (Home e Agenda) mantém sempre a capa em 16:9, com `object-fit: cover`. Capa em retrato ou quadrada
+  é recortada no centro, nunca esticada, e o cartão não muda de altura. Conferido com as 73 capas reais
+  do arquivo que não são 16:9 (retrato de 0,40 a 0,89 e quadradas): nenhuma distorce. O recorte pode
+  cortar texto da arte. O destaque grande da Home (`PainelEvento.astro`) continua com o desenho em pé
+  para capa em retrato, de propósito.
 - **Cartões no celular:** no iPhone a página aparece atrás do relógio e da barra de endereço,
   então uma cena parada de tela inteira parece um retângulo cortado. A saída (do Gui) é a do
   rodapé: no celular, rodapé e menu são cartões, com `--raio-cartao` e `--folga-cartao`

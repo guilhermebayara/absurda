@@ -5,17 +5,20 @@
 // Dados em src/data/wig.json.
 import CrachaWig from './CrachaWig.astro';
 import wig from '../data/wig.json';
+// As fotos de quem entrou depois (foraDaSessao) não são da sessão do casting: o crédito acima não vale para elas.
+const fora = wig.elenco.filter((p) => 'foraDaSessao' in p && p.foraDaSessao).map((p) => p.nome);
+const lista = fora.length > 1 ? `${fora.slice(0, -1).join(', ')} e ${fora[fora.length - 1]}` : fora[0];
 ---
 <section class="secao elenco" aria-labelledby="t-elenco">
   <h2 id="t-elenco" class="titulo-secao" data-anima="sobe">Quem faz a WIG</h2>
   <ul class="elenco-grade">
     {wig.elenco.map((p, i) => (
       <li class:list={{ patroa: p.papel === 'direcao' }} data-anima="surge" style={`--i:${i}`}>
-        <CrachaWig id={p.id} nome={p.nome} epiteto={p.epiteto} foto={p.foto} href={p.pagina ?? p.instagram} externo={!p.pagina} papel={p.papel as 'casting' | 'bastidores' | 'direcao'} selo={p.selo} />
+        <CrachaWig id={p.id} nome={p.nome} epiteto={p.epiteto} funcao={p.funcao} adesivo={p.adesivo} foto={p.foto} href={p.pagina ?? p.instagram} externo={!p.pagina} papel={p.papel as 'casting' | 'bastidores' | 'direcao'} selo={p.selo} />
       </li>
     ))}
   </ul>
-  <p class="elenco-credito">Fotos do casting: {wig.creditos.foto}. Retoques: {wig.creditos.retoques}.</p>
+  <p class="elenco-credito">Fotos do casting de 2025: {wig.creditos.foto}. Retoques: {wig.creditos.retoques}.{fora.length > 0 && ` As fotos de ${lista} são de outra fonte, e o crédito acima não vale para elas.`}</p>
 </section>
 
 <style>
@@ -33,7 +36,7 @@ import wig from '../data/wig.json';
   .elenco-grade li:hover, .elenco-grade li:focus-within { z-index: 5; }
   .elenco-credito { margin-top: clamp(2rem, 4vw, 3.5rem); font-size: 0.8125rem; color: var(--suave); }
 
-  /* Tela larga: cinco em cima, quatro embaixo, desencontrados como tijolo e cada um numa altura,
+  /* Tela larga: cinco em cima, quatro no meio e três embaixo, desencontrados como tijolo e cada um numa altura,
      como crachás largados depois do show. A patroa vai para o meio da fileira de cima, um degrau
      acima das outras e por cima das vizinhas: mesmo tamanho, lugar de chefe. */
   @media (min-width: 1001px) {
@@ -50,6 +53,10 @@ import wig from '../data/wig.json';
     .elenco-grade li:nth-child(7) { margin-top: 1.75rem; }
     .elenco-grade li:nth-child(8) { margin-top: -0.75rem; }
     .elenco-grade li:nth-child(9) { margin-top: 2.25rem; }
+    /* Terceira fileira (bastidores): três crachás no meio, deslocados um do outro. */
+    .elenco-grade li:nth-child(10) { grid-column: 3 / span 2; margin-top: 0.5rem; }
+    .elenco-grade li:nth-child(11) { margin-top: 2.5rem; }
+    .elenco-grade li:nth-child(12) { margin-top: 0; }
   }
 
   /* Deriva com a rolagem, como na mesa da Equipe: nada entra nem sai, cada crachá escorrega e
@@ -75,6 +82,9 @@ import wig from '../data/wig.json';
       .elenco-grade li:nth-child(7) { --ty0: 2.4rem; --ty1: -2.4rem; --tx0: -0.6rem; --tx1: 0.4rem; --g0: -1deg; --g1: 1.6deg; }
       .elenco-grade li:nth-child(8) { --ty0: -1rem; --ty1: 1.4rem; --g0: 2deg; --g1: -1.4deg; }
       .elenco-grade li:nth-child(9) { --ty0: 3rem; --ty1: -3rem; --tx0: 0.5rem; --tx1: -0.5rem; --g0: -1.8deg; --g1: 1.2deg; }
+      .elenco-grade li:nth-child(10) { --ty0: 1.8rem; --ty1: -2rem; --g0: 1.4deg; --g1: -1.6deg; }
+      .elenco-grade li:nth-child(11) { --ty0: -1.2rem; --ty1: 1.6rem; --tx0: 0.4rem; --tx1: -0.5rem; --g0: -1.6deg; --g1: 1.4deg; }
+      .elenco-grade li:nth-child(12) { --ty0: 2.6rem; --ty1: -2.4rem; --g0: 1.2deg; --g1: -1.8deg; }
     }
   }
 

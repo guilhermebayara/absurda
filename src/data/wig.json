@@ -1,5 +1,5 @@
 {
-  "_": "Elenco da WIG. Nome, epíteto e foto vêm dos posts oficiais de apresentação do casting (fotos de @jonas__dias, retoques de @iagorci). Só a Charlotte tem página no site; as demais levam ao Instagram.",
+  "_": "Elenco da WIG. Nome, epíteto e foto vêm dos posts oficiais de apresentação do casting (fotos de @jonas__dias, retoques de @iagorci). Só a Charlotte tem página no site; as demais levam ao Instagram. Guta, Ramon e Nalla entraram depois, com fotos de outra fonte (`foraDaSessao`): o crédito da sessão não vale para elas. `adesivo` cola um adesivo no crachá (a Guta leva o \"New Girl\" até as fotos novas do elenco, em 2027). `funcao` é a linha de função abaixo do nome.",
   "creditos": {
     "foto": "@jonas__dias",
     "retoques": "@iagorci"
@@ -33,6 +33,16 @@
       "foto": "/projetos/wig/carambola.jpg",
       "grupo": "drags",
       "papel": "casting"
+    },
+    {
+      "id": "guta-leao",
+      "nome": "Guta Leão",
+      "instagram": "https://www.instagram.com/agutaleao/",
+      "foto": "/projetos/wig/guta-leao.jpg",
+      "grupo": "drags",
+      "papel": "casting",
+      "adesivo": "New Girl",
+      "foraDaSessao": true
     },
     {
       "id": "jaddy-stone",
@@ -85,7 +95,29 @@
       "instagram": "https://www.instagram.com/rafaelpessoa_/",
       "foto": "/projetos/wig/rafael-pessoa.jpg",
       "grupo": "producao",
-      "papel": "bastidores"
+      "papel": "bastidores",
+      "epiteto": "a tia das drags"
+    },
+    {
+      "id": "ramon",
+      "nome": "Ramon",
+      "funcao": "Assistente de backstage",
+      "instagram": "https://www.instagram.com/ramon4lmeida/",
+      "foto": "/projetos/wig/ramon.jpg",
+      "grupo": "producao",
+      "papel": "bastidores",
+      "foraDaSessao": true
+    },
+    {
+      "id": "nalla",
+      "nome": "Nalla",
+      "epiteto": "dama de vermelho",
+      "funcao": "Assistente de backstage",
+      "instagram": "https://www.instagram.com/mechamamdenalla/",
+      "foto": "/projetos/wig/nalla.jpg",
+      "grupo": "producao",
+      "papel": "bastidores",
+      "foraDaSessao": true
     }
   ]
 }

@@ -231,3 +231,13 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   ordem do Rafa, mesmo antes da Charlotte responder: o Gui quer que ela veja a página o mais completa
   possível e itera depois. (`notas/briefs/wig-rafa.md`; ao terminar, CLAUDE.md, seção "WIG".)
 
+- **2026-11-19, trava dos exemplos no build, capas de exemplo em 16:9 e cartão que não cresce (Gui).**
+  `npm run build` apaga `dist/exemplos/` e falha se houver exemplo na `main`, na homologação ou sem
+  variável de branch (`scripts/trava-exemplos.mjs`). Exemplos só com capa 16:9. O cartão de evento mantém
+  16:9 e recorta a capa. Por quê: a conferência só pegava o problema onde existia a variável de branch, e
+  a capa em pé deformava o cartão. (CLAUDE.md, "Eventos de exemplo" e "Cartão de evento não cresce".)
+
+- **2026-11-19, WIG: regras de montagem da página (sessão C).** O Brunch de 11/07/2026 está na Agenda e
+  só entra na conta (`naAgenda`); evento marcado para depois aparece "(em breve)" e não conta. Datas
+  novas sem local conhecido saem sem local. Detalhe em CLAUDE.md, seção "WIG".
+

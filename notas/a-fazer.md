@@ -18,24 +18,6 @@ Como usar:
 
 ## A construir
 
-- **WIG: página com as respostas do Rafa.** Decidido em 19 nov 2026. Elenco novo (Guta Leão com
-  adesivo "New Girl"; Ramon e Nalla como assistentes de backstage; frase do Rafa), sete projetos na
-  ordem do Rafa, datas completas do Brunch, do Tela Tuck e do CHRONUS, e apresentação em parágrafos.
-  O Gui quer a página o mais completa possível para a Charlotte ver; depois itera com ela. Brief em
-  `notas/briefs/wig-rafa.md`, fotos em `notas/briefs/wig-fotos/`.
-
-- **Trava dos exemplos na `main`.** Decidido pelo Gui em 19 nov 2026, depois da Sessão B. Hoje o
-  código já deixa os exemplos de fora da `main`, mas a conferência só pega isso onde existe a
-  variável de branch, e as capas de `public/exemplos/` vão junto para a `main` sem uso. O próprio
-  build, quando a branch for `main` (ou a homologação), apaga `dist/exemplos/` e falha se o site
-  montado tiver algum evento de exemplo. Sem mudar nada no painel da Cloudflare. Pacote pequeno.
-
-- **Capa dos exemplos só em 16:9 (Gui, 19 nov 2026, olhando a prévia da Sessão B).** Os eventos de
-  exemplo usam só capa 16:9; a de 3:4 sai (a imagem e o evento passam a 16:9). Defeito junto: a capa
-  3:4 distorcia o card. Confira os cards da Home e da Agenda com as capas reais que não são 16:9 (o
-  arquivo tem umas 8 em retrato e 6 quadradas): o card mantém a proporção dele e a capa é recortada,
-  nunca esticada. Se algum card real distorce, corrija e relate qual.
-
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
 
@@ -43,6 +25,10 @@ oferece. Não acrescentar e-mail nem o pix do trio ao site.
 
 Estas perguntas estão na planilha "Pendências do site". Quando a
 resposta chegar lá, o item vira trabalho:
+
+- **WIG: nome da Guta, do Ramon e da Nalla na letra da marca.** Os três crachás saem com o nome em fonte
+  simples. Falta o arquivo da fonte Pink Sunset (pasta de marca da WIG) para gerar as curvas em
+  `src/data/wig-letras.json`. A Guta ainda precisa das fotos novas do elenco (2027) para o adesivo sair.
 
 - **Agenda de 2022: pastas que ficaram de fora.** MOC, Prêmio, YOLO e Anda.
 - **Parcerias: o que ainda falta da planilha.** Pessoas por edição, seguidores, perfil do público,

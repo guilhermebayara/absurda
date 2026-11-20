@@ -13,6 +13,7 @@ import { readFile } from 'node:fs/promises';
 import { temaPara, temasDoSitePara, PALETAS_DE_PROJETO, type Tema } from './temas';
 import { temaDaImagem, matizesDaImagem } from './paleta';
 import wigEventos from '../data/wig-eventos.json';
+import { jaAcabou } from './eventos';
 
 const FILTROS: Record<string, RegExp> = {
   'i-hate-remix': /i hate remix|\bihr\b/i,
@@ -68,7 +69,8 @@ export function proximoTrio(agora = new Date()): string {
 // Eventos que são só da WIG e ficam fora da Agenda (src/data/wig-eventos.json). O que é coprodução
 // já está na Agenda e não entra, para não contar duas vezes.
 const seriesSoDaWig = new Set(wigEventos.series.filter((s) => !('coproducao' in s && s.coproducao)).map((s) => s.id));
-const eventosSoDaWig = wigEventos.eventos.filter((e) => seriesSoDaWig.has(e.serie)).length;
+// Só conta o que já aconteceu (mesmo corte de jaAcabou do resto do site): evento marcado para depois não entra.
+const eventosSoDaWig = wigEventos.eventos.filter((e) => seriesSoDaWig.has(e.serie) && jaAcabou({ data: `${('ate' in e && e.ate) || e.data}T20:00:00-03:00` })).length;
 // Quantas edições a ficha do projeto mostra (do Gui): na WIG, as edições com a @bsurda mais os
 // eventos só dela.
 export function edicoesDoProjeto(id: string, r: { passados: unknown[] }): number {

@@ -1,17 +1,17 @@
 [
   {
-    "id": "exemplo-proximo-3x4",
-    "nome": "Festa de exemplo com capa 3:4 (exemplo)",
+    "id": "exemplo-proximo-rosa",
+    "nome": "Festa de exemplo com capa 16:9 rosa (exemplo)",
     "comecaEmHoras": 52,
     "duracaoHoras": 7,
     "local": "Local de exemplo",
-    "url": "https://shotgun.live/en/venues/festaabsurda#exemplo-proximo-3x4",
+    "url": "https://shotgun.live/en/venues/festaabsurda#exemplo-proximo-rosa",
     "origem": "shotgun",
-    "capa": "/exemplos/capa-3x4.jpg"
+    "capa": "/exemplos/capa-16x9-rosa.jpg"
   },
   {
     "id": "exemplo-proximo-16x9",
-    "nome": "Festa de exemplo com capa 16:9 (exemplo)",
+    "nome": "Festa de exemplo com capa 16:9 azul (exemplo)",
     "comecaEmHoras": 150,
     "duracaoHoras": 7,
     "local": "Local de exemplo",
@@ -46,6 +46,6 @@
     "local": "Local de exemplo com nome também comprido",
     "url": "https://shotgun.live/en/venues/festaabsurda#exemplo-nome-longo",
     "origem": "shotgun",
-    "capa": "/exemplos/capa-3x4.jpg"
+    "capa": "/exemplos/capa-16x9-rosa.jpg"
   }
 ]

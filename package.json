@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/trava-exemplos.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "confere:arquivo": "node scripts/confere-arquivo.mjs",
