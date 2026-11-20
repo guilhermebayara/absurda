@@ -4,7 +4,10 @@
 // (src/data/wig-letras.json), o "w" assina o topo e a faísca separa o rodapé. Não tem verso, ano
 // nem número: o elenco da WIG não entra na conta dos crachás da @bsurda (decisão do Gui).
 // Sólido como todo crachá: usa a superfície invertida do tema (texto no fundo, fundo no texto).
+// Com link, o <a> estica por cima do crachá; o crédito da foto fica por cima do link, para o
+// toque no símbolo não levar à página.
 import WigW from './marca/WigW.astro';
+import CreditoFoto from './CreditoFoto.astro';
 import letras from '../data/wig-letras.json';
 
 interface Props {
@@ -23,28 +26,40 @@ interface Props {
   selo?: string;
   // Adesivo no lugar da frase (ex.: "New Girl"), vindo de `adesivo` em src/data/wig.json.
   adesivo?: string;
+  // Crédito da foto (mini tag). Sem ele, a foto não leva nada.
+  credito?: string;
   class?: string;
 }
-const { id, nome, epiteto, foto, href, externo = false, papel = 'casting', rotulo: rotuloDado, selo, adesivo, class: classe } = Astro.props;
+const { id, nome, epiteto, foto, href, externo = false, papel = 'casting', rotulo: rotuloDado, selo, adesivo, credito, class: classe } = Astro.props;
 const letra = (letras as Record<string, { d: string; w: number; h: number } | string>)[id];
 const curva = typeof letra === 'object' ? letra : undefined;
 const rotulo = rotuloDado ?? (papel === 'bastidores' ? 'Produção' : 'WIGurl');
 const pe = { casting: 'Casting', bastidores: 'Backstage', direcao: 'Direção' }[papel];
-const Marca = href ? 'a' : 'span';
 const FAISCA = "M9.126 23.02C6.55266 24.95 3.52899 26.9443 0.0549927 29.003C3.40033 30.933 6.29533 32.7986 8.74 34.6C11.3133 36.4013 13.6293 38.3313 15.688 40.3899C17.7467 42.4486 19.6123 44.7003 21.285 47.1449C23.0863 49.7183 24.952 52.6776 26.882 56.0229C28.9407 52.5489 30.935 49.4609 32.865 46.7589C34.795 44.1856 36.8537 41.8053 39.041 39.6179C41.2283 37.4306 43.6087 35.372 46.182 33.442C48.884 31.512 51.972 29.5176 55.446 27.459C52.1007 25.529 49.1413 23.6633 46.568 21.862C44.1233 20.0606 41.8717 18.1306 39.813 16.072C37.7543 14.0133 35.8243 11.6973 34.023 9.12397C32.3503 6.67931 30.549 3.7843 28.619 0.438965C26.5603 3.91296 24.566 6.93663 22.636 9.50996C20.706 12.212 18.6473 14.6566 16.46 16.844C14.2727 19.0313 11.828 21.09 9.126 23.02Z";
+const rotuloLink = [
+  nome,
+  selo ? `. ${selo}` : '',
+  adesivo ? `. ${adesivo}` : '',
+  !adesivo && epiteto ? `, « ${epiteto} »` : '',
+  externo ? ' (Instagram, abre em outra aba)' : '',
+].join('');
 ---
-<Marca class:list={['cw', `cw-${papel}`, classe]} href={href} target={externo ? '_blank' : undefined} rel={externo ? 'noopener' : undefined}>
+<span class:list={['cw', `cw-${papel}`, { 'cw-clicavel': href }, classe]}>
   <span class="cw-face">
     <span class="cw-furo" aria-hidden="true"></span>
-    <span class="cw-topo"><WigW class="cw-marca" /><span>{rotulo}</span></span>
-    <span class="cw-retrato"><img src={foto} alt="" loading="lazy" decoding="async" /></span>
+    <span class="cw-topo" aria-hidden="true"><WigW class="cw-marca" /><span>{rotulo}</span></span>
+    <span class="cw-retrato">
+      {/* Janela da foto recorta a imagem; a mini tag fica fora do overflow para poder expandir. */}
+      <span class="cw-retrato-img"><img src={foto} alt="" loading="lazy" decoding="async" /></span>
+      {credito && <CreditoFoto credito={credito} />}
+    </span>
     {selo && <span class="cw-selo" aria-hidden="true"><svg viewBox="0 0 56 57" fill="currentColor"><path d={FAISCA} /></svg><strong>{selo}</strong></span>}
-    <span class="cw-texto">
+    <span class="cw-texto" aria-hidden={href ? 'true' : undefined}>
       {curva
-        ? <svg class="cw-nome" viewBox={`0 0 ${curva.w} ${curva.h}`} preserveAspectRatio="xMinYMid meet" fill="currentColor" role="img" aria-label={nome}><path d={curva.d} /></svg>
+        ? <svg class="cw-nome" viewBox={`0 0 ${curva.w} ${curva.h}`} preserveAspectRatio="xMinYMid meet" fill="currentColor" role="img" aria-label={href ? undefined : nome}><path d={curva.d} /></svg>
         : <strong class="cw-nome-texto">{nome}</strong>}
-      {selo && <span class="so-leitor">. {selo}</span>}
-      {adesivo && <span class="so-leitor">. {adesivo}</span>}
+      {!href && selo && <span class="so-leitor">. {selo}</span>}
+      {!href && adesivo && <span class="so-leitor">. {adesivo}</span>}
       <span class="cw-linha">
         {adesivo
           ? <span class="cw-adesivo" aria-hidden="true"><svg viewBox="0 0 56 57" fill="currentColor"><path d={FAISCA} /></svg>{adesivo}</span>
@@ -52,27 +67,33 @@ const FAISCA = "M9.126 23.02C6.55266 24.95 3.52899 26.9443 0.0549927 29.003C3.40
       </span>
     </span>
     <span class="cw-pe" aria-hidden="true"><span>WIG events</span><svg viewBox="0 0 56 57" fill="currentColor"><path d={FAISCA} /></svg><strong>{pe}</strong></span>
-    {externo && <span class="so-leitor"> (Instagram, abre em outra aba)</span>}
   </span>
-</Marca>
+  {href && <a class="cw-link" href={href} target={externo ? '_blank' : undefined} rel={externo ? 'noopener' : undefined}><span class="so-leitor">{rotuloLink}</span></a>}
+</span>
 
 <style>
   /* Tudo dentro do crachá é medido pela largura dele (cqw): margens, letras, furo, selo. Assim o
      crachá encolhe e cresce inteiro, como um objeto, e nada quebra quando a tela muda (pedido do
      Gui). A referência é um crachá de 17rem de largura: 1rem de lá vale 5,88cqw aqui. */
-  .cw { --c-fundo: var(--texto); --c-texto: var(--fundo); --c-pintura: var(--c-fundo); container-type: inline-size; display: block; aspect-ratio: 5 / 7; color: var(--c-texto); text-decoration: none; }
+  .cw { --c-fundo: var(--texto); --c-texto: var(--fundo); --c-pintura: var(--c-fundo); position: relative; container-type: inline-size; display: block; aspect-ratio: 5 / 7; color: var(--c-texto); text-decoration: none; }
   .cw-bastidores { --c-fundo: var(--vivo); --c-texto: var(--sobre-vivo); }
   /* Direção: folha dourada, a única que não segue o tema. O amarelo vem do manual de cores da WIG;
      o degradê imita o brilho do material, como num crachá laminado. */
   .cw-direcao { --c-fundo: #f0c132; --c-texto: #4a0c0c; --c-pintura: linear-gradient(128deg, #c89f23 0%, #fde68a 24%, #fbca2c 46%, #e2b12a 62%, #fde68a 80%, #c89f23 100%); }
-  .cw-face { position: relative; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr auto auto; height: 100%; padding: 5.3cqw 5.3cqw 5.9cqw; border-radius: 7.4cqw; background: var(--c-pintura); }
+  /* Face acima do link (z-index), mas sem capturar clique: o toque passa ao <a> por baixo.
+     Só a mini tag do crédito (pointer-events: auto) recebe o toque na foto. */
+  .cw-face { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto 1fr auto auto; height: 100%; padding: 5.3cqw 5.3cqw 5.9cqw; border-radius: 7.4cqw; background: var(--c-pintura); pointer-events: none; }
+  .cw-link { position: absolute; inset: 0; z-index: 0; border-radius: 7.4cqw; }
   .cw-furo { justify-self: center; width: 16cqw; height: 3.5cqw; border-radius: 6cqw; background: var(--fundo); }
   .cw-topo { display: flex; align-items: center; justify-content: space-between; margin-top: 4.7cqw; font-size: 4.4cqw; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
   .cw-topo :global(.cw-marca) { height: 8cqw; width: auto; }
   /* A foto do casting já traz a inicial gigante da marca atrás da drag: a janela é maior que a do
-     crachá da @bsurda para ela aparecer. */
-  .cw-retrato { position: relative; display: block; overflow: hidden; min-height: 0; margin-top: 4.1cqw; border-radius: 4.4cqw; background: color-mix(in srgb, var(--c-texto) 12%, var(--c-fundo)); }
+     crachá da @bsurda para ela aparecer. container-type: a mini tag do crédito mede pela foto.
+     overflow só na imagem: a mini tag precisa sair da janela ao expandir. */
+  .cw-retrato { position: relative; container-type: inline-size; display: block; min-height: 0; margin-top: 4.1cqw; }
+  .cw-retrato-img { display: block; height: 100%; overflow: hidden; border-radius: 4.4cqw; background: color-mix(in srgb, var(--c-texto) 12%, var(--c-fundo)); }
   .cw-retrato img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; display: block; }
+  .cw-retrato :global(.credito-foto) { pointer-events: auto; }
   .cw-texto { display: grid; gap: 2.4cqw; justify-items: start; margin-top: 4.7cqw; }
   /* Uma linha para todos, para a foto ter a mesma altura em todos os crachás. Nome comprido
      encolhe para caber na largura. */
@@ -95,7 +116,7 @@ const FAISCA = "M9.126 23.02C6.55266 24.95 3.52899 26.9443 0.0549927 29.003C3.40
      papel do crachá, como adesivo recortado. Tudo em cqw, como o resto do crachá. */
   .cw-adesivo { display: inline-flex; align-items: center; gap: 1.4cqw; padding: 0.9cqw 2.6cqw 0.9cqw 2.2cqw; border: 0.8cqw solid var(--c-texto); border-radius: 2.4cqw; background: var(--vivo); color: var(--sobre-vivo); font-size: 4.2cqw; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; white-space: nowrap; transform: rotate(-4deg); transform-origin: 0 50%; box-shadow: 0.5cqw 0.8cqw 1.4cqw -0.4cqw rgb(0 0 0 / 0.45); }
   .cw-adesivo svg { width: 3.8cqw; height: 3.8cqw; flex: none; }
-  a.cw { transition: transform 0.25s ease; }
-  @media (hover: hover) and (pointer: fine) { a.cw:hover { transform: translateY(-0.35rem) rotate(-1deg); } }
-  @media (prefers-reduced-motion: reduce) { a.cw { transition: none; } a.cw:hover { transform: none; } }
+  .cw-clicavel { transition: transform 0.25s ease; }
+  @media (hover: hover) and (pointer: fine) { .cw-clicavel:hover, .cw-clicavel:has(.cw-link:focus-visible) { transform: translateY(-0.35rem) rotate(-1deg); } }
+  @media (prefers-reduced-motion: reduce) { .cw-clicavel { transition: none; } .cw-clicavel:hover, .cw-clicavel:has(.cw-link:focus-visible) { transform: none; } }
 </style>

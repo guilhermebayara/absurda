@@ -3,15 +3,21 @@
 // Só a Charlotte tem página no site; as outras levam ao Instagram de cada uma (decisão do Gui).
 // O papel de cada pessoa está no próprio crachá, por isso a seção tem um título só.
 // Dados em src/data/wig.json.
+// Crédito da sessão de casting (foto + retoques): só quem não é foraDaSessao e não é bastidores
+// (Guta, Ramon, Nalla e Rafa ficam sem; ver CLAUDE.md, WIG).
 import CrachaWig from './CrachaWig.astro';
 import wig from '../data/wig.json';
+
+const creditoSessao = `foto ${wig.creditos.foto} · retoques ${wig.creditos.retoques}`;
+const creditoDe = (p: (typeof wig.elenco)[number]) =>
+  !('foraDaSessao' in p && p.foraDaSessao) && p.papel !== 'bastidores' ? creditoSessao : undefined;
 ---
 <section class="secao elenco" aria-labelledby="t-elenco">
   <h2 id="t-elenco" class="titulo-secao" data-anima="sobe">Quem faz a WIG</h2>
   <ul class="elenco-grade">
     {wig.elenco.map((p, i) => (
       <li class:list={{ patroa: p.papel === 'direcao' }} data-anima="surge" style={`--i:${i}`}>
-        <CrachaWig id={p.id} nome={p.nome} epiteto={p.epiteto} rotulo={p.rotulo} adesivo={p.adesivo} foto={p.foto} href={p.pagina ?? p.instagram} externo={!p.pagina} papel={p.papel as 'casting' | 'bastidores' | 'direcao'} selo={p.selo} />
+        <CrachaWig id={p.id} nome={p.nome} epiteto={p.epiteto} rotulo={p.rotulo} adesivo={p.adesivo} foto={p.foto} href={p.pagina ?? p.instagram} externo={!p.pagina} papel={p.papel as 'casting' | 'bastidores' | 'direcao'} selo={p.selo} credito={creditoDe(p)} />
       </li>
     ))}
   </ul>
@@ -28,7 +34,7 @@ import wig from '../data/wig.json';
   .elenco-grade li:nth-child(even) > :global(.cw) { transform: rotate(1.8deg); }
   .elenco-grade li:nth-child(3n) > :global(.cw) { transform: rotate(3.2deg); }
   .elenco-grade li.patroa > :global(.cw) { transform: rotate(-1.2deg); }
-  .elenco-grade li > :global(.cw:hover), .elenco-grade li > :global(.cw:focus-visible) { transform: rotate(0deg) translateY(-0.35rem); }
+  .elenco-grade li > :global(.cw:hover), .elenco-grade li > :global(.cw:has(.cw-link:focus-visible)) { transform: rotate(0deg) translateY(-0.35rem); }
   .elenco-grade li:hover, .elenco-grade li:focus-within { z-index: 5; }
 
   /* Tela larga: cinco em cima, quatro no meio e três embaixo, desencontrados como tijolo e cada um numa altura,

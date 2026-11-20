@@ -258,3 +258,15 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   sobre a foto, no site todo, fica para uma sessão própria (item em "A construir"). (CLAUDE.md, seção
   "WIG".)
 
+- **2026-11-20, crédito de foto como mini tag, no site todo (Gui, 19 nov; sessão D).** Foto com crédito
+  ganha `CreditoFoto.astro` sobre ela: símbolo pequeno (enfeite, 3:1) que expande e mostra o crédito
+  (leitura, 4,5:1); hover abre; no toque, toque no símbolo e fecha fora; teclado foca e Enter abre.
+  Tamanho em cqw da foto. Aplicado nos crachás da WIG com crédito de sessão e na foto da Parada de BH
+  2018 no Sobre. Por quê: reduzir elemento de interface sem esconder o crédito. (CLAUDE.md, seção
+  "WIG"; `src/components/CreditoFoto.astro`.)
+
+- **2026-11-20, confere:calmo ignora a prévia que segue o cursor (sessão D).** `.espia` (Home) e
+  `.espia-capa` (Agenda) saem da conta de animação e de "mexe com a página parada": se o ponteiro do
+  Playwright cair num cartão, a prévia aparece e se mexe sozinha, e isso não é defeito de entrada.
+  (`scripts/confere-calmo.mjs`.)
+

@@ -33,7 +33,11 @@ const DE_PROPOSITO = [
   '.trio-quadro:not(.ativo)', // Trio no Sobre: só a foto da vez aparece
   '.pulseira-area', // Equipe: a área aparece na estampa, ao passar o cursor
   '.pulseira-destino-nome', // Equipe, celular: o destino vira só a seta
+  '.credito-foto:not(.aberto) .credito-foto-texto', // mini tag fechada: o crédito só aparece no hover/toque
 ].join(', ');
+// Prévia que segue o cursor (Home e Agenda): se o ponteiro do Playwright cair num cartão,
+// ela aparece e se mexe sozinha — não é animação de entrada; fica fora da conta de movimento.
+const IGNORA_MOVIMENTO = '.espia, .espia-capa';
 const TELAS = [
   { nome: 'celular', largura: 393, altura: 852, movel: true },
   { nome: 'desktop', largura: 1440, altura: 900, movel: false },
@@ -90,7 +94,7 @@ try { navegador = await chromium.launch(); } catch (erro) {
 }
 
 // Roda dentro da página, a cada parada da rolagem.
-const olha = async (deProposito) => {
+const olha = async ({ deProposito, ignoraMovimento }) => {
   const achados = [];
   const nomeDe = (e) => (e.tagName.toLowerCase() + '.' + (typeof e.className === 'string' ? e.className : '').trim().split(/\s+/).slice(0, 2).join('.')).replace(/\.$/, '').slice(0, 50);
   const naTela = (e) => { const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight; };
@@ -104,6 +108,7 @@ const olha = async (deProposito) => {
     const nome = a.animationName || a.transitionProperty || 'feita por script';
     if (/^(color|background-color|border.*color|outline-color|text-decoration-color|fill|stroke|--)/.test(nome)) continue;
     const alvo = a.effect && a.effect.target;
+    if (alvo && typeof alvo.closest === 'function' && alvo.closest(ignoraMovimento)) continue;
     achados.push(`animação em curso (${nome}) em ${alvo ? nomeDe(alvo) : '?'}`);
   }
   // 2. Entrada ou eco que não chegou ao estado final.
@@ -128,7 +133,7 @@ const olha = async (deProposito) => {
     if (opacidade < 0.05) achados.push(`texto invisível: "${no.textContent.trim().slice(0, 30)}" em ${nomeDe(el)}`);
   }
   // 4. Alguma coisa muda de lugar com a página parada?
-  const retrato = [...document.querySelectorAll('body *')].filter(naTela).slice(0, 1500).map((e) => { const r = e.getBoundingClientRect(); return [e, r.left, r.top, r.width]; });
+  const retrato = [...document.querySelectorAll('body *')].filter((e) => naTela(e) && !e.closest(ignoraMovimento)).slice(0, 1500).map((e) => { const r = e.getBoundingClientRect(); return [e, r.left, r.top, r.width]; });
   await new Promise((ok) => setTimeout(ok, 450));
   for (const [e, esquerda, topo, largura] of retrato) {
     const r = e.getBoundingClientRect();
@@ -149,7 +154,7 @@ const visita = async (contexto, tela, rota) => {
     for (let y = 0; y < altura; y += tela.altura * 0.85) {
       await pagina.evaluate((yy) => scrollTo(0, yy), y);
       await pagina.waitForTimeout(160);
-      for (const a of await pagina.evaluate(olha, DE_PROPOSITO)) achados.add(a);
+      for (const a of await pagina.evaluate(olha, { deProposito: DE_PROPOSITO, ignoraMovimento: IGNORA_MOVIMENTO })) achados.add(a);
     }
   } catch (erro) {
     achados.add('a página não abriu até o fim: ' + String(erro.message).split('\n')[0]);

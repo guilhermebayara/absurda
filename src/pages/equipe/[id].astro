@@ -26,6 +26,10 @@ const temas = await temasDaPessoa(pessoa.id, pessoa.data.foto);
 // Quem está no elenco da WIG e tem página aqui ganha o crachá da WIG em destaque, abaixo da
 // ficha. O crachá principal continua sendo o da @bsurda (pedido do Gui).
 const naWig = wig.elenco.find((p) => p.pagina === `/equipe/${pessoa.id}`);
+// Crédito da sessão de casting: só casting/direção sem foraDaSessao (mesma regra da página da WIG).
+const creditoWig = naWig && !('foraDaSessao' in naWig && naWig.foraDaSessao) && naWig.papel !== 'bastidores'
+  ? `foto ${wig.creditos.foto} · retoques ${wig.creditos.retoques}`
+  : undefined;
 // A ficha: o conteúdo fala a língua do crachá (rótulo, valor, filete), sem virar outro objeto.
 // Todas as redes têm o mesmo peso; o Instagram só vem primeiro.
 const num = numero ? String(numero).padStart(3, '0') : 'XXX';
@@ -73,7 +77,7 @@ const periodo = alumni ? `Na @bsurda de ${pessoa.data.desde ?? 'XXXX'} a ${pesso
     </div>
     {naWig && (
       <aside class="pessoa-wig" aria-labelledby="t-wig">
-        <div class="pessoa-wig-cracha"><CrachaWig id={naWig.id} nome={naWig.nome} epiteto={naWig.epiteto} foto={naWig.foto} href="/projetos/wig" papel={naWig.papel as 'casting' | 'bastidores' | 'direcao'} selo={naWig.selo} /></div>
+        <div class="pessoa-wig-cracha"><CrachaWig id={naWig.id} nome={naWig.nome} epiteto={naWig.epiteto} foto={naWig.foto} href="/projetos/wig" papel={naWig.papel as 'casting' | 'bastidores' | 'direcao'} selo={naWig.selo} credito={creditoWig} /></div>
         <div class="pessoa-wig-texto">
           <p class="etiqueta">Também de crachá na WIG</p>
           <h2 id="t-wig" class="t-medio">{naWig.selo ?? 'WIGurl'} da WIG events</h2>
