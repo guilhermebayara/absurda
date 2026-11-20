@@ -18,13 +18,6 @@ Como usar:
 
 ## A construir
 
-- **Crédito de foto como mini tag, no site todo.** Decidido pelo Gui em 19 nov 2026, para reduzir
-  elemento de interface. Foto com crédito ganha, sobre ela, um símbolo pequeno que se expande e mostra
-  o crédito (no hover; no toque, ao tocar no símbolo). Foto sem crédito não leva nada. Começa pelos
-  crachás da WIG (o crédito do casting está no `wig.json`; Guta, Ramon, Nalla e Rafa não têm) e depois
-  vale para as outras fotos do site que tiverem crédito. Antes de construir, a sessão levanta onde há
-  foto com crédito no site e traz a lista no relatório.
-
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
 

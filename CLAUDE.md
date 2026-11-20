@@ -269,11 +269,14 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
   abaixo do nome), até as fotos novas do elenco (2027); quando elas chegarem, tire o campo. O adesivo é
   objeto: sólido (`--vivo` com `--sobre-vivo`), meio torto, borda da cor do papel, medido em cqw. A foto
   atual da Guta já é a nova, no mesmo recorte das outras.
-- **Crédito das fotos (Gui, 20 nov 2026):** a página da WIG não mostra crédito de foto por enquanto. Os
-  dados continuam em `src/data/wig.json` (`creditos` vale só para as fotos do casting de 2025; quem tem
-  `foraDaSessao: true`, como Guta, Ramon e Nalla, tem foto de outra fonte e fica sem crédito). O formato
-  de mini tag, no site todo, é o item de "A construir" em `notas/a-fazer.md`. Nome novo no elenco
-  precisa da curva em `wig-letras.json` (sem ela, o nome sai em fonte simples; Guta, Ramon e Nalla já têm).
+- **Crédito das fotos (Gui, 20 nov 2026; mini tag em 20 nov 2026):** foto com crédito ganha a mini tag
+  `CreditoFoto.astro` sobre ela (símbolo que expande no hover; no toque, toque no símbolo e fecha fora;
+  teclado foca e Enter abre). Foto sem crédito não leva nada. O símbolo é enfeite (3:1, `--enfeite` sobre
+  `--texto`); o texto aberto é leitura (4,5:1, `--fundo` sobre `--texto`). Tamanho em cqw da foto. Na WIG,
+  os dados estão em `src/data/wig.json` (`creditos` vale só para casting/direção da sessão de 2025; quem
+  tem `foraDaSessao: true` — Guta, Ramon, Nalla — e os bastidores, como o Rafa, ficam sem crédito). Também
+  entra na foto da Parada de BH 2018 no Sobre (`foto Lugh`, via `Capa`). Nome novo no elenco precisa da
+  curva em `wig-letras.json` (sem ela, o nome sai em fonte simples; Guta, Ramon e Nalla já têm).
 - **Ordem dos projetos** (do Rafa): WIG Brunch, WIG Party, Tela Tuck, CHRONUS, Chá com Charlotte,
   Arraiá das Piranhas, WIGokê. Projeto sem data (Chá, WIGokê) sai só com o texto; sem `local` ou `url`, a linha
   da data sai sem eles. Campos `convidadas`, `elenco`, `newFace`, `dj` e `obs` ficam no dado, sem layout.

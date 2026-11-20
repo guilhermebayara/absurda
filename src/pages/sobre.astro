@@ -353,15 +353,15 @@ const premios = [
         <p>É pelo mesmo motivo que já levamos o nosso trio para a Parada do Orgulho LGBTQIA+ de BH e que criamos a nossa própria Parada, em 2020. Festa, para nós, sempre foi um jeito de fazer política.</p>
       </div>
       <ul class="posicao-fotos" aria-label="Fotos de atos e Paradas">
-        {[
+        {([
           { rotulo: 'Câmara Municipal de BH, 22 jun 2026', src: '/sobre/camara-2026.jpg', alt: 'Certificado de Homenagem e Reconhecimento entregue à @bsurda na Câmara Municipal de Belo Horizonte' },
-          { rotulo: '21ª Parada do Orgulho de BH, 8 jul 2018. Foto: Lugh', src: '/sobre/parada-bh-2018.jpg', alt: 'Multidão na Praça da Estação, em Belo Horizonte, durante a Parada do Orgulho LGBT de 2018' },
+          { rotulo: '21ª Parada do Orgulho de BH, 8 jul 2018', credito: 'foto Lugh', src: '/sobre/parada-bh-2018.jpg', alt: 'Multidão na Praça da Estação, em Belo Horizonte, durante a Parada do Orgulho LGBT de 2018' },
           // Foto do Gui (10_site/Sobre). O Ed tocou no trio representando a @bsurda; o ato saiu da Praça da
           // Estação e terminou na Raul Soares, e a foto é da passagem pela Praça Sete.
           { rotulo: 'Ato por Lula, na Praça Sete, 18 out 2026', src: '/sobre/ato-2026.jpg', alt: 'Ed Luiz em cima de um trio elétrico, de camisa vermelha e fone no pescoço, com a mão erguida, na passagem do ato pela Praça Sete, em Belo Horizonte' },
           { rotulo: '5ª Parada da @bsurda, na Funarte MG, 2025', src: '/sobre/parada-absurda-2025.jpg', alt: 'Faixa da Parada da @bsurda número 5, com as palavras ocupação, presença e arte, diante de um galpão da Funarte' },
-        ].map((f, i) => (
-          <li class:list={{ torto: i % 2 === 0 }}><Capa src={f.src} alt={f.alt} proporcao="4 / 5" /><p>{f.rotulo}</p></li>
+        ] as Array<{ rotulo: string; src: string; alt: string; credito?: string }>).map((f, i) => (
+          <li class:list={{ torto: i % 2 === 0 }}><Capa src={f.src} alt={f.alt} proporcao="4 / 5" credito={f.credito} /><p>{f.rotulo}</p></li>
         ))}
       </ul>
     </div>

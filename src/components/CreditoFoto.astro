@@ -1,0 +1,136 @@
+---
+// Mini tag de crédito sobre a foto: um símbolo pequeno que se expande e mostra o crédito.
+// Hover abre; no toque, toque no símbolo abre e toque fora fecha; teclado foca o símbolo e Enter abre.
+// Foto sem crédito não leva o componente. Tamanho em cqw da foto (o pai precisa de container-type).
+// Símbolo é enfeite (3:1, --enfeite sobre --texto); texto aberto é leitura (4,5:1, --fundo sobre --texto).
+interface Props {
+  credito: string;
+  class?: string;
+}
+const { credito, class: classe } = Astro.props;
+---
+<span class:list={['credito-foto', classe]} data-credito-foto>
+  <button type="button" class="credito-foto-botao" aria-expanded="false" aria-label="Crédito da foto">
+    <svg class="credito-foto-simbolo" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+      <path d="M9.4 5.5 11 3.5h2l1.6 2H18a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-10a2 2 0 0 1 2-2h3.4ZM12 9.2a3.8 3.8 0 1 0 0 7.6 3.8 3.8 0 0 0 0-7.6Zm0 1.7a2.1 2.1 0 1 1 0 4.2 2.1 2.1 0 0 1 0-4.2Z" />
+    </svg>
+    <span class="credito-foto-texto">{credito}</span>
+  </button>
+</span>
+
+<style>
+  .credito-foto {
+    position: absolute;
+    z-index: 3;
+    left: 3.2cqw;
+    bottom: 3.2cqw;
+    /* Superfície sólida sobre a foto: o par invertido do tema, para o contraste não depender da imagem. */
+    --cf-fundo: var(--texto);
+    --cf-leitura: var(--fundo);
+    --cf-enfeite: var(--enfeite);
+  }
+  .credito-foto-botao {
+    display: inline-flex;
+    align-items: center;
+    gap: 0;
+    margin: 0;
+    padding: 2cqw;
+    border: 0;
+    border-radius: 999px;
+    background: var(--cf-fundo);
+    color: var(--cf-enfeite);
+    font: inherit;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 0.35cqw 1.2cqw rgb(0 0 0 / 0.35);
+    transition: gap 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), padding 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .credito-foto-botao:focus-visible { outline: 2px solid var(--cf-leitura); outline-offset: 2px; }
+  .credito-foto-simbolo { flex: none; width: 5.2cqw; height: 5.2cqw; min-width: 0.7rem; min-height: 0.7rem; }
+  .credito-foto-texto {
+    display: block;
+    max-width: 0;
+    overflow: hidden;
+    color: var(--cf-leitura);
+    font-size: max(0.625rem, 4.4cqw);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    opacity: 0;
+    transition: max-width 0.28s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.2s ease, margin 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  /* Hover (cursor fino) e estado aberto (toque / Enter) expandem a tag. Foco sozinho não abre.
+     max-width alto de propósito: o texto do crédito precisa caber inteiro no crachá da WIG. */
+  .credito-foto:hover .credito-foto-botao,
+  .credito-foto.aberto .credito-foto-botao { gap: 1.6cqw; padding: 2cqw 3.2cqw 2cqw 2.4cqw; }
+  .credito-foto:hover .credito-foto-texto,
+  .credito-foto.aberto .credito-foto-texto { max-width: 40rem; margin-right: 0.4cqw; opacity: 1; }
+  @media (prefers-reduced-motion: reduce) {
+    .credito-foto-botao, .credito-foto-texto { transition: none; }
+  }
+</style>
+
+<script>
+  // Uma vez por página: hover abre pelo CSS; toque e teclado usam a classe .aberto.
+  const fino = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+  const fecha = (raiz: HTMLElement) => {
+    raiz.classList.remove('aberto');
+    const botao = raiz.querySelector<HTMLButtonElement>('.credito-foto-botao');
+    if (botao) botao.setAttribute('aria-expanded', 'false');
+  };
+
+  const abre = (raiz: HTMLElement) => {
+    raiz.classList.add('aberto');
+    const botao = raiz.querySelector<HTMLButtonElement>('.credito-foto-botao');
+    if (botao) botao.setAttribute('aria-expanded', 'true');
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-credito-foto]').forEach((raiz) => {
+    if (raiz.dataset.ligado) return;
+    raiz.dataset.ligado = '1';
+    const botao = raiz.querySelector<HTMLButtonElement>('.credito-foto-botao');
+    if (!botao) return;
+
+    botao.addEventListener('click', (e) => {
+      // Sempre corta o clique: no crachá a tag fica por cima do link esticado.
+      e.preventDefault();
+      e.stopPropagation();
+      // Com cursor fino o hover já abre; o clique não trava aberto.
+      if (fino()) return;
+      if (raiz.classList.contains('aberto')) fecha(raiz);
+      else {
+        document.querySelectorAll<HTMLElement>('[data-credito-foto].aberto').forEach((outro) => {
+          if (outro !== raiz) fecha(outro);
+        });
+        abre(raiz);
+      }
+    });
+
+    botao.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      e.stopPropagation();
+      if (raiz.classList.contains('aberto')) fecha(raiz);
+      else {
+        document.querySelectorAll<HTMLElement>('[data-credito-foto].aberto').forEach((outro) => {
+          if (outro !== raiz) fecha(outro);
+        });
+        abre(raiz);
+      }
+    });
+  });
+
+  document.addEventListener('pointerdown', (e) => {
+    const alvo = e.target;
+    if (!(alvo instanceof Node)) return;
+    document.querySelectorAll<HTMLElement>('[data-credito-foto].aberto').forEach((raiz) => {
+      if (!raiz.contains(alvo)) fecha(raiz);
+    });
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    document.querySelectorAll<HTMLElement>('[data-credito-foto].aberto').forEach(fecha);
+  });
+</script>
