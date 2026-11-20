@@ -283,3 +283,7 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   estimativa cai de 700 a 800 minutos por mês para 100 a 150. (`notas/briefs/actions.md`; ao
   terminar, CLAUDE.md, "Conferências do site".)
 
+- `2026-11-20`: a @bsurda sai da conta Cloudflare que divide com o site da família e vai para uma
+  conta própria, antes de o site ser divulgado. Motivo: o Bastidor, sistema interno da @bsurda, vai
+  morar em bastidor.festaabsurda.com e precisa estar na mesma conta do domínio; e a regra é uma conta
+  por projeto. O Gui faz a mudança no painel; uma sessão confere depois. (`notas/briefs/conta-cloudflare-propria.md`.)
