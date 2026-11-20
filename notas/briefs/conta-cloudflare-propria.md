@@ -38,5 +38,7 @@ Quem faz: o Gui, no painel da Cloudflare e no GitHub. Tokens e senhas só ele di
 
 ## Cuidado
 
+- Quando: antes do lançamento do site, depois de fechar o trabalho de conteúdo. Antes de começar, ter à mão os tokens do Shotgun e do Sympla, porque eles precisam ser cadastrados de novo na conta nova (em 20/11 o do Sympla ainda não estava disponível).
+
 - Fazer numa janela sem festa à venda, porque a Agenda leva ao link de ingressos.
 - Nada de token, senha ou e-mail real nesta nota, em commit ou em relatório.
