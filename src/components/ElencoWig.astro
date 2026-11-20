@@ -5,9 +5,6 @@
 // Dados em src/data/wig.json.
 import CrachaWig from './CrachaWig.astro';
 import wig from '../data/wig.json';
-// As fotos de quem entrou depois (foraDaSessao) não são da sessão do casting: o crédito acima não vale para elas.
-const fora = wig.elenco.filter((p) => 'foraDaSessao' in p && p.foraDaSessao).map((p) => p.nome);
-const lista = fora.length > 1 ? `${fora.slice(0, -1).join(', ')} e ${fora[fora.length - 1]}` : fora[0];
 ---
 <section class="secao elenco" aria-labelledby="t-elenco">
   <h2 id="t-elenco" class="titulo-secao" data-anima="sobe">Quem faz a WIG</h2>
@@ -18,7 +15,6 @@ const lista = fora.length > 1 ? `${fora.slice(0, -1).join(', ')} e ${fora[fora.l
       </li>
     ))}
   </ul>
-  <p class="elenco-credito">Fotos do casting de 2025: {wig.creditos.foto}. Retoques: {wig.creditos.retoques}.{fora.length > 0 && ` As fotos de ${lista} são de outra fonte, e o crédito acima não vale para elas.`}</p>
 </section>
 
 <style>
@@ -34,7 +30,6 @@ const lista = fora.length > 1 ? `${fora.slice(0, -1).join(', ')} e ${fora[fora.l
   .elenco-grade li.patroa > :global(.cw) { transform: rotate(-1.2deg); }
   .elenco-grade li > :global(.cw:hover), .elenco-grade li > :global(.cw:focus-visible) { transform: rotate(0deg) translateY(-0.35rem); }
   .elenco-grade li:hover, .elenco-grade li:focus-within { z-index: 5; }
-  .elenco-credito { margin-top: clamp(2rem, 4vw, 3.5rem); font-size: 0.8125rem; color: var(--suave); }
 
   /* Tela larga: cinco em cima, quatro no meio e três embaixo, desencontrados como tijolo e cada um numa altura,
      como crachás largados depois do show. A patroa vai para o meio da fileira de cima, um degrau

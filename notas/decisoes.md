@@ -253,3 +253,8 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   tem altura fixa). O adesivo "New Girl" da Guta fica no lugar da frase dela, e a foto dela é a nova.
   (CLAUDE.md, seção "WIG" e "Cartão de evento não cresce com a capa".)
 
+- **2026-11-20, crédito das fotos da WIG sai da página (Gui).** A linha de crédito do elenco (e o aviso
+  das fotos de outra fonte) deixa de aparecer; os dados ficam no `wig.json`. O formato de mini tag
+  sobre a foto, no site todo, fica para uma sessão própria (item em "A construir"). (CLAUDE.md, seção
+  "WIG".)
+

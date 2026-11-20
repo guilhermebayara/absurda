@@ -269,10 +269,11 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
   abaixo do nome), até as fotos novas do elenco (2027); quando elas chegarem, tire o campo. O adesivo é
   objeto: sólido (`--vivo` com `--sobre-vivo`), meio torto, borda da cor do papel, medido em cqw. A foto
   atual da Guta já é a nova, no mesmo recorte das outras.
-- **Crédito das fotos:** "Fotos do casting de 2025" vale só para a sessão. Quem tem
-  `foraDaSessao: true` (Guta, Ramon e Nalla) tem foto de outra fonte, e a linha de crédito diz isso. Nome
-  novo no elenco precisa da curva em `wig-letras.json` (sem ela, o nome sai em fonte simples; Guta, Ramon
-  e Nalla já têm).
+- **Crédito das fotos (Gui, 20 nov 2026):** a página da WIG não mostra crédito de foto por enquanto. Os
+  dados continuam em `src/data/wig.json` (`creditos` vale só para as fotos do casting de 2025; quem tem
+  `foraDaSessao: true`, como Guta, Ramon e Nalla, tem foto de outra fonte e fica sem crédito). O formato
+  de mini tag, no site todo, é o item de "A construir" em `notas/a-fazer.md`. Nome novo no elenco
+  precisa da curva em `wig-letras.json` (sem ela, o nome sai em fonte simples; Guta, Ramon e Nalla já têm).
 - **Ordem dos projetos** (do Rafa): WIG Brunch, WIG Party, Tela Tuck, CHRONUS, Chá com Charlotte,
   Arraiá das Piranhas, WIGokê. Projeto sem data (Chá, WIGokê) sai só com o texto; sem `local` ou `url`, a linha
   da data sai sem eles. Campos `convidadas`, `elenco`, `newFace`, `dj` e `obs` ficam no dado, sem layout.
