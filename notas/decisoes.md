@@ -241,3 +241,6 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   só entra na conta (`naAgenda`); evento marcado para depois aparece "(em breve)" e não conta. Datas
   novas sem local conhecido saem sem local. Detalhe em CLAUDE.md, seção "WIG".
 
+- **2026-11-19, endereço das prévias (Gui).** Prévia de branch é `https://<branch>.festaabsurda.com`
+  (homologação: https://design.festaabsurda.com), e não o endereço `workers.dev`. Vale para todos os
+  projetos do Gui: branch como subdomínio do domínio principal. (CLAUDE.md, "Branches e publicação".)

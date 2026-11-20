@@ -26,10 +26,6 @@ oferece. Não acrescentar e-mail nem o pix do trio ao site.
 Estas perguntas estão na planilha "Pendências do site". Quando a
 resposta chegar lá, o item vira trabalho:
 
-- **WIG: nome da Guta, do Ramon e da Nalla na letra da marca.** Os três crachás saem com o nome em fonte
-  simples. Falta o arquivo da fonte Pink Sunset (pasta de marca da WIG) para gerar as curvas em
-  `src/data/wig-letras.json`. A Guta ainda precisa das fotos novas do elenco (2027) para o adesivo sair.
-
 - **Agenda de 2022: pastas que ficaram de fora.** MOC, Prêmio, YOLO e Anda.
 - **Parcerias: o que ainda falta da planilha.** Pessoas por edição, seguidores, perfil do público,
   fotos dos casos, logos e o texto do "Vamos conversar" (junto com o e-mail, pausado).

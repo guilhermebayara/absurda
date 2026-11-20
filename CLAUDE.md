@@ -19,8 +19,9 @@ bayara.design e do site da família:
 e aposentar a `design`. Até ele avisar que fez, a homologação continua sendo a `design`. Quando
 mudar, troque `design` por `homologa` neste arquivo, em `notas/` e nos fluxos de `.github/workflows/`.
 
-**Prévias:** cada branch tem a sua em `https://<branch>-absurda.gbayara.workers.dev` (a da
-homologação: https://design-absurda.gbayara.workers.dev). A produção é https://festaabsurda.com.
+**Prévias (do Gui, 19 nov 2026):** cada branch tem a sua em `https://<branch>.festaabsurda.com`
+(a da homologação: https://design.festaabsurda.com). A produção é https://festaabsurda.com. Em
+relatório, tabela e prompt use sempre esse endereço, nunca o `workers.dev`.
 
 - Só a `main` e a homologação têm os tokens do Shotgun e do Sympla configurados na Cloudflare. As
   outras branches não têm, então a agenda delas mostra só o histórico arquivado.
