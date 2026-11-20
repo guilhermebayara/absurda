@@ -18,18 +18,6 @@ Como usar:
 
 ## A construir
 
-- **Eventos futuros de exemplo nas prévias de teste.** Pedido do Gui em 18 nov 2026. As branches sem
-  os tokens do Shotgun e do Sympla mostram só o histórico, então não dá para conferir Home e Agenda
-  com evento futuro numa prévia de teste. Quando faltar o token do Shotgun e a branch não for a
-  `main` nem a homologação, o site entra com uns poucos eventos de exemplo, com datas contadas a
-  partir do dia do build (alguns próximos, um acontecendo agora, um com capa 3:4 e outro 16:9, um da
-  Sympla, um com nome longo). Os dados ficam num arquivo próprio em `src/data/`. Regras:
-  - nunca aparecem na `main` nem na homologação, mesmo se o token faltar lá (a branch vem da variável
-    de branch do build da Cloudflare; sem ela, nada de exemplo);
-  - nunca entram no arquivo do histórico (`scripts/arquivar.mjs` não os vê);
-  - uma conferência nova falha se o build da `main` tiver algum evento de exemplo;
-  - a página deixa claro que são de exemplo, sem atrapalhar o layout (por exemplo, no nome).
-
 - **WIG: página com as respostas do Rafa.** Decidido em 19 nov 2026. Elenco novo (Guta Leão com
   adesivo "New Girl"; Ramon e Nalla como assistentes de backstage; frase do Rafa), sete projetos na
   ordem do Rafa, datas completas do Brunch, do Tela Tuck e do CHRONUS, e apresentação em parágrafos.

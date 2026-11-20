@@ -4,7 +4,8 @@
 # (scripts/confere-agenda.mjs), o movimento reduzido (scripts/confere-calmo.mjs), a parede de
 # palavras da Home (scripts/confere-parede.mjs), as barras presas no topo, na rolagem e no toque
 # (scripts/confere-barra.mjs), a pilha do Trio no Sobre (scripts/confere-pilha.mjs) e as
-# atrações do Sobre (scripts/confere-atracoes.mjs).
+# atrações do Sobre (scripts/confere-atracoes.mjs) e os eventos de exemplo das prévias
+# (scripts/confere-exemplos.mjs).
 #
 # Quando roda (economia de minutos, do Gui, 19 nov 2026):
 #   - no PR para a design ou para a main, a cada push na branch do PR;
@@ -71,6 +72,8 @@ jobs:
         run: npm run confere:agenda
       - name: Atrações do Sobre (todo nome do JSON está na página)
         run: npm run confere:atracoes
+      - name: Eventos de exemplo (nunca na main nem na homologação)
+        run: npm run confere:exemplos
       # Os navegadores ficam guardados entre as rodadas, com a versão do Playwright na chave:
       # muda a versão, baixa de novo. As bibliotecas do sistema não cabem no cache, então o
       # install continua rodando; com o navegador já lá, ele só confere e segue.

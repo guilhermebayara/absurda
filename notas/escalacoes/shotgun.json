@@ -5,6 +5,8 @@
   "cancelledAt",
   "coverThumbnailUrl",
   "coverUrl",
+  "coverVerticalThumbnailUrl",
+  "coverVerticalUrl",
   "deals",
   "description",
   "endTime",
@@ -41,7 +43,29 @@
    "id": "shotgun-616756",
    "nome": "@BSURDA MAYHEM, BRAT, CONFESSIONS II, RENAISSANCE  - 12/12",
    "data": "2026-12-13T01:00:00.000Z",
-   "artistas": [],
+   "artistas": [
+    {
+     "id": 990778,
+     "name": "Charlotte Drag",
+     "slug": "charlotte-drag",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "url": "https://shotgun.live/artists/charlotte-drag"
+    },
+    {
+     "id": 1125047,
+     "name": "djed",
+     "slug": "djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
+     "url": "https://shotgun.live/artists/djed"
+    },
+    {
+     "id": 558721,
+     "name": "Mombs",
+     "slug": "luis-solani",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/luis_solani",
+     "url": "https://shotgun.live/artists/luis-solani"
+    }
+   ],
    "textos": {
     "description": "@BSURDA MAYHEM, BRAT, CONFESSIONS II, RENAISSANCE - 12/12 - 22H\nOs melhore lançamentos dos últimos anos.\n______\nEVENTO PARA MAIORES DE 18 ANOS."
    }
@@ -64,7 +88,7 @@
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     }
    ],
@@ -81,21 +105,21 @@
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 295182,
      "name": "Grabs",
      "slug": "djgrabs",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djgrabs",
      "url": "https://shotgun.live/artists/djgrabs"
     },
     {
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     }
    ],
@@ -112,49 +136,49 @@
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 295182,
      "name": "Grabs",
      "slug": "djgrabs",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djgrabs",
      "url": "https://shotgun.live/artists/djgrabs"
     },
     {
      "id": 1349585,
      "name": "Deejay Keoma",
      "slug": "djkeoma",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
      "url": "https://shotgun.live/artists/djkeoma"
     },
     {
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     },
     {
      "id": 101631,
      "name": "S4TAN",
      "slug": "s4tan",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-101631-avatar-1793700772071",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-101631-avatar-1794998223183",
      "url": "https://shotgun.live/artists/s4tan"
     },
     {
      "id": 990778,
      "name": "Charlotte Drag",
      "slug": "charlotte-drag",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
      "url": "https://shotgun.live/artists/charlotte-drag"
     },
     {
      "id": 114374,
      "name": "Frimes",
      "slug": "frimesss",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-114374-avatar-1793701452823",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-114374-avatar-1795009740146",
      "url": "https://shotgun.live/artists/frimesss"
     }
    ],
@@ -171,14 +195,14 @@
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     }
    ],
@@ -204,14 +228,14 @@
      "id": 140983,
      "name": "Lázara dos Anjos",
      "slug": "dosanjoslazara",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/dosanjoslazara",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/dosanjoslazara",
      "url": "https://shotgun.live/artists/dosanjoslazara"
     },
     {
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     }
    ],
@@ -262,28 +286,28 @@
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 747757,
      "name": "QARMA",
      "slug": "karmuxa",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-747757-avatar-1786971424787",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-747757-avatar-1786971424787",
      "url": "https://shotgun.live/artists/karmuxa"
     },
     {
      "id": 716535,
      "name": "Nico",
      "slug": "sos-nick",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-716535-avatar-1770651798247",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-716535-avatar-1770651798247",
      "url": "https://shotgun.live/artists/sos-nick"
     },
     {
      "id": 1088422,
      "name": "SAM",
      "slug": "sam-xdj",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/sam_xdj",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/sam_xdj",
      "url": "https://shotgun.live/artists/sam-xdj"
     }
    ],
@@ -300,28 +324,28 @@
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     },
     {
      "id": 1349585,
      "name": "Deejay Keoma",
      "slug": "djkeoma",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
      "url": "https://shotgun.live/artists/djkeoma"
     },
     {
      "id": 295182,
      "name": "Grabs",
      "slug": "djgrabs",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djgrabs",
      "url": "https://shotgun.live/artists/djgrabs"
     }
    ],
@@ -338,35 +362,35 @@
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 1349585,
      "name": "Deejay Keoma",
      "slug": "djkeoma",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
      "url": "https://shotgun.live/artists/djkeoma"
     },
     {
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     },
     {
      "id": 295182,
      "name": "Grabs",
      "slug": "djgrabs",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djgrabs",
      "url": "https://shotgun.live/artists/djgrabs"
     },
     {
      "id": 110861,
      "name": "RIANRIOT",
      "slug": "rianriottt",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/rianriottt",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/rianriottt",
      "url": "https://shotgun.live/artists/rianriottt"
     }
    ],
@@ -383,14 +407,14 @@
      "id": 990778,
      "name": "Charlotte Drag",
      "slug": "charlotte-drag",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
      "url": "https://shotgun.live/artists/charlotte-drag"
     },
     {
      "id": 1032372,
      "name": "DaCota Monteiro",
      "slug": "dacota-monteiro",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1032372-avatar-1793707595807",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1032372-avatar-1793707595807",
      "url": "https://shotgun.live/artists/dacota-monteiro"
     }
    ],
@@ -430,28 +454,28 @@
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     },
     {
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 295182,
      "name": "Grabs",
      "slug": "djgrabs",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djgrabs",
      "url": "https://shotgun.live/artists/djgrabs"
     },
     {
      "id": 990778,
      "name": "Charlotte Drag",
      "slug": "charlotte-drag",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
      "url": "https://shotgun.live/artists/charlotte-drag"
     }
    ],
@@ -468,42 +492,42 @@
      "id": 295182,
      "name": "Grabs",
      "slug": "djgrabs",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djgrabs",
      "url": "https://shotgun.live/artists/djgrabs"
     },
     {
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     },
     {
      "id": 1349585,
      "name": "Deejay Keoma",
      "slug": "djkeoma",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
      "url": "https://shotgun.live/artists/djkeoma"
     },
     {
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     },
     {
      "id": 990778,
      "name": "Charlotte Drag",
      "slug": "charlotte-drag",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
      "url": "https://shotgun.live/artists/charlotte-drag"
     }
    ],
@@ -520,28 +544,28 @@
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 561826,
      "name": "JUJUBITAJU",
      "slug": "user-335209594",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/user_335209594",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/user_335209594",
      "url": "https://shotgun.live/artists/user-335209594"
     },
     {
      "id": 295182,
      "name": "Grabs",
      "slug": "djgrabs",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djgrabs",
      "url": "https://shotgun.live/artists/djgrabs"
     },
     {
      "id": 1349585,
      "name": "Deejay Keoma",
      "slug": "djkeoma",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
      "url": "https://shotgun.live/artists/djkeoma"
     }
    ],
@@ -558,21 +582,21 @@
      "id": 558721,
      "name": "Mombs",
      "slug": "luis-solani",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/luis_solani",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/luis_solani",
      "url": "https://shotgun.live/artists/luis-solani"
     },
     {
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 990778,
      "name": "Charlotte Drag",
      "slug": "charlotte-drag",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
      "url": "https://shotgun.live/artists/charlotte-drag"
     }
    ],
@@ -589,35 +613,35 @@
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     },
     {
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 1349585,
      "name": "Deejay Keoma",
      "slug": "djkeoma",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
      "url": "https://shotgun.live/artists/djkeoma"
     },
     {
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     },
     {
      "id": 295182,
      "name": "Grabs",
      "slug": "djgrabs",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djgrabs",
      "url": "https://shotgun.live/artists/djgrabs"
     }
    ],
@@ -634,35 +658,35 @@
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     },
     {
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     },
     {
      "id": 82499,
      "name": "Toni †",
      "slug": "tonicrz",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-82499-avatar-1754527974027",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-82499-avatar-1754527974027",
      "url": "https://shotgun.live/artists/tonicrz"
     },
     {
      "id": 1349585,
      "name": "Deejay Keoma",
      "slug": "djkeoma",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
      "url": "https://shotgun.live/artists/djkeoma"
     }
    ],
@@ -679,28 +703,28 @@
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     },
     {
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 295182,
      "name": "Grabs",
      "slug": "djgrabs",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djgrabs",
      "url": "https://shotgun.live/artists/djgrabs"
     },
     {
      "id": 1349585,
      "name": "Deejay Keoma",
      "slug": "djkeoma",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
      "url": "https://shotgun.live/artists/djkeoma"
     }
    ],
@@ -717,28 +741,28 @@
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     },
     {
      "id": 224108,
      "name": "Madison",
      "slug": "user-604649501",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/user_604649501",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/user_604649501",
      "url": "https://shotgun.live/artists/user-604649501"
     },
     {
      "id": 106514,
      "name": "JAUM",
      "slug": "djjaum",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djjaum",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djjaum",
      "url": "https://shotgun.live/artists/djjaum"
     },
     {
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     }
    ],
@@ -755,35 +779,35 @@
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     },
     {
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     },
     {
      "id": 295182,
      "name": "Grabs",
      "slug": "djgrabs",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djgrabs",
      "url": "https://shotgun.live/artists/djgrabs"
     },
     {
      "id": 1349585,
      "name": "Deejay Keoma",
      "slug": "djkeoma",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1349585-avatar-1793707632826",
      "url": "https://shotgun.live/artists/djkeoma"
     }
    ],
@@ -809,14 +833,14 @@
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     }
    ],
@@ -833,14 +857,14 @@
      "id": 990778,
      "name": "Charlotte Drag",
      "slug": "charlotte-drag",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
      "url": "https://shotgun.live/artists/charlotte-drag"
     },
     {
      "id": 256708,
      "name": "Keiona___",
      "slug": "kevynn-morell",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-256708-avatar-1793704798502",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-256708-avatar-1793704798502",
      "url": "https://shotgun.live/artists/kevynn-morell"
     }
    ],
@@ -857,28 +881,28 @@
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     },
     {
      "id": 156589,
      "name": "bauretz",
      "slug": "bauretz",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-156589-avatar-1793702594182",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-156589-avatar-1793702594182",
      "url": "https://shotgun.live/artists/bauretz"
     },
     {
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     }
    ],
@@ -913,21 +937,21 @@
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     },
     {
      "id": 295182,
      "name": "Grabs",
      "slug": "djgrabs",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djgrabs",
      "url": "https://shotgun.live/artists/djgrabs"
     },
     {
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     }
    ],
@@ -953,7 +977,7 @@
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     }
    ],
@@ -970,7 +994,7 @@
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     }
    ],
@@ -987,28 +1011,28 @@
      "id": 86017,
      "name": "Amerikana",
      "slug": "iago-fernandes-32447310",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-86017-avatar-1793700136238",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-86017-avatar-1793700136238",
      "url": "https://shotgun.live/artists/iago-fernandes-32447310"
     },
     {
      "id": 990778,
      "name": "Charlotte Drag",
      "slug": "charlotte-drag",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-990778-avatar-1793707264296",
      "url": "https://shotgun.live/artists/charlotte-drag"
     },
     {
      "id": 167419,
      "name": "Cava, Le Fleur",
      "slug": "cavalefleur",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-167419-avatar-1788220641329",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-167419-avatar-1788220641329",
      "url": "https://shotgun.live/artists/cavalefleur"
     },
     {
      "id": 1619895,
      "name": "Jomesc",
      "slug": "joannamescladi",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/joannamescladi",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/joannamescladi",
      "url": "https://shotgun.live/artists/joannamescladi"
     }
    ],
@@ -1025,21 +1049,21 @@
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     },
     {
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     },
     {
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     }
    ],
@@ -1056,14 +1080,14 @@
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     },
     {
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     }
    ],
@@ -1080,21 +1104,21 @@
      "id": 295182,
      "name": "Grabs",
      "slug": "djgrabs",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djgrabs",
      "url": "https://shotgun.live/artists/djgrabs"
     },
     {
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     },
     {
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     }
    ],
@@ -1111,14 +1135,14 @@
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     },
     {
      "id": 1125047,
      "name": "djed",
      "slug": "djed",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djed",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djed",
      "url": "https://shotgun.live/artists/djed"
     }
    ],
@@ -1135,14 +1159,14 @@
      "id": 295182,
      "name": "Grabs",
      "slug": "djgrabs",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djgrabs",
      "url": "https://shotgun.live/artists/djgrabs"
     },
     {
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     }
    ],
@@ -1159,21 +1183,21 @@
      "id": 1016585,
      "name": "absurda",
      "slug": "absurda",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-1016585-avatar-1793707366962",
      "url": "https://shotgun.live/artists/absurda"
     },
     {
      "id": 295182,
      "name": "Grabs",
      "slug": "djgrabs",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/djgrabs",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/djgrabs",
      "url": "https://shotgun.live/artists/djgrabs"
     },
     {
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     }
    ],
@@ -1208,14 +1232,14 @@
      "id": 84551,
      "name": "Vil Araujo",
      "slug": "vilaraujodj",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/Vil_Araujo",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/Vil_Araujo",
      "url": "https://shotgun.live/artists/vilaraujodj"
     },
     {
      "id": 84552,
      "name": "Dj Nath Leles",
      "slug": "nath-leles",
-     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
+     "avatar": "https://assets.shotgun.live/image/upload/c_limit,f_webp,fl_lossy,q_auto:good,w_1080/v1/production/artworks/artists/artist-84552-avatar-1793700058220",
      "url": "https://shotgun.live/artists/nath-leles"
     }
    ],
