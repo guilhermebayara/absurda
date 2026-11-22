@@ -1,43 +1,26 @@
-# Conferências do site, num trabalho só: a guarda do histórico (scripts/confere-arquivo.mjs),
-# os tipos do Astro e o build, e depois os links internos (scripts/confere-links.mjs), o
-# contraste dos temas, com o subtema vivo (scripts/confere-temas.mjs), a Agenda completa
-# (scripts/confere-agenda.mjs), o movimento reduzido (scripts/confere-calmo.mjs), a parede de
-# palavras da Home (scripts/confere-parede.mjs), as barras presas no topo, na rolagem e no toque
-# (scripts/confere-barra.mjs), a pilha do Trio no Sobre (scripts/confere-pilha.mjs) e as
-# atrações do Sobre (scripts/confere-atracoes.mjs) e os eventos de exemplo das prévias
-# (scripts/confere-exemplos.mjs).
+# Testes de navegador do site: movimento reduzido (scripts/confere-calmo.mjs), parede de palavras
+# da Home (scripts/confere-parede.mjs), barras presas no topo, na rolagem e no toque
+# (scripts/confere-barra.mjs) e pilha do Trio no Sobre (scripts/confere-pilha.mjs). Antes deles,
+# a guarda do histórico pelo git (scripts/confere-arquivo.mjs) e o build.
 #
-# Quando roda (economia de minutos, do Gui, 19 nov 2026):
-#   - no PR para a design ou para a main, a cada push na branch do PR;
-#   - no push na design (o que entra pelo merge do PR e o que a conversa escreve direto);
-#   - nunca quando a mudança é só de documentação (notas/, CLAUDE.md, README.md);
-#   - push novo na mesma branch ou no mesmo PR cancela a rodada antiga.
-# A main tem o próprio alarme (alarme-arquivo.yml) e recebe a design por fast-forward, já
-# conferida. Push numa tst-... ou qa-... sem PR não roda nada: as sessões conferem na máquina.
+# Quando roda (GitHub Actions enxuto, do Gui, 20 nov 2026): só por disparo manual ("Run workflow"
+# na aba Actions, escolhendo a branch). A conversa dispara na design antes de cada rodada para a
+# main. Nada roda sozinho em push ou PR: a Cloudflare já faz o build de cada push, e o build
+# ("npm run build") traz a guarda da produção, os tipos do Astro e as conferências rápidas (temas,
+# links, agenda, atrações e exemplos). Se algo falha lá, a Cloudflare não publica.
 #
 # O build aqui roda sem as chaves das plataformas: a agenda sai só com o histórico arquivado,
-# o que basta para conferir links, cores e movimento. Ver CLAUDE.md, "Conferências do site".
+# o que basta para conferir movimento e rolagem. Ver CLAUDE.md, "Conferências do site".
 name: Confere o site
 
 on:
-  push:
-    branches: [design]
-    paths-ignore:
-      - 'notas/**'
-      - 'CLAUDE.md'
-      - 'README.md'
-  pull_request:
-    branches: [design, main]
-    paths-ignore:
-      - 'notas/**'
-      - 'CLAUDE.md'
-      - 'README.md'
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -59,21 +42,9 @@ jobs:
       - name: Histórico preservado (arquivo desta branch contra o da main)
         run: node scripts/confere-arquivo.mjs
       - run: npm ci
-      - name: Tipos e diagnósticos do Astro
-        run: npm run check
-      - name: Gera o site
+      # O mesmo build da Cloudflare: guarda da produção, tipos, site e conferências rápidas.
+      - name: Gera o site (com as conferências rápidas)
         run: npm run build
-      # Depois do build, para incluir os temas das páginas de pessoa.
-      - name: Contraste dos temas e do subtema vivo
-        run: npm run confere:temas
-      - name: Links internos, âncoras e imagens
-        run: npm run confere:links
-      - name: Agenda completa (todo evento do arquivo aparece)
-        run: npm run confere:agenda
-      - name: Atrações do Sobre (todo nome do JSON está na página)
-        run: npm run confere:atracoes
-      - name: Eventos de exemplo (nunca na main nem na homologação)
-        run: npm run confere:exemplos
       # Os navegadores ficam guardados entre as rodadas, com a versão do Playwright na chave:
       # muda a versão, baixa de novo. As bibliotecas do sistema não cabem no cache, então o
       # install continua rodando; com o navegador já lá, ele só confere e segue.

@@ -1,28 +1,29 @@
-# Mantém a agenda do site em dia sem ninguém precisar publicar nada.
+# Mantém a agenda do site em dia sem ninguém precisar publicar nada. Um trabalho só:
 #
-# 1. Três vezes por dia, pede à Cloudflare que gere o site de novo, e o site busca
-#    os eventos mais recentes no Shotgun e no Sympla.
-# 2. Nas mesmas rodadas, copia para dentro do repositório os eventos que já passaram
-#    (dados e capas), para o histórico não depender mais das plataformas.
+# 1. Duas vezes por dia, copia para dentro do repositório os eventos que já passaram (dados e
+#    capas), para o histórico não depender mais das plataformas. Escreve direto na main.
+# 2. No fim, sempre (mesmo se o passo 1 falhar ou for pulado), pede à Cloudflare que gere o site
+#    de novo, e o site busca os eventos mais recentes no Shotgun e no Sympla.
 #
 # Segredos do repositório usados aqui:
 #   CLOUDFLARE_DEPLOY_HOOK  endereço do Deploy Hook criado no painel da Cloudflare
 #   SHOTGUN_TOKEN, SHOTGUN_ORGANIZER_ID, SYMPLA_TOKEN  os mesmos valores cadastrados
-#   na Cloudflare; sem eles o passo 2 é pulado e o resto continua funcionando.
+#   na Cloudflare; sem eles o passo 1 é pulado e o resto continua funcionando.
 name: Atualiza a agenda
 
 on:
   schedule:
-    # Horário de Brasília: 6h17, 12h17 e 18h17 (o agendamento é em UTC).
-    - cron: '17 9,15,21 * * *'
+    # Horário de Brasília: 6h17 e 18h17 (o agendamento é em UTC). GitHub Actions enxuto, 20 nov 2026.
+    - cron: '17 9,21 * * *'
   # Permite rodar na hora, pelo botão "Run workflow" na aba Actions.
   workflow_dispatch:
 
 permissions: {}
 
 jobs:
-  arquivar:
+  atualizar:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: write
     steps:
@@ -69,14 +70,9 @@ jobs:
             git commit -m "Arquivo da agenda: eventos que já passaram"
             git push origin main
           fi
-
-  atualizar:
-    # Roda depois do arquivo (mesmo que ele tenha sido pulado ou falhado).
-    needs: arquivar
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
+      # Sempre, mesmo se o arquivo falhou ou foi pulado.
       - name: Pede um novo build à Cloudflare
+        if: always()
         env:
           GANCHO: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
         run: |
