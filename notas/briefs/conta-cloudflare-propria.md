@@ -12,6 +12,19 @@ Quem faz: o Gui, no painel da Cloudflare e no GitHub. Tokens e senhas só ele di
 - Deploy Hook usado pelo robô da agenda (`.github/workflows/atualiza-agenda.yml`), guardado no GitHub como `CLOUDFLARE_DEPLOY_HOOK`.
 - Qualquer outra coisa ligada ao domínio que o painel mostrar (encaminhamento de e-mail, regras, redirecionamentos). Conferir antes de começar.
 
+## Andamento (22/11/2026, feito pela conversa no Chrome, a pedido do Gui)
+
+- Inventário da conta "Gui Bayara": zona `festaabsurda.com` (plano Free, DNSSEC desligado, sem encaminhamento
+  de e-mail da Cloudflare). DNS: e-mail do Google Workspace (5 MX, SPF, DKIM `google._domainkey`, DMARC),
+  um TXT de verificação, o CNAME `_domainconnect` do Squarespace e os AAAA dos domínios do Worker. O Worker
+  `absurda` tem os domínios `festaabsurda.com` e `www.festaabsurda.com`, os dois em "Production and Preview"
+  (é isso que dá `<branch>.festaabsurda.com`). Build da `main` com `SHOTGUN_ORGANIZER_ID`, `SHOTGUN_TOKEN` e
+  `SYMPLA_TOKEN`; a homologação é a prévia nomeada `design`, com as próprias variáveis.
+- Conta "absurda": Worker `absurda` criado e ligado ao repositório, build da `main` passando em
+  `absurda.absurda.workers.dev` (guarda "ok"), com `SHOTGUN_ORGANIZER_ID` copiado. Falta o `SHOTGUN_TOKEN`
+  (o Gui põe). O Sympla volta depois: os próximos eventos são todos do Shotgun.
+- Enquanto as duas contas existirem, todo push gera build nas duas.
+
 ## Passo a passo
 
 1. **Inventário.** No painel da conta atual, anotar tudo que está ligado a `festaabsurda.com`: registros de DNS (exportar o arquivo de DNS), domínios personalizados do Worker, encaminhamento de e-mail, regras. Ver também onde o domínio está registrado.
