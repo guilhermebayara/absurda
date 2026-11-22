@@ -24,6 +24,18 @@ Como usar:
 - **Robô da agenda** (`.github/workflows/atualiza-agenda.yml`): quando o robô grava algo na `main`, o
   push dele já dispara um build na Cloudflare, e o gancho do fim pede outro. O gancho passa a pedir o
   build só quando o robô não gravou nada. Sobra da Sessão F; ficou fora da Sessão H.
+- **Chave do estado sem evento nas prévias** (Gui, 22 nov 2026): para ver o site entre os últimos
+  eventos de dezembro e os primeiros anúncios de 2027. A chave é o nome da branch: toda branch que
+  começa com `tst-vazio` (por exemplo `tst-vazio`, `tst-vazio-home`) monta o site sem nenhum evento
+  próximo nem acontecendo agora. Na prática: sem os eventos de exemplo e, mesmo se a branch tiver
+  token, tirando da lista de próximos tudo o que `jaAcabou` ainda não deu como passado. O histórico
+  fica como está. A conta mora em `src/lib/eventos.ts`, ao lado de `usaExemplos` (uma função só,
+  por exemplo `forcaVazio()`, lida de `branchDoBuild()`), e o `/estado.json` da prévia diz que a chave
+  está ligada. Não pode ligar na `main`, na homologação nem sem variável de branch; o
+  `confere:exemplos` (ou a trava do build) passa a conferir isso também. A sessão não muda layout nem
+  texto: abre a prévia `https://tst-vazio.festaabsurda.com` e lista no relatório cada página que
+  muda sem evento (Home, Agenda, páginas de projeto, WIG com eventos "em breve" escritos à mão), para
+  o Gui olhar e decidir. Regra no CLAUDE.md, seção "Eventos de exemplo nas prévias de teste".
 - **Bios de Keoma, Lugh e Vil Araújo:** seguem de marcação. Se o Gui quiser, rascunho no mesmo modelo
   das oito de 22 nov 2026 (uma ou duas frases, só com o que o repositório sabe).
 

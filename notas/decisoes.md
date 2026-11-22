@@ -337,3 +337,10 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   `/projetos` de 2,4 para 0,5 MB; `/equipe` de 2,5 para 0,5 MB). Ícones de toque e manifesto gerados
   do favicon. (CLAUDE.md, "Fotos, ícones e prévia de compartilhamento", "Regra de contraste",
   "Páginas de pessoa" e "Conferências do site".)
+
+- **2026-11-22, chave do estado sem evento pelo nome da branch (Gui).** Branch que começa com
+  `tst-vazio` monta o site sem evento próximo, para o Gui ver como ele fica entre os últimos eventos
+  de dezembro e os primeiros anúncios de 2027. Escolhida no lugar de uma variável de build na
+  Cloudflare (valeria para todas as branches do Worker, a produção inclusive, se ficasse ligada) e de
+  um arquivo no repositório (precisaria de trava para não chegar à `main`). (`notas/a-fazer.md`, "A
+  construir"; ao terminar, CLAUDE.md, "Eventos de exemplo nas prévias de teste".)
