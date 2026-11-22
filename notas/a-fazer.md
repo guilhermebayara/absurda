@@ -18,7 +18,8 @@ Como usar:
 
 ## A construir
 
-Nada no momento.
+- **Defeitos do QA de produção e decisões de 22/11.** Itens 1 a 12 de `notas/briefs/qa-producao-g.md`
+  (Sessão H).
 
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.

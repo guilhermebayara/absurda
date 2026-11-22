@@ -58,6 +58,14 @@ Registrar em `notas/decisoes.md` e construir junto com os defeitos.
     `summary_large_image`. Página com foto própria continua com a dela. Guardar uma cópia na pasta
     `7_Geral/imagem-de-compartilhamento` do Drive é tarefa da conversa, não da sessão.
 
+## Sobras da Sessão F (Actions), também para esta sessão
+
+11. **Alarme do histórico** (`alarme-arquivo.yml`): acrescentar `timeout-minutes` e `paths-ignore` de
+    documentação (`notas/**`, `CLAUDE.md`, `README.md`), como pede a regra geral do CLAUDE.md.
+12. **Robô da agenda** (`atualiza-agenda.yml`): quando o robô grava algo na `main`, o push dele já
+    dispara um build na Cloudflare; o gancho no fim pede outro. O gancho passa a pedir o build só
+    quando o robô não gravou nada.
+
 ## Não deu para conferir
 
 Safari e iPhone; 53 links da Shotgun (429); `ig.me/m/bsurda` e o Pixieset (teste manual);
