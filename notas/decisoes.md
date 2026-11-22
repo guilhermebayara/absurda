@@ -353,3 +353,10 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   `dist/estado.json`. Ficaram de fora de propósito os eventos "(em breve)" da WIG, escritos à mão, e a
   próxima saída do Trio, que sai da regra do calendário: o Gui decide se a chave deve escondê-los
   também. (CLAUDE.md, "Eventos de exemplo nas prévias de teste".)
+
+- **2026-11-22, site sem evento fica como está (Gui).** Olhando a prévia da chave (`tst-vazio`), a Home
+  e a Agenda sem evento ficam como estão: "Nenhuma data anunciada no momento", o convite para o
+  Instagram e o primeiro tema do site. A chave continua tirando só os próximos da Agenda: a próxima
+  saída do Trio (regra do calendário) e o "(em breve)" da WIG (escrito à mão) seguem na prévia, porque
+  no intervalo entre dezembro e janeiro os dois estariam no ar de verdade. (CLAUDE.md, "Eventos de
+  exemplo nas prévias de teste".)
