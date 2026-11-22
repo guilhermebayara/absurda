@@ -507,8 +507,21 @@ export const BRANCHES_SEM_EXEMPLO = ['main', 'design', 'homologa'];
 export const branchDoBuild = () => env('WORKERS_CI_BRANCH') || env('CF_PAGES_BRANCH') || undefined;
 export function usaExemplos() {
   const branch = branchDoBuild();
-  if (!branch || BRANCHES_SEM_EXEMPLO.includes(branch)) return false;
+  if (!branch || BRANCHES_SEM_EXEMPLO.includes(branch) || forcaVazio()) return false;
   return !env('SHOTGUN_TOKEN');
+}
+
+// ---------- Chave do estado sem evento (Gui, 22 nov 2026) ----------
+// Branch cujo nome começa com "tst-vazio" monta o site sem nenhum evento próximo nem acontecendo
+// agora, para ver como ele fica entre os últimos eventos do ano e os primeiros anúncios do seguinte.
+// Sem exemplos e, mesmo com token, a lista de próximos sai vazia (o que ainda não acabou não vira
+// passado: só some). O histórico fica igual. Nunca liga na main, na homologação nem sem a variável
+// de branch; o confere:exemplos confere isso pelo /estado.json.
+export const PREFIXO_VAZIO = 'tst-vazio';
+export function forcaVazio() {
+  const branch = branchDoBuild();
+  if (!branch || BRANCHES_SEM_EXEMPLO.includes(branch)) return false;
+  return branch.startsWith(PREFIXO_VAZIO);
 }
 async function fonteExemplo(): Promise<Evento[]> {
   if (!usaExemplos()) {
@@ -566,9 +579,13 @@ export function getEventos() {
     const agoraMs = Date.now();
     const agora = new Date().toISOString();
     estado.geradoEm = agora;
-    estado.total = { proximos: unicos.filter((e) => !jaAcabou(e, agoraMs)).length, passados: unicos.filter((e) => jaAcabou(e, agoraMs)).length };
+    const aindaNao = unicos.filter((e) => !jaAcabou(e, agoraMs));
+    const vazio = forcaVazio();
+    estado.vazio = vazio ? { ligado: true, branch: branchDoBuild(), tirados: aindaNao.length } : { ligado: false };
+    const proximos = vazio ? [] : aindaNao;
+    estado.total = { proximos: proximos.length, passados: unicos.filter((e) => jaAcabou(e, agoraMs)).length };
     return {
-      proximos: unicos.filter((e) => !jaAcabou(e, agoraMs)),
+      proximos,
       passados: unicos.filter((e) => jaAcabou(e, agoraMs)).reverse(),
     };
   })();

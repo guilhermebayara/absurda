@@ -422,6 +422,18 @@ Sympla e um de nome longo. As datas saem do dia do build (`comecaEmHoras` e `dur
   `BRANCHES_SEM_EXEMPLO`: se a homologação mudar de nome, troque nos dois lugares.
 - Teste local: `WORKERS_CI_BRANCH=tst-x npm run build`. Item novo de exemplo: acrescente em
   `src/data/eventos-exemplo.json`, sempre com "(exemplo)" no nome.
+- **Chave do estado sem evento (Gui, 22 nov 2026):** branch cujo nome começa com `tst-vazio` (por
+  exemplo `tst-vazio`, `tst-vazio-home`) monta o site sem nenhum evento próximo nem acontecendo agora,
+  para ver como ele fica entre os últimos eventos do ano e os primeiros anúncios do seguinte. A conta
+  é `forcaVazio()`, em `src/lib/eventos.ts`, lida de `branchDoBuild()`: com ela ligada não entram os
+  exemplos e, mesmo se a branch tiver token, a lista de próximos sai vazia (o que `jaAcabou` ainda não
+  deu como passado some, sem virar passado). O histórico fica igual. O `/estado.json` da prévia diz
+  `"vazio": { "ligado": true, "branch": ..., "tirados": n }`. Nunca liga na `main`, na homologação
+  (`BRANCHES_SEM_EXEMPLO`) nem sem variável de branch; o `confere:exemplos` lê o `dist/estado.json` e
+  falha se ela ligar nesses casos, numa branch que não começa com `tst-vazio`, ou se não ligar numa
+  que começa. Não toca no que é escrito à mão fora da Agenda: os eventos "(em breve)" da WIG
+  (`wig-eventos.json`) e a próxima saída do Trio (regra do calendário) continuam aparecendo.
+  Teste local: `WORKERS_CI_BRANCH=tst-vazio npm run build`.
 
 ## Pasta do site no Drive (do Gui)
 
