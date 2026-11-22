@@ -26,6 +26,11 @@ Quem faz: o Gui, no painel da Cloudflare e no GitHub. Tokens e senhas só ele di
 - 22/11, 13h58: nameservers trocados no Squarespace (arvind e rita), zona ativa na conta "absurda" em
   menos de um minuto. `festaabsurda.com` e `www` ligados ao Worker novo em "Production and Preview".
   Produção e prévias já saem da conta nova, com a Agenda da Shotgun; o Sympla segue desligado.
+- Deploy Hook novo criado na conta "absurda" (nome `robo-da-agenda`, branch `main`). Falta o Gui colar o
+  endereço no segredo `CLOUDFLARE_DEPLOY_HOOK` do GitHub.
+- A prévia `design` da conta nova tem o `SHOTGUN_TOKEN` e mostra os próximos eventos.
+- Falta: desligar o Worker `absurda` da conta "Gui Bayara" depois que o Gui conferir; a zona antiga fica
+  como "movida" e a Cloudflare a remove sozinha. Sympla volta quando houver evento lá.
 - Enquanto as duas contas existirem, todo push gera build nas duas.
 
 ## Passo a passo

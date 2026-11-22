@@ -23,8 +23,11 @@ mudar, troque `design` por `homologa` neste arquivo, em `notas/` e nos fluxos de
 (a da homologação: https://design.festaabsurda.com). A produção é https://festaabsurda.com. Em
 relatório, tabela e prompt use sempre esse endereço, nunca o `workers.dev`.
 
-- Só a `main` e a homologação têm os tokens do Shotgun e do Sympla configurados na Cloudflare. As
-  outras branches não têm, então a agenda delas mostra só o histórico arquivado.
+- **Conta Cloudflare (desde 22 nov 2026):** o site e o domínio estão na conta "absurda", a mesma do
+  Bastidor (Worker `absurda`; a homologação é a prévia nomeada `design`, com variáveis próprias).
+- Só a `main` e a homologação têm o token do Shotgun configurado na Cloudflare (o do Sympla volta
+  quando houver evento lá; sem ele o site segue com o histórico arquivado do Sympla). As outras
+  branches não têm, então a agenda delas mostra só o histórico arquivado.
 - Toda `tst-<assunto>` e toda `qa-...` nasce da `design` depois de trazer a `main` para ela (ver
   "Antes de começar qualquer rodada"). Assim a sessão encontra a documentação nova, que mora na
   `design`, e o que já foi juntado.
