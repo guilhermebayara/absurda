@@ -3,7 +3,7 @@
 Sessão só de leitura em https://festaabsurda.com (375, 768 e 1440 px, as 31 páginas do sitemap e a
 404). Sem erro de console, imagem quebrada ou link interno quebrado; Lighthouse 96 a 100 em
 acessibilidade e 100 em SEO. Este arquivo separa o que é defeito (vai para uma sessão sem perguntar)
-do que é decisão do Gui (perguntas na conversa de 22/11).
+do que é decisão do Gui (respondida em 22/11).
 
 ## Defeitos (para uma sessão)
 
@@ -38,16 +38,25 @@ do que é decisão do Gui (perguntas na conversa de 22/11).
 
 Fica de fora (não é do site): a nota 81 de Boas práticas vem do script que a Cloudflare injeta.
 
-## Decisões do Gui (perguntas de 22/11)
+## Decisões do Gui (22/11/2026, de manhã)
 
-1. O que mostrar no lugar do e-mail de marcação (`contato@exemplo.com`, em `src/config.ts`), que
-   está no rodapé de todas as páginas e em `/contato`.
-2. O formulário de marcação de `/contato` (não envia).
-3. As oito bios de marcação ("Bio de marcação. Aqui entra…"): André Victor, Ayumi, Barbara Deister,
-   Charlotte, Ed Luiz, FAB, Gabriel Cadete e Gui Bayara.
-4. A imagem padrão de compartilhamento (`og:image`) para a Home e as páginas sem foto própria
-   (`/agenda`, `/projetos`, `/equipe`, `/parcerias`, `/contato` e algumas páginas de projeto e de
-   pessoa). A pasta `7_Geral/imagem-de-compartilhamento` do Drive está prevista para ela.
+Registrar em `notas/decisoes.md` e construir junto com os defeitos.
+
+7. **Contato só pelo Instagram.** O `contato@exemplo.com` sai do site inteiro (rodapé, `/contato`,
+   `src/config.ts`). No lugar fica o link de mensagem do Instagram da @bsurda, que já existe no
+   site. Nenhum e-mail entra (o contato segue pausado).
+8. **Formulário de `/contato` sai** até o contato ser decidido. A página fica só com as redes, no
+   tom do site. O código do formulário pode ficar guardado, desligado, para voltar depois.
+9. **Bios de marcação viram rascunho.** As oito páginas (André Victor, Ayumi, Barbara Deister,
+   Charlotte, Ed Luiz, FAB, Gabriel Cadete e Gui Bayara) ganham uma bio curta, uma ou duas frases no
+   tom de `notas/tom.md`, escrita só com o que o repositório já sabe de cada pessoa (dados da
+   página, `notas/equipe-insumos.md`, escalações, projetos). Nada inventado: o que não se sabe fica
+   de fora. As oito vão inteiras no relatório para o Gui aprovar; ele pode trocar qualquer uma.
+10. **Imagem padrão de compartilhamento: a marca da @bsurda sobre a cor do site.** Gerada no
+    repositório (1200 x 630, menos de 300 KB), com um tema da paleta e contraste de leitura na
+    marca. Vira o `og:image` da Home e de toda página sem foto própria; `twitter:card` passa a
+    `summary_large_image`. Página com foto própria continua com a dela. Guardar uma cópia na pasta
+    `7_Geral/imagem-de-compartilhamento` do Drive é tarefa da conversa, não da sessão.
 
 ## Não deu para conferir
 
