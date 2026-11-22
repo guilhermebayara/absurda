@@ -5,10 +5,11 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/trava-exemplos.mjs",
+    "build": "node scripts/guarda-producao.mjs && astro build && node scripts/trava-exemplos.mjs",
     "preview": "astro preview",
     "check": "astro check",
     "confere:arquivo": "node scripts/confere-arquivo.mjs",
+    "guarda:producao": "node scripts/guarda-producao.mjs",
     "confere:links": "node scripts/confere-links.mjs",
     "confere:temas": "node scripts/confere-temas.mjs",
     "confere:agenda": "node scripts/confere-agenda.mjs",
