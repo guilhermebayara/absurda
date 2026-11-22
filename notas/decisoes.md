@@ -287,3 +287,16 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   conta própria, antes de o site ser divulgado. Motivo: o Bastidor, sistema interno da @bsurda, vai
   morar em bastidor.festaabsurda.com e precisa estar na mesma conta do domínio; e a regra é uma conta
   por projeto. O Gui faz a mudança no painel; uma sessão confere depois. (`notas/briefs/conta-cloudflare-propria.md`.)
+
+- **2026-11-22, GitHub Actions enxuto: como ficou (sessão F).** Feito como o brief de 20 nov pedia,
+  com três ajustes no caminho. (1) O clone da Cloudflare só traz o último commit (conferido na
+  prévia: um commit, raso), então a guarda da produção lê `[arquivo-editado]` só no último commit
+  do push; quando a marca não estiver nele, o Gui liga `ARQUIVO_EDITADO=1` nas variáveis de build
+  da Cloudflare para aquele build. (2) Na homologação, evento que falta e é mais novo que todos os
+  da branch só avisa: é a `design` atrás da produção porque o robô escreveu na `main` depois, e
+  travar ali impediria até commit de documentação de publicar a prévia. Na `main` tudo trava. (3)
+  Enquanto a produção não publicar o `/estado.json` com a lista do histórico, a guarda avisa e não
+  confere; ela passa a valer de verdade a partir da primeira rodada para a `main` com esta mudança.
+  O `confere-site.yml` mantém o `confere:arquivo` pelo git como primeiro passo, porque custa
+  segundos e é a última conferência antes do fast-forward. (CLAUDE.md, "Histórico de eventos",
+  "Levar para a `main`" e "Conferências do site"; `scripts/guarda-producao.mjs`.)

@@ -5,10 +5,11 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/trava-exemplos.mjs",
+    "build": "node scripts/guarda-producao.mjs && astro check && astro build && node scripts/trava-exemplos.mjs && npm run confere:rapidos",
     "preview": "astro preview",
     "check": "astro check",
     "confere:arquivo": "node scripts/confere-arquivo.mjs",
+    "guarda:producao": "node scripts/guarda-producao.mjs",
     "confere:links": "node scripts/confere-links.mjs",
     "confere:temas": "node scripts/confere-temas.mjs",
     "confere:agenda": "node scripts/confere-agenda.mjs",
@@ -18,6 +19,7 @@
     "confere:pilha": "node scripts/confere-pilha.mjs",
     "confere:atracoes": "node scripts/confere-atracoes.mjs",
     "confere:exemplos": "node scripts/confere-exemplos.mjs",
+    "confere:rapidos": "node scripts/confere-temas.mjs && node scripts/confere-links.mjs && node scripts/confere-agenda.mjs && node scripts/confere-atracoes.mjs && node scripts/confere-exemplos.mjs",
     "atracoes": "node scripts/atracoes.mjs"
   },
   "dependencies": {
