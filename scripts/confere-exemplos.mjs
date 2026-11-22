@@ -1,5 +1,6 @@
 // Conferência dos eventos de exemplo: depois do build, a main e a homologação nunca podem ter
 // evento de exemplo (src/data/eventos-exemplo.json), e o arquivo do histórico nunca os guarda.
+// Confere também a chave do estado sem evento (branch "tst-vazio..."), pelo dist/estado.json.
 //
 // Uso:  npm run build && npm run confere:exemplos
 //       npm run confere:exemplos -- --producao   (trata o build como main, seja qual for a branch)
@@ -57,9 +58,22 @@ if (achados.size > 0) {
   else if (semVariavel) problemas.push(`o build não recebeu WORKERS_CI_BRANCH nem CF_PAGES_BRANCH e mesmo assim tem evento de exemplo em: ${[...achados].join(', ')}`);
 }
 
+// 3. A chave do estado sem evento (branch "tst-vazio...") nunca liga na main, na homologação nem
+// sem a variável de branch, e liga sempre que a branch da variável começa com "tst-vazio".
+let vazio = null;
+if (existsSync('dist/estado.json')) {
+  try { vazio = JSON.parse(readFileSync('dist/estado.json', 'utf8')).vazio ?? null; } catch { vazio = null; }
+}
+const vazioLigado = Boolean(vazio && vazio.ligado);
+if (vazioLigado && naProducao) problemas.push(`a chave do estado sem evento está ligada no build de "${producao ? 'produção' : ramo}"`);
+if (vazioLigado && semVariavel) problemas.push('a chave do estado sem evento está ligada num build sem WORKERS_CI_BRANCH nem CF_PAGES_BRANCH');
+if (!vazioLigado && !naProducao && variavel.startsWith('tst-vazio')) problemas.push(`a branch "${variavel}" começa com "tst-vazio" e a chave do estado sem evento não ligou (veja "vazio" em dist/estado.json)`);
+if (vazioLigado && !variavel.startsWith('tst-vazio')) problemas.push(`a chave do estado sem evento ligou na branch "${variavel}", que não começa com "tst-vazio"`);
+
 if (problemas.length > 0) {
   console.log('Evento de exemplo no lugar errado:');
   for (const p of problemas) console.log(`  - ${p}`);
   process.exit(1);
 }
 console.log(`Exemplos em ordem: ${achados.size > 0 ? `aparecem só na prévia de teste "${variavel}"` : 'nenhum evento de exemplo neste build'}; o arquivo do histórico não os guarda.`);
+console.log(`Chave do estado sem evento: ${vazioLigado ? `ligada na prévia de teste "${variavel}" (${vazio.tirados} evento(s) tirado(s) dos próximos)` : 'desligada'}.`);

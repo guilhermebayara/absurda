@@ -344,3 +344,12 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   Cloudflare (valeria para todas as branches do Worker, a produção inclusive, se ficasse ligada) e de
   um arquivo no repositório (precisaria de trava para não chegar à `main`). (`notas/a-fazer.md`, "A
   construir"; ao terminar, CLAUDE.md, "Eventos de exemplo nas prévias de teste".)
+
+- **2026-11-22, chave do estado sem evento construída (Sessão I).** Ficou como `forcaVazio()` em
+  `src/lib/eventos.ts`, ao lado de `usaExemplos`: liga quando a branch do build começa com
+  `tst-vazio`, nunca na `main`, na homologação nem sem variável de branch. Com ela, nada de exemplos e
+  lista de próximos vazia mesmo com token; o histórico fica igual e o `/estado.json` traz o campo
+  `vazio`. A conferência entrou no `confere:exemplos` (roda dentro do build), que lê o
+  `dist/estado.json`. Ficaram de fora de propósito os eventos "(em breve)" da WIG, escritos à mão, e a
+  próxima saída do Trio, que sai da regra do calendário: o Gui decide se a chave deve escondê-los
+  também. (CLAUDE.md, "Eventos de exemplo nas prévias de teste".)
