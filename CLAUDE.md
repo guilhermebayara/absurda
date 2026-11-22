@@ -70,8 +70,8 @@ Branch de sessão, de teste e de QA nasce sempre da `design` já igualada.
 ## Histórico de eventos: só acrescenta
 
 - `src/data/arquivo.json` e `public/arquivo/` guardam os eventos que já passaram, com as
-  capas. Quem escreve neles é o robô `.github/workflows/atualiza-agenda.yml`, três vezes
-  por dia, **direto na `main`**, usando `scripts/arquivar.mjs`. O robô só acrescenta: nunca
+  capas. Quem escreve neles é o robô `.github/workflows/atualiza-agenda.yml`, duas vezes
+  por dia (6h17 e 18h17), **direto na `main`**, usando `scripts/arquivar.mjs`. O robô só acrescenta: nunca
   edita nem apaga uma entrada existente.
 - **Não altere nem remova eventos já arquivados**, nem apague capas, a menos que o Gui ou
   o Ed peçam expressamente (corrigir um nome, trocar uma capa, tirar um evento). Mudança
@@ -81,10 +81,24 @@ Branch de sessão, de teste e de QA nasce sempre da `design` já igualada.
 - A guarda `npm run confere:arquivo` compara o arquivo da cópia atual com o da `main` e
   falha se algum evento da `main` estiver faltando ou alterado, ou se uma capa tiver sido
   apagada. Rode antes de levar qualquer coisa para a `main`. No GitHub ela é o primeiro passo
-  das conferências do site (ver "Conferências do site", para quando rodam).
+  dos testes de navegador (ver "Conferências do site", para quando rodam).
+- **Guarda da produção, no build da Cloudflare (Gui, 20 nov 2026):** `scripts/guarda-producao.mjs`
+  é o primeiro passo de `npm run build`. O `/estado.json` publicado traz a lista do histórico (id,
+  data e uma marca do conteúdo de cada evento, e as capas, de `scripts/historico.mjs`), e o build
+  baixa a da produção (https://festaabsurda.com/estado.json) e compara. Na `main` e na homologação,
+  evento do ar que sumiu ou mudou, ou capa apagada, falha o build, e a Cloudflare não publica. Em
+  `tst-...`, `qa-...` e na máquina, só avisa. Na homologação, evento que falta e é mais novo que
+  todos os da branch só avisa: é a branch atrás da produção (o robô escreveu na `main` depois), e
+  a saída é trazer a `main`. Sem rede, com a produção fora do ar ou sem a lista no ar, a guarda
+  avisa e não trava, para não impedir uma correção de emergência. O resultado de cada build fica
+  no campo `guarda` do `/estado.json` da prévia.
 - Mudança pedida de propósito: escreva a marca `[arquivo-editado]` na mensagem do commit,
-  dizendo o que mudou e quem pediu. É a marca que as conferências do GitHub leem. Na
-  máquina, `ARQUIVO_EDITADO=1 npm run confere:arquivo` faz o mesmo papel.
+  dizendo o que mudou e quem pediu. É a marca que o alarme, o `confere:arquivo` e a guarda da
+  produção leem. **O clone da Cloudflare só traz o último commit**, então lá a marca só vale no
+  último commit do push (na rodada para a `main`, o último commit da `design`). Quando não der,
+  o Gui liga `ARQUIVO_EDITADO=1` nas variáveis de build da Cloudflare (Settings, Build, Variables)
+  para esse build e desliga depois. Na máquina, `ARQUIVO_EDITADO=1 npm run confere:arquivo` faz o
+  mesmo papel.
 - **Alarme na `main`:** não existe bloqueio de verdade (o GitHub só oferece em repositório
   privado no plano pago, e este repositório fica privado e sem custo). No lugar,
   `.github/workflows/alarme-arquivo.yml` confere cada push na `main` contra o estado
@@ -112,15 +126,17 @@ Branch de sessão, de teste e de QA nasce sempre da `design` já igualada.
 ## Levar para a `main`
 
 1. `git fetch origin main` e traga a `main` para a branch.
-2. `npm run check` (tipos e diagnósticos do Astro) sem erro e `npm run build` sem erro. O GitHub
-   roda os dois no PR e na `design` (ver "Conferências do site").
+2. `npm run build` sem erro. Ele já roda a guarda da produção, `astro check` (tipos e
+   diagnósticos do Astro) e, depois do site, `confere:temas`, `confere:links`, `confere:agenda`,
+   `confere:atracoes` e `confere:exemplos`. É o mesmo build da Cloudflare, que roda a cada push e
+   não publica se ele falhar (ver "Conferências do site").
 3. `npm run confere:arquivo` passando.
-4. `npm run confere:links`, `npm run confere:agenda`, `npm run confere:temas`,
-   `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra`,
-   `npm run confere:pilha`, `npm run confere:atracoes` e `npm run confere:exemplos` passando (ver
-   "Conferências do site").
-5. Só em rodadas, depois do QA, com o ok do Gui na prévia da `design`. Então `main`, por
-   fast-forward da `design`. A publicação na Cloudflare sai sozinha a cada push.
+4. `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra` e
+   `npm run confere:pilha` passando: os testes de navegador, que não rodam na Cloudflare.
+5. Só em rodadas, depois do QA, com o ok do Gui na prévia da `design`. **Antes da rodada, a
+   conversa dispara o `confere-site.yml` na `design`** ("Run workflow" na aba Actions, ou pela
+   ferramenta do GitHub) e só segue com ele verde. Então `main`, por fast-forward da `design`. A
+   publicação na Cloudflare sai sozinha a cada push.
 
 ## Sessões de código
 
@@ -154,20 +170,32 @@ Depois do merge, conferir se a prévia da `design` publicou. Quem apaga as branc
 
 ## Conferências do site
 
-Além da guarda do histórico, nove conferências rodam na máquina e, sozinhas, no GitHub. As nove
-rodam depois do build.
+Além das guardas do histórico, nove conferências rodam na máquina. Todas rodam depois do build.
 
-**Quando rodam no GitHub (do Gui, 19 nov 2026, para economizar minutos):** tudo é um trabalho só,
-`.github/workflows/confere-site.yml`, com a guarda do histórico como primeiro passo, depois os
-tipos, o build e as oito. Roda no PR para a `design` ou para a `main` (a cada push na branch do
-PR) e no push na `design`. Não roda em push de `tst-...` ou `qa-...` sem PR aberto: a sessão confere
-na máquina antes do push, como sempre. Não roda quando a mudança é só de documentação
-(`notas/**`, `CLAUDE.md`, `README.md`). Push novo na mesma branch ou no mesmo PR cancela a rodada
-antiga. Os navegadores do Playwright ficam no cache, com a versão do Playwright na chave. Todo
-trabalho de fluxo tem `timeout-minutes`. A `main` continua com o próprio alarme
-(`alarme-arquivo.yml`), e `atualiza-agenda.yml` e `alarme-arquivo.yml` não entram nessa economia.
-Fluxo novo segue o mesmo modelo: um trabalho só, gatilho em PR e na homologação, `paths-ignore` de
-documentação, `concurrency` e `timeout-minutes`.
+**Onde cada uma roda (GitHub Actions enxuto, do Gui, 20 nov 2026):** o que precisa travar a
+publicação roda no build da Cloudflare, que já acontece a cada push com cota própria; o GitHub não
+repete esse trabalho. Motivo: depois de 10/12 o repositório volta a ser privado, e o plano gratuito
+tem cota mensal de minutos.
+- **No build (`npm run build`, o comando da Cloudflare):** antes do site, a guarda da produção
+  (ver "Histórico de eventos") e `astro check`; depois, a trava dos exemplos, `confere:temas`,
+  `confere:links`, `confere:agenda`, `confere:atracoes` e `confere:exemplos`
+  (`npm run confere:rapidos` roda as cinco). Qualquer falha falha o build, e a Cloudflare não
+  publica a branch; o check "Workers Builds" do commit fica vermelho no GitHub. Tudo isso acrescenta
+  uns 7 segundos ao build, quase todos do `astro check`.
+- **No GitHub, só por disparo manual:** `.github/workflows/confere-site.yml` (`workflow_dispatch`)
+  roda o `confere:arquivo`, o build e os testes de navegador (`confere:calmo`, `confere:parede`,
+  `confere:barra` e `confere:pilha`), em uns 4 minutos. Não roda em push nem em PR. A conversa
+  dispara na `design` antes de cada rodada para a `main` (ver "Levar para a `main`"); uma sessão
+  pode disparar na própria branch quando o prompt pedir. Disparo novo na mesma branch cancela o
+  anterior, os navegadores ficam no cache (versão do Playwright na chave) e o trabalho tem
+  `timeout-minutes`.
+- **Na máquina:** a sessão roda o build e as quatro de navegador antes de cada push, como sempre.
+- **Os outros fluxos:** `alarme-arquivo.yml` (cada push na `main`) e `escalacoes.yml` ficam como
+  estavam. `atualiza-agenda.yml` é um trabalho só, às 6h17 e 18h17 de Brasília: arquiva e, no fim,
+  sempre pede o build pelo gancho, mesmo se o arquivo falhar ou for pulado.
+Fluxo novo segue o mesmo modelo: um trabalho só, sem gatilho de push ou PR quando der para rodar na
+Cloudflare; com gatilho de push, `paths-ignore` de documentação (`notas/**`, `CLAUDE.md`,
+`README.md`); sempre `concurrency` e `timeout-minutes`.
 
 - `npm run confere:links`: falha se algum link interno, âncora ou imagem do próprio site
   apontar para algo que não existe. Link externo não entra.
@@ -323,7 +351,8 @@ Sympla e um de nome longo. As datas saem do dia do build (`comecaEmHoras` e `dur
 - Não vão para o histórico: `arquivo-pendente.json` ignora `exemplo: true` e não têm `nomeBruto`.
 - `npm run confere:exemplos` falha se o build da `main`, da homologação (ou qualquer build com
   `--producao`) tiver evento de exemplo, se o build não tiver variável de branch e mesmo assim tiver
-  exemplo, ou se o arquivo do histórico guardar um. Roda depois do build, também no GitHub.
+  exemplo, ou se o arquivo do histórico guardar um. Roda dentro do próprio `npm run build`, também
+  na Cloudflare.
 - **Capa dos exemplos só em 16:9 (Gui, 19 nov 2026):** todas as capas de `public/exemplos/` são 16:9
   (1280 x 720). Capa em pé não entra mais: ela fazia o cartão crescer e parecer distorcido.
 - **Trava no próprio build (Gui, 19 nov 2026):** `npm run build` termina com `scripts/trava-exemplos.mjs`.

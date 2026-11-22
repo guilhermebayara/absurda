@@ -18,11 +18,7 @@ Como usar:
 
 ## A construir
 
-- **Enxugar o GitHub Actions antes do repositório voltar a ser privado (depois de 10/12).** Decidido
-  pelo Gui em 20 nov 2026. No privado, o plano gratuito tem cota mensal de Actions (2.000 minutos) e
-  não protege branches. Princípio: a Cloudflare já faz o build de cada push com cota própria; o que
-  precisa travar a publicação roda no build dela, e o GitHub não repete. Detalhe em
-  `notas/briefs/actions.md`.
+Nada no momento.
 
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
@@ -62,7 +58,8 @@ resposta chegar lá, o item vira trabalho:
 ## Manutenção recorrente
 
 - **Depois do lançamento:** o Gui volta o repositório para privado (Settings, "Change
-  visibility"). Antes disso, confira se o item de economia de minutos já foi feito.
+  visibility"). Antes disso, confira se o GitHub Actions enxuto (sessão F, 22 nov 2026) já está na
+  `main`.
 
 - **Todo janeiro:** criar `10_site/2_Agenda/<ano novo>` no Drive.
 - **Sempre que o site ganhar projeto, pessoa, marca ou seção nova:** criar a pasta correspondente em
