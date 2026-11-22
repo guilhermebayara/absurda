@@ -23,6 +23,9 @@ Quem faz: o Gui, no painel da Cloudflare e no GitHub. Tokens e senhas só ele di
 - Conta "absurda": Worker `absurda` criado e ligado ao repositório, build da `main` passando em
   `absurda.absurda.workers.dev` (guarda "ok"), com `SHOTGUN_ORGANIZER_ID` copiado. Falta o `SHOTGUN_TOKEN`
   (o Gui põe). O Sympla volta depois: os próximos eventos são todos do Shotgun.
+- 22/11, 13h58: nameservers trocados no Squarespace (arvind e rita), zona ativa na conta "absurda" em
+  menos de um minuto. `festaabsurda.com` e `www` ligados ao Worker novo em "Production and Preview".
+  Produção e prévias já saem da conta nova, com a Agenda da Shotgun; o Sympla segue desligado.
 - Enquanto as duas contas existirem, todo push gera build nas duas.
 
 ## Passo a passo
