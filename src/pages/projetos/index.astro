@@ -21,6 +21,7 @@ import { getEventos, partesDaData } from '../../lib/eventos';
 import { eventosArredondados } from '../../lib/historia';
 import { resumoDoProjeto, edicoesDoProjeto, proximoTrio, temasDoProjeto } from '../../lib/projetos';
 import { atributo, type Tema } from '../../lib/temas';
+import { foto } from '../../lib/imagens';
 
 const eventos = await getEventos();
 const projetos = (await getCollection('projetos'))
@@ -54,7 +55,7 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
         return (
           <li class:list={['cartaz', { 'cartaz-foto': p.data.capa, 'cartaz-arcoiris': p.data.arcoiris }]} style={`${cores(p.id)};--i:${i}`} data-cores={temas[p.id].map(atributo).join(';')} data-anima="surge">
             <a href={`/projetos/${p.id}`}>
-              {p.data.capa && <img class="cartaz-imagem" src={p.data.capa} alt="" loading="lazy" style={p.data.foco ? `object-position:${p.data.foco}` : undefined} />}
+              {p.data.capa && <img class="cartaz-imagem" {...foto(p.data.capa, '(max-width: 1000px) 92vw, 48vw')} alt="" loading={i === 0 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : undefined} style={p.data.foco ? `object-position:${p.data.foco}` : undefined} />}
               {(p.data.situacao === 'em-elaboracao' || proxima) && (
                 <p class="cartaz-aviso">{p.data.situacao === 'em-elaboracao' ? 'Em elaboração' : `Próxima: ${quando(proxima)}`}</p>
               )}
@@ -90,7 +91,7 @@ const periodo = (r: { porAno: { ano: string }[] }) => {
           return (
             <li class:list={['cartaz', { 'cartaz-foto': p.data.capa }]} style={`${cores(p.id)};--i:${i}`} data-cores={temas[p.id].map(atributo).join(';')} data-anima="surge">
               <a href={`/projetos/${p.id}`}>
-                {p.data.capa && <img class="cartaz-imagem" src={p.data.capa} alt="" loading="lazy" style={p.data.foco ? `object-position:${p.data.foco}` : undefined} />}
+                {p.data.capa && <img class="cartaz-imagem" {...foto(p.data.capa, '(max-width: 1000px) 92vw, 48vw')} alt="" loading="lazy" style={p.data.foco ? `object-position:${p.data.foco}` : undefined} />}
                 <p class="cartaz-aviso">Hoje independente</p>
                 {!p.data.capa && <i class="cartaz-barra" aria-hidden="true"></i>}
                 <div class="cartaz-placa">

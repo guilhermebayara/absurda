@@ -15,6 +15,7 @@
 // Com "verso", o crachá vira ao passar o cursor (só onde existe cursor) e mostra desde quando a
 // pessoa está na @bsurda. Sem o ano cadastrado, aparecem XXXX e X como marcação.
 import Arroba from './marca/Arroba.astro';
+import { foto as fotoMenor } from '../lib/imagens';
 
 interface Props {
   nome: string;
@@ -56,7 +57,7 @@ const Tag = href ? 'a' : 'div';
       <span class="cracha-furo" aria-hidden="true"></span>
       <span class="cracha-topo" aria-hidden="true"><Arroba class="cracha-marca" /><span>{rotulo}</span></span>
       <span class="cracha-retrato" aria-hidden="true">
-        {foto ? <img src={foto} alt="" loading="lazy" /> : <span class="cracha-inicial">{nome[0]}</span>}
+        {foto ? <img {...fotoMenor(foto, '(max-width: 720px) 60vw, 28rem')} alt="" loading="lazy" /> : <span class="cracha-inicial">{nome[0]}</span>}
       </span>
       {fundador && <span class="cracha-selo"><strong>Fundador</strong><span>2009</span></span>}
       <span class="cracha-texto">

@@ -6,6 +6,7 @@ import type { Evento } from '../lib/eventos';
 import { partesDaData } from '../lib/eventos';
 import Botao from './Botao.astro';
 import Arroba from './marca/Arroba.astro';
+import { foto } from '../lib/imagens';
 // "principal" troca a chamada para a versão primária (usada na Agenda, onde comprar
 // é a razão da seção). "selo" põe um rótulo acima do nome.
 interface Props { evento: Evento; principal?: boolean; selo?: string }
@@ -27,7 +28,7 @@ const corMedia = '#' + media.map((v) => Math.round(v).toString(16).padStart(2, '
 <article class="cartao" style={cores} data-media={corMedia} data-tinta={m ? m.texto : evento.tema.fundo} data-anima="surge">
   <a class="cartao-capa" href={evento.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
     {evento.capa
-      ? <img src={evento.capa} alt="" loading="lazy" />
+      ? <img {...foto(evento.capa, '(max-width: 720px) 92vw, 34rem')} alt="" loading="lazy" />
       : <span class="cartao-sem-capa"><Arroba /></span>}
   </a>
   <div class="cartao-texto">

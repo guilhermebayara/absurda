@@ -9,6 +9,7 @@ import { partesDaData, fimDe } from '../lib/eventos';
 import { atributo } from '../lib/temas';
 import Botao from './Botao.astro';
 import Arroba from './marca/Arroba.astro';
+import { foto } from '../lib/imagens';
 interface Props { evento: Evento; destaque?: boolean }
 const { evento, destaque = false } = Astro.props;
 const d = partesDaData(evento.data);
@@ -31,7 +32,7 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
     <div class="ev-texto" data-anima="surge">
       <div class="ev-bloco">
         {destaque && <p class="ev-selo" data-comeco={comeco} data-termino={termino}><Arroba /><span>{Date.now() >= comeco ? 'Acontecendo agora' : 'Próximo evento'}</span></p>}
-        <h3 class={`ev-nome ev-nome-${tamanho}`}>{evento.nome}</h3>
+        <h2 class={`ev-nome ev-nome-${tamanho}`}>{evento.nome}</h2>
         <p class="ev-quando"><span class="so-leitor">Data: </span>{d.semana.slice(0, 3)}, {d.dia} {d.mes}, {d.hora}</p>
         {evento.local && (
           <p class="ev-local">
@@ -45,7 +46,7 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
 
     <a class="ev-capa" href={evento.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true" data-anima="capa">
       {evento.capa
-        ? <img src={evento.capa} alt="" loading={destaque ? 'eager' : 'lazy'} style={evento.proporcao ? `aspect-ratio:${evento.proporcao}` : undefined} />
+        ? <img {...foto(evento.capa, '(max-width: 720px) 92vw, 50vw')} alt="" loading={destaque ? 'eager' : 'lazy'} fetchpriority={destaque ? 'high' : undefined} style={evento.proporcao ? `aspect-ratio:${evento.proporcao}` : undefined} />
         : <span class="ev-sem-capa"><Arroba /></span>}
     </a>
 

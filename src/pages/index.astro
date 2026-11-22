@@ -12,6 +12,7 @@ import { atributo, TEMAS_DO_SITE, type Tema } from '../lib/temas';
 import { temasDoProjeto } from '../lib/projetos';
 import { getCollection } from 'astro:content';
 import palavras from '../data/palavras.json';
+import { foto } from '../lib/imagens';
 import { numeros, lineup, cidades, palco, idade } from '../lib/historia';
 
 const { proximos, passados } = await getEventos();
@@ -118,7 +119,7 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
         </div>
       </div>
       {capas.map((e, i) => (
-        <img class="parede-foto" src={e.capa} alt="" loading="lazy" data-flutua={i}
+        <img class="parede-foto" {...foto(e.capa, '(max-width: 720px) 56vw, 26vw')} alt="" loading="lazy" data-flutua={i}
           style={`--lado:${flutuantes[i].lado};--giro:${flutuantes[i].giro}deg;--topo:${10 + i * 28}%;z-index:${flutuantes[i].camada}`} />
       ))}
       <div class="historia-fim">
@@ -133,7 +134,7 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
 
   <!-- A rua: uma janela para a multidão do trio, que leva à história no Sobre -->
   <a class="rua" href="/sobre#t-trio" data-paralaxe>
-    <img src="/sobre/trio-2023.jpg" alt="Multidão no Trio da @bsurda, no centro de Belo Horizonte, em 2023" loading="lazy" />
+    <img {...foto('/sobre/trio-2023.jpg')} alt="Multidão no Trio da @bsurda, no centro de Belo Horizonte, em 2023" loading="lazy" />
     <span class="rua-texto">
       <span class="rua-frase">A rua também é pista.</span>
       <span class="rua-sub">75 mil pessoas no Trio da @bsurda, em 2023. Veja como a gente chegou lá.</span>

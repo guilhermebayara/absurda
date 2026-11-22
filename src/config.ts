@@ -3,7 +3,6 @@ export const SITE = {
   nome: '@bsurda',
   lema: 'Sem frescuras',
   descricao: 'Maior festa pop LGBTQIA+ de MG. Sem frescuras, desde 2009.',
-  email: 'contato@exemplo.com', // e-mail de marcação
   fotos: 'https://festaabsurda.pixieset.com/',
   ingressos: 'https://shotgun.live/en/venues/festaabsurda',
   redes: {
@@ -12,6 +11,9 @@ export const SITE = {
     // A rede hoje se chama X, mas no site ela aparece como Twitter (escolha do Gui).
     twitter: 'https://x.com/bsurda',
   },
+  // Contato só pelo Instagram (Gui, 22 nov 2026): o endereço curto ig.me/m/ abre direto a conversa
+  // com a @bsurda. Nenhum e-mail entra no site enquanto o contato estiver pausado.
+  mensagem: 'https://ig.me/m/bsurda',
 };
 
 export const NAV = [

@@ -4,6 +4,7 @@ import { SITE, NAV } from '../config';
 import { TEMAS_DO_SITE, atributo, type Tema } from '../lib/temas';
 import Arroba from '../components/marca/Arroba.astro';
 import Completo from '../components/marca/Completo.astro';
+import { compartilhar } from '../lib/imagens';
 // Arquivo da fonte usado em quase todo o texto: pedido logo no início do carregamento.
 import fonteLatina from '@fontsource-variable/urbanist/files/urbanist-latin-wght-normal.woff2?url';
 
@@ -27,7 +28,11 @@ const sorteio = (temas?.length ? temas : TEMAS_DO_SITE).map(atributo);
 const caminho = Astro.url.pathname;
 // Endereço oficial da página, sem barra no fim (a Home fica só com o domínio).
 const canonico = new URL(caminho.replace(/(?:\/index)?(?:\.html)?\/?$/, '') || '/', Astro.site).href;
-const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
+// A foto da página vai como prévia de compartilhamento numa versão leve (menos de 300 KB, ver
+// src/lib/imagens.ts).
+// Sem foto própria, vale a imagem padrão: a marca sobre a cor do site (Gui, 22 nov 2026; gerada por
+// scripts/imagem-compartilhar.mjs).
+const imagemCompleta = new URL(imagem ? compartilhar(imagem) : '/compartilhar.png', Astro.site).href;
 ---
 <!doctype html>
 <html lang="pt-BR" style={`--fundo:${inicial.fundo};--texto:${inicial.texto};--destaque:${inicial.destaque};--enfeite:${inicial.destaque}`}>
@@ -43,9 +48,15 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
     <meta property="og:title" content={tituloPagina} />
     <meta property="og:description" content={descricao} />
     {!semIndice && <meta property="og:url" content={canonico} />}
-    {imagemCompleta && <meta property="og:image" content={imagemCompleta} />}
-    <meta name="twitter:card" content={imagemCompleta ? 'summary_large_image' : 'summary'} />
+    <meta property="og:image" content={imagemCompleta} />
+    {!imagem && <meta property="og:image:width" content="1200" />}
+    {!imagem && <meta property="og:image:height" content="630" />}
+    {!imagem && <meta property="og:image:alt" content="Marca da @bsurda" />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="sitemap" href="/sitemap.xml" />
     <link rel="preload" href={fonteLatina} as="font" type="font/woff2" crossorigin />
     <script is:inline define:vars={{ sorteio, sortear: !tema }}>
@@ -105,6 +116,8 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
             var cor = andar(passo);
             // Superfície de tom médio (cor tirada de foto): se um lado não alcança, tenta o outro.
             if (razao(cor, s) < minimo) { var outra = andar(-passo); if (razao(outra, s) > razao(cor, s)) cor = outra; }
+            // Nem assim (superfície azul média, cor de capa): branco ou preto puro, o que der mais.
+            if (razao(cor, s) < minimo) { var puro = razao([255, 255, 255], s) >= razao([0, 0, 0], s) ? [255, 255, 255] : [0, 0, 0]; if (razao(puro, s) > razao(cor, s)) cor = puro; }
             return 'rgb(' + cor.join(',') + ')';
           } catch (e) { return destaque; }
         };
@@ -147,6 +160,8 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
         var escolhido = opcoes[Math.floor(Math.random() * opcoes.length)];
         try { sessionStorage.setItem('ultimo-tema', escolhido); } catch (e) {}
         raiz.dataset.temaSorteado = escolhido;
+        // A lista do sorteio fica à mão para a conferência de contraste (scripts/confere-contraste.mjs).
+        window.__sorteio = sorteio;
         if (sortear) {
           var t = escolhido.split('|');
           raiz.style.setProperty('--fundo', t[0]);
@@ -224,7 +239,7 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
           <div data-anima="surge" style="--i:1">
             <h2>Fale com a gente</h2>
             <ul>
-              <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+              <li><a href={SITE.mensagem} target="_blank" rel="noopener">Mensagem no Instagram</a></li>
               <li><a href="/parcerias">Sua marca na @bsurda</a></li>
             </ul>
           </div>
@@ -500,6 +515,9 @@ const imagemCompleta = imagem ? new URL(imagem, Astro.site).href : undefined;
   /* Corpo em peso 500: a Urbanist em 400 afina demais sobre fundos de cor viva e nos temas claros */
   body { overflow-x: clip; margin: 0; font: 500 1.0625rem/1.5 var(--fonte); -webkit-font-smoothing: antialiased; }
   img, svg { display: block; max-width: 100%; }
+  /* As fotos levam width e height (src/lib/imagens.ts) para o navegador reservar o espaço. A altura
+     segue a largura do CSS; onde o CSS dá a altura (object-fit), vale a do CSS. */
+  img { height: auto; }
   a { color: inherit; text-underline-offset: 0.18em; text-decoration-thickness: 0.06em; }
   :focus-visible { outline: 3px solid var(--destaque); outline-offset: 3px; }
   ::selection { background: var(--texto); color: var(--fundo); }

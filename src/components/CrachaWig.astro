@@ -9,6 +9,7 @@
 import WigW from './marca/WigW.astro';
 import CreditoFoto from './CreditoFoto.astro';
 import letras from '../data/wig-letras.json';
+import { foto as fotoMenor } from '../lib/imagens';
 
 interface Props {
   id: string;
@@ -50,7 +51,7 @@ const rotuloLink = [
     <span class="cw-topo" aria-hidden="true"><WigW class="cw-marca" /><span>{rotulo}</span></span>
     <span class="cw-retrato">
       {/* Janela da foto recorta a imagem; a mini tag fica fora do overflow para poder expandir. */}
-      <span class="cw-retrato-img"><img src={foto} alt="" loading="lazy" decoding="async" /></span>
+      <span class="cw-retrato-img"><img {...fotoMenor(foto, '(max-width: 720px) 45vw, 17rem')} alt="" loading="lazy" decoding="async" /></span>
       {credito && <CreditoFoto credito={credito} />}
     </span>
     {selo && <span class="cw-selo" aria-hidden="true"><svg viewBox="0 0 56 57" fill="currentColor"><path d={FAISCA} /></svg><strong>{selo}</strong></span>}

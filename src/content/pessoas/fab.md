@@ -15,4 +15,4 @@ links:
   - { rotulo: "hausu", url: "https://www.instagram.com/off.hausu/" }
 ---
 
-Bio de marcação. Aqui entra um parágrafo sobre FAB e, mais adiante, os links para os projetos e iniciativas próprias.
+Residente de 2011 a 2016: chegou numa Batalha de iPods e, no fim, também cuidava do conteúdo. Voltou como atração no Halloween de 15 anos, em 2024.

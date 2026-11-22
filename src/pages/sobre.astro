@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Capa from '../components/Capa.astro';
+import { foto } from '../lib/imagens';
 import Botao from '../components/Botao.astro';
 import marcos from '../data/marcos.json';
 import atracoes from '../data/atracoes.json';
@@ -183,7 +184,7 @@ const premios = [
     <p class="t-apoio">Uma festa pop LGBTQIA+ de BH que ganhou a rua e virou produtora, sem frescuras desde a primeira noite.</p>
   </header>
   <figure class="janela" data-paralaxe>
-    <img src="/sobre/mineirao-10-anos.jpg" alt="Pista da @bsurda dentro do Mineirão, na festa de 10 anos, em 2019" />
+    <img {...foto('/sobre/mineirao-10-anos.jpg')} alt="Pista da @bsurda dentro do Mineirão, na festa de 10 anos, em 2019" />
   </figure>
 
   <!-- 2. Como começou, e o tamanho que tomou -->
@@ -224,10 +225,11 @@ const premios = [
         <button type="button" data-rolar="1" aria-label="Próximo"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 8h11M9 3.5 13.5 8 9 12.5" /></svg></button>
       </p>
     </div>
-    <ul class="improvaveis">
+    {/* Recebe foco pelo teclado e rola pelas setas do teclado (QA de produção, 22 nov 2026). */}
+    <ul class="improvaveis" tabindex="0" aria-label="Lugares improváveis">
       {improvaveis.map((l, i) => (
         <li class:list={{ torto: i % 2 === 1 }}>
-          <div class="improvavel-foto"><Capa src={l.capa} proporcao="16 / 9" /><span class="improvavel-ano">{l.ano}</span></div>
+          <div class="improvavel-foto"><Capa src={l.capa} proporcao="16 / 9" tamanho="(max-width: 1000px) 85vw, 52vw" /><span class="improvavel-ano">{l.ano}</span></div>
           <h4>{l.nome}</h4>
           <p>{l.texto}</p>
         </li>
@@ -253,7 +255,7 @@ const premios = [
       <ol class="mineirao-vezes">
         {mineirao.map((m, i) => (
           <li style={`--i:${i}`}>
-            <img src={m.capa} alt="" loading="lazy" />
+            <img {...foto(m.capa, '(max-width: 720px) 45vw, 18rem')} alt="" loading="lazy" />
             <p><span>{m.data}</span>{m.nome}</p>
           </li>
         ))}
@@ -299,7 +301,7 @@ const premios = [
       <ol class="trio-quadros">
         {trio.map((t, i) => (
           <li class:list={['trio-quadro', { ativo: i === 0, arte: t.arte }]} data-ano={t.ano} data-mini={t.foto.replace('.jpg', '-mini.jpg')} style={t.arte ? `--arte:url(${t.foto})` : undefined}>
-            <img src={t.foto} alt="" loading="lazy" style={t.foco ? `object-position:${t.foco}` : undefined} />
+            <img {...foto(t.foto)} alt="" loading="lazy" style={t.foco ? `object-position:${t.foco}` : undefined} />
             <div class="trio-legenda">
               <p class="trio-ano">{t.ano}</p>
               <p class="trio-numero">{t.numero}</p>
@@ -384,7 +386,7 @@ const premios = [
   <!-- 10. Fecho -->
   <section class="fecho">
     <figure class="janela janela-baixa" data-paralaxe>
-      <img src="/sobre/pista-1.jpg" alt="Pista de uma festa da @bsurda" loading="lazy" />
+      <img {...foto('/sobre/pista-1.jpg')} alt="Pista de uma festa da @bsurda" loading="lazy" />
     </figure>
     <p class="t-grande">A próxima página dessa história já tem data.</p>
     <p class="fecho-botoes"><Botao href="/agenda" tipo="linha">Ver a agenda</Botao><Botao href="/equipe" tipo="linha">Quem faz a @bsurda</Botao></p>
@@ -485,6 +487,7 @@ const premios = [
   const mesa = document.querySelector<HTMLElement>('.trio-mesa');
   const pilhaViva = () => raizTrio.contains('pino-novo') && !semMovimento.matches;
   const fotosGrandes = quadros.map((q) => q.querySelector('img')?.getAttribute('src') ?? '');
+  const versoesGrandes = quadros.map((q) => q.querySelector('img')?.getAttribute('srcset') ?? '');
   const porBaixo = quadros.map(() => false);
   const longe = quadros.map(() => false);
   const simplifica = () => {
@@ -501,7 +504,10 @@ const premios = [
       porBaixo[k] = baixo;
       q.classList.toggle('por-baixo', baixo);
       const img = q.querySelector('img');
-      if (img) img.src = baixo ? (q.dataset.mini ?? fotosGrandes[k]) : fotosGrandes[k];
+      if (!img) return;
+      // Com srcset, trocar só o src não muda a foto: a miniatura entra sem srcset, e a grande volta com ele.
+      if (baixo) { img.removeAttribute('srcset'); img.src = q.dataset.mini ?? fotosGrandes[k]; }
+      else { img.src = fotosGrandes[k]; if (versoesGrandes[k]) img.srcset = versoesGrandes[k]; }
     });
   };
   if (trioEmCartoes) quadros.forEach((q) => q.classList.add('ativo'));
@@ -610,7 +616,7 @@ const premios = [
   .numero { display: flex; align-items: flex-start; font-size: var(--t-5); font-weight: 800; line-height: 0.85; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
   /* O "+" fica à meia altura dos algarismos, com folga: o espaçamento apertado do número
      (letter-spacing negativo) fazia o sinal encostar no primeiro algarismo. */
-  .numero span { align-self: center; font-size: 0.5em; line-height: 1; letter-spacing: 0; margin-right: 0.12em; color: var(--destaque); }
+  .numero span { align-self: center; font-size: 0.5em; line-height: 1; letter-spacing: 0; margin-right: 0.12em; color: var(--destaque-texto); }
   .numero-rotulo { margin-top: var(--e-1); font-size: var(--t-rotulo); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
 
   /* ---------- Sem endereço fixo ---------- */
@@ -649,7 +655,8 @@ const premios = [
   .improvaveis li:hover { transform: rotate(-0.6deg) translateY(-0.25rem); }
   .improvavel-foto { position: relative; }
   .improvavel-foto :global(.capa) { border-radius: clamp(1rem, 2.2vw, 2rem); }
-  .improvavel-ano { position: absolute; top: var(--e-2); left: var(--e-2); padding: 0.35em 0.7em; border-radius: 99px; background: var(--destaque); color: var(--fundo); font-size: var(--t-3); font-weight: 800; line-height: 1; letter-spacing: -0.02em; transform: rotate(-4deg); }
+  /* O ano é um adesivo sobre a foto e se lê: superfície viva, com leitura garantida (4,5:1). */
+  .improvavel-ano { position: absolute; top: var(--e-2); left: var(--e-2); padding: 0.35em 0.7em; border-radius: 99px; background: var(--vivo); color: var(--sobre-vivo); font-size: var(--t-3); font-weight: 800; line-height: 1; letter-spacing: -0.02em; transform: rotate(-4deg); }
   .improvaveis h4 { position: relative; margin: -0.55em 0 0.2em var(--e-2); font-size: var(--t-5); font-weight: 800; line-height: 0.88; letter-spacing: -0.045em; text-transform: uppercase; text-wrap: balance; text-shadow: 0 0 0.5em var(--fundo); }
   .improvaveis li > p:last-child { max-width: 30em; margin-left: var(--e-2); font-size: var(--t-apoio); line-height: 1.35; }
   .estrada { margin-top: var(--e-5); }

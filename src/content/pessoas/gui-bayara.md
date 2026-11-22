@@ -14,4 +14,4 @@ redes:
   - { rotulo: "Site", url: "https://bayara.design" }
 ---
 
-Bio de marcação. Aqui entra um parágrafo sobre Gui Bayara e, mais adiante, os links para os projetos e iniciativas próprias.
+Chegou em 2012 e foi mudando de papel com o tempo: assinou o design das festas e hoje também é sócio e produtor da @bsurda.

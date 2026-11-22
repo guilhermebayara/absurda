@@ -18,6 +18,7 @@ import Base from '../../layouts/Base.astro';
 import Botao from '../../components/Botao.astro';
 import Cracha from '../../components/Cracha.astro';
 import Arroba from '../../components/marca/Arroba.astro';
+import { foto } from '../../lib/imagens';
 import { getCollection } from 'astro:content';
 import { numeroDoCracha } from '../../lib/pessoas';
 import { foraDaCabine } from '../../lib/equipe';
@@ -58,7 +59,7 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
     <section class="passado" aria-labelledby="t-passado">
       <h2 id="t-passado" class="titulo-secao" data-anima="sobe">Já fizeram parte</h2>
       <p class="nomes" data-anima="surge">
-        {anteriores.map((p) => <a href={`/equipe/${p.id}`}>{p.data.nome}{p.data.foto && <img class="previa" src={p.data.foto} alt="" loading="lazy" />}</a>)}
+        {anteriores.map((p) => <a href={`/equipe/${p.id}`}>{p.data.nome}{p.data.foto && <img class="previa" {...foto(p.data.foto, '14rem')} alt="" loading="lazy" />}</a>)}
       </p>
       <p class="passado-botao" data-anima="surge"><Botao href="/sobre#t-palco" tipo="linha">A cena que já tocou com a gente</Botao></p>
     </section>

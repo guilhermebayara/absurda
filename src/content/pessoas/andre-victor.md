@@ -11,4 +11,4 @@ foto: "/equipe/andre-victor.jpg"
 instagram: "https://www.instagram.com/andre_victor/"
 ---
 
-Bio de marcação. Aqui entra um parágrafo sobre André Victor e, mais adiante, os links para os projetos e iniciativas próprias.
+Tocou na @bsurda de 2011 a 2012, e a festa de junho de 2011 foi a do aniversário dele.

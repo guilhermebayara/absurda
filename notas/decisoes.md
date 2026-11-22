@@ -300,3 +300,40 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   O `confere-site.yml` mantém o `confere:arquivo` pelo git como primeiro passo, porque custa
   segundos e é a última conferência antes do fast-forward. (CLAUDE.md, "Histórico de eventos",
   "Levar para a `main`" e "Conferências do site"; `scripts/guarda-producao.mjs`.)
+
+- **2026-11-22, contato só pelo Instagram (Gui).** O `contato@exemplo.com` sai do site inteiro (rodapé,
+  `/contato`, Parcerias, `src/config.ts`); no lugar, o link de mensagem do Instagram da @bsurda
+  (`SITE.mensagem`). Nenhum e-mail entra enquanto o contato estiver pausado. Por quê: o endereço era
+  de marcação e era o único achado do QA que alguém de fora via e clicava. (CLAUDE.md, "Contato".)
+
+- **2026-11-22, formulário do Contato sai (Gui).** `/contato` fica só com a mensagem pelo Instagram e
+  as redes, até o contato ser decidido. O formulário fica guardado, desligado, em
+  `src/components/guardado/FormularioContato.astro`. (CLAUDE.md, "Contato".)
+
+- **2026-11-22, bios de marcação viram rascunho (Gui).** André Victor, Ayumi, Barbara Deister,
+  Charlotte, Ed Luiz, FAB, Gabriel Cadete e Gui Bayara ganham bio de uma ou duas frases no tom de
+  `notas/tom.md`, só com o que o repositório sabe (páginas, `notas/equipe-tabela.md`,
+  `notas/equipe-insumos.md`, projetos). Rascunho até o Gui aprovar; ele pode trocar qualquer uma.
+  Keoma, Lugh e Vil seguem com a bio de marcação (não estavam no pedido). (CLAUDE.md, "Páginas de
+  pessoa".)
+
+- **2026-11-22, imagem padrão de compartilhamento (Gui).** A marca da @bsurda em laranja sobre o vinho
+  do primeiro tema do site (o par do favicon), 1200 x 630, gerada no repositório
+  (`npm run compartilhar`, `public/compartilhar.png`, 9 KB, contraste 6,76:1). Vale para a Home e para
+  toda página sem foto própria; `twitter:card` passa a `summary_large_image`. Página com foto continua
+  com a dela, agora numa versão de menos de 300 KB. (CLAUDE.md, "Fotos, ícones e prévia de
+  compartilhamento".)
+
+- **2026-11-22, defeitos do QA de produção (sessão H).** Ficha das páginas de pessoa em tablet: de 721
+  a 960 px o texto desce para baixo dos crachás. Ano dos Lugares Improváveis passa ao par `--vivo` e
+  `--sobre-vivo` (estava em 3,76:1), e o "+" dos números do Sobre a `--destaque-texto` (3,18:1 no
+  celular, achado pela conferência nova). Pulseiras (4,54:1), FAB (4,61:1), Halloween, backstage da
+  WIG (4,5:1) e Amorzinho (10,17:1) passam com a cor assentada: os valores do QA (3,7 a 4,49) eram de
+  medida no meio da troca de tema, e ficaram como estão. Na conta das cores do `Base.astro`, quando nenhum lado chega à leitura (superfície viva sobre
+  fundo azul médio, tirado de capa: 4,32:1 com um exemplo), a cor vai a branco ou preto puro. Contraste vira conferência de navegador
+  (`confere:contraste`), com texto grande em 3:1 como o site já fazia com `--destaque`. Nome do evento
+  em destaque na Home vira `h2`. Faixa dos Lugares Improváveis recebe foco. Fotos ganham versões
+  menores no build, sem mudar recorte (`/sobre` de 4,6 para 3,3 MB no desktop e 0,85 MB no celular;
+  `/projetos` de 2,4 para 0,5 MB; `/equipe` de 2,5 para 0,5 MB). Ícones de toque e manifesto gerados
+  do favicon. (CLAUDE.md, "Fotos, ícones e prévia de compartilhamento", "Regra de contraste",
+  "Páginas de pessoa" e "Conferências do site".)
