@@ -18,8 +18,14 @@ Como usar:
 
 ## A construir
 
-- **Defeitos do QA de produção e decisões de 22/11.** Itens 1 a 12 de `notas/briefs/qa-producao-g.md`
-  (Sessão H).
+- **Alarme do histórico** (`.github/workflows/alarme-arquivo.yml`): acrescentar `timeout-minutes` e
+  `paths-ignore` de documentação (`notas/**`, `CLAUDE.md`, `README.md`), como pede a regra geral do
+  CLAUDE.md ("Conferências do site"). Sobra da Sessão F; ficou fora da Sessão H.
+- **Robô da agenda** (`.github/workflows/atualiza-agenda.yml`): quando o robô grava algo na `main`, o
+  push dele já dispara um build na Cloudflare, e o gancho do fim pede outro. O gancho passa a pedir o
+  build só quando o robô não gravou nada. Sobra da Sessão F; ficou fora da Sessão H.
+- **Bios de Keoma, Lugh e Vil Araújo:** seguem de marcação. Se o Gui quiser, rascunho no mesmo modelo
+  das oito de 22 nov 2026 (uma ou duas frases, só com o que o repositório sabe).
 
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.

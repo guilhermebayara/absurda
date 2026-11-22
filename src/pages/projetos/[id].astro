@@ -25,6 +25,7 @@ import { atributo } from '../../lib/temas';
 import ElencoWig from '../../components/ElencoWig.astro';
 import EventosWig from '../../components/EventosWig.astro';
 import { getEventos } from '../../lib/eventos';
+import { foto } from '../../lib/imagens';
 import { resumoDoProjeto, edicoesDoProjeto, daEspecial, ehPrima, proximoTrio, temasDoProjeto } from '../../lib/projetos';
 import { partesDaData } from '../../lib/eventos';
 import { eventosArredondados } from '../../lib/historia';
@@ -99,7 +100,7 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
 <Base titulo={projeto.data.nome} descricao={projeto.data.resumo} temas={temas} imagem={projeto.data.capa}>
   <header class:list={['abre', 'abre-cima', { 'abre-foto': capa }]} data-tema="sorteio" data-reserva={atributo(temas[0])} data-temas={temas.map(atributo).join(';')}>
     <div class="abre-cartao">
-      {capa && <img class="abre-imagem" src={capa} alt="" style={projeto.data.foco ? `object-position:${projeto.data.foco}` : undefined} />}
+      {capa && <img class="abre-imagem" {...foto(capa)} alt="" fetchpriority="high" style={projeto.data.foco ? `object-position:${projeto.data.foco}` : undefined} />}
       <div class="abre-texto">
         {rotulos[projeto.data.situacao] && <p class="etiqueta">{rotulos[projeto.data.situacao]}</p>}
         {capa
@@ -228,7 +229,7 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
               <a href={e.url} target="_blank" rel="noopener">
                 <span class="anual-ano">{ano}</span>
                 {e.capaPequena || e.capa
-                  ? <img src={e.capa ?? e.capaPequena} alt="" loading="lazy" />
+                  ? <img {...foto(e.capa ?? e.capaPequena, '(max-width: 1000px) 45vw, 16rem')} alt="" loading="lazy" />
                   : <span class="anual-sem-capa" aria-hidden="true">@</span>}
                 <strong>{e.nome}</strong>
                 {e.local && <span class="anual-local">{e.local}</span>}
@@ -244,7 +245,7 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
             <div class="ano" data-anima="surge">
               <div class="ano-cabeca">
                 <h3 class="ano-numero">{a.ano}{a.numero && <span>{a.numero}ª edição</span>}</h3>
-                {a.arte && <img class="ano-arte" src={a.arte} alt="" loading="lazy" />}
+                {a.arte && <img class="ano-arte" {...foto(a.arte, '(max-width: 720px) 40vw, 14rem')} alt="" loading="lazy" />}
               </div>
               <ul class="ano-eventos">
                 {a.eventos.map((e) => (
@@ -319,7 +320,7 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
       <h2 id="t-quem" class="titulo-secao">Quem faz</h2>
       <ul class="grade">
         {pessoas.map((p) => (
-          <li><a class="card" href={`/equipe/${p.id}`}><Capa src={p.data.foto} /><h3>{p.data.nome}</h3><p>{p.data.funcao}</p></a></li>
+          <li><a class="card" href={`/equipe/${p.id}`}><Capa src={p.data.foto} tamanho="(max-width: 1000px) 45vw, 16rem" /><h3>{p.data.nome}</h3><p>{p.data.funcao}</p></a></li>
         ))}
       </ul>
     </section>

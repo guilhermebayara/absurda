@@ -1,4 +1,6 @@
 import { defineConfig } from 'astro/config';
+// Versões menores das fotos, criadas no fim do build (ver src/lib/imagens.ts).
+import imagens from './scripts/imagens.mjs';
 
 // Endereço definitivo do site.
 export default defineConfig({
@@ -8,4 +10,5 @@ export default defineConfig({
   // /agenda. Com pastas (agenda/index.html), todo clique no menu passava por um redirecionamento.
   trailingSlash: 'never',
   build: { format: 'file' },
+  integrations: [imagens()],
 });

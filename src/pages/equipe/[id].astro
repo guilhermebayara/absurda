@@ -130,6 +130,12 @@ const periodo = alumni ? `Na @bsurda de ${pessoa.data.desde ?? 'XXXX'} a ${pesso
   .pessoa-papel { margin-left: 0.7em; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: var(--suave); white-space: nowrap; }
   /* O código do crachá assina o fim da parte padrão. Abaixo dele começa a parte de cada pessoa. */
   .pessoa-texto .ficha-codigo { margin-top: 0.7rem; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--suave); }
+  /* Tablet (QA de produção, 22 nov 2026): ao lado dos dois crachás, a coluna de texto ficava com
+     150 a 250 px e os links da ficha saíam da tela. Até 960 px o texto desce para baixo dos crachás,
+     que continuam lado a lado como no desktop. */
+  @media (min-width: 721px) and (max-width: 960px) {
+    .pessoa { grid-template-columns: minmax(0, 1fr); }
+  }
   @media (max-width: 720px) {
     .pessoa { grid-template-columns: minmax(0, 1fr); }
     .ficha > div { grid-template-columns: minmax(0, 1fr); }

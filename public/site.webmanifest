@@ -1,0 +1,21 @@
+{
+  "name": "@bsurda",
+  "short_name": "@bsurda",
+  "description": "Maior festa pop LGBTQIA+ de MG. Sem frescuras, desde 2009.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#711a40",
+  "theme_color": "#711a40",
+  "icons": [
+    {
+      "src": "/icone-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icone-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -15,8 +15,6 @@ import marcos from '../data/marcos.json';
 const { proximos, passados } = await getEventos();
 const temaInicial = proximos[0]?.tema ?? TEMAS_DO_SITE[0];
 
-// Abre a conversa com a @bsurda no Instagram (o endereço curto ig.me/m/ leva direto à mensagem).
-const conversa = SITE.redes.instagram.replace(/^https:\/\/(www\.)?instagram\.com\//, 'https://ig.me/m/');
 const listas = [
   {
     para: 'Pessoas trans, travestis e não bináries',
@@ -68,7 +66,7 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
       formulário fica fixo, o texto manda para o post da festa no Instagram. */}
   <section class="listas" id="listas" aria-labelledby="t-listas">
     <h2 id="t-listas" class="titulo-secao" data-anima="sobe">Listas</h2>
-    <p class="t-apoio listas-apoio" data-anima="surge">Tem lista pra quem precisa e convite pra quem está de aniversário. Na dúvida, vale o post da festa no Instagram, ou é só <a href={conversa} target="_blank" rel="noopener">mandar mensagem<span class="so-leitor"> (abre em outra aba)</span></a>.</p>
+    <p class="t-apoio listas-apoio" data-anima="surge">Tem lista pra quem precisa e convite pra quem está de aniversário. Na dúvida, vale o post da festa no Instagram, ou é só <a href={SITE.mensagem} target="_blank" rel="noopener">mandar mensagem<span class="so-leitor"> (abre em outra aba)</span></a>.</p>
     <ul class="listas-grade">
       {listas.map((l, i) => (
         <li class:list={['lista', { 'lista-b': i % 2 === 1 }]} data-anima="surge" style={`--i:${i}`}>

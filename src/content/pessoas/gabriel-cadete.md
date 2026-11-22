@@ -10,4 +10,4 @@ entrou: "2010-05-15"
 saiu: "2011-10-15"
 ---
 
-Bio de marcação. Aqui entra um parágrafo sobre Gabriel Cadete e, mais adiante, os links para os projetos e iniciativas próprias.
+Tocou na @bsurda de maio de 2010 a outubro de 2011, nos primeiros anos da festa. Nas últimas datas, já aparecia como Gabriel KDT.

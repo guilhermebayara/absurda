@@ -20,7 +20,10 @@
     "confere:atracoes": "node scripts/confere-atracoes.mjs",
     "confere:exemplos": "node scripts/confere-exemplos.mjs",
     "confere:rapidos": "node scripts/confere-temas.mjs && node scripts/confere-links.mjs && node scripts/confere-agenda.mjs && node scripts/confere-atracoes.mjs && node scripts/confere-exemplos.mjs",
-    "atracoes": "node scripts/atracoes.mjs"
+    "atracoes": "node scripts/atracoes.mjs",
+    "compartilhar": "node scripts/imagem-compartilhar.mjs",
+    "icones": "node scripts/icones.mjs",
+    "confere:contraste": "node scripts/confere-contraste.mjs"
   },
   "dependencies": {
     "@fontsource-variable/urbanist": "^5.3.0",
@@ -30,6 +33,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "@types/node": "^26.6.6",
+    "axe-core": "^4.10.3",
     "playwright": "1.63.0",
     "typescript": "^6.0.3"
   }

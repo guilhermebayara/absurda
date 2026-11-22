@@ -131,8 +131,9 @@ Branch de sessão, de teste e de QA nasce sempre da `design` já igualada.
    `confere:atracoes` e `confere:exemplos`. É o mesmo build da Cloudflare, que roda a cada push e
    não publica se ele falhar (ver "Conferências do site").
 3. `npm run confere:arquivo` passando.
-4. `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra` e
-   `npm run confere:pilha` passando: os testes de navegador, que não rodam na Cloudflare.
+4. `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra`,
+   `npm run confere:pilha` e `npm run confere:contraste` passando: os testes de navegador, que não
+   rodam na Cloudflare.
 5. Só em rodadas, depois do QA, com o ok do Gui na prévia da `design`. **Antes da rodada, a
    conversa dispara o `confere-site.yml` na `design`** ("Run workflow" na aba Actions, ou pela
    ferramenta do GitHub) e só segue com ele verde. Então `main`, por fast-forward da `design`. A
@@ -170,7 +171,7 @@ Depois do merge, conferir se a prévia da `design` publicou. Quem apaga as branc
 
 ## Conferências do site
 
-Além das guardas do histórico, nove conferências rodam na máquina. Todas rodam depois do build.
+Além das guardas do histórico, dez conferências rodam na máquina. Todas rodam depois do build.
 
 **Onde cada uma roda (GitHub Actions enxuto, do Gui, 20 nov 2026):** o que precisa travar a
 publicação roda no build da Cloudflare, que já acontece a cada push com cota própria; o GitHub não
@@ -184,12 +185,12 @@ tem cota mensal de minutos.
   uns 7 segundos ao build, quase todos do `astro check`.
 - **No GitHub, só por disparo manual:** `.github/workflows/confere-site.yml` (`workflow_dispatch`)
   roda o `confere:arquivo`, o build e os testes de navegador (`confere:calmo`, `confere:parede`,
-  `confere:barra` e `confere:pilha`), em uns 4 minutos. Não roda em push nem em PR. A conversa
+  `confere:barra`, `confere:pilha` e `confere:contraste`), em uns 6 minutos. Não roda em push nem em PR. A conversa
   dispara na `design` antes de cada rodada para a `main` (ver "Levar para a `main`"); uma sessão
   pode disparar na própria branch quando o prompt pedir. Disparo novo na mesma branch cancela o
   anterior, os navegadores ficam no cache (versão do Playwright na chave) e o trabalho tem
   `timeout-minutes`.
-- **Na máquina:** a sessão roda o build e as quatro de navegador antes de cada push, como sempre.
+- **Na máquina:** a sessão roda o build e as cinco de navegador antes de cada push, como sempre.
 - **Os outros fluxos:** `alarme-arquivo.yml` (cada push na `main`) e `escalacoes.yml` ficam como
   estavam. `atualiza-agenda.yml` é um trabalho só, às 6h17 e 18h17 de Brasília: arquiva e, no fim,
   sempre pede o build pelo gancho, mesmo se o arquivo falhar ou for pulado.
@@ -229,6 +230,15 @@ Cloudflare; com gatilho de push, `paths-ignore` de documentação (`notas/**`, `
   simplificadas (sem texto, foto pequena), se houver polaroide visível fora da tela, se houver
   `sticky` ou `fixed`, ou se, com movimento reduzido, a pilha não virar lista simples.
 
+- `npm run confere:contraste` (QA de produção, 22 nov 2026): abre cada página no navegador, em celular
+  e desktop, aplica cada tema que a página pode sortear (o do trecho fixo, a paleta fechada, a lista
+  do sorteio, as opções de cada cartaz de Projetos) e mede todo texto visível contra o fundo sólido
+  atrás dele, com opacidade e transição desligada. Falha com texto de leitura abaixo de 4,5:1, texto
+  grande (24 px, ou 18,66 px em negrito) abaixo de 3:1 ou enfeite da lista `ENFEITE` abaixo de 3:1.
+  Texto grande entre 3:1 e 4,5:1 sai como aviso, sem falhar. Texto sobre foto ou degradê fica fora
+  da conta. O que fica de fora de propósito entra na lista `FORA` do script, com o motivo, e só com
+  decisão do Gui. Lê a lista do sorteio em `window.__sorteio` (posta pelo script de `Base.astro`).
+
 - `npm run confere:exemplos`: falha se a `main` ou a homologação tiverem evento de exemplo (ver
   "Eventos de exemplo nas prévias de teste").
 
@@ -241,7 +251,10 @@ Enfeite pode ousar e abrir mão disso, desde que continue visível (3:1): a barr
 "corrija" o contraste de um enfeite: o efeito dele depende justamente dessa ousadia.
 Na prática: `--destaque` é cor de enfeite. Texto pequeno na cor de destaque usa
 `--destaque-texto`, e texto secundário usa `--suave`; o script de `src/layouts/Base.astro`
-ajusta as duas para 4,5:1 só nos temas em que seria preciso.
+ajusta as duas para 4,5:1 só nos temas em que seria preciso. Etiqueta ou adesivo sólido com texto
+(o ano sobre a foto dos Lugares Improváveis, por exemplo) usa o par `--vivo` e `--sobre-vivo`, e
+nunca `--destaque` com texto na cor do fundo. O `confere:temas` confere os pares de cada tema; o
+`confere:contraste` confere o que a página faz com eles.
 
 **Subtema "vivo" (do Gui):** objeto que imita coisa física (crachá, pulseira) é sempre sólido,
 nunca na cor da página, senão parece vazado. Além da superfície invertida (`--texto` com
@@ -261,6 +274,11 @@ acertado caso a caso com o Gui.
 - Foto do crachá: quem está na festa hoje usa sempre foto tirada num evento da @bsurda. Quem já
   fez parte segue a ordem: foto na @bsurda; foto em ambiente de festa; escolha livre.
 - Número do crachá: sai sempre da conta de `src/lib/pessoas.ts`. A pessoa não escolhe nem edita.
+- **Tablet (QA de produção, 22 nov 2026):** de 721 a 960 px o texto da página desce para baixo dos
+  dois crachás, que continuam lado a lado. Ao lado deles a coluna ficava com 150 a 250 px e os links
+  da ficha saíam da tela.
+- **Bio:** curta, uma ou duas frases no tom de `notas/tom.md`, só com o que se sabe da pessoa (página,
+  escalações, projetos). Nada inventado. As de 22 nov 2026 são rascunho até o Gui aprovar.
 - Cores: a prioridade é puxar as cores das fotos da pessoa. Ela pode dizer até duas cores pelo nome
   ("azul", "verde floresta"); o tom é sempre escolhido por nós, para encaixar no site, e nós
   decidimos se as duas entram no mesmo tema ou se viram temas à parte.
@@ -318,6 +336,44 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
   `resumo` curto continua para o topo, a página Projetos e a descrição. Os textos são rascunho até a
   Charlotte e o Gui aprovarem.
 
+
+## Contato (do Gui, 22 nov 2026)
+
+- **Só pelo Instagram.** Nenhum e-mail entra no site enquanto o contato estiver pausado (nem no
+  rodapé, nem no Contato, nem em Parcerias). O link de mensagem mora em `SITE.mensagem`
+  (`src/config.ts`, `https://ig.me/m/bsurda`) e é o mesmo em todo lugar: rodapé ("Mensagem no
+  Instagram"), `/contato`, botão de Parcerias e o "mandar mensagem" das listas na Agenda.
+- **`/contato` sem formulário**, até o contato ser decidido: só o botão de mensagem, as redes e o
+  atalho para as listas da Agenda. O formulário está guardado, desligado, em
+  `src/components/guardado/FormularioContato.astro` (nenhuma página usa).
+
+## Fotos, ícones e prévia de compartilhamento (QA de produção, 22 nov 2026)
+
+- **Versões menores das fotos, geradas no build.** Toda foto de `public/` mostrada no site passa por
+  `foto(src, sizes)` de `src/lib/imagens.ts`: `<img {...foto(src, '(max-width: 720px) 90vw, 28rem')} />`.
+  Ele devolve `srcset` (WebP de 320 a 1280 px, e a original), `sizes`, `width` e `height`. Os
+  arquivos `/img/<largura>/...` não existem no repositório: a integração `scripts/imagens.mjs` lê o
+  site montado e cria só os que as páginas pedem, com cache em `node_modules/.cache`. Recorte e
+  aparência não mudam (o CSS que recorta é o mesmo); `img { height: auto }` no `Base.astro` faz o
+  `height` só reservar espaço. O `sizes` diz quanto a foto ocupa na tela: errar para menos deixa a
+  foto borrada, então meça na tela antes de escolher. Nunca mexa em `public/arquivo/`: as capas de lá
+  ganham versões só no `dist`. Foto nova: JPEG ou PNG em `public/`, sem rotação no EXIF (o
+  ajudante lê as medidas do cabeçalho do arquivo).
+- **Trio do Sobre:** o script que troca a foto pela `-mini` tira o `srcset` junto e devolve quando a
+  foto grande volta. Sem isso, o navegador continuaria no `srcset`.
+- **Imagem que aparece primeiro:** a capa do destaque da Home (`PainelEvento`), o primeiro cartaz de
+  `/projetos` e a capa do topo da página de projeto levam `fetchpriority="high"` e não são `lazy`.
+- **Prévia de compartilhamento.** Página com foto própria (`imagem` no `Base`) usa uma versão JPEG de
+  até 1200 px e menos de 300 KB (o limite do WhatsApp), em `/img/og/...`. Página sem foto usa
+  `public/compartilhar.png` (1200 x 630): a marca em laranja sobre o vinho do primeiro tema, com
+  contraste de leitura. `twitter:card` é sempre `summary_large_image`. Marca ou tema novo:
+  `npm run compartilhar`. Guardar a cópia no Drive (`7_Geral/imagem-de-compartilhamento`) é da conversa.
+- **Ícones:** `favicon.ico`, `apple-touch-icon.png`, `icone-192.png`, `icone-512.png` e
+  `site.webmanifest` saem de `public/favicon.svg` com `npm run icones`. Mudou o favicon, rode de novo.
+- **Títulos:** o nome do evento em destaque na Home é `h2` (vem logo depois do `h1`). Classe nova de
+  título segue a ordem: nada de pular nível para ganhar tamanho, o tamanho vem do CSS.
+- **Faixa que rola para o lado** (Lugares Improváveis no Sobre) recebe foco (`tabindex="0"` e
+  `aria-label`) para rolar pelas setas do teclado. Faixa nova segue o mesmo modelo.
 
 ## Atrações do Sobre (do Gui, 18 nov 2026)
 

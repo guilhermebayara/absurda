@@ -11,4 +11,4 @@ foto: "/equipe/ayumi.jpg"
 instagram: "https://www.instagram.com/_ayuready/"
 ---
 
-Bio de marcação. Aqui entra um parágrafo sobre Ayumi e, mais adiante, os links para os projetos e iniciativas próprias.
+Tocou na @bsurda de 2012 a 2013, quase sempre em dupla com o Lugh.

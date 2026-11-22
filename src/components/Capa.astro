@@ -2,15 +2,17 @@
 // Imagem de capa. Sem imagem, mostra um bloco de marcação com o símbolo.
 import Arroba from './marca/Arroba.astro';
 import CreditoFoto from './CreditoFoto.astro';
+import { foto } from '../lib/imagens';
 // Com "inteira", a imagem aparece na proporção original, sem corte
 // (as artes dos eventos têm texto que não pode ser cortado).
 // Com "credito", a mini tag de crédito aparece sobre a foto (ver CreditoFoto.astro).
-interface Props { src?: string; alt?: string; proporcao?: string; inteira?: boolean; credito?: string; class?: string }
-const { src, alt = '', proporcao = '4 / 5', inteira = false, credito, class: classe } = Astro.props;
+// "tamanho" é o sizes da foto: quanto ela ocupa na tela (ver src/lib/imagens.ts).
+interface Props { src?: string; alt?: string; proporcao?: string; inteira?: boolean; credito?: string; tamanho?: string; class?: string }
+const { src, alt = '', proporcao = '4 / 5', inteira = false, credito, tamanho = '(max-width: 720px) 90vw, 28rem', class: classe } = Astro.props;
 ---
 <div class:list={['capa', classe, { 'capa-inteira': inteira && src }]} style={inteira && src ? undefined : `aspect-ratio:${proporcao}`}>
   {src
-    ? <span class="capa-img"><img src={src} alt={alt} loading="lazy" /></span>
+    ? <span class="capa-img"><img {...foto(src, tamanho)} alt={alt} loading="lazy" /></span>
     : <Arroba class="capa-simbolo" />}
   {src && credito && <CreditoFoto credito={credito} />}
 </div>

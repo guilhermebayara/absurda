@@ -1,6 +1,7 @@
 # Testes de navegador do site: movimento reduzido (scripts/confere-calmo.mjs), parede de palavras
 # da Home (scripts/confere-parede.mjs), barras presas no topo, na rolagem e no toque
-# (scripts/confere-barra.mjs) e pilha do Trio no Sobre (scripts/confere-pilha.mjs). Antes deles,
+# (scripts/confere-barra.mjs), pilha do Trio no Sobre (scripts/confere-pilha.mjs) e contraste do
+# texto como ele aparece na página (scripts/confere-contraste.mjs). Antes deles,
 # a guarda do histórico pelo git (scripts/confere-arquivo.mjs) e o build.
 #
 # Quando roda (GitHub Actions enxuto, do Gui, 20 nov 2026): só por disparo manual ("Run workflow"
@@ -26,7 +27,7 @@ concurrency:
 jobs:
   conferir:
     runs-on: ubuntu-latest
-    # Uma rodada normal leva uns 4 minutos. Travada, para aqui e não come a cota.
+    # Uma rodada normal leva uns 6 minutos. Travada, para aqui e não come a cota.
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -69,3 +70,5 @@ jobs:
         run: npm run confere:barra
       - name: Pilha do Trio no Sobre (cartões que assentam, no toque)
         run: npm run confere:pilha
+      - name: Contraste do texto na página, com cada tema que ela sorteia
+        run: npm run confere:contraste

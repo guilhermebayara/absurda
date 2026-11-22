@@ -1,0 +1,24 @@
+---
+// Formulário do Contato, guardado e desligado (Gui, 22 nov 2026): saiu da página até o contato ser
+// decidido. Nenhuma página usa este componente. Para voltar, importe em src/pages/contato.astro e
+// ligue o envio (hoje o botão não envia nada).
+---
+<form class="formulario">
+  <label>Nome <input name="nome" autocomplete="name" /></label>
+  <label>E-mail <input name="email" type="email" autocomplete="email" /></label>
+  <label>Assunto
+    <select name="assunto">
+      <option>Imprensa</option>
+      <option>Parcerias e patrocínio</option>
+      <option>Contratação de DJs</option>
+      <option>Outro assunto</option>
+    </select>
+  </label>
+  <label>Mensagem <textarea name="mensagem" rows="6"></textarea></label>
+  <button class="botao botao-cheio" type="button" disabled>Enviar mensagem</button>
+</form>
+
+<style>
+  .formulario { display: grid; gap: 1.25rem; max-width: 36rem; }
+  .formulario button { justify-self: start; cursor: not-allowed; opacity: 0.6; }
+</style>

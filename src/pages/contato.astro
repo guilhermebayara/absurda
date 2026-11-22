@@ -1,35 +1,42 @@
 ---
 import Base from '../layouts/Base.astro';
+import Botao from '../components/Botao.astro';
 import { SITE } from '../config';
+// Contato só pelo Instagram (Gui, 22 nov 2026). O formulário saiu até o contato ser decidido e
+// está guardado, desligado, em src/components/guardado/FormularioContato.astro.
+const redes = [
+  { nome: 'Instagram', href: SITE.redes.instagram },
+  { nome: 'TikTok', href: SITE.redes.tiktok },
+  { nome: 'Twitter', href: SITE.redes.twitter },
+  { nome: 'Fotos no Pixieset', href: SITE.fotos, nota: 'Foi? Então as fotos estão lá.' },
+];
 ---
-<Base titulo="Contato">
+<Base titulo="Contato" descricao="Fale com a @bsurda pelo Instagram: imprensa, marca, DJ pra sua festa ou qualquer outro assunto.">
   <header class="abre abre-cima">
     <h1 class="t-gigante ecoa ecoa-cima" data-eco="Contato">Contato</h1>
-    <p class="t-apoio">Imprensa, marca, DJ pra sua festa ou qualquer outro assunto: chama a gente. O formulário ainda é de marcação e não envia.</p>
+    <p class="t-apoio">Imprensa, marca, DJ pra sua festa ou qualquer outro assunto: chama a gente no Instagram. É lá que a gente responde.</p>
   </header>
 
   <div class="conteudo">
-    <form class="formulario">
-      <label>Nome <input name="nome" autocomplete="name" /></label>
-      <label>E-mail <input name="email" type="email" autocomplete="email" /></label>
-      <label>Assunto
-        <select name="assunto">
-          <option>Imprensa</option>
-          <option>Parcerias e patrocínio</option>
-          <option>Contratação de DJs</option>
-          <option>Outro assunto</option>
-        </select>
-      </label>
-      <label>Mensagem <textarea name="mensagem" rows="6"></textarea></label>
-      <button class="botao botao-cheio" type="button" disabled>Enviar mensagem</button>
-    </form>
-    <p>Ou escreva direto para <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+    <p class="contato-botao"><Botao href={SITE.mensagem} externo>Mandar mensagem no Instagram</Botao></p>
+
+    <h2>Onde mais a gente está</h2>
+    <ul class="contato-redes">
+      {redes.map((r) => (
+        <li><a href={r.href} target="_blank" rel="noopener">{r.nome}<span class="so-leitor"> (abre em outra aba)</span></a>{r.nota && <span>{r.nota}</span>}</li>
+      ))}
+    </ul>
+
     {/* Quem procura lista T/NB, PCD ou aniversariante às vezes vem ao Contato. As regras moram na Agenda. */}
     <p>Procurando a lista T/NB, a lista PCD ou o convite de aniversariante? <a href="/agenda#listas">Veja como funciona</a>.</p>
   </div>
 </Base>
 
 <style>
-  .formulario { display: grid; gap: 1.25rem; max-width: 36rem; }
-  .formulario button { justify-self: start; cursor: not-allowed; opacity: 0.6; }
+  .contato-botao { margin-bottom: var(--e-4); }
+  .contato-redes { list-style: none; padding: 0; margin: 0 0 var(--e-4); display: grid; gap: 0.6rem; max-width: 36rem; }
+  .contato-redes li { display: flex; flex-wrap: wrap; gap: 0.25rem 0.75rem; align-items: baseline; }
+  .contato-redes a { font-weight: 700; }
+  .contato-redes span:not(.so-leitor) { color: var(--suave); }
+  .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 </style>

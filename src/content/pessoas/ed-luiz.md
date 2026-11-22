@@ -10,4 +10,4 @@ ordem: 1
 instagram: "https://www.instagram.com/ed_luiz/"
 ---
 
-Bio de marcação. Aqui entra um parágrafo sobre Ed Luiz e, mais adiante, os links para os projetos e iniciativas próprias.
+Criou a @bsurda em 2009 porque queria uma festa que juntasse a pista do rock com a do pop, e segue produzindo e tocando desde a primeira noite. Em 2019 levou o prêmio de melhor DJ do carnaval no BH Folia.

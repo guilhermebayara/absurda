@@ -18,3 +18,8 @@
   X-Robots-Tag: noindex
 /arquivo-pendente.json
   X-Robots-Tag: noindex
+
+# Versões menores das fotos, geradas no build (src/lib/imagens.ts). O endereço muda se a foto mudar
+# de nome; uma foto trocada com o mesmo nome aparece em até um dia.
+/img/*
+  Cache-Control: public, max-age=86400

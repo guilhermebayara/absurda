@@ -17,4 +17,4 @@ links:
   - { rotulo: "Gongada Drag", url: "https://www.instagram.com/gongadadrag/", papel: "Elenco" }
 ---
 
-Bio de marcação. Aqui entra um parágrafo sobre Charlotte e, mais adiante, os links para os projetos e iniciativas próprias.
+Chegou à @bsurda em 2019, no palco da WIG Broadway, e foi ganhando espaço até virar DJ residente. Hoje também comanda a WIG events, a agência drag que nasceu aqui dentro.
