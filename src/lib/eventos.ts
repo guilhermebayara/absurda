@@ -199,20 +199,9 @@ async function fonteShotgun(): Promise<Evento[]> {
       comCapa: eventos.filter((e) => e.capa).length,
       // Endereços que ainda não têm nome de casa cadastrado em locais.json.
       locaisSemNome: [...new Set(eventos.map((e) => e.local).filter((l) => l && !locais.some((c) => c.nome === l)))],
-      // Formatos de capa dos próximos eventos, e se a API manda uma segunda imagem diferente.
+      // Formatos de capa dos próximos eventos. A leitura da "segunda imagem" (coverThumbnailUrl) saiu
+      // em 23 nov 2026 (leveza): eram 3 downloads por build só para este diagnóstico.
       proporcoesDosProximos: eventos.filter((e) => e.proporcao).map((e) => Number(e.proporcao!.toFixed(2))),
-      proporcoesDaSegundaImagem: await Promise.all(
-        futuros.slice(0, 3).map(async (e) => {
-          try {
-            if (!e.coverThumbnailUrl) return null;
-            const r = await fetch(naLargura(e.coverThumbnailUrl, 160));
-            const { width, height } = await sharp(Buffer.from(await r.arrayBuffer())).metadata();
-            return width && height ? Number((width / height).toFixed(2)) : null;
-          } catch {
-            return null;
-          }
-        }),
-      ),
       // Quantos vieram com hora de término, para conferir se o corte usa o fim informado.
       comHoraDeFim: [...futuros, ...passados].filter((e) => e.endTime).length,
       comSegundaImagemDiferente: [...futuros, ...passados].filter((e) => e.coverThumbnailUrl && e.coverUrl && e.coverThumbnailUrl !== e.coverUrl).length,
@@ -503,7 +492,7 @@ async function fonteManual(): Promise<Evento[]> {
 // produção nem a homologação e falta o token do Shotgun. Sem a variável de branch, nada de exemplo.
 // Cada exemplo tem um link próprio (com #id no fim), senão o semRepetidos tira todos menos um.
 // Não passam pelo arquivo do histórico (arquivo-pendente.json só lê eventos com `nomeBruto`).
-export const BRANCHES_SEM_EXEMPLO = ['main', 'design', 'homologa'];
+export const BRANCHES_SEM_EXEMPLO = ['main', 'homologa'];
 export const branchDoBuild = () => env('WORKERS_CI_BRANCH') || env('CF_PAGES_BRANCH') || undefined;
 export function usaExemplos() {
   const branch = branchDoBuild();

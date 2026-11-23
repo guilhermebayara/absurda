@@ -1,8 +1,13 @@
 // Integração do Astro: cria as versões menores das fotos depois que o site é montado.
 // Ver src/lib/imagens.ts. Lê todo HTML do dist, acha os endereços /img/<largura>/... e /img/og/...,
 // e gera cada arquivo a partir da foto original em public/. Guarda as versões num cache
-// (node_modules/.cache/absurda-imagens) para o build seguinte na mesma máquina não refazer tudo.
+// (node_modules/.astro/absurda-imagens) para o build seguinte não refazer tudo. A pasta fica dentro
+// de node_modules/.astro de propósito (leveza, 23 nov 2026): é a única que o cache de build da
+// Cloudflare guarda entre builds de um site Astro. Fora dela, todo build lá refazia as ~300 versões.
 // Nunca escreve em public/: public/arquivo/ (histórico) continua intocado.
+//
+// Com SEM_FOTOS=1 a integração não gera nada. É o build do robô da agenda no GitHub Actions
+// (atualiza-agenda.yml), que só precisa do arquivo-pendente.json e joga o site fora.
 import sharp from 'sharp';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -10,7 +15,7 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const PUBLICO = path.resolve('public');
-const CACHE = path.resolve('node_modules/.cache/absurda-imagens');
+const CACHE = path.resolve('node_modules/.astro/absurda-imagens');
 const LIMITE_OG = 300 * 1024;
 const PADRAO = /\/img\/(\d+|og)(\/[^"'\s,)?#]+?)\.(webp|jpg)/g;
 
@@ -60,6 +65,10 @@ export default function imagens() {
     name: 'absurda-imagens',
     hooks: {
       'astro:build:done': async ({ dir, logger }) => {
+        if (process.env.SEM_FOTOS === '1') {
+          logger.info('SEM_FOTOS=1: versões de fotos não geradas');
+          return;
+        }
         const dist = fileURLToPath(dir);
         const pedidos = new Map();
         for (const f of htmls(dist)) {

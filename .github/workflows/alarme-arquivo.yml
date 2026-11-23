@@ -12,6 +12,14 @@ name: Alarme do histórico
 on:
   push:
     branches: [main]
+    # Commit só de documentação não mexe no histórico.
+    paths-ignore:
+      - 'notas/**'
+      - 'CLAUDE.md'
+      - 'README.md'
+
+# Sem concurrency de propósito: cada push é conferido contra o estado de antes dele, e uma fila
+# cancelaria a conferência de um push que estivesse esperando.
 
 permissions:
   contents: read
@@ -19,6 +27,7 @@ permissions:
 jobs:
   conferir:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
         with:

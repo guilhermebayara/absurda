@@ -7,12 +7,13 @@ import { foto } from '../lib/imagens';
 // (as artes dos eventos têm texto que não pode ser cortado).
 // Com "credito", a mini tag de crédito aparece sobre a foto (ver CreditoFoto.astro).
 // "tamanho" é o sizes da foto: quanto ela ocupa na tela (ver src/lib/imagens.ts).
-interface Props { src?: string; alt?: string; proporcao?: string; inteira?: boolean; credito?: string; tamanho?: string; class?: string }
-const { src, alt = '', proporcao = '4 / 5', inteira = false, credito, tamanho = '(max-width: 720px) 90vw, 28rem', class: classe } = Astro.props;
+// Com "ate2x", a foto é pedida como num celular de 2x mesmo numa tela de 3x (ver src/lib/imagens.ts).
+interface Props { src?: string; alt?: string; proporcao?: string; inteira?: boolean; credito?: string; tamanho?: string; ate2x?: boolean; class?: string }
+const { src, alt = '', proporcao = '4 / 5', inteira = false, credito, tamanho = '(max-width: 720px) 90vw, 28rem', ate2x = false, class: classe } = Astro.props;
 ---
 <div class:list={['capa', classe, { 'capa-inteira': inteira && src }]} style={inteira && src ? undefined : `aspect-ratio:${proporcao}`}>
   {src
-    ? <span class="capa-img"><img {...foto(src, tamanho)} alt={alt} loading="lazy" /></span>
+    ? <span class="capa-img"><img {...foto(src, tamanho, { ate2x })} alt={alt} loading="lazy" /></span>
     : <Arroba class="capa-simbolo" />}
   {src && credito && <CreditoFoto credito={credito} />}
 </div>

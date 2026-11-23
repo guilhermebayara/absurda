@@ -13,7 +13,7 @@ import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 import { join } from 'node:path';
 
-const SEM_EXEMPLO = ['main', 'design', 'homologa'];
+const SEM_EXEMPLO = ['main', 'homologa'];
 const producao = process.argv.includes('--producao');
 const variavel = (process.env.WORKERS_CI_BRANCH || process.env.CF_PAGES_BRANCH || '').trim();
 

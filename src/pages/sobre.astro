@@ -1,7 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import Capa from '../components/Capa.astro';
-import { foto } from '../lib/imagens';
+import { foto as fotoMenor } from '../lib/imagens';
+// No Sobre as fotos são pedidas como num celular de 2x, mesmo num iPhone (escolha do Gui, 23 nov 2026).
+// O terceiro valor é a proporção da caixa, quando a foto aparece recortada (ver src/lib/imagens.ts).
+const foto = (src: string, sizes?: string, caixa?: number) => fotoMenor(src, sizes, { ate2x: true, caixa });
 import Botao from '../components/Botao.astro';
 import marcos from '../data/marcos.json';
 import atracoes from '../data/atracoes.json';
@@ -42,11 +45,13 @@ const improvaveis = [
   { nome: 'A Funarte', ano: '2025', texto: 'A 5ª Parada da @bsurda fechou um mês de ocupação de BH.', capa: '/sobre/improvaveis/funarte.jpg' },
 ];
 
+// Capas das quatro vezes no Mineirão: a versão grande do arquivo, pelo foto() (escolha do Gui, 23 nov
+// 2026). A pequena (-p, 240 px) aparecia borrada. As versões menores saem só no dist.
 const mineirao = [
-  { data: '9 jun 2018', nome: 'Edição 200', capa: '/arquivo/sympla-273251-p.jpg' },
-  { data: '25 out 2019', nome: 'Halloween de 10 anos', capa: '/arquivo/sympla-563012-p.jpg' },
-  { data: '18 jan 2020', nome: 'I Hate Remix', capa: '/arquivo/sympla-721521-p.jpg' },
-  { data: '19 out 2024', nome: 'Halloween de 15 anos', capa: '/arquivo/sympla-2232912-p.jpg' },
+  { data: '9 jun 2018', nome: 'Edição 200', capa: '/arquivo/sympla-273251.jpg' },
+  { data: '25 out 2019', nome: 'Halloween de 10 anos', capa: '/arquivo/sympla-563012.jpg' },
+  { data: '18 jan 2020', nome: 'I Hate Remix', capa: '/arquivo/sympla-721521.jpg' },
+  { data: '19 out 2024', nome: 'Halloween de 15 anos', capa: '/arquivo/sympla-2232912.jpg' },
 ];
 
 // O trio, ano a ano. A foto troca conforme a página rola.
@@ -229,7 +234,7 @@ const premios = [
     <ul class="improvaveis" tabindex="0" aria-label="Lugares improváveis">
       {improvaveis.map((l, i) => (
         <li class:list={{ torto: i % 2 === 1 }}>
-          <div class="improvavel-foto"><Capa src={l.capa} proporcao="16 / 9" tamanho="(max-width: 1000px) 85vw, 52vw" /><span class="improvavel-ano">{l.ano}</span></div>
+          <div class="improvavel-foto"><Capa src={l.capa} proporcao="16 / 9" tamanho="(max-width: 1000px) 85vw, 52vw" ate2x /><span class="improvavel-ano">{l.ano}</span></div>
           <h4>{l.nome}</h4>
           <p>{l.texto}</p>
         </li>
@@ -255,7 +260,7 @@ const premios = [
       <ol class="mineirao-vezes">
         {mineirao.map((m, i) => (
           <li style={`--i:${i}`}>
-            <img {...foto(m.capa, '(max-width: 720px) 45vw, 18rem')} alt="" loading="lazy" />
+            <img {...foto(m.capa, '5.5rem', 16 / 9)} alt="" loading="lazy" />
             <p><span>{m.data}</span>{m.nome}</p>
           </li>
         ))}
@@ -363,7 +368,7 @@ const premios = [
           { rotulo: 'Ato por Lula, na Praça Sete, 18 out 2026', src: '/sobre/ato-2026.jpg', alt: 'Ed Luiz em cima de um trio elétrico, de camisa vermelha e fone no pescoço, com a mão erguida, na passagem do ato pela Praça Sete, em Belo Horizonte' },
           { rotulo: '5ª Parada da @bsurda, na Funarte MG, 2025', src: '/sobre/parada-absurda-2025.jpg', alt: 'Faixa da Parada da @bsurda número 5, com as palavras ocupação, presença e arte, diante de um galpão da Funarte' },
         ] as Array<{ rotulo: string; src: string; alt: string; credito?: string }>).map((f, i) => (
-          <li class:list={{ torto: i % 2 === 0 }}><Capa src={f.src} alt={f.alt} proporcao="4 / 5" credito={f.credito} /><p>{f.rotulo}</p></li>
+          <li class:list={{ torto: i % 2 === 0 }}><Capa src={f.src} alt={f.alt} proporcao="4 / 5" credito={f.credito} ate2x /><p>{f.rotulo}</p></li>
         ))}
       </ul>
     </div>

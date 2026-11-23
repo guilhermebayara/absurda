@@ -73,9 +73,9 @@ Branch de sessão, de teste e de QA nasce sempre da `homologa` já igualada.
 ## Histórico de eventos: só acrescenta
 
 - `src/data/arquivo.json` e `public/arquivo/` guardam os eventos que já passaram, com as
-  capas. Quem escreve neles é o robô `.github/workflows/atualiza-agenda.yml`, duas vezes
-  por dia (6h17 e 18h17), **direto na `main`**, usando `scripts/arquivar.mjs`. O robô só acrescenta: nunca
-  edita nem apaga uma entrada existente.
+  capas. Quem escreve neles é o robô `.github/workflows/atualiza-agenda.yml`, uma vez por
+  dia (5h43 de Brasília, ver "Leveza"), **direto na `main`**, usando `scripts/arquivar.mjs`. O robô só
+  acrescenta: nunca edita nem apaga uma entrada existente.
 - **Não altere nem remova eventos já arquivados**, nem apague capas, a menos que o Gui ou
   o Ed peçam expressamente (corrigir um nome, trocar uma capa, tirar um evento). Mudança
   de layout nunca é motivo para mexer nesses arquivos.
@@ -195,8 +195,10 @@ tem cota mensal de minutos.
   `timeout-minutes`.
 - **Na máquina:** a sessão roda o build e as cinco de navegador antes de cada push, como sempre.
 - **Os outros fluxos:** `alarme-arquivo.yml` (cada push na `main`) e `escalacoes.yml` ficam como
-  estavam. `atualiza-agenda.yml` é um trabalho só, às 6h17 e 18h17 de Brasília: arquiva e, no fim,
-  sempre pede o build pelo gancho, mesmo se o arquivo falhar ou for pulado.
+  estavam (o alarme ganhou `timeout-minutes` e `paths-ignore` de documentação em 23 nov 2026, e
+  fica sem `concurrency` de propósito: cada push é conferido). `atualiza-agenda.yml` é um trabalho
+  só, uma vez por dia, às 5h43 de Brasília: arquiva e, no fim, pede o build pelo gancho só quando não
+  gravou nada (quando grava, o push na `main` já gera o build).
 Fluxo novo segue o mesmo modelo: um trabalho só, sem gatilho de push ou PR quando der para rodar na
 Cloudflare; com gatilho de push, `paths-ignore` de documentação (`notas/**`, `CLAUDE.md`,
 `README.md`); sempre `concurrency` e `timeout-minutes`.
@@ -354,9 +356,10 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
 
 - **Versões menores das fotos, geradas no build.** Toda foto de `public/` mostrada no site passa por
   `foto(src, sizes)` de `src/lib/imagens.ts`: `<img {...foto(src, '(max-width: 720px) 90vw, 28rem')} />`.
-  Ele devolve `srcset` (WebP de 320 a 1280 px, e a original), `sizes`, `width` e `height`. Os
+  Ele devolve `srcset` (WebP de 320 a 1280 px, e um WebP na largura da original), `sizes`, `width` e
+  `height`. Os
   arquivos `/img/<largura>/...` não existem no repositório: a integração `scripts/imagens.mjs` lê o
-  site montado e cria só os que as páginas pedem, com cache em `node_modules/.cache`. Recorte e
+  site montado e cria só os que as páginas pedem, com cache em `node_modules/.astro`. Recorte e
   aparência não mudam (o CSS que recorta é o mesmo); `img { height: auto }` no `Base.astro` faz o
   `height` só reservar espaço. O `sizes` diz quanto a foto ocupa na tela: errar para menos deixa a
   foto borrada, então meça na tela antes de escolher. Nunca mexa em `public/arquivo/`: as capas de lá
@@ -377,6 +380,67 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
   título segue a ordem: nada de pular nível para ganhar tamanho, o tamanho vem do CSS.
 - **Faixa que rola para o lado** (Lugares Improváveis no Sobre) recebe foco (`tabindex="0"` e
   `aria-label`) para rolar pelas setas do teclado. Faixa nova segue o mesmo modelo.
+
+## Leveza (do Gui, 23 nov 2026)
+
+O site tem de ficar no plano gratuito da Cloudflare e o mais leve possível sem perder qualidade. O
+custo conta nos dois lados: no servidor e no aparelho de quem abre (memória, CPU, rede, bateria). Os
+números de antes estão em `notas/leveza-auditoria.md` (Sessão J); as correções, na Sessão K.
+
+- **Tetos da conta "absurda" (divididos com o Bastidores):** Workers Builds, 3.000 minutos por mês e
+  um build de cada vez na conta; Worker, 100 mil requisições por dia e 10 ms de CPU por requisição
+  (o site não usa: é só asset estático, e requisição a asset é grátis e sem limite). Nada no site pode
+  fazer uma requisição cair no Worker: nada de `main` nem de `run_worker_first` no `wrangler.jsonc`,
+  nada de `_worker.js`. GitHub Actions, depois de 10/12 (privado): uns 2.000 minutos por mês.
+- **Nada consome recurso sem um motivo escrito.** Fluxo novo, chamada externa no build, animação que
+  roda sozinha, script de terceiro: o motivo fica escrito no próprio arquivo ou aqui. O que roda mais
+  vezes do que o motivo pede é defeito.
+- **Quando ficar mais leve custar qualidade**, a sessão mede os dois lados (`npm run mede:leveza`) e
+  não escolhe sozinha: vira pergunta para o Gui, com os números.
+- **Sem script de terceiro.** O Cloudflare Web Analytics foi desligado no painel em 23 nov 2026
+  (custava um script e um envio por página vista, para todo visitante, sem motivo escrito); conferido
+  no mesmo dia, nenhuma página da produção traz mais o `static.cloudflareinsights.com`. Ligar de novo,
+  ou pôr qualquer script de fora, é decisão do Gui, com o motivo escrito aqui.
+- **Motivo de cada automático:**
+  - `atualiza-agenda.yml`: guarda os eventos que passaram e pede um build para a agenda futura vir do
+    Shotgun. Uma vez por dia, às 5h43 de Brasília (`43 8 * * *` UTC), fora da hora cheia. O GitHub
+    atrasa e pula rodadas agendadas (de 12 a 23 nov a das 6h17 nunca rodou e a das 18h17 saía de 4 a
+    6 horas depois), então uma rodada é o que de fato acontecia; com o atraso de costume, ela sai entre
+    6h e 9h, depois do fim da maioria das festas. O build de lá roda com `SEM_FOTOS=1`: o robô só
+    precisa do `arquivo-pendente.json`.
+  - Gancho de build: só quando o robô não gravou nada (o push dele já gera um build).
+  - `alarme-arquivo.yml`: avisa se o histórico mudou na `main` sem a marca. Não roda em commit só de
+    documentação.
+  - `confere-site.yml`: testes de navegador, só pelo botão, antes de cada rodada para a `main`.
+  - `escalacoes.yml`: material de trabalho, só pelo botão ou quando o próprio script muda.
+  - Prévias por branch: a Cloudflare constrói cada push. Commit só de `notas/`, `CLAUDE.md` e
+    `README.md` pode deixar de construir pelos build watch paths do painel (Settings, Build), que o
+    Gui liga; até lá, ele constrói.
+  - Chamadas externas no build: a produção (`/estado.json`, guarda), as listas do Shotgun e uma capa
+    pequena de cada evento futuro, para as cores. Nada mais (a "segunda imagem" saiu em 23 nov 2026).
+- **Fotos:** toda foto passa por `foto()` (ver "Fotos, ícones e prévia de compartilhamento"),
+  inclusive as capas do Shotgun, que ganham `srcset` de 400, 800 e 1280 px trocando o `w_` do
+  endereço. O `sizes` é medido na tela. A maior versão também é WebP, na largura da foto, para o
+  navegador nunca cair no JPG original. Capa do Sympla (`-lg`, 1.400 px) não passa pelo `foto()`: onde
+  ela aparece pequena, use a `-xs` (`capaPequena`), como na parede da Home.
+- **Densidade no celular (escolha do Gui):** em Projetos (`/projetos`), Equipe (`/equipe`) e Sobre as
+  fotos são pedidas como num celular de 2x, mesmo num iPhone de 3x (`foto(src, sizes, { ate2x: true })`,
+  ou `ate2x` em `Capa` e `Cracha`). O resto do site pede a densidade do aparelho. A foto ocupa o mesmo
+  espaço; só a versão baixada é menor.
+- **Capas de edição (escolha do Gui):** no projeto @bsurda (edições especiais) e no Sobre (Mineirão),
+  a capa é a versão grande do arquivo pelo `foto()`, e não a `-p` de 240 px, que aparecia borrada. As
+  versões saem só no `dist`; `public/arquivo/` não muda.
+- **Cache das versões das fotos** em `node_modules/.astro/absurda-imagens`: é a pasta que o cache de
+  build da Cloudflare guarda para um site Astro. Fora dela, cada build lá refazia todas as versões.
+- **Cache no navegador:** `/_astro/` guarda por um ano, com uma regra por arquivo escrita no fim do
+  `dist/_headers` pelo build (`scripts/cabecalhos.mjs`). Com `/_astro/*`, um endereço que ainda não
+  existia ficava guardado por um ano como erro 404.
+- **Animação que roda sozinha** (letreiros de `Faixa.astro`, parede da Home) para quando sai da tela:
+  o trecho leva `data-corre`, o script de `Base.astro` põe a classe `corre-parada` fora da tela, e o
+  CSS do trecho pausa a própria animação (`animation-play-state`). Animação nova sem fim segue o mesmo
+  modelo. A rolagem do Sobre (pilha do Trio, parallax da janela) fica como está até o Gui conferir
+  no iPhone.
+- **Medir antes e depois:** `npm run mede:leveza` (ver `scripts/desempenho/mede.mjs`).
 
 ## Atrações do Sobre (do Gui, 18 nov 2026)
 

@@ -32,9 +32,13 @@ interface Props {
   verso?: boolean;
   // 'verso' mostra só o verso, parado: para compor frente e verso lado a lado na página da pessoa.
   lado?: 'frente' | 'verso';
+  // sizes da foto (quanto ela ocupa na tela) e pedido a 2x no celular: ver src/lib/imagens.ts. O
+  // padrão é o da página da pessoa, medido em 23 nov 2026 (193 px no celular, 22% da tela no desktop).
+  tamanho?: string;
+  ate2x?: boolean;
   class?: string;
 }
-const { nome, funcao, grupo, foto, desde, ate, alumni = false, numero, sigla: siglaDada, href, fundador = false, verso = false, lado = 'frente', class: classe } = Astro.props;
+const { nome, funcao, grupo, foto, desde, ate, alumni = false, numero, sigla: siglaDada, href, fundador = false, verso = false, lado = 'frente', tamanho = '(max-width: 720px) 12.5rem, (max-width: 1460px) 22vw, 20.5rem', ate2x = false, class: classe } = Astro.props;
 const soVerso = lado === 'verso';
 const producao = grupo === 'socios';
 const rotulo = alumni ? 'Já fez parte' : producao ? 'Produção' : grupo === 'residentes' ? 'Residente' : 'Equipe';
@@ -57,7 +61,7 @@ const Tag = href ? 'a' : 'div';
       <span class="cracha-furo" aria-hidden="true"></span>
       <span class="cracha-topo" aria-hidden="true"><Arroba class="cracha-marca" /><span>{rotulo}</span></span>
       <span class="cracha-retrato" aria-hidden="true">
-        {foto ? <img {...fotoMenor(foto, '(max-width: 720px) 60vw, 28rem')} alt="" loading="lazy" /> : <span class="cracha-inicial">{nome[0]}</span>}
+        {foto ? <img {...fotoMenor(foto, tamanho, { ate2x })} alt="" loading="lazy" /> : <span class="cracha-inicial">{nome[0]}</span>}
       </span>
       {fundador && <span class="cracha-selo"><strong>Fundador</strong><span>2009</span></span>}
       <span class="cracha-texto">

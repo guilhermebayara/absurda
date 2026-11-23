@@ -6,9 +6,9 @@
   X-Frame-Options: SAMEORIGIN
 
 # Arquivos gerados pelo build (CSS, fontes, scripts): o nome muda quando o conteúdo muda,
-# então o navegador pode guardar por um ano.
-/_astro/*
-  Cache-Control: public, max-age=31536000, immutable
+# então o navegador pode guardar por um ano. A regra entra no fim deste arquivo, no dist, uma por
+# arquivo (scripts/cabecalhos.mjs), para um endereço de /_astro/ que não existe não ficar guardado
+# como erro.
 
 # Capas do arquivo de eventos: uma vez guardadas, não mudam mais.
 /arquivo/*

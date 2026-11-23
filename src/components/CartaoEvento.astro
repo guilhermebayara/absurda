@@ -11,6 +11,10 @@ import { foto } from '../lib/imagens';
 // é a razão da seção). "selo" põe um rótulo acima do nome.
 interface Props { evento: Evento; principal?: boolean; selo?: string }
 const { evento, principal = false, selo } = Astro.props;
+// Largura da capa na tela, medida em 23 nov 2026 na Home, na Agenda e no projeto @bsurda (de 360 a
+// 1920 px): até 85% da tela no celular, 73% na fila da Home até 820 px, 41% na Agenda até 1023 px e
+// uma coluna de quatro (25 a 27%) daí para cima. Antes dizia 34rem, e o desktop baixava o dobro.
+const TAMANHO = '(max-width: 719px) 85vw, (max-width: 820px) 73vw, (max-width: 1023px) 41vw, 27vw';
 const d = partesDaData(evento.data);
 const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sympla', manual: 'Ingressos' };
 // Com capa: fundo em degradê com a cor de cada canto da arte, no mesmo canto do cartão.
@@ -28,7 +32,7 @@ const corMedia = '#' + media.map((v) => Math.round(v).toString(16).padStart(2, '
 <article class="cartao" style={cores} data-media={corMedia} data-tinta={m ? m.texto : evento.tema.fundo} data-anima="surge">
   <a class="cartao-capa" href={evento.url} target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">
     {evento.capa
-      ? <img {...foto(evento.capa, '(max-width: 720px) 92vw, 34rem')} alt="" loading="lazy" />
+      ? <img {...foto(evento.capa, TAMANHO)} alt="" loading="lazy" />
       : <span class="cartao-sem-capa"><Arroba /></span>}
   </a>
   <div class="cartao-texto">

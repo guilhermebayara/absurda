@@ -18,21 +18,6 @@ Como usar:
 
 ## A construir
 
-- **Correções de leveza** (brief em `notas/briefs/leveza-correcoes.md`): defeitos da auditoria da
-  Sessão J (`notas/leveza-auditoria.md`) e as escolhas do Gui de 23 nov 2026. Inclui os três itens
-  pequenos abaixo (design, alarme e robô).
-- **Tirar a `design` do código** (pequeno, junto com a próxima sessão): a homologação virou a
-  `homologa` em 22 nov 2026. Tirar `'design'` das listas `BRANCHES_SEM_EXEMPLO`
-  (`src/lib/eventos.ts`), `SEM_EXEMPLO` (`scripts/confere-exemplos.mjs` e `scripts/trava-exemplos.mjs`)
-  e `TRAVADAS` (`scripts/guarda-producao.mjs`, junto com o comentário "o nome de hoje e o de amanhã"),
-  e trocar `design` por `homologa` nos comentários de `scripts/atracoes.mjs` e
-  `.github/workflows/confere-site.yml`. Só depois que o Gui apagar a branch `design`.
-- **Alarme do histórico** (`.github/workflows/alarme-arquivo.yml`): acrescentar `timeout-minutes` e
-  `paths-ignore` de documentação (`notas/**`, `CLAUDE.md`, `README.md`), como pede a regra geral do
-  CLAUDE.md ("Conferências do site"). Sobra da Sessão F; ficou fora da Sessão H.
-- **Robô da agenda** (`.github/workflows/atualiza-agenda.yml`): quando o robô grava algo na `main`, o
-  push dele já dispara um build na Cloudflare, e o gancho do fim pede outro. O gancho passa a pedir o
-  build só quando o robô não gravou nada. Sobra da Sessão F; ficou fora da Sessão H.
 - **Bios de Keoma, Lugh e Vil Araújo:** seguem de marcação. Se o Gui quiser, rascunho no mesmo modelo
   das oito de 22 nov 2026 (uma ou duas frases, só com o que o repositório sabe).
 
@@ -43,6 +28,11 @@ oferece. Não acrescentar e-mail nem o pix do trio ao site.
 
 Estas perguntas estão na planilha "Pendências do site". Quando a
 resposta chegar lá, o item vira trabalho:
+
+- **Build watch paths na Cloudflare** (leveza, 23 nov 2026): no painel (Workers, absurda, Settings,
+  Build, Build watch paths), excluir `notas/*`, `CLAUDE.md` e `README.md`, para commit só de
+  documentação não gerar build (22% dos builds de 9 a 22 nov). Configuração do painel: o Gui faz, ou
+  a conversa com o ok dele. Depois, conferir num commit só de `notas/` que o build não saiu.
 
 - **Agenda de 2022: pastas que ficaram de fora.** MOC, Prêmio, YOLO e Anda.
 - **Parcerias: o que ainda falta da planilha.** Pessoas por edição, seguidores, perfil do público,

@@ -387,6 +387,21 @@ const imagemCompleta = new URL(imagem ? compartilhar(imagem) : '/compartilhar.pn
         requestAnimationFrame(() => requestAnimationFrame(() => animados.forEach((el) => entrada.observe(el))));
       }
 
+      // Animações que rodam sozinhas, sem fim (letreiros de Faixa.astro, parede da Home), param
+      // quando o trecho sai da tela e voltam do mesmo ponto quando ele chega (leveza, 23 nov 2026).
+      // Fora da tela elas não aparecem, mas faziam o navegador desenhar 60 quadros por segundo com
+      // a página parada. O trecho leva data-corre e ganha a classe "corre-parada"; o CSS de cada
+      // um pausa a própria animação (animation-play-state), sem tirar camada nem mudar o desenho.
+      // A margem faz a animação voltar um pouco antes de o trecho aparecer.
+      const correm = document.querySelectorAll<HTMLElement>('[data-corre]');
+      if (correm.length > 0) {
+        const olho = new IntersectionObserver(
+          (entradas) => { for (const e of entradas) e.target.classList.toggle('corre-parada', !e.isIntersecting); },
+          { rootMargin: '25% 0px 25% 0px' },
+        );
+        correm.forEach((el) => olho.observe(el));
+      }
+
       // Ecos: abrem sozinhos na primeira vez e depois respondem à rolagem, como o
       // logo da abertura. Nos títulos, os ecos se soltam quando o título chega e
       // se recolhem conforme ele se aproxima das bordas da tela. No rodapé, o logo

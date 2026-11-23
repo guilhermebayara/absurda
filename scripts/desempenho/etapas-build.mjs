@@ -10,7 +10,7 @@ import { rmSync, mkdirSync, writeFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 
-const CACHE_FOTOS = path.resolve('node_modules/.cache/absurda-imagens');
+const CACHE_FOTOS = path.resolve('node_modules/.astro/absurda-imagens');
 const SAIDA = path.join(os.tmpdir(), 'absurda-leveza');
 
 function roda(nome, comando, args) {
