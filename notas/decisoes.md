@@ -370,3 +370,13 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   anteriores deste arquivo seguem dizendo `design`. Por quê: o nome já estava combinado desde 18/11
   e é o mesmo dos outros projetos. As listas do código já aceitavam `homologa`; tirar `design` delas
   fica em "A construir". (CLAUDE.md, "Branches e publicação".)
+
+- **2026-11-23, leveza: escolhas depois da auditoria J (Gui).** Fotos no celular a 2x em Projetos,
+  Equipe e Sobre, e na densidade do aparelho no resto. As capas de edição que apareciam borradas no
+  projeto @bsurda e no Sobre passam a usar a versão grande do arquivo. O robô da agenda roda uma vez
+  por dia, de madrugada, porque o GitHub nunca rodou a rodada das 6h17 e atrasava a das 18h17 em 4 a
+  6 horas. O Cloudflare Web Analytics sai: custava um script e um envio por página vista para todo
+  visitante, sem motivo escrito. A rolagem do Sobre fica para depois da conferência no iPhone. Por
+  quê: o princípio de leveza de 23/11 (custo no servidor e no aparelho, nada sem motivo escrito),
+  com o Gui escolhendo onde a nitidez vale o peso. (`notas/briefs/leveza-correcoes.md`; ao terminar,
+  CLAUDE.md, "Leveza".)

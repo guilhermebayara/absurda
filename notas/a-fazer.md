@@ -18,6 +18,9 @@ Como usar:
 
 ## A construir
 
+- **Correções de leveza** (brief em `notas/briefs/leveza-correcoes.md`): defeitos da auditoria da
+  Sessão J (`notas/leveza-auditoria.md`) e as escolhas do Gui de 23 nov 2026. Inclui os três itens
+  pequenos abaixo (design, alarme e robô).
 - **Tirar a `design` do código** (pequeno, junto com a próxima sessão): a homologação virou a
   `homologa` em 22 nov 2026. Tirar `'design'` das listas `BRANCHES_SEM_EXEMPLO`
   (`src/lib/eventos.ts`), `SEM_EXEMPLO` (`scripts/confere-exemplos.mjs` e `scripts/trava-exemplos.mjs`)
