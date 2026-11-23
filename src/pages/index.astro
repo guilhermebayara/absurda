@@ -50,7 +50,11 @@ const estilosMenores = ['', '', 'cor', '', '', '', 'cor', '', 'cor', '', '', '']
 const estilos = ['', 'cor', '', 'vazada', '', '', 'cor', 'vazada', '', 'cor', '', '', 'vazada', 'cor', '', 'vazada', '', 'cor', 'cor', '', 'vazada', '', '', 'cor', '', 'vazada', '', ''];
 // Imagens que flutuam pela parede: as capas das edições mais recentes.
 // Cada uma tem posição, velocidade de subida e a camada (entre quais fileiras passa).
-const capas = passados.filter((e) => e.capa).slice(0, 3);
+// Capa do Sympla (evento escrito à mão) vai na versão pequena, a -xs de 600 px: a -lg tem 1.400 px
+// para uma foto de 200 a 370 px na tela (leveza, 23 nov 2026). As outras (do próprio site e do
+// Shotgun) passam pelo foto(), que já escolhe a versão.
+const doSympla = (capa: string) => capa.includes('images.sympla.com.br');
+const capas = passados.filter((e) => e.capa).slice(0, 3).map((e) => ({ ...e, capa: doSympla(e.capa!) ? (e.capaPequena ?? e.capa) : e.capa }));
 // "lado" vai de 0 (encostada à esquerda) a 1 (à direita); "camada" diz entre quais fileiras passa.
 const flutuantes = [
   { lado: 0.08, giro: -3, camada: 5 },
@@ -99,7 +103,7 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   <!-- Parede em movimento. A seção fica presa na tela enquanto se rola: as fileiras
        correm para lados opostos e as capas das últimas edições surgem de baixo,
        atravessam as fileiras (por cima de umas, por baixo de outras) e somem no topo. -->
-  <section class="historia" aria-labelledby="t-sobre" data-parede>
+  <section class="historia" aria-labelledby="t-sobre" data-parede data-corre>
     <div class="historia-pino">
       <div class="historia-grupo">
         <h2 id="t-sobre" class="historia-titulo" data-anima="sobe">{idade} anos de @bsurda</h2>
@@ -312,6 +316,8 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   .parede-fileira { will-change: transform; }
   .parede-grupo { flex: none; display: flex; animation: parede-corre 34s linear infinite; will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
   .parede-trilho.contra .parede-grupo { animation-direction: reverse; }
+  /* Fora da tela as fileiras param (data-corre, ver Base.astro); voltam do mesmo ponto. */
+  .historia.corre-parada .parede-grupo { animation-play-state: paused; }
   .parede-grupo span { display: flex; align-items: center; font-size: clamp(2.75rem, 9.2vw, 9.5rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.045em; text-transform: uppercase; white-space: nowrap; }
   /* Presa na tela, a parede se mede pela altura: sete fileiras enchem a tela */
   .historia.viva .parede-grupo span { font-size: clamp(2rem, 7.6vh, 8rem); font-size: clamp(2rem, 7.6svh, 8rem); }
