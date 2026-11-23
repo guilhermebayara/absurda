@@ -380,3 +380,15 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   quê: o princípio de leveza de 23/11 (custo no servidor e no aparelho, nada sem motivo escrito),
   com o Gui escolhendo onde a nitidez vale o peso. (`notas/briefs/leveza-correcoes.md`; ao terminar,
   CLAUDE.md, "Leveza".)
+
+- **2026-11-23, correções de leveza construídas (Sessão K).** Capas do Shotgun com `srcset` (400, 800
+  e 1280 px pelo `w_` do endereço) dentro do próprio `foto()`, o que vale também para o destaque da
+  Home. Maior versão de cada foto em WebP na largura do original. Celular a 2x por uma opção do
+  `foto()` (`ate2x`), que acrescenta ao `sizes` a mesma medida encolhida nas telas de 2,5x ou mais
+  (escolhido no lugar de reescrever cada `sizes` à mão); vale em `/projetos`, `/equipe` e `/sobre`, e
+  não nas páginas de cada projeto e de cada pessoa. Letreiros e parede param fora da tela por
+  `data-corre` e `animation-play-state`, sem mexer nas camadas. Cache longo de `/_astro/` escrito no
+  build, um arquivo por regra, porque o `_headers` não separa resposta de erro. Robô às 5h43 de
+  Brasília (`43 8 * * *` UTC): depois do fim da maioria das festas, para o build do dia já tirar do
+  destaque a festa da noite. O alarme ficou sem `concurrency`, para nenhum push ficar sem conferência.
+  A `design` saiu das listas do código (a branch já não existe). (CLAUDE.md, "Leveza".)
