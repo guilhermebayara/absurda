@@ -402,7 +402,7 @@ e Agenda com evento futuro, `src/lib/eventos.ts` (`fonteExemplo`) acrescenta os 
 `src/data/eventos-exemplo.json`: dois próximos (um azul e um rosa), um acontecendo agora, um da
 Sympla e um de nome longo. As datas saem do dia do build (`comecaEmHoras` e `duracaoHoras`).
 - Só entram quando a Cloudflare informa a branch do build (`WORKERS_CI_BRANCH` ou `CF_PAGES_BRANCH`),
-  ela não é `main`, `homologa` nem `homologa` (lista `BRANCHES_SEM_EXEMPLO`) e falta o `SHOTGUN_TOKEN`.
+  ela não é `main` nem `homologa` (lista `BRANCHES_SEM_EXEMPLO`) e falta o `SHOTGUN_TOKEN`.
   Sem a variável de branch, nada de exemplo. Se a homologação mudar de nome, ponha o nome novo na lista.
 - O nome termina em "(exemplo)", para a página dizer que é de exemplo sem mexer no layout. Cada
   exemplo tem link próprio (`#id`), senão `semRepetidos` tira todos menos um. As capas ficam em
