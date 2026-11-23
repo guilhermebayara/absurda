@@ -91,6 +91,12 @@ const anosSub = [...new Set([...anos.map((a) => a.ano), ...programacao.map((g) =
   return { ano, eventos: (daAgenda?.eventos ?? []).filter((e) => !(e.lives && itens.length > 0)), itens, numero: extra?.numero ?? daAgenda?.numero, arte: extra?.arte ?? comCapa?.capaPequena ?? comCapa?.capa };
 });
 const tituloHistorico = projeto.data.tituloHistorico ?? 'Histórico';
+// Capas das edições especiais: a versão grande do arquivo pelo foto(), e não a -p de 240 px, que
+// aparecia borrada (escolha do Gui, 23 nov 2026). Medida da caixa: clamp(9.5rem, 15vw, 13rem), quadrada
+// (caixa: 1, para a capa deitada vir larga o bastante para o recorte). Capa do Sympla (evento escrito à
+// mão) fica na -xs, de 600 px: a -lg tem 1.400.
+const tamanhoEspecial = '(max-width: 1013px) 9.5rem, (max-width: 1386px) 15vw, 13rem';
+const capaEspecial = (e: { capa?: string; capaPequena?: string }) => (e.capa && !e.capa.includes('images.sympla.com.br') ? e.capa : (e.capaPequena ?? e.capa));
 const primasConfig = projeto.data.primas;
 const primas = primasConfig ? eventos.passados.filter((e) => ehPrima(primasConfig.filtro, e)) : [];
 // Trio sem data anunciada: a próxima saída sai da regra do calendário.
@@ -187,12 +193,12 @@ const anoDaSaida = saidaDoTrio ? new Date(proximoTrio()).getUTCFullYear() : null
                     {/* Edição sem link (sem álbum nem página de ingresso): só a capa e o nome. */}
                     {e.url ? (
                       <a href={e.url} target="_blank" rel="noopener">
-                        {e.capaPequena || e.capa ? <img src={e.capaPequena ?? e.capa} alt="" loading="lazy" /> : <span class="sem-capa" aria-hidden="true">@</span>}
+                        {e.capaPequena || e.capa ? <img {...foto(capaEspecial(e), tamanhoEspecial, { caixa: 1 })} alt="" loading="lazy" /> : <span class="sem-capa" aria-hidden="true">@</span>}
                         <span class="especial-legenda">{e.nome}<span>{dia(e.data)}</span><span class="so-leitor"> (abre em outra aba)</span></span>
                       </a>
                     ) : (
                       <div class="especial-sem-link">
-                        {e.capaPequena || e.capa ? <img src={e.capaPequena ?? e.capa} alt="" loading="lazy" /> : <span class="sem-capa" aria-hidden="true">@</span>}
+                        {e.capaPequena || e.capa ? <img {...foto(capaEspecial(e), tamanhoEspecial, { caixa: 1 })} alt="" loading="lazy" /> : <span class="sem-capa" aria-hidden="true">@</span>}
                         <span class="especial-legenda">{e.nome}<span>{dia(e.data)}</span></span>
                       </div>
                     )}

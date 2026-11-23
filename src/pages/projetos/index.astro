@@ -21,7 +21,9 @@ import { getEventos, partesDaData } from '../../lib/eventos';
 import { eventosArredondados } from '../../lib/historia';
 import { resumoDoProjeto, edicoesDoProjeto, proximoTrio, temasDoProjeto } from '../../lib/projetos';
 import { atributo, type Tema } from '../../lib/temas';
-import { foto } from '../../lib/imagens';
+import { foto as fotoMenor } from '../../lib/imagens';
+// Em Projetos as fotos são pedidas como num celular de 2x, mesmo num iPhone (escolha do Gui, 23 nov 2026).
+const foto = (src: string, sizes?: string) => fotoMenor(src, sizes, { ate2x: true });
 
 const eventos = await getEventos();
 const projetos = (await getCollection('projetos'))

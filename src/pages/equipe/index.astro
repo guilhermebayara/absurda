@@ -33,6 +33,10 @@ const atuais = pessoas.filter((p) => p.data.situacao === 'atual');
 const anteriores = pessoas.filter((p) => p.data.situacao === 'anterior');
 
 const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
+// Largura da foto dos crachás, medida em 23 nov 2026 de 360 a 1920 px: 59% da tela no celular, até
+// 283 px até 1279 px, e daí em diante 16 a 17% (o do Ed, maior, 31%). Fotos a 2x no celular (Gui).
+const tamanhoDoCracha = '(max-width: 599px) 59vw, (max-width: 1279px) 18rem, 17vw';
+const tamanhoDoEd = '(max-width: 599px) 59vw, (max-width: 1279px) 18rem, 31vw';
 ---
 <Base titulo="Equipe">
   <header class="abre abre-cima">
@@ -47,7 +51,8 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
         {atuais.map((p, i) => (
           <li class:list={{ ed: p.id === 'ed-luiz' }} data-anima="surge" style={`--i:${i}`}>
             <Cracha nome={p.data.nome} funcao={p.data.funcao} grupo={p.data.grupo} foto={p.data.foto} desde={p.data.desde} numero={numeroDoCracha(p.id, pessoas)} sigla={p.data.sigla}
-              href={`/equipe/${p.id}`} fundador={p.id === 'ed-luiz'} verso />
+              href={`/equipe/${p.id}`} fundador={p.id === 'ed-luiz'} verso ate2x
+              tamanho={p.id === 'ed-luiz' ? tamanhoDoEd : tamanhoDoCracha} />
           </li>
         ))}
       </ul>
@@ -59,7 +64,7 @@ const grupos = [...new Set(foraDaCabine.map((n) => n.grupo))];
     <section class="passado" aria-labelledby="t-passado">
       <h2 id="t-passado" class="titulo-secao" data-anima="sobe">Já fizeram parte</h2>
       <p class="nomes" data-anima="surge">
-        {anteriores.map((p) => <a href={`/equipe/${p.id}`}>{p.data.nome}{p.data.foto && <img class="previa" {...foto(p.data.foto, '14rem')} alt="" loading="lazy" />}</a>)}
+        {anteriores.map((p) => <a href={`/equipe/${p.id}`}>{p.data.nome}{p.data.foto && <img class="previa" {...foto(p.data.foto, '14rem', { ate2x: true })} alt="" loading="lazy" />}</a>)}
       </p>
       <p class="passado-botao" data-anima="surge"><Botao href="/sobre#t-palco" tipo="linha">A cena que já tocou com a gente</Botao></p>
     </section>
