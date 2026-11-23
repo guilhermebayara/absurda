@@ -18,6 +18,12 @@ Como usar:
 
 ## A construir
 
+- **Tirar a `design` do código** (pequeno, junto com a próxima sessão): a homologação virou a
+  `homologa` em 22 nov 2026. Tirar `'design'` das listas `BRANCHES_SEM_EXEMPLO`
+  (`src/lib/eventos.ts`), `SEM_EXEMPLO` (`scripts/confere-exemplos.mjs` e `scripts/trava-exemplos.mjs`)
+  e `TRAVADAS` (`scripts/guarda-producao.mjs`, junto com o comentário "o nome de hoje e o de amanhã"),
+  e trocar `design` por `homologa` nos comentários de `scripts/atracoes.mjs` e
+  `.github/workflows/confere-site.yml`. Só depois que o Gui apagar a branch `design`.
 - **Alarme do histórico** (`.github/workflows/alarme-arquivo.yml`): acrescentar `timeout-minutes` e
   `paths-ignore` de documentação (`notas/**`, `CLAUDE.md`, `README.md`), como pede a regra geral do
   CLAUDE.md ("Conferências do site"). Sobra da Sessão F; ficou fora da Sessão H.

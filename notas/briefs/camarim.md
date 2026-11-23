@@ -47,7 +47,7 @@ Algumas peças já são componentes em `src/components/` (`Botao`, `Cracha`, `Cr
 4. **Fotos depois.** Idênticas, ou cada diferença explicada e aprovada pelo Gui. Esta etapa não muda
    desenho: nada novo, nenhum ajuste de passagem. Achados vão no relatório.
 5. Todas as conferências passando. Trabalhar numa branch `teste-componentes`, nascida da `main`
-   atualizada; vai para a `design` depois que o Gui olhar.
+   atualizada; vai para a `homologa` depois que o Gui olhar.
 
 ## Etapa 2: a página
 
@@ -80,6 +80,6 @@ Acrescentar o comando à lista de "Conferências do site" e de "Levar para a `ma
 
 ## Pronto quando
 
-- Etapa 1 na `design` com as fotos batendo, aprovada pelo Gui.
-- Etapa 2 na `design`, o Gui viu `/camarim` na prévia, e as duas vão para a `main` com o ok dele.
+- Etapa 1 na `homologa` com as fotos batendo, aprovada pelo Gui.
+- Etapa 2 na `homologa`, o Gui viu `/camarim` na prévia, e as duas vão para a `main` com o ok dele.
 - `notas/decisoes.md` registra onde o sistema mora, e o item sai de `notas/a-fazer.md`.

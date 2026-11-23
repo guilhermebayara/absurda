@@ -11,31 +11,31 @@ bayara.design e do site da família:
 | Branch | Papel | Agenda ao vivo |
 | --- | --- | --- |
 | `main` | **Produção** (festaabsurda.com). Recebe a homologação em rodadas, depois do QA, com o ok do Gui. | Sim |
-| `design` | **Homologação.** Todo trabalho chega aqui por PR antes de ir ao ar, e o Gui confere na prévia dela. A documentação vai direto para cá. | Sim |
-| `tst-<assunto>` | **Trabalho e teste:** a branch de cada sessão de código, ou um experimento, com prévia própria e PR para a `design`. | Não |
-| `qa-AAAA-MM-DD` | **QA:** a branch de uma sessão de QA, com PR para a `design`. | Não |
+| `homologa` | **Homologação.** Todo trabalho chega aqui por PR antes de ir ao ar, e o Gui confere na prévia dela. A documentação vai direto para cá. | Sim |
+| `tst-<assunto>` | **Trabalho e teste:** a branch de cada sessão de código, ou um experimento, com prévia própria e PR para a `homologa`. | Não |
+| `qa-AAAA-MM-DD` | **QA:** a branch de uma sessão de QA, com PR para a `homologa`. | Não |
 
-**A homologação vai mudar de nome (Gui, 18 nov 2026):** o Gui vai criar a `homologa`, com os tokens,
-e aposentar a `design`. Até ele avisar que fez, a homologação continua sendo a `design`. Quando
-mudar, troque `design` por `homologa` neste arquivo, em `notas/` e nos fluxos de `.github/workflows/`.
+**A homologação é a `homologa` desde 22 nov 2026 (Gui).** Ela substituiu a `design`, que foi
+aposentada. Em `notas/decisoes.md`, as entradas antigas continuam dizendo `design`: é a mesma
+homologação, com o nome da época.
 
 **Prévias (do Gui, 19 nov 2026):** cada branch tem a sua em `https://<branch>.festaabsurda.com`
-(a da homologação: https://design.festaabsurda.com). A produção é https://festaabsurda.com. Em
+(a da homologação: https://homologa.festaabsurda.com). A produção é https://festaabsurda.com. Em
 relatório, tabela e prompt use sempre esse endereço, nunca o `workers.dev`.
 
 - **Conta Cloudflare (desde 22 nov 2026):** o site e o domínio estão na conta "absurda", a mesma do
-  Bastidor (Worker `absurda`; a homologação é a prévia nomeada `design`, com variáveis próprias).
+  Bastidor (Worker `absurda`; a homologação é a prévia nomeada `homologa`, com variáveis próprias).
 - Só a `main` e a homologação têm o token do Shotgun configurado na Cloudflare (o do Sympla volta
   quando houver evento lá; sem ele o site segue com o histórico arquivado do Sympla). As outras
   branches não têm, então a agenda delas mostra só o histórico arquivado.
-- Toda `tst-<assunto>` e toda `qa-...` nasce da `design` depois de trazer a `main` para ela (ver
+- Toda `tst-<assunto>` e toda `qa-...` nasce da `homologa` depois de trazer a `main` para ela (ver
   "Antes de começar qualquer rodada"). Assim a sessão encontra a documentação nova, que mora na
-  `design`, e o que já foi juntado.
-- Caminho de uma mudança de código: `tst-<assunto>` → PR para a `design`, sem merge → o Gui olha a
-  prévia da branch → a conversa junta o PR com squash → QA → `main` por fast-forward da `design`, em
+  `homologa`, e o que já foi juntado.
+- Caminho de uma mudança de código: `tst-<assunto>` → PR para a `homologa`, sem merge → o Gui olha a
+  prévia da branch → a conversa junta o PR com squash → QA → `main` por fast-forward da `homologa`, em
   rodadas, com o ok do Gui. Nunca force um push.
 - **Mudança só de documentação ou de regras de trabalho** (`CLAUDE.md`, `notas/`) vai direto para a
-  `design`. Chega à `main` na rodada seguinte.
+  `homologa`. Chega à `main` na rodada seguinte.
 - O robô do histórico continua escrevendo direto na `main` (ver "Histórico de eventos").
 - Hoje o site ainda não foi divulgado e poderia ir direto para a `main`, mas o Gui quer o fluxo de
   homologação desde já.
@@ -43,7 +43,7 @@ relatório, tabela e prompt use sempre esse endereço, nunca o `workers.dev`.
 ## Quem faz o quê (do Gui, desde 16 nov 2026)
 
 - **Conversa no claude.ai (projeto "Carreira") é a gestão.** O Gui discute, decide e vê resultados.
-  A conversa coordena: registra decisões na documentação (commit direto na `design`), escreve os
+  A conversa coordena: registra decisões na documentação (commit direto na `homologa`), escreve os
   prompts das sessões de código e cuida dos PRs com conflito; o Gui junta os outros e apaga as branches. Também cuida do
   Drive, da planilha de pendências e de documentos para outras pessoas. Não escreve código do site.
 - **Código:** feito em sessões do Claude Code (ver "Sessões de código"). O Opus constrói. O Fable entra
@@ -60,15 +60,15 @@ relatório, tabela e prompt use sempre esse endereço, nunca o `workers.dev`.
 
 O histórico de eventos passados é escrito na `main` por um robô (ver abaixo). Uma branch
 que fica parada perde os eventos que passaram nesse tempo. Por isso, **antes de iterar em
-`design` ou de criar uma branch de teste, traga a `main`**:
+`homologa` ou de criar uma branch de teste, traga a `main`**:
 
 ```
 git fetch origin main
-git checkout design && git merge origin/main
+git checkout homologa && git merge origin/main
 git checkout -b tst-x                              # ou qa-AAAA-MM-DD
 ```
 
-Branch de sessão, de teste e de QA nasce sempre da `design` já igualada.
+Branch de sessão, de teste e de QA nasce sempre da `homologa` já igualada.
 
 ## Histórico de eventos: só acrescenta
 
@@ -98,7 +98,7 @@ Branch de sessão, de teste e de QA nasce sempre da `design` já igualada.
 - Mudança pedida de propósito: escreva a marca `[arquivo-editado]` na mensagem do commit,
   dizendo o que mudou e quem pediu. É a marca que o alarme, o `confere:arquivo` e a guarda da
   produção leem. **O clone da Cloudflare só traz o último commit**, então lá a marca só vale no
-  último commit do push (na rodada para a `main`, o último commit da `design`). Quando não der,
+  último commit do push (na rodada para a `main`, o último commit da `homologa`). Quando não der,
   o Gui liga `ARQUIVO_EDITADO=1` nas variáveis de build da Cloudflare (Settings, Build, Variables)
   para esse build e desliga depois. Na máquina, `ARQUIVO_EDITADO=1 npm run confere:arquivo` faz o
   mesmo papel.
@@ -137,9 +137,9 @@ Branch de sessão, de teste e de QA nasce sempre da `design` já igualada.
 4. `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra`,
    `npm run confere:pilha` e `npm run confere:contraste` passando: os testes de navegador, que não
    rodam na Cloudflare.
-5. Só em rodadas, depois do QA, com o ok do Gui na prévia da `design`. **Antes da rodada, a
-   conversa dispara o `confere-site.yml` na `design`** ("Run workflow" na aba Actions, ou pela
-   ferramenta do GitHub) e só segue com ele verde. Então `main`, por fast-forward da `design`. A
+5. Só em rodadas, depois do QA, com o ok do Gui na prévia da `homologa`. **Antes da rodada, a
+   conversa dispara o `confere-site.yml` na `homologa`** ("Run workflow" na aba Actions, ou pela
+   ferramenta do GitHub) e só segue com ele verde. Então `main`, por fast-forward da `homologa`. A
    publicação na Cloudflare sai sozinha a cada push.
 
 ## Sessões de código
@@ -148,10 +148,10 @@ Cada sessão do Claude Code recebe da conversa um prompt com uma letra no títul
 ...", "Sessão B: ..."). Regras de toda sessão:
 
 - Ler este arquivo, `notas/decisoes.md` e `notas/a-fazer.md` antes de começar.
-- Trazer a `main` para a `design` e nascer dela, numa `tst-<assunto>`.
+- Trazer a `main` para a `homologa` e nascer dela, numa `tst-<assunto>`.
 - Construir só os itens de "A construir" nomeados no prompt.
 - Antes de cada push: `npm run build` e as conferências de "Levar para a `main`".
-- Abrir PR para a `design` e **não fazer o merge**. Quando os PRs forem empilhados (um nascido do
+- Abrir PR para a `homologa` e **não fazer o merge**. Quando os PRs forem empilhados (um nascido do
   outro), dizer a ordem de juntar.
 - **Redesenho grande é conceito primeiro, com parada:** duas propostas numa branch de teste, e a
   sessão espera a escolha do Gui antes de construir.
@@ -164,13 +164,13 @@ Cada sessão do Claude Code recebe da conversa um prompt com uma letra no títul
   o endereço completo e clicável da prévia da branch (ver "Prévias").
 
 Depois da sessão, a conversa confere os PRs e registra as respostas do Gui. **Quem junta é o Gui
-(19 nov 2026):** PR sem conflito para a `design` ele junta com squash e apaga a branch pelo botão do PR. A
-passagem da `design` para a `main` não usa o botão (ele cria um commit que a `design` não tem e trava
+(19 nov 2026):** PR sem conflito para a `homologa` ele junta com squash e apaga a branch pelo botão do PR. A
+passagem da `homologa` para a `main` não usa o botão (ele cria um commit que a `homologa` não tem e trava
 o fast-forward): a conversa faz o fast-forward, só com o ok do Gui (20 nov 2026). PRs
-empilhados entram em ordem. A conversa só cuida do PR com conflito: trazer a `design` para a
+empilhados entram em ordem. A conversa só cuida do PR com conflito: trazer a `homologa` para a
 branch, juntar os dois lados, rodar build e conferências, fazer o push, esperar as conferências do
 GitHub e só então juntar. PR que entrou dentro de outro é fechado com um comentário dizendo em qual.
-Depois do merge, conferir se a prévia da `design` publicou. Quem apaga as branches incorporadas é o Gui: a conversa lista quais apagar e quando, e nem a sessão nem a conversa apagam branch. Branch que nunca foi incorporada só se apaga com pedido do Gui.
+Depois do merge, conferir se a prévia da `homologa` publicou. Quem apaga as branches incorporadas é o Gui: a conversa lista quais apagar e quando, e nem a sessão nem a conversa apagam branch. Branch que nunca foi incorporada só se apaga com pedido do Gui.
 
 ## Conferências do site
 
@@ -189,7 +189,7 @@ tem cota mensal de minutos.
 - **No GitHub, só por disparo manual:** `.github/workflows/confere-site.yml` (`workflow_dispatch`)
   roda o `confere:arquivo`, o build e os testes de navegador (`confere:calmo`, `confere:parede`,
   `confere:barra`, `confere:pilha` e `confere:contraste`), em uns 6 minutos. Não roda em push nem em PR. A conversa
-  dispara na `design` antes de cada rodada para a `main` (ver "Levar para a `main`"); uma sessão
+  dispara na `homologa` antes de cada rodada para a `main` (ver "Levar para a `main`"); uma sessão
   pode disparar na própria branch quando o prompt pedir. Disparo novo na mesma branch cancela o
   anterior, os navegadores ficam no cache (versão do Playwright na chave) e o trabalho tem
   `timeout-minutes`.
@@ -382,11 +382,11 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
 
 "Quem a gente trouxe" e "E a cena de BH" saem de `src/data/atracoes.json`, gerado por `npm run
 atracoes` a partir da planilha "Atrações do site" (Drive, `10_site/4_Sobre`), aba "Para o site",
-que o Ed revisa. O site nunca lê a planilha ao vivo: o script copia na `design`, o Gui confere na
+que o Ed revisa. O site nunca lê a planilha ao vivo: o script copia na `homologa`, o Gui confere na
 prévia e só então vai à `main`.
 - **Atualizar (do Gui, 19 nov 2026):** a aba não é publicada na web. Quando a planilha mudar, a
   conversa lê a aba "Para o site" pelo Google conectado, exporta como CSV e roda `npm run atracoes --
-  --arquivo x.csv` numa `tst-atracoes-AAAA-MM-DD`, com PR para a `design`, como qualquer mudança. É
+  --arquivo x.csv` numa `tst-atracoes-AAAA-MM-DD`, com PR para a `homologa`, como qualquer mudança. É
   só dado: a conversa não mexe no código para isso. Se uma validação falhar, nada é escrito. O resumo
   diz quem entrou e quem saiu. `ATRACOES_CSV_URL` continua aceito pelo script, mas não é usado.
 - Só linhas com Status "ok" chegam à aba "Para o site". A aba "Fora" é privada.
@@ -402,7 +402,7 @@ e Agenda com evento futuro, `src/lib/eventos.ts` (`fonteExemplo`) acrescenta os 
 `src/data/eventos-exemplo.json`: dois próximos (um azul e um rosa), um acontecendo agora, um da
 Sympla e um de nome longo. As datas saem do dia do build (`comecaEmHoras` e `duracaoHoras`).
 - Só entram quando a Cloudflare informa a branch do build (`WORKERS_CI_BRANCH` ou `CF_PAGES_BRANCH`),
-  ela não é `main`, `design` nem `homologa` (lista `BRANCHES_SEM_EXEMPLO`) e falta o `SHOTGUN_TOKEN`.
+  ela não é `main`, `homologa` nem `homologa` (lista `BRANCHES_SEM_EXEMPLO`) e falta o `SHOTGUN_TOKEN`.
   Sem a variável de branch, nada de exemplo. Se a homologação mudar de nome, ponha o nome novo na lista.
 - O nome termina em "(exemplo)", para a página dizer que é de exemplo sem mexer no layout. Cada
   exemplo tem link próprio (`#id`), senão `semRepetidos` tira todos menos um. As capas ficam em
@@ -467,10 +467,10 @@ inteiras; esta seção diz o que muda quando o trabalho é QA.
 
 ### Onde a sessão trabalha
 
-A sessão trabalha numa branch `qa-AAAA-MM-DD`, nascida da `design` depois de trazer a `main`, e
-abre PR para a `design` sem fazer o merge. Correção grande ou arriscada vai numa `qa-<assunto>`
-separada, com PR próprio. A sessão de QA **nunca commita nem publica na `design` nem na `main`**:
-a conversa junta o PR depois que o Gui olhar, e a `design` vai para a `main` com a aprovação dele.
+A sessão trabalha numa branch `qa-AAAA-MM-DD`, nascida da `homologa` depois de trazer a `main`, e
+abre PR para a `homologa` sem fazer o merge. Correção grande ou arriscada vai numa `qa-<assunto>`
+separada, com PR próprio. A sessão de QA **nunca commita nem publica na `homologa` nem na `main`**:
+a conversa junta o PR depois que o Gui olhar, e a `homologa` vai para a `main` com a aprovação dele.
 
 Outra sessão pode estar publicando ao mesmo tempo. Traga a `main` de
 novo antes de cada push e nunca force um push. Se o push for recusado, traga a `main`,

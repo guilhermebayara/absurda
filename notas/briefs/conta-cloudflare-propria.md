@@ -31,7 +31,7 @@ Quem faz: o Gui, no painel da Cloudflare e no GitHub. Tokens e senhas só ele di
 - A prévia `design` da conta nova tem o `SHOTGUN_TOKEN` e mostra os próximos eventos.
 - Worker `absurda` da conta "Gui Bayara" apagado depois que o Gui conferiu o site (22/11). A zona antiga
   ficou como "movida" e a Cloudflare a remove sozinha. Na conta "Gui Bayara" fica só o site da família.
-- Falta só o Sympla, quando houver evento lá: cadastrar `SYMPLA_TOKEN` na produção e na prévia `design`.
+- Falta só o Sympla, quando houver evento lá: cadastrar `SYMPLA_TOKEN` na produção e na prévia `homologa` (a `design` foi aposentada em 22/11).
 
 ## Passo a passo
 

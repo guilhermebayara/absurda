@@ -360,3 +360,13 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   saída do Trio (regra do calendário) e o "(em breve)" da WIG (escrito à mão) seguem na prévia, porque
   no intervalo entre dezembro e janeiro os dois estariam no ar de verdade. (CLAUDE.md, "Eventos de
   exemplo nas prévias de teste".)
+
+- **2026-11-22, homologação passa a ser a `homologa` (Gui).** A `homologa` nasceu da `design` no
+  mesmo commit (Sessão I, #14) e assume o papel dela: PRs das sessões, documentação, disparo do
+  `confere-site.yml` antes da rodada e fast-forward para a `main`. Prévia em
+  https://homologa.festaabsurda.com. Na Cloudflare, a prévia nomeada `homologa` recebe as variáveis
+  que eram da `design` (`SHOTGUN_TOKEN`, `SHOTGUN_ORGANIZER_ID`; o `SYMPLA_TOKEN` quando houver
+  evento lá). Depois de conferida, o Gui apaga a branch `design` e a prévia dela. As entradas
+  anteriores deste arquivo seguem dizendo `design`. Por quê: o nome já estava combinado desde 18/11
+  e é o mesmo dos outros projetos. As listas do código já aceitavam `homologa`; tirar `design` delas
+  fica em "A construir". (CLAUDE.md, "Branches e publicação".)

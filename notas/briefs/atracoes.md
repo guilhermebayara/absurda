@@ -7,7 +7,7 @@ Decidido em 18/11/2026 (Gui). Para uma sessão do Claude Code construir sem prec
 As listas "Quem a gente trouxe" (`palco`, em `src/lib/historia.ts`) e "E a cena de BH" (`cena`, em
 `src/pages/sobre.astro`) estão escritas dentro do código. O Ed precisa revisar e acrescentar nomes
 sem mexer em código. A base de edição passa a ser uma planilha; o site continua lendo um JSON do
-repositório, que passa pela `design` como todo o resto. O site nunca lê a planilha ao vivo: uma
+repositório, que passa pela `homologa` como todo o resto. O site nunca lê a planilha ao vivo: uma
 edição acidental iria ao ar sem homologação, e o build passaria a depender de um link externo.
 
 ## A planilha
@@ -56,21 +56,21 @@ Abas:
    `.github/workflows/confere-site.yml`), no modelo do `confere:agenda`: falha se algum nome do JSON
    não aparecer na página Sobre montada. Roda depois do build.
 8. **CLAUDE.md:** uma seção curta "Atrações do Sobre", com o caminho (planilha, script, JSON,
-   `design`) e a regra de que o script só escreve na `design`.
+   `homologa`) e a regra de que o script só escreve na `homologa`.
 
 ## O que não fazer
 
 - Não ligar o build ao Google nem pôr a leitura da planilha no `prebuild`.
 - Não criar robô agendado por ora. O script roda sob demanda ("atualiza as atrações"). Se virar
-  rotina, o robô escreve na `design`, nunca na `main`.
+  rotina, o robô escreve na `homologa`, nunca na `main`.
 - Não mexer na planilha por script. Quem a mantém é a conversa do Gui no claude.ai e o Ed.
 - Não tirar do site nome que não esteja na planilha sem avisar no resumo.
 
 ## Fluxo no dia a dia
 
 O Ed revisa na planilha (filtra "a revisar", comenta, muda para "ok"). Alguém pede ao Code
-"atualiza as atrações"; ele roda `npm run atracoes` na `design`, confere o resumo e faz o commit. O
-Gui vê na prévia da `design` e leva para a `main` pelo caminho de sempre.
+"atualiza as atrações"; ele roda `npm run atracoes` na `homologa`, confere o resumo e faz o commit. O
+Gui vê na prévia da `homologa` e leva para a `main` pelo caminho de sempre.
 
 ## Depois, se valer a pena
 
@@ -80,6 +80,6 @@ mesmo modelo, em abas novas da mesma planilha. Fora do escopo agora.
 
 ## Estado (18 nov 2026)
 
-Construído na `design`: `scripts/atracoes.mjs`, `src/data/atracoes.json`, o Sobre e `historia.ts`
+Construído na `homologa`: `scripts/atracoes.mjs`, `src/data/atracoes.json`, o Sobre e `historia.ts`
 lendo o JSON e `npm run confere:atracoes`. A coluna "Marcação no site" da aba "Para o site" aceita
 "em memória" (etiqueta ao lado do nome) e "riscado" (nome riscado). Falta só o endereço publicado do CSV.
