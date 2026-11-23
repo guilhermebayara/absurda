@@ -27,7 +27,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { listaDoHistorico } from './historico.mjs';
 
 const PRODUCAO = 'https://festaabsurda.com/estado.json';
-const TRAVADAS = ['main', 'design', 'homologa']; // a homologação, com o nome de hoje e o de amanhã
+const TRAVADAS = ['main', 'homologa']; // produção e homologação
 const MARCA = '[arquivo-editado]';
 const SAIDA = '.guarda-producao.json';
 

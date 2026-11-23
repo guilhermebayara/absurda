@@ -1,9 +1,18 @@
 # Mantém a agenda do site em dia sem ninguém precisar publicar nada. Um trabalho só:
 #
-# 1. Duas vezes por dia, copia para dentro do repositório os eventos que já passaram (dados e
-#    capas), para o histórico não depender mais das plataformas. Escreve direto na main.
-# 2. No fim, sempre (mesmo se o passo 1 falhar ou for pulado), pede à Cloudflare que gere o site
-#    de novo, e o site busca os eventos mais recentes no Shotgun e no Sympla.
+# 1. Uma vez por dia, de madrugada, copia para dentro do repositório os eventos que já passaram
+#    (dados e capas), para o histórico não depender mais das plataformas. Escreve direto na main.
+# 2. No fim, pede à Cloudflare que gere o site de novo, e o site busca os eventos mais recentes no
+#    Shotgun e no Sympla. Só quando o passo 1 não gravou nada (ou falhou, ou foi pulado): quando ele
+#    grava, o push na main já dispara um build, e o gancho pediria um segundo igual.
+#
+# Por que uma vez só (Gui, 23 nov 2026, leveza): o agendamento do GitHub atrasa e pula rodadas. De
+# 12 a 23 nov a rodada das 6h17 de Brasília não rodou nenhuma vez, e a das 18h17 saía de 4 a 6
+# horas depois. Uma rodada por dia é o que de fato acontecia. A agenda futura vem do Shotgun em
+# todo build, então um evento anunciado também entra no site com qualquer push.
+#
+# O build daqui só serve para o arquivo-pendente.json: SEM_FOTOS=1 desliga as versões das fotos
+# (scripts/imagens.mjs), que seriam jogadas fora.
 #
 # Segredos do repositório usados aqui:
 #   CLOUDFLARE_DEPLOY_HOOK  endereço do Deploy Hook criado no painel da Cloudflare
@@ -13,8 +22,9 @@ name: Atualiza a agenda
 
 on:
   schedule:
-    # Horário de Brasília: 6h17 e 18h17 (o agendamento é em UTC). GitHub Actions enxuto, 20 nov 2026.
-    - cron: '17 9,21 * * *'
+    # 5h43 de Brasília (o agendamento é em UTC): depois do fim da maioria das festas, fora da hora
+    # cheia, quando o GitHub mais atrasa e pula. Com o atraso de costume, sai entre 6h e 9h.
+    - cron: '43 8 * * *'
   # Permite rodar na hora, pelo botão "Run workflow" na aba Actions.
   workflow_dispatch:
 
@@ -54,11 +64,13 @@ jobs:
           SHOTGUN_TOKEN: ${{ secrets.SHOTGUN_TOKEN }}
           SHOTGUN_ORGANIZER_ID: ${{ secrets.SHOTGUN_ORGANIZER_ID }}
           SYMPLA_TOKEN: ${{ secrets.SYMPLA_TOKEN }}
+          SEM_FOTOS: '1'
         run: |
           npm ci
           npx astro build
           node scripts/arquivar.mjs
       - name: Guarda o arquivo no repositório
+        id: guarda
         if: steps.chaves.outputs.tem == 'sim'
         run: |
           git config user.name "arquivo-da-agenda"
@@ -69,10 +81,12 @@ jobs:
           else
             git commit -m "Arquivo da agenda: eventos que já passaram"
             git push origin main
+            echo "gravou=sim" >> "$GITHUB_OUTPUT"
           fi
-      # Sempre, mesmo se o arquivo falhou ou foi pulado.
+      # Sempre que o push acima não aconteceu: nada novo, arquivo pulado ou falha em algum passo.
+      # Quando ele aconteceu, a Cloudflare já constrói pelo push.
       - name: Pede um novo build à Cloudflare
-        if: always()
+        if: always() && steps.guarda.outputs.gravou != 'sim'
         env:
           GANCHO: ${{ secrets.CLOUDFLARE_DEPLOY_HOOK }}
         run: |

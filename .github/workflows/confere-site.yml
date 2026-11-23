@@ -5,7 +5,7 @@
 # a guarda do histórico pelo git (scripts/confere-arquivo.mjs) e o build.
 #
 # Quando roda (GitHub Actions enxuto, do Gui, 20 nov 2026): só por disparo manual ("Run workflow"
-# na aba Actions, escolhendo a branch). A conversa dispara na design antes de cada rodada para a
+# na aba Actions, escolhendo a branch). A conversa dispara na homologa antes de cada rodada para a
 # main. Nada roda sozinho em push ou PR: a Cloudflare já faz o build de cada push, e o build
 # ("npm run build") traz a guarda da produção, os tipos do Astro e as conferências rápidas (temas,
 # links, agenda, atrações e exemplos). Se algo falha lá, a Cloudflare não publica.

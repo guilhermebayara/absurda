@@ -48,7 +48,8 @@ export function servidor(pasta = 'dist', porta = 4321) {
     let u = decodeURIComponent(new URL(req.url, 'http://x').pathname);
     let f = path.join(pasta, u);
     if (u.endsWith('/')) f = path.join(f, 'index.html');
-    else if (!fs.existsSync(f) && fs.existsSync(f + '.html')) f += '.html';
+    // /projetos acha projetos.html mesmo com a pasta projetos/ ao lado (antes dava 404).
+    else if ((!fs.existsSync(f) || fs.statSync(f).isDirectory()) && fs.existsSync(f + '.html')) f += '.html';
     let status = 200;
     if (!fs.existsSync(f) || fs.statSync(f).isDirectory()) { f = path.join(pasta, '404.html'); status = 404; }
     const ext = path.extname(f);

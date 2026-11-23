@@ -1,7 +1,7 @@
 // Gera src/data/atracoes.json a partir da planilha "Atrações do site" (Drive, 10_site/4_Sobre),
 // aba "Para o site" publicada como CSV. É a base das listas "Quem a gente trouxe" e "E a cena de
 // BH", do Sobre. O site nunca lê a planilha ao vivo: este script copia, o Gui confere na prévia da
-// `design` e só então vai para a `main`. Ver notas/briefs/atracoes.md.
+// `homologa` e só então vai para a `main`. Ver notas/briefs/atracoes.md.
 //
 // Uso:
 //   npm run atracoes                          lê o endereço de ATRACOES_CSV_URL

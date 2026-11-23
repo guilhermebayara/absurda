@@ -7,7 +7,7 @@
 import { readFileSync, readdirSync, statSync, existsSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 
-const SEM_EXEMPLO = ['main', 'design', 'homologa']; // mesma lista de BRANCHES_SEM_EXEMPLO, em src/lib/eventos.ts
+const SEM_EXEMPLO = ['main', 'homologa']; // mesma lista de BRANCHES_SEM_EXEMPLO, em src/lib/eventos.ts
 const branch = (process.env.WORKERS_CI_BRANCH || process.env.CF_PAGES_BRANCH || '').trim();
 const travado = !branch || SEM_EXEMPLO.includes(branch);
 
