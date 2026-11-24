@@ -29,11 +29,6 @@ oferece. Não acrescentar e-mail nem o pix do trio ao site.
 Estas perguntas estão na planilha "Pendências do site". Quando a
 resposta chegar lá, o item vira trabalho:
 
-- **Build watch paths na Cloudflare** (leveza, 23 nov 2026): no painel (Workers, absurda, Settings,
-  Build, Build watch paths), excluir `notas/*`, `CLAUDE.md` e `README.md`, para commit só de
-  documentação não gerar build (22% dos builds de 9 a 22 nov). Configuração do painel: o Gui faz, ou
-  a conversa com o ok dele. Depois, conferir num commit só de `notas/` que o build não saiu.
-
 - **Agenda de 2022: pastas que ficaram de fora.** MOC, Prêmio, YOLO e Anda.
 - **Parcerias: o que ainda falta da planilha.** Pessoas por edição, seguidores, perfil do público,
   fotos dos casos, logos e o texto do "Vamos conversar" (junto com o e-mail, pausado).

@@ -392,3 +392,10 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   Brasília (`43 8 * * *` UTC): depois do fim da maioria das festas, para o build do dia já tirar do
   destaque a festa da noite. O alarme ficou sem `concurrency`, para nenhum push ficar sem conferência.
   A `design` saiu das listas do código (a branch já não existe). (CLAUDE.md, "Leveza".)
+
+- **2026-11-23, rolagem do Sobre fica como está e build sem commit de documentação (Gui).** Depois
+  da Sessão K, o Gui navegou no iPhone e não viu problema: a pilha do Trio e a janela com parallax do
+  Sobre ficam como estão (a pergunta T3 da auditoria fecha). Na mesma noite, a conversa ligou os build
+  watch paths no painel da Cloudflare (exclui `notas/**`, `CLAUDE.md` e `README.md`), com o ok do Gui,
+  porque 22% dos builds eram de commit só de documentação. O Gui pediu o mesmo para os outros
+  projetos (registro em claude/otimizacao.md, no projeto do Claude). (CLAUDE.md, "Leveza".)

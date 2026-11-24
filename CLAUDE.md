@@ -414,8 +414,11 @@ números de antes estão em `notas/leveza-auditoria.md` (Sessão J); as correç�
   - `confere-site.yml`: testes de navegador, só pelo botão, antes de cada rodada para a `main`.
   - `escalacoes.yml`: material de trabalho, só pelo botão ou quando o próprio script muda.
   - Prévias por branch: a Cloudflare constrói cada push. Commit só de `notas/`, `CLAUDE.md` e
-    `README.md` pode deixar de construir pelos build watch paths do painel (Settings, Build), que o
-    Gui liga; até lá, ele constrói.
+    `README.md` não constrói: build watch paths do painel (Settings, Build, "Exclude paths" com
+    `notas/**`, `CLAUDE.md` e `README.md`), ligados em 23 nov 2026 na produção, na base das prévias e
+    na prévia `homologa`. Cada prévia nomeada tem a sua configuração; ao criar outra, repita. Na base,
+    salvar sem "Apply to existing Previews", que pode levar a base (sem o token do Shotgun) para a
+    homologação.
   - Chamadas externas no build: a produção (`/estado.json`, guarda), as listas do Shotgun e uma capa
     pequena de cada evento futuro, para as cores. Nada mais (a "segunda imagem" saiu em 23 nov 2026).
 - **Fotos:** toda foto passa por `foto()` (ver "Fotos, ícones e prévia de compartilhamento"),
