@@ -6,7 +6,7 @@ capa: "/projetos/absurda.jpg"
 ordem: 1
 desde: "2009"
 especiais:
-  - { nome: "Bazinga!", filtro: "bazinga", texto: "Nasceu no vol. 13 da @bsurda, em março de 2011, na Up e-music, e virou série: teve Bazinga Twister, aniversário de 1 ano no Velvet e em Maringá, e viagens pra São Paulo (Funhouse) e Brasília. Foi a edição que mais pegou estrada nos primeiros anos." }
+  - { nome: "Bazinga!", filtro: "bazinga", texto: "Nasceu no vol. 13 da @bsurda, em março de 2011, na Up e.music, e virou série: teve Bazinga Twister, aniversário de 1 ano no Velvet e em Maringá, e viagens pra São Paulo (Funhouse) e Brasília. Foi a edição que mais pegou estrada nos primeiros anos." }
   - { nome: "É Você Satanás?", filtro: "satan", texto: "A @bsurda do inferno. Começou em janeiro de 2012 no Mary in Hell, como Inferno: É Você Satanás?, teve mais duas por lá e a quarta, em julho, na Up e.music. Quatro edições em sete meses, e a pergunta ficou sem resposta." }
   - { nome: "Viiish!", filtro: "\\bvi+sh\\b", texto: "Veio em março de 2012 como S03E05 da @bsurda, na Up e.music, e foi a estreia do Gui (ainda @bechama) na cabine. Em maio voltou como Vish! #2, no On Board Club, com duas pistas." }
   - { nome: "YOLO", filtro: "yolo", texto: "A festa pra viver como se não houvesse amanhã. Estreou em abril de 2013 no Mercado das Borboletas, com Bonde do Rolê e Banda Uó, passou pelo Granfinos, foi pro Rio em 2015 e voltou em 2016 com MC Carol. Até hoje tem gente procurando o que perdeu na primeira." }
