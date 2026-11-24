@@ -18,6 +18,8 @@ Como usar:
 
 ## A construir
 
+- **Conteúdo aprovado na planilha em 23 nov 2026** (brief em `notas/briefs/conteudo-planilha-23-11.md`):
+  textos de edições especiais, seis bios, ajustes de Parcerias e registro de parceiros.
 - **Bios de Keoma, Lugh e Vil Araújo:** seguem de marcação. Se o Gui quiser, rascunho no mesmo modelo
   das oito de 22 nov 2026 (uma ou duas frases, só com o que o repositório sabe).
 
@@ -29,9 +31,8 @@ oferece. Não acrescentar e-mail nem o pix do trio ao site.
 Estas perguntas estão na planilha "Pendências do site". Quando a
 resposta chegar lá, o item vira trabalho:
 
-- **Agenda de 2022: pastas que ficaram de fora.** MOC, Prêmio, YOLO e Anda.
-- **Parcerias: o que ainda falta da planilha.** Pessoas por edição, seguidores, perfil do público,
-  fotos dos casos, logos e o texto do "Vamos conversar" (junto com o e-mail, pausado).
+- **Parcerias: o que ainda falta da planilha.** Pessoas por edição, "Como uma marca entra" (as
+  propostas novas), o caso Xeque Mate, fotos dos casos e logos.
 - **Página do Gui: parte de baixo.** Depende do documento piloto "Sua página no site da @bsurda: Gui
   Bayara" preenchido. Montar numa branch de teste primeiro.
   A lista de sets sai da aba "Sets do Gui" da planilha, que já tem a IHR especial Rock in Rio
