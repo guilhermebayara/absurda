@@ -10,4 +10,4 @@ ordem: 1
 instagram: "https://www.instagram.com/ed_luiz/"
 ---
 
-Criou a @bsurda em 2009 porque queria uma festa que juntasse a pista do rock com a do pop, e segue produzindo e tocando desde a primeira noite. Em 2019 levou o prêmio de melhor DJ do carnaval no BH Folia.
+Criou a @bsurda em 2009 porque queria a festa que ele mesmo gostaria de ir: rock e pop na mesma pista, sem frescuras. Desde então produz, toca e segura o leme da casa, do Velvet Club ao Mineirão. Fora da cabine, leva a @bsurda pra conversa sobre cultura LGBTQIA+ em BH, com o Cellos/MG e onde mais chamarem.

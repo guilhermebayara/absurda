@@ -10,4 +10,4 @@ foto: "/equipe/keoma.jpg"
 instagram: "https://www.instagram.com/kkkkeoma/"
 ---
 
-Bio de marcação. Aqui entra um parágrafo sobre Keoma e, mais adiante, os links para os projetos e iniciativas próprias.
+Na cabine da @bsurda desde 2011, e nunca saiu de verdade: mesmo nas temporadas longe de BH, sempre volta pra pista. O Halloween já é a casa dele.

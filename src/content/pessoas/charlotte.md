@@ -17,4 +17,4 @@ links:
   - { rotulo: "Gongada Drag", url: "https://www.instagram.com/gongadadrag/", papel: "Elenco" }
 ---
 
-Chegou à @bsurda em 2019, no palco da WIG Broadway, e foi ganhando espaço até virar DJ residente. Hoje também comanda a WIG events, a agência drag que nasceu aqui dentro.
+Nossa drag residente e produtora da WIG. Multiartista: drag, DJ e quem comanda os brunchs.

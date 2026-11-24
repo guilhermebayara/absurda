@@ -283,7 +283,7 @@ acertado caso a caso com o Gui.
   dois crachás, que continuam lado a lado. Ao lado deles a coluna ficava com 150 a 250 px e os links
   da ficha saíam da tela.
 - **Bio:** curta, uma ou duas frases no tom de `notas/tom.md`, só com o que se sabe da pessoa (página,
-  escalações, projetos). Nada inventado. As de 22 nov 2026 são rascunho até o Gui aprovar.
+  escalações, projetos). Nada inventado. As de 22 nov 2026 são rascunho até o Gui aprovar; as de Ed Luiz, Gui Bayara, Keoma, Charlotte, Lugh e Vil Araújo foram aprovadas em 23 nov 2026 (planilha). As de FAB, André Victor, Ayumi, Barbara Deister e Gabriel Cadete seguem em rascunho.
 - Cores: a prioridade é puxar as cores das fotos da pessoa. Ela pode dizer até duas cores pelo nome
   ("azul", "verde floresta"); o tom é sempre escolhido por nós, para encaixar no site, e nós
   decidimos se as duas entram no mesmo tema ou se viram temas à parte.

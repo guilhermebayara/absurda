@@ -18,11 +18,6 @@ Como usar:
 
 ## A construir
 
-- **Conteúdo aprovado na planilha em 23 nov 2026** (brief em `notas/briefs/conteudo-planilha-23-11.md`):
-  textos de edições especiais, seis bios, ajustes de Parcerias e registro de parceiros.
-- **Bios de Keoma, Lugh e Vil Araújo:** seguem de marcação. Se o Gui quiser, rascunho no mesmo modelo
-  das oito de 22 nov 2026 (uma ou duas frases, só com o que o repositório sabe).
-
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
 

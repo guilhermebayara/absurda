@@ -41,6 +41,7 @@ const numerosDeMarca = [
   { n: '75 mil', rotulo: 'pessoas no Trio de 2023' },
   { n: '30 mil', rotulo: 'pessoas no Trio de 2025' },
   { n: '10', rotulo: 'anos de carnaval' },
+  { n: '31 mil', rotulo: 'seguidores no Instagram (2026)' },
 ];
 const quem = [
   { rotulo: 'No palco', texto: 'Pabllo Vittar, nos primeiros shows dela em BH. Karol Conká, Gloria Groove, Jão, Banda Uó, Tiê e Kaya Conky. E gente de fora: Alyssa Edwards, Coco Montrese e Latrice Royale.' },
@@ -54,8 +55,8 @@ const formatos = [
   { nome: 'Ativação no espaço', texto: 'Luminoso, bar e copos com a marca, backdrop e bandeiras no palco, e as performances apresentadas por ela.' },
   { nome: 'Conteúdo', texto: 'Post em collab, stories durante a festa, fotos profissionais e vídeo com drag.' },
 ];
-// Propostas da planilha (aba Parcerias, linhas 11 e 12), ainda sem "ok". As fotos chegam depois;
-// até lá, o bloco sólido leva o nome do evento.
+// Casos da planilha (aba Parcerias, linhas 11 e 12). Amstel aprovado em 23 nov 2026; Xeque Mate
+// ainda sem "ok". As fotos chegam depois; até lá, o bloco sólido leva o nome do evento.
 const casos = [
   { marca: 'Amstel', onde: 'Parada da @bsurda e Halloween 16 anos', ano: '2025', evento: 'Amstel Vibes', texto: 'Amstel Vibes na 5ª Parada, na Funarte, e no Halloween de 16 anos: backdrop e bandeiras no palco, bares com a marca, copos personalizados e as performances apresentadas por "Amstel Vibes apresenta...".' },
   { marca: 'Xeque Mate', onde: 'Carnaval @bsurda', ano: '2026', evento: 'Carnaval 2026', texto: 'Venda exclusiva nos ensaios e no Carnaval @bsurda (6 e 14/02), luminoso na festa, marca nas peças e no cardápio, post em collab e fotos profissionais.' },
@@ -87,6 +88,7 @@ const casos = [
       {numeros.map((n) => <li><strong>{n.mais ? '+' : ''}{n.n}</strong><span>{n.rotulo}{n.nota ? ` (${n.nota})` : ''}</span></li>)}
       {numerosDeMarca.map((n) => <li><strong>{n.n}</strong><span>{n.rotulo}</span></li>)}
     </ul>
+    <p class="t-apoio bloco-texto" data-anima="surge">Um público fiel, que segue a festa pra onde ela for: gays, lésbicas, bis, pessoas trans e quem cola junto. No Halloween de 2024, a média de idade foi de 25 anos. Vem pra cantar o refrão inteiro e dançar sem pose.</p>
   </section>
 
   <section class="bloco" aria-labelledby="t-quem">
@@ -136,7 +138,7 @@ const casos = [
 
   <section class="convite" aria-labelledby="t-convite">
     <h2 id="t-convite" class="t-secao" data-anima="sobe">Vamos conversar</h2>
-    <p class="t-apoio convite-texto" data-anima="surge">Conte o que a sua marca quer fazer. A gente responde com uma proposta. (marcação)</p>
+    <p class="t-apoio convite-texto" data-anima="surge">Conte o que a sua marca quer fazer. A gente responde com uma proposta, e o papo começa pelo Instagram.</p>
     <p class="convite-botao" data-anima="surge"><Botao href={SITE.mensagem} externo>Mandar mensagem no Instagram</Botao></p>
   </section>
 </Base>
