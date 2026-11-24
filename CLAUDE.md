@@ -42,7 +42,7 @@ relatório, tabela e prompt use sempre esse endereço, nunca o `workers.dev`.
 
 ## Quem faz o quê (do Gui, desde 16 nov 2026)
 
-- **Conversa no claude.ai (projeto "Carreira") é a gestão.** O Gui discute, decide e vê resultados.
+- **Conversa no claude.ai (projeto "Gestão de projetos") é a gestão.** O Gui discute, decide e vê resultados.
   A conversa coordena: registra decisões na documentação (commit direto na `homologa`), escreve os
   prompts das sessões de código e cuida dos PRs com conflito; o Gui junta os outros e apaga as branches. Também cuida do
   Drive, da planilha de pendências e de documentos para outras pessoas. Não escreve código do site.
