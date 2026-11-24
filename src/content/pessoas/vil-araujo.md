@@ -10,4 +10,4 @@ foto: "/equipe/vil-araujo.jpg"
 instagram: "https://www.instagram.com/thisvil/"
 ---
 
-Bio de marcação. Aqui entra um parágrafo sobre Vil Araújo e, mais adiante, os links para os projetos e iniciativas próprias.
+Chegou na crew em janeiro de 2017, na MONEY, sob a "Haus of @bsurda", e ficou até a @bsurda 300, em abril de 2023. Passou pela I Hate Remix e pelo Carnaval de 2020 na Dduck.

@@ -14,4 +14,4 @@ foto: "/equipe/lugh.jpg"
 instagram: "https://www.instagram.com/alexlugh/"
 ---
 
-Bio de marcação. Aqui entra um parágrafo sobre Lugh e, mais adiante, os links para os projetos e iniciativas próprias.
+Fotógrafo e DJ. Tocou na @bsurda de 2011 a 2016 e segue por perto na Estilingue, que registra as nossas festas até hoje.

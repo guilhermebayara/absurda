@@ -14,4 +14,4 @@ redes:
   - { rotulo: "Site", url: "https://bayara.design" }
 ---
 
-Chegou em 2012 e foi mudando de papel com o tempo: assinou o design das festas e hoje também é sócio e produtor da @bsurda.
+Estreou na cabine em março de 2012, ainda como @bechama, o personagem dele no Twitter, e foi chegando na produção a partir de 2013. Hoje é sócio e cuida da cara da @bsurda, das peças a este site. De vez em quando volta pra cabine num set especial; o último foi na I Hate Remix Madonna de 2023. Fora daqui, é designer de produto.

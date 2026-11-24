@@ -134,16 +134,6 @@
     ]
   },
   {
-    "id": "popline",
-    "nome": "POPline",
-    "registros": [
-      {
-        "ano": "2018",
-        "onde": "Evento a confirmar"
-      }
-    ]
-  },
-  {
     "id": "99-pop",
     "nome": "99 Pop",
     "registros": [
@@ -156,16 +146,6 @@
   {
     "id": "giro",
     "nome": "Giro",
-    "registros": [
-      {
-        "ano": "2022",
-        "onde": "Parada da @bsurda"
-      }
-    ]
-  },
-  {
-    "id": "dduck",
-    "nome": "Dduck",
     "registros": [
       {
         "ano": "2022",

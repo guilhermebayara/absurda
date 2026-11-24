@@ -404,4 +404,4 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   Satanás?, Viiish!, Velcro e @bsurda Mobile, as bios de Ed, Gui, Keoma, Charlotte, Lugh e Vil,
   os 31 mil seguidores, o "Quem vem", o "Vamos conversar" e o caso Amstel em Parcerias. Saem os
   registros do POPline (2018) e da Dduck (2022), que ninguém confirmou. A Agenda de 2022 fica sem MOC,
-  Anda, YOLO e Prêmio por enquanto. (`notas/briefs/conteudo-planilha-23-11.md`.)
+  Anda, YOLO e Prêmio por enquanto. (Construído na Sessão L; o brief foi apagado.)
