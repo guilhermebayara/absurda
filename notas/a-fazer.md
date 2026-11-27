@@ -18,6 +18,18 @@ Como usar:
 
 ## A construir
 
+- **Capa que acompanha o cursor, travando (defeito, Gui, 26 nov 2026).** Na Home (índice de projetos,
+  `.espia`) e na Agenda (lista de eventos, `.espia-capa`), no computador, a capa não segue o cursor de
+  forma fluida e a troca de uma capa para a outra fica ruim. O comportamento combinado continua o mesmo:
+  a capa segue o cursor ao lado dele, com o giro leve, e troca ao passar para outra linha. Suspeitas a
+  conferir medindo, não a aceitar de saída: a `img` recebe o arquivo original da capa (sem `srcset`, às
+  vezes a `-lg` de 1.400 px do Sympla ou a capa cheia do Shotgun), então cada troca baixa e decodifica
+  uma foto grande e mostra a anterior até a nova chegar; a cada `pointermove` o script escreve três
+  variáveis e o `transform` tem `transition` de 0,18 s, que recomeça a cada evento. Direção: capa no
+  tamanho mostrado (a versão pequena que o site já gera, ou o `w_` do Shotgun e a `-xs` do Sympla, no
+  dobro da largura da prévia), troca só depois de a nova estar pronta (`decode()`), sem piscar a anterior,
+  e movimento escrito uma vez por quadro. Medir quadros perdidos antes e depois. Sem mudar o desenho.
+
 - **Página do sistema (`/camarim`)**, retomada pelo Gui em 26 nov 2026, com o nível WCAG de cada
   combinação de cor e, desde 26 nov, a parte Marca, com a logo para baixar em SVG e PNG (brief em
   `notas/briefs/camarim.md`).
