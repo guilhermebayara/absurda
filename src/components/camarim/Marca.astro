@@ -50,6 +50,18 @@ const decimal = (n: number) => n.toLocaleString('pt-BR', { maximumFractionDigits
     </div>
     <p slot="regras">Use os SVGs oficiais de 2024. Os PNGs de 1000 e 3000 px vêm desses arquivos e têm fundo transparente.</p>
   </Capitulo>
+  <Capitulo id="cores-da-marca">
+    <ul class="cores tintas">
+      {cores.map(({ nome, codigo }) => (
+        <li>
+          <span class="tinta" style={`background:${codigo}`} aria-hidden="true"></span>
+          <span class="etiqueta">{nome}</span>
+          <span class="t-pequeno"><code>{codigo}</code></span>
+        </li>
+      ))}
+    </ul>
+    <p slot="regras">A marca tem um SVG oficial para cada cor. Preserve o preenchimento que vem no arquivo.</p>
+  </Capitulo>
 </Parte>
 <style>
   .versoes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-3); }
@@ -64,5 +76,9 @@ const decimal = (n: number) => n.toLocaleString('pt-BR', { maximumFractionDigits
   .etiqueta, .t-pequeno { overflow-wrap: anywhere; }
   .cores p, .t-pequeno { margin-top: var(--e-2); }
   ul { display: flex; flex-wrap: wrap; gap: var(--e-1) var(--e-2); margin-top: var(--e-1); }
+  .tintas { gap: var(--e-2); }
+  .tintas li { display: grid; gap: var(--e-1); }
+  .tinta { height: var(--e-5); border: 1px solid var(--linha); border-radius: var(--raio-cartao); }
+  .tintas .t-pequeno { margin: 0; }
   @media (max-width: 860px) { .versoes { grid-template-columns: 1fr; } }
 </style>
