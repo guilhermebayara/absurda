@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import BarraInclinada from '../components/BarraInclinada.astro';
 import Marca from '../components/camarim/Marca.astro';
+import Site from '../components/camarim/Site.astro';
 import { TEMAS_DO_SITE } from '../lib/temas';
 ---
 
@@ -16,9 +17,11 @@ import { TEMAS_DO_SITE } from '../lib/temas';
       <BarraInclinada class="sinal" oculta />
       <nav aria-label="Partes do Camarim">
         <a href="#marca">Marca</a>
+        <a href="#site">Site</a>
       </nav>
     </header>
     <Marca />
+    <Site />
   </div>
 </Base>
 

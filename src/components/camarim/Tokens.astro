@@ -1,0 +1,69 @@
+---
+import base from '../../layouts/Base.astro?raw';
+
+const valor = (nome: string) => {
+  const token = base.match(new RegExp(`^    --${nome}: ([^;]+);`, 'm'))?.[1];
+  if (!token) throw new Error(`Token --${nome} ausente em Base.astro.`);
+  return token;
+};
+const tipos = [
+  ['t-gigante', 'A pista'],
+  ['t-grande', 'Na dobra da noite'],
+  ['t-medio', 'Cabe mais uma?'],
+  ['t-apoio', 'A última música sempre pede companhia.'],
+  ['corpo', 'A gente se encontra perto do som.'],
+  ['t-pequeno', 'Portas às 22h.'],
+  ['etiqueta', 'Belo Horizonte'],
+];
+const medidas = ['margem', 'e-1', 'e-2', 'e-3', 'e-4', 'e-5', 'e-6', 'raio-cartao', 'folga-cartao'];
+---
+
+<section class="tokens" aria-labelledby="tokens">
+  <h3 id="tokens" class="titulo-secao">Tipo, espaço e movimento</h3>
+  <div class="grupo">
+    <h4 class="t-medio">Urbanist Variable</h4>
+    <dl class="tipos">
+      {tipos.map(([classe, texto]) => <div><dt><code>{classe}</code></dt><dd class={classe}>{texto}</dd></div>)}
+    </dl>
+    <dl class="valores">
+      {['t-rotulo', 't-apoio', 't-3', 't-4', 't-5'].map((nome) => <div><dt><code>--{nome}</code></dt><dd><code>{valor(nome)}</code></dd></div>)}
+    </dl>
+  </div>
+  <div class="grupo">
+    <h4 class="t-medio">Espaço</h4>
+    <dl class="valores">
+      {medidas.map((nome) => (
+        <div>
+          <dt><code>--{nome}</code></dt>
+          <dd><code>{valor(nome)}</code></dd>
+          <dd class="medida" aria-hidden="true" style={nome === 'raio-cartao' ? 'width:var(--raio-cartao);border-radius:var(--raio-cartao) 0 0 0' : `width:var(--${nome})`}></dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+  <div class="grupo">
+    <h4 class="t-medio">Movimento</h4>
+    <ul>
+      <li><code>data-anima</code> aciona entradas como subida, surgimento e capa quando o trecho aparece.</li>
+      <li><code>data-corre</code> pausa letreiros e parede fora da tela.</li>
+      <li><code>.troca-viva</code> transiciona cores em 0,7 s com <code>ease</code>.</li>
+      <li><code>.pino-novo</code> usa a rolagem como relógio nas cenas presas no toque.</li>
+      <li><code>prefers-reduced-motion</code> mostra as peças no estado final e pausa o movimento contínuo.</li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .tokens { margin-block: var(--e-5); padding-block-start: var(--e-4); border-top: 1px solid var(--linha); }
+  h4 { margin: 0 0 var(--e-2); }
+  .grupo + .grupo { margin-top: var(--e-4); }
+  dl { margin-block: 0; }
+  dd { margin: 0; }
+  .tipos > div { display: grid; gap: .35rem; padding-block: var(--e-2); border-bottom: 1px solid var(--linha); }
+  .tipos dd { overflow-wrap: anywhere; }
+  .valores { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: .6rem 1rem; margin-block-start: var(--e-2); }
+  .valores > div { padding: .6rem 0; border-bottom: 1px solid var(--linha); }
+  .valores dd { color: var(--suave); }
+  .medida { height: .65rem; margin-top: .45rem; background: var(--destaque); }
+  ul { display: grid; gap: .5rem; list-style: disc; padding-inline-start: 1.25rem; }
+</style>
