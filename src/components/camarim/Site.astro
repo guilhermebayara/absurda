@@ -1,24 +1,11 @@
 ---
+import Parte from './Parte.astro';
 import Temas from './Temas.astro';
 import Tokens from './Tokens.astro';
 import Pecas from './Pecas.astro';
 ---
-
-<section aria-labelledby="site">
-  <header>
-    <h2 id="site" class="t-grande">Site</h2>
-    <nav aria-label="Guia do site">
-      <a href="#temas">Temas e contraste</a>
-      <a href="#tokens">Tipo, espaço e movimento</a>
-      <a href="#pecas">Peças</a>
-    </nav>
-  </header>
+<Parte nome="Site">
   <Temas />
   <Tokens />
   <Pecas />
-</section>
-
-<style>
-  header { margin-block: var(--e-5) var(--e-4); padding-block-start: var(--e-4); border-top: 1px solid var(--linha); }
-  nav { display: flex; flex-wrap: wrap; gap: .4rem 1.15rem; margin-top: var(--e-2); font-weight: 700; }
-</style>
+</Parte>

@@ -1,0 +1,15 @@
+---
+import BarraInclinada from '../BarraInclinada.astro';
+interface Props { nome: string }
+const { nome } = Astro.props;
+---
+<section class="parte" aria-labelledby={nome.toLowerCase()}>
+  <h2 id={nome.toLowerCase()} class="t-secao"><BarraInclinada class="sinal" oculta />{nome}</h2>
+  <slot />
+</section>
+
+<style>
+  .parte { padding: var(--e-5) var(--margem); }
+  h2 { display: flex; align-items: baseline; gap: var(--e-2); margin-bottom: var(--e-4); }
+  .sinal { align-self: center; width: .18em; height: .8em; background: var(--destaque); margin-inline: .18em; }
+</style>

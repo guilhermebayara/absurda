@@ -1,0 +1,20 @@
+---
+import { partes } from './capitulos';
+interface Props { id: string }
+const { id } = Astro.props;
+const capitulo = partes.flatMap(parte => parte.capitulos).find(capitulo => capitulo.id === id);
+if (!capitulo) throw new Error('Capítulo ausente no índice: ' + id);
+---
+<section class="capitulo" aria-labelledby={id}>
+  <h3 id={id} class="titulo-secao">{capitulo.numero} {capitulo.titulo}</h3>
+  <slot />
+  <aside aria-label={`Regras de ${capitulo.titulo}`}>
+    <h4 class="etiqueta">Regras</h4>
+    <div class="t-apoio"><slot name="regras" /></div>
+  </aside>
+</section>
+<style>
+  .capitulo { padding-block: var(--e-4); border-top: 1px solid var(--linha); }
+  aside { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--e-1) var(--e-4); margin-top: var(--e-3); padding-block-start: var(--e-2); border-top: 1px solid var(--linha); }
+  h4 { margin: 0; }
+</style>
