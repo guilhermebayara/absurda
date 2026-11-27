@@ -1,34 +1,37 @@
 ---
-import base from '../../layouts/Base.astro?raw';
-
-const valor = (nome: string) => {
-  const token = base.match(new RegExp(`^    --${nome}: ([^;]+);`, 'm'))?.[1];
-  if (!token) throw new Error(`Token --${nome} ausente em Base.astro.`);
-  return token;
-};
+import Capitulo from './Capitulo.astro';
+import { valor } from './token';
 const tipos = [
-  ['t-gigante', 'A pista'],
-  ['t-grande', 'Na dobra da noite'],
-  ['t-medio', 'Cabe mais uma?'],
-  ['t-apoio', 'A última música sempre pede companhia.'],
-  ['corpo', 'A gente se encontra perto do som.'],
-  ['t-pequeno', 'Portas às 22h.'],
-  ['etiqueta', 'Belo Horizonte'],
+  ['t-gigante', 'Pista', 'Título de página'],
+  ['t-secao', 'Noite', 'Título de cena do Sobre'],
+  ['t-grande', 'Na dobra da noite', 'Chamada principal de um bloco'],
+  ['titulo-secao', 'Quem faz hoje', 'Título de seção'],
+  ['t-medio', 'Cabe mais uma?', 'Subtítulo'],
+  ['t-apoio', 'A última música sempre pede companhia.', 'Texto de apoio'],
+  ['', 'A gente se encontra perto do som.', 'Texto corrido'],
+  ['t-pequeno', 'Portas às 22h.', 'Nota técnica e informação secundária'],
+  ['etiqueta', 'Próximo projeto', 'Rótulo de função ou de peça'],
 ];
 const medidas = ['margem', 'e-1', 'e-2', 'e-3', 'e-4', 'e-5', 'e-6', 'raio-cartao', 'folga-cartao'];
 ---
 
-<section class="tokens" aria-labelledby="tokens">
-  <h3 id="tokens" class="titulo-secao">Tipo, espaço e movimento</h3>
-  <div class="grupo">
-    <h4 class="t-medio">Urbanist Variable</h4>
-    <dl class="tipos">
-      {tipos.map(([classe, texto]) => <div><dt><code>{classe}</code></dt><dd class={classe}>{texto}</dd></div>)}
-    </dl>
-    <dl class="valores">
-      {['t-rotulo', 't-apoio', 't-3', 't-4', 't-5'].map((nome) => <div><dt><code>--{nome}</code></dt><dd><code>{valor(nome)}</code></dd></div>)}
-    </dl>
-  </div>
+<Capitulo id="tipo">
+  <ul class="tipos">
+    {tipos.map(([classe, amostra, uso]) => (
+      <li>
+        <p class={classe}>{amostra}</p>
+        <div><p class="t-pequeno"><code>{classe ? '.' + classe : 'body'}</code></p><p>{uso}</p></div>
+        <p class="etiqueta">Urbanist Variable</p>
+      </li>
+    ))}
+  </ul>
+  <h4 class="t-medio">Escala no código</h4>
+  <dl class="valores">
+    {['t-rotulo', 't-apoio', 't-3', 't-4', 't-5'].map(nome => <div class="t-pequeno"><dt><code>--{nome}</code></dt><dd><code>{valor(nome)}</code></dd></div>)}
+  </dl>
+  <p slot="regras">Mantenha os títulos em ordem, sem pular nível. A classe de texto dá o tamanho de cada título.</p>
+</Capitulo>
+<section aria-label="Espaço e movimento">
   <div class="grupo">
     <h4 class="t-medio">Espaço</h4>
     <dl class="valores">
@@ -54,13 +57,17 @@ const medidas = ['margem', 'e-1', 'e-2', 'e-3', 'e-4', 'e-5', 'e-6', 'raio-carta
 </section>
 
 <style>
-  .tokens { margin-block: var(--e-5); padding-block-start: var(--e-4); border-top: 1px solid var(--linha); }
   h4 { margin: 0 0 var(--e-2); }
   .grupo + .grupo { margin-top: var(--e-4); }
   dl { margin-block: 0; }
   dd { margin: 0; }
-  .tipos > div { display: grid; gap: .35rem; padding-block: var(--e-2); border-bottom: 1px solid var(--linha); }
-  .tipos dd { overflow-wrap: anywhere; }
+  .tipos { display: block; list-style: none; padding: 0; margin-bottom: var(--e-3); }
+  .tipos li { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) auto; align-items: baseline; gap: var(--e-2); padding-block: var(--e-2); border-top: 1px solid var(--linha); }
+  .tipos li p { margin: 0; overflow-wrap: anywhere; }
+  @media (max-width: 720px) {
+    .tipos li { grid-template-columns: 1fr auto; }
+    .tipos li > :first-child { grid-column: 1 / -1; }
+  }
   .valores { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr)); gap: .6rem 1rem; margin-block-start: var(--e-2); }
   .valores > div { padding: .6rem 0; border-bottom: 1px solid var(--linha); }
   .valores dd { color: var(--suave); }
