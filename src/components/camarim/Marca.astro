@@ -62,6 +62,16 @@ const decimal = (n: number) => n.toLocaleString('pt-BR', { maximumFractionDigits
     </ul>
     <p slot="regras">A marca tem um SVG oficial para cada cor. Preserve o preenchimento que vem no arquivo.</p>
   </Capitulo>
+  <Capitulo id="a-definir">
+    <p class="t-apoio">Quatro decisões do Gui vão completar o manual da marca.</p>
+    <ol class="perguntas">
+      <li>Quando usar cada desenho? A escura e a branca têm usos diferentes?</li>
+      <li>Quanto espaço deixar livre em volta da logo e de onde começar a medir?</li>
+      <li>Qual é o tamanho mínimo de cada desenho na tela e no papel?</li>
+      <li>Que usos incorretos vale mostrar no manual?</li>
+    </ol>
+    <p slot="regras">A orientação de uso de cada versão entra no guia quando o Gui aprovar.</p>
+  </Capitulo>
 </Parte>
 <style>
   .versoes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-3); }
@@ -76,6 +86,8 @@ const decimal = (n: number) => n.toLocaleString('pt-BR', { maximumFractionDigits
   .etiqueta, .t-pequeno { overflow-wrap: anywhere; }
   .cores p, .t-pequeno { margin-top: var(--e-2); }
   ul { display: flex; flex-wrap: wrap; gap: var(--e-1) var(--e-2); margin-top: var(--e-1); }
+  .perguntas { max-width: 34em; margin-top: var(--e-2); padding-left: 1.5em; list-style: decimal; }
+  .perguntas li { padding-block: var(--e-1); border-bottom: 1px solid var(--linha); }
   .tintas { gap: var(--e-2); }
   .tintas li { display: grid; gap: var(--e-1); }
   .tinta { height: var(--e-5); border: 1px solid var(--linha); border-radius: var(--raio-cartao); }
