@@ -1,0 +1,13 @@
+---
+interface Props {
+  tag?: 'i' | 'span';
+  class?: string;
+  oculta?: boolean;
+}
+const { tag: Tag = 'span', class: classe, oculta } = Astro.props;
+---
+<Tag class={classe} aria-hidden={oculta ? 'true' : undefined}></Tag>
+
+<style>
+  i, span { transform: skewX(26.5deg); }
+</style>

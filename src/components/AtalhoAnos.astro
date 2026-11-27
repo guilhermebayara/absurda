@@ -1,0 +1,32 @@
+---
+interface Props {
+  anos: number[];
+}
+const { anos } = Astro.props;
+---
+<nav class="anos-nav" aria-label="Anos" data-barra="sempre">
+  <ul>
+    {anos.map((ano) => <li><a href={`#ano-${ano}`} data-ano={ano}>{ano}</a></li>)}
+  </ul>
+</nav>
+
+<style>
+  /* Atalho de anos: uma fila que rola para o lado, presa no topo */
+  .anos-nav { position: sticky; top: 0; z-index: 5; margin: 0 calc(var(--margem) * -1); padding: 0.9rem var(--margem); background: var(--fundo); border-bottom: 1.5px solid var(--texto); }
+  .anos-nav ul { display: flex; gap: clamp(1rem, 2.4vw, 2.25rem); overflow-x: auto; scrollbar-width: none; }
+  .anos-nav ul::-webkit-scrollbar { display: none; }
+  .anos-nav a { position: relative; display: block; padding-left: 0.9em; font-size: clamp(0.875rem, 1.05vw, 1rem); font-weight: 800; letter-spacing: 0.08em; text-decoration: none; transition: color 0.2s; }
+  .anos-nav a::before { content: ''; position: absolute; left: 0.2em; top: 50%; width: 0.36em; height: 1.45em; margin-top: -0.725em; background: var(--destaque); transform: skewX(26.5deg) scaleY(0); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .anos-nav a[aria-current] { color: var(--destaque-texto); }
+  .anos-nav a[aria-current]::before { transform: skewX(26.5deg) scaleY(1); }
+  /* No toque o ano marcado acende sem transição: a barra anda com a rolagem, e foi com esse
+     desenho que o Gui conferiu no iPhone. */
+  :global(html.pino-novo) .anos-nav a, :global(html.pino-novo) .anos-nav a::before { transition: none; }
+  /* Hover só em aparelho com cursor: no toque ele fica preso no último ano tocado, e dois
+     anos apareciam marcados ao mesmo tempo. */
+  @media (hover: hover) {
+    .anos-nav a:hover { color: var(--destaque-texto); }
+    .anos-nav a:hover::before { transform: skewX(26.5deg) scaleY(1); }
+  }
+  @media (prefers-reduced-motion: reduce) { .anos-nav a::before { transition: none; } }
+</style>

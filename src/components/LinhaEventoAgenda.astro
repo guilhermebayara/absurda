@@ -1,0 +1,47 @@
+---
+import { partesDaData, type Evento } from '../lib/eventos';
+
+interface Props {
+  evento: Evento;
+}
+const { evento } = Astro.props;
+const { dia, mes } = partesDaData(evento.data);
+const Tag = evento.url ? 'a' : 'div';
+---
+<li>
+  {/* Sem link (como os trios de carnaval mais antigos), a linha é só registro. */}
+  <Tag class="linha" href={evento.url || undefined} target={evento.url ? '_blank' : undefined} rel={evento.url ? 'noopener' : undefined} data-espia={evento.capa ?? ''}>
+    <span class="linha-data">{dia} {mes}</span>
+    <span class="linha-nome">{evento.nome}</span>
+    <span class="linha-local"><span>{evento.local ?? ''}</span>{evento.url && evento.album && <span class="linha-fotos">Fotos no Flickr</span>}{evento.parada && <span class="linha-fotos">{evento.parada}ª Parada</span>}</span>
+    {evento.capaPequena && <img class="linha-mini" src={evento.capaPequena} alt="" loading="lazy" />}
+    {evento.url && <span class="so-leitor"> (abre em outra aba)</span>}
+  </Tag>
+</li>
+
+<style>
+  /* Lista de eventos: uma linha por data. A capa passa por trás dos nomes. */
+  li { border-top: 1px solid var(--linha); }
+  .linha { position: relative; z-index: 2; display: grid; grid-template-columns: 6.5rem minmax(0, 1.6fr) minmax(0, 1fr); gap: var(--e-3); align-items: baseline; padding: 0.7rem 0; text-decoration: none; transition: padding 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), color 0.2s; }
+  a.linha:hover, a.linha:focus-visible { padding-left: 0.9rem; color: var(--destaque-texto); }
+  .linha-data { font-size: 0.9375rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+  .linha-nome { font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; }
+  .linha-local { font-size: 0.9375rem; color: var(--suave); }
+  .linha:hover .linha-local { color: inherit; }
+  /* Marca das festas antigas cujo link leva ao álbum de fotos */
+  /* Local e etiqueta em colunas próprias: os dois começam sempre no mesmo ponto, linha após linha. */
+  .linha-local { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: var(--e-2); align-items: baseline; }
+  .linha-fotos { display: inline-block; padding: 0.15em 0.6em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; white-space: nowrap; }
+  .linha-mini { display: none; }
+  @media (max-width: 720px) {
+    /* No celular não existe hover: a capa vira miniatura ao lado */
+    .linha { grid-template-columns: 4.75rem minmax(0, 1fr); grid-template-areas: 'mini data' 'mini nome' 'mini local'; gap: 0.15rem 0.9rem; align-items: start; }
+    .linha-mini { display: block; grid-area: mini; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 0.4rem; margin-top: 0.2rem; }
+    .linha-data { grid-area: data; font-size: 0.8125rem; }
+    .linha-nome { grid-area: nome; }
+    .linha-local { grid-area: local; font-size: 0.8125rem; grid-template-columns: auto auto; justify-content: start; column-gap: 0.8em; }
+    .linha-local > span:first-child:empty { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) { .linha { transition: none; } }
+</style>
