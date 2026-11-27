@@ -1,0 +1,13 @@
+---
+interface Props {
+  rotulo: string;
+  texto: string;
+}
+const { rotulo, texto } = Astro.props;
+---
+<li data-anima="surge"><strong>{rotulo}</strong><span>{texto}</span></li>
+
+<style>
+  strong { font-size: var(--t-4); font-weight: 800; line-height: 0.95; letter-spacing: -0.035em; text-transform: uppercase; text-wrap: balance; }
+  span { font-size: 1.0625rem; line-height: 1.35; }
+</style>

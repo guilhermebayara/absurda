@@ -3,6 +3,7 @@
 // Os eventos que são só da WIG moram aqui e não entram na Agenda do site (decisão do Gui). O CHRONUS
 // é coprodução com a @bsurda: aparece aqui como projeto e continua na Agenda.
 // Dados em src/data/wig-eventos.json, escritos à mão a partir das contas da WIG.
+import ProjetoWig from './ProjetoWig.astro';
 import wig from '../data/wig-eventos.json';
 import { jaAcabou } from '../lib/eventos';
 // local e url são opcionais: evento sem eles sai só com data e nome. Campos como elenco e convidadas
@@ -25,61 +26,12 @@ const projetos = (wig.series as Serie[]).map((s) => {
 <section class="secao faz-wig" aria-labelledby="t-faz-wig">
   <h2 id="t-faz-wig" class="titulo-secao" data-anima="sobe">O que a WIG faz</h2>
   <div class="faz-lista">
-    {projetos.map((s) => (
-      <article class="faz" data-anima="surge">
-        <h3>{s.nome}</h3>
-        <div class="faz-corpo">
-          <p class="faz-texto">{s.texto}</p>
-          {s.nota && <p class="faz-nota">{s.nota}</p>}
-          {s.link && <p class="faz-link"><a href={s.link.href}>{s.link.rotulo}</a></p>}
-          {s.eventos.length > 0 && (
-          <details class="faz-datas">
-            <summary>
-              <span class="faz-fato">{s.coproducao ? 'Datas' : `${s.feitos} ${s.palavra ?? 'edições'}`} <span aria-hidden="true">\</span> {s.periodo}</span>
-              <span class="faz-abre"><span class="faz-ver">Ver as datas</span><span class="faz-sinal" aria-hidden="true"></span></span>
-            </summary>
-            <ul>
-              {s.eventos.map((e) => {
-                const dentro = <Fragment><span class="faz-data">{dia(e)}</span><span class="faz-nome">{e.nome}{aindaVai(e) && <span class="faz-breve"> (em breve)</span>}</span>{e.local && <span class="faz-local">{e.local}</span>}</Fragment>;
-                return <li>{e.url ? <a href={e.url} target="_blank" rel="noopener">{dentro}<span class="so-leitor"> (abre em outra aba)</span></a> : <span class="faz-linha">{dentro}</span>}</li>;
-              })}
-            </ul>
-          </details>
-          )}
-        </div>
-      </article>
-    ))}
+    {projetos.map((s) => <ProjetoWig nome={s.nome} texto={s.texto} nota={s.nota} link={s.link}
+      resumoDatas={s.coproducao ? 'Datas' : `${s.feitos} ${s.palavra ?? 'edições'}`} periodo={s.periodo}
+      datas={s.eventos.map((e) => ({ nome: e.nome, data: dia(e), local: e.local, url: e.url, breve: aindaVai(e) }))} />)}
   </div>
 </section>
 
 <style>
   .faz-lista { margin-top: var(--e-3); border-top: 2px solid var(--texto); }
-  .faz { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: var(--e-2) var(--e-4); padding: var(--e-4) 0; border-bottom: 2px solid var(--texto); }
-  /* O nome do projeto é o peso do bloco: enquanto não há foto, a tipografia faz o papel da imagem. */
-  .faz h3 { font-size: clamp(2.25rem, 5.4vw, 4.75rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.035em; text-transform: uppercase; text-wrap: balance; overflow-wrap: anywhere; }
-  .faz-texto { font-size: var(--t-2, 1.25rem); line-height: 1.35; max-width: 32em; }
-  .faz-nota { margin-top: 0.75rem; color: var(--suave); max-width: 32em; }
-  .faz-link { margin-top: 0.75rem; font-weight: 700; }
-  .faz-link a { text-decoration: underline; text-underline-offset: 0.2em; }
-  .faz-breve { font-weight: 500; color: var(--suave); }
-  .faz-datas { margin-top: var(--e-3); border-top: 1px solid var(--linha); }
-  .faz-datas summary { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; padding: 0.8rem 0; cursor: pointer; list-style: none; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; font-variant-numeric: tabular-nums; }
-  .faz-datas summary::-webkit-details-marker { display: none; }
-  .faz-abre { display: inline-flex; align-items: center; gap: 0.6rem; white-space: nowrap; }
-  .faz-datas summary:hover .faz-ver, .faz-datas summary:focus-visible .faz-ver { text-decoration: underline; text-underline-offset: 0.2em; }
-  /* Sinal de abrir e fechar: um mais que vira menos. */
-  .faz-sinal { position: relative; width: 0.8rem; height: 0.8rem; }
-  .faz-sinal::before, .faz-sinal::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; background: currentColor; }
-  .faz-sinal::after { transform: rotate(90deg); }
-  .faz-datas[open] .faz-sinal::after { transform: none; }
-  .faz-datas li a, .faz-linha { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 0.1rem var(--e-2); align-items: baseline; padding: 0.55rem 0; border-top: 1px solid var(--linha); text-decoration: none; }
-  .faz-data { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; font-variant-numeric: tabular-nums; }
-  .faz-nome { font-weight: 700; line-height: 1.25; }
-  .faz-local { grid-column: 2; font-size: 0.875rem; color: var(--suave); }
-  .faz-datas li a:hover .faz-nome, .faz-datas li a:focus-visible .faz-nome { text-decoration: underline; text-underline-offset: 0.16em; }
-  @media (max-width: 860px) {
-    .faz { grid-template-columns: minmax(0, 1fr); padding: var(--e-3) 0; }
-    .faz-datas li a, .faz-linha { grid-template-columns: minmax(0, 1fr); }
-    .faz-local { grid-column: 1; }
-  }
 </style>
