@@ -18,6 +18,10 @@ Como usar:
 
 ## A construir
 
+- **Página do sistema (`/camarim`)**, retomada pelo Gui em 26 nov 2026, com o nível WCAG de cada
+  combinação de cor (brief em `notas/briefs/camarim.md`). Duas etapas, em sessões separadas: primeiro
+  as peças viram componentes sem mudança visual (`tst-componentes`), depois a página (`tst-camarim`).
+
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
 
@@ -49,8 +53,7 @@ resposta chegar lá, o item vira trabalho:
 
 ## Engavetado
 
-- **Página do sistema (`/camarim`).** Engavetada pelo Gui em 17 nov 2026, até o site estabilizar no
-  ar. Não comece sem ele pedir. Brief em `notas/briefs/camarim.md`.
+Nada engavetado agora.
 
 ## Manutenção recorrente
 
