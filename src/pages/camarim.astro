@@ -1,57 +1,59 @@
 ---
+// Página escondida da marca e do sistema visual (CLAUDE.md, "Camarim"). Esta rota só abre a página
+// e aponta para as duas partes. Marca e Site moram cada uma na sua pasta, com dados e estilos
+// próprios, para virarem duas páginas quando o Gui decidir: basta mover cada parte para o seu endereço.
 import Base from '../layouts/Base.astro';
-import Botao from '../components/Botao.astro';
-import Marca from '../components/camarim/Marca.astro';
-import Site from '../components/camarim/Site.astro';
-import { partes } from '../components/camarim/capitulos';
+import Marca from '../components/camarim/marca/Marca.astro';
+import Site from '../components/camarim/site/Site.astro';
+import { capitulos as daMarca } from '../components/camarim/marca/capitulos';
+import { capitulos as doSite } from '../components/camarim/site/capitulos';
 import { TEMAS_DO_SITE } from '../lib/temas';
+import { temas } from '../../scripts/cores-temas.mjs';
+
+const partes = [
+  { id: 'marca', nome: 'Marca', texto: 'A logo em todas as versões, as duas cores e o que ainda falta decidir.', capitulos: daMarca },
+  { id: 'site', nome: 'Site', texto: `Cor e contraste dos ${temas.length} temas, tipo, espaço, movimento e cada peça do site.`, capitulos: doSite },
+];
 ---
 <Base titulo="Camarim" descricao="A marca e o sistema visual da @bsurda." tema={TEMAS_DO_SITE[0]} temas={[TEMAS_DO_SITE[0]]} semIndice>
   <header class="abre abre-cima">
-    <div class="abertura">
-      <div>
-        <p class="etiqueta">@bsurda</p>
-        <h1 class="t-gigante ecoa ecoa-cima" data-eco="Camarim">Camarim</h1>
-        <p class="t-apoio">Guia de bastidor de quem monta a @bsurda. Aqui você baixa a marca, prova as cores e encontra as peças do site.</p>
-      </div>
-      <div class="original">
-        <p class="etiqueta">Marca completa · 2024</p>
-        <img src="/marca/absurda_principal_completo.svg" width="884" height="141" alt="Assinatura horizontal da @bsurda" />
-        <Botao tipo="linha" href="/marca/absurda_principal_completo.svg" download>Baixar SVG escuro</Botao>
-      </div>
-    </div>
-    <nav aria-labelledby="indice">
-      <h2 id="indice" class="etiqueta">Índice</h2>
-      <div class="partes">
-        {partes.map(({ nome, capitulos }) => (
-          <div>
-            <p class="titulo-secao">{nome}</p>
-            <ol start={Number(capitulos[0].numero)}>
-              {capitulos.map(({ id, titulo, numero }) => <li><a href={'#' + id}><span class="etiqueta">{numero}</span><span class="t-medio">{titulo}</span></a></li>)}
-            </ol>
-          </div>
-        ))}
-      </div>
-    </nav>
+    <h1 class="t-gigante ecoa ecoa-cima" data-eco="Camarim">Camarim</h1>
+    <p class="t-apoio">É aqui que a @bsurda se arruma antes de subir pro palco. A marca pra baixar, as cores com o contraste medido e cada peça do site, com o endereço dela no código.</p>
   </header>
+  <nav class="indice" id="indice" aria-label="Índice do Camarim">
+    <ol>
+      {partes.map(({ id, nome, texto, capitulos }, i) => (
+        <li class:list={['parte', 'parte-' + id]}>
+          <p class="etiqueta">Parte {i + 1}</p>
+          <a class="parte-nome" href={'#' + id}>{nome}</a>
+          <p class="parte-texto">{texto}</p>
+          <ol class="parte-capitulos">
+            {capitulos.map(({ id: ancora, titulo }, n) => (
+              <li><a href={'#' + ancora}><span class="etiqueta">{String(n + 1).padStart(2, '0')}</span>{titulo}</a></li>
+            ))}
+          </ol>
+        </li>
+      ))}
+    </ol>
+  </nav>
   <Marca />
   <Site />
 </Base>
+
 <style>
-  .abertura { display: grid; grid-template-columns: minmax(0, 2.6fr) minmax(0, 1fr); gap: var(--e-4); align-items: end; }
-  .abertura .t-apoio { max-width: min(31em, 100%); }
-  .original { display: grid; justify-items: start; gap: var(--e-3); align-content: space-between; background: #f5f5f5; color: #231f20; --botao-fundo: #231f20; --botao-destaque: #231f20; padding: var(--e-3); border-radius: var(--raio-cartao); rotate: 1deg; }
-  .original img { width: 100%; height: auto; }
-  nav { margin-top: var(--e-5); }
-  .partes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-4); margin-top: var(--e-2); }
-  ol { margin-top: var(--e-2); }
-  li { border-top: 1px solid var(--linha); }
-  li:last-child { border-bottom: 1px solid var(--linha); }
-  li a { display: grid; grid-template-columns: 2.5em 1fr; gap: var(--e-1); align-items: baseline; padding-block: var(--e-1); text-decoration: none; }
-  li a:hover, li a:focus-visible { color: var(--destaque-texto); }
-  li a:hover span:last-child, li a:focus-visible span:last-child { text-decoration: underline; text-underline-offset: .14em; }
-  @media (max-width: 800px) {
-    .abertura, .partes { grid-template-columns: 1fr; gap: var(--e-3); }
-    .original { gap: var(--e-2); }
-  }
+  /* O índice usa os cartões sólidos da Agenda (Listas): um objeto por parte, com o nome grande
+     medido pela largura do próprio cartão. Marca fica nas cores da marca; Site, na superfície invertida. */
+  .indice { padding: 0 var(--margem) clamp(3.5rem, 9vw, 8rem); }
+  .indice > ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 2.5vw, 2rem); }
+  .parte { display: grid; grid-template-rows: auto auto auto 1fr; gap: var(--e-2); padding: clamp(1.25rem, 2.4vw, 2rem); border-radius: var(--raio-cartao); container-type: inline-size; }
+  .parte-marca { background: #f5f5f5; color: #231f20; }
+  .parte-site { background: var(--texto); color: var(--fundo); }
+  .parte-nome { width: fit-content; font-size: 19cqw; font-weight: 800; line-height: 0.88; letter-spacing: -0.045em; text-transform: uppercase; text-decoration: none; }
+  .parte-nome:hover, .parte-nome:focus-visible { text-decoration: underline; text-decoration-thickness: 0.06em; }
+  .parte-texto { max-width: 26em; font-size: 1.0625rem; line-height: 1.4; }
+  .parte-capitulos { align-self: end; margin-top: var(--e-2); border-top: 2px solid currentColor; }
+  .parte-capitulos a { display: grid; grid-template-columns: 2.75rem 1fr; align-items: baseline; padding-block: 0.7rem; border-bottom: 1px solid color-mix(in srgb, currentColor 35%, transparent); font-size: clamp(1.125rem, 1.75vw, 1.75rem); font-weight: 700; letter-spacing: -0.01em; text-decoration: none; }
+  .parte-capitulos a:hover, .parte-capitulos a:focus-visible { text-decoration: underline; text-underline-offset: 0.18em; }
+  .parte :focus-visible { outline-color: currentColor; }
+  @media (max-width: 760px) { .indice > ol { grid-template-columns: minmax(0, 1fr); } }
 </style>
