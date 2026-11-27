@@ -1,5 +1,5 @@
 // A posição importa: uma razão correta na coluna ou na paleta errada também é erro.
-import { coresDoTema, dois, medidasDoTema, nivelTexto, paletas } from './cores-temas.mjs';
+import { coresDoTema, dois, medidasDoTema, nivelTexto, paletas, USOS } from './cores-temas.mjs';
 
 const texto = (html) => html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 const celulas = (html, tag) => [...html.matchAll(new RegExp(`<${tag}\\b[^>]* data-par="([^"]+)"[^>]*>([\\s\\S]*?)</${tag}>`, 'g'))]
@@ -16,7 +16,7 @@ export function confereTabelas(html) {
     if (linhas.length !== temas.length) problemas.push(`Quantidade incorreta de temas em ${id}.`);
     const colunas = medidasDoTema(coresDoTema(temas[0])).map(({ cor, superficie, minimo }) => [
       cor + '/' + superficie,
-      `--${cor} sobre --${superficie} ${minimo === 3 ? 'Enfeite · 3:1' : 'Leitura · 4,5:1'}`,
+      `${USOS[cor + '/' + superficie]} --${cor} sobre --${superficie} ${minimo === 3 ? 'Enfeite · 3:1' : 'Leitura · 4,5:1'}`,
     ]);
     if (JSON.stringify(celulas(tabela, 'th')) !== JSON.stringify(colunas)) problemas.push(`Cabeçalho incorreto em ${id}.`);
     for (const [i, tema] of temas.entries()) {

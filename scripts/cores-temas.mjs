@@ -77,3 +77,32 @@ export function nivelTexto(valor) {
   if (valor >= 3) return 'AA só texto grande';
   return 'Não passa';
 }
+
+/** A mesma conta, para duas cores quaisquer (as da marca, por exemplo). @param {string} a @param {string} b */
+export const razaoEntre = (a, b) => Number(pagina.razao(pagina.rgb(a), pagina.rgb(b)));
+
+// Nome de cada par na língua de quem monta a página: onde o par aparece no site.
+/** @type {Record<string, string>} */
+export const USOS = {
+  'texto/fundo': 'Texto da página',
+  'destaque/fundo': 'Barra inclinada',
+  'destaque-texto/fundo': 'Texto em destaque',
+  'suave/fundo': 'Texto de apoio',
+  'fundo/texto': 'Texto sobre a faixa e o rodapé',
+  'enfeite/texto': 'Arroba da faixa',
+  'sobre-vivo/vivo': 'Texto no crachá vivo',
+  'vivo-detalhe/vivo': 'Detalhe do crachá vivo',
+  'destaque/texto': 'Foco no menu e no rodapé',
+  'fundo/vivo': 'Furo do crachá vivo',
+};
+
+// Onde cada paleta aparece e como a página escolhe o tema.
+/** @type {Record<string, { nome: string, onde: string }>} */
+export const PALETAS = {
+  TEMAS_DO_SITE: { nome: 'Site', onde: 'Cada página sorteia um destes ao abrir e fica nele até o fim.' },
+  TEMAS_DE_POSICAO: { nome: 'Posicionamento', onde: 'Só o trecho de posicionamento do Sobre. As regras de cor estão comentadas em temas.ts.' },
+  TEMAS_DO_TIBUM: { nome: 'Tibum', onde: 'Página e cartaz do Tibum. Sempre solar, nunca página escura.' },
+  TEMAS_DO_TRIO: { nome: 'Trio', onde: 'Página e cartaz do Trio da @bsurda. Carnaval de rua, de dia.' },
+  TEMAS_DA_PARADA: { nome: 'Parada', onde: 'Página e cartaz da Parada. Uma cor da bandeira por vez.' },
+  TEMAS_DA_WIG: { nome: 'WIG', onde: 'Página da WIG. Sempre com vermelho por perto.' },
+};
