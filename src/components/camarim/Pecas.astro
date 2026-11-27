@@ -1,0 +1,35 @@
+---
+import { TEMAS_DO_SITE } from '../../lib/temas';
+import { coresDoTema } from '../../../scripts/cores-temas.mjs';
+import PecasNoTema from './PecasNoTema.astro';
+
+const amostras = [
+  { id: 'vinho', nome: 'Vinho com laranja', tema: TEMAS_DO_SITE[0] },
+  { id: 'creme', nome: 'Creme com marinho', tema: TEMAS_DO_SITE[7] },
+];
+---
+
+<section aria-labelledby="pecas">
+  <h3 id="pecas" class="titulo-secao">Peças</h3>
+  <p class="t-apoio">Passe o ponteiro ou use Tab para ver o foco. No celular, toque nos controles e arraste as filas.</p>
+  <p>Texto de pista segue <code>notas/tom.md</code>. Os exemplos são inventados.</p>
+
+  {amostras.map(({ id, nome, tema }, i) => {
+    const cores = coresDoTema(tema);
+    const estilo = Object.entries(cores).map(([nome, valor]) => `--${nome}:${valor}`).join(';');
+    return (
+      <details class="amostras" style={estilo} open={i === 0}>
+        <summary>{nome}</summary>
+        <div class="pecas-tema"><PecasNoTema tema={tema} id={id} /></div>
+      </details>
+    );
+  })}
+</section>
+
+<style>
+  .amostras { --linha: color-mix(in srgb, var(--texto) 28%, transparent); margin-top: var(--e-2); background: var(--fundo); color: var(--texto); border: 1px solid var(--linha); border-radius: var(--raio-cartao); }
+  .amostras summary { cursor: pointer; padding: var(--e-2) var(--e-3); font-weight: 800; font-size: 1.15rem; }
+  .amostras summary:hover { color: var(--destaque-texto); }
+  .pecas-tema { padding: 0 var(--e-3) var(--e-3); }
+  p + p { margin-top: var(--e-1); }
+</style>

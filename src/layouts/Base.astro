@@ -354,7 +354,7 @@ const imagemCompleta = new URL(imagem ? compartilhar(imagem) : '/compartilhar.pn
       // se recolhem conforme ele se aproxima das bordas da tela. No rodapé, o logo
       // solta os ecos à medida que aparece.
       const titulos = [...document.querySelectorAll<HTMLElement>('.ecoa')];
-      const marca = document.querySelector<HTMLElement>('.rodape-marca');
+      const marcas = document.querySelectorAll<HTMLElement>('.rodape-marca');
       if (!calmo) {
         const soltos = new Set<HTMLElement>();
         const limita = (v: number) => Math.min(1, Math.max(0, v));
@@ -382,14 +382,15 @@ const imagemCompleta = new URL(imagem ? compartilhar(imagem) : '/compartilhar.pn
             const centro = (r.top + r.height / 2) / tela;
             t.style.setProperty('--ab', limita(Math.min((1 - centro) / 0.22, (centro + 0.02) / 0.28)).toFixed(3));
           }
-          if (marca) {
+          for (const marca of marcas) {
             const r = marca.getBoundingClientRect();
+            if (!r.height) continue;
             if (r.top < tela + 200) marca.style.setProperty('--ab', limita((tela - r.top) / (r.height * 0.6)).toFixed(3));
           }
         }
         window.addEventListener('scroll', () => { if (!marcado) { marcado = true; requestAnimationFrame(mede); } }, { passive: true });
         window.addEventListener('resize', mede);
-        if (marca) marca.style.setProperty('--ab', '0');
+        marcas.forEach((marca) => marca.style.setProperty('--ab', '0'));
         mede();
       }
 

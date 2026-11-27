@@ -1,0 +1,214 @@
+---
+import type { Evento } from '../../lib/eventos';
+import type { Tema } from '../../lib/temas';
+import Amostra from './Amostra.astro';
+import AtalhoAnos from '../AtalhoAnos.astro';
+import BarraInclinada from '../BarraInclinada.astro';
+import Botao from '../Botao.astro';
+import Capa from '../Capa.astro';
+import CartaoEvento from '../CartaoEvento.astro';
+import CartazProjeto from '../CartazProjeto.astro';
+import CasoParceria from '../CasoParceria.astro';
+import Cracha from '../Cracha.astro';
+import CrachaWig from '../CrachaWig.astro';
+import Eco from '../Eco.astro';
+import ElencoWig from '../ElencoWig.astro';
+import EventosWig from '../EventosWig.astro';
+import Faixa from '../Faixa.astro';
+import FichaPessoa from '../FichaPessoa.astro';
+import LinhaEventoAgenda from '../LinhaEventoAgenda.astro';
+import LinhaParceria from '../LinhaParceria.astro';
+import ListaAgenda from '../ListaAgenda.astro';
+import MarcaParceira from '../MarcaParceira.astro';
+import MarcoSobre from '../MarcoSobre.astro';
+import MenuCelular from '../MenuCelular.astro';
+import PainelEvento from '../PainelEvento.astro';
+import ParedePalavras from '../ParedePalavras.astro';
+import PolaroideTrio from '../PolaroideTrio.astro';
+import Pulseira from '../Pulseira.astro';
+import Rodape from '../Rodape.astro';
+import Arroba from '../marca/Arroba.astro';
+import Completo from '../marca/Completo.astro';
+import Silabas from '../marca/Silabas.astro';
+import Vertical from '../marca/Vertical.astro';
+import WigW from '../marca/WigW.astro';
+
+interface Props {
+  tema: Tema;
+  id: string;
+}
+const { tema, id } = Astro.props;
+const url = '#pecas';
+const capa = '/exemplos/capa-16x9.jpg';
+const capaRosa = '/exemplos/capa-16x9-rosa.jpg';
+const evento: Evento = {
+  id: `evento-${id}`, nome: 'Última música', data: '2026-05-16T22:00:00-03:00',
+  local: 'Salão de exemplo', url, origem: 'manual', tema,
+  capa, capaPequena: capa, proporcao: 16 / 9,
+};
+const semCapa = { ...evento, nome: 'A última música antes de acenderem todas as luzes', capa: undefined, capaPequena: undefined, url: '' };
+const pessoa = { nome: 'Luma Prisma', funcao: 'Produção de pista', desde: 2024, numero: 901 };
+const elenco = [
+  { id: 'luma-prisma', nome: 'Luma Prisma', foto: capaRosa, papel: 'direcao' as const, selo: 'Direção', href: url },
+  { id: 'nilo-bruma', nome: 'Nilo Bruma', foto: capa, papel: 'casting' as const, epiteto: 'no brilho', href: url },
+  { id: 'mira-lume', nome: 'Mira Lume', foto: capaRosa, papel: 'bastidores' as const, adesivo: 'Estreia' },
+];
+---
+
+<Amostra titulo="Chamadas e capas" arquivos={['Botao', 'Capa', 'CreditoFoto']} uso="O botão cheio marca a ação principal. A capa usa o símbolo quando falta arte, e a mini tag de crédito abre com ponteiro, toque ou Enter.">
+  <div class="botoes">
+    <Botao href={url}>Ver a próxima festa</Botao>
+    <Botao href="/agenda" tipo="linha" externo>Ver as datas de todas as edições</Botao>
+  </div>
+  <div class="duas capas">
+    <Capa src={capa} alt="Arte fictícia de uma festa" proporcao="16 / 9" credito="arte de exemplo" />
+    <Capa proporcao="16 / 9" />
+  </div>
+</Amostra>
+
+<Amostra titulo="Eventos" arquivos={['PainelEvento', 'CartaoEvento']} uso="O painel da Home mostra a capa inteira. O cartão compacto recorta em 16:9 e guarda o título, a data e o acesso aos ingressos.">
+  <PainelEvento evento={evento} trocaTema={false} />
+  <div class="duas">
+    <CartaoEvento evento={evento} principal selo="Na pista" />
+    <CartaoEvento evento={{ ...semCapa, url }} />
+  </div>
+</Amostra>
+
+<Amostra titulo="Cartazes de projeto" arquivos={['CartazProjeto']} uso="Projeto vivo tem cartaz sólido. Adormecido ganha contorno vazado. O cartaz independente fica na seção própria da WIG.">
+  <ul class="tres cartazes">
+    <CartazProjeto id="vivo" variante="vivo" nome="Sessão da meia-noite" indice={0} href={url} temas={[tema]} capa={capaRosa} edicoes={3} aviso="Próxima edição em breve" />
+    <CartazProjeto id="adormecido" variante="adormecido" nome="Quando a luz apaga" indice={1} href={url} periodo="2024 a 2025" />
+    <CartazProjeto id="independente" variante="independente" nome="Palco aberto" indice={2} href={url} temas={[tema]} desde="2025" />
+  </ul>
+</Amostra>
+
+<Amostra titulo="Crachás da @bsurda" arquivos={['Cracha']} uso="Produção usa a superfície viva e cabine usa a invertida. A borda picotada marca quem já fez parte. O verso aparece no hover e também pode ser mostrado separado.">
+  <div class="tres crachas">
+    <Cracha {...pessoa} foto={capa} grupo="socios" verso href={url} />
+    <Cracha {...pessoa} grupo="socios" lado="verso" />
+    <Cracha nome="Nilo Bruma" funcao="DJ residente" grupo="residentes" alumni desde={2023} ate={2025} numero={902} verso href={url} />
+  </div>
+</Amostra>
+
+<Amostra titulo="Crachás e elenco da WIG" arquivos={['CrachaWig', 'ElencoWig', 'marca/WigW']} uso="Casting usa a cor invertida, bastidores usa a viva e direção usa dourado. O elenco vira uma fila de arrastar no celular. O crachá da WIG é sem verso.">
+  <div class="crachas">
+    <CrachaWig {...elenco[1]} credito="arte de exemplo" />
+  </div>
+  <ElencoWig pessoas={elenco} idTitulo={`elenco-${id}`} />
+</Amostra>
+
+<Amostra titulo="Ficha e pulseiras" arquivos={['FichaPessoa', 'Pulseira']} uso="O filete separa cada grupo de links na ficha. Para apresentar a equipe de apoio, a pulseira imita um objeto sólido nas cores viva ou invertida.">
+  <FichaPessoa redes={[{ rotulo: 'Perfil de exemplo', url }]} projetos={[{ rotulo: 'Sessão da meia-noite', url, papel: 'Produção' }]} links={[]} />
+  <ul class="pulseiras">
+    <Pulseira nome="Luma Prisma" area="Produção" url={url} destino="Perfil" />
+    <Pulseira nome="Mira Lume" area="Luz de pista" alternativa />
+  </ul>
+</Amostra>
+
+<Amostra titulo="Agenda e listas" arquivos={['AtalhoAnos', 'LinhaEventoAgenda', 'ListaAgenda']} uso="O atalho pula para o ano. No celular a linha ganha miniatura no lugar da prévia de ponteiro. As listas de acesso ficam em cartões sólidos, sem prender o atalho no toque.">
+  <div class="atalhos">
+    <AtalhoAnos anos={[2026, 2025]} prefixo={id} ativo={2026} />
+    <p id={`${id}-2026`} class="etiqueta">2026</p>
+    <ul><LinhaEventoAgenda evento={evento} /></ul>
+    <p id={`${id}-2025`} class="etiqueta">2025</p>
+    <ul><LinhaEventoAgenda evento={semCapa} /></ul>
+  </div>
+  <ul class="duas">
+    <ListaAgenda para="Acesso" nome="Quem vem pela primeira vez" textos={['A entrada fica aberta até a última música.']} indice={0} />
+    <ListaAgenda para="Acesso" nome="Bonde de aniversário" textos={['Chega com a turma. A gente se encontra perto da pista.']} indice={1} />
+  </ul>
+</Amostra>
+
+<Amostra titulo="Datas da WIG" arquivos={['EventosWig', 'ProjetoWig']} uso="Os projetos da WIG têm uma ficha curta. Abra as datas para ver edições com link e registros com só data e nome.">
+  <EventosWig idTitulo={`datas-${id}`} series={[
+    { id: 'ensaio', nome: 'Ensaio de pista', texto: 'Uma música de cada vez, até acertar a luz.', nota: 'Encontro fictício para a amostra.' },
+    { id: 'sala', nome: 'Sala de Som', texto: 'Uma sala, duas caixas e espaço para dançar.' },
+  ]} datas={[
+    { serie: 'ensaio', nome: 'Sessão aberta', data: '2026-05-16', local: 'Salão de exemplo', url },
+    { serie: 'ensaio', nome: 'Ensaio de luz com a pista inteira de portas abertas', data: '2025-05-16' },
+  ]} />
+</Amostra>
+
+<Amostra titulo="Marcos e Trio" arquivos={['MarcoSobre', 'PolaroideTrio']} uso="O marco dá ritmo à linha do tempo. A cena do Trio vira polaroide no toque e lista simples com movimento reduzido.">
+  <ul class="marcos-vivos marcos-amostra">
+    <MarcoSobre titulo="A primeira sessão" tema="Pista" texto="As portas abriram, a fila entrou e a última música já era de manhã." />
+    <MarcoSobre titulo="O som atravessou a rua" texto="Um segundo marco, sem etiqueta." />
+  </ul>
+  <ul class="polaroide"><PolaroideTrio ano="2026" numero="1 volta" texto="A pista foi dar uma volta na rua." foto={capaRosa} ativa /></ul>
+</Amostra>
+
+<Amostra titulo="Parcerias" arquivos={['CasoParceria', 'LinhaParceria', 'MarcaParceira']} uso="O caso conta o que aconteceu. A linha reúne rótulo e texto. O cartão de marca dá espaço para a logo ou para o nome.">
+  <dl><LinhaParceria rotulo="A pista" texto="Uma sala pronta para mudar de cor quando começa o som." /></dl>
+  <ul class="duas">
+    <CasoParceria marca="Luz de fita" onde="Salão de exemplo" ano="2026" evento="Sessão de estreia" texto="O salão inteiro mudou de cor a cada música." indice={0} />
+    <MarcaParceira nome="Luz de fita" papel="Cenografia" texto="Uma marca de exemplo com nome tipográfico." url={url} indice={1} />
+  </ul>
+</Amostra>
+
+<Amostra titulo="Letreiros e assinatura" arquivos={['Faixa', 'ParedePalavras', 'BarraInclinada', 'Eco', 'marca/Arroba', 'marca/Completo', 'marca/Silabas', 'marca/Vertical']} uso="O eco abre na Home, a faixa costura seções e a parede usa palavras como enfeite. O movimento contínuo para fora da tela.">
+  <div class="barras">
+    <BarraInclinada class="sinal" oculta />
+    <Arroba titulo="Arroba" />
+    <Completo titulo="Marca completa" />
+    <Vertical titulo="Marca vertical" />
+    <Silabas titulo="Marca em sílabas" />
+    <WigW />
+  </div>
+  <div class="eco-amostra"><Eco comoAmostra /></div>
+  <Faixa texto="A pista acendeu" />
+  <div class="historia" data-corre>
+    <ParedePalavras fileiras={[{ palavras: ['Chegar', 'Dançar', 'Repetir', 'Acender', 'Rodar'] }, { palavras: ['Noite inteira', 'Pista acesa', 'Luz de fita', 'Som do salão', 'Ponto de encontro'], menor: true }]} />
+  </div>
+</Amostra>
+
+<Amostra titulo="Menu e rodapé" arquivos={['MenuCelular', 'Rodape']} uso="Em tela estreita, os dois viram cartões e deixam a cor da página aparecer nas bordas. Tab e Escape funcionam no menu.">
+  <button class="abrir-menu" type="button" data-menu-amostra aria-haspopup="dialog" aria-controls={`menu-${id}`}>Abrir menu de exemplo</button>
+  <MenuCelular caminho="/agenda" id={`menu-${id}`} />
+  <Rodape />
+</Amostra>
+
+<script>
+  for (const botao of document.querySelectorAll<HTMLButtonElement>('[data-menu-amostra]')) {
+    const menu = document.getElementById(botao.getAttribute('aria-controls') ?? '');
+    if (!(menu instanceof HTMLDialogElement)) continue;
+    botao.addEventListener('click', () => {
+      menu.showModal();
+      menu.focus();
+    });
+    menu.querySelector('.menu-fecha')?.addEventListener('click', () => menu.close());
+  }
+</script>
+
+<style>
+  .duas, .tres { display: grid; gap: var(--e-2); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tres { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .botoes { display: flex; flex-wrap: wrap; gap: var(--e-2) var(--e-4); padding-inline: .9rem; align-items: center; }
+  .capas { max-width: 58rem; }
+  .cartazes > :global(li) { min-height: 16rem; }
+  .crachas { max-width: 53rem; }
+  .crachas > :global(.cw) { max-width: 16rem; }
+  .pulseiras { display: grid; gap: var(--e-2); max-width: 48rem; }
+  .atalhos :global(.anos-nav) { position: relative; z-index: auto; margin: 0 0 var(--e-2); padding: .5rem 0; }
+  .atalhos .etiqueta { margin-block-start: var(--e-2); }
+  .marcos-amostra { padding-inline-start: 1.3rem; }
+  .marcos-amostra :global(.marcos-item + .marcos-item) { margin-block-start: var(--e-2); }
+  .polaroide { position: relative; min-height: 25rem; max-width: 40rem; overflow: clip; --margem-foto: .75rem; }
+  .polaroide :global(.trio-quadro) { position: relative !important; height: auto !important; min-height: 25rem; color: #fff; background: #1c1619; }
+  .polaroide :global(.trio-quadro img) { aspect-ratio: 1; }
+  .polaroide :global(.trio-numero) { font-size: clamp(2.75rem, 8vw, 7rem); }
+  .polaroide :global(.trio-legenda) { padding-top: var(--e-4); }
+  .barras { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-3); }
+  .barras :global(svg) { width: auto; height: 2.5rem; max-width: 100%; }
+  .barras .sinal { display: block; width: .7rem; height: 2rem; background: var(--destaque); }
+  .eco-amostra { width: min(100%, 48rem); margin-inline: auto; }
+  .historia { overflow: clip; }
+  .abrir-menu { justify-self: start; color: inherit; background: none; font: inherit; padding: .55em 1.15em; border: 1px solid currentColor; border-radius: 99rem; cursor: pointer; }
+  .abrir-menu:hover { color: var(--fundo); background: var(--texto); }
+  @media (max-width: 720px) {
+    .duas:not(.capas), .tres:not(.crachas) { grid-template-columns: 1fr; }
+    .crachas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .polaroide :global(.trio-quadro) { color: #1c1619; background: #f3f0e8; }
+    .polaroide :global(.trio-numero) { font-size: min(12vw, 2.75rem); }
+    .polaroide :global(.trio-legenda) { position: static; background: none; padding: var(--e-2); }
+  }
+</style>

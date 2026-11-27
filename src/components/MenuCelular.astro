@@ -5,10 +5,11 @@ import Arroba from './marca/Arroba.astro';
 
 interface Props {
   caminho: string;
+  id?: string;
 }
-const { caminho } = Astro.props;
+const { caminho, id = 'menu-celular' } = Astro.props;
 ---
-<dialog class="menu" id="menu-celular" aria-label="Menu" tabindex="-1">
+<dialog class="menu" id={id} aria-label="Menu" tabindex="-1">
   <div class="menu-topo">
     <a class="topo-marca" href="/" aria-label="@bsurda, página inicial"><Arroba /></a>
     <button class="menu-fecha" type="button">Fechar<BarraInclinada oculta /><BarraInclinada oculta /></button>
