@@ -1,0 +1,80 @@
+---
+const arquivos = import.meta.glob('/public/marca/*.svg', { query: '?raw', eager: true, import: 'default' }) as Record<string, string>;
+const categorias = [
+  { nome: 'Principais', versoes: [['principal_completo', 'Completo'], ['principal_arroba', 'Arroba']] },
+  { nome: 'Secundárias', versoes: [['secundaria_vertical', 'Vertical'], ['secundaria_silabas', 'Sílabas']] },
+  { nome: 'Composições', versoes: [['composicao_arroba-escrito', 'Arroba escrito'], ['composicao_arroba-escrito-grande', 'Arroba escrito grande']] },
+];
+const cores = [
+  { nome: 'Escura', codigo: '#231f20', sufixo: '' },
+  { nome: 'Branca', codigo: '#fff', sufixo: '_branco' },
+];
+const dimensoes = (src: string) => {
+  const medidas = arquivos['/public' + src]?.match(/viewBox="[^ ]+ [^ ]+ ([\d.]+) ([\d.]+)"/);
+  if (!medidas) throw new Error(`Não achei as medidas no SVG ${src}.`);
+  return [Number(medidas[1]), Number(medidas[2])];
+};
+const decimal = (n: number) => n.toLocaleString('pt-BR', { maximumFractionDigits: 2 });
+---
+
+<section aria-labelledby="marca">
+  <header class="secao">
+    <h2 id="marca" class="t-grande">Marca</h2>
+    <p class="t-apoio">A logo de 2024 em seis desenhos e duas cores. Os PNGs têm fundo transparente.</p>
+  </header>
+
+  {categorias.map(({ nome, versoes }) => (
+    <div class="categoria">
+      <h3 class="titulo-secao">{nome}</h3>
+      {versoes.map(([id, nome]) => {
+        const base = `/marca/absurda_${id}`;
+        const [w, h] = dimensoes(base + '.svg');
+        return (
+          <article class="versao">
+            <header>
+              <h4 class="t-medio">{nome}</h4>
+              <p class="t-pequeno">Proporção {decimal(w / h)}:1 · Quando usar: a definir</p>
+            </header>
+            <div class="cores">
+              {cores.map(({ nome: cor, codigo, sufixo }) => (
+                <div>
+                  <div class:list={['prancha', { escura: sufixo }]} style={`--proporcao: ${w / h}`}>
+                    <img src={base + sufixo + '.svg'} width={Math.round(w)} height={Math.round(h)} alt={`${nome}, versão ${cor.toLowerCase()}`} loading="lazy" />
+                  </div>
+                  <div class="arquivo">
+                    <p><strong>{cor}</strong> <code>{codigo}</code></p>
+                    <ul aria-label={`Downloads de ${nome}, versão ${cor.toLowerCase()}`}>
+                      <li><a download href={base + sufixo + '.svg'} aria-label={`Baixar ${nome}, versão ${cor.toLowerCase()}, em SVG`}>SVG</a> <small>{decimal(w)} × {decimal(h)}</small></li>
+                      {[1000, 3000].map((largura) => (
+                        <li><a download href={`${base}${sufixo}-${largura}.png`} aria-label={`Baixar ${nome}, versão ${cor.toLowerCase()}, em PNG de ${largura} px`}>PNG</a> <small>{largura} × {Math.round(largura * h / w)} px</small></li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  ))}
+</section>
+
+<style>
+  .secao { display: grid; gap: var(--e-2); margin-bottom: var(--e-4); }
+  .categoria { border-top: 1px solid var(--linha); padding-block: var(--e-3); }
+  .versao { display: grid; gap: var(--e-2); margin-bottom: var(--e-3); }
+  .versao header { display: grid; gap: .25rem; }
+  .versao h4 { margin: 0; }
+  .cores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-2); }
+  .prancha { display: grid; place-items: center; background: #fcf6e4; min-height: clamp(6rem, 22vw, 16rem); padding: var(--e-2); }
+  .prancha.escura { background: #231f20; }
+  .prancha img { width: min(82%, var(--proporcao) * clamp(4rem, 15vw, 11rem)); }
+  .arquivo { padding-block: var(--e-1); }
+  .arquivo ul { display: flex; flex-wrap: wrap; gap: .3rem 1rem; padding: 0; list-style: none; }
+  .arquivo a { text-underline-offset: .2em; font-weight: 800; }
+  .arquivo small { white-space: nowrap; }
+  @media (max-width: 480px) {
+    .arquivo ul { display: grid; }
+  }
+</style>

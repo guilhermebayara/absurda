@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 // Versões menores das fotos, criadas no fim do build (ver src/lib/imagens.ts).
 import imagens from './scripts/imagens.mjs';
+import logosCamarim from './scripts/logos-camarim.mjs';
 // Cache de um ano para cada arquivo de /_astro/, escrito no dist/_headers (ver o script).
 import cabecalhos from './scripts/cabecalhos.mjs';
 
@@ -12,5 +13,5 @@ export default defineConfig({
   // /agenda. Com pastas (agenda/index.html), todo clique no menu passava por um redirecionamento.
   trailingSlash: 'never',
   build: { format: 'file' },
-  integrations: [imagens(), cabecalhos()],
+  integrations: [imagens(), logosCamarim(), cabecalhos()],
 });

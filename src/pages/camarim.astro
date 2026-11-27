@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+import BarraInclinada from '../components/BarraInclinada.astro';
+import Marca from '../components/camarim/Marca.astro';
+import { TEMAS_DO_SITE } from '../lib/temas';
+---
+
+<Base titulo="Camarim" descricao="A marca e o sistema visual da @bsurda." tema={TEMAS_DO_SITE[0]} semIndice>
+  <div class="camarim">
+    <header class="abre">
+      <div class="abertura">
+        <p class="etiqueta">@bsurda</p>
+        <h1 class="t-gigante">Camarim</h1>
+        <p class="t-apoio">A marca e as peças que montam o site.</p>
+      </div>
+      <BarraInclinada class="sinal" oculta />
+      <nav aria-label="Partes do Camarim">
+        <a href="#marca">Marca</a>
+      </nav>
+    </header>
+    <Marca />
+  </div>
+</Base>
+
+<style>
+  .camarim { width: min(100% - 2 * var(--margem), 80rem); margin-inline: auto; padding-block: var(--e-5); }
+  .abre { display: grid; grid-template-columns: 1fr auto; gap: var(--e-3); margin-bottom: var(--e-6); }
+  .abertura { min-width: 0; display: grid; gap: var(--e-2); }
+  .abertura .t-gigante { font-size: clamp(2.75rem, 12vw, 12rem); }
+  .sinal { background: var(--destaque); width: clamp(1rem, 4vw, 3rem); height: clamp(3rem, 11vw, 8rem); margin-inline: var(--e-3); align-self: start; }
+  nav { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--e-2); border-top: 1px solid var(--linha); padding-top: var(--e-2); }
+  nav a { border: 1px solid currentColor; border-radius: 99rem; padding: .55em 1.2em; text-decoration: none; font-weight: 700; }
+  nav a:hover { background: var(--texto); color: var(--fundo); }
+  @media (max-width: 480px) {
+    .abre { grid-template-columns: 1fr; }
+    .sinal { display: none; }
+  }
+</style>
