@@ -451,3 +451,12 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   a mesma curva de chegada. A Home usa WebP recortado pelo centro para preservar a nitidez
   dentro da caixa 4:5. Por quê: reduzir o peso das capas e o trabalho de estilo durante a
   passagem pelas linhas. (CLAUDE.md, "Leveza".)
+
+- **2026-11-27, Camarim refeito (ABS-5).** A apresentação do `/camarim` foi refeita do zero, no idioma
+  do site: abertura das páginas internas, índice em dois cartões sólidos, cada parte com faixa e título
+  gigante com eco, capítulos em `.secao` com `titulo-secao` numerado e regras com a barra inclinada.
+  Marca e Site em pastas separadas (`src/components/camarim/marca/` e `site/`), numeradas cada uma a
+  partir de 01, prontas para virar duas páginas. Ficam do Codex os arquivos da logo, os PNGs, a conta e
+  o `confere:camarim`, mais "Provar um tema" e "Comparar um uso", redesenhados. Saem as capturas de
+  `notas/camarim/capturas/` (10 MB num repositório público). Por quê: a página precisava ler como uma
+  página da @bsurda antes da crítica de design. (CLAUDE.md, "Camarim"; `notas/briefs/camarim.md`.)

@@ -347,25 +347,37 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
 
 ## Camarim
 
-- `/camarim` é estático, com `noindex`, fora do sitemap e sem links de outras páginas. A rota
-  `src/pages/camarim.astro` junta `Marca.astro` e `Site.astro`, ambos em `src/components/camarim/`,
-  com dados e estilos próprios e âncoras `#marca` e `#site`.
+- `/camarim` é estático, com `noindex`, fora do sitemap e sem links de outras páginas. Desenho da ABS-5
+  (27 nov 2026): abre como as páginas internas (título gigante com eco e frase de apoio) e um índice em
+  dois cartões sólidos, um por parte. Cada parte começa com uma faixa, o título gigante com eco embaixo
+  (como "Já rolou" na Agenda) e a lista dos seus capítulos. Capítulo é uma `.secao` com `titulo-secao`
+  numerado, uma frase em `t-apoio`, o conteúdo e as regras no fim, com a barra inclinada na frente.
+- **Duas partes, duas pastas.** `src/pages/camarim.astro` só abre a página e monta o índice. A Marca
+  mora em `src/components/camarim/marca/` e o Site em `src/components/camarim/site/`, cada uma com o
+  seu `capitulos.ts`, dados e estilos, sem nada em comum. Para virarem duas páginas, basta mover cada
+  pasta para uma rota. Âncoras: `#marca`, `#site` e as de cada capítulo.
 - **Versão de logo:** guarde os SVGs oficiais escuro e branco em `notas/camarim/logo/`, copie para
-  `public/marca/` sem edição e acrescente o nome e a categoria em `Marca.astro`. Preencha o uso
-  com a regra que o Gui aprovar. O build gera PNGs transparentes de 1000 e 3000 px pelo
-  `scripts/logos-camarim.mjs`. O cache fica em `node_modules/.astro/absurda-logos`. A página
-  carrega os SVGs como prévia e oferece os PNGs por download.
-- **Tema novo:** use as paletas nomeadas em `src/lib/temas.ts`, com o nome do tema no comentário da
-  linha. `scripts/cores-temas.mjs` executa o trecho marcado de `Base.astro` para obter as cores
-  calculadas e a razão. Tanto o `confere:temas` como as tabelas estáticas usam essa função.
-  O capítulo abre com a prova de tema e a comparação por uso. A consulta técnica conserva uma tabela por paleta, com um tema por linha e um par por coluna. A interação lê as medidas já conferidas no HTML.
-- **Peça nova:** monte o próprio componente em `PecasNoTema.astro` dentro de `Amostra`, com a
-  lista de arquivos e uma linha sobre o uso. Mostre as variantes e deixe os estados interativos
-  acionáveis por teclado e toque. O seletor em `Pecas.astro` troca o tema de todas as amostras na página; use as capas de
+  `public/marca/` sem edição e acrescente a versão na lista de `marca/Marca.astro` (nome, categoria e
+  uma frase que descreve o desenho, nunca o uso). O build gera PNGs transparentes de 1000 e 3000 px
+  pelo `scripts/logos-camarim.mjs`, com cache em `node_modules/.astro/absurda-logos`. Uso, área de
+  proteção, tamanho mínimo e o que não fazer ficam em "O que falta definir" até o Gui decidir; cada
+  versão diz "Quando usar: a definir".
+- **Cor e contraste:** tudo sai de `scripts/cores-temas.mjs`, que executa o trecho marcado de
+  `Base.astro`, a mesma conta do `confere:temas`. Lá moram também os nomes de cada par (`USOS`) e de
+  cada paleta (`PALETAS`): paleta ou par novo precisa de nome nos dois. "Provar um tema" e "Comparar um
+  uso" só leem as células da tabela já montada (`site/prova-de-cor.ts`). As seis paletas ficam fechadas
+  por padrão: cada uma tem os cartões dos temas, com as nove cores e o código, e a tabela de contraste
+  (um tema por linha, um par por coluna). No celular a tabela vira uma ficha por tema. A coluna do nome
+  só fica presa com mouse; no toque nada é `sticky`.
+- **Tipo, espaço e movimento** leem as medidas de `Base.astro` no build (`site/base.ts`). Classe de tipo
+  ou token novo entra na lista de `site/Fundamentos.astro`.
+- **Peça nova:** monte o componente em `site/PecasNoTema.astro` dentro de `Amostra`, com os arquivos e
+  uma linha de uso. O seletor de Peças troca o tema de todas as amostras; use as capas de
   `public/exemplos/` e dados fictícios. Componentes desligados moram em `src/components/guardado/`.
 - **Conferência:** `npm run confere:camarim` lê o HTML depois do build e trava a publicação se
   falharem o ocultamento, a triagem de nomes e conteúdo privado, os downloads oficiais, as amostras
-  ou as tabelas de contraste.
+  ou as tabelas de contraste (mesma razão, mesma coluna, mesmo nome de uso que o `confere:temas`).
+- Capturas da página ficam fora do repositório.
 
 ## Contato (do Gui, 22 nov 2026)
 
