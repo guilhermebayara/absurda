@@ -6,6 +6,8 @@ Marca reúne Logo (01), Cores da marca (02) e O que falta definir (03). Site re�
 
 ## Marca
 
+O Gui definiu a cor clara da marca como `#f5f5f5` na ABS-4. Vale para as seis versões em SVG e para os PNGs gerados a partir delas. A cor escura é `#231f20`.
+
 - Quando usar cada desenho: Completo, Arroba, Vertical, Sílabas, Arroba escrito e Arroba escrito grande.
   A cor escura e a branca têm regras próprias de uso?
 - Qual é a área de proteção e como se mede?
