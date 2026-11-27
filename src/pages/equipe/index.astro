@@ -17,7 +17,7 @@
 import Base from '../../layouts/Base.astro';
 import Botao from '../../components/Botao.astro';
 import Cracha from '../../components/Cracha.astro';
-import Arroba from '../../components/marca/Arroba.astro';
+import Pulseira from '../../components/Pulseira.astro';
 import { foto } from '../../lib/imagens';
 import { getCollection } from 'astro:content';
 import { numeroDoCracha } from '../../lib/pessoas';
@@ -75,23 +75,7 @@ const tamanhoDoEd = '(max-width: 599px) 59vw, (max-width: 1279px) 18rem, 31vw';
     <p class="t-apoio fora-texto" data-anima="surge">Parceiros que voltam festa após festa. Sem eles a noite não acontece.</p>
     <div class="bancada">
     <ul class="pulseiras" data-anima="surge">
-      {foraDaCabine.map((n) => {
-        const Tag = n.url ? 'a' : 'span';
-        return (
-          <li class:list={{ 'pulseira-b': grupos.indexOf(n.grupo) % 2 === 1 }}>
-            <Tag class="pulseira" href={n.url} target={n.url ? '_blank' : undefined} rel={n.url ? 'noopener' : undefined}>
-              <span class="pulseira-cola" aria-hidden="true"></span>
-              <strong>{n.nome}</strong>
-              <span class="pulseira-area">{n.area}</span>
-              <span class="pulseira-estampa" aria-hidden="true">
-                <span class="pulseira-trilho">{Array.from({ length: 24 }).map(() => <><Arroba class="pulseira-marca" /><span>{n.area}</span></>)}</span>
-              </span>
-              {n.url && <span class="pulseira-destino"><span class="pulseira-destino-nome">{n.destino ?? 'Abrir'}</span><span class="pulseira-seta" aria-hidden="true">↗</span><span class="pulseira-anel" aria-hidden="true"><svg class="anel-arco" viewBox="0 0 40 40"><circle cx="20" cy="20" r="17" /></svg><svg class="anel-seta" viewBox="0 0 16 16"><path d="M4.5 3.5h8v8M12.5 3.5 3.5 12.5" /></svg></span><span class="so-leitor"> (abre em outra aba)</span></span>}
-              <span class="pulseira-rabo" aria-hidden="true"></span>
-            </Tag>
-          </li>
-        );
-      })}
+      {foraDaCabine.map((n) => <Pulseira nome={n.nome} area={n.area} url={n.url} destino={n.destino} alternativa={grupos.indexOf(n.grupo) % 2 === 1} />)}
     </ul>
     {foraDaCabine.map((_, i) => <span class={`papel papel-${i + 1}`} aria-hidden="true"></span>)}
     </div>
@@ -187,36 +171,12 @@ const tamanhoDoEd = '(max-width: 599px) 59vw, (max-width: 1279px) 18rem, 31vw';
      A cor muda por grupo de trabalho (imagem, bar, som), como muda por tipo de acesso na festa,
      alternando entre o subtema vivo com aba na cor do texto e o contrário. */
   .pulseiras { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.1rem; max-width: 68rem; margin-top: var(--e-4); }
-  .pulseiras li { --p-fundo: var(--vivo); --p-texto: var(--sobre-vivo); --p-aba: var(--texto); --p-risco: var(--fundo); }
-  .pulseiras li.pulseira-b { --p-fundo: var(--texto); --p-texto: var(--fundo); --p-aba: var(--vivo); --p-risco: var(--sobre-vivo); }
-  .pulseiras li:nth-child(odd) { transform: rotate(-0.6deg); }
-  .pulseiras li:nth-child(even) { transform: rotate(0.5deg); margin-left: 2.5%; margin-right: -2.5%; }
-  .pulseira { display: flex; align-items: center; height: clamp(3.25rem, 4.6vw, 4.25rem); border-radius: 3px; background: var(--p-fundo); color: var(--p-texto); text-decoration: none; overflow: hidden; white-space: nowrap; }
-  .pulseira-cola { flex: none; align-self: stretch; width: clamp(3.5rem, 9%, 7rem); background-color: var(--p-aba);
-    background-image: linear-gradient(135deg, var(--p-risco) 25%, transparent 25%), linear-gradient(225deg, var(--p-risco) 25%, transparent 25%), linear-gradient(315deg, var(--p-risco) 25%, transparent 25%), linear-gradient(45deg, var(--p-risco) 25%, transparent 25%);
-    background-size: 14px 14px; background-position: -7px 0, -7px 0, 0 0, 0 0; background-blend-mode: normal; opacity: 1; }
-  .pulseira-cola { box-shadow: inset 0 0 0 100vmax color-mix(in srgb, var(--p-aba) 62%, transparent); }
-  .pulseira strong { flex: none; padding: 0 0.9rem 0 1rem; font-size: clamp(1.5rem, 3vw, 2.5rem); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
-  /* A área, uma vez, para quem lê com leitor de tela; na tela ela aparece na estampa. */
-  .pulseira-area { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-  .pulseira-estampa { flex: 1; min-width: 0; overflow: hidden; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; -webkit-mask-image: linear-gradient(90deg, #000 10rem, rgba(0, 0, 0, 0.5) 20rem); mask-image: linear-gradient(90deg, #000 10rem, rgba(0, 0, 0, 0.5) 20rem); }
-  /* A estampa é um trilho com o mesmo desenho repetido; ao passar o cursor, ele corre, como se a
-     pulseira estivesse sendo puxada do rolo. Metade do trilho é igual à outra, então o laço não tem emenda. */
-  .pulseira-trilho { display: inline-flex; align-items: center; gap: 0.9rem; padding-right: 0.9rem; animation: puxa 26s linear infinite; animation-play-state: paused; }
-  @keyframes puxa { to { transform: translateX(-50%); } }
-  .pulseiras li { transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .pulseiras :global(li:nth-child(odd)) { transform: rotate(-0.6deg); }
+  .pulseiras :global(li:nth-child(even)) { transform: rotate(0.5deg); margin-left: 2.5%; margin-right: -2.5%; }
+  .pulseiras :global(li) { transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1); }
   @media (hover: hover) and (pointer: fine) {
-    .pulseiras li:nth-child(n):hover, .pulseiras li:nth-child(n):focus-within { transform: translateX(calc(var(--x, 0%) + 0.75rem)) rotate(0deg); z-index: 2; }
-    .pulseiras li:hover .pulseira-trilho, .pulseiras li:focus-within .pulseira-trilho { animation-play-state: running; }
+    .pulseiras :global(li:nth-child(n):hover), .pulseiras :global(li:nth-child(n):focus-within) { transform: translateX(calc(var(--x, 0%) + 0.75rem)) rotate(0deg); z-index: 2; }
   }
-  /* Pulseira com link: o destino fica escrito perto da sobra, com a seta de link externo. */
-  .pulseira-seta { margin-left: 0.35em; }
-  .pulseira-anel { display: none; }
-  .pulseira-destino { flex: none; padding: 0 0.9rem; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.16em; }
-  .pulseira-estampa :global(.pulseira-marca) { flex: none; height: 1.35rem; width: auto; }
-  .pulseira-estampa span { flex: none; }
-  .pulseira-rabo { flex: none; align-self: stretch; width: clamp(1rem, 3%, 2.25rem); background: var(--p-aba); }
-  a.pulseira:hover .pulseira-destino, a.pulseira:focus-visible .pulseira-destino { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
   .passado-botao { margin-top: var(--e-4); }
   .papel { display: none; }
 
@@ -226,14 +186,14 @@ const tamanhoDoEd = '(max-width: 599px) 59vw, (max-width: 1279px) 18rem, 31vw';
   @media (min-width: 1101px) {
     .bancada { position: relative; margin-top: var(--e-5); padding: 2.5rem 0 3.5rem; }
     .pulseiras { position: relative; z-index: 1; max-width: none; gap: clamp(1.6rem, 2.6vw, 2.6rem); margin-top: 0; }
-    .pulseiras li:nth-child(n) { width: 70%; margin: 0; --r: 0deg; --x: 0%; transform: translateX(var(--x)) rotate(var(--r)); }
-    .pulseiras li:nth-child(1) { --r: -4.5deg; --x: 2%; }
-    .pulseiras li:nth-child(2) { --r: 3deg; --x: 40%; }
-    .pulseiras li:nth-child(3) { --r: -1.4deg; --x: 14%; }
-    .pulseiras li:nth-child(4) { --r: 5.5deg; --x: 42%; }
-    .pulseiras li:nth-child(5) { --r: -3.2deg; --x: 7%; }
-    .pulseiras li:nth-child(6) { --r: 2.4deg; --x: 36%; }
-    .pulseiras li:nth-child(n + 7) { --r: -1deg; --x: 16%; }
+    .pulseiras :global(li:nth-child(n)) { width: 70%; margin: 0; --r: 0deg; --x: 0%; transform: translateX(var(--x)) rotate(var(--r)); }
+    .pulseiras :global(li:nth-child(1)) { --r: -4.5deg; --x: 2%; }
+    .pulseiras :global(li:nth-child(2)) { --r: 3deg; --x: 40%; }
+    .pulseiras :global(li:nth-child(3)) { --r: -1.4deg; --x: 14%; }
+    .pulseiras :global(li:nth-child(4)) { --r: 5.5deg; --x: 42%; }
+    .pulseiras :global(li:nth-child(5)) { --r: -3.2deg; --x: 7%; }
+    .pulseiras :global(li:nth-child(6)) { --r: 2.4deg; --x: 36%; }
+    .pulseiras :global(li:nth-child(n + 7)) { --r: -1deg; --x: 16%; }
     .papel { display: block; position: absolute; z-index: 0; width: clamp(4.5rem, 6.5vw, 6.5rem); height: clamp(3.25rem, 4.6vw, 4.25rem); border-radius: 2px;
       /* Semitransparentes de propósito (pedido do Gui): valem pelo layout, não pelo realismo, e assim
          não pesam em nenhum tema. A dobra é só um pouco mais marcada que o papel. */
@@ -258,9 +218,9 @@ const tamanhoDoEd = '(max-width: 599px) 59vw, (max-width: 1279px) 18rem, 31vw';
   }
   @media (min-width: 1101px) and (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
-      .crachas li, .pulseiras li, .papel { animation: deriva linear both; }
+      .crachas li, .pulseiras :global(li), .papel { animation: deriva linear both; }
       /* Regra separada de propósito: junto do atalho "animation", a linha do tempo é zerada. */
-      .mesa .crachas li, .bancada .pulseiras li, .bancada .papel { animation-timeline: view(); animation-range: cover 0% cover 100%; }
+      .mesa .crachas li, .bancada .pulseiras :global(li), .bancada .papel { animation-timeline: view(); animation-range: cover 0% cover 100%; }
       /* O crachá também tem animação de entrada (Base.astro). As duas convivem: a entrada corre no
          tempo, a deriva na rolagem. Sem esta regra, a entrada tomaria o lugar da deriva. */
       .mesa .crachas li[data-anima].visto { animation: entra-surge 0.9s cubic-bezier(0.62, 0.05, 0.01, 0.99) calc(var(--i, 0) * 80ms) backwards, deriva linear both; animation-timeline: auto, view(); animation-range: normal, cover 0% cover 100%; }
@@ -273,8 +233,8 @@ const tamanhoDoEd = '(max-width: 599px) 59vw, (max-width: 1279px) 18rem, 31vw';
       .crachas li:nth-child(6) { --ty0: -2rem; --ty1: 2.4rem; --g0: 2deg; --g1: -1.6deg; }
 
       /* As pulseiras correm no próprio comprimento, umas para cada lado. */
-      .pulseiras li:nth-child(odd) { --tx0: -2.2rem; --tx1: 2.2rem; --g0: -0.5deg; --g1: 0.5deg; }
-      .pulseiras li:nth-child(even) { --tx0: 2.6rem; --tx1: -2.6rem; --g0: 0.6deg; --g1: -0.6deg; }
+      .pulseiras :global(li:nth-child(odd)) { --tx0: -2.2rem; --tx1: 2.2rem; --g0: -0.5deg; --g1: 0.5deg; }
+      .pulseiras :global(li:nth-child(even)) { --tx0: 2.6rem; --tx1: -2.6rem; --g0: 0.6deg; --g1: -0.6deg; }
 
       .papel-1 { --tx0: 1.5rem; --ty0: 3rem; --tx1: -2rem; --ty1: -3rem; --g0: -16deg; --g1: 12deg; }
       .papel-2 { --tx0: -2rem; --ty0: 2rem; --tx1: 2.5rem; --ty1: -3.5rem; --g0: 10deg; --g1: -18deg; }
@@ -297,23 +257,7 @@ const tamanhoDoEd = '(max-width: 599px) 59vw, (max-width: 1279px) 18rem, 31vw';
     .crachas li.ed :global(.cracha-selo) { right: -0.6rem; }
     .crachas-dica { display: block; margin-top: var(--e-1, 0.5rem); }
     .pulseiras { gap: 0.9rem; }
-    .pulseiras li:nth-child(even) { margin-left: 0; margin-right: 0; }
-    /* No celular o destino vira só a seta, no anel aberto do "@" que os botões do site usam
-       (Botao.astro), para ler como botão. O nome do destino segue para leitores de tela. Com o
-       espaço que sobra, a estampa volta: ela some num degradê à direita, para nunca cortar um
-       símbolo ao meio. */
-    .pulseira-cola { width: 2rem; }
-    .pulseira strong { font-size: 1.125rem; padding: 0 0.6rem 0 0.6rem; }
-    .pulseira-estampa { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 2rem), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 2rem), transparent); font-size: 0.625rem; letter-spacing: 0.12em; }
-    .pulseira-trilho { gap: 0.6rem; padding-right: 0.6rem; }
-    .pulseira-estampa :global(.pulseira-marca) { height: 1.1rem; }
-    .pulseira-destino { padding: 0 0.5rem; }
-    .pulseira-destino-nome { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
-    .pulseira-seta { display: none; }
-    .pulseira-anel { display: block; position: relative; width: 2rem; height: 2rem; }
-    .anel-arco { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; transform: rotate(158.5deg); }
-    .anel-arco circle { fill: none; stroke: currentColor; stroke-width: 3.4; stroke-dasharray: 75.8 31; }
-    .anel-seta { position: absolute; inset: 0; margin: auto; width: 38%; height: 38%; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    .pulseiras :global(li:nth-child(even)) { margin-left: 0; margin-right: 0; }
   }
 
   /* Crachá estreito. O tamanho do crachá na mesa depende da largura e da altura da janela: num
@@ -358,5 +302,5 @@ const tamanhoDoEd = '(max-width: 599px) 59vw, (max-width: 1279px) 18rem, 31vw';
     .crachas li.ed :global(.cracha-verso .cracha-acesso) { font-size: 0.625rem; letter-spacing: 0.1em; }
   }
 
-  @media (prefers-reduced-motion: reduce) { .crachas li > :global(.cracha), .previa, .pulseiras li { transition: none; } .pulseira-trilho { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .crachas li > :global(.cracha), .previa, .pulseiras :global(li) { transition: none; } }
 </style>

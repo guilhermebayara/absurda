@@ -1,5 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
+import MarcoSobre from '../components/MarcoSobre.astro';
+import PolaroideTrio from '../components/PolaroideTrio.astro';
+import BarraInclinada from '../components/BarraInclinada.astro';
 import Capa from '../components/Capa.astro';
 import { foto as fotoMenor } from '../lib/imagens';
 // No Sobre as fotos são pedidas como num celular de 2x, mesmo num iPhone (escolha do Gui, 23 nov 2026).
@@ -276,19 +279,14 @@ const premios = [
     <div class="marcos-grade" data-trilho>
       <div class="marcos-ano" aria-hidden="true" data-barra="estreita">
         <p class="marcos-num">{anosDosMarcos[0].split('').map((d) => <span>{d}</span>)}</p>
-        <p class="marcos-conta"><span class="marcos-barra"></span><span class="marcos-idade"></span></p>
+        <p class="marcos-conta"><BarraInclinada class="marcos-barra" /><span class="marcos-idade"></span></p>
       </div>
       <ol class="marcos-lista">
         {anosDosMarcos.map((ano) => (
           <li class="marcos-grupo" data-ano={ano}>
             <h3 class="marcos-rotulo">{ano}</h3>
             <ul>
-              {porAno.get(ano)!.map((m) => (
-                <li class="marcos-item">
-                  <p class="marcos-titulo"><strong>{m.titulo}</strong>{m.tema && <b>{m.tema}</b>}</p>
-                  {m.texto && <p class="marcos-texto">{m.texto}</p>}
-                </li>
-              ))}
+              {porAno.get(ano)!.map((m) => <MarcoSobre titulo={m.titulo} tema={m.tema} texto={m.texto} />)}
             </ul>
           </li>
         ))}
@@ -304,16 +302,7 @@ const premios = [
       <h2 id="t-trio" class="trio-titulo">Trio da @bsurda</h2>
       <div class="trio-mesa">
       <ol class="trio-quadros">
-        {trio.map((t, i) => (
-          <li class:list={['trio-quadro', { ativo: i === 0, arte: t.arte }]} data-ano={t.ano} data-mini={t.foto.replace('.jpg', '-mini.jpg')} style={t.arte ? `--arte:url(${t.foto})` : undefined}>
-            <img {...foto(t.foto)} alt="" loading="lazy" style={t.foco ? `object-position:${t.foco}` : undefined} />
-            <div class="trio-legenda">
-              <p class="trio-ano">{t.ano}</p>
-              <p class="trio-numero">{t.numero}</p>
-              <p class="trio-texto">{t.texto}</p>
-            </div>
-          </li>
-        ))}
+        {trio.map((t, i) => <PolaroideTrio {...t} ativa={i === 0} />)}
       </ol>
       </div>
       <p class="trio-regra">Sempre no último domingo antes do carnaval.</p>
@@ -558,22 +547,11 @@ const premios = [
   .marcos-num { display: flex; font-size: clamp(4.5rem, 19vw, 19rem); font-weight: 800; line-height: 0.8; letter-spacing: -0.06em; font-variant-numeric: tabular-nums; }
   .marcos-num span { display: block; }
   .marcos-conta { display: flex; align-items: center; gap: 0.7em; margin-top: var(--e-3); color: var(--destaque-texto); font-size: var(--t-3); font-weight: 800; letter-spacing: -0.02em; text-transform: uppercase; }
-  .marcos-barra { flex: none; width: 0.18em; height: 0.8em; background: var(--destaque); transform: skewX(26.5deg); }
+  .marcos-conta :global(.marcos-barra) { flex: none; width: 0.18em; height: 0.8em; background: var(--destaque); }
   /* A história: grupos por ano se afastam (e-5), marcos do mesmo ano ficam perto (e-3) */
   .marcos-grupo + .marcos-grupo { margin-top: var(--e-5); }
   .marcos-rotulo { font-size: var(--t-rotulo); font-weight: 700; letter-spacing: 0.14em; color: var(--suave); margin-bottom: var(--e-2); }
-  .marcos-item + .marcos-item { margin-top: var(--e-3); }
-  .marcos-item { position: relative; transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
-  .marcos-titulo { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25em 0.6em; font-size: var(--t-4); line-height: 1.02; transition: color 0.3s; }
-  .marcos-titulo strong { font-weight: 800; letter-spacing: -0.03em; text-transform: uppercase; }
-  .marcos-titulo b { padding: 0.2em 0.6em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
-  .marcos-texto { max-width: 34em; margin-top: var(--e-1); font-size: var(--t-apoio); line-height: 1.35; color: var(--suave); }
-  /* O marco em leitura acende: ganha a cor de destaque e a barra da marca ao lado */
-  .marcos-item::before { content: ''; position: absolute; left: -1.3rem; top: 0.25em; width: 0.5rem; height: calc(var(--t-4) * 0.8); background: var(--destaque); transform: skewX(26.5deg) scaleY(0); transform-origin: bottom; transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
-  :global(.marcos-vivos) .marcos-item.aceso { transform: translateX(1.3rem); }
-  :global(.marcos-vivos) .marcos-item.aceso .marcos-titulo { color: var(--destaque-texto); }
-  :global(.marcos-vivos) .marcos-item.aceso .marcos-texto { color: var(--texto); }
-  :global(.marcos-vivos) .marcos-item.aceso::before { transform: skewX(26.5deg) scaleY(1); }
+
   /* Com o número preso mostrando o ano, o rótulo de cada grupo fica só para leitores de tela */
   @media (min-width: 821px) {
     :global(.marcos-vivos) .marcos-rotulo { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
@@ -587,10 +565,7 @@ const premios = [
     .marcos-conta { margin: 0 0 0.3em; font-size: 0.9375rem; }
     .marcos-lista { padding: var(--e-4) 0 0 0.75rem; }
     .marcos-rotulo { display: none; }
-    :global(.marcos-vivos) .marcos-item.aceso { transform: none; }
-    .marcos-item::before { left: -0.75rem; width: 0.35rem; }
   }
-  @media (prefers-reduced-motion: reduce) { .marcos-item, .marcos-item::before, .marcos-titulo { transition: none; } }
 
   /* ---------- Hierarquia da página ----------
      Quatro degraus de título, do maior para o menor:
@@ -686,30 +661,10 @@ const premios = [
   .trio-titulo { position: absolute; z-index: 3; top: var(--e-3); left: var(--margem); font-size: var(--t-4); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
   /* Sombra no alto, para o título e a regra lerem sobre qualquer foto */
   .trio-pino::before { content: ''; position: absolute; z-index: 2; inset: 0 0 auto 0; height: 32svh; background: linear-gradient(to bottom, rgb(13 10 12 / 0.85), rgb(13 10 12 / 0.4) 55%, transparent); pointer-events: none; }
-  .trio-quadro { position: relative; }
-  .trio-quadro img { width: 100%; height: 100%; object-fit: cover; }
-  /* Quando o quadro é a arte do evento (e não uma foto), ela aparece inteira no centro,
-     sobre uma versão desfocada dela mesma que enche a tela: sem faixas pretas. */
-  .trio-quadro.arte { overflow: hidden; }
-  .trio-quadro.arte::before { content: ''; position: absolute; inset: -8%; background: var(--arte) center / cover; filter: blur(2.5rem) brightness(0.55) saturate(1.2); }
-  .trio-quadro.arte img { position: relative; object-fit: contain; padding: 14svh var(--margem) 30svh; }
-  .trio-legenda { position: absolute; left: 0; right: 0; bottom: 0; padding: 30svh var(--margem) var(--e-4); background: linear-gradient(to top, rgb(13 10 12 / 0.92), rgb(13 10 12 / 0.55) 45%, transparent); }
-  /* Ordem de leitura do quadro: o número, o ano logo acima dele, o título da seção e, por
-     último, a regra do domingo, que é nota de rodapé e fica em corpo de rótulo. */
-  .trio-ano { margin-bottom: 0.08em; font-size: clamp(2rem, 4.6vw, 4.25rem); font-weight: 800; line-height: 1; letter-spacing: -0.04em; }
-  .trio-numero { font-size: clamp(4rem, 17vw, 16rem); font-weight: 800; line-height: 0.82; letter-spacing: -0.06em; text-transform: uppercase; }
-  .trio-texto { max-width: 30em; margin-top: var(--e-2); font-size: var(--t-apoio); line-height: 1.35; }
   .trio-regra { padding: var(--e-3) var(--margem); font-size: clamp(0.8125rem, 1vw, 1rem); font-weight: 700; line-height: 1.3; letter-spacing: 0.1em; text-transform: uppercase; text-align: right; max-width: 22em; }
-  /* Sem script, os quadros ficam empilhados, um embaixo do outro. Com script, a seção
-     ganha altura para a rolagem, e um quadro só ocupa a tela por vez. */
-  .trio-quadro { height: 100svh; }
+  /* Com script, a seção ganha altura para a rolagem e um quadro ocupa a tela por vez. */
   :global(.js) .trio { height: calc(var(--n) * 85svh + 100svh); }
   :global(.js) .trio-pino { position: sticky; top: 0; height: 100svh; overflow: hidden; }
-  :global(.js) .trio-quadro { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s ease; }
-  :global(.js) .trio-quadro.ativo { opacity: 1; }
-  :global(.js) .trio-quadro img { transform: scale(calc(1.02 + var(--avanco, 0) * 0.08)); }
-  :global(.js) .trio-quadro .trio-legenda > * { transform: translateY(1.5rem); opacity: 0; transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.1s, opacity 0.6s ease 0.1s; }
-  :global(.js) .trio-quadro.ativo .trio-legenda > * { transform: none; opacity: 1; }
   :global(.js) .trio-regra { position: absolute; z-index: 3; top: 0; right: 0; }
   /* Barra de avanço, com a inclinação da marca */
   /* Barra de avanço: mora no bloco das fotos, que é quem recebe --avanco, e se posiciona pela cena. */
@@ -799,7 +754,6 @@ const premios = [
     .origem-grade, .mineirao-grade, .posicao-grade, .alem-lista { grid-template-columns: 1fr; }
     .numeros { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-4) var(--e-3); }
     .mineirao-grade { padding-bottom: 22vw; }
-    .trio-legenda { padding-top: 20svh; }
     /* No celular os nomes cedem tamanho para caberem dois ou três por linha, em vez de um. */
     .nomes { gap: 0.3em 0; font-size: 1.125rem; letter-spacing: -0.02em; }
     .nomes sup { margin-top: 0.05em; font-size: 0.625rem; }
@@ -808,8 +762,7 @@ const premios = [
   }
   @media (prefers-reduced-motion: reduce) {
     .janela img { transform: none; }
-    :global(.js) .trio-quadro, :global(.js) .trio-quadro .trio-legenda > *, .improvaveis li, .adesivos li { transition: none; }
-    :global(.js) .trio-quadro img { transform: none; }
+    .improvaveis li, .adesivos li { transition: none; }
   }
 
   /* ---------- Trio no toque: pilha de polaroides (escolha do Gui, 18 nov 2026) ---------- */
@@ -828,13 +781,6 @@ const premios = [
   :global(html:is(.pino-novo, .toque)) .trio-mesa { order: 2; }
   :global(html:is(.pino-novo, .toque)) .trio-quadros { display: grid; gap: var(--folga-cartao); }
   :global(html:is(.pino-novo, .toque)) .trio-quadros::after { content: none; }
-  :global(html:is(.pino-novo, .toque)) .trio-quadro { position: relative; inset: auto; height: auto; opacity: 1; overflow: hidden; border-radius: 0.3rem; background: #f3f0e8; color: #1c1619; outline: 1px solid rgb(0 0 0 / 0.12); outline-offset: -1px; transition: none; }
-  :global(html:is(.pino-novo, .toque)) .trio-quadro img { display: block; width: calc(100% - 2 * var(--margem-foto)); height: auto; margin: var(--margem-foto) var(--margem-foto) 0; aspect-ratio: 1; border-radius: 0.1rem; transform: none; }
-  :global(html:is(.pino-novo, .toque)) .trio-quadro .trio-legenda { position: static; padding: 0.85rem calc(var(--margem-foto) + 0.25rem) 1rem; background: none; }
-  :global(html:is(.pino-novo, .toque)) .trio-quadro .trio-legenda > * { transform: none; opacity: 1; transition: none; }
-  :global(html:is(.pino-novo, .toque)) .trio-ano { margin-bottom: 0.1em; color: #5f565b; font-size: 1.25rem; letter-spacing: -0.02em; }
-  :global(html:is(.pino-novo, .toque)) .trio-numero { font-size: min(12vw, 2.75rem); line-height: 0.9; letter-spacing: -0.05em; }
-  :global(html:is(.pino-novo, .toque)) .trio-texto { margin-top: 0.5rem; color: #2b2428; font-size: 0.9375rem; line-height: 1.35; }
 
   /* A pilha (com animação ligada à rolagem e sem movimento reduzido): cada polaroide sobe junto
      com o dedo e assenta sobre a anterior. Nada é sticky nem fixed (banda do Safari): a pilha fica
@@ -851,11 +797,6 @@ const premios = [
     :global(html.pino-novo) .trio-quadros { display: grid; gap: 0; width: var(--larg-cartao); height: var(--alt-cartao); margin-inline: auto; animation: pilha-presa linear both; }
     /* Regra separada de propósito (ver a mesma nota na Home). */
     :global(html.pino-novo) .trio-mesa > .trio-quadros { animation-timeline: --mesa; animation-range: contain 0% contain calc(0% + (var(--n) - 1) * var(--passo)); }
-    :global(html.pino-novo) .trio-quadro { grid-area: 1 / 1; height: var(--alt-cartao); transform-origin: 50% 0; }
-    /* Quanto mais fundo na pilha, mais escuro: uma camada preta por cima, e não sombra (custo no Safari). */
-    :global(html.pino-novo) .trio-quadro::after { content: ''; position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
-    :global(html.pino-novo) .trio-quadro.por-baixo .trio-texto { visibility: hidden; }
-    :global(html.pino-novo) .trio-quadro.longe { visibility: hidden; }
     @keyframes pilha-presa { to { transform: translateY(calc((var(--n) - 1) * var(--passo))); } }
   }
 

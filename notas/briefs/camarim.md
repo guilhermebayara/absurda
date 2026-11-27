@@ -16,9 +16,18 @@ o `foto()` e o resto das sessões até a L.
 
 ## O que é
 
-Uma página que mostra o sistema visual do site: tokens, temas, as cores que a página calcula, o nível
-WCAG de cada combinação e cada peça, montada com o mesmo código que o site usa. É ferramenta de
-trabalho do Gui e das próximas sessões, não página para o público.
+Uma página com duas partes (Gui, 26/11/2026):
+
+- **Marca:** a logo da @bsurda em todas as versões, para ver e baixar em SVG e PNG, com um guia curto
+  sobre elas. Vai virar o manual de marca vivo.
+- **Site:** o sistema visual do site: tokens, temas, as cores que a página calcula, o nível WCAG de
+  cada combinação e cada peça, montada com o mesmo código que o site usa. Vai virar o guia do site.
+
+Mais adiante as duas partes viram duas páginas (camarim 1, o guia do site, e camarim 2, o manual de
+marca). Por isso já nascem separadas: cada uma num componente próprio de página, com âncora própria
+(`/camarim#marca`, `/camarim#site`), sem CSS ou dado misturado entre elas, de modo que a separação seja
+só mover cada parte para o seu endereço. É ferramenta de trabalho do Gui e das próximas sessões, não
+página para o público.
 
 - **Endereço:** `/camarim`. Camarim é onde a festa se monta antes de subir ao palco: as peças
   aparecem ali prontas, antes de irem para a pista.
@@ -58,7 +67,38 @@ e servem de modelo. Outras estão escritas dentro das páginas.
 ## Etapa 2: a página
 
 Em cima dos componentes da etapa 1, numa branch `tst-camarim`. Só começa depois que a etapa 1 estiver
-na `homologa`.
+na `homologa`. A página abre pela parte Marca e segue com a parte Site.
+
+### Parte Marca: a logo para baixar, com guia
+
+- **Os arquivos oficiais** (versão 2024) estão em `notas/camarim/logo/`, copiados da pasta da marca no
+  Drive do Gui: doze SVGs, seis desenhos em duas cores. Nome: `absurda_<categoria>_<versão>[_branco].svg`.
+  - Principais: `principal_completo` (o @ e o nome) e `principal_arroba` (só o @).
+  - Secundárias: `secundaria_vertical` e `secundaria_silabas` (vertical, com o nome em sílabas).
+  - Composições: `composicao_arroba-escrito` e `composicao_arroba-escrito-grande`.
+  - Cor: sem sufixo, escura (`#231f20`); com `_branco`, branca (`#fff`).
+- **Onde ficam no site:** copie os doze para `public/marca/` com os mesmos nomes, sem mudar o desenho.
+  Confira se os desenhos de `src/components/marca/` (`Completo`, `Arroba`, `Vertical`, `Silabas`) batem
+  com os arquivos; se algum divergir, relate, sem corrigir nenhum dos dois lados.
+- **PNG gerado no build**, a partir dos SVGs, com o `sharp` que o site já usa: fundo transparente, em
+  duas larguras (1000 e 3000 px, a altura sai da proporção; para o @ sozinho, que é quase quadrado,
+  a maior medida vale 1000 e 3000). Os PNGs não entram no repositório: saem no `dist`, com cache no
+  mesmo lugar das versões das fotos (`node_modules/.astro/`), para o build da Cloudflare não refazer
+  a cada vez. Diga no relatório quanto tempo e quantos KB isso soma ao build.
+- **Na página:** cada versão mostrada sobre o fundo certo (a escura sobre claro, a branca sobre escuro),
+  com o nome, as medidas e os links de download (SVG, PNG 1000, PNG 3000) com o atributo `download`.
+  Um link para baixar tudo de uma vez só se sair barato (por exemplo, um zip gerado no build); se não,
+  fica de fora e vai no relatório.
+- **O guia** mostra só o que é fato dos arquivos: o nome de cada versão, a categoria (principal,
+  secundária, composição), as duas cores com o código e a proporção. **O "quando usar" de cada versão
+  não existe ainda:** o texto que veio com os arquivos tinha erros e foi descartado pelo Gui. No
+  lugar, cada versão leva uma linha "Quando usar: a definir", e a sessão lista no relatório as perguntas
+  para o Gui (quando usar cada versão, área de proteção, tamanho mínimo, o que não fazer com a logo).
+  Nada disso se inventa.
+- **Leveza:** os downloads são arquivos estáticos; a página mostra os SVGs, e os PNGs só baixam quando
+  alguém clica.
+
+### Parte Site
 
 - **Tokens.** Cada tema de `src/lib/temas.ts` com nome, as três cores de base e as cores que a página
   calcula (`--destaque-texto`, `--suave`, `--enfeite`, `--vivo`, `--sobre-vivo`, `--vivo-detalhe`),
@@ -101,6 +141,8 @@ No mesmo commit da página, criar `npm run confere:camarim` (script em `scripts/
 - `/camarim` mostrar nome de pessoa real, valor em reais ou qualquer coisa marcada como privada;
 - a tabela de contraste de `/camarim` divergir do `confere:temas` (mesmo tema, mesmo par, razão
   diferente);
+- algum dos doze SVGs de `notas/camarim/logo/` faltar em `public/marca/` ou estiver diferente, ou algum
+  link de download da página apontar para arquivo que não existe no `dist` (SVG ou PNG);
 - opcional, se sair barato: algum componente de `src/components/` não aparecer em `/camarim`, para
   peça nova não ficar de fora.
 

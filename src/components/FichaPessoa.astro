@@ -1,0 +1,41 @@
+---
+interface Link {
+  rotulo: string;
+  url: string;
+  papel?: string;
+}
+interface Props {
+  redes: Link[];
+  projetos: Link[];
+  links: Link[];
+}
+const { redes, projetos, links } = Astro.props;
+const linhas = [
+  { rotulo: 'Redes', itens: redes, externa: true },
+  { rotulo: 'Na @bsurda', itens: projetos, externa: false },
+  { rotulo: 'Fora daqui', itens: links, externa: true, empilhada: true },
+].filter((linha) => linha.itens.length > 0);
+---
+<dl class="ficha">
+  {linhas.map(({ rotulo, itens, externa, empilhada }) => (
+    <div>
+      <dt>{rotulo}</dt>
+      <dd><ul class={empilhada ? 'ficha-pilha' : 'ficha-lado'}>{itens.map((item) => (
+        <li><a href={item.url} target={externa ? '_blank' : undefined} rel={externa ? 'noopener' : undefined}>{item.rotulo}{externa && <><span class="ficha-seta" aria-hidden="true">↗</span><span class="so-leitor"> (abre em outra aba)</span></>}</a>{item.papel && <span class="pessoa-papel">{item.papel}</span>}</li>
+      ))}</ul></dd>
+    </div>
+  ))}
+</dl>
+
+<style>
+  .ficha > div { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr); gap: 0.25rem 1.5rem; align-items: baseline; padding: 0.95rem 0 1.05rem; border-top: 2px solid currentColor; }
+  .ficha > div:last-child { border-bottom: 2px solid currentColor; }
+  .ficha dt { font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.16em; }
+  .ficha dd { margin: 0; font-size: clamp(1.0625rem, 1.5vw, 1.3125rem); font-weight: 700; line-height: 1.25; }
+  .ficha a { text-underline-offset: 0.18em; text-decoration-thickness: 0.08em; }
+  .ficha-lado { display: flex; flex-wrap: wrap; gap: 0.35rem 1.5rem; }
+  .ficha-pilha { display: grid; gap: 0.45rem; }
+  .ficha-seta { display: inline-block; margin-left: 0.3em; font-size: 0.8em; font-weight: 500; }
+  .pessoa-papel { margin-left: 0.7em; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: var(--suave); white-space: nowrap; }
+  @media (max-width: 720px) { .ficha > div { grid-template-columns: minmax(0, 1fr); } }
+</style>

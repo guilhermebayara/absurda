@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+import ParedePalavras from '../components/ParedePalavras.astro';
+import BarraInclinada from '../components/BarraInclinada.astro';
 import Eco from '../components/Eco.astro';
 import Faixa from '../components/Faixa.astro';
 import PainelEvento from '../components/PainelEvento.astro';
@@ -40,14 +42,6 @@ const fileiras: Fileira[] = [
   { palavras: ['Belo Horizonte', ...cidades], menor: true },
   ...verbos.slice(6),
 ];
-// Cada fileira menor leva no máximo uns dez nomes. Não é economia: cada grupo animado vira
-// uma camada no navegador, e o Safari deixa de desenhar camadas largas demais (era o que
-// cortava a fileira no meio). Com poucos nomes, o grupo fica da largura de uma fileira de verbos.
-// Nas fileiras menores não há palavra em contorno: nesse corpo o traço fino não lê.
-const estilosMenores = ['', '', 'cor', '', '', '', 'cor', '', 'cor', '', '', ''];
-// Cada palavra é cheia, na cor de destaque ou só em contorno. A sequência é
-// irregular de propósito, para não virar listra (cor sim, cor não).
-const estilos = ['', 'cor', '', 'vazada', '', '', 'cor', 'vazada', '', 'cor', '', '', 'vazada', 'cor', '', 'vazada', '', 'cor', 'cor', '', 'vazada', '', '', 'cor', '', 'vazada', '', ''];
 // Imagens que flutuam pela parede: as capas das edições mais recentes.
 // Cada uma tem posição, velocidade de subida e a camada (entre quais fileiras passa).
 // Capa do Sympla (evento escrito à mão) vai na versão pequena, a -xs de 600 px: a -lg tem 1.400 px
@@ -67,7 +61,7 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
 <Base tema={temaInicial}>
   <section class="abertura" data-tema={atributo(temaInicial)}>
     <Eco />
-    <p class="lema"><span aria-hidden="true"></span><span class="lema-texto"><em>Maior festa pop</em> <em>LGBTQIA+ de MG.</em><br /><em class="solta"><i>{SITE.lema},</i> <i>desde 2009.</i></em></span><span aria-hidden="true"></span></p>
+    <p class="lema"><BarraInclinada oculta /><span class="lema-texto"><em>Maior festa pop</em> <em>LGBTQIA+ de MG.</em><br /><em class="solta"><i>{SITE.lema},</i> <i>desde 2009.</i></em></span><BarraInclinada oculta /></p>
   </section>
 
   {destaque
@@ -107,20 +101,7 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
     <div class="historia-pino">
       <div class="historia-grupo">
         <h2 id="t-sobre" class="historia-titulo" data-anima="sobe">{idade} anos de @bsurda</h2>
-        <p class="so-leitor">{fileiras.flatMap((f) => f.palavras).join('. ')}.</p>
-        <div class="parede" aria-hidden="true">
-          {fileiras.map((linha, i) => (
-            <div class:list={['parede-fileira', { menor: linha.menor }]} style={`z-index:${i * 2 + 2}`}>
-              <div class:list={['parede-trilho', { contra: i % 2 === 0 }]}>
-                {[0, 1, 2].map(() => (
-                  <div class="parede-grupo" style={`animation-duration:${(linha.menor ? 58 : 30) + (i * 11) % 17}s`}>
-                    {linha.palavras.map((p, j) => <span class={linha.menor ? estilosMenores[(i * 5 + j) % estilosMenores.length] : estilos[(i * 4 + j) % estilos.length]}>{p}<i></i></span>)}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+        <ParedePalavras fileiras={fileiras} />
       </div>
       {capas.map((e, i) => (
         <img class="parede-foto" {...foto(e.capa, '(max-width: 720px) 56vw, 26vw')} alt="" loading="lazy" data-flutua={i}
@@ -265,7 +246,7 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   .lema-texto em { display: inline-block; font-style: normal; white-space: nowrap; }
   .lema-texto em.solta { white-space: normal; }
   .lema-texto em.solta i { display: inline-block; font-style: normal; white-space: nowrap; }
-  .lema > span:not(.lema-texto) { flex: none; width: clamp(0.55rem, 1vw, 0.9rem); height: clamp(2.75rem, 5vw, 4.5rem); background: currentColor; transform: skewX(26.5deg); }
+  .lema > :global(span:not(.lema-texto)) { flex: none; width: clamp(0.55rem, 1vw, 0.9rem); height: clamp(2.75rem, 5vw, 4.5rem); background: currentColor; }
 
   :global(.js) .lema { animation: lema-abre 1s cubic-bezier(0.62, 0.05, 0.01, 0.99) 0.25s both; }
   :global(.js) .lema-texto { animation: lema-texto 0.8s ease 0.75s both; }
@@ -304,39 +285,9 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   .historia-titulo, .historia-fim { position: relative; padding: 0 var(--margem); }
   /* O título anda junto com as palavras: é a primeira linha da parede */
   .historia-titulo { z-index: 20; margin-bottom: var(--e-2); font-size: var(--t-4); font-weight: 800; line-height: 1; letter-spacing: -0.03em; text-transform: uppercase; }
-  .parede { display: grid; }
-  .parede-fileira { position: relative; }
-  /* Cada fileira são três grupos iguais andando juntos: quando um sai, o outro já entrou */
-  .parede-trilho { display: flex; width: max-content; }
-  /* A duração de cada fileira vem escrita no próprio grupo (animation-duration), em segundos. */
-  /* Safari do iPhone (palavras piscando todas juntas): cada grupo animado é uma camada própria
-     desde o início (will-change), e não só quando a animação pega, e cada fileira também tem a
-     sua. Assim as capas que atravessam a parede não fazem o Safari criar e desfazer camadas a
-     cada passo da rolagem. */
-  .parede-fileira { will-change: transform; }
-  .parede-grupo { flex: none; display: flex; animation: parede-corre 34s linear infinite; will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
-  .parede-trilho.contra .parede-grupo { animation-direction: reverse; }
-  /* Fora da tela as fileiras param (data-corre, ver Base.astro); voltam do mesmo ponto. */
-  .historia.corre-parada .parede-grupo { animation-play-state: paused; }
-  .parede-grupo span { display: flex; align-items: center; font-size: clamp(2.75rem, 9.2vw, 9.5rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.045em; text-transform: uppercase; white-space: nowrap; }
-  /* Presa na tela, a parede se mede pela altura: sete fileiras enchem a tela */
-  .historia.viva .parede-grupo span { font-size: clamp(2rem, 7.6vh, 8rem); font-size: clamp(2rem, 7.6svh, 8rem); }
-  /* Fileiras menores, de nomes: metade do corpo, com um respiro em cima e embaixo */
-  .parede-fileira.menor { padding: 0.5em 0; font-size: clamp(0.6rem, 1vw, 1rem); }
-  .parede-fileira.menor .parede-grupo span { font-size: clamp(1.125rem, 3.4vw, 3.25rem); line-height: 1; letter-spacing: -0.02em; }
-  .historia.viva .parede-fileira.menor .parede-grupo span { font-size: clamp(1rem, 3.1vh, 3rem); font-size: clamp(1rem, 3.1svh, 3rem); }
-  .parede-grupo span.cor { color: var(--destaque); }
-  .parede-grupo span.vazada { color: transparent; -webkit-text-stroke: 0.022em var(--texto); }
-  /* Entre as palavras, a barra inclinada do logo */
-  .parede-grupo i { flex: none; width: 0.13em; height: 0.66em; margin: 0 0.3em; background: var(--texto); opacity: 0.45; transform: skewX(26.5deg); }
-  @keyframes parede-corre { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-100%, 0, 0); } }
-  /* No celular dois grupos bastam: cada um é mais largo que a tela, e o terceiro, que nunca
-     aparece, só gastava memória do Safari (quando ela falta, ele apaga as camadas e redesenha). */
-  @media (max-width: 720px) { .parede-grupo:nth-child(3) { display: none; } }
   .parede-foto { --w: clamp(11rem, 25vw, 24rem); position: absolute; top: var(--topo); left: calc((100% - var(--w)) * var(--lado)); width: var(--w); aspect-ratio: 16 / 9; object-fit: cover; border-radius: clamp(0.6rem, 1.2vw, 1rem); box-shadow: 0 1.5rem 3rem -1.25rem rgb(0 0 0 / 0.55); rotate: var(--giro); pointer-events: none; will-change: translate; }
   .historia.viva .parede-foto { top: 0; translate: 0 110vh; }
   @media (max-width: 720px) { .parede-foto { --w: 52vw; } }
-  @media (prefers-reduced-motion: reduce) { .parede-grupo { animation: none; will-change: auto; } .parede-fileira { will-change: auto; } }
   /* Janela da rua: a foto é mais alta que a moldura e desliza devagar com a rolagem */
   .rua { position: relative; display: block; margin: var(--e-5) var(--margem) 0; height: clamp(20rem, 80svh, 54rem); overflow: hidden; border-radius: clamp(1rem, 2.5vw, 2.25rem); color: #fff; text-decoration: none; }
   .rua img { position: absolute; left: 0; top: -8%; width: 100%; height: 116%; max-width: none; object-fit: cover; transform: translateY(var(--desvio, 0%)) scale(1.001); transition: scale 0.9s cubic-bezier(0.2, 0.8, 0.2, 1); will-change: transform; }
