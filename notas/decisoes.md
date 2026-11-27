@@ -460,3 +460,10 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   o `confere:camarim`, mais "Provar um tema" e "Comparar um uso", redesenhados. Saem as capturas de
   `notas/camarim/capturas/` (10 MB num repositório público). Por quê: a página precisava ler como uma
   página da @bsurda antes da crítica de design. (CLAUDE.md, "Camarim"; `notas/briefs/camarim.md`.)
+
+- **2026-11-27, ficha de crítica e QA de design.** O site passa a ter `notas/critica.md`, a ficha do
+  projeto no padrão da gestão geral: fluxos com cenário de chegada, lentes extras, decisões fechadas com
+  o motivo, premissas abertas, larguras e estados, gabarito do QA e prévias. Crítica e QA rodam como
+  sessões separadas, só de leitura. Por quê: o relatório genérico de uma skill de crítica errou em
+  pontos que já eram decisão ou já estavam resolvidos; com as decisões fechadas à vista da sessão, ela
+  critica o que está aberto. (CLAUDE.md, "Crítica de design e QA de design"; `notas/critica.md`.)

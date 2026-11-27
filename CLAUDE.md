@@ -625,6 +625,16 @@ Regra nova que nascer de um achado de QA vira conferência automática no reposi
 depender de memória. A sessão propõe a conferência no relatório; criá-la segue as mesmas
 regras de branch desta seção.
 
+## Crítica de design e QA de design (do Gui, 27 nov 2026)
+
+Duas sessões separadas, só de leitura, que não leem o resultado uma da outra. A base do método vale para
+todos os projetos do Gui e mora no documento "Crítica de design e QA de design" do projeto "Gestão de
+projetos" (claude.ai). O que é só deste site mora em `notas/critica.md`: fluxos com cenário de chegada,
+lentes extras (voz e tom, crachá como objeto), decisões fechadas com o motivo, premissas abertas,
+larguras e estados, gabarito do QA e prévias. Quem escreve o prompt de uma sessão de crítica ou de QA
+lê a ficha e entrega à sessão o que ela pede. A sessão não reabre decisão fechada: se parecer errada,
+vira pergunta ao Gui. Quando o chat mudar uma decisão ou uma premissa, atualiza a ficha no mesmo commit.
+
 ## Cuidados que já custaram tempo
 
 - **Fundo da página no iPhone:** `<html>` tem a cor da página; `<body>` e `<main>` não têm
