@@ -405,3 +405,15 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   os 31 mil seguidores, o "Quem vem", o "Vamos conversar" e o caso Amstel em Parcerias. Saem os
   registros do POPline (2018) e da Dduck (2022), que ninguém confirmou. A Agenda de 2022 fica sem MOC,
   Anda, YOLO e Prêmio por enquanto. (Construído na Sessão L; o brief foi apagado.)
+
+- **2026-11-26, camarim volta (Gui).** A página do sistema (`/camarim`) sai da gaveta, no mesmo
+  desenho de 16/11 (escondida, montada com o código do site, duas etapas), com um acréscimo: cada
+  combinação de cor de cada tema mostra a razão de contraste e o nível WCAG (AAA, AA, AA só texto
+  grande, e o de elemento gráfico para enfeite), ao lado da regra do site, com a mesma conta do
+  `confere:temas`. Por quê: o site está estável no ar, e o Gui quer a página como a do site da família
+  e a do portfólio. A construção vai no Codex enquanto ele é a ferramenta principal (claude/ferramentas.md
+  no projeto do Claude). (`notas/briefs/camarim.md`.)
+
+- **2026-11-26, nome das sessões (Gui).** As sessões novas se chamam ABS-1, ABS-2 e assim por diante,
+  no lugar das letras; as que já rodaram (até a L) ficam com a letra. Por quê: a mesma letra aparecia
+  em vários projetos ao mesmo tempo. (CLAUDE.md, "Sessões de código".)

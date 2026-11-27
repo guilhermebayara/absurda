@@ -144,8 +144,9 @@ Branch de sessão, de teste e de QA nasce sempre da `homologa` já igualada.
 
 ## Sessões de código
 
-Cada sessão do Claude Code recebe da conversa um prompt com uma letra no título ("Sessão A:
-...", "Sessão B: ..."). Regras de toda sessão:
+Cada sessão (no Claude Code, no Codex ou em outra ferramenta) recebe da conversa um prompt com o
+identificador no começo do título ("ABS-1 · assunto", "ABS-2 · assunto"; as sessões até a L usaram
+uma letra). Regras de toda sessão:
 
 - Ler este arquivo, `notas/decisoes.md` e `notas/a-fazer.md` antes de começar.
 - Trazer a `main` para a `homologa` e nascer dela, numa `tst-<assunto>`.
