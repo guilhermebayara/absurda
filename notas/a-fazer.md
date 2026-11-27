@@ -18,6 +18,18 @@ Como usar:
 
 ## A construir
 
+- **Capa que acompanha o cursor, travando (defeito, Gui, 26 nov 2026).** Na Home (índice de projetos,
+  `.espia`) e na Agenda (lista de eventos, `.espia-capa`), no computador, a capa não segue o cursor de
+  forma fluida e a troca de uma capa para a outra fica ruim. O comportamento combinado continua o mesmo:
+  a capa segue o cursor ao lado dele, com o giro leve, e troca ao passar para outra linha. Suspeitas a
+  conferir medindo, não a aceitar de saída: a `img` recebe o arquivo original da capa (sem `srcset`, às
+  vezes a `-lg` de 1.400 px do Sympla ou a capa cheia do Shotgun), então cada troca baixa e decodifica
+  uma foto grande e mostra a anterior até a nova chegar; a cada `pointermove` o script escreve três
+  variáveis e o `transform` tem `transition` de 0,18 s, que recomeça a cada evento. Direção: capa no
+  tamanho mostrado (a versão pequena que o site já gera, ou o `w_` do Shotgun e a `-xs` do Sympla, no
+  dobro da largura da prévia), troca só depois de a nova estar pronta (`decode()`), sem piscar a anterior,
+  e movimento escrito uma vez por quadro. Medir quadros perdidos antes e depois. Sem mudar o desenho.
+
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
 
@@ -25,6 +37,13 @@ oferece. Não acrescentar e-mail nem o pix do trio ao site.
 
 Estas perguntas estão na planilha "Pendências do site". Quando a
 resposta chegar lá, o item vira trabalho:
+
+- **Manual de marca completo (ideia do Gui, 26 nov 2026).** A parte Marca do `/camarim` vira o
+  manual de marca da @bsurda, com todas as regras que a marca precisa. Dois formatos do mesmo
+  conteúdo: um PDF bem institucional, para baixar (a criar), e a própria página como versão do manual
+  no estilo do site. Depende das regras que o Gui vai definir (quando usar cada versão da logo, área de
+  proteção, tamanho mínimo, o que não fazer, e o resto que entrar) e da parte Marca já no ar. Quando
+  as regras chegarem, vira brief.
 
 - **Parcerias: o que ainda falta da planilha.** Pessoas por edição, "Como uma marca entra" (as
   propostas novas), o caso Xeque Mate, fotos dos casos e logos.
