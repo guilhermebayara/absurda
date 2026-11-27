@@ -17,6 +17,7 @@ import CrachaWig from '../CrachaWig.astro';
 import Eco from '../Eco.astro';
 import ElencoWig from '../ElencoWig.astro';
 import EventosWig from '../EventosWig.astro';
+import EspiaCursor from '../EspiaCursor.astro';
 import Faixa from '../Faixa.astro';
 import FichaPessoa from '../FichaPessoa.astro';
 import LinhaEventoAgenda from '../LinhaEventoAgenda.astro';
@@ -91,11 +92,12 @@ const elenco = [
 <section class="grupo">
   <h4 id="pecas-agenda" class="t-medio">Agenda</h4>
 
-  <Amostra titulo="Linha de evento" arquivos={['LinhaEventoAgenda']} uso="Uma linha reúne data, nome e local, com ou sem capa.">
+  <Amostra titulo="Linha de evento" arquivos={['LinhaEventoAgenda', 'EspiaCursor']} uso="A linha reúne data, nome e local. A capa acompanha o cursor no computador e aparece ao lado do nome no celular.">
     <p id={`${id}-2026`} class="etiqueta">2026</p>
     <ul><LinhaEventoAgenda evento={evento} /></ul>
     <p id={`${id}-2025`} class="etiqueta">2025</p>
     <ul><LinhaEventoAgenda evento={semCapa} /></ul>
+    <EspiaCursor agenda />
   </Amostra>
 
   <Amostra titulo="Atalho de anos" arquivos={['AtalhoAnos']} uso="Pula para as linhas do ano e marca o ano em consulta.">
