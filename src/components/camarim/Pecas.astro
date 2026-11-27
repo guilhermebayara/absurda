@@ -17,6 +17,9 @@ const opcoes = temas.map(tema => ({
     </select>
   </div>
   <p class="t-apoio">Teste as peças com o ponteiro, o toque ou a tecla Tab. Os nomes, as datas e as capas são de exemplo.</p>
+  <nav aria-label="Grupos de peças">
+    {['Moldura', 'Agenda', 'Pessoas', 'Projetos', 'Sobre', 'Parcerias', 'Base'].map(nome => <a href={'#pecas-' + nome.toLowerCase()}>{nome}</a>)}
+  </nav>
   <div id="amostras-das-pecas" style={opcoes[0].estilo}>
     <PecasNoTema tema={temas[0]} id="amostra" />
   </div>
@@ -32,6 +35,7 @@ const opcoes = temas.map(tema => ({
   }
 </script>
 <style>
+  nav { display: flex; flex-wrap: wrap; gap: var(--e-1) var(--e-2); margin-top: var(--e-2); }
   .controle { display: none; }
   :global(.js) .controle { display: flex; flex-wrap: wrap; gap: var(--e-2); align-items: baseline; margin-bottom: var(--e-2); }
   select { color: var(--texto); background: var(--fundo); font: inherit; border: 1px solid currentColor; border-radius: var(--raio-cartao); padding: .4em 1em; }

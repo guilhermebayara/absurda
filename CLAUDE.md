@@ -358,7 +358,7 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
 - **Tema novo:** use as paletas nomeadas em `src/lib/temas.ts`, com o nome do tema no comentário da
   linha. `scripts/cores-temas.mjs` executa o trecho marcado de `Base.astro` para obter as cores
   calculadas e a razão. Tanto o `confere:temas` como as tabelas estáticas usam essa função.
-  Cada paleta tem uma faixa de cores e uma tabela, com um tema por linha e um par por coluna.
+  O capítulo abre com a prova de tema e a comparação por uso. A consulta técnica conserva uma tabela por paleta, com um tema por linha e um par por coluna. A interação lê as medidas já conferidas no HTML.
 - **Peça nova:** monte o próprio componente em `PecasNoTema.astro` dentro de `Amostra`, com a
   lista de arquivos e uma linha sobre o uso. Mostre as variantes e deixe os estados interativos
   acionáveis por teclado e toque. O seletor em `Pecas.astro` troca o tema de todas as amostras na página; use as capas de

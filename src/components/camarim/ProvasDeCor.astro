@@ -1,0 +1,158 @@
+---
+import Arroba from '../marca/Arroba.astro';
+import BarraInclinada from '../BarraInclinada.astro';
+import Cracha from '../Cracha.astro';
+import Faixa from '../Faixa.astro';
+import { coresDoTema, paletas } from '../../../scripts/cores-temas.mjs';
+
+interface Props { nomes: Record<string, string> }
+const { nomes } = Astro.props;
+const usos = [
+  ['texto/fundo', 'Texto da página', 'palavra'],
+  ['destaque/fundo', 'Barra inclinada', 'barra'],
+  ['destaque-texto/fundo', 'Texto em destaque', 'palavra'],
+  ['suave/fundo', 'Texto de apoio', 'palavra'],
+  ['fundo/texto', 'Texto no rodapé', 'palavra'],
+  ['enfeite/texto', 'Arroba da faixa', 'arroba'],
+  ['sobre-vivo/vivo', 'Nome no crachá', 'palavra'],
+  ['vivo-detalhe/vivo', 'Detalhe do crachá', 'barra'],
+  ['destaque/texto', 'Foco no menu', 'foco'],
+  ['fundo/vivo', 'Furo do crachá', 'furo'],
+];
+---
+<div id="provas-de-cor" data-modo="tema" hidden>
+  <nav class="leituras" aria-label="Como explorar as cores">
+    <a class="t-medio" id="provar-tema" href="#provar-tema" aria-current="true">Provar um tema</a>
+    <a class="t-medio" id="comparar-uso" href="#comparar-uso">Comparar um uso</a>
+  </nav>
+  <div class="controle">
+    <label><span class="etiqueta">Paleta</span>
+      <select data-paleta-escolhida>{paletas.map(p => <option value={p.id}>{nomes[p.id]} ({p.temas.length} temas)</option>)}</select>
+    </label>
+    <label data-so-comparacao hidden><span class="etiqueta">Uso</span>
+      <select data-uso>{usos.map(([par, nome, figura]) => <option value={par} data-figura={figura}>{nome}</option>)}</select>
+    </label>
+  </div>
+  <p class="t-apoio instrucao" data-instrucao>Escolha uma combinação para ver o que muda no letreiro, no crachá e na faixa.</p>
+  {paletas.map(({ id, temas }, i) => (
+    <fieldset class="tons" data-tons={id} style={`--quantidade:${temas.length};--colunas:${Math.min(7, temas.length)}`} hidden={i > 0}>
+      <legend class="so-leitor">Temas de {nomes[id]}</legend>
+      <div data-aprovados>
+        <p class="etiqueta" data-conta-aprovados hidden></p>
+        <div class="opcoes">
+      {temas.map((tema, indice) => (
+        <label title={tema.nome} data-ordem={indice} style={Object.entries(coresDoTema(tema)).map(([chave, cor]) => `--tom-${chave}:${cor}`).join(';')}>
+          <input class="so-leitor" type="radio" name="tema-em-prova" value={tema.id} checked={tema.id === paletas[0].temas[0].id} />
+          <span class="marca-tom" aria-hidden="true">
+            <span class="traco"><BarraInclinada oculta /></span>
+            <span class="palavra t-medio">Pista</span>
+            <span class="simbolo"><Arroba /></span>
+            <span class="anel-foco">Menu</span>
+            <i class="furo"></i>
+          </span>
+          <span class="nome-tom">{tema.nome}</span>
+          <span class="medida-tom t-pequeno" aria-hidden="true"></span>
+        </label>
+      ))}
+        </div>
+      </div>
+      <div data-abaixo hidden>
+        <p class="etiqueta" data-conta-abaixo></p>
+        <div class="opcoes"></div>
+      </div>
+    </fieldset>
+  ))}
+  <div class="prova" data-prova>
+    <div class="composicao">
+      <div class="letreiro">
+        <div class="assinatura"><Arroba /><span class="etiqueta" data-edicao></span></div>
+        <p class="t-grande" data-nome-tema></p>
+      </div>
+      <div class="objeto"><Cracha nome="Luma Prisma" funcao="Produção de pista" grupo="socios" numero={901} desde={2024} lado="verso" /></div>
+    </div>
+    <Faixa texto="A pista acendeu" />
+  </div>
+  <p class="t-apoio parecer" data-parecer aria-live="polite" hidden></p>
+  <details class="ficha-cor">
+    <summary>Ver cores e contraste <span data-nome-ficha></span></summary>
+    <div class="leitura-par">
+      <label data-so-prova><span class="etiqueta">Uso</span>
+        <select data-uso>{usos.map(([par, nome]) => <option value={par}>{nome}</option>)}</select>
+      </label>
+      <dl>
+        <div><dt class="etiqueta">Cor</dt><dd><i data-tinta></i><code data-valor-cor></code></dd></div>
+        <div><dt class="etiqueta">Superfície</dt><dd><i data-papel></i><code data-valor-fundo></code></dd></div>
+        <div><dt class="etiqueta">Contraste</dt><dd><strong data-razao></strong></dd></div>
+        <div><dt class="etiqueta">WCAG</dt><dd data-nivel></dd></div>
+      </dl>
+    </div>
+  </details>
+</div>
+<script>
+  import { iniciarProvasDeCor } from './provas-de-cor';
+  const provas = document.getElementById('provas-de-cor');
+  if (provas) iniciarProvasDeCor(provas);
+</script>
+<style>
+  [hidden] { display: none !important; }
+  .leituras { display: flex; flex-wrap: wrap; gap: var(--e-2) var(--e-3); border-bottom: 1px solid var(--linha); }
+  .leituras a { padding-block: var(--e-1); text-decoration: none; color: var(--suave); border-bottom: 3px solid transparent; }
+  .leituras a[aria-current] { border-color: var(--destaque); color: var(--texto); }
+  .leituras a:hover { color: var(--texto); }
+  .controle, .controle label, .leitura-par label { display: flex; flex-wrap: wrap; gap: var(--e-1) var(--e-2); align-items: baseline; }
+  .controle { margin-block: var(--e-2); gap: var(--e-2) var(--e-4); }
+  select { padding: .3em .35em; color: var(--texto); border: 0; border-bottom: 1px solid var(--linha); background: var(--fundo); font: inherit; font-weight: 700; }
+  .instrucao { margin-block: var(--e-1) var(--e-2); }
+  .tons { position: relative; min-width: 0; margin: 0; padding: 0 0 var(--e-2); border: 0; }
+  .opcoes { display: grid; grid-template-columns: repeat(var(--quantidade), minmax(0, 1fr)); max-width: calc(var(--quantidade) * 4.5rem); gap: .25rem; }
+  .tons label { position: relative; cursor: pointer; min-width: 0; }
+  .marca-tom { display: flex; align-items: center; justify-content: center; height: var(--e-4); min-height: 2.25rem; background: var(--tom-fundo); color: var(--tom-destaque); border: 1px solid color-mix(in srgb, var(--tom-texto) 40%, var(--tom-fundo)); }
+  .tons input:checked + .marca-tom { box-shadow: inset 0 -4px var(--tom-texto); }
+  .tons input:focus-visible + .marca-tom { outline: 3px solid var(--texto); outline-offset: 2px; position: relative; z-index: 1; }
+  .traco :global(span) { display: block; width: .4em; height: 1.35em; background: currentColor; }
+  .medida-tom, .palavra, .simbolo, .anel-foco, .furo { display: none; }
+  [data-modo="tema"] .nome-tom { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .prova { background: var(--fundo); color: var(--texto); border-top: 1px solid var(--linha); overflow: clip; }
+  .composicao { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(9rem, 1fr); align-items: center; gap: var(--e-3); padding: var(--e-3) var(--e-4); }
+  .assinatura { display: flex; align-items: center; gap: var(--e-2); margin-bottom: var(--e-3); }
+  .assinatura :global(svg) { width: var(--e-4); }
+  .letreiro .t-grande { max-width: 12ch; overflow-wrap: anywhere; }
+  .objeto { width: min(100%, 15rem); margin: var(--e-2) auto; transform: rotate(4deg); }
+  .ficha-cor { border-block: 1px solid var(--linha); }
+  summary { padding-block: var(--e-2); cursor: pointer; font-weight: 700; }
+  summary span { color: var(--suave); font-weight: 500; }
+  .leitura-par { padding-bottom: var(--e-2); }
+  dl { display: flex; gap: var(--e-2) var(--e-4); flex-wrap: wrap; margin: var(--e-2) 0 0; }
+  dd { display: flex; align-items: center; gap: .4em; margin: .25em 0 0; }
+  dd i { width: 1em; height: 1em; border: 1px solid currentColor; }
+  [data-modo="uso"] .opcoes { max-width: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr)); gap: var(--e-2) var(--e-1); }
+  [data-modo="uso"] .tons > div + div { margin-top: var(--e-3); }
+  [data-modo="uso"] .tons p { padding-block: var(--e-1); border-top: 1px solid var(--linha); }
+  [data-modo="uso"] .nome-tom { margin-bottom: var(--e-1); }
+  [data-modo="uso"] .marca-tom { height: var(--e-5); background: var(--papel-par); color: var(--tinta-par); border: none; }
+  [data-modo="uso"] .tons input:checked + .marca-tom { box-shadow: none; }
+  [data-modo="uso"] .tons input:checked ~ .nome-tom { text-decoration: underline; text-underline-offset: .25em; font-weight: 800; }
+  [data-modo="uso"] input:checked ~ .medida-tom { display: block; color: var(--suave); }
+  .marca-tom .palavra { color: inherit; }
+  .nome-tom { display: block; margin: .3em 0 0; line-height: 1.2; }
+  [data-modo="uso"] .traco { display: none; }
+  [data-modo="uso"][data-figura="barra"] .traco,
+  [data-modo="uso"][data-figura="palavra"] .palavra,
+  [data-modo="uso"][data-figura="arroba"] .simbolo,
+  [data-modo="uso"][data-figura="foco"] .anel-foco,
+  [data-modo="uso"][data-figura="furo"] .furo { display: block; }
+  .simbolo :global(svg) { width: 2.3em; height: auto; }
+  .anel-foco { outline: 3px solid var(--tinta-par); padding: .1em .6em; color: var(--tom-fundo); }
+  .furo { width: 2.5em; height: .5em; border-radius: 99px; background: currentColor; }
+  .parecer { margin-block: var(--e-2); }
+  @media (max-width: 640px) {
+    .leituras { gap: var(--e-2); }
+    .leituras a { font-size: var(--t-3); font-weight: 700; }
+    .composicao { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: var(--e-1); padding: var(--e-3) var(--e-2); }
+    .objeto { width: 7.5rem; height: 10.5rem; margin-block: var(--e-2); }
+    .objeto :global(.cracha) { width: 15rem; transform: scale(.5); transform-origin: top left; }
+    .opcoes { grid-template-columns: repeat(var(--colunas), minmax(0, 1fr)); }
+    .marca-tom { min-height: 2.75rem; }
+    [data-modo="uso"] .opcoes { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+</style>

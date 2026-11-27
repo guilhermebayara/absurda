@@ -1,4 +1,5 @@
 ---
+import ProvasDeCor from './ProvasDeCor.astro';
 import Capitulo from './Capitulo.astro';
 import BarraInclinada from '../BarraInclinada.astro';
 import { coresDoTema, dois, medidasDoTema, nivelTexto, paletas } from '../../../scripts/cores-temas.mjs';
@@ -9,77 +10,82 @@ const nomes: Record<string, string> = {
 };
 ---
 <Capitulo id="temas">
-  <p class="t-apoio">Para leitura, a @bsurda pede 4,5:1. Para enfeite, 3:1.</p>
-  <dl class="legenda">
-    <div><dt class="etiqueta">AAA</dt><dd>Texto em qualquer tamanho a partir de 7:1.</dd></div>
-    <div><dt class="etiqueta">AA</dt><dd>A partir de 4,5:1, o texto também alcança AAA em tamanho grande.</dd></div>
-    <div><dt class="etiqueta">AA só texto grande</dt><dd>A partir de 3:1, vale para texto de 24 px ou de 18,67 px em negrito.</dd></div>
-    <div><dt class="etiqueta">Enfeite</dt><dd>O selo gráfico marca se o par chega aos 3:1 usados pelo site.</dd></div>
-  </dl>
-  <p class="t-pequeno"><a href="https://www.w3.org/TR/WCAG22/#contrast-minimum">Contraste de texto na WCAG 2.2</a> · Cores de <code>src/lib/temas.ts</code>. Os dois últimos pares medem o foco sobre o fundo invertido e o furo do crachá vivo.</p>
-  {paletas.map(({ id, temas }) => {
-    const Bloco = id === 'TEMAS_DO_SITE' ? 'section' : 'details';
-    const Cabeca = Bloco === 'section' ? 'header' : 'summary';
-    const linhas = temas.map(tema => {
-      const cores = coresDoTema(tema);
-      return { tema, cores, medidas: medidasDoTema(cores) };
-    });
-    return (
-      <Bloco class="paleta" aria-labelledby={id.toLowerCase()}>
-        <Cabeca>
-          <h4 id={id.toLowerCase()} class="t-medio">{nomes[id]} <span class="etiqueta">{temas.length} temas</span></h4>
-        </Cabeca>
-        <div class="panorama" aria-hidden="true">
-          {linhas.map(({ cores }) => <span title={cores.fundo} style={`background:${cores.fundo};border-color:${cores.destaque};color:${cores.texto}`}></span>)}
-        </div>
-        <div class="rolagem" role="region" tabindex="0" aria-label={'Cores de cada tema de ' + nomes[id]}>
-          <ul class="faixa-cores">
-            {linhas.map(({ tema, cores }) => (
-              <li style={`background:${cores.fundo};color:${cores.texto}`}>
-                <p class="etiqueta">{tema.nome}</p>
-                <dl>{Object.entries(cores).map(([nome, valor]) => (
-                  <div><dt><i style={`background:${valor}`}></i><code>--{nome}</code></dt><dd><code>{valor}</code></dd></div>
-                ))}</dl>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div class="rolagem" role="region" tabindex="0" aria-label={'Tabela de contraste de ' + nomes[id]}>
-          <table data-paleta={id}>
-            <caption class="so-leitor">Contraste por tema e por par de cores de {nomes[id]}</caption>
-            <thead><tr>
-              <th scope="col" class="etiqueta">Tema</th>
-              {linhas[0].medidas.map(({ cor, superficie, minimo }) => (
-                <th scope="col" data-par={cor + '/' + superficie}>
-                  <code>--{cor}</code> sobre <code>--{superficie}</code>
-                  <span class="etiqueta">{minimo === 3 ? 'Enfeite · 3:1' : 'Leitura · 4,5:1'}</span>
-                </th>
+  <ProvasDeCor nomes={nomes} />
+  <details class="medidas-completas" id="medidas-de-contraste">
+    <summary class="t-medio">Consultar todas as medidas</summary>
+    <p class="t-apoio">Para leitura, a @bsurda pede 4,5:1. Para enfeite, 3:1.</p>
+    <dl class="legenda">
+      <div><dt class="etiqueta">AAA</dt><dd>Texto em qualquer tamanho a partir de 7:1.</dd></div>
+      <div><dt class="etiqueta">AA</dt><dd>A partir de 4,5:1, o texto também alcança AAA em tamanho grande.</dd></div>
+      <div><dt class="etiqueta">AA só texto grande</dt><dd>A partir de 3:1, vale para texto de 24 px ou de 18,67 px em negrito.</dd></div>
+      <div><dt class="etiqueta">Enfeite</dt><dd>O selo gráfico marca se o par chega aos 3:1 usados pelo site.</dd></div>
+    </dl>
+    <p class="t-pequeno"><a href="https://www.w3.org/TR/WCAG22/#contrast-minimum">Contraste de texto na WCAG 2.2</a> · Cores de <code>src/lib/temas.ts</code>. Os dois últimos pares medem o foco sobre o fundo invertido e o furo do crachá vivo.</p>
+    {paletas.map(({ id, temas }) => {
+      const Bloco = id === 'TEMAS_DO_SITE' ? 'section' : 'details';
+      const Cabeca = Bloco === 'section' ? 'header' : 'summary';
+      const linhas = temas.map(tema => {
+        const cores = coresDoTema(tema);
+        return { tema, cores, medidas: medidasDoTema(cores) };
+      });
+      return (
+        <Bloco class="paleta" aria-labelledby={id.toLowerCase()}>
+          <Cabeca>
+            <h4 id={id.toLowerCase()} class="t-medio">{nomes[id]} <span class="etiqueta">{temas.length} temas</span></h4>
+          </Cabeca>
+          <div class="panorama" aria-hidden="true">
+            {linhas.map(({ cores }) => <span title={cores.fundo} style={`background:${cores.fundo};border-color:${cores.destaque};color:${cores.texto}`}></span>)}
+          </div>
+          <div class="rolagem" role="region" tabindex="0" aria-label={'Cores de cada tema de ' + nomes[id]}>
+            <ul class="faixa-cores">
+              {linhas.map(({ tema, cores }) => (
+                <li style={`background:${cores.fundo};color:${cores.texto}`}>
+                  <p class="etiqueta">{tema.nome}</p>
+                  <dl>{Object.entries(cores).map(([nome, valor]) => (
+                    <div><dt><i style={`background:${valor}`}></i><code>--{nome}</code></dt><dd><code>{valor}</code></dd></div>
+                  ))}</dl>
+                </li>
               ))}
-            </tr></thead>
-            <tbody>{linhas.map(({ tema, cores, medidas }) => (
-              <tr data-camarim-tema={tema.id}>
-                <th scope="row">
-                  <span class="miniatura" style={`--amostra-destaque:${cores.destaque};background:${cores.fundo};color:${cores.texto}`} aria-hidden="true">Aa<BarraInclinada class="barra" oculta /></span>
-                  {tema.nome}
-                </th>
-                {medidas.map(({ cor, superficie, razao, minimo }) => {
-                  const [nivel, qualificacao] = nivelTexto(razao).split(' · ');
-                  return <td data-par={cor + '/' + superficie}>
-                    <strong>{dois(razao)}:1</strong>
-                    <span class="etiqueta selo">{nivel}{qualificacao && <span class="so-leitor"> · {qualificacao}</span>}</span>
-                    {minimo === 3 && <span class="etiqueta">Enfeite · {razao >= 3 ? 'AA' : 'Não passa'}</span>}
-                  </td>;
-                })}
-              </tr>
-            ))}</tbody>
-          </table>
-        </div>
-      </Bloco>
-    );
-  })}
+            </ul>
+          </div>
+          <div class="rolagem" role="region" tabindex="0" aria-label={'Tabela de contraste de ' + nomes[id]}>
+            <table data-paleta={id}>
+              <caption class="so-leitor">Contraste por tema e por par de cores de {nomes[id]}</caption>
+              <thead><tr>
+                <th scope="col" class="etiqueta">Tema</th>
+                {linhas[0].medidas.map(({ cor, superficie, minimo }) => (
+                  <th scope="col" data-par={cor + '/' + superficie}>
+                    <code>--{cor}</code> sobre <code>--{superficie}</code>
+                    <span class="etiqueta">{minimo === 3 ? 'Enfeite · 3:1' : 'Leitura · 4,5:1'}</span>
+                  </th>
+                ))}
+              </tr></thead>
+              <tbody>{linhas.map(({ tema, cores, medidas }) => (
+                <tr data-camarim-tema={tema.id}>
+                  <th scope="row">
+                    <span class="miniatura" style={`--amostra-destaque:${cores.destaque};background:${cores.fundo};color:${cores.texto}`} aria-hidden="true">Aa<BarraInclinada class="barra" oculta /></span>
+                    {tema.nome}
+                  </th>
+                  {medidas.map(({ cor, superficie, razao, minimo }) => {
+                    const [nivel, qualificacao] = nivelTexto(razao).split(' · ');
+                    return <td data-par={cor + '/' + superficie} data-cumpre={razao >= minimo ? 'sim' : 'nao'}>
+                      <strong>{dois(razao)}:1</strong>
+                      <span class="etiqueta selo">{nivel}{qualificacao && <span class="so-leitor"> · {qualificacao}</span>}</span>
+                      {minimo === 3 && <span class="etiqueta">Enfeite · {razao >= 3 ? 'AA' : 'Não passa'}</span>}
+                    </td>;
+                  })}
+                </tr>
+              ))}</tbody>
+            </table>
+          </div>
+        </Bloco>
+      );
+    })}
+  </details>
   <p slot="regras">Use <code>--destaque-texto</code> para texto pequeno em destaque e <code>--suave</code> para texto secundário. Sobre a superfície viva, leia com <code>--sobre-vivo</code>.</p>
 </Capitulo>
 <style>
+  .medidas-completas { margin-top: var(--e-3); }
   dl, dd, h4 { margin: 0; }
   .legenda { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: var(--e-2); margin-block: var(--e-2); }
   .legenda dt { font-weight: 800; margin-bottom: var(--e-1); }

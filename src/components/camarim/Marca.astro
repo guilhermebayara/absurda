@@ -75,11 +75,11 @@ const decimal = (n: number) => n.toLocaleString('pt-BR', { maximumFractionDigits
 </Parte>
 <style>
   .versoes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-3); }
-  .versao { border: 1px solid var(--linha); padding: var(--e-2); border-radius: var(--raio-cartao); }
+  .versao { min-width: 0; padding-top: var(--e-2); border-top: 1px solid var(--linha); }
   .versao:first-child { grid-column: 1 / -1; }
   h4 { margin: 0 0 var(--e-2); }
   .cores { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--e-1); }
-  .prancha { display: grid; place-items: center; background: #fff; padding: var(--e-2); }
+  .prancha { display: grid; place-items: center; background: #f5f5f5; padding: var(--e-2); border-radius: var(--raio-cartao); }
   .prancha.escura { background: #231f20; }
   .prancha img { width: 100%; height: clamp(5rem, 12vw, 11rem); object-fit: contain; }
   .versao:first-child img { height: clamp(6rem, 18vw, 18rem); }

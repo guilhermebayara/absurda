@@ -29,6 +29,9 @@ export function confereTabelas(html) {
         cor + '/' + superficie,
         `${dois(razao)}:1 ${nivelTexto(razao)}` + (minimo === 3 ? ` Enfeite · ${razao >= 3 ? 'AA' : 'Não passa'}` : ''),
       ]);
+      const grupos = [...linha[2].matchAll(/<td\b[^>]* data-cumpre="(sim|nao)"[^>]*>/g)].map(m => m[1]);
+      const esperados = medidasDoTema(coresDoTema(tema)).map(({ razao, minimo }) => razao >= minimo ? 'sim' : 'nao');
+      if (JSON.stringify(grupos) !== JSON.stringify(esperados)) problemas.push(`Uso classificado no grupo errado para ${tema.id}.`);
       if (JSON.stringify(celulas(linha[2], 'td')) !== JSON.stringify(esperadas)) problemas.push(`Divergência nos pares de ${tema.id}.`);
     }
   }
