@@ -16,7 +16,7 @@ const nomes: Record<string, string> = {
     <div><dt class="etiqueta">AA só texto grande</dt><dd>A partir de 3:1, vale para texto de 24 px ou de 18,67 px em negrito.</dd></div>
     <div><dt class="etiqueta">Enfeite</dt><dd>O selo gráfico marca se o par chega aos 3:1 usados pelo site.</dd></div>
   </dl>
-  <p class="t-pequeno"><a href="https://www.w3.org/TR/WCAG22/#contrast-minimum">Contraste de texto na WCAG 2.2</a> · Cores de <code>src/lib/temas.ts</code></p>
+  <p class="t-pequeno"><a href="https://www.w3.org/TR/WCAG22/#contrast-minimum">Contraste de texto na WCAG 2.2</a> · Cores de <code>src/lib/temas.ts</code>. Os dois últimos pares medem o foco sobre o fundo invertido e o furo do crachá vivo.</p>
   {paletas.map(({ id, temas }) => {
     const Bloco = id === 'TEMAS_DO_SITE' ? 'section' : 'details';
     const Cabeca = Bloco === 'section' ? 'header' : 'summary';
@@ -29,6 +29,9 @@ const nomes: Record<string, string> = {
         <Cabeca>
           <h4 id={id.toLowerCase()} class="t-medio">{nomes[id]} <span class="etiqueta">{temas.length} temas</span></h4>
         </Cabeca>
+        <div class="panorama" aria-hidden="true">
+          {linhas.map(({ cores }) => <span title={cores.fundo} style={`background:${cores.fundo};border-color:${cores.destaque};color:${cores.texto}`}></span>)}
+        </div>
         <div class="rolagem" role="region" tabindex="0" aria-label={'Cores de cada tema de ' + nomes[id]}>
           <ul class="faixa-cores">
             {linhas.map(({ tema, cores }) => (
@@ -83,6 +86,8 @@ const nomes: Record<string, string> = {
   header, summary { padding-block: var(--e-2); }
   summary { cursor: pointer; }
   summary h4 { display: inline; }
+  .panorama { display: flex; margin-bottom: var(--e-1); }
+  .panorama span { flex: 1; height: var(--e-3); border-bottom: .3em solid; box-shadow: inset 0 1px currentColor; }
   .rolagem { overflow: auto; max-width: 100%; }
   .faixa-cores { display: flex; }
   .faixa-cores li { flex: 0 0 auto; padding: var(--e-2); border: 1px solid currentColor; }
@@ -98,5 +103,5 @@ const nomes: Record<string, string> = {
   td .etiqueta, th .etiqueta { display: block; margin-top: .35em; }
   .selo { border: 1px solid var(--linha); padding: .2em .45em; width: fit-content; }
   .miniatura { display: flex; align-items: center; gap: .4em; width: fit-content; padding-inline: .4em; border: 1px solid currentColor; }
-  .barra { width: .25em; height: .85em; background: var(--amostra-destaque); }
+  .miniatura :global(.barra) { width: .25em; height: .85em; background: var(--amostra-destaque); }
 </style>

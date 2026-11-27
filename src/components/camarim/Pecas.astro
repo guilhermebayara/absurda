@@ -1,35 +1,38 @@
 ---
-import { TEMAS_DO_SITE } from '../../lib/temas';
-import { coresDoTema } from '../../../scripts/cores-temas.mjs';
+import { coresDoTema, paletas } from '../../../scripts/cores-temas.mjs';
+import Capitulo from './Capitulo.astro';
 import PecasNoTema from './PecasNoTema.astro';
 
-const amostras = [
-  { id: 'vinho', nome: 'Vinho com laranja', tema: TEMAS_DO_SITE[0] },
-  { id: 'creme', nome: 'Creme com marinho', tema: TEMAS_DO_SITE[7] },
-];
+const temas = paletas.find(paleta => paleta.id === 'TEMAS_DO_SITE')!.temas;
+const opcoes = temas.map(tema => ({
+  nome: tema.nome,
+  estilo: Object.entries(coresDoTema(tema)).map(([nome, cor]) => `--amostra-${nome}:${cor}`).join(';'),
+}));
 ---
-
-<section aria-labelledby="pecas">
-  <h3 id="pecas" class="titulo-secao">Peças</h3>
-  <p class="t-apoio">Passe o ponteiro ou use Tab para ver o foco. No celular, toque nos controles e arraste as filas.</p>
-  <p>Texto de pista segue <code>notas/tom.md</code>. Os exemplos são inventados.</p>
-
-  {amostras.map(({ id, nome, tema }, i) => {
-    const cores = coresDoTema(tema);
-    const estilo = Object.entries(cores).map(([nome, valor]) => `--${nome}:${valor}`).join(';');
-    return (
-      <details class="amostras" style={estilo} open={i === 0}>
-        <summary>{nome}</summary>
-        <div class="pecas-tema"><PecasNoTema tema={tema} id={id} /></div>
-      </details>
-    );
-  })}
-</section>
-
+<Capitulo id="pecas">
+  <div class="controle">
+    <label class="etiqueta" for="tema-das-pecas">Tema das amostras</label>
+    <select id="tema-das-pecas" aria-controls="amostras-das-pecas" autocomplete="off">
+      {opcoes.map(({ nome, estilo }) => <option value={estilo}>{nome}</option>)}
+    </select>
+  </div>
+  <p class="t-apoio">Teste as peças com o ponteiro, o toque ou a tecla Tab. Os nomes, as datas e as capas são de exemplo.</p>
+  <div id="amostras-das-pecas" style={opcoes[0].estilo}>
+    <PecasNoTema tema={temas[0]} id="amostra" />
+  </div>
+  <p slot="regras">Monte cada amostra com o componente do site e dados fictícios. As variantes interativas precisam funcionar por teclado e toque.</p>
+</Capitulo>
+<script>
+  const seletor = document.querySelector<HTMLSelectElement>('#tema-das-pecas');
+  const amostras = document.getElementById('amostras-das-pecas');
+  if (seletor && amostras) {
+    const aplicar = () => { amostras.style.cssText = seletor.value; };
+    aplicar();
+    seletor.addEventListener('change', aplicar);
+  }
+</script>
 <style>
-  .amostras { --linha: color-mix(in srgb, var(--texto) 28%, transparent); margin-top: var(--e-2); background: var(--fundo); color: var(--texto); border: 1px solid var(--linha); border-radius: var(--raio-cartao); }
-  .amostras summary { cursor: pointer; padding: var(--e-2) var(--e-3); font-weight: 800; font-size: 1.15rem; }
-  .amostras summary:hover { color: var(--destaque-texto); }
-  .pecas-tema { padding: 0 var(--e-3) var(--e-3); }
-  p + p { margin-top: var(--e-1); }
+  .controle { display: none; }
+  :global(.js) .controle { display: flex; flex-wrap: wrap; gap: var(--e-2); align-items: baseline; margin-bottom: var(--e-2); }
+  select { color: var(--texto); background: var(--fundo); font: inherit; border: 1px solid currentColor; border-radius: var(--raio-cartao); padding: .4em 1em; }
 </style>

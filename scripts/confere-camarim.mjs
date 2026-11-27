@@ -98,7 +98,7 @@ for (const arquivo of listarHtml(dist)) {
   problemas.push(...confereTabelas(html).map((problema) => `${caminho} · ${problema}`));
 
   if (caminho === '/camarim') {
-    for (const id of ['marca', 'site', 'pecas']) {
+    for (const id of ['indice', 'marca', 'site', 'logo', 'cores-da-marca', 'a-definir', 'temas', 'tipo', 'espaco', 'movimento', 'pecas']) {
       if (!html.includes(`id="${id}"`)) problemas.push(`Falta a âncora #${id}.`);
     }
     for (const [, lista] of html.matchAll(/\sdata-pecas="([^"]+)"/g)) {

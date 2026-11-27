@@ -11,5 +11,5 @@ const { nome } = Astro.props;
 <style>
   .parte { padding: var(--e-5) var(--margem); }
   h2 { display: flex; align-items: baseline; gap: var(--e-2); margin-bottom: var(--e-4); }
-  .sinal { align-self: center; width: .18em; height: .8em; background: var(--destaque); margin-inline: .18em; }
+  h2 :global(.sinal) { align-self: center; width: .18em; height: .8em; background: var(--destaque); margin-inline: .18em; }
 </style>

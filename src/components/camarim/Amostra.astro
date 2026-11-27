@@ -6,21 +6,26 @@ interface Props {
 }
 const { titulo, arquivos, uso } = Astro.props;
 ---
-
 <section class="amostra" data-pecas={arquivos.join(' ')}>
   <header>
-    <h4 class="t-medio">{titulo}</h4>
-    <p>{uso}</p>
-    <ul aria-label="Arquivos em src/components">
-      {arquivos.map((arquivo) => <li><code>{arquivo}.astro</code></li>)}
+    <h5 class="etiqueta">{titulo}</h5>
+    <p class="t-apoio">{uso}</p>
+    <ul class="t-pequeno" aria-label="Arquivos">
+      {arquivos.map(arquivo => <li><code>src/components/{arquivo}.astro</code></li>)}
     </ul>
   </header>
-  <slot />
+  <div class="palco"><slot /></div>
 </section>
-
 <style>
-  .amostra { display: grid; gap: var(--e-2); padding-block: var(--e-3); border-top: 1px solid var(--linha); }
-  header { display: grid; gap: .35rem; }
-  h4 { margin: 0; }
-  ul { display: flex; flex-wrap: wrap; gap: .25rem 1rem; color: var(--suave); font-size: .875rem; }
+  .amostra { display: grid; grid-template-columns: minmax(13rem, 1fr) minmax(0, 3fr); gap: var(--e-2) var(--e-4); padding-block: var(--e-3); border-top: 1px solid var(--linha); }
+  header { display: grid; align-content: start; gap: var(--e-1); }
+  h5 { margin: 0; }
+  code { overflow-wrap: anywhere; }
+  .palco { min-width: 0; overflow: clip; background: var(--fundo); color: var(--texto); padding: var(--e-2); border: 1px solid var(--linha); border-radius: var(--raio-cartao);
+    --fundo: var(--amostra-fundo); --texto: var(--amostra-texto); --destaque: var(--amostra-destaque);
+    --vivo: var(--amostra-vivo); --sobre-vivo: var(--amostra-sobre-vivo); --vivo-detalhe: var(--amostra-vivo-detalhe);
+    --suave: var(--amostra-suave); --enfeite: var(--amostra-enfeite); --destaque-texto: var(--amostra-destaque-texto);
+    --linha: color-mix(in srgb, var(--texto) 28%, transparent);
+  }
+  @media (max-width: 860px) { .amostra { grid-template-columns: minmax(0, 1fr); } }
 </style>

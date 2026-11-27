@@ -1,6 +1,8 @@
-# Camarim: decisões pendentes
+# Camarim
 
-O Camarim foi construído na ABS-2. A manutenção está em `CLAUDE.md`, na seção Camarim.
+A ABS-2 montou o catálogo. Na ABS-4, a abertura passou a ter índice numerado e a página ficou dividida em oito capítulos abertos. Cada capítulo termina com as regras de uso do site. A manutenção está em `CLAUDE.md`, na seção Camarim.
+
+Marca reúne Logo (01), Cores da marca (02) e O que falta definir (03). Site reúne Cor e contraste (04), Tipo (05), Espaço e forma (06), Movimento (07) e Peças (08). O último agrupa as amostras por página ou função. O seletor troca o tema de todas elas e vale só durante a consulta.
 
 ## Marca
 

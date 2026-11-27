@@ -361,7 +361,7 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
   Cada paleta tem uma faixa de cores e uma tabela, com um tema por linha e um par por coluna.
 - **Peça nova:** monte o próprio componente em `PecasNoTema.astro` dentro de `Amostra`, com a
   lista de arquivos e uma linha sobre o uso. Mostre as variantes e deixe os estados interativos
-  acionáveis por teclado e toque. Os dois temas vêm de `Pecas.astro`; use as capas de
+  acionáveis por teclado e toque. O seletor em `Pecas.astro` troca o tema de todas as amostras na página; use as capas de
   `public/exemplos/` e dados fictícios. Componentes desligados moram em `src/components/guardado/`.
 - **Conferência:** `npm run confere:camarim` lê o HTML depois do build e trava a publicação se
   falharem o ocultamento, a triagem de nomes e conteúdo privado, os downloads oficiais, as amostras

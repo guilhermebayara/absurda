@@ -36,14 +36,14 @@ const decimal = (n: number) => n.toLocaleString('pt-BR', { maximumFractionDigits
                   </div>
                   <p class="etiqueta">{cor}</p>
                   <ul aria-label={`Downloads de ${nome}, versão ${cor.toLowerCase()}`}>
-                    {['SVG', 'PNG 1000', 'PNG 3000'].map((formato, i) => (
-                      <li><Botao tipo="linha" download href={base + sufixo + ['.svg', '-1000.png', '-3000.png'][i]} aria-label={`Baixar ${nome}, versão ${cor.toLowerCase()}, em ${formato}`}>{formato}</Botao></li>
+                    {[['SVG', '.svg'], ['PNG 1000', '-1000.png'], ['PNG 3000', '-3000.png']].map(([formato, extensao]) => (
+                      <li><Botao tipo="linha" download href={base + sufixo + extensao} aria-label={`Baixar ${nome}, versão ${cor.toLowerCase()}, em ${formato}`}>{formato}</Botao></li>
                     ))}
                   </ul>
                 </div>
               ))}
             </div>
-            <p class="t-pequeno">Proporção {decimal(w / h)}:1 · SVG {decimal(w)} × {decimal(h)} · PNG {1000} × {Math.round(1000*h/w)} e {3000} × {Math.round(3000*h/w)} px</p>
+            <p class="t-pequeno">Proporção {decimal(w / h)}:1 · SVG {decimal(w)} × {decimal(h)} · PNG 1000 × {Math.round(1000 * h / w)} e 3000 × {Math.round(3000 * h / w)} px</p>
           </article>
         );
       }))}
