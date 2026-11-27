@@ -12,7 +12,7 @@ const tipos = [
   ['t-pequeno', 'Portas às 22h.', 'Nota técnica e informação secundária'],
   ['etiqueta', 'Próximo projeto', 'Rótulo de função ou de peça'],
 ];
-const medidas = ['margem', 'e-1', 'e-2', 'e-3', 'e-4', 'e-5', 'e-6', 'raio-cartao', 'folga-cartao'];
+const medidas = ['margem', 'e-1', 'e-2', 'e-3', 'e-4', 'e-5', 'e-6'];
 ---
 
 <Capitulo id="tipo">
@@ -31,19 +31,27 @@ const medidas = ['margem', 'e-1', 'e-2', 'e-3', 'e-4', 'e-5', 'e-6', 'raio-carta
   </dl>
   <p slot="regras">Mantenha os títulos em ordem, sem pular nível. A classe de texto dá o tamanho de cada título.</p>
 </Capitulo>
-<section aria-label="Espaço e movimento">
-  <div class="grupo">
-    <h4 class="t-medio">Espaço</h4>
-    <dl class="valores">
-      {medidas.map((nome) => (
-        <div>
-          <dt><code>--{nome}</code></dt>
-          <dd><code>{valor(nome)}</code></dd>
-          <dd class="medida" aria-hidden="true" style={nome === 'raio-cartao' ? 'width:var(--raio-cartao);border-radius:var(--raio-cartao) 0 0 0' : `width:var(--${nome})`}></dd>
-        </div>
-      ))}
-    </dl>
+<Capitulo id="espaco">
+  <dl class="barras">
+    {medidas.map(nome => (
+      <div>
+        <dt class="t-pequeno"><code>--{nome}</code></dt>
+        <dd class="medida" aria-hidden="true" style={`width:var(--${nome})`}></dd>
+        <dd class="t-pequeno"><code>{valor(nome)}</code></dd>
+      </div>
+    ))}
+  </dl>
+  <h4 class="t-medio">O cartão no celular</h4>
+  <div class="moldura">
+    <div class="cartao">
+      <p class="etiqueta">Canto e margem</p>
+      <p>O canto arredonda a peça. A folga deixa a cor da página aparecer ao redor.</p>
+    </div>
   </div>
+  <p class="t-pequeno"><code>--raio-cartao</code> {valor('raio-cartao')} · <code>--folga-cartao</code> {valor('folga-cartao')}</p>
+  <p slot="regras">No celular, menu e rodapé usam o mesmo raio e a mesma folga. O menu se une ao alto da tela e arredonda só embaixo.</p>
+</Capitulo>
+<section aria-label="Movimento">
   <div class="grupo">
     <h4 class="t-medio">Movimento</h4>
     <ul>
@@ -58,7 +66,12 @@ const medidas = ['margem', 'e-1', 'e-2', 'e-3', 'e-4', 'e-5', 'e-6', 'raio-carta
 
 <style>
   h4 { margin: 0 0 var(--e-2); }
-  .grupo + .grupo { margin-top: var(--e-4); }
+  .barras { margin-bottom: var(--e-3); }
+  .barras > div { display: grid; grid-template-columns: 6rem minmax(5rem, 8rem) 1fr; gap: var(--e-1); align-items: center; border-top: 1px solid var(--linha); padding-block: var(--e-1); }
+  .barras code { overflow-wrap: anywhere; }
+  .moldura { max-width: 34em; border: 1px solid var(--linha); padding: var(--folga-cartao); margin-block: var(--e-2); }
+  .cartao { border-radius: var(--raio-cartao); padding: var(--e-3); background: var(--texto); color: var(--fundo); }
+  .cartao p + p { margin-top: var(--e-1); }
   dl { margin-block: 0; }
   dd { margin: 0; }
   .tipos { display: block; list-style: none; padding: 0; margin-bottom: var(--e-3); }

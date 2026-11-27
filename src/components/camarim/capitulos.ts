@@ -7,6 +7,7 @@ export const partes = [
   { nome: 'Site', capitulos: [
     { numero: '04', id: 'temas', titulo: 'Cor e contraste' },
     { numero: '05', id: 'tipo', titulo: 'Tipo' },
+    { numero: '06', id: 'espaco', titulo: 'Espaço e forma' },
     { numero: '08', id: 'pecas', titulo: 'Peças' },
   ] },
 ];
