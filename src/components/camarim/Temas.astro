@@ -1,101 +1,102 @@
 ---
+import Capitulo from './Capitulo.astro';
+import BarraInclinada from '../BarraInclinada.astro';
 import { coresDoTema, dois, medidasDoTema, nivelTexto, paletas } from '../../../scripts/cores-temas.mjs';
 
-interface Props { lista?: boolean }
-const { lista = false } = Astro.props;
 const nomes: Record<string, string> = {
-  TEMAS_DO_SITE: 'Site',
-  TEMAS_DE_POSICAO: 'Posicionamento',
-  TEMAS_DO_TIBUM: 'Tibum',
-  TEMAS_DO_TRIO: 'Trio',
-  TEMAS_DA_PARADA: 'Parada',
-  TEMAS_DA_WIG: 'WIG',
+  TEMAS_DO_SITE: 'Site', TEMAS_DE_POSICAO: 'Posicionamento', TEMAS_DO_TIBUM: 'Tibum',
+  TEMAS_DO_TRIO: 'Trio', TEMAS_DA_PARADA: 'Parada', TEMAS_DA_WIG: 'WIG',
 };
 ---
-
-<section aria-labelledby="temas">
-  <header>
-    <h3 id="temas" class="titulo-secao">Temas e contraste</h3>
-    <p class="t-apoio">Abra um tema para ver as três cores de base, as seis calculadas e os pares em uso.</p>
-    <p>Leitura pede 4,5:1. Enfeite pede 3:1. A tabela usa os critérios de <a href="https://www.w3.org/TR/WCAG22/#contrast-minimum">contraste da WCAG 2.2</a>. As duas últimas linhas mostram o foco do menu e do rodapé e o furo do crachá vivo.</p>
-  </header>
-  <nav aria-label="Paletas">
-    {paletas.map(({ id }) => <a href={`#${id.toLowerCase()}`}>{nomes[id] ?? id}</a>)}
-  </nav>
-
-  {paletas.map(({ id, temas }) => (
-    <section class="paleta" aria-labelledby={id.toLowerCase()}>
-      <h4 id={id.toLowerCase()} class="t-medio">{nomes[id] ?? id} <small>{temas.length} temas</small></h4>
-      <div class:list={['temas', { lista }]}>
-        {temas.map((tema) => {
-          const cores = coresDoTema(tema);
-          return (
-            <details data-camarim-tema={tema.id}>
-              <summary>
-                <span class="amostra" style={`background:${cores.fundo};color:${cores.texto}`} aria-hidden="true">
-                  Aa<span style={`background:${cores.destaque}`}></span>
-                </span>
-                <strong>{tema.nome}</strong>
-              </summary>
-              <dl class="cores">
-                {Object.entries(cores).map(([nome, valor]) => (
-                  <div>
-                    <dt><span style={`background:${valor}`} aria-hidden="true"></span><code>--{nome}</code></dt>
-                    <dd><code>{valor}</code></dd>
-                  </div>
+<Capitulo id="temas">
+  <p class="t-apoio">Para leitura, a @bsurda pede 4,5:1. Para enfeite, 3:1.</p>
+  <dl class="legenda">
+    <div><dt class="etiqueta">AAA</dt><dd>Texto em qualquer tamanho a partir de 7:1.</dd></div>
+    <div><dt class="etiqueta">AA</dt><dd>A partir de 4,5:1, o texto também alcança AAA em tamanho grande.</dd></div>
+    <div><dt class="etiqueta">AA só texto grande</dt><dd>A partir de 3:1, vale para texto de 24 px ou de 18,67 px em negrito.</dd></div>
+    <div><dt class="etiqueta">Enfeite</dt><dd>O selo gráfico marca se o par chega aos 3:1 usados pelo site.</dd></div>
+  </dl>
+  <p class="t-pequeno"><a href="https://www.w3.org/TR/WCAG22/#contrast-minimum">Contraste de texto na WCAG 2.2</a> · Cores de <code>src/lib/temas.ts</code></p>
+  {paletas.map(({ id, temas }) => {
+    const Bloco = id === 'TEMAS_DO_SITE' ? 'section' : 'details';
+    const Cabeca = Bloco === 'section' ? 'header' : 'summary';
+    const linhas = temas.map(tema => {
+      const cores = coresDoTema(tema);
+      return { tema, cores, medidas: medidasDoTema(cores) };
+    });
+    return (
+      <Bloco class="paleta" aria-labelledby={id.toLowerCase()}>
+        <Cabeca>
+          <h4 id={id.toLowerCase()} class="t-medio">{nomes[id]} <span class="etiqueta">{temas.length} temas</span></h4>
+        </Cabeca>
+        <div class="rolagem" role="region" tabindex="0" aria-label={'Cores de cada tema de ' + nomes[id]}>
+          <ul class="faixa-cores">
+            {linhas.map(({ tema, cores }) => (
+              <li style={`background:${cores.fundo};color:${cores.texto}`}>
+                <p class="etiqueta">{tema.nome}</p>
+                <dl>{Object.entries(cores).map(([nome, valor]) => (
+                  <div><dt><i style={`background:${valor}`}></i><code>--{nome}</code></dt><dd><code>{valor}</code></dd></div>
+                ))}</dl>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="rolagem" role="region" tabindex="0" aria-label={'Tabela de contraste de ' + nomes[id]}>
+          <table data-paleta={id}>
+            <caption class="so-leitor">Contraste por tema e por par de cores de {nomes[id]}</caption>
+            <thead><tr>
+              <th scope="col" class="etiqueta">Tema</th>
+              {linhas[0].medidas.map(({ cor, superficie, minimo }) => (
+                <th scope="col" data-par={cor + '/' + superficie}>
+                  <code>--{cor}</code> sobre <code>--{superficie}</code>
+                  <span class="etiqueta">{minimo === 3 ? 'Enfeite · 3:1' : 'Leitura · 4,5:1'}</span>
+                </th>
+              ))}
+            </tr></thead>
+            <tbody>{linhas.map(({ tema, cores, medidas }) => (
+              <tr data-camarim-tema={tema.id}>
+                <th scope="row">
+                  <span class="miniatura" style={`--amostra-destaque:${cores.destaque};background:${cores.fundo};color:${cores.texto}`} aria-hidden="true">Aa<BarraInclinada class="barra" oculta /></span>
+                  {tema.nome}
+                </th>
+                {medidas.map(({ cor, superficie, razao, minimo }) => (
+                  <td data-par={cor + '/' + superficie}>
+                    <strong>{dois(razao)}:1</strong>
+                    <span class="etiqueta selo">{nivelTexto(razao)}</span>
+                    {minimo === 3 && <span class="etiqueta">Enfeite · {razao >= 3 ? 'AA' : 'Não passa'}</span>}
+                  </td>
                 ))}
-              </dl>
-              <div class="tabela" role="region" tabindex="0" aria-label={`Contraste de ${tema.nome}`}>
-                <table>
-                  <caption class="so-leitor">Contraste de {tema.nome}</caption>
-                  <thead><tr><th scope="col">Par</th><th scope="col">Razão</th><th scope="col">WCAG · texto</th><th scope="col">WCAG · enfeite</th><th scope="col">Regra do site</th></tr></thead>
-                  <tbody>
-                    {medidasDoTema(cores).map(({ cor, superficie, razao, minimo }) => (
-                      <tr data-par={`${cor}/${superficie}`}>
-                        <th scope="row"><code>--{cor}</code> sobre <code>--{superficie}</code></th>
-                        <td>{dois(razao)}:1</td>
-                        <td>{nivelTexto(razao)}</td>
-                        <td>{minimo === 3 ? (razao >= 3 ? 'AA' : 'Não passa') : '·'}</td>
-                        <td>{minimo === 3 ? 'Enfeite · 3:1' : 'Leitura · 4,5:1'}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </details>
-          );
-        })}
-      </div>
-    </section>
-  ))}
-</section>
-
+              </tr>
+            ))}</tbody>
+          </table>
+        </div>
+      </Bloco>
+    );
+  })}
+  <p slot="regras">Use <code>--destaque-texto</code> para texto pequeno em destaque e <code>--suave</code> para texto secundário. Sobre a superfície viva, leia com <code>--sobre-vivo</code>.</p>
+</Capitulo>
 <style>
-  header > p + p { margin-top: var(--e-1); }
-  nav { display: flex; flex-wrap: wrap; gap: .35rem 1.15rem; margin-block: var(--e-2) var(--e-4); font-weight: 700; }
-  .paleta + .paleta { margin-top: var(--e-4); }
-  h4 { margin: 0 0 var(--e-2); }
-  h4 small { font-size: .875rem; color: var(--suave); margin-inline-start: .5rem; }
-  .temas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr)); gap: .5rem; align-items: start; }
-  .temas.lista { grid-template-columns: 1fr; gap: 0; }
-  details { border: 1px solid var(--linha); min-width: 0; }
-  details[open] { grid-column: 1 / -1; }
-  .lista details { border-width: 0 0 1px; }
-  .lista details:first-child { border-top-width: 1px; }
-  summary { display: flex; align-items: center; gap: .65rem; min-height: 3rem; padding: .45rem .65rem; cursor: pointer; list-style: none; }
-  summary::-webkit-details-marker { display: none; }
-  summary::after { content: '+'; margin-inline-start: auto; font-size: 1.3em; color: var(--destaque-texto); }
-  details[open] summary::after { content: '−'; }
-  summary:hover strong { text-decoration: underline; }
-  .amostra { display: inline-flex; flex: none; align-items: center; justify-content: space-between; gap: .45em; padding: .2em .45em; min-width: 3.4em; font-weight: 800; font-size: 1rem; }
-  .amostra span { width: .35em; height: 1.2em; transform: skewX(26.5deg); }
-  .cores { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 8rem), 1fr)); gap: .5rem; padding: .65rem; margin-block: 0; }
-  .cores div { min-width: 0; font-size: .875rem; }
-  dt { display: grid; gap: .25rem; }
-  dt span { display: block; height: 1.65rem; border: 1px solid var(--linha); }
-  dd { margin: 0; color: var(--suave); }
-  .tabela { overflow-x: auto; padding: .65rem; }
-  table { border-collapse: collapse; width: 100%; font-size: .9rem; text-align: left; }
-  th, td { padding: .5rem; border-bottom: 1px solid var(--linha); }
-  td:nth-child(2) { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  dl, dd, h4 { margin: 0; }
+  .legenda { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: var(--e-2); margin-block: var(--e-2); }
+  .legenda dt { font-weight: 800; margin-bottom: var(--e-1); }
+  .paleta { margin-top: var(--e-2); border-top: 1px solid var(--linha); }
+  header, summary { padding-block: var(--e-2); }
+  summary { cursor: pointer; }
+  summary h4 { display: inline; }
+  .rolagem { overflow: auto; max-width: 100%; }
+  .faixa-cores { display: flex; }
+  .faixa-cores li { flex: 0 0 auto; padding: var(--e-2); border: 1px solid currentColor; }
+  .faixa-cores p { margin-bottom: var(--e-1); }
+  .faixa-cores dl { font-size: var(--t-rotulo); }
+  .faixa-cores dl div, .faixa-cores dt { display: flex; align-items: center; gap: .4em; }
+  .faixa-cores dl div { justify-content: space-between; gap: var(--e-2); }
+  dt i { width: 1em; height: 1em; border: 1px solid currentColor; }
+  table { border-spacing: 0; width: 100%; text-align: left; font-variant-numeric: tabular-nums; }
+  th, td { padding: var(--e-1) var(--e-2); border-bottom: 1px solid var(--linha); min-width: 10rem; }
+  thead th { vertical-align: bottom; }
+  th:first-child { position: sticky; left: 0; background: var(--fundo); min-width: 8rem; max-width: 12rem; border-right: 1px solid var(--linha); }
+  td .etiqueta, th .etiqueta { display: block; margin-top: .35em; }
+  .selo { border: 1px solid var(--linha); padding: .2em .45em; width: fit-content; }
+  .miniatura { display: flex; align-items: center; gap: .4em; width: fit-content; padding-inline: .4em; border: 1px solid currentColor; }
+  .barra { width: .25em; height: .85em; background: var(--amostra-destaque); }
 </style>

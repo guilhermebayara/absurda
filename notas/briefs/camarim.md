@@ -12,9 +12,6 @@ O Camarim foi construído na ABS-2. A manutenção está em `CLAUDE.md`, na seç
 
 ## Site
 
-Como consultar os temas nas seis paletas?
+A ABS-4 definiu uma tabela por paleta. A paleta do site aparece aberta e as outras cinco se expandem individualmente. Cada linha traz um tema e cada coluna traz um par de cores, com razão e nível WCAG. A faixa anterior à tabela mostra as três cores de base e as seis derivadas. As tabelas aceitam foco e rolagem horizontal.
 
-- [Grade de amostras](https://tst-camarim.festaabsurda.com/camarim#temas). Vários temas por linha
-  em telas largas, com detalhes que se abrem na largura da seção.
-- [Lista de temas](https://tst-camarim.festaabsurda.com/camarim/temas-em-lista#temas).
-  Uma linha por tema, com detalhes que se abrem no lugar.
+[Consultar cor e contraste](https://tst-camarim.festaabsurda.com/camarim#temas)

@@ -358,7 +358,7 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
 - **Tema novo:** use as paletas nomeadas em `src/lib/temas.ts`, com o nome do tema no comentário da
   linha. `scripts/cores-temas.mjs` executa o trecho marcado de `Base.astro` para obter as cores
   calculadas e a razão. Tanto o `confere:temas` como as tabelas estáticas usam essa função.
-  O estudo em lista em `/camarim/temas-em-lista` só é construído em `tst-camarim`.
+  Cada paleta tem uma faixa de cores e uma tabela, com um tema por linha e um par por coluna.
 - **Peça nova:** monte o próprio componente em `PecasNoTema.astro` dentro de `Amostra`, com a
   lista de arquivos e uma linha sobre o uso. Mostre as variantes e deixe os estados interativos
   acionáveis por teclado e toque. Os dois temas vêm de `Pecas.astro`; use as capas de

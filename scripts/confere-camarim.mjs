@@ -111,7 +111,7 @@ for (const arquivo of listarHtml(dist)) {
 }
 
 if (faltamPecas.size) problemas.push(`Peças sem amostra: ${[...faltamPecas].join(', ')}.`);
-if (process.env.WORKERS_CI_BRANCH === 'tst-camarim' && paginas !== 2) problemas.push('A prévia precisa das duas versões dos temas.');
+if (paginas !== 1) problemas.push('O Camarim deve ter uma única página.');
 
 if (problemas.length) {
   console.error(problemas.join('\n'));
