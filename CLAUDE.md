@@ -451,6 +451,14 @@ números de antes estão em `notas/leveza-auditoria.md` (Sessão J); as correç�
   endereço. O `sizes` é medido na tela. A maior versão também é WebP, na largura da foto, para o
   navegador nunca cair no JPG original. Capa do Sympla (`-lg`, 1.400 px) não passa pelo `foto()`: onde
   ela aparece pequena, use a `-xs` (`capaPequena`), como na parede da Home.
+- **Capas que acompanham o cursor** (Home e Agenda, `EspiaCursor.astro`): só pedem imagem ao
+  passar pela linha. Escolhem em `data-espia` a maior versão até o dobro da largura da caixa.
+  Na Home, a versão WebP já vem recortada pelo centro em 4:5. Na Agenda, o recorte é no CSS e
+  os arquivos locais usam os WebP comuns. Capas remotas usam o `w_` do Shotgun ou a menor
+  versão publicada do Sympla (`-xs`, cerca de 600 px). A capa entra depois de `decode()` se
+  o cursor ainda estiver na linha. Enquanto ela carrega, a capa anterior fica escondida.
+  O movimento escreve um transform por quadro e conserva a curva de 0,18 s. No toque, a
+  prévia fica fora da tela. Com movimento reduzido, a transição fica desligada.
 - **Densidade no celular (escolha do Gui):** em Projetos (`/projetos`), Equipe (`/equipe`) e Sobre as
   fotos são pedidas como num celular de 2x, mesmo num iPhone de 3x (`foto(src, sizes, { ate2x: true })`,
   ou `ate2x` em `Capa` e `Cracha`). O resto do site pede a densidade do aparelho. A foto ocupa o mesmo

@@ -1,5 +1,6 @@
 ---
 import { partesDaData, type Evento } from '../lib/eventos';
+import { fotoEspia } from '../lib/imagens';
 
 interface Props {
   evento: Evento;
@@ -10,7 +11,7 @@ const Tag = evento.url ? 'a' : 'div';
 ---
 <li>
   {/* Sem link (como os trios de carnaval mais antigos), a linha é só registro. */}
-  <Tag class="linha" href={evento.url || undefined} target={evento.url ? '_blank' : undefined} rel={evento.url ? 'noopener' : undefined} data-espia={evento.capa ?? ''}>
+  <Tag class="linha" href={evento.url || undefined} target={evento.url ? '_blank' : undefined} rel={evento.url ? 'noopener' : undefined} data-espia={fotoEspia(evento.capa)}>
     <span class="linha-data">{dia} {mes}</span>
     <span class="linha-nome">{evento.nome}</span>
     <span class="linha-local"><span>{evento.local ?? ''}</span>{evento.url && evento.album && <span class="linha-fotos">Fotos no Flickr</span>}{evento.parada && <span class="linha-fotos">{evento.parada}ª Parada</span>}</span>

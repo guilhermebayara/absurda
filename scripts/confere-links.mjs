@@ -39,7 +39,7 @@ for (const pagina of paginas) {
     ...[...html.matchAll(/<a\b[^>]*?\shref=["']([^"']*)["']/g)].map((m) => ['link', m[1]]),
     ...[...html.matchAll(/<(?:img|source|script|video|audio)\b[^>]*?\ssrc=["']([^"']*)["']/g)].map((m) => ['arquivo', m[1]]),
     ...[...html.matchAll(/<link\b[^>]*?\shref=["']([^"']*)["']/g)].map((m) => ['arquivo', m[1]]),
-    ...[...html.matchAll(/\sdata-espia=["']([^"']+)["']/g)].map((m) => ['capa', m[1]]),
+    ...[...html.matchAll(/\sdata-espia=["']([^"']+)["']/g)].flatMap((m) => m[1].split(', ').map((fonte) => ['capa', fonte.split(' ')[0]])),
   ];
   for (const [tipo, bruto] of alvos) {
     const alvo = bruto.replace(/&amp;/g, '&');

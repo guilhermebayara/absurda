@@ -444,3 +444,10 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   invertida e o recorte sobre a superfície viva. O `confere:camarim` verifica o HTML no build. A
   grade e a lista de temas estão na prévia para escolha, e as regras de uso da marca ficam a definir.
   (CLAUDE.md, "Camarim"; pendências em `notas/briefs/camarim.md`.)
+
+- **2026-11-26, capa que acompanha o cursor na Home e na Agenda (ABS-3).** A prévia pede uma
+  versão no tamanho da caixa, mostra a capa depois de decodificar e descarta respostas de
+  linhas que o cursor já deixou. As escritas de movimento ficam agrupadas por quadro, com
+  a mesma curva de chegada. A Home usa WebP recortado pelo centro para preservar a nitidez
+  dentro da caixa 4:5. Por quê: reduzir o peso das capas e o trabalho de estilo durante a
+  passagem pelas linhas. (CLAUDE.md, "Leveza".)

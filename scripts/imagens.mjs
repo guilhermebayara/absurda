@@ -17,7 +17,7 @@ import { fileURLToPath } from 'node:url';
 const PUBLICO = path.resolve('public');
 const CACHE = path.resolve('node_modules/.astro/absurda-imagens');
 const LIMITE_OG = 300 * 1024;
-const PADRAO = /\/img\/(\d+|og)(\/[^"'\s,)?#]+?)\.(webp|jpg)/g;
+const PADRAO = /\/img\/(\d+(?:x\d+)?|og)(\/[^"'\s,)?#]+?)\.(webp|jpg)/g;
 
 function htmls(dir) {
   const saida = [];
@@ -51,7 +51,8 @@ async function gerar(tipo, semExt, destino) {
         if (dados.length < LIMITE_OG) break;
       }
     } else {
-      dados = await sharp(fonte).rotate().resize({ width: Number(tipo), withoutEnlargement: true }).webp({ quality: 78 }).toBuffer();
+      const [largura, altura] = tipo.split('x').map(Number);
+      dados = await sharp(fonte).rotate().resize({ width: largura, height: altura, withoutEnlargement: true }).webp({ quality: 78 }).toBuffer();
     }
     fs.mkdirSync(CACHE, { recursive: true });
     fs.writeFileSync(emCache, dados);
