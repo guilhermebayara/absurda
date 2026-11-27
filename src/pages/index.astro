@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import EspiaCursor from '../components/EspiaCursor.astro';
 import ParedePalavras from '../components/ParedePalavras.astro';
 import BarraInclinada from '../components/BarraInclinada.astro';
 import Eco from '../components/Eco.astro';
@@ -14,7 +15,7 @@ import { atributo, TEMAS_DO_SITE, type Tema } from '../lib/temas';
 import { temasDoProjeto } from '../lib/projetos';
 import { getCollection } from 'astro:content';
 import palavras from '../data/palavras.json';
-import { foto } from '../lib/imagens';
+import { foto, fotoEspia } from '../lib/imagens';
 import { numeros, lineup, cidades, palco, idade } from '../lib/historia';
 
 const { proximos, passados } = await getEventos();
@@ -131,7 +132,7 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
     <ul class="indice">
       {projetos.map((p, i) => (
         <li data-anima="linha" style={`--i:${i}`}>
-          <a href={`/projetos/${p.id}`} data-espia={p.data.capa ?? ''} data-espia-cores={atributo(temasDosProjetos[p.id])}>
+          <a href={`/projetos/${p.id}`} data-espia={fotoEspia(p.data.capa, true)} data-espia-cores={atributo(temasDosProjetos[p.id])}>
             <span class="indice-nome"><span data-anima="sobe" style={`--i:${i}`}>{p.data.nome}</span></span>
             <span class="indice-resumo">{p.data.resumo}</span>
           </a>
@@ -139,7 +140,7 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
       ))}
     </ul>
     <!-- Prévia que acompanha o cursor no índice de projetos -->
-    <div class="espia" aria-hidden="true"><img alt="" hidden /><Arroba /></div>
+    <EspiaCursor><Arroba /></EspiaCursor>
     {outrosProjetos.length > 0 && (
       <div class="indice-outros" data-anima="surge">
         <p class="etiqueta">Também são da casa</p>
@@ -211,28 +212,6 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
     window.addEventListener('scroll', () => { if (!marcado) { marcado = true; requestAnimationFrame(mover); } }, { passive: true });
     window.addEventListener('resize', mover);
     mover();
-  }
-
-  // Índice de projetos: uma prévia acompanha o cursor, nas cores do projeto.
-  // A página em si não muda de cor.
-  const espia = document.querySelector<HTMLElement>('.espia');
-  const imagem = espia?.querySelector('img');
-  if (espia && window.matchMedia('(pointer: fine)').matches) {
-    document.querySelectorAll<HTMLElement>('[data-espia-cores]').forEach((el) => {
-      el.addEventListener('pointerenter', () => {
-        const [fundo, , destaque] = el.dataset.espiaCores!.split('|');
-        espia.style.setProperty('--espia-fundo', fundo);
-        espia.style.setProperty('--espia-cor', destaque);
-        if (imagem) { imagem.hidden = !el.dataset.espia; if (el.dataset.espia) imagem.src = el.dataset.espia; }
-        espia.classList.add('visivel');
-      });
-      el.addEventListener('pointerleave', () => espia.classList.remove('visivel'));
-      el.addEventListener('pointermove', (e) => {
-        espia.style.setProperty('--x', `${e.clientX}px`);
-        espia.style.setProperty('--y', `${e.clientY}px`);
-        espia.style.setProperty('--giro', `${Math.max(-8, Math.min(8, e.movementX * 0.6))}deg`);
-      });
-    });
   }
 </script>
 
@@ -329,19 +308,10 @@ const temaInicial = destaque?.tema ?? TEMAS_DO_SITE[0];
   @media (max-width: 720px) { .indice a { grid-template-columns: 1fr; } }
   @media (prefers-reduced-motion: reduce) { .indice a::before, .indice a::after { transition: none; } }
 
-  .espia { border-radius: clamp(0.6rem, 1.2vw, 1rem); position: fixed; left: 0; top: 0; z-index: 1; width: clamp(11rem, 18vw, 17rem); aspect-ratio: 4 / 5; display: grid; place-items: center; overflow: hidden; background: var(--espia-fundo, var(--texto)); color: var(--espia-cor, var(--fundo)); pointer-events: none; opacity: 0; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(0.85); transition: opacity 0.2s, transform 0.18s ease-out; }
-  .espia.visivel { opacity: 1; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(1); }
-  .espia img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .espia :global(svg) { width: 46%; }
-
   .fotos h2 { max-width: 9em; }
   .fotos-fim { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--e-3) var(--e-4); margin-top: var(--e-4); }
 
   .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  /* Em tela de toque a prévia que segue o cursor nunca aparece, e um elemento fixo, mesmo
-     invisível, faz o Safari do iPhone desenhar uma banda atrás das barras. Sai da página. */
-  @media (hover: none) { .espia { display: none; } }
-
   /* Toque sem animação ligada à rolagem: a parede não fica presa. Ela rola com a página, as fileiras continuam correndo e as
      capas continuam atravessando. Sem sticky, o Safari do iPhone não cria a banda na borda. */
   :global(.toque) .historia.viva { height: auto; }

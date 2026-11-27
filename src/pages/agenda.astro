@@ -4,6 +4,7 @@
 // Passados: o arquivo. O ano é o protagonista e os eventos viram uma lista
 // tipográfica densa, com a capa aparecendo ao passar o mouse.
 import Base from '../layouts/Base.astro';
+import EspiaCursor from '../components/EspiaCursor.astro';
 import ListaAgenda from '../components/ListaAgenda.astro';
 import AtalhoAnos from '../components/AtalhoAnos.astro';
 import LinhaEventoAgenda from '../components/LinhaEventoAgenda.astro';
@@ -124,33 +125,12 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
 
       <p class="arquivo-fim"><Botao href={SITE.fotos} externo tipo="linha">Se ache nas fotos</Botao></p>
       <!-- Capa que acompanha o cursor na lista -->
-      <div class="espia-capa" aria-hidden="true"><img alt="" /></div>
+      <EspiaCursor agenda />
     </section>
   </div>
 </Base>
 
 <script>
-  // A capa do evento acompanha o cursor enquanto ele passa pela lista.
-  const espia = document.querySelector<HTMLElement>('.espia-capa');
-  const imagem = espia?.querySelector('img');
-  if (espia && imagem && window.matchMedia('(pointer: fine)').matches) {
-    document.querySelectorAll<HTMLElement>('.linhas .linha').forEach((el) => {
-      el.addEventListener('pointerenter', (e) => {
-        if (!el.dataset.espia) return;
-        espia.style.setProperty('--x', `${e.clientX}px`);
-        espia.style.setProperty('--y', `${e.clientY}px`);
-        imagem.src = el.dataset.espia;
-        espia.classList.add('visivel');
-      });
-      el.addEventListener('pointerleave', () => espia.classList.remove('visivel'));
-      el.addEventListener('pointermove', (e) => {
-        espia.style.setProperty('--x', `${e.clientX}px`);
-        espia.style.setProperty('--y', `${e.clientY}px`);
-        espia.style.setProperty('--giro', `${Math.max(-8, Math.min(8, e.movementX * 0.6))}deg`);
-      });
-    });
-  }
-
   // Abrir e fechar um ano: o corpo cresce ou encolhe e o conteúdo entra junto, de leve.
   // Abre em 0,45s e fecha um pouco mais rápido. Quem pede menos movimento fica com a troca seca.
   const calmo = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -311,11 +291,5 @@ const plural = (n: number) => (n === 1 ? '1 data' : `${n} datas`);
 
   .arquivo-fim { margin-top: var(--e-5); text-align: right; }
 
-  .espia-capa { position: fixed; left: 0; top: 0; z-index: 1; width: clamp(15rem, 24vw, 24rem); aspect-ratio: 16 / 9; overflow: hidden; border-radius: clamp(0.6rem, 1.2vw, 1rem); background: var(--texto); box-shadow: 0 1.5rem 3rem -1.25rem rgb(0 0 0 / 0.55); pointer-events: none; opacity: 0; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(0.85); transition: opacity 0.2s, transform 0.18s ease-out; }
-  .espia-capa.visivel { opacity: 1; transform: translate(calc(var(--x, 0px) + 1.5rem), calc(var(--y, 0px) - 50%)) rotate(var(--giro, 0deg)) scale(1); }
-  .espia-capa img { width: 100%; height: 100%; object-fit: cover; }
-  @media (prefers-reduced-motion: reduce) { .ano-arco, .ano-mais-v, .espia-capa { transition: none; } }
-  /* Em tela de toque a prévia que segue o cursor nunca aparece, e um elemento fixo, mesmo
-     invisível, faz o Safari do iPhone desenhar uma banda atrás das barras. Sai da página. */
-  @media (hover: none) { .espia-capa { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .ano-arco, .ano-mais-v { transition: none; } }
 </style>
