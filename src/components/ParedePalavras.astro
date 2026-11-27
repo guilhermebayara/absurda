@@ -1,0 +1,64 @@
+---
+import BarraInclinada from './BarraInclinada.astro';
+
+interface Props {
+  fileiras: { palavras: string[]; menor?: boolean }[];
+}
+const { fileiras } = Astro.props;
+
+// Cada fileira menor leva no máximo uns dez nomes. Não é economia: cada grupo animado vira
+// uma camada no navegador, e o Safari deixa de desenhar camadas largas demais (era o que
+// cortava a fileira no meio). Com poucos nomes, o grupo fica da largura de uma fileira de verbos.
+// Nas fileiras menores não há palavra em contorno: nesse corpo o traço fino não lê.
+const estilosMenores = ['', '', 'cor', '', '', '', 'cor', '', 'cor', '', '', ''];
+// Cada palavra é cheia, na cor de destaque ou só em contorno. A sequência é
+// irregular de propósito, para não virar listra (cor sim, cor não).
+const estilos = ['', 'cor', '', 'vazada', '', '', 'cor', 'vazada', '', 'cor', '', '', 'vazada', 'cor', '', 'vazada', '', 'cor', 'cor', '', 'vazada', '', '', 'cor', '', 'vazada', '', ''];
+---
+<p class="so-leitor">{fileiras.flatMap((f) => f.palavras).join('. ')}.</p>
+<div class="parede" aria-hidden="true">
+  {fileiras.map((linha, i) => (
+    <div class:list={['parede-fileira', { menor: linha.menor }]} style={`z-index:${i * 2 + 2}`}>
+      <div class:list={['parede-trilho', { contra: i % 2 === 0 }]}>
+        {[0, 1, 2].map(() => (
+          <div class="parede-grupo" style={`animation-duration:${(linha.menor ? 58 : 30) + (i * 11) % 17}s`}>
+            {linha.palavras.map((p, j) => <span class={linha.menor ? estilosMenores[(i * 5 + j) % estilosMenores.length] : estilos[(i * 4 + j) % estilos.length]}>{p}<BarraInclinada tag="i" /></span>)}
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .parede { display: grid; }
+  .parede-fileira { position: relative; }
+  /* Cada fileira são três grupos iguais andando juntos: quando um sai, o outro já entrou */
+  .parede-trilho { display: flex; width: max-content; }
+  /* A duração de cada fileira vem escrita no próprio grupo (animation-duration), em segundos. */
+  /* Safari do iPhone (palavras piscando todas juntas): cada grupo animado é uma camada própria
+     desde o início (will-change), e não só quando a animação pega, e cada fileira também tem a
+     sua. Assim as capas que atravessam a parede não fazem o Safari criar e desfazer camadas a
+     cada passo da rolagem. */
+  .parede-fileira { will-change: transform; }
+  .parede-grupo { flex: none; display: flex; animation: parede-corre 34s linear infinite; will-change: transform; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+  .parede-trilho.contra .parede-grupo { animation-direction: reverse; }
+  /* Fora da tela as fileiras param (data-corre, ver Base.astro); voltam do mesmo ponto. */
+  :global(.historia.corre-parada) .parede-grupo { animation-play-state: paused; }
+  .parede-grupo span { display: flex; align-items: center; font-size: clamp(2.75rem, 9.2vw, 9.5rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.045em; text-transform: uppercase; white-space: nowrap; }
+  /* Presa na tela, a parede se mede pela altura: sete fileiras enchem a tela */
+  :global(.historia.viva) .parede-grupo span { font-size: clamp(2rem, 7.6vh, 8rem); font-size: clamp(2rem, 7.6svh, 8rem); }
+  /* Fileiras menores, de nomes: metade do corpo, com um respiro em cima e embaixo */
+  .parede-fileira.menor { padding: 0.5em 0; font-size: clamp(0.6rem, 1vw, 1rem); }
+  .parede-fileira.menor .parede-grupo span { font-size: clamp(1.125rem, 3.4vw, 3.25rem); line-height: 1; letter-spacing: -0.02em; }
+  :global(.historia.viva) .parede-fileira.menor .parede-grupo span { font-size: clamp(1rem, 3.1vh, 3rem); font-size: clamp(1rem, 3.1svh, 3rem); }
+  .parede-grupo span.cor { color: var(--destaque); }
+  .parede-grupo span.vazada { color: transparent; -webkit-text-stroke: 0.022em var(--texto); }
+  /* Entre as palavras, a barra inclinada do logo */
+  .parede-grupo :global(i) { flex: none; width: 0.13em; height: 0.66em; margin: 0 0.3em; background: var(--texto); opacity: 0.45; }
+  @keyframes parede-corre { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-100%, 0, 0); } }
+  /* No celular dois grupos bastam: cada um é mais largo que a tela, e o terceiro, que nunca
+     aparece, só gastava memória do Safari (quando ela falta, ele apaga as camadas e redesenha). */
+  @media (max-width: 720px) { .parede-grupo:nth-child(3) { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .parede-grupo { animation: none; will-change: auto; } .parede-fileira { will-change: auto; } }
+</style>

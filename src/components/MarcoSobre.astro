@@ -1,0 +1,32 @@
+---
+interface Props {
+  titulo: string;
+  tema?: string;
+  texto?: string;
+}
+const { titulo, tema, texto } = Astro.props;
+---
+<li class="marcos-item">
+  <p class="marcos-titulo"><strong>{titulo}</strong>{tema && <b>{tema}</b>}</p>
+  {texto && <p class="marcos-texto">{texto}</p>}
+</li>
+
+<style>
+  .marcos-item + .marcos-item { margin-top: var(--e-3); }
+  .marcos-item { position: relative; transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .marcos-titulo { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25em 0.6em; font-size: var(--t-4); line-height: 1.02; transition: color 0.3s; }
+  .marcos-titulo strong { font-weight: 800; letter-spacing: -0.03em; text-transform: uppercase; }
+  .marcos-titulo b { padding: 0.2em 0.6em; border: 1.5px solid currentColor; border-radius: 99px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+  .marcos-texto { max-width: 34em; margin-top: var(--e-1); font-size: var(--t-apoio); line-height: 1.35; color: var(--suave); }
+  /* O marco em leitura acende: ganha a cor de destaque e a barra da marca ao lado */
+  .marcos-item::before { content: ''; position: absolute; left: -1.3rem; top: 0.25em; width: 0.5rem; height: calc(var(--t-4) * 0.8); background: var(--destaque); transform: skewX(26.5deg) scaleY(0); transform-origin: bottom; transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  :global(.marcos-vivos) .marcos-item.aceso { transform: translateX(1.3rem); }
+  :global(.marcos-vivos) .marcos-item.aceso .marcos-titulo { color: var(--destaque-texto); }
+  :global(.marcos-vivos) .marcos-item.aceso .marcos-texto { color: var(--texto); }
+  :global(.marcos-vivos) .marcos-item.aceso::before { transform: skewX(26.5deg) scaleY(1); }
+  @media (max-width: 820px) {
+    :global(.marcos-vivos) .marcos-item.aceso { transform: none; }
+    .marcos-item::before { left: -0.75rem; width: 0.35rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { .marcos-item, .marcos-item::before, .marcos-titulo { transition: none; } }
+</style>

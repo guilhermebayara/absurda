@@ -3,7 +3,9 @@ import '@fontsource-variable/urbanist';
 import { SITE, NAV } from '../config';
 import { TEMAS_DO_SITE, atributo, type Tema } from '../lib/temas';
 import Arroba from '../components/marca/Arroba.astro';
-import Completo from '../components/marca/Completo.astro';
+import BarraInclinada from '../components/BarraInclinada.astro';
+import MenuCelular from '../components/MenuCelular.astro';
+import Rodape from '../components/Rodape.astro';
 import { compartilhar } from '../lib/imagens';
 // Arquivo da fonte usado em quase todo o texto: pedido logo no início do carregamento.
 import fonteLatina from '@fontsource-variable/urbanist/files/urbanist-latin-wght-normal.woff2?url';
@@ -181,7 +183,7 @@ const imagemCompleta = new URL(imagem ? compartilhar(imagem) : '/compartilhar.pn
         <Arroba />
       </a>
       <button class="menu-abre" type="button" aria-haspopup="dialog" aria-controls="menu-celular">
-        Menu<span aria-hidden="true"></span><span aria-hidden="true"></span>
+        Menu<BarraInclinada oculta /><BarraInclinada oculta />
       </button>
       <nav class="topo-nav" aria-label="Principal">
         {NAV.map((item) => (
@@ -191,68 +193,13 @@ const imagemCompleta = new URL(imagem ? compartilhar(imagem) : '/compartilhar.pn
       </nav>
     </header>
 
-    <!-- Menu do celular: abre em tela cheia -->
-    <dialog class="menu" id="menu-celular" aria-label="Menu" tabindex="-1">
-      <div class="menu-topo">
-        <a class="topo-marca" href="/" aria-label="@bsurda, página inicial"><Arroba /></a>
-        <button class="menu-fecha" type="button">Fechar<span aria-hidden="true"></span><span aria-hidden="true"></span></button>
-      </div>
-      <nav aria-label="Principal">
-        <ul>
-          {NAV.map((item, i) => (
-            <li style={`--i:${i}`}><a href={item.href} aria-current={caminho.startsWith(item.href) ? 'page' : undefined}>{item.rotulo}</a></li>
-          ))}
-        </ul>
-      </nav>
-      <ul class="menu-fora">
-        <li><a href={SITE.ingressos} target="_blank" rel="noopener">Ingressos</a></li>
-        <li><a class="nav-fora" href={SITE.fotos} target="_blank" rel="noopener">Fotos<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 3.5h8v8M12.5 3.5 3.5 12.5" /></svg></a></li>
-        <li><a href={SITE.redes.instagram} target="_blank" rel="noopener">Instagram</a></li>
-      </ul>
-    </dialog>
+    <MenuCelular caminho={caminho} />
 
     <main id="conteudo">
       <slot />
     </main>
 
-    <!-- Rodapé: um bloco próprio, com as cores invertidas em relação à página -->
-    <footer class="rodape">
-      <div class="rodape-topo">
-        <nav class="rodape-nav" aria-label="Rodapé">
-          <ul>
-            {NAV.map((item, i) => (
-              <li><a href={item.href} data-anima="sobe" style={`--i:${i}`}>{item.rotulo}</a></li>
-            ))}
-          </ul>
-        </nav>
-        <div class="rodape-lado">
-          <div data-anima="surge">
-            <h2>Fora daqui</h2>
-            <ul>
-              <li><a href={SITE.ingressos} target="_blank" rel="noopener">Ingressos na Shotgun</a></li>
-              <li><a href={SITE.fotos} target="_blank" rel="noopener">Fotos no Pixieset</a></li>
-              <li><a href={SITE.redes.instagram} target="_blank" rel="noopener">Instagram</a></li>
-              <li><a href={SITE.redes.tiktok} target="_blank" rel="noopener">TikTok</a></li>
-              <li><a href={SITE.redes.twitter} target="_blank" rel="noopener">Twitter</a></li>
-            </ul>
-          </div>
-          <div data-anima="surge" style="--i:1">
-            <h2>Fale com a gente</h2>
-            <ul>
-              <li><a href={SITE.mensagem} target="_blank" rel="noopener">Mensagem no Instagram</a></li>
-              <li><a href="/parcerias">Sua marca na @bsurda</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <p class="rodape-fim"><span aria-hidden="true"></span><b><em>© {new Date().getFullYear()} @bsurda.</em> <em class="solta"><i>{SITE.lema},</i> <i>desde 2009.</i></em> <em>Belo Horizonte.</em></b><span aria-hidden="true"></span></p>
-      <a class="rodape-marca" href="/" aria-label="@bsurda, página inicial" data-anima="rodape">
-        <span class="rm-eco rm-eco2" aria-hidden="true"><Completo /></span>
-        <span class="rm-eco rm-eco1" aria-hidden="true"><Completo /></span>
-        <Completo />
-      </a>
-    </footer>
-
+    <Rodape />
 
     <script>
       // Troca o tema conforme o trecho que está no meio da tela.
@@ -675,37 +622,11 @@ const imagemCompleta = new URL(imagem ? compartilhar(imagem) : '/compartilhar.pn
   .link { font-weight: 500; }
 
   /* Topo */
-  .menu-abre, .menu-fecha { display: none; align-items: center; gap: 0.35em; padding: 0.6rem 0; background: none; border: 0; color: inherit; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; cursor: pointer; }
-  .menu-abre span, .menu-fecha span { width: 0.34em; height: 1.35em; border-radius: 0.05em; background: var(--destaque); transform: skewX(26.5deg); }
+  .menu-abre { display: none; }
+  .menu-abre, .menu-fecha { align-items: center; gap: 0.35em; padding: 0.6rem 0; background: none; border: 0; color: inherit; font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; cursor: pointer; }
+  .menu-abre span, .menu-fecha span { width: 0.34em; height: 1.35em; border-radius: 0.05em; }
+  .menu-abre span { background: var(--destaque); }
   .menu-abre span:first-of-type, .menu-fecha span:first-of-type { margin-left: 0.5em; }
-  .menu-fecha span { background: currentColor; }
-  .menu-fecha span + span { transform: skewX(-26.5deg); margin-left: -0.69em; }
-
-  /* Menu em tela cheia, com as cores invertidas para marcar a mudança de camada */
-  .menu { width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: 0 var(--margem) 2rem; border: 0; background: var(--texto); color: var(--fundo); overflow-y: auto; }
-  .menu::backdrop { background: var(--texto); }
-  .menu[open] { display: flex; flex-direction: column; }
-  .menu-topo { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; }
-  .menu .menu-topo .topo-marca, .menu .menu-topo .topo-marca:hover, .menu .menu-topo .topo-marca:focus-visible { color: var(--fundo); }
-  .menu-fecha { display: inline-flex; }
-  .menu nav { flex: 1; display: grid; align-content: center; padding: 1.5rem 0; }
-  .menu nav li { overflow: hidden; }
-  .menu nav a { position: relative; display: block; padding: 0.14em 0 0.14em 0; font-size: clamp(2.75rem, 13.5vw, 5rem); font-weight: 800; line-height: 1; letter-spacing: -0.04em; text-transform: uppercase; text-decoration: none; }
-  .menu nav a[aria-current='page'] { padding-left: 0.42em; }
-  .menu nav a[aria-current='page']::before { content: ''; position: absolute; left: 0.06em; top: 0.2em; bottom: 0.22em; width: 0.17em; background: var(--enfeite); transform: skewX(26.5deg); }
-  .menu[open] nav a { animation: menu-sobe 0.7s cubic-bezier(0.62, 0.05, 0.01, 0.99) both; animation-delay: calc(var(--i, 0) * 55ms + 80ms); }
-  @keyframes menu-sobe { from { transform: translateY(105%); } }
-  .menu-fora { display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; padding-top: 1.25rem; border-top: 1.5px solid color-mix(in srgb, var(--fundo) 30%, transparent); }
-  .menu-fora a { font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; text-decoration: none; }
-  @media (prefers-reduced-motion: reduce) { .menu[open] nav a { animation: none; } }
-  .menu:focus, .menu:focus-visible { outline: none; }
-  /* No celular o menu é um cartão, como o rodapé: a cor da página aparece embaixo, com os cantos
-     de baixo arredondados. Em cima ele fica reto, unido ao alto da tela (pedido do Gui). */
-  @media (max-width: 860px) {
-    .menu { height: calc(100% - var(--folga-cartao)); border-radius: 0 0 var(--raio-cartao) var(--raio-cartao); }
-    .menu::backdrop { background: var(--fundo); }
-  }
-
   @media (max-width: 860px) {
     .topo-nav { display: none !important; }
     .menu-abre { display: inline-flex; }
@@ -767,53 +688,7 @@ const imagemCompleta = new URL(imagem ? compartilhar(imagem) : '/compartilhar.pn
   }
   @keyframes barra-presa { to { transform: translateY(calc(var(--alt, 0px) - var(--barra, 0px))); } }
 
-  /* Rodapé grande */
-  .rodape { position: relative; --lw: min(100vw - 2 * var(--margem), 165svh); margin-top: clamp(2rem, 5vw, 4rem); padding: clamp(2rem, min(4.5vw, 6svh), 4rem) var(--margem) 0; border-radius: clamp(1.5rem, 4vw, 3.5rem) clamp(1.5rem, 4vw, 3.5rem) 0 0; background: var(--texto); color: var(--fundo); overflow: hidden; transition: none; }
-  .rodape-topo { display: grid; grid-template-columns: auto 1fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
-  /* Menu grande em duas colunas de três: continua enorme sem deixar o rodapé mais alto que a tela */
-  .rodape-nav ul { display: grid; grid-template-rows: repeat(3, auto); grid-auto-flow: column; column-gap: 0.9em; font-size: clamp(1.6rem, min(5.1vw, 10.5svh), 6.5rem); }
-  /* Menu grande, com a barra inclinada entrando no hover */
-  .rodape-nav a { position: relative; display: block; width: fit-content; padding: 0.06em 0; font-size: inherit; font-weight: 800; line-height: 0.98; letter-spacing: -0.045em; text-transform: uppercase; text-decoration: none; transition: color 0.3s; }
-  /* A barra entra na margem, à esquerda do nome: nada se desloca */
-  .js .rodape-nav a[data-anima].visto { clip-path: inset(-0.3em -0.2em -0.3em -0.7em); }
-  .rodape-nav a::before { content: ''; position: absolute; left: -0.4em; top: 0.16em; bottom: 0.18em; width: 0.14em; background: var(--enfeite); transform: skewX(26.5deg) scaleY(0); transition: transform 0.5s cubic-bezier(0.62, 0.05, 0.01, 0.99); }
-  .rodape-nav a:hover::before, .rodape-nav a:focus-visible::before { transform: skewX(26.5deg) scaleY(1); }
-  .rodape-lado { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 3vw, 2.75rem); padding-top: 0.4rem; }
-  .rodape h2 { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 0.9rem; padding-bottom: 0.9rem; border-bottom: 1.5px solid color-mix(in srgb, var(--fundo) 35%, transparent); }
-  .rodape-lado li { margin-bottom: 0.3rem; overflow-wrap: anywhere; }
-  .rodape-lado li a { font-size: clamp(1.0625rem, 1.45vw, 1.375rem); font-weight: 700; letter-spacing: -0.01em; text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 0 2px no-repeat; transition: background-size 0.5s cubic-bezier(0.62, 0.05, 0.01, 0.99); }
-  .rodape-lado li a:hover, .rodape-lado li a:focus-visible { background-size: 100% 2px; }
-  /* Assinatura entre as barras do logo, como o lema da abertura */
-  .rodape-fim { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; margin-top: clamp(1.75rem, min(4vw, 5svh), 3.5rem); text-align: center; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; line-height: 1.7; }
-  /* Cada frase é um bloco que não quebra no meio: em tela estreita elas se empilham inteiras */
-  .rodape-fim b { font-weight: inherit; }
-  .rodape-fim em { display: inline-block; font-style: normal; white-space: nowrap; }
-  /* O pedaço do meio só se parte ("desde 2009." desce) quando não cabe sozinho numa linha,
-     em tela muito estreita (320). Sem isso, a barra da direita saía da tela. */
-  .rodape-fim em.solta { white-space: normal; }
-  .rodape-fim em.solta i { display: inline-block; font-style: normal; white-space: nowrap; }
-  .rodape-fim span { flex: none; width: 0.5rem; height: 2.4rem; background: currentColor; transform: skewX(26.5deg); }
-  /* Logo gigante sangrando para fora da página, com ecos que sobem quando ele entra na tela */
   .so-leitor { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .rodape-marca { position: relative; display: block; width: var(--lw); margin: calc(var(--lw) * 0.1 + 1rem) auto calc(var(--lw) * -0.052); }
-  .rodape-marca svg { width: 100%; height: auto; }
-  .rodape-marca { --ab: 1; }
-  .rm-eco { position: absolute; inset: 0; opacity: min(1, var(--ab) * 1.6); }
-  .rm-eco1 { clip-path: inset(0 0 calc(100% - 26% * var(--ab)) 0); color: color-mix(in oklab, var(--fundo) 55%, var(--texto)); transform: translateY(calc(-35% * var(--ab))) scale(calc(1 - 0.07 * var(--ab))); }
-  .rm-eco2 { clip-path: inset(0 0 calc(100% - 16% * var(--ab)) 0); color: color-mix(in oklab, var(--fundo) 28%, var(--texto)); transform: translateY(calc(-61% * var(--ab))) scale(calc(1 - 0.15 * var(--ab))); }
-  @media (max-width: 860px) {
-    .rodape-topo { grid-template-columns: 1fr; gap: 1.75rem; }
-    .rodape-nav ul { font-size: clamp(1.6rem, 7.4vw, 3.25rem); }
-    .rodape h2 { margin-bottom: 0.6rem; padding-bottom: 0.6rem; }
-    /* No celular o logo aparece inteiro: cortado, ele briga com a barra do navegador. */
-    /* No celular o rodapé fecha como cartão: cantos arredondados também embaixo e um respiro
-       na cor da página, que é a mesma da faixa do navegador. Assim o fim lê como forma, não como corte. */
-    .rodape { padding-bottom: 2rem; margin-bottom: 0.75rem; border-radius: clamp(1.5rem, 4vw, 3.5rem); }
-    .rodape-marca { margin-bottom: 0; }
-  }
-  /* Listas do rodapé ficam justas também no toque (decisão do Gui): o alvo de 44px afastava as
-     linhas a ponto de parecer erro. Não aumentar de novo sem ele pedir. */
-  @media (prefers-reduced-motion: reduce) { .rodape-nav a, .rodape-nav a::before, .rodape-lado li a { transition: none; } }
 
   /* Cabeçalho das páginas internas */
   .abre { padding: clamp(2.5rem, 7vw, 6rem) var(--margem) clamp(2rem, 5vw, 4rem); }

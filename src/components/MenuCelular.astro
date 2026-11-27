@@ -1,0 +1,58 @@
+---
+import { SITE, NAV } from '../config';
+import BarraInclinada from './BarraInclinada.astro';
+import Arroba from './marca/Arroba.astro';
+
+interface Props {
+  caminho: string;
+}
+const { caminho } = Astro.props;
+---
+<dialog class="menu" id="menu-celular" aria-label="Menu" tabindex="-1">
+  <div class="menu-topo">
+    <a class="topo-marca" href="/" aria-label="@bsurda, página inicial"><Arroba /></a>
+    <button class="menu-fecha" type="button">Fechar<BarraInclinada oculta /><BarraInclinada oculta /></button>
+  </div>
+  <nav aria-label="Principal">
+    <ul>
+      {NAV.map((item, i) => (
+        <li style={`--i:${i}`}><a href={item.href} aria-current={caminho.startsWith(item.href) ? 'page' : undefined}>{item.rotulo}</a></li>
+      ))}
+    </ul>
+  </nav>
+  <ul class="menu-fora">
+    <li><a href={SITE.ingressos} target="_blank" rel="noopener">Ingressos</a></li>
+    <li><a class="nav-fora" href={SITE.fotos} target="_blank" rel="noopener">Fotos<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 3.5h8v8M12.5 3.5 3.5 12.5" /></svg></a></li>
+    <li><a href={SITE.redes.instagram} target="_blank" rel="noopener">Instagram</a></li>
+  </ul>
+</dialog>
+
+<style is:global>
+  .menu-fecha span { background: currentColor; }
+  .menu-fecha span + span { transform: skewX(-26.5deg); margin-left: -0.69em; }
+
+  /* Menu em tela cheia, com as cores invertidas para marcar a mudança de camada */
+  .menu { width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; padding: 0 var(--margem) 2rem; border: 0; background: var(--texto); color: var(--fundo); overflow-y: auto; }
+  .menu::backdrop { background: var(--texto); }
+  .menu[open] { display: flex; flex-direction: column; }
+  .menu-topo { display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 0; }
+  .menu .menu-topo .topo-marca, .menu .menu-topo .topo-marca:hover, .menu .menu-topo .topo-marca:focus-visible { color: var(--fundo); }
+  .menu-fecha { display: inline-flex; }
+  .menu nav { flex: 1; display: grid; align-content: center; padding: 1.5rem 0; }
+  .menu nav li { overflow: hidden; }
+  .menu nav a { position: relative; display: block; padding: 0.14em 0 0.14em 0; font-size: clamp(2.75rem, 13.5vw, 5rem); font-weight: 800; line-height: 1; letter-spacing: -0.04em; text-transform: uppercase; text-decoration: none; }
+  .menu nav a[aria-current='page'] { padding-left: 0.42em; }
+  .menu nav a[aria-current='page']::before { content: ''; position: absolute; left: 0.06em; top: 0.2em; bottom: 0.22em; width: 0.17em; background: var(--enfeite); transform: skewX(26.5deg); }
+  .menu[open] nav a { animation: menu-sobe 0.7s cubic-bezier(0.62, 0.05, 0.01, 0.99) both; animation-delay: calc(var(--i, 0) * 55ms + 80ms); }
+  @keyframes menu-sobe { from { transform: translateY(105%); } }
+  .menu-fora { display: flex; flex-wrap: wrap; gap: 0.5rem 1.75rem; padding-top: 1.25rem; border-top: 1.5px solid color-mix(in srgb, var(--fundo) 30%, transparent); }
+  .menu-fora a { font-size: 0.875rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; text-decoration: none; }
+  @media (prefers-reduced-motion: reduce) { .menu[open] nav a { animation: none; } }
+  .menu:focus, .menu:focus-visible { outline: none; }
+  /* No celular o menu é um cartão, como o rodapé: a cor da página aparece embaixo, com os cantos
+     de baixo arredondados. Em cima ele fica reto, unido ao alto da tela (pedido do Gui). */
+  @media (max-width: 860px) {
+    .menu { height: calc(100% - var(--folga-cartao)); border-radius: 0 0 var(--raio-cartao) var(--raio-cartao); }
+    .menu::backdrop { background: var(--fundo); }
+  }
+</style>
