@@ -1,32 +1,42 @@
 ---
+// Uma peça do site em exposição: à esquerda o nome, quando se usa e onde mora no código; à direita
+// a peça montada com o próprio componente e dados de exemplo. O confere:camarim lê data-pecas para
+// saber que todo componente de src/components/ tem amostra.
 interface Props {
   titulo: string;
   arquivos: string[];
   uso: string;
+  id?: string;
 }
-const { titulo, arquivos, uso } = Astro.props;
+const { titulo, arquivos, uso, id } = Astro.props;
 ---
-<section class="amostra" data-pecas={arquivos.join(' ')}>
-  <h5 class="etiqueta">{titulo}</h5>
-  <div class="palco"><slot /></div>
+<article class="amostra" id={id} data-pecas={arquivos.join(' ')}>
   <div class="ficha">
-    <p class="t-apoio">{uso}</p>
-    <ul class="t-pequeno" aria-label="Arquivos">
+    <h5>{titulo}</h5>
+    <p>{uso}</p>
+    <ul class="t-pequeno" aria-label="Onde mora">
       {arquivos.map(arquivo => <li><code>src/components/{arquivo}.astro</code></li>)}
     </ul>
   </div>
-</section>
+  <div class="palco"><slot /></div>
+</article>
 <style>
-  .amostra { display: grid; grid-template: 'nome palco' auto 'ficha palco' 1fr / minmax(13rem, 1fr) minmax(0, 3fr); gap: var(--e-1) var(--e-4); padding-block: var(--e-3); border-top: 1px solid var(--linha); }
-  h5 { grid-area: nome; margin: 0; }
-  .ficha { grid-area: ficha; }
-  .ficha ul { margin-top: var(--e-1); }
+  .amostra { display: grid; grid-template-columns: minmax(13rem, 1fr) minmax(0, 3fr); gap: var(--e-2) var(--e-4); padding-block: var(--e-3); border-top: 1px solid var(--linha); scroll-margin-top: var(--e-3); }
+  .ficha { display: grid; align-content: start; gap: var(--e-1); }
+  h5 { margin: 0; font-size: var(--t-3); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; text-transform: uppercase; }
+  .ficha p { max-width: 24em; }
+  .ficha ul { display: grid; gap: 0.15rem; margin-top: var(--e-1); }
   code { overflow-wrap: anywhere; }
-  .palco { grid-area: palco; min-width: 0; overflow: clip; background: var(--fundo); color: var(--texto); padding: var(--e-2);
+  /* O palco veste o tema escolhido no seletor de Peças (as variáveis --amostra-*). */
+  .palco { min-width: 0; overflow: clip; padding: var(--e-3); border-radius: clamp(0.6rem, 1.2vw, 1rem); background: var(--fundo); color: var(--texto);
     --fundo: var(--amostra-fundo); --texto: var(--amostra-texto); --destaque: var(--amostra-destaque);
     --vivo: var(--amostra-vivo); --sobre-vivo: var(--amostra-sobre-vivo); --vivo-detalhe: var(--amostra-vivo-detalhe);
     --suave: var(--amostra-suave); --enfeite: var(--amostra-enfeite); --destaque-texto: var(--amostra-destaque-texto);
     --linha: color-mix(in srgb, var(--texto) 28%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--texto) 18%, transparent);
   }
-  @media (max-width: 860px) { .amostra { grid-template: 'nome' 'palco' 'ficha' / minmax(0, 1fr); gap: var(--e-2); } }
+  @media (max-width: 860px) {
+    .amostra { grid-template-columns: minmax(0, 1fr); }
+    .palco { padding: var(--e-2); }
+  }
 </style>

@@ -1,41 +1,41 @@
 ---
 import { getImage } from 'astro:assets';
-import arte from '../../../public/exemplos/capa-16x9.jpg';
-import arteRosa from '../../../public/exemplos/capa-16x9-rosa.jpg';
-import type { Evento } from '../../lib/eventos';
-import type { Tema } from '../../lib/temas';
+import arte from '../../../../public/exemplos/capa-16x9.jpg';
+import arteRosa from '../../../../public/exemplos/capa-16x9-rosa.jpg';
+import type { Evento } from '../../../lib/eventos';
+import type { Tema } from '../../../lib/temas';
 import Amostra from './Amostra.astro';
-import AtalhoAnos from '../AtalhoAnos.astro';
-import BarraInclinada from '../BarraInclinada.astro';
-import Botao from '../Botao.astro';
-import Capa from '../Capa.astro';
-import CartaoEvento from '../CartaoEvento.astro';
-import CartazProjeto from '../CartazProjeto.astro';
-import CasoParceria from '../CasoParceria.astro';
-import Cracha from '../Cracha.astro';
-import CrachaWig from '../CrachaWig.astro';
-import Eco from '../Eco.astro';
-import ElencoWig from '../ElencoWig.astro';
-import EventosWig from '../EventosWig.astro';
-import EspiaCursor from '../EspiaCursor.astro';
-import Faixa from '../Faixa.astro';
-import FichaPessoa from '../FichaPessoa.astro';
-import LinhaEventoAgenda from '../LinhaEventoAgenda.astro';
-import LinhaParceria from '../LinhaParceria.astro';
-import ListaAgenda from '../ListaAgenda.astro';
-import MarcaParceira from '../MarcaParceira.astro';
-import MarcoSobre from '../MarcoSobre.astro';
-import MenuCelular from '../MenuCelular.astro';
-import PainelEvento from '../PainelEvento.astro';
-import ParedePalavras from '../ParedePalavras.astro';
-import PolaroideTrio from '../PolaroideTrio.astro';
-import Pulseira from '../Pulseira.astro';
-import Rodape from '../Rodape.astro';
-import Arroba from '../marca/Arroba.astro';
-import Completo from '../marca/Completo.astro';
-import Silabas from '../marca/Silabas.astro';
-import Vertical from '../marca/Vertical.astro';
-import WigW from '../marca/WigW.astro';
+import AtalhoAnos from '../../AtalhoAnos.astro';
+import BarraInclinada from '../../BarraInclinada.astro';
+import Botao from '../../Botao.astro';
+import Capa from '../../Capa.astro';
+import CartaoEvento from '../../CartaoEvento.astro';
+import CartazProjeto from '../../CartazProjeto.astro';
+import CasoParceria from '../../CasoParceria.astro';
+import Cracha from '../../Cracha.astro';
+import CrachaWig from '../../CrachaWig.astro';
+import Eco from '../../Eco.astro';
+import ElencoWig from '../../ElencoWig.astro';
+import EventosWig from '../../EventosWig.astro';
+import EspiaCursor from '../../EspiaCursor.astro';
+import Faixa from '../../Faixa.astro';
+import FichaPessoa from '../../FichaPessoa.astro';
+import LinhaEventoAgenda from '../../LinhaEventoAgenda.astro';
+import LinhaParceria from '../../LinhaParceria.astro';
+import ListaAgenda from '../../ListaAgenda.astro';
+import MarcaParceira from '../../MarcaParceira.astro';
+import MarcoSobre from '../../MarcoSobre.astro';
+import MenuCelular from '../../MenuCelular.astro';
+import PainelEvento from '../../PainelEvento.astro';
+import ParedePalavras from '../../ParedePalavras.astro';
+import PolaroideTrio from '../../PolaroideTrio.astro';
+import Pulseira from '../../Pulseira.astro';
+import Rodape from '../../Rodape.astro';
+import Arroba from '../../marca/Arroba.astro';
+import Completo from '../../marca/Completo.astro';
+import Silabas from '../../marca/Silabas.astro';
+import Vertical from '../../marca/Vertical.astro';
+import WigW from '../../marca/WigW.astro';
 
 interface Props {
   tema: Tema;
@@ -274,8 +274,8 @@ const elenco = [
 </script>
 
 <style>
-  .grupo { margin-top: var(--e-4); }
-  .grupo > h4 { margin-block: 0 var(--e-2); }
+  .grupo + .grupo { margin-top: var(--e-5); }
+  .grupo > h4 { margin-block: 0 var(--e-2); font-weight: 800; text-transform: uppercase; letter-spacing: -0.03em; scroll-margin-top: var(--e-3); }
   .cartoes :global(.cartao) { --c0: var(--texto) !important; --c1: var(--texto) !important; --c2: var(--texto) !important; --c3: var(--texto) !important; --tinta: var(--fundo) !important; }
   .cartazes :global(.cartaz:not(.cartaz-vazado)) { --f: var(--fundo) !important; --t: var(--texto) !important; --d: var(--destaque) !important; }
   .duas, .tres { display: grid; gap: var(--e-2); grid-template-columns: repeat(2, minmax(0, 1fr)); }

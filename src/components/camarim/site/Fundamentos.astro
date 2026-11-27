@@ -1,0 +1,179 @@
+---
+// Capítulos Tipo, Espaço e forma e Movimento. As medidas são lidas de Base.astro no build (base.ts):
+// se o site mudar, o Camarim muda junto.
+import Capitulo from './Capitulo.astro';
+import Faixa from '../../Faixa.astro';
+import { regra, token } from './base';
+
+const tipos = [
+  { classe: 't-gigante', amostra: 'Pista', uso: 'Título de página e chamada de trecho, como "Já rolou" na Agenda. Sempre com eco.' },
+  { classe: 't-secao', amostra: 'Noite', uso: 'Título de cena no Sobre, na Equipe e em Parcerias.' },
+  { classe: 't-grande', amostra: 'A última música', uso: 'Nome do evento em destaque, chamada de bloco, número grande.' },
+  { classe: 'titulo-secao', amostra: 'Vem aí', uso: 'Título de seção: "Vem aí", "Listas", "Quem faz a WIG".' },
+  { classe: 't-medio', amostra: 'Cabe mais uma?', uso: 'Subtítulo, em peso médio e caixa normal.' },
+  { classe: 't-apoio', amostra: 'Tem lista pra quem precisa e convite pra quem está de aniversário.', uso: 'Frase de abertura logo depois do título.' },
+  { classe: '', amostra: 'A gente se encontra perto do som, como sempre.', uso: 'Texto corrido, em peso 500.' },
+  { classe: 't-pequeno', amostra: 'Portas às 22h · Salão de exemplo', uso: 'Nota e informação secundária, em --suave.' },
+  { classe: 'etiqueta', amostra: 'Próxima edição', uso: 'Rótulo de ficha, de crachá e de função.' },
+].map(tipo => {
+  const r = tipo.classe ? regra(tipo.classe) : { 'font-size': '1.0625rem', 'font-weight': '500', 'line-height': '1.5' };
+  return { ...tipo, tamanho: r['font-size'] ?? 'herda', peso: r['font-weight'] ?? '500', entrelinha: r['line-height'] ?? '1.5', caixa: r['text-transform'] === 'uppercase' };
+});
+const espacos = ['e-1', 'e-2', 'e-3', 'e-4', 'e-5', 'e-6'].map(nome => ({ nome, valor: token(nome) }));
+const secao = regra('secao').padding;
+const curvas = [
+  { nome: 'Entrada', valor: 'cubic-bezier(0.62, 0.05, 0.01, 0.99)', pontos: [0.62, 0.05, 0.01, 0.99] },
+  { nome: 'Resposta', valor: 'cubic-bezier(0.2, 0.8, 0.2, 1)', pontos: [0.2, 0.8, 0.2, 1] },
+  { nome: 'Corrida', valor: 'linear', pontos: [0, 0, 1, 1] },
+];
+const traco = ([a, b, c, d]: number[]) => `M0 100 C ${a * 100} ${100 - b * 100}, ${c * 100} ${100 - d * 100}, 100 0`;
+const movimentos = [
+  ['Título com eco', 'O título chega em 0,9 s; as fatias do eco abrem 0,5 s depois, em 0,8 s.', 'Entrada', '.ecoa'],
+  ['Entrada ao rolar', 'Sobe e surge em 0,9 s; abre e linha em 1,1 s. Cada item espera 80 ms a mais que o anterior.', 'Entrada', 'data-anima'],
+  ['Botão principal', 'O traço vira barra em 0,55 s.', 'Entrada', 'Botao.astro'],
+  ['Menu e anos da Agenda', 'A barra inclinada do menu cresce em 0,3 s. O ano da Agenda abre em 0,45 s, na mesma curva.', 'Resposta', '.topo nav · agenda.astro'],
+  ['Troca de tema', 'Fundo, texto e destaques mudam juntos em 0,7 s, só depois que a página abriu.', 'ease', '.troca-viva'],
+  ['Faixa e parede', 'A faixa dá a volta em 38 s; a parede da Home, em 34 s. As duas param fora da tela.', 'Corrida', 'data-corre'],
+  ['Cena presa no toque', 'Sem sticky: a cena anda com a rolagem do dedo, por animação ligada à rolagem.', 'Rolagem', '.pino-novo'],
+];
+---
+<Capitulo id="tipo" abre="Uma família só, a Urbanist, do corpo ao título. O peso e a caixa alta fazem a hierarquia; o tamanho vem sempre da classe, nunca do nível do título.">
+  <ul class="tipos">
+    {tipos.map(({ classe, amostra, uso, tamanho, peso, entrelinha, caixa }) => (
+      <li>
+        <p class={classe || undefined}>{amostra}</p>
+        <div class="tipo-ficha">
+          <p class="t-pequeno"><code>{classe ? '.' + classe : 'body'}</code></p>
+          <p>{uso}</p>
+          <p class="t-pequeno">Tamanho <code>{tamanho}</code> · peso {peso} · entrelinha {entrelinha}{caixa ? ' · caixa alta' : ''}</p>
+        </div>
+      </li>
+    ))}
+  </ul>
+  <Fragment slot="regras">
+    <li>Títulos em ordem, sem pular nível para ganhar tamanho. O tamanho vem da classe.</li>
+    <li>Texto corrido segue <code>notas/tom.md</code>: perto, animado, com humor de pista. Fichas, datas e rótulos ficam secos.</li>
+    <li>Sem travessão. A @bsurda diz "Trio da @bsurda", nunca "bloco".</li>
+  </Fragment>
+</Capitulo>
+
+<Capitulo id="espaco" abre="Seis espaços que crescem com a tela, a margem das laterais e a forma dos cartões. Uma seção do site respira entre 3,5 e 8 rem em cima e embaixo.">
+  <dl class="espacos">
+    <div class="espaco"><dt><code>--margem</code></dt><dd class="barra" style="width:var(--margem)"></dd><dd class="t-pequeno"><code>{token('margem')}</code></dd></div>
+    {espacos.map(({ nome, valor }) => (
+      <div class="espaco"><dt><code>--{nome}</code></dt><dd class="barra" style={`width:var(--${nome})`}></dd><dd class="t-pequeno"><code>{valor}</code></dd></div>
+    ))}
+    <div class="espaco"><dt><code>.secao</code></dt><dd class="barra" style="width:clamp(3.5rem, 9vw, 8rem)"></dd><dd class="t-pequeno"><code>padding: {secao}</code></dd></div>
+  </dl>
+
+  <div class="formas">
+    <figure class="forma">
+      <div class="celular" aria-hidden="true">
+        <div class="cel-menu"><span></span><span></span></div>
+        <div class="cel-texto"><i></i><i></i><i></i></div>
+        <div class="cel-rodape"></div>
+      </div>
+      <figcaption>
+        <p class="etiqueta">Cartão no celular</p>
+        <p>Menu e rodapé viram cartões, com <code>--raio-cartao</code> ({token('raio-cartao')}) e <code>--folga-cartao</code> ({token('folga-cartao')}) em volta. O menu se une ao alto da tela e só arredonda embaixo.</p>
+      </figcaption>
+    </figure>
+    <figure class="forma">
+      <div class="filetes" aria-hidden="true"><span class="fino"></span><span class="forte"></span></div>
+      <figcaption>
+        <p class="etiqueta">Filete</p>
+        <p>O fino, de 1 px em <code>--linha</code> (o texto a 28%), separa linhas de lista. O forte, de 1,5 a 2 px na cor do texto, abre uma ficha ou um bloco de regras.</p>
+      </figcaption>
+    </figure>
+    <figure class="forma">
+      <div class="cantos" aria-hidden="true"><span class="foto"></span><span class="objeto"></span></div>
+      <figcaption>
+        <p class="etiqueta">Canto</p>
+        <p>Foto e prancha levam canto pequeno, de 0,6 a 1 rem. Cartão sólido (lista, cartaz, rodapé) leva o <code>--raio-cartao</code>.</p>
+      </figcaption>
+    </figure>
+  </div>
+  <Fragment slot="regras">
+    <li>Espaço sai sempre de um token. Medida nova é pergunta para o Gui.</li>
+    <li>Cena parada no celular segue o desenho do rodapé: cartão com raio e folga, para não parecer um retângulo cortado atrás do relógio.</li>
+  </Fragment>
+</Capitulo>
+
+<Capitulo id="movimento" abre="Três curvas fazem todo o movimento do site: a entrada, que chega com força e assenta devagar, a resposta, mais curta, e a corrida contínua das faixas.">
+  <ul class="curvas">
+    {curvas.map(({ nome, valor, pontos }) => (
+      <li>
+        <svg viewBox="-4 -4 108 108" aria-hidden="true"><path class="eixo" d="M0 100 H100 M0 100 V0" /><path d={traco(pontos)} /></svg>
+        <p class="etiqueta">{nome}</p>
+        <p class="t-pequeno"><code>{valor}</code></p>
+      </li>
+    ))}
+  </ul>
+  <div class="faixa"><Faixa texto="A pista acendeu" /></div>
+  <dl class="movimentos">
+    {movimentos.map(([nome, texto, curva, onde]) => (
+      <div><dt>{nome}</dt><dd>{texto}</dd><dd class="t-pequeno">{curva} · <code>{onde}</code></dd></div>
+    ))}
+  </dl>
+  <Fragment slot="regras">
+    <li>Animação que roda sozinha leva <code>data-corre</code> e para fora da tela.</li>
+    <li>Com movimento reduzido, a entrada já nasce no lugar e nada corre sozinho. O <code>confere:calmo</code> guarda isso.</li>
+    <li>No toque, nada de <code>sticky</code> ou <code>fixed</code>: o que precisa ficar parado usa <code>pino-novo</code>.</li>
+  </Fragment>
+</Capitulo>
+
+<style>
+  .tipos li { display: grid; grid-template-columns: minmax(0, 2fr) minmax(14rem, 1fr); align-items: end; gap: var(--e-2) var(--e-4); padding-block: var(--e-3); border-top: 1px solid var(--linha); }
+  .tipos li:last-child { border-bottom: 1px solid var(--linha); }
+  .tipos li > p { overflow-wrap: anywhere; }
+  .tipo-ficha { display: grid; gap: 0.35rem; }
+
+  .espacos { display: grid; margin: 0; border-top: 1.5px solid var(--texto); }
+  .espaco { display: grid; grid-template-columns: 7rem minmax(0, 1fr) minmax(0, 1.4fr); align-items: center; gap: var(--e-2); padding-block: var(--e-1); border-bottom: 1px solid var(--linha); }
+  .espaco dd { margin: 0; }
+  .barra { height: 0.75rem; background: var(--destaque); }
+  .espaco code { overflow-wrap: anywhere; }
+
+  .formas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--e-4); margin-top: var(--e-5); }
+  .forma { display: grid; align-content: start; gap: var(--e-2); margin: 0; }
+  .forma figcaption { display: grid; gap: var(--e-1); }
+  .celular { display: grid; grid-template-rows: auto 1fr auto; gap: 0.75rem; width: 11rem; height: 19rem; padding: 0 var(--folga-cartao) var(--folga-cartao); border: 1.5px solid var(--texto); border-radius: 1.6rem; overflow: hidden; }
+  .cel-menu { display: flex; justify-content: space-between; align-items: center; height: 2.6rem; padding-inline: 0.8rem; background: var(--texto); border-radius: 0 0 1.25rem 1.25rem; }
+  .cel-menu span { width: 1.1rem; height: 1.1rem; border-radius: 50%; background: var(--fundo); }
+  .cel-menu span + span { width: 0.3rem; border-radius: 0; background: var(--destaque); transform: skewX(26.5deg); }
+  .cel-texto { display: grid; align-content: start; gap: 0.45rem; padding-inline: 0.4rem; }
+  .cel-texto i { height: 0.45rem; background: var(--linha); }
+  .cel-texto i:first-child { height: 1.3rem; width: 80%; background: var(--texto); }
+  .cel-rodape { height: 6rem; background: var(--texto); border-radius: 1.25rem; }
+  .filetes { display: grid; align-content: center; gap: 2rem; height: 8rem; }
+  .filetes span { display: block; }
+  .fino { border-top: 1px solid var(--linha); }
+  .forte { border-top: 2px solid var(--texto); }
+  .cantos { display: flex; align-items: center; gap: var(--e-2); height: 8rem; }
+  .cantos span { display: block; height: 7rem; background: var(--texto); }
+  .foto { width: 9rem; border-radius: clamp(0.6rem, 1.2vw, 1rem); }
+  .objeto { width: 7rem; border-radius: var(--raio-cartao); background: var(--vivo) !important; }
+
+  .curvas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--e-4); }
+  .curvas li { display: grid; gap: var(--e-1); }
+  .curvas svg { width: min(100%, 11rem); overflow: visible; margin-bottom: var(--e-1); fill: none; stroke: var(--destaque); stroke-width: 3; stroke-linecap: round; }
+  .curvas .eixo { stroke: var(--linha); stroke-width: 1.5; }
+  .faixa { margin-block: var(--e-4); margin-inline: calc(var(--margem) * -1); }
+  .movimentos { margin: 0; border-top: 1.5px solid var(--texto); }
+  .movimentos div { display: grid; grid-template-columns: minmax(10rem, 1fr) minmax(0, 2fr) minmax(0, 1fr); gap: var(--e-1) var(--e-3); padding-block: var(--e-2); border-bottom: 1px solid var(--linha); }
+  .movimentos dt { font-weight: 700; }
+  .movimentos dd { margin: 0; }
+
+  @media (max-width: 860px) {
+    .tipos li { grid-template-columns: minmax(0, 1fr); }
+    .formas { grid-template-columns: minmax(0, 1fr); gap: var(--e-4); }
+    .forma { grid-template-columns: auto minmax(0, 1fr); align-items: center; }
+    .movimentos div { grid-template-columns: minmax(0, 1fr); gap: 0.3rem; }
+  }
+  @media (max-width: 560px) {
+    .espaco { grid-template-columns: 5.5rem minmax(0, 1fr); }
+    .espaco dd.t-pequeno { grid-column: 1 / -1; }
+    .forma { grid-template-columns: minmax(0, 1fr); }
+    .curvas { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--e-2); }
+  }
+</style>
