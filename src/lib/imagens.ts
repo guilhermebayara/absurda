@@ -57,8 +57,9 @@ const SHOTGUN = /^https:\/\/assets\.shotgun\.live\/.*\bw_(\d+)/;
 const LARGURAS_SHOTGUN = [400, 800, 1280];
 const naLargura = (url: string, largura: number) => url.replace(/\bw_\d+/, `w_${largura}`);
 
-// Endereço de uma versão: /img/<largura>/<caminho sem extensão>.webp
-export const versao = (src: string, largura: number) => `/img/${largura}${src.replace(/\.[a-z]+$/i, '')}.webp`;
+// Endereço de uma versão. Com altura, a versão já sai recortada pelo centro.
+export const versao = (src: string, largura: number, altura?: number) =>
+  `/img/${largura}${altura ? `x${altura}` : ''}${src.replace(/\.[a-z]+$/i, '')}.webp`;
 
 // Celular a 2x (escolha do Gui, 23 nov 2026, em Projetos, Equipe e Sobre). O navegador escolhe a
 // versão pela conta "sizes x densidade da tela". Num iPhone (3x) isso pede fotos 50% mais largas
@@ -122,6 +123,25 @@ export function foto(src: string | undefined, sizes = '100vw', opcoes: Opcoes = 
   const srcset = larguras.map((l) => `${versao(src, l)} ${l}w`).join(', ');
   const cortada = opcoes.caixa ? recortada(sizes, m.largura / m.altura / opcoes.caixa) : sizes;
   return { src, srcset, sizes: opcoes.ate2x ? ate2x(cortada) : cortada, width: m.largura, height: m.altura };
+}
+
+// Candidatas da prévia de cursor. A Home tem caixa 4:5: recorta no build para usar os
+// pixels na parte visível. A Agenda usa as versões comuns, com o recorte feito no CSS.
+export function fotoEspia(src: string | undefined, projetos = false) {
+  if (!src) return '';
+  const larguras = projetos ? [320, 400, 480] : [480, 640];
+  const candidatas = (limite: number, url: (largura: number) => string) =>
+    [...new Set(larguras.map((largura) => Math.min(largura, limite)))]
+      .map((largura) => `${url(largura)} ${largura}w`).join(', ');
+
+  const shotgun = src.match(SHOTGUN);
+  if (shotgun) return candidatas(Number(shotgun[1]), (largura) => naLargura(src, largura));
+  if (/^https:\/\/images\.sympla\.com\.br\//.test(src)) return src.replace(/-lg(?=\.[^./?#]+(?:[?#]|$))/, '-xs');
+
+  const m = local(src) ? medir(src) : undefined;
+  if (!m) return src;
+  const limite = projetos ? Math.min(m.largura, Math.floor(m.altura * 4 / 5)) : m.largura;
+  return candidatas(limite, (largura) => versao(src, largura, projetos ? Math.round(largura * 5 / 4) : undefined));
 }
 
 // Prévia de compartilhamento (og:image): JPEG de até 1200 px de largura e menos de 300 KB, o limite do
