@@ -1,12 +1,14 @@
 ---
 interface Props {
   anos: number[];
+  prefixo?: string;
+  ativo?: number;
 }
-const { anos } = Astro.props;
+const { anos, prefixo = 'ano', ativo } = Astro.props;
 ---
 <nav class="anos-nav" aria-label="Anos" data-barra="sempre">
   <ul>
-    {anos.map((ano) => <li><a href={`#ano-${ano}`} data-ano={ano}>{ano}</a></li>)}
+    {anos.map((ano) => <li><a href={`#${prefixo}-${ano}`} data-ano={ano} aria-current={ativo === ano ? 'true' : undefined}>{ano}</a></li>)}
   </ul>
 </nav>
 

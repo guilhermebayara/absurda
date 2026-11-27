@@ -1,0 +1,39 @@
+---
+// Parte Site do Camarim: vira o guia do site quando o Gui separar as duas partes. Dados e estilos
+// só desta parte, para ela poder ir para o próprio endereço sem levar nada da Marca.
+import Faixa from '../../Faixa.astro';
+import Cor from './Cor.astro';
+import Fundamentos from './Fundamentos.astro';
+import Pecas from './Pecas.astro';
+import { capitulos } from './capitulos';
+---
+<section id="site" class="site" aria-labelledby="site-titulo">
+  <Faixa texto="O site peça por peça" contra />
+  <header class="abre">
+    <p class="etiqueta">Parte 2</p>
+    <h2 id="site-titulo" class="t-gigante ecoa" data-eco="Site" data-anima="eco">Site</h2>
+    <p class="t-apoio">O sistema que monta festaabsurda.com: as cores com o contraste de cada par, as medidas que a página usa e as peças montadas com o próprio código.</p>
+    <nav class="capitulos" aria-label="Capítulos do Site">
+      {capitulos.map(({ id, titulo }, i) => <a href={'#' + id}><span>{String(i + 1).padStart(2, '0')}</span>{titulo}</a>)}
+    </nav>
+  </header>
+  <Cor />
+  <Fundamentos />
+  <Pecas />
+</section>
+<script>
+  // Link para algo dentro de uma paleta fechada (um tema, por exemplo): abre a paleta antes de rolar.
+  const abrir = () => {
+    const alvo = location.hash.length > 1 ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+    const paleta = alvo?.closest('details');
+    if (alvo && paleta && !paleta.open) { paleta.open = true; alvo.scrollIntoView(); }
+  };
+  window.addEventListener('hashchange', abrir);
+  abrir();
+</script>
+<style>
+  .abre .etiqueta { margin-bottom: var(--e-2); }
+  .capitulos { display: flex; flex-wrap: wrap; gap: 0.35rem 1.25rem; margin-top: var(--e-3); font-size: 0.9375rem; font-weight: 700; line-height: 1.25; letter-spacing: 0.06em; }
+  .capitulos a { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.25em; }
+  .capitulos span { margin-right: 0.5em; color: var(--destaque-texto); font-variant-numeric: tabular-nums; }
+</style>

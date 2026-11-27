@@ -1,0 +1,53 @@
+---
+// Capítulo Peças: cada componente do site montado com o próprio código e dados de exemplo.
+// O seletor troca o tema de todas as amostras (variáveis --amostra-*) e vale só durante a consulta.
+import Capitulo from './Capitulo.astro';
+import PecasNoTema from './PecasNoTema.astro';
+import { coresDoTema, paletas } from '../../../../scripts/cores-temas.mjs';
+import { grupos } from './grupos';
+
+const temas = paletas.find(paleta => paleta.id === 'TEMAS_DO_SITE')!.temas;
+const opcoes = temas.map(tema => ({
+  nome: tema.nome,
+  estilo: Object.entries(coresDoTema(tema)).map(([nome, cor]) => `--amostra-${nome}:${cor}`).join(';'),
+}));
+---
+<Capitulo id="pecas" abre="Cada peça do site montada com o mesmo componente que as páginas usam, com nome, data e capa de exemplo. Passe o ponteiro, toque ou use a tecla Tab: os estados funcionam de verdade.">
+  <div class="topo-pecas">
+    <nav class="grupos" aria-label="Grupos de peças">
+      {grupos.map(({ id, nome }) => <a href={'#pecas-' + id}>{nome}</a>)}
+    </nav>
+    <label class="tema-das-pecas" hidden data-tema-pecas>
+      <span class="etiqueta">Tema das amostras</span>
+      <select aria-controls="amostras-das-pecas" autocomplete="off">
+        {opcoes.map(({ nome, estilo }) => <option value={estilo}>{nome}</option>)}
+      </select>
+    </label>
+  </div>
+  <div id="amostras-das-pecas" style={opcoes[0].estilo}>
+    <PecasNoTema tema={temas[0]} id="amostra" />
+  </div>
+  <Fragment slot="regras">
+    <li>Objeto que imita coisa física (crachá, pulseira, adesivo) é sempre sólido: superfície invertida ou o par vivo, nunca a cor da página.</li>
+    <li>Crachá da @bsurda: o número sai da conta de <code>src/lib/pessoas.ts</code>. Crachá da WIG: tudo medido pela largura dele, em cqw.</li>
+    <li>Cartão de evento mantém a capa em 16:9 e recorta no centro. O painel da Home guarda o desenho em pé para capa em retrato.</li>
+    <li>Peça nova entra aqui, dentro de <code>Amostra</code>, com uma linha de uso. O <code>confere:camarim</code> falha se faltar.</li>
+  </Fragment>
+</Capitulo>
+<script>
+  const rotulo = document.querySelector<HTMLLabelElement>('[data-tema-pecas]');
+  const seletor = rotulo?.querySelector('select');
+  const amostras = document.getElementById('amostras-das-pecas');
+  if (rotulo && seletor && amostras) {
+    rotulo.hidden = false;
+    seletor.addEventListener('change', () => { amostras.style.cssText = seletor.value; });
+  }
+</script>
+<style>
+  .topo-pecas { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--e-2) var(--e-4); margin-bottom: var(--e-3); }
+  .grupos { display: flex; flex-wrap: wrap; gap: 0.35rem 1.25rem; font-size: 0.9375rem; font-weight: 700; letter-spacing: 0.06em; }
+  .grupos a { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.25em; }
+  .tema-das-pecas { display: grid; gap: 0.4rem; }
+  .tema-das-pecas[hidden] { display: none; }
+  select { min-width: min(100%, 16rem); padding: 0.55rem 0.8rem; color: var(--texto); background: var(--fundo); font-weight: 700; }
+</style>

@@ -15,16 +15,22 @@ const dia = (e: Ev) => `${e.data.slice(8, 10)}${e.ate ? ` a ${e.ate.slice(8, 10)
 // Só o dia é conhecido: a data vira a noite do último dia, e vale jaAcabou como no resto do site
 // (a conta e a etiqueta "em breve" saem do mesmo corte).
 const aindaVai = (e: Ev) => !jaAcabou({ data: `${e.ate ?? e.data}T20:00:00-03:00` });
-const projetos = (wig.series as Serie[]).map((s) => {
-  const eventos = (wig.eventos as Ev[]).filter((e) => e.serie === s.id).sort((a, b) => b.data.localeCompare(a.data));
+interface Props {
+  series?: Serie[];
+  datas?: Ev[];
+  idTitulo?: string;
+}
+const { series = wig.series, datas = wig.eventos, idTitulo = 't-faz-wig' } = Astro.props;
+const projetos = series.map((s) => {
+  const eventos = datas.filter((e) => e.serie === s.id).sort((a, b) => b.data.localeCompare(a.data));
   const anos = [...new Set(eventos.map((e) => e.data.slice(0, 4)))].sort();
   // Edições que já aconteceram, mais as que moram na Agenda (coprodução) e não se repetem aqui.
   const feitos = eventos.filter((e) => !aindaVai(e)).length + (s.naAgenda ?? 0);
   return { ...s, eventos, feitos, periodo: anos.length > 1 ? `${anos[0]} a ${anos[anos.length - 1]}` : anos[0] };
 });
 ---
-<section class="secao faz-wig" aria-labelledby="t-faz-wig">
-  <h2 id="t-faz-wig" class="titulo-secao" data-anima="sobe">O que a WIG faz</h2>
+<section class="secao faz-wig" aria-labelledby={idTitulo}>
+  <h2 id={idTitulo} class="titulo-secao" data-anima="sobe">O que a WIG faz</h2>
   <div class="faz-lista">
     {projetos.map((s) => <ProjetoWig nome={s.nome} texto={s.texto} nota={s.nota} link={s.link}
       resumoDatas={s.coproducao ? 'Datas' : `${s.feitos} ${s.palavra ?? 'edições'}`} periodo={s.periodo}

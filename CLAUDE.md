@@ -131,7 +131,7 @@ Branch de sessão, de teste e de QA nasce sempre da `homologa` já igualada.
 1. `git fetch origin main` e traga a `main` para a branch.
 2. `npm run build` sem erro. Ele já roda a guarda da produção, `astro check` (tipos e
    diagnósticos do Astro) e, depois do site, `confere:temas`, `confere:links`, `confere:agenda`,
-   `confere:atracoes` e `confere:exemplos`. É o mesmo build da Cloudflare, que roda a cada push e
+   `confere:atracoes`, `confere:exemplos` e `confere:camarim`. É o mesmo build da Cloudflare, que roda a cada push e
    não publica se ele falhar (ver "Conferências do site").
 3. `npm run confere:arquivo` passando.
 4. `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra`,
@@ -175,7 +175,7 @@ Depois do merge, conferir se a prévia da `homologa` publicou. Quem apaga as bra
 
 ## Conferências do site
 
-Além das guardas do histórico, dez conferências rodam na máquina. Todas rodam depois do build.
+Além das guardas do histórico, onze conferências rodam na máquina. Todas rodam depois do build.
 
 **Onde cada uma roda (GitHub Actions enxuto, do Gui, 20 nov 2026):** o que precisa travar a
 publicação roda no build da Cloudflare, que já acontece a cada push com cota própria; o GitHub não
@@ -183,8 +183,8 @@ repete esse trabalho. Motivo: depois de 10/12 o repositório volta a ser privado
 tem cota mensal de minutos.
 - **No build (`npm run build`, o comando da Cloudflare):** antes do site, a guarda da produção
   (ver "Histórico de eventos") e `astro check`; depois, a trava dos exemplos, `confere:temas`,
-  `confere:links`, `confere:agenda`, `confere:atracoes` e `confere:exemplos`
-  (`npm run confere:rapidos` roda as cinco). Qualquer falha falha o build, e a Cloudflare não
+  `confere:links`, `confere:agenda`, `confere:atracoes`, `confere:exemplos` e `confere:camarim`
+  (`npm run confere:rapidos` roda as seis). Qualquer falha falha o build, e a Cloudflare não
   publica a branch; o check "Workers Builds" do commit fica vermelho no GitHub. Tudo isso acrescenta
   uns 7 segundos ao build, quase todos do `astro check`.
 - **No GitHub, só por disparo manual:** `.github/workflows/confere-site.yml` (`workflow_dispatch`)
@@ -213,6 +213,8 @@ Cloudflare; com gatilho de push, `paths-ignore` de documentação (`notas/**`, `
   pessoa, sair da regra de contraste. Olha também as cores que a página calcula (subtema vivo,
   `--destaque-texto`, `--suave`, `--enfeite`), executando o próprio trecho de `Base.astro` que
   fica entre as marcas `>>> conta das cores` e `<<< conta das cores`. Não tire as marcas.
+- `npm run confere:camarim`: confere o ocultamento, o conteúdo de exemplo, os arquivos da marca,
+  as peças e os valores WCAG de `/camarim` (ver "Camarim").
 - `npm run confere:calmo`: abre cada página num navegador com movimento reduzido, em celular e
   desktop, e falha se uma entrada ou um eco ficar escondido ou se algo se mexer sozinho. Usa o
   Playwright (na primeira vez numa máquina: `npx playwright install chromium`). O que nasce
@@ -342,6 +344,40 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
   `resumo` curto continua para o topo, a página Projetos e a descrição. Os textos são rascunho até a
   Charlotte e o Gui aprovarem.
 
+
+## Camarim
+
+- `/camarim` é estático, com `noindex`, fora do sitemap e sem links de outras páginas. Desenho da ABS-5
+  (27 nov 2026): abre como as páginas internas (título gigante com eco e frase de apoio) e um índice em
+  dois cartões sólidos, um por parte. Cada parte começa com uma faixa, o título gigante com eco embaixo
+  (como "Já rolou" na Agenda) e a lista dos seus capítulos. Capítulo é uma `.secao` com `titulo-secao`
+  numerado, uma frase em `t-apoio`, o conteúdo e as regras no fim, com a barra inclinada na frente.
+- **Duas partes, duas pastas.** `src/pages/camarim.astro` só abre a página e monta o índice. A Marca
+  mora em `src/components/camarim/marca/` e o Site em `src/components/camarim/site/`, cada uma com o
+  seu `capitulos.ts`, dados e estilos, sem nada em comum. Para virarem duas páginas, basta mover cada
+  pasta para uma rota. Âncoras: `#marca`, `#site` e as de cada capítulo.
+- **Versão de logo:** guarde os SVGs oficiais escuro e branco em `notas/camarim/logo/`, copie para
+  `public/marca/` sem edição e acrescente a versão na lista de `marca/Marca.astro` (nome, categoria e
+  uma frase que descreve o desenho, nunca o uso). O build gera PNGs transparentes de 1000 e 3000 px
+  pelo `scripts/logos-camarim.mjs`, com cache em `node_modules/.astro/absurda-logos`. Uso, área de
+  proteção, tamanho mínimo e o que não fazer ficam em "O que falta definir" até o Gui decidir; cada
+  versão diz "Quando usar: a definir".
+- **Cor e contraste:** tudo sai de `scripts/cores-temas.mjs`, que executa o trecho marcado de
+  `Base.astro`, a mesma conta do `confere:temas`. Lá moram também os nomes de cada par (`USOS`) e de
+  cada paleta (`PALETAS`): paleta ou par novo precisa de nome nos dois. "Provar um tema" e "Comparar um
+  uso" só leem as células da tabela já montada (`site/prova-de-cor.ts`). As seis paletas ficam fechadas
+  por padrão: cada uma tem os cartões dos temas, com as nove cores e o código, e a tabela de contraste
+  (um tema por linha, um par por coluna). No celular a tabela vira uma ficha por tema. A coluna do nome
+  só fica presa com mouse; no toque nada é `sticky`.
+- **Tipo, espaço e movimento** leem as medidas de `Base.astro` no build (`site/base.ts`). Classe de tipo
+  ou token novo entra na lista de `site/Fundamentos.astro`.
+- **Peça nova:** monte o componente em `site/PecasNoTema.astro` dentro de `Amostra`, com os arquivos e
+  uma linha de uso. O seletor de Peças troca o tema de todas as amostras; use as capas de
+  `public/exemplos/` e dados fictícios. Componentes desligados moram em `src/components/guardado/`.
+- **Conferência:** `npm run confere:camarim` lê o HTML depois do build e trava a publicação se
+  falharem o ocultamento, a triagem de nomes e conteúdo privado, os downloads oficiais, as amostras
+  ou as tabelas de contraste (mesma razão, mesma coluna, mesmo nome de uso que o `confere:temas`).
+- Capturas da página ficam fora do repositório.
 
 ## Contato (do Gui, 22 nov 2026)
 

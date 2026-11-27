@@ -436,9 +436,27 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   que veio com os arquivos tinha erros e foi descartado pelo Gui: fica "a definir" até ele dizer.
   Os SVGs oficiais estão em `notas/camarim/logo/`. (`notas/briefs/camarim.md`.)
 
+- **2026-11-26, Camarim montado (ABS-2).** `src/pages/camarim.astro` junta Marca e Site em componentes
+  separados, ambos em `src/components/camarim/`. A Marca serve os SVGs oficiais e gera PNGs
+  transparentes no build. Site mostra as seis paletas, tipo, espaço, movimento e as peças em dois
+  temas com dados fictícios. `scripts/cores-temas.mjs` executa a conta marcada de `Base.astro` para
+  as tabelas de contraste e o `confere:temas`. O inventário mede também o foco sobre a superfície
+  invertida e o recorte sobre a superfície viva. O `confere:camarim` verifica o HTML no build. A
+  grade e a lista de temas estão na prévia para escolha, e as regras de uso da marca ficam a definir.
+  (CLAUDE.md, "Camarim"; pendências em `notas/briefs/camarim.md`.)
+
 - **2026-11-26, capa que acompanha o cursor na Home e na Agenda (ABS-3).** A prévia pede uma
   versão no tamanho da caixa, mostra a capa depois de decodificar e descarta respostas de
   linhas que o cursor já deixou. As escritas de movimento ficam agrupadas por quadro, com
   a mesma curva de chegada. A Home usa WebP recortado pelo centro para preservar a nitidez
   dentro da caixa 4:5. Por quê: reduzir o peso das capas e o trabalho de estilo durante a
   passagem pelas linhas. (CLAUDE.md, "Leveza".)
+
+- **2026-11-27, Camarim refeito (ABS-5).** A apresentação do `/camarim` foi refeita do zero, no idioma
+  do site: abertura das páginas internas, índice em dois cartões sólidos, cada parte com faixa e título
+  gigante com eco, capítulos em `.secao` com `titulo-secao` numerado e regras com a barra inclinada.
+  Marca e Site em pastas separadas (`src/components/camarim/marca/` e `site/`), numeradas cada uma a
+  partir de 01, prontas para virar duas páginas. Ficam do Codex os arquivos da logo, os PNGs, a conta e
+  o `confere:camarim`, mais "Provar um tema" e "Comparar um uso", redesenhados. Saem as capturas de
+  `notas/camarim/capturas/` (10 MB num repositório público). Por quê: a página precisava ler como uma
+  página da @bsurda antes da crítica de design. (CLAUDE.md, "Camarim"; `notas/briefs/camarim.md`.)

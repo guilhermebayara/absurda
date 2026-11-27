@@ -57,9 +57,11 @@ function ecos(lado: 'dir' | 'esq') {
     return { ...c, x: sinal * c.x, janela: `polygon(${[...ida, ...volta].join(', ')})` };
   });
 }
+interface Props { comoAmostra?: boolean }
+const { comoAmostra = false } = Astro.props;
 const alto = [...ecos('dir'), ...ecos('esq')];
 ---
-<h1 class="so-leitor">@bsurda</h1>
+{comoAmostra ? <p class="so-leitor">@bsurda</p> : <h1 class="so-leitor">@bsurda</h1>}
 
 <div class="eco eco-largo" data-eco aria-hidden="true">
   {largo.map((f) => (

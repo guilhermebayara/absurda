@@ -10,8 +10,8 @@ import { atributo } from '../lib/temas';
 import Botao from './Botao.astro';
 import Arroba from './marca/Arroba.astro';
 import { foto } from '../lib/imagens';
-interface Props { evento: Evento; destaque?: boolean }
-const { evento, destaque = false } = Astro.props;
+interface Props { evento: Evento; destaque?: boolean; trocaTema?: boolean }
+const { evento, destaque = false, trocaTema = true } = Astro.props;
 const d = partesDaData(evento.data);
 const emPe = (evento.proporcao ?? 1.78) < 1;
 // Nomes longos usam um corpo menor para não tomar o bloco inteiro.
@@ -23,7 +23,7 @@ const comeco = new Date(evento.data).getTime();
 const termino = fimDe(evento);
 const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sympla', manual: 'Ingressos' };
 ---
-<article class:list={['ev-area', { 'ev-destaque': destaque }]} data-tema={atributo(evento.tema)}>
+<article class:list={['ev-area', { 'ev-destaque': destaque }]} data-tema={trocaTema ? atributo(evento.tema) : undefined}>
   <div class:list={['ev', emPe ? 'ev-em-pe' : 'ev-deitada']}>
     <div class="ev-fundo" aria-hidden="true">
       {evento.capaPequena && <img src={evento.capaPequena} alt="" loading="lazy" />}
@@ -53,7 +53,7 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
   </div>
 </article>
 
-<script is:inline>
+{destaque && <script is:inline>
   // Troca o selo do destaque conforme a hora: antes da festa, durante e depois dela.
   (function () {
     function acerta() {
@@ -70,7 +70,7 @@ const plataformas = { shotgun: 'Ingressos na Shotgun', sympla: 'Ingressos na Sym
     setInterval(acerta, 60000);
     document.addEventListener('visibilitychange', function () { if (!document.hidden) acerta(); });
   })();
-</script>
+</script>}
 
 <style>
   .ev-area { padding: clamp(1rem, 2.5vw, 2.25rem) var(--margem); }

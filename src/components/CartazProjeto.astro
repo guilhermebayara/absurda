@@ -7,6 +7,7 @@ interface DadosComuns {
   id: string;
   nome: string;
   indice: number;
+  href?: string;
 }
 type Props = DadosComuns & (
   | { variante: 'adormecido'; periodo: string }
@@ -32,7 +33,7 @@ const estilo = tema ? `--f:${tema.fundo};--t:${tema.texto};--d:${tema.destaque};
 const Titulo = variante === 'vivo' ? 'h2' : 'h3';
 ---
 <li class:list={['cartaz', { 'cartaz-vazado': !solido, 'cartaz-foto': solido?.capa, 'cartaz-arcoiris': solido?.arcoiris }]} style={estilo} data-cores={solido?.temas.map(atributo).join(';')} data-anima="surge">
-  <a href={`/projetos/${id}`}>
+  <a href={props.href ?? `/projetos/${id}`}>
     {/* Em Projetos as fotos são pedidas como num celular de 2x, mesmo num iPhone. */}
     {solido?.capa && <img class="cartaz-imagem" {...foto(solido.capa, '(max-width: 1000px) 92vw, 48vw', { ate2x: true })} alt="" loading={solido.prioridade ? 'eager' : 'lazy'} fetchpriority={solido.prioridade ? 'high' : undefined} style={solido.foco ? `object-position:${solido.foco}` : undefined} />}
     {solido?.aviso && <p class="cartaz-aviso">{solido.aviso}</p>}

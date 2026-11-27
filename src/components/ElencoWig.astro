@@ -5,19 +5,30 @@
 // Dados em src/data/wig.json.
 // Crédito da sessão de casting (foto + retoques): só quem não é foraDaSessao e não é bastidores
 // (Guta, Ramon, Nalla e Rafa ficam sem; ver CLAUDE.md, WIG).
+import type { ComponentProps } from 'astro/types';
 import CrachaWig from './CrachaWig.astro';
 import wig from '../data/wig.json';
 
 const creditoSessao = `foto ${wig.creditos.foto} · retoques ${wig.creditos.retoques}`;
 const creditoDe = (p: (typeof wig.elenco)[number]) =>
   !('foraDaSessao' in p && p.foraDaSessao) && p.papel !== 'bastidores' ? creditoSessao : undefined;
+interface Props {
+  pessoas?: ComponentProps<typeof CrachaWig>[];
+  idTitulo?: string;
+}
+
+const { pessoas = wig.elenco.map((p) => ({
+  id: p.id, nome: p.nome, epiteto: p.epiteto, rotulo: p.rotulo, adesivo: p.adesivo,
+  foto: p.foto, href: p.pagina ?? p.instagram, externo: !p.pagina,
+  papel: p.papel as 'casting' | 'bastidores' | 'direcao', selo: p.selo, credito: creditoDe(p),
+})), idTitulo = 't-elenco' } = Astro.props;
 ---
-<section class="secao elenco" aria-labelledby="t-elenco">
-  <h2 id="t-elenco" class="titulo-secao" data-anima="sobe">Quem faz a WIG</h2>
+<section class="secao elenco" aria-labelledby={idTitulo}>
+  <h2 id={idTitulo} class="titulo-secao" data-anima="sobe">Quem faz a WIG</h2>
   <ul class="elenco-grade">
-    {wig.elenco.map((p, i) => (
+    {pessoas.map((p, i) => (
       <li class:list={{ patroa: p.papel === 'direcao' }} data-anima="surge" style={`--i:${i}`}>
-        <CrachaWig id={p.id} nome={p.nome} epiteto={p.epiteto} rotulo={p.rotulo} adesivo={p.adesivo} foto={p.foto} href={p.pagina ?? p.instagram} externo={!p.pagina} papel={p.papel as 'casting' | 'bastidores' | 'direcao'} selo={p.selo} credito={creditoDe(p)} />
+        <CrachaWig {...p} />
       </li>
     ))}
   </ul>

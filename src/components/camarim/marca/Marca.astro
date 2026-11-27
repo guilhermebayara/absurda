@@ -1,0 +1,228 @@
+---
+// Parte Marca do Camarim: vira o manual de marca quando o Gui definir as regras de uso
+// (notas/a-fazer.md, "Manual de marca completo"). Tudo o que está aqui é fato dos arquivos oficiais
+// de notas/camarim/logo/, copiados sem edição para public/marca/. Uso, área de proteção e tamanho
+// mínimo não existem ainda: ficam no capítulo "O que falta definir", sem nada inventado.
+// Dados e estilos só desta parte, para ela poder virar página própria sem levar nada do Site.
+import Faixa from '../../Faixa.astro';
+import { razaoEntre, dois, nivelTexto } from '../../../../scripts/cores-temas.mjs';
+import { capitulos } from './capitulos';
+
+const svgs = import.meta.glob('/public/marca/*.svg', { query: '?raw', eager: true, import: 'default' }) as Record<string, string>;
+const versoes = [
+  { id: 'principal_completo', nome: 'Completo', categoria: 'Principal', desenho: 'O @ e o nome numa linha.' },
+  { id: 'principal_arroba', nome: 'Arroba', categoria: 'Principal', desenho: 'Só o @.' },
+  { id: 'secundaria_vertical', nome: 'Vertical', categoria: 'Secundária', desenho: 'O nome em pé, duas letras por linha.' },
+  { id: 'secundaria_silabas', nome: 'Sílabas', categoria: 'Secundária', desenho: 'O nome em três linhas: @B, SUR, DA.' },
+  { id: 'composicao_arroba-escrito', nome: 'Arroba escrito', categoria: 'Composição', desenho: 'O @ grande, com o nome pequeno na base.' },
+  { id: 'composicao_arroba-escrito-grande', nome: 'Arroba escrito grande', categoria: 'Composição', desenho: 'O nome maior, cruzando a base do @.' },
+].map(versao => {
+  const medidas = svgs[`/public/marca/absurda_${versao.id}.svg`]?.match(/viewBox="[^ ]+ [^ ]+ ([\d.]+) ([\d.]+)"/);
+  if (!medidas) throw new Error(`Não achei as medidas de absurda_${versao.id}.svg.`);
+  return { ...versao, largura: Number(medidas[1]), altura: Number(medidas[2]) };
+});
+const cores = [
+  { id: 'escura', nome: 'Escura', codigo: '#231f20', sufixo: '', arquivo: 'sem sufixo' },
+  { id: 'branca', nome: 'Branca', codigo: '#f5f5f5', sufixo: '_branco', arquivo: '_branco' },
+];
+const formatos = [['SVG', '.svg'], ['PNG 1000', '-1000.png'], ['PNG 3000', '-3000.png']];
+const decimal = (n: number) => n.toLocaleString('pt-BR', { maximumFractionDigits: 2 });
+const rgb = (hex: string) => [1, 3, 5].map(i => parseInt(hex.slice(i, i + 2), 16)).join(', ');
+// PNG: a maior medida do desenho vale 1000 ou 3000 px; a outra sai da proporção.
+const png = (largura: number, altura: number, lado: number) => largura >= altura
+  ? `${lado} × ${Math.round(lado * altura / largura)}`
+  : `${Math.round(lado * largura / altura)} × ${lado}`;
+const entreAsDuas = razaoEntre(cores[0].codigo, cores[1].codigo);
+const num = (i: number) => String(i + 1).padStart(2, '0');
+const perguntas = [
+  ['Quando usar cada desenho?', 'Completo, Arroba, Vertical, Sílabas e as duas composições. E se a escura e a branca têm usos próprios ou valem sempre pelo fundo.'],
+  ['Qual é a área de proteção?', 'Quanto espaço fica livre em volta da logo, e a partir de que parte do desenho se mede.'],
+  ['Qual é o tamanho mínimo?', 'De cada desenho, na tela e no papel.'],
+  ['O que não fazer?', 'Os usos errados que o manual vai mostrar.'],
+];
+---
+<section id="marca" class="marca" aria-labelledby="marca-titulo">
+  <Faixa texto="Marca da @bsurda" />
+  <header class="abre">
+    <p class="etiqueta">Parte 1</p>
+    <h2 id="marca-titulo" class="t-gigante ecoa" data-eco="Marca" data-anima="eco">Marca</h2>
+    <p class="t-apoio">A logo de 2024 em seis desenhos, cada um na cor escura e na branca, pra ver e baixar. Aqui só entra o que está nos arquivos oficiais: as regras de uso chegam quando o Gui decidir.</p>
+    <nav class="capitulos" aria-label="Capítulos da Marca">
+      {capitulos.map(({ id, titulo }, i) => <a href={'#' + id}><span>{num(i)}</span>{titulo}</a>)}
+    </nav>
+  </header>
+
+  <section class="secao" id="logo" aria-labelledby="logo-titulo">
+    <h3 id="logo-titulo" class="titulo-secao" data-anima="sobe"><span class="num">01</span>Logo</h3>
+    <p class="t-apoio">Duas principais, duas secundárias e duas composições. O SVG é o original; os PNGs saem dele no build, com fundo transparente.</p>
+    <ul class="versoes">
+      {versoes.map(({ id, nome, categoria, desenho, largura, altura }) => (
+        <li class="versao" id={'logo-' + id.split('_')[1]}>
+          <div class="sobre">
+            <p class="etiqueta">{categoria}</p>
+            <h4 class="t-medio">{nome}</h4>
+            <p>{desenho}</p>
+            <dl class="ficha">
+              <div><dt>Proporção</dt><dd>{decimal(largura / altura)}:1</dd></div>
+              <div><dt>Quando usar</dt><dd class="falta"><a href="#a-definir">A definir</a></dd></div>
+            </dl>
+            <p class="t-pequeno">SVG {decimal(largura)} × {decimal(altura)} · PNG {png(largura, altura, 1000)} e {png(largura, altura, 3000)} px</p>
+            <p class="t-pequeno"><code>absurda_{id}.svg</code></p>
+          </div>
+          <div class="pranchas">
+            {cores.map(({ id: cor, nome: nomeCor, sufixo }) => (
+              <figure class:list={['prancha', 'prancha-' + cor]}>
+                <div class="papel">
+                  <img src={`/marca/absurda_${id}${sufixo}.svg`} width={Math.round(largura)} height={Math.round(altura)} alt={`${nome}, na cor ${nomeCor.toLowerCase()}`} loading="lazy" />
+                </div>
+                <figcaption>
+                  <span class="etiqueta">{nomeCor}</span>
+                  <span class="baixar">
+                    {formatos.map(([formato, fim]) => (
+                      <a href={`/marca/absurda_${id}${sufixo}${fim}`} download aria-label={`Baixar ${nome}, cor ${nomeCor.toLowerCase()}, em ${formato}`}>{formato}</a>
+                    ))}
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </li>
+      ))}
+    </ul>
+    <div class="regras"><h4 class="etiqueta">Regras</h4><ul>
+      <li>Os SVGs oficiais moram em <code>notas/camarim/logo/</code> e vão para <code>public/marca/</code> sem edição.</li>
+      <li>Os PNGs saem desses SVGs a cada build e não entram no repositório.</li>
+    </ul></div>
+  </section>
+
+  <section class="secao" id="cores-da-marca" aria-labelledby="cores-titulo">
+    <h3 id="cores-titulo" class="titulo-secao" data-anima="sobe"><span class="num">02</span>Cores da marca</h3>
+    <p class="t-apoio">A marca tem duas cores, uma pra cada arquivo. As cores do site são outra conversa: estão na parte Site, em Cor e contraste.</p>
+    <ul class="tintas">
+      {cores.map(({ id, nome, codigo, arquivo }) => (
+        <li class:list={['tinta', 'tinta-' + id]}>
+          <p class="etiqueta">Arquivos {arquivo}</p>
+          <p class="tinta-nome">{nome}</p>
+          <dl>
+            <div><dt>HEX</dt><dd><code>{codigo}</code><button type="button" class="copiar" data-copiar={codigo} hidden>Copiar</button></dd></div>
+            <div><dt>RGB</dt><dd><code>{rgb(codigo)}</code></dd></div>
+          </dl>
+        </li>
+      ))}
+    </ul>
+    <p class="juntas"><span class="etiqueta">Uma sobre a outra</span><strong>{dois(entreAsDuas)}:1</strong><span>{nivelTexto(entreAsDuas)}</span></p>
+    <div class="regras"><h4 class="etiqueta">Regras</h4><ul>
+      <li>O branco da marca é <code>#f5f5f5</code>, e não o branco puro (Gui, ABS-4).</li>
+      <li>CMYK e Pantone não existem ainda. Quando o Gui definir, entram aqui.</li>
+    </ul></div>
+  </section>
+
+  <section class="secao" id="a-definir" aria-labelledby="falta-titulo">
+    <h3 id="falta-titulo" class="titulo-secao" data-anima="sobe"><span class="num">03</span>O que falta definir</h3>
+    <p class="t-apoio">Quatro respostas do Gui fecham o manual. Até lá, cada versão diz "a definir", e nenhuma regra de uso é inventada.</p>
+    <ol class="perguntas">
+      {perguntas.map(([pergunta, detalhe], i) => (
+        <li><span class="etiqueta">{num(i)}</span><p class="t-medio">{pergunta}</p><p>{detalhe}</p></li>
+      ))}
+    </ol>
+  </section>
+</section>
+
+<script>
+  // Copiar o código de uma cor. Sem JavaScript ou sem acesso à área de transferência, o botão não
+  // aparece e o código continua lá para selecionar.
+  const marca = document.getElementById('marca');
+  if (marca && navigator.clipboard) {
+    for (const botao of marca.querySelectorAll<HTMLButtonElement>('[data-copiar]')) {
+      botao.hidden = false;
+      botao.addEventListener('click', async () => {
+        await navigator.clipboard.writeText(botao.dataset.copiar!).catch(() => {});
+        botao.textContent = 'Copiado';
+        setTimeout(() => { botao.textContent = 'Copiar'; }, 1600);
+      });
+    }
+  }
+</script>
+
+<style>
+  /* Abertura: a mesma das páginas internas, com o título grande e o eco embaixo, como "Já rolou" na Agenda. */
+  .abre .etiqueta { margin-bottom: var(--e-2); }
+  .capitulos { display: flex; flex-wrap: wrap; gap: 0.35rem 1.25rem; margin-top: var(--e-3); font-size: 0.9375rem; font-weight: 700; line-height: 1.25; letter-spacing: 0.06em; }
+  .capitulos a { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.25em; }
+  .capitulos span { margin-right: 0.5em; color: var(--destaque-texto); font-variant-numeric: tabular-nums; }
+
+  /* Título de capítulo: o título de seção do site, com o número na cor de destaque para texto. */
+  .titulo-secao { display: flex; align-items: baseline; gap: 0.6em; }
+  .num { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.14em; color: var(--destaque-texto); font-variant-numeric: tabular-nums; }
+  .secao > .t-apoio { margin-bottom: var(--e-4); }
+
+  /* Cada versão é uma linha da lista, com filete em cima, como os anos da Agenda. */
+  .versao { display: grid; grid-template-columns: minmax(15rem, 1fr) minmax(0, 2.6fr); gap: var(--e-2) var(--e-4); padding-block: var(--e-3); border-top: 1px solid var(--linha); }
+  .versao:last-child { border-bottom: 1px solid var(--linha); }
+  .sobre { display: grid; align-content: start; gap: var(--e-1); }
+  .sobre h4 { margin: 0 0 var(--e-1); font-weight: 800; text-transform: uppercase; letter-spacing: -0.03em; }
+  .ficha { display: flex; flex-wrap: wrap; gap: var(--e-2) var(--e-4); margin: var(--e-2) 0 var(--e-1); }
+  .ficha div { display: grid; gap: 0.4rem; }
+  .ficha dt { font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; }
+  .ficha dd { margin: 0; font-size: var(--t-4); font-weight: 800; line-height: 0.95; letter-spacing: -0.035em; text-transform: uppercase; font-variant-numeric: tabular-nums; }
+  .ficha .falta { font-size: var(--t-3); line-height: 1.1; }
+  .ficha .falta a { color: var(--destaque-texto); text-decoration-thickness: 2px; }
+  code { overflow-wrap: anywhere; }
+
+  .pranchas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(0.75rem, 1.6vw, 1.25rem); min-width: 0; }
+  .prancha { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--e-1); margin: 0; min-width: 0; }
+  .papel { position: relative; aspect-ratio: 4 / 3; border-radius: clamp(0.6rem, 1.2vw, 1rem); }
+  .prancha-escura .papel { background: #f5f5f5; }
+  .prancha-branca .papel { background: #231f20; }
+  /* O desenho fica preso dentro da prancha, com a mesma folga em volta, qualquer que seja a proporção. */
+  .papel img { position: absolute; inset: 14%; width: 72%; height: 72%; object-fit: contain; }
+  #logo-completo .pranchas { grid-template-columns: minmax(0, 1fr); }
+  #logo-completo .papel { aspect-ratio: 3 / 1; }
+  #logo-completo .papel img { inset: 10% 8%; width: 84%; height: 80%; }
+  figcaption { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.35rem 1rem; }
+  .baixar { display: flex; flex-wrap: wrap; gap: 0.35rem 1.1rem; font-size: 0.9375rem; font-weight: 700; line-height: 1.25; letter-spacing: 0.06em; }
+  .baixar a { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.25em; }
+  .baixar a:hover, .baixar a:focus-visible { color: var(--destaque-texto); }
+
+  /* Regras: linhas com a barra inclinada na frente, como os marcos da Agenda. */
+  .regras { max-width: 46em; margin-top: var(--e-5); padding-top: var(--e-2); border-top: 1.5px solid var(--texto); }
+  .regras h4 { margin: 0 0 var(--e-2); }
+  .regras ul { display: grid; gap: var(--e-2); }
+  .regras li { position: relative; padding-left: 1.5em; font-size: var(--t-3); font-weight: 600; line-height: 1.3; letter-spacing: -0.01em; }
+  .regras li::before { content: ''; position: absolute; left: 0.35em; top: 0.2em; width: 0.28em; height: 0.95em; background: var(--destaque); transform: skewX(26.5deg); }
+  .regras code { font-size: 0.85em; }
+
+  /* Cores da marca: objetos sólidos, como os cartões de Listas da Agenda. */
+  .tintas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 2.5vw, 2rem); }
+  .tinta { display: grid; gap: var(--e-2); min-height: clamp(16rem, 32vw, 26rem); padding: clamp(1.25rem, 2.4vw, 2rem); border-radius: var(--raio-cartao); container-type: inline-size; }
+  .tinta-escura { background: #231f20; color: #f5f5f5; }
+  .tinta-branca { background: #f5f5f5; color: #231f20; }
+  .tinta-nome { font-size: 19cqw; font-weight: 800; line-height: 0.88; letter-spacing: -0.045em; text-transform: uppercase; }
+  .tinta dl { align-self: end; margin: 0; border-top: 2px solid currentColor; }
+  .tinta dl div { display: grid; grid-template-columns: 4.5rem 1fr; align-items: center; padding-block: 0.7rem; border-bottom: 1px solid color-mix(in srgb, currentColor 35%, transparent); }
+  .tinta dt { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.16em; }
+  .tinta dd { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem 1rem; margin: 0; font-size: var(--t-3); font-weight: 700; }
+  .tinta dd code { font: inherit; font-variant-numeric: tabular-nums; }
+  .tinta :focus-visible { outline-color: currentColor; }
+  .copiar { padding: 0.45em 1.1em; border: 1.5px solid currentColor; border-radius: 99rem; background: none; color: inherit; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; cursor: pointer; }
+  .copiar:hover { background: currentColor; }
+  .tinta-escura .copiar:hover { color: #231f20; background: #f5f5f5; }
+  .tinta-branca .copiar:hover { color: #f5f5f5; background: #231f20; }
+  .juntas { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.5rem 1.25rem; margin-top: var(--e-3); }
+  .juntas strong { font-size: var(--t-4); font-weight: 800; letter-spacing: -0.035em; font-variant-numeric: tabular-nums; }
+
+  /* Perguntas: uma por linha, número pequeno, pergunta no subtítulo. */
+  .perguntas { max-width: 52rem; border-bottom: 1px solid var(--linha); }
+  .perguntas li { display: grid; grid-template-columns: 3rem 1fr; gap: var(--e-1) var(--e-2); padding-block: var(--e-3); border-top: 1px solid var(--linha); }
+  .perguntas .etiqueta { padding-top: 0.6em; color: var(--destaque-texto); }
+  .perguntas p:last-child { grid-column: 2; max-width: 34em; color: var(--suave); }
+
+  @media (max-width: 860px) {
+    .versao { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .tintas { grid-template-columns: minmax(0, 1fr); }
+    .tinta { min-height: 0; }
+    .perguntas li { grid-template-columns: 2rem 1fr; }
+  }
+</style>
