@@ -7,25 +7,26 @@ interface Props {
 const { titulo, arquivos, uso } = Astro.props;
 ---
 <section class="amostra" data-pecas={arquivos.join(' ')}>
-  <header>
-    <h5 class="etiqueta">{titulo}</h5>
+  <h5 class="etiqueta">{titulo}</h5>
+  <div class="palco"><slot /></div>
+  <div class="ficha">
     <p class="t-apoio">{uso}</p>
     <ul class="t-pequeno" aria-label="Arquivos">
       {arquivos.map(arquivo => <li><code>src/components/{arquivo}.astro</code></li>)}
     </ul>
-  </header>
-  <div class="palco"><slot /></div>
+  </div>
 </section>
 <style>
-  .amostra { display: grid; grid-template-columns: minmax(13rem, 1fr) minmax(0, 3fr); gap: var(--e-2) var(--e-4); padding-block: var(--e-3); border-top: 1px solid var(--linha); }
-  header { display: grid; align-content: start; gap: var(--e-1); }
-  h5 { margin: 0; }
+  .amostra { display: grid; grid-template: 'nome palco' auto 'ficha palco' 1fr / minmax(13rem, 1fr) minmax(0, 3fr); gap: var(--e-1) var(--e-4); padding-block: var(--e-3); border-top: 1px solid var(--linha); }
+  h5 { grid-area: nome; margin: 0; }
+  .ficha { grid-area: ficha; }
+  .ficha ul { margin-top: var(--e-1); }
   code { overflow-wrap: anywhere; }
-  .palco { min-width: 0; overflow: clip; background: var(--fundo); color: var(--texto); padding: var(--e-2); border: 1px solid var(--linha); border-radius: var(--raio-cartao);
+  .palco { grid-area: palco; min-width: 0; overflow: clip; background: var(--fundo); color: var(--texto); padding: var(--e-2);
     --fundo: var(--amostra-fundo); --texto: var(--amostra-texto); --destaque: var(--amostra-destaque);
     --vivo: var(--amostra-vivo); --sobre-vivo: var(--amostra-sobre-vivo); --vivo-detalhe: var(--amostra-vivo-detalhe);
     --suave: var(--amostra-suave); --enfeite: var(--amostra-enfeite); --destaque-texto: var(--amostra-destaque-texto);
     --linha: color-mix(in srgb, var(--texto) 28%, transparent);
   }
-  @media (max-width: 860px) { .amostra { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 860px) { .amostra { grid-template: 'nome' 'palco' 'ficha' / minmax(0, 1fr); gap: var(--e-2); } }
 </style>

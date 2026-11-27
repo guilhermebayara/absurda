@@ -17,7 +17,7 @@ import { TEMAS_DO_SITE } from '../lib/temas';
           <div>
             <p class="t-medio">{nome}</p>
             <ol start={Number(capitulos[0].numero)}>
-              {capitulos.map(({ id, titulo, numero }) => <li><a href={'#' + id}><span class="etiqueta">{numero}</span>{titulo}<span aria-hidden="true">↗</span></a></li>)}
+              {capitulos.map(({ id, titulo, numero }) => <li><a href={'#' + id}><span class="etiqueta">{numero}</span>{titulo}</a></li>)}
             </ol>
           </div>
         ))}
@@ -35,5 +35,4 @@ import { TEMAS_DO_SITE } from '../lib/temas';
   li:last-child { border-bottom: 1px solid var(--linha); }
   a { display: flex; gap: var(--e-2); align-items: baseline; padding-block: var(--e-1); text-decoration: none; font-weight: 700; }
   a:hover, a:focus-visible { color: var(--destaque-texto); text-decoration: underline; }
-  a span:last-child { margin-left: auto; }
 </style>

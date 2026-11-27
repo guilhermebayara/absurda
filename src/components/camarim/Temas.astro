@@ -62,13 +62,14 @@ const nomes: Record<string, string> = {
                   <span class="miniatura" style={`--amostra-destaque:${cores.destaque};background:${cores.fundo};color:${cores.texto}`} aria-hidden="true">Aa<BarraInclinada class="barra" oculta /></span>
                   {tema.nome}
                 </th>
-                {medidas.map(({ cor, superficie, razao, minimo }) => (
-                  <td data-par={cor + '/' + superficie}>
+                {medidas.map(({ cor, superficie, razao, minimo }) => {
+                  const [nivel, qualificacao] = nivelTexto(razao).split(' · ');
+                  return <td data-par={cor + '/' + superficie}>
                     <strong>{dois(razao)}:1</strong>
-                    <span class="etiqueta selo">{nivelTexto(razao)}</span>
+                    <span class="etiqueta selo">{nivel}{qualificacao && <span class="so-leitor"> · {qualificacao}</span>}</span>
                     {minimo === 3 && <span class="etiqueta">Enfeite · {razao >= 3 ? 'AA' : 'Não passa'}</span>}
-                  </td>
-                ))}
+                  </td>;
+                })}
               </tr>
             ))}</tbody>
           </table>
@@ -88,7 +89,7 @@ const nomes: Record<string, string> = {
   summary h4 { display: inline; }
   .panorama { display: flex; margin-bottom: var(--e-1); }
   .panorama span { flex: 1; height: var(--e-3); border-bottom: .3em solid; box-shadow: inset 0 1px currentColor; }
-  .rolagem { overflow: auto; max-width: 100%; }
+  .rolagem { position: relative; overflow: auto; max-width: 100%; }
   .faixa-cores { display: flex; }
   .faixa-cores li { flex: 0 0 auto; padding: var(--e-2); border: 1px solid currentColor; }
   .faixa-cores p { margin-bottom: var(--e-1); }
@@ -96,10 +97,14 @@ const nomes: Record<string, string> = {
   .faixa-cores dl div, .faixa-cores dt { display: flex; align-items: center; gap: .4em; }
   .faixa-cores dl div { justify-content: space-between; gap: var(--e-2); }
   dt i { width: 1em; height: 1em; border: 1px solid currentColor; }
-  table { border-spacing: 0; width: 100%; text-align: left; font-variant-numeric: tabular-nums; }
-  th, td { padding: var(--e-1) var(--e-2); border-bottom: 1px solid var(--linha); min-width: 10rem; }
+  table { border-spacing: 0; table-layout: fixed; min-width: 76rem; width: 100%; text-align: left; font-variant-numeric: tabular-nums; }
+  th, td { padding: var(--e-1); border-bottom: 1px solid var(--linha); }
+  thead code { overflow-wrap: anywhere; }
+  thead th { font-size: var(--t-rotulo); }
+  td .etiqueta, th .etiqueta { letter-spacing: normal; }
+  th:first-child { width: 9rem; }
   thead th { vertical-align: bottom; }
-  th:first-child { position: sticky; left: 0; background: var(--fundo); min-width: 8rem; max-width: 12rem; border-right: 1px solid var(--linha); }
+  th:first-child { position: sticky; left: 0; background: var(--fundo); border-right: 1px solid var(--linha); }
   td .etiqueta, th .etiqueta { display: block; margin-top: .35em; }
   .selo { border: 1px solid var(--linha); padding: .2em .45em; width: fit-content; }
   .miniatura { display: flex; align-items: center; gap: .4em; width: fit-content; padding-inline: .4em; border: 1px solid currentColor; }
