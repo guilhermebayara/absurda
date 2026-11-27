@@ -428,3 +428,10 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   são usados em `Base.astro`. A composição das páginas e os scripts que coordenam a rolagem
   continuam nas páginas e no layout. As peças ficam prontas para a etapa 2, descrita em
   `notas/briefs/camarim.md`.
+
+- **2026-11-26, camarim nasce com a marca (Gui).** O `/camarim` tem duas partes desde o começo: Marca
+  (a logo de 2024 em todas as versões, para ver e baixar em SVG e em PNG gerado no build, com um guia
+  só do que é fato dos arquivos) e Site (tokens, WCAG, peças). Mais adiante viram duas páginas, o
+  manual de marca vivo e o guia do site, por isso nascem separadas. O "quando usar" de cada versão
+  que veio com os arquivos tinha erros e foi descartado pelo Gui: fica "a definir" até ele dizer.
+  Os SVGs oficiais estão em `notas/camarim/logo/`. (`notas/briefs/camarim.md`.)
