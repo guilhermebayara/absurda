@@ -44,6 +44,13 @@ oferece. Não acrescentar e-mail nem o pix do trio ao site.
 Estas perguntas estão na planilha "Pendências do site". Quando a
 resposta chegar lá, o item vira trabalho:
 
+- **Manual de marca completo (ideia do Gui, 26 nov 2026).** A parte Marca do `/camarim` vira o
+  manual de marca da @bsurda, com todas as regras que a marca precisa. Dois formatos do mesmo
+  conteúdo: um PDF bem institucional, para baixar (a criar), e a própria página como versão do manual
+  no estilo do site. Depende das regras que o Gui vai definir (quando usar cada versão da logo, área de
+  proteção, tamanho mínimo, o que não fazer, e o resto que entrar) e da parte Marca já no ar. Quando
+  as regras chegarem, vira brief.
+
 - **Parcerias: o que ainda falta da planilha.** Pessoas por edição, "Como uma marca entra" (as
   propostas novas), o caso Xeque Mate, fotos dos casos e logos.
 - **Página do Gui: parte de baixo.** Depende do documento piloto "Sua página no site da @bsurda: Gui
