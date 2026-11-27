@@ -39,6 +39,7 @@ const ETAPAS = [
   ['confere:agenda', 'node', ['scripts/confere-agenda.mjs']],
   ['confere:atracoes', 'node', ['scripts/confere-atracoes.mjs']],
   ['confere:exemplos', 'node', ['scripts/confere-exemplos.mjs']],
+  ['confere:camarim', 'node', ['scripts/confere-camarim.mjs']],
 ];
 
 function rodada(rotulo) {

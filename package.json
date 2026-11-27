@@ -19,7 +19,7 @@
     "confere:pilha": "node scripts/confere-pilha.mjs",
     "confere:atracoes": "node scripts/confere-atracoes.mjs",
     "confere:exemplos": "node scripts/confere-exemplos.mjs",
-    "confere:rapidos": "node scripts/confere-temas.mjs && node scripts/confere-links.mjs && node scripts/confere-agenda.mjs && node scripts/confere-atracoes.mjs && node scripts/confere-exemplos.mjs",
+    "confere:rapidos": "node scripts/confere-temas.mjs && node scripts/confere-links.mjs && node scripts/confere-agenda.mjs && node scripts/confere-atracoes.mjs && node scripts/confere-exemplos.mjs && node scripts/confere-camarim.mjs",
     "atracoes": "node scripts/atracoes.mjs",
     "compartilhar": "node scripts/imagem-compartilhar.mjs",
     "icones": "node scripts/icones.mjs",

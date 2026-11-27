@@ -13,6 +13,8 @@ export default function logosCamarim() {
     name: 'absurda-logos',
     hooks: {
       'astro:build:done': async ({ dir, logger }) => {
+        // O robô da agenda só usa o JSON e descarta o restante do build.
+        if (process.env.SEM_FOTOS === '1') return;
         const inicio = performance.now();
         const pasta = join(fileURLToPath(dir), 'marca');
         const arquivos = (await readdir(pasta)).filter((nome) => nome.endsWith('.svg')).sort();

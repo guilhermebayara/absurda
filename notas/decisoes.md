@@ -435,3 +435,12 @@ Formato: `AAAA-MM-DD`: o que foi decidido. Por quê. (Onde mora.)
   manual de marca vivo e o guia do site, por isso nascem separadas. O "quando usar" de cada versão
   que veio com os arquivos tinha erros e foi descartado pelo Gui: fica "a definir" até ele dizer.
   Os SVGs oficiais estão em `notas/camarim/logo/`. (`notas/briefs/camarim.md`.)
+
+- **2026-11-26, Camarim montado (ABS-2).** `src/pages/camarim.astro` junta Marca e Site em componentes
+  separados, ambos em `src/components/camarim/`. A Marca serve os SVGs oficiais e gera PNGs
+  transparentes no build. Site mostra as seis paletas, tipo, espaço, movimento e as peças em dois
+  temas com dados fictícios. `scripts/cores-temas.mjs` executa a conta marcada de `Base.astro` para
+  as tabelas de contraste e o `confere:temas`. O inventário mede também o foco sobre a superfície
+  invertida e o recorte sobre a superfície viva. O `confere:camarim` verifica o HTML no build. A
+  grade e a lista de temas estão na prévia para escolha, e as regras de uso da marca ficam a definir.
+  (CLAUDE.md, "Camarim"; pendências em `notas/briefs/camarim.md`.)

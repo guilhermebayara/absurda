@@ -38,6 +38,10 @@ const pares = [
   ['enfeite', 'texto', 3],
   ['sobre-vivo', 'vivo', 4.5],
   ['vivo-detalhe', 'vivo', 3],
+  // Foco padrão em menu e rodapé, e furo dos crachás de material vivo.
+  // Entram no inventário. A trava mantém os mesmos pares da conferência original.
+  ['destaque', 'texto', 3, false],
+  ['fundo', 'vivo', 3, false],
 ];
 const derivadas = ['destaque-texto', 'suave', 'enfeite', 'vivo', 'sobre-vivo', 'vivo-detalhe'];
 
@@ -57,9 +61,9 @@ export function coresDoTema({ fundo, texto, destaque }) {
 
 /** @param {Record<string, string>} cores */
 export function medidasDoTema(cores) {
-  return pares.map(([cor, superficie, minimo]) => {
+  return pares.map(([cor, superficie, minimo, confere = true]) => {
     const razao = Number(pagina.razao(pagina.rgb(cores[cor]), pagina.rgb(cores[superficie])));
-    return { cor: String(cor), superficie: String(superficie), minimo: Number(minimo), razao };
+    return { cor: String(cor), superficie: String(superficie), minimo: Number(minimo), razao, confere };
   });
 }
 

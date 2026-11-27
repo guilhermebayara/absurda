@@ -17,7 +17,7 @@ const nomes: Record<string, string> = {
   <header>
     <h3 id="temas" class="titulo-secao">Temas e contraste</h3>
     <p class="t-apoio">Abra um tema para ver as três cores de base, as seis calculadas e os pares em uso.</p>
-    <p>Leitura pede 4,5:1. Enfeite pede 3:1. A tabela usa os critérios de <a href="https://www.w3.org/TR/WCAG22/#contrast-minimum">contraste da WCAG 2.2</a>.</p>
+    <p>Leitura pede 4,5:1. Enfeite pede 3:1. A tabela usa os critérios de <a href="https://www.w3.org/TR/WCAG22/#contrast-minimum">contraste da WCAG 2.2</a>. As duas últimas linhas mostram o foco do menu e do rodapé e o furo do crachá vivo.</p>
   </header>
   <nav aria-label="Paletas">
     {paletas.map(({ id }) => <a href={`#${id.toLowerCase()}`}>{nomes[id] ?? id}</a>)}

@@ -39,8 +39,8 @@ for (const pasta of ['equipe', 'projetos']) {
 const problemas = [];
 for (const t of [...temas, ...dePessoa]) {
   try {
-    for (const { cor, superficie, razao, minimo } of medidasDoTema(coresDoTema(t))) {
-      if (razao < minimo) problemas.push(`${t.nome}: ${cor} sobre ${superficie} com ${dois(razao)}:1 (mínimo ${dois(minimo)}:1)`);
+    for (const { cor, superficie, razao, minimo, confere } of medidasDoTema(coresDoTema(t))) {
+      if (confere && razao < minimo) problemas.push(`${t.nome}: ${cor} sobre ${superficie} com ${dois(razao)}:1 (mínimo ${dois(minimo)}:1)`);
     }
   } catch (erro) {
     problemas.push(`${t.nome}: ${erro.message}`);

@@ -131,7 +131,7 @@ Branch de sessão, de teste e de QA nasce sempre da `homologa` já igualada.
 1. `git fetch origin main` e traga a `main` para a branch.
 2. `npm run build` sem erro. Ele já roda a guarda da produção, `astro check` (tipos e
    diagnósticos do Astro) e, depois do site, `confere:temas`, `confere:links`, `confere:agenda`,
-   `confere:atracoes` e `confere:exemplos`. É o mesmo build da Cloudflare, que roda a cada push e
+   `confere:atracoes`, `confere:exemplos` e `confere:camarim`. É o mesmo build da Cloudflare, que roda a cada push e
    não publica se ele falhar (ver "Conferências do site").
 3. `npm run confere:arquivo` passando.
 4. `npm run confere:calmo`, `npm run confere:parede`, `npm run confere:barra`,
@@ -175,7 +175,7 @@ Depois do merge, conferir se a prévia da `homologa` publicou. Quem apaga as bra
 
 ## Conferências do site
 
-Além das guardas do histórico, dez conferências rodam na máquina. Todas rodam depois do build.
+Além das guardas do histórico, onze conferências rodam na máquina. Todas rodam depois do build.
 
 **Onde cada uma roda (GitHub Actions enxuto, do Gui, 20 nov 2026):** o que precisa travar a
 publicação roda no build da Cloudflare, que já acontece a cada push com cota própria; o GitHub não
@@ -183,8 +183,8 @@ repete esse trabalho. Motivo: depois de 10/12 o repositório volta a ser privado
 tem cota mensal de minutos.
 - **No build (`npm run build`, o comando da Cloudflare):** antes do site, a guarda da produção
   (ver "Histórico de eventos") e `astro check`; depois, a trava dos exemplos, `confere:temas`,
-  `confere:links`, `confere:agenda`, `confere:atracoes` e `confere:exemplos`
-  (`npm run confere:rapidos` roda as cinco). Qualquer falha falha o build, e a Cloudflare não
+  `confere:links`, `confere:agenda`, `confere:atracoes`, `confere:exemplos` e `confere:camarim`
+  (`npm run confere:rapidos` roda as seis). Qualquer falha falha o build, e a Cloudflare não
   publica a branch; o check "Workers Builds" do commit fica vermelho no GitHub. Tudo isso acrescenta
   uns 7 segundos ao build, quase todos do `astro check`.
 - **No GitHub, só por disparo manual:** `.github/workflows/confere-site.yml` (`workflow_dispatch`)
@@ -213,6 +213,8 @@ Cloudflare; com gatilho de push, `paths-ignore` de documentação (`notas/**`, `
   pessoa, sair da regra de contraste. Olha também as cores que a página calcula (subtema vivo,
   `--destaque-texto`, `--suave`, `--enfeite`), executando o próprio trecho de `Base.astro` que
   fica entre as marcas `>>> conta das cores` e `<<< conta das cores`. Não tire as marcas.
+- `npm run confere:camarim`: confere o ocultamento, o conteúdo de exemplo, os arquivos da marca,
+  as peças e os valores WCAG de `/camarim` (ver "Camarim").
 - `npm run confere:calmo`: abre cada página num navegador com movimento reduzido, em celular e
   desktop, e falha se uma entrada ou um eco ficar escondido ou se algo se mexer sozinho. Usa o
   Playwright (na primeira vez numa máquina: `npx playwright install chromium`). O que nasce
@@ -342,6 +344,28 @@ projetos vivos, da altura dos adormecidos e ao lado deles no desktop (nunca maio
   `resumo` curto continua para o topo, a página Projetos e a descrição. Os textos são rascunho até a
   Charlotte e o Gui aprovarem.
 
+
+## Camarim
+
+- `/camarim` é estático, com `noindex`, fora do sitemap e sem links de outras páginas. A rota
+  `src/pages/camarim.astro` junta `Marca.astro` e `Site.astro`, ambos em `src/components/camarim/`,
+  com dados e estilos próprios e âncoras `#marca` e `#site`.
+- **Versão de logo:** guarde os SVGs oficiais escuro e branco em `notas/camarim/logo/`, copie para
+  `public/marca/` sem edição e acrescente o nome e a categoria em `Marca.astro`. Preencha o uso
+  com a regra que o Gui aprovar. O build gera PNGs transparentes de 1000 e 3000 px pelo
+  `scripts/logos-camarim.mjs`. O cache fica em `node_modules/.astro/absurda-logos`. A página
+  carrega os SVGs como prévia e oferece os PNGs por download.
+- **Tema novo:** use as paletas nomeadas em `src/lib/temas.ts`, com o nome do tema no comentário da
+  linha. `scripts/cores-temas.mjs` executa o trecho marcado de `Base.astro` para obter as cores
+  calculadas e a razão. Tanto o `confere:temas` como as tabelas estáticas usam essa função.
+  O estudo em lista em `/camarim/temas-em-lista` só é construído em `tst-camarim`.
+- **Peça nova:** monte o próprio componente em `PecasNoTema.astro` dentro de `Amostra`, com a
+  lista de arquivos e uma linha sobre o uso. Mostre as variantes e deixe os estados interativos
+  acionáveis por teclado e toque. Os dois temas vêm de `Pecas.astro`; use as capas de
+  `public/exemplos/` e dados fictícios. Componentes desligados moram em `src/components/guardado/`.
+- **Conferência:** `npm run confere:camarim` lê o HTML depois do build e trava a publicação se
+  falharem o ocultamento, a triagem de nomes e conteúdo privado, os downloads oficiais, as amostras
+  ou as tabelas de contraste.
 
 ## Contato (do Gui, 22 nov 2026)
 

@@ -1,6 +1,8 @@
 // A página é um catálogo público pelo endereço direto, com exemplos inventados.
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { relative, join } from 'node:path';
+import { confereTabelas } from './confere-camarim-tabelas.mjs';
+import { temas } from './cores-temas.mjs';
 
 const dist = 'dist';
 const problemas = [];
@@ -50,11 +52,22 @@ for (const nome of logos) {
   }
 }
 
+// Um nome artístico pode ser também uma cor. Libere só o nome completo de cada tema.
+const coresComNome = new RegExp(`\\b(?:${temas.map(({ nome }) => normaliza(nome)).sort((a, b) => b.length - a.length).join('|')})\\b`, 'g');
+const atracoes = JSON.parse(ler('src/data/atracoes.json'));
 const nomes = [
   ...readdirSync('src/content/pessoas').filter((nome) => nome.endsWith('.md'))
     .map((nome) => ler(join('src/content/pessoas', nome)).match(/^nome:\s*["']?([^"\r\n]+?)["']?\s*$/m)?.[1]),
   ...JSON.parse(ler('src/data/wig.json')).elenco.map((pessoa) => pessoa.nome),
+  ...Object.values(atracoes).flat().map((pessoa) => pessoa.nome),
 ].filter(Boolean).map(normaliza);
+
+const faltamPecas = new Set(
+  ['src/components', 'src/components/marca'].flatMap((pasta) => readdirSync(pasta)
+    .filter((nome) => nome.endsWith('.astro'))
+    .map((nome) => relative('src/components', join(pasta, nome)).replace(/\.astro$/, ''))),
+);
+let paginas = 0;
 
 for (const arquivo of listarHtml(dist)) {
   const html = ler(arquivo);
@@ -65,6 +78,7 @@ for (const arquivo of listarHtml(dist)) {
     continue;
   }
 
+  paginas++;
   const metas = html.match(/<meta\b[^>]*>/gi) ?? [];
   if (!metas.some((tag) => atributo(tag, 'name')?.toLowerCase() === 'robots'
       && atributo(tag, 'content')?.split(/[\s,]+/).includes('noindex'))) problemas.push(`${caminho} precisa de noindex.`);
@@ -72,24 +86,35 @@ for (const arquivo of listarHtml(dist)) {
   const publico = html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, ' ').replace(/<!--[\s\S]*?-->/g, ' ');
   const texto = entidades(publico.replace(/<[^>]+>/g, ' '));
   const rotulos = [...publico.matchAll(/\s(?:alt|title|aria-label)="([^"]+)"/gi)].map(([, valor]) => entidades(valor)).join(' ');
-  const corpus = ` ${normaliza(texto + ' ' + rotulos)} `;
+  const corpus = ` ${normaliza(texto + ' ' + rotulos).replace(coresComNome, ' ')} `;
   if (nomes.some((nome) => corpus.includes(` ${nome} `))) problemas.push(`${caminho} contém nome de pessoa cadastrada no site.`);
-  if (/R\$\s*\d|\b\d[\d.,]*\s+rea(?:l|is)\b/i.test(texto + ' ' + rotulos)) problemas.push(`${caminho} contém valor em reais.`);
-  if (/\bdata-(?:privad[oa]|private)\b|\bdata-visibilidade=["']privad[oa]["']/i.test(html)) problemas.push(`${caminho} contém uma marca de conteúdo privado.`);
+  if (/(?:R\$|\bBRL)\s*\d|\b\d[\d.,]*\s+rea(?:l|is)\b/i.test(texto + ' ' + rotulos)) problemas.push(`${caminho} contém valor em reais.`);
+  if (/\bdata-(?:privad[oa]|private)\b|\bdata-visibilidade=["']privad[oa]["']|<!--\s*(?:privad[oa]|private)\s*-->/i.test(html)) problemas.push(`${caminho} contém uma marca de conteúdo privado.`);
 
   const baixaveis = links.filter((tag) => /\sdownload(?:[\s=>]|$)/i.test(tag)).map((tag) => atributo(tag, 'href'));
   for (const href of baixaveis) {
-    if (!href?.startsWith('/marca/') || !existsSync(join(dist, href))) problemas.push(`${caminho} aponta para um download ausente.`);
+    if (!href?.startsWith('/marca/') || !downloads.includes(href.slice('/marca/'.length)) || !existsSync(join(dist, href))) problemas.push(`${caminho} aponta para um download ausente.`);
   }
+  problemas.push(...confereTabelas(html).map((problema) => `${caminho} · ${problema}`));
+
   if (caminho === '/camarim') {
+    for (const id of ['marca', 'site', 'pecas']) {
+      if (!html.includes(`id="${id}"`)) problemas.push(`Falta a âncora #${id}.`);
+    }
+    for (const [, lista] of html.matchAll(/\sdata-pecas="([^"]+)"/g)) {
+      for (const peca of lista.split(' ')) faltamPecas.delete(peca);
+    }
     for (const nome of downloads) {
       if (!baixaveis.includes('/marca/' + nome)) problemas.push(`Falta o download de ${nome}.`);
     }
   }
 }
 
+if (faltamPecas.size) problemas.push(`Peças sem amostra: ${[...faltamPecas].join(', ')}.`);
+if (process.env.WORKERS_CI_BRANCH === 'tst-camarim' && paginas !== 2) problemas.push('A prévia precisa das duas versões dos temas.');
+
 if (problemas.length) {
   console.error(problemas.join('\n'));
   process.exit(1);
 }
-console.log(`Camarim em ordem: página fora do índice, ${logos.length} SVGs oficiais e ${downloads.length} downloads.`);
+console.log(`Camarim em ordem: ${paginas} página(s) fora do índice, ${temas.length} temas por página, peças completas, ${logos.length} SVGs oficiais e ${downloads.length} downloads.`);

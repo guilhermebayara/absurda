@@ -19,8 +19,8 @@ const so = process.argv[3] ? process.argv[3].split(',') : null;
 const browser = await chromium.launch();
 const resultados = [];
 
-for (const [nome, rota] of PAGINAS) {
-  if (so && !so.includes(rota)) continue;
+const paginas = so ? so.map((rota) => PAGINAS.find(([, conhecida]) => conhecida === rota) ?? [rota, rota]) : PAGINAS;
+for (const [nome, rota] of paginas) {
   for (const [tela, opcoes] of Object.entries(TELAS)) {
     const ctx = await browser.newContext({ ...opcoes });
     const page = await ctx.newPage();

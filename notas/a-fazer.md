@@ -18,12 +18,6 @@ Como usar:
 
 ## A construir
 
-- **Página do sistema (`/camarim`)**, retomada pelo Gui em 26 nov 2026, com o nível WCAG de cada
-  combinação de cor e, desde 26 nov, a parte Marca, com a logo para baixar em SVG e PNG (brief em
-  `notas/briefs/camarim.md`).
-  - [x] Etapa 1, extrair as peças para componentes (`tst-componentes`).
-  - [ ] Etapa 2, montar a página (`tst-camarim`) depois que a etapa 1 entrar na `homologa`.
-
 Não fazer agora: **e-mail de contato.** O Gui pausou; ainda decide quais formas de contato o site
 oferece. Não acrescentar e-mail nem o pix do trio ao site.
 
