@@ -1,4 +1,5 @@
 ---
+import Faixa from '../Faixa.astro';
 import Capitulo from './Capitulo.astro';
 import { valor } from './token';
 const tipos = [
@@ -51,18 +52,17 @@ const medidas = ['margem', 'e-1', 'e-2', 'e-3', 'e-4', 'e-5', 'e-6'];
   <p class="t-pequeno"><code>--raio-cartao</code> {valor('raio-cartao')} · <code>--folga-cartao</code> {valor('folga-cartao')}</p>
   <p slot="regras">No celular, menu e rodapé usam o mesmo raio e a mesma folga. O menu se une ao alto da tela e arredonda só embaixo.</p>
 </Capitulo>
-<section aria-label="Movimento">
-  <div class="grupo">
-    <h4 class="t-medio">Movimento</h4>
-    <ul>
-      <li><code>data-anima</code> aciona entradas como subida, surgimento e capa quando o trecho aparece.</li>
-      <li><code>data-corre</code> pausa letreiros e parede fora da tela.</li>
-      <li><code>.troca-viva</code> transiciona cores em 0,7 s com <code>ease</code>.</li>
-      <li><code>.pino-novo</code> usa a rolagem como relógio nas cenas presas no toque.</li>
-      <li><code>prefers-reduced-motion</code> mostra as peças no estado final e pausa o movimento contínuo.</li>
-    </ul>
-  </div>
-</section>
+<Capitulo id="movimento">
+  <Faixa texto="A pista acendeu" />
+  <dl class="movimentos">
+    <div><dt class="etiqueta">Faixa e parede</dt><dd>A faixa percorre o trilho em 38 s. A parede parte de 34 s por volta.</dd><dd class="t-pequeno"><code>linear</code></dd></div>
+    <div><dt class="etiqueta">Entrada em cena</dt><dd>Título e peça surgem em 0,9 s. Capa e filete abrem em 1,1 s.</dd><dd class="t-pequeno"><code>data-anima · cubic-bezier(0.62, 0.05, 0.01, 0.99)</code></dd></div>
+    <div><dt class="etiqueta">Eco</dt><dd>O título entra em 0,9 s. As duas fatias começam a abrir depois de 0,5 s e levam 0,8 s.</dd><dd class="t-pequeno"><code>.ecoa · cubic-bezier(0.62, 0.05, 0.01, 0.99)</code></dd></div>
+    <div><dt class="etiqueta">Troca de cor</dt><dd>O fundo, o texto e os destaques mudam juntos em 0,7 s.</dd><dd class="t-pequeno"><code>.troca-viva · ease</code></dd></div>
+    <div><dt class="etiqueta">Cena presa no toque</dt><dd>A rolagem do dedo marca o avanço da cena.</dd><dd class="t-pequeno"><code>.pino-novo</code></dd></div>
+  </dl>
+  <p slot="regras">Marque letreiros e paredes com <code>data-corre</code> para pausar fora da tela. Com <code>prefers-reduced-motion</code>, mostre a entrada no estado final e pare o movimento contínuo.</p>
+</Capitulo>
 
 <style>
   h4 { margin: 0 0 var(--e-2); }
@@ -85,5 +85,6 @@ const medidas = ['margem', 'e-1', 'e-2', 'e-3', 'e-4', 'e-5', 'e-6'];
   .valores > div { padding: .6rem 0; border-bottom: 1px solid var(--linha); }
   .valores dd { color: var(--suave); }
   .medida { height: .65rem; margin-top: .45rem; background: var(--destaque); }
-  ul { display: grid; gap: .5rem; list-style: disc; padding-inline-start: 1.25rem; }
+  .movimentos > div { display: grid; grid-template-columns: minmax(7rem, 1fr) 2fr minmax(0, 1fr); gap: var(--e-2); padding-block: var(--e-2); border-bottom: 1px solid var(--linha); }
+  @media (max-width: 720px) { .movimentos > div { grid-template-columns: 1fr; gap: var(--e-1); } }
 </style>

@@ -8,6 +8,7 @@ export const partes = [
     { numero: '04', id: 'temas', titulo: 'Cor e contraste' },
     { numero: '05', id: 'tipo', titulo: 'Tipo' },
     { numero: '06', id: 'espaco', titulo: 'Espaço e forma' },
+    { numero: '07', id: 'movimento', titulo: 'Movimento' },
     { numero: '08', id: 'pecas', titulo: 'Peças' },
   ] },
 ];
