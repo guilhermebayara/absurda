@@ -3,8 +3,7 @@
 Esta é a ficha do projeto no padrão da gestão geral (documento "Crítica de design e QA de design", do
 projeto "Gestão de projetos" no claude.ai). A base do método vale para todos os produtos; aqui ficam só
 as personalizações da @bsurda. Quem escreve o prompt de uma sessão de crítica ou de QA lê esta ficha e
-entrega à sessão o que ela pede. Escrita em 27 nov 2026. O que está marcado "inferido" o Gui confirma ou
-corrige antes da primeira crítica.
+entrega à sessão o que ela pede. Escrita e confirmada pelo Gui em 27 nov 2026.
 
 ## 1. Produto e estágio
 
@@ -16,8 +15,9 @@ exemplo nas prévias de teste").
 
 ## 2. Fluxos e cenários de chegada
 
-Escolha do chat por rodada; a lista abaixo é o cardápio. Cada fluxo leva a medida de toques e rolagens
-até a ação principal.
+**Escopo por sessão (Gui, 27 nov 2026):** cada prompt de crítica define o escopo. Pode ser dirigida (um
+ou mais fluxos da lista) ou geral (o site inteiro, com a lista como ponto de partida). Cada fluxo leva a
+medida de toques e rolagens até a ação principal.
 
 | Fluxo | De onde a pessoa chega | Aparelho | Tarefa e ação principal |
 |---|---|---|---|
@@ -28,7 +28,7 @@ até a ação principal.
 | Parcerias | Marca ou patrocinador, por indicação | Desktop e celular | Ver o que a @bsurda oferece e mandar mensagem pelo Instagram |
 | Sobre | Menu | Celular, iPhone com WebKit | Conhecer a história (Marcos, Trio, Lugares Improváveis) |
 
-Inferido: o Instagram é a origem da maior parte das visitas, e o celular é o aparelho principal.
+Confirmado pelo Gui (27 nov 2026): o Instagram é a origem da maior parte das visitas, e o celular é o aparelho principal.
 
 ## 3. Objetivos visuais e onde estão escritos
 
@@ -36,8 +36,9 @@ Inferido: o Instagram é a origem da maior parte das visitas, e o celular é o a
   rótulos continuam secos).
 - Cor, contraste e objetos: CLAUDE.md, seções "Conferências do site" (regra de contraste, subtema
   "vivo") e "Cuidados que já custaram tempo".
-- Direção de conceito e gosto visual do Gui para o site: inferido, a confirmar com ele antes da
-  primeira crítica. A sessão infere o objetivo visual de cada fluxo, marca como inferido e o Gui corrige.
+- Direção de conceito e gosto visual do Gui para o site: não há documento próprio. A sessão infere o
+  objetivo visual de cada fluxo a partir do site, do tom e das decisões, marca como inferido e o Gui
+  corrige. O Gui confirmou esse caminho em 27 nov 2026.
 
 ## 4. Lentes extras do projeto
 
@@ -95,6 +96,8 @@ Matriz padrão da base: 320, 390, 768, 1024 e 1440 px. Acrescentar:
 - Falta medir (candidatos a `confere:` novo): alvo de toque pequeno, foco visível e não encoberto,
   rolagem horizontal indevida, alt vazio em foto que carrega a cena, ordem de títulos, movimento
   automático acima de 5 segundos (2.2.2).
+- **QA sempre completo (Gui, 27 nov 2026):** todas as páginas da homologa, nas larguras da matriz, sem
+  amostra. O chat entrega a lista com os endereços completos.
 - QA não decide conteúdo: texto, foto e estado de projeto vão como "conteúdo" para o Gui.
 
 ## 8. Prévia e dados de exemplo
